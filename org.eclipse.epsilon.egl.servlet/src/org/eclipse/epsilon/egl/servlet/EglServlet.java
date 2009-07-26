@@ -83,6 +83,7 @@ public class EglServlet extends HttpServlet {
 			frameStack.put(Variable.createReadOnlyVariable("response", resp));
 			frameStack.put(Variable.createReadOnlyVariable("config", getServletConfig()));
 			frameStack.put(Variable.createReadOnlyVariable("application", getServletContext()));
+			frameStack.put(Variable.createReadOnlyVariable("session", req.getSession()));
 			
 			String result = module.execute();
 			resp.getWriter().println(result);
