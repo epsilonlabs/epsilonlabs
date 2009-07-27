@@ -90,6 +90,13 @@ public class EglServlet extends HttpServlet {
 		} catch (Exception e) {
 			req.setAttribute("javax.servlet.error.exception", e);
 			resp.sendError(500);
+		} finally {
+			try {
+				module.getContext().dispose();
+			}
+			catch (Exception ex) {
+				// We can only do so much...
+			}
 		}
 		
 	}

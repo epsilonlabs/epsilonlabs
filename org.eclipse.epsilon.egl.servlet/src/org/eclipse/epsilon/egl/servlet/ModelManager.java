@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.epsilon.commons.util.StringProperties;
 import org.eclipse.epsilon.emc.emf.EmfModel;
+import org.eclipse.epsilon.emc.emf.EmfModelResourceFactory;
 import org.eclipse.epsilon.emc.emf.EmfUtil;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IModel;
@@ -20,6 +21,7 @@ public class ModelManager {
 	
 	protected ServletContext servletContext;
 	protected ModelRepository currentModelRepository;
+	protected HashMap<String, EmfModel> cachedModels = new HashMap<String, EmfModel>();
 	
 	public void setCurrentModelRepository(ModelRepository currentModelRepository) {
 		this.currentModelRepository = currentModelRepository;
@@ -37,50 +39,43 @@ public class ModelManager {
 		return servletContext;
 	}
 	
-	public void loadModel(String name, String aliases, String modelFile, String metamodelUri, boolean expand) throws EolModelLoadingException {
+	public void loadModel(String name, String aliases, String modelFile, String metamodel, boolean expand, boolean metamodelIsFilebased) throws EolModelLoadingException {
 		
-		EmfModel model = new EmfModel();
+		EmfModel model = cachedModels.get(modelFile);
 		
-		StringProperties properties = new StringProperties();
-		properties.put(EmfModel.PROPERTY_NAME, name);
-		properties.put(EmfModel.PROPERTY_ALIASES, aliases);
-		properties.put(EmfModel.PROPERTY_EXPAND, expand + "");
-		properties.put(EmfModel.PROPERTY_MODEL_FILE, this.getServletContext().getRealPath(modelFile));
-		properties.put(EmfModel.PROPERTY_METAMODEL_URI, metamodelUri);
-		properties.put(EmfModel.PROPERTY_IS_METAMODEL_FILE_BASED, "false");
-		properties.put(EmfModel.PROPERTY_READONLOAD, "true");
-		properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, "false");
+		if (model == null) {
+			model = new EmfModel();
+			
+			StringProperties properties = new StringProperties();
+			properties.put(EmfModel.PROPERTY_NAME, name);
+			properties.put(EmfModel.PROPERTY_ALIASES, aliases);
+			properties.put(EmfModel.PROPERTY_EXPAND, expand + "");
+			properties.put(EmfModel.PROPERTY_MODEL_FILE, this.getServletContext().getRealPath(modelFile));
+			if (!metamodelIsFilebased) {
+				properties.put(EmfModel.PROPERTY_METAMODEL_URI, metamodel);
+				properties.put(EmfModel.PROPERTY_IS_METAMODEL_FILE_BASED, "false");
+			}
+			else {
+				properties.put(EmfModel.PROPERTY_METAMODEL_FILE, this.getServletContext().getRealPath(metamodel));
+				properties.put(EmfModel.PROPERTY_IS_METAMODEL_FILE_BASED, "true");			
+			}
+			properties.put(EmfModel.PROPERTY_READONLOAD, "true");
+			properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, "false");
+			
+			model.load(properties, null);
+			cachedModels.put(modelFile, model);
+		}
 		
-		model.load(properties, null);
 		getCurrentModelRepository().addModel(model);
 		
 	}
 
 	public void loadModel(String name, String modelFile, String metamodelUri) throws EolModelLoadingException {
-		loadModel(name, "", modelFile, metamodelUri, true);
-	}
-	
-	public void loadModelByFile(String name, String aliases, String modelFile, String metamodelFile, boolean expand) throws EolModelLoadingException {
-		
-		EmfModel model = new EmfModel();
-		
-		StringProperties properties = new StringProperties();
-		properties.put(EmfModel.PROPERTY_NAME, name);
-		properties.put(EmfModel.PROPERTY_ALIASES, aliases);
-		properties.put(EmfModel.PROPERTY_EXPAND, expand + "");
-		properties.put(EmfModel.PROPERTY_MODEL_FILE, this.getServletContext().getRealPath(modelFile));
-		properties.put(EmfModel.PROPERTY_METAMODEL_FILE, this.getServletContext().getRealPath(metamodelFile));
-		properties.put(EmfModel.PROPERTY_IS_METAMODEL_FILE_BASED, "true");
-		properties.put(EmfModel.PROPERTY_READONLOAD, "true");
-		properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, "false");
-		
-		model.load(properties, null);
-		getCurrentModelRepository().addModel(model);
-		
+		loadModel(name, "", modelFile, metamodelUri, true, false);
 	}
 	
 	public void loadModelByFile(String name, String modelFile, String metamodelFile) throws EolModelLoadingException {
-		loadModelByFile(name, "", modelFile, metamodelFile, true);
+		loadModel(name, "", modelFile, metamodelFile, true, true);
 	}	
 	
 	protected ArrayList<String> registeredMetamodels = new ArrayList<String>(); 
@@ -89,6 +84,15 @@ public class ModelManager {
 		if (registeredMetamodels.contains(metamodelFile)) return;
 		EmfUtil.register(URI.createURI(getServletContext().getResource(metamodelFile).toString()), EPackage.Registry.INSTANCE);
 		registeredMetamodels.add(metamodelFile);
+	}
+	
+	public void uncacheModel(String modelFile) {
+		cachedModels.remove(modelFile);
+	}
+	
+	protected void reset() {
+		cachedModels.clear();
+		registeredMetamodels.clear();
 	}
 	
 }
