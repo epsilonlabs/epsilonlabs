@@ -76,6 +76,11 @@ public abstract class ObjectBagModel extends Model {
 	}
 
 	@Override
+	public void setElementId(Object instance, String newId) {
+		// TODO Auto-generated method stub	
+	}
+	
+	@Override
 	public Object getEnumerationValue(String enumeration, String label)
 			throws EolEnumerationValueNotFoundException {
 		return null;
