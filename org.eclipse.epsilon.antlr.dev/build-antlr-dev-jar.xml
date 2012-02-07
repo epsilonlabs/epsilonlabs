@@ -1,0 +1,5 @@
+<project default="main">
+	<target name="main">
+		<jar destfile="org.eclipse.epsilon.antlr.dev.jar" basedir="bin"/>
+	</target>
+</project>

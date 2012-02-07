@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Jul 29 08:02:28 BST 2008
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=org.eclipse.epsilon.antlr.dev.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<jar|antlr-3.1b1.jar>;<jar|stringtemplate-3.1.jar>;<jar|antlr-2.7.7.jar>
+includes=
