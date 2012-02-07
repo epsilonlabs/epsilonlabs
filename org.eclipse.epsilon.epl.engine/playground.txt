@@ -1,0 +1,11 @@
+patters P {
+	
+	pattern P1
+		c1 : UML!Class,
+		volatile c2 : UML!Class[2],
+		computed c3 : Sequence {
+		
+	}
+	
+	
+}
