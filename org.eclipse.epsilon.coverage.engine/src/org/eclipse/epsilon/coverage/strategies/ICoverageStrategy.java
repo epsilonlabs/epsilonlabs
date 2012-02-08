@@ -43,7 +43,7 @@ public interface ICoverageStrategy {
 	/**
 	 * @return A score based on the amount of the model that was covered during execution.
 	 */
-	public double getScore();
+	public double getPercentageCovered();
 
 	/**
 	 * Unsets the covered flag on all coverage points. Does not destroy the model.
