@@ -19,4 +19,6 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.epsilon.coverage,
- org.eclipse.epsilon.coverage.strategies
+ org.eclipse.epsilon.coverage.strategies,
+ org.eclipse.epsilon.coverage.strategies.booleanexp,
+ org.eclipse.epsilon.coverage.strategies.rule
