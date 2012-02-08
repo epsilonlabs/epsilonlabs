@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.epsilon.commons.parse.AST;
+
 public abstract class AbstractCoverageStrategy implements ICoverageStrategy {
 	
 	protected List<CoveragePoint> coveragePoints;
@@ -21,13 +23,8 @@ public abstract class AbstractCoverageStrategy implements ICoverageStrategy {
 
 	@Override
 	public String getSummary() {
-		int numTrue = 0;
-		
-		for (CoveragePoint c : coveragePoints) {
-			if (c.covered) numTrue++;
-		}
 		DecimalFormat df = new DecimalFormat("#.##");
-		return getStrategyName() + " coverage = " + df.format(getScore()) +"% : " + numTrue + "/" + coveragePoints.size();
+		return getStrategyName() + " coverage = " + df.format(getPercentageCovered()) +"% : " + getNumberOfPointsCovered() + "/" + coveragePoints.size();
 	}
 
 	@Override
@@ -40,19 +37,23 @@ public abstract class AbstractCoverageStrategy implements ICoverageStrategy {
 		
 		return sb.toString();
 	}
-
-	@Override
-	public double getScore() {
-		
-		if (coveragePoints.size() == 0) return 0;
-		
+	
+	public int getNumberOfPointsCovered() {
 		int numTrue = 0;
 		for (CoveragePoint c : coveragePoints) {
 			if (c.covered) numTrue++;
 		}
-		return (Double.valueOf(numTrue) / coveragePoints.size()) * 100;
+		return numTrue;
 	}
-	
+
+	@Override
+	public double getPercentageCovered() {
+		if (coveragePoints.size() == 0) return 0;
+		return (Double.valueOf(getNumberOfPointsCovered()) / coveragePoints.size()) * 100;
+	}
+
+	@Override
+	public void finishCovering(AST ast, Object result) { }	
 
 	public void reset(){
 		for (CoveragePoint c : coveragePoints) {
