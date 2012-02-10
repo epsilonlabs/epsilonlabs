@@ -3,6 +3,7 @@ package org.eclipse.epsilon.epl;
 import java.util.List;
 
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
+import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.Frame;
 import org.eclipse.epsilon.eol.execute.context.FrameType;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
@@ -10,10 +11,13 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.epl.combinations.BoundedCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationGenerator;
+import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
 
 public class PatternMatcher {
 	
-	public void match(Pattern pattern, IEolContext context) throws EolRuntimeException {
+	protected Frame frame = null;
+	
+	public void match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
 		
 		CompositeCombinationGenerator<Object> generator = new CompositeCombinationGenerator<Object>();
 		
@@ -21,12 +25,41 @@ public class PatternMatcher {
 			generator.addCombinationGenerator(createCombinationGenerator(component, context));
 		}
 		
+		
+		generator.setValidator(new CompositeCombinationValidator<Object>() {
+			
+			@Override
+			public boolean isValid(List<List<Object>> combination) {
+				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+				boolean result = true;
+				int i = 0;
+				Component component = null;
+				for (List<Object> values : combination) {
+					component = pattern.getComponents().get(i);
+					frame.put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(values, component)));
+					i++;
+				}
+				if (component.getGuard() != null) {
+					Return ret = null;
+					try {
+						ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(component.getGuard().getAst().getFirstChild(), context);
+						if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
+					} catch (EolRuntimeException e) {
+						e.printStackTrace();
+						result = false;
+					}
+				}
+				context.getFrameStack().leave(pattern.getAst());
+				return result;
+			}
+		});
+		
 		List<List<Object>> candidate = generator.getNext();
 		while (candidate != null) {
 			
 			if (pattern.getMatchAst() != null) {
 			
-				Frame frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 				
 				int i = 0;
 				for (Component component : pattern.getComponents()) {
