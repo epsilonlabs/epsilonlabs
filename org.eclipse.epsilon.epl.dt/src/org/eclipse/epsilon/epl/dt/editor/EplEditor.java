@@ -18,7 +18,6 @@ import org.eclipse.epsilon.commons.module.IModule;
 import org.eclipse.epsilon.eol.dt.editor.EolEditor;
 import org.eclipse.epsilon.epl.dt.editor.outline.EplModuleElementLabelProvider;
 import org.eclipse.epsilon.epl.EplModule;
-import org.eclipse.jface.text.templates.Template;
 
 public class EplEditor extends EolEditor{
 	
@@ -31,31 +30,15 @@ public class EplEditor extends EolEditor{
 		
 		List<String> keywords = new ArrayList<String>();
 		
-		keywords.add("transform");
-		keywords.add("auto");
+		keywords.add("pattern");
+		keywords.add("match");
 		keywords.add("guard");
-		keywords.add("pre");
-		keywords.add("post");
-		keywords.add("to");
-		keywords.add("extends");
-		keywords.add("rule");
-		keywords.add("abstract");
+		keywords.add("do");
+		keywords.add("nomatch");
 
 		keywords.addAll(super.getKeywords());
 		
 		return keywords;
-	}
-	
-	@Override
-	public List<String> getBuiltinVariables() {
-		
-		ArrayList<String> builtIn = new ArrayList<String>();
-		
-		builtIn.add("transTrace");
-		
-		builtIn.addAll(super.getBuiltinVariables());
-		
-		return builtIn;
 	}
 
 	@Override
