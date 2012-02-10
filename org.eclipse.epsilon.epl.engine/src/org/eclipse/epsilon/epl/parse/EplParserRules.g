@@ -45,6 +45,7 @@ tokens {
 	DOMAIN;
 	COMPONENT;
 	MATCH;
+	NOMATCH;
 	DO;
 }
 
@@ -64,7 +65,7 @@ patterns
 
 pattern
 	: 
-	'pattern'! c=NAME^ component (','! component)* ('{'! match? do_? '}'!)?
+	'pattern'! c=NAME^ component (','! component)* ('{'! match? do_? nomatch? '}'!)?
 	{$c.setType(PATTERN);}
 	;
 
@@ -96,4 +97,9 @@ match :
 do_ :
 	c='do'^ expressionOrStatementBlock
 	{$c.setType(DO);}
+	;
+	
+nomatch :
+	c='nomatch'^ expressionOrStatementBlock
+	{$c.setType(NOMATCH);}
 	;

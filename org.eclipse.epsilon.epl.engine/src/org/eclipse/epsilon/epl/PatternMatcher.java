@@ -37,6 +37,7 @@ public class PatternMatcher {
 				Object result = context.getExecutorFactory().executeAST(pattern.getMatchAst(), context);
 				if (result instanceof Boolean) {
 					if ((Boolean)result == true) context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+					else context.getExecutorFactory().executeAST(pattern.getNoMatchAst(), context);
 				}
 				
 				context.getFrameStack().leave(pattern.getAst());

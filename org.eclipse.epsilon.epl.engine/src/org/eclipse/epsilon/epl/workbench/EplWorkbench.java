@@ -2,6 +2,7 @@ package org.eclipse.epsilon.epl.workbench;
 
 import java.io.File;
 
+import org.eclipse.epsilon.commons.parse.problem.ParseProblem;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.epl.Pattern;
@@ -14,6 +15,13 @@ public class EplWorkbench {
 		
 		EplModule module = new EplModule();
 		module.parse(new File("/Users/dimitrioskolovos/Projects/Eclipse/3.7.1/workspace-new/org.eclipse.epsilon.epl.engine/src/org/eclipse/epsilon/epl/workbench/library.epl"));
+		
+		if (module.getParseProblems().size() > 0) {
+			for (ParseProblem p : module.getParseProblems()) {
+				System.err.println(p);
+			}
+			System.exit(0);
+		}
 		
 		PlainXmlModel model = new PlainXmlModel();
 		model.setName("L");

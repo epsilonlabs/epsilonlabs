@@ -1,15 +1,20 @@
 package org.eclipse.epsilon.epl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.epsilon.commons.module.AbstractModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.util.AstUtil;
+import org.eclipse.epsilon.commons.util.CollectionUtil;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelNotFoundException;
+import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
+import org.eclipse.epsilon.eol.types.EolSequence;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class Component extends AbstractModuleElement {
@@ -60,10 +65,28 @@ public class Component extends AbstractModuleElement {
 		return guard;
 	}
 	
-	public List<Object> getInstances(IEolContext context) throws EolRuntimeException {
-		if (type == null) {
-			type = EolModelElementType.forName(typeAst.getText(), context);
+	public List getInstances(IEolContext context) throws EolRuntimeException {
+		
+		if (domain != null) {
+			Object result = context.getExecutorFactory().executeBlockOrExpressionAst(domain.getAst().getFirstChild(), context);
+			if (result instanceof Return) result = ((Return) result).getValue();
+			return CollectionUtil.asList(result);
 		}
-		return (List<Object>) type.getAllOfKind();
+		else {
+			if (type == null) {
+				type = EolModelElementType.forName(typeAst.getText(), context);
+			}
+
+			Collection allInstances = type.getAllOfKind();
+			if (allInstances instanceof List) {
+				return (List) allInstances;
+			}
+			else {
+				EolSequence sequence = new EolSequence();
+				sequence.addAll(allInstances);
+				return sequence;
+			}
+			
+		}
 	}
 }
