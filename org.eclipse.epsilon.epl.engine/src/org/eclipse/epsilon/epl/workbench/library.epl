@@ -1,22 +1,6 @@
-pattern A2B
-	f : L!t_node guard: (1<0).println(),
-	trans : L!t_transition guard { f.println(); return true;}, 
-	to : L!t_node {
+pattern P1
+	n : t_node {
 	
-	match : (f.a_name == trans.a_from) and (to.a_name == trans.a_to)
-	
-	do {
-		"Success".println();
-	}
-	
-	nomatch {
-		"Failure".println();
-	}
-	
-}
-
-operation foo() {}
-
-operation L!t_transition getName() {
-	return self.a_from + "->" + self.a_to;
+	match : true
+		
 }

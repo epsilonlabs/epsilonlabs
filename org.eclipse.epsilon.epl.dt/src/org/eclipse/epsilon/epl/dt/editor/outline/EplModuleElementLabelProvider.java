@@ -19,6 +19,13 @@ public class EplModuleElementLabelProvider extends EolModuleElementLabelProvider
 	
 	Image patternImage = EplPlugin.getDefault().createImage("icons/pattern.gif");
 	
+	@Override
+	public String getText(Object element) {
+		if (element instanceof Pattern) {
+			return ((Pattern) element).getName();
+		}
+		return super.getText(element);
+	}
 	
 	@Override
 	public Image getImage(Object element) {
