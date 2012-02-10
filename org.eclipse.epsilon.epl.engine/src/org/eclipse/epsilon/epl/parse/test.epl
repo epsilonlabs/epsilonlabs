@@ -1,0 +1,9 @@
+patterns P1s {
+	
+	pattern P1 
+		c : UML!Class,
+		d : Sequence {
+	
+	}
+	
+}

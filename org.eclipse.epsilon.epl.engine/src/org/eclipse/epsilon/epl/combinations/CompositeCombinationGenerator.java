@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.epl.engine.combinations;
+package org.eclipse.epsilon.epl.combinations;
 
 import java.util.ArrayList;
 import java.util.List;

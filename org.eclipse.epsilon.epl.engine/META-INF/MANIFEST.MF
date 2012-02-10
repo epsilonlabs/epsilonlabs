@@ -3,9 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: EPL Engine
 Bundle-SymbolicName: org.eclipse.epsilon.epl.engine
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.epsilon.epl.engine.Activator
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.epsilon.eol.engine
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
