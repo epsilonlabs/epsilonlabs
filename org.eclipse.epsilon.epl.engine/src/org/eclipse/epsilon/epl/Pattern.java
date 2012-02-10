@@ -34,12 +34,12 @@ public class Pattern extends AbstractModuleElement {
 	}
 	
 	public List<Component> getComponents() {
-		return Collections.EMPTY_LIST;
+		return components;
 	}
 	
 	@Override
 	public List getChildren() {
-		return getComponents();
+		return Collections.EMPTY_LIST;
 	}
 	
 	public AST getMatchAst() {

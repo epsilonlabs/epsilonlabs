@@ -36,12 +36,12 @@ public class EplSourceConfigurationTab extends AbstractSourceConfigurationTab{
 
 	@Override
 	public String getSelectionTitle() {
-		return "Select an EPL Pattern Module";
+		return "Select an EPL Program";
 	}
 
 	@Override
 	public String getSelectionSubtitle() {
-		return "EPL Pattern Modules in Workspace";
+		return "EPL Programs in Workspace";
 	}
 
 	public String getLaunchConfigurationKey() {

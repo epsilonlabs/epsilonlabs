@@ -16,7 +16,7 @@ public class NewEplFileWizard extends AbstractNewFileWizard2 {
 
 	@Override
 	public String getTitle() {
-		return "New EPL Module";
+		return "New EPL Program";
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class NewEplFileWizard extends AbstractNewFileWizard2 {
 
 	@Override
 	public String getDescription() {
-		return "This wizard creates a new EPL module file with *.epl extension";
+		return "This wizard creates a new EPL program file with *.epl extension";
 	}
 	
 	/*

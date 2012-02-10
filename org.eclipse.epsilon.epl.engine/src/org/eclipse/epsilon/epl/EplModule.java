@@ -3,6 +3,7 @@ package org.eclipse.epsilon.epl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.antlr.runtime.ANTLRInputStream;
@@ -12,6 +13,7 @@ import org.eclipse.epsilon.commons.module.ModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.parse.EpsilonParser;
 import org.eclipse.epsilon.commons.util.AstUtil;
+import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
@@ -22,7 +24,7 @@ import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	
-	protected List<Pattern> patterns = new ArrayList<Pattern>();
+	protected List<Pattern> declaredPatterns = new ArrayList<Pattern>();
 	protected EolContext context;
 	
 	public EplModule() {
@@ -51,14 +53,37 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	}
 	
 	@Override
+	public HashMap<String, Class<?>> getImportConfiguration() {
+		HashMap<String, Class<?>> importConfiguration = super.getImportConfiguration();
+		importConfiguration.put("epl", EplModule.class);
+		return importConfiguration;
+	}
+	
+	@Override
 	public void buildModel() throws Exception {
 		super.buildModel();
 		for (AST patternAst : AstUtil.getChildren(ast, EplParser.PATTERN)) {
-			patterns.add(new Pattern(patternAst));
+			declaredPatterns.add(new Pattern(patternAst));
 		}
 	}
 	
+	public List<Pattern> getDeclaredPatterns() {
+		return declaredPatterns;
+	}
+	
+	protected ArrayList<Pattern> patterns = null;
+	
 	public List<Pattern> getPatterns() {
+		if (patterns == null) {
+			patterns = new ArrayList<Pattern>();
+			for (EolImport import_ : imports) {
+				if (import_.isLoaded() && (import_.getModule() instanceof EplModule)) {
+					EplModule module = (EplModule) import_.getModule();
+					patterns.addAll(module.getPatterns());
+				}
+			}
+			patterns.addAll(declaredPatterns);
+		}
 		return patterns;
 	}
 	
@@ -67,7 +92,7 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 		final List<ModuleElement> children = new ArrayList<ModuleElement>();
 		children.addAll(getImports());
 		//children.addAll(getDeclaredPre());
-		children.addAll(patterns);
+		children.addAll(getDeclaredPatterns());
 		//children.addAll(getDeclaredPost());
 		children.addAll(getDeclaredOperations());
 		return children;
@@ -85,12 +110,13 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	@Override
 	public void reset() {
 		super.reset();
-		patterns.clear();
+		declaredPatterns.clear();
 		context = new EolContext();
 	}
 
 	@Override
 	public Object execute() throws EolRuntimeException {
+		this.getContext().setModule(this);
 		new PatternMatcher().match(this);
 		return null;
 	}

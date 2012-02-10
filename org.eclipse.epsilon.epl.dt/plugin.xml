@@ -26,13 +26,13 @@
             delegate="org.eclipse.epsilon.epl.dt.launching.EplLaunchConfigurationDelegate"
             id="org.epsilon.epl.eclipse.dt.launching.EplLaunchConfigurationDelegate"
             modes="run, debug"
-            name="EPL Pattern Module"/>
+            name="EPL Program"/>
    </extension>
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="org.eclipse.epsilon.epl.dt.launching.EplLaunchConfigurationTabGroup"
-            description="Create a configuration to launch an EPL Pattern Module"
+            description="Create a configuration to launch an EPL Program"
             id="org.eclipse.epsilon.eclipse.dt.launching.EplLaunchConfigurationTabGroup"
             type="org.epsilon.epl.eclipse.dt.launching.EplLaunchConfigurationDelegate"/>
    </extension>
@@ -43,7 +43,7 @@
             class="org.eclipse.epsilon.epl.dt.wizards.NewEplFileWizard"
             icon="icons/epl.gif"
             id="org.eclipse.epsilon.epl.dt.wizards.NewEplFileWizard"
-            name="EPL Pattern Module"/>
+            name="EPL Program"/>
    </extension>
 
 </plugin>
