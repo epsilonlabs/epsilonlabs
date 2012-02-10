@@ -12,10 +12,12 @@ public class Pattern extends AbstractModuleElement {
 	
 	protected String name;
 	protected List<Component> components = new ArrayList<Component>();
+	protected AST bodyAst = null;
 	
 	public Pattern(AST ast) {
 		this.ast = ast;
 		name = ast.getText();
+		bodyAst = AstUtil.getChild(ast, EplParser.BLOCK);
 		for (AST componentAst : AstUtil.getChildren(ast, EplParser.COMPONENT)) {
 			components.add(new Component(componentAst));
 		}
@@ -32,6 +34,10 @@ public class Pattern extends AbstractModuleElement {
 	@Override
 	public List getChildren() {
 		return getComponents();
+	}
+	
+	public AST getBodyAst() {
+		return bodyAst;
 	}
 	
 }

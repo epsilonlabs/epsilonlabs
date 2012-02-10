@@ -13,12 +13,19 @@ import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.parse.EpsilonParser;
 import org.eclipse.epsilon.commons.util.AstUtil;
 import org.eclipse.epsilon.eol.EolLibraryModule;
+import org.eclipse.epsilon.eol.execute.context.EolContext;
+import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.epl.parse.EplLexer;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class EplModule extends EolLibraryModule {
 	
 	protected List<PatternSet> patternSets = new ArrayList<PatternSet>();
+	protected EolContext context;
+	
+	public EplModule() {
+		reset();
+	}
 	
 	@Override
 	public Lexer createLexer(InputStream inputStream) {
@@ -49,10 +56,35 @@ public class EplModule extends EolLibraryModule {
 		}
 	}
 	
+	public List<PatternSet> getPatternSets() {
+		return patternSets;
+	}
+	
 	@Override
 	public List<ModuleElement> getChildren() {
-		// TODO Auto-generated method stub
-		return super.getChildren();
+		final List<ModuleElement> children = new ArrayList<ModuleElement>();
+		children.addAll(getImports());
+		//children.addAll(getDeclaredPre());
+		children.addAll(patternSets);
+		//children.addAll(getDeclaredPost());
+		children.addAll(getDeclaredOperations());
+		return children;
+	}
+	
+	@Override
+	public IEolContext getContext() {
+		return context;
+	}
+	
+	public void setContext(EolContext context) {
+		this.context = context;
+	}
+	
+	@Override
+	public void reset() {
+		super.reset();
+		patternSets.clear();
+		context = new EolContext();
 	}
 	
 }

@@ -15,6 +15,24 @@ public class Cardinality extends AbstractModuleElement {
 	
 	public Cardinality(AST ast) {
 		this.ast = ast;
+		if (ast.getChildCount() == 1) {
+			int bound = getBound(ast.getFirstChild().getText());
+			this.lowerBound = 1;
+			this.upperBound = bound;
+		}
+		else {
+			this.lowerBound = getBound(ast.getFirstChild().getText());
+			this.upperBound = getBound(ast.getFirstChild().getNextSibling().getText());
+		}
+	}
+	
+	protected int getBound(String text) {
+		if ("*".equals(text)) {
+			return UNBOUNDED;
+		}
+		else {
+			return Integer.parseInt(text);
+		}
 	}
 	
 	public Cardinality(int lowerBound, int upperBound) {

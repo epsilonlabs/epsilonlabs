@@ -3,7 +3,7 @@ patterns XML {
 	pattern Book
 		b : L!t_book {
 		
-		return true;
+		b.println();
 		
 	}
 	

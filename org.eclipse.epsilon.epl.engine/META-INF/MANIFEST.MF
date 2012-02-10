@@ -4,6 +4,7 @@ Bundle-Name: EPL Engine
 Bundle-SymbolicName: org.eclipse.epsilon.epl.engine
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
-Require-Bundle: org.eclipse.epsilon.eol.engine
+Require-Bundle: org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.emc.plainxml
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
