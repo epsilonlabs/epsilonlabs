@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.epsilon.commons.module.AbstractModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.util.AstUtil;
+import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class PatternSet extends AbstractModuleElement {
 
@@ -14,7 +15,9 @@ public class PatternSet extends AbstractModuleElement {
 	
 	public PatternSet(AST ast) {
 		this.ast = ast;
-//		for (AST patternAst : AstUtil.getChildren(ast, EplP))
+		for (AST patternAst : AstUtil.getChildren(ast, EplParser.PATTERN)) {
+			patterns.add(new Pattern(patternAst));
+		}
 	}
 
 	@Override
