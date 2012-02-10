@@ -13,12 +13,14 @@ import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.parse.EpsilonParser;
 import org.eclipse.epsilon.commons.util.AstUtil;
 import org.eclipse.epsilon.eol.EolLibraryModule;
+import org.eclipse.epsilon.eol.IEolExecutableModule;
+import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.context.EolContext;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.epl.parse.EplLexer;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
-public class EplModule extends EolLibraryModule {
+public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	
 	protected List<Pattern> patterns = new ArrayList<Pattern>();
 	protected EolContext context;
@@ -85,6 +87,12 @@ public class EplModule extends EolLibraryModule {
 		super.reset();
 		patterns.clear();
 		context = new EolContext();
+	}
+
+	@Override
+	public Object execute() throws EolRuntimeException {
+		new PatternMatcher().match(this);
+		return null;
 	}
 	
 }
