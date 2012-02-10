@@ -1,10 +1,22 @@
-patterns XML {
+patterns Graph {
 	
-	pattern Book
-		b : L!t_book {
+	pattern A2B
+		f : L!t_node,
+		trans : L!t_transition, 
+		to : L!t_node {
 		
-		b.println();
+		match : (f.a_name == trans.a_from) and (to.a_name == trans.a_to)
+		
+		do {
+			"Success".println();
+		}
 		
 	}
 	
+}
+
+operation foo() {}
+
+operation L!t_transition getName() {
+	return self.a_from + "->" + self.a_to;
 }

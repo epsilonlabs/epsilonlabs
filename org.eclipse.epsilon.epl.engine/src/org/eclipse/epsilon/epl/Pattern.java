@@ -12,12 +12,15 @@ public class Pattern extends AbstractModuleElement {
 	
 	protected String name;
 	protected List<Component> components = new ArrayList<Component>();
-	protected AST bodyAst = null;
+	protected AST doAst = null;
+	protected AST matchAst = null;
 	
 	public Pattern(AST ast) {
 		this.ast = ast;
 		name = ast.getText();
-		bodyAst = AstUtil.getChild(ast, EplParser.BLOCK);
+		doAst = AstUtil.getChild(ast, EplParser.DO); if (doAst != null) doAst = doAst.getFirstChild();
+		matchAst = AstUtil.getChild(ast, EplParser.MATCH); if (matchAst != null) matchAst = matchAst.getFirstChild();
+		
 		for (AST componentAst : AstUtil.getChildren(ast, EplParser.COMPONENT)) {
 			components.add(new Component(componentAst));
 		}
@@ -36,8 +39,12 @@ public class Pattern extends AbstractModuleElement {
 		return getComponents();
 	}
 	
-	public AST getBodyAst() {
-		return bodyAst;
+	public AST getMatchAst() {
+		return matchAst;
+	}
+	
+	public AST getDoAst() {
+		return doAst;
 	}
 	
 }

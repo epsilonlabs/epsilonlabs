@@ -24,29 +24,43 @@ public class PatternMatcher {
 		List<List<Object>> candidate = generator.getNext();
 		while (candidate != null) {
 			
-			Frame frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+			if (pattern.getMatchAst() != null) {
 			
-			int i = 0;
-			for (Component component : pattern.getComponents()) {
-				frame.put(Variable.createReadOnlyVariable(component.getName(), candidate.get(i)));
-				i++;
+				Frame frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+				
+				int i = 0;
+				for (Component component : pattern.getComponents()) {
+					frame.put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(candidate.get(i), component)));
+					i++;
+				}
+				
+				Object result = context.getExecutorFactory().executeAST(pattern.getMatchAst(), context);
+				if (result instanceof Boolean) {
+					if ((Boolean)result == true) context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+				}
+				
+				context.getFrameStack().leave(pattern.getAst());
 			}
-			
-			context.getExecutorFactory().executeAST(pattern.getBodyAst(), context);
-			
-			context.getFrameStack().leave(pattern.getAst());
 			
 			candidate = generator.getNext();
 		}
 		
 	}
 	
+	protected Object getVariableValue(List<Object> combination, Component component) {
+		if (component.getCardinality().isOne()) {
+			if (combination.size() > 0) return combination.get(0);
+			else return null;
+		}
+		else {
+			return combination;
+		}
+	}
+	
 	protected CombinationGenerator<Object> createCombinationGenerator(Component component, IEolContext context) throws EolRuntimeException {
 		Cardinality cardinality = component.getCardinality();
 		CombinationGenerator<Object> combinationGenerator = null;
-		if (cardinality.isOne()) {
-			combinationGenerator = new BoundedCombinationGenerator<Object>(component.getInstances(context), cardinality.getLowerBound(), cardinality.getUpperBound(), true);
-		}
+		combinationGenerator = new BoundedCombinationGenerator<Object>(component.getInstances(context), cardinality.getLowerBound(), cardinality.getUpperBound(), true);
 		return combinationGenerator;
 	}
 	

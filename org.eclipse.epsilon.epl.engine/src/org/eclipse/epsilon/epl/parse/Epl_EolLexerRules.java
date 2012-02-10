@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.epl.parse;
 
-// $ANTLR 3.1b1 EolLexerRules.g 2012-02-10 13:52:07
+// $ANTLR 3.1b1 EolLexerRules.g 2012-02-10 14:51:53
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -47,11 +47,14 @@ import java.util.HashMap;
  ******************************************************************************/
 public class Epl_EolLexerRules extends Lexer {
     public static final int EXPONENT=6;
+    public static final int T__159=159;
     public static final int StatementBlock=29;
     public static final int WHILE=33;
+    public static final int T__158=158;
     public static final int StrangeNameLiteral=15;
     public static final int CASE=35;
     public static final int NEW=49;
+    public static final int DO=86;
     public static final int FeatureCall=59;
     public static final int EOF=-1;
     public static final int BREAK=38;
@@ -62,8 +65,8 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int T__94=94;
     public static final int T__91=91;
     public static final int NAME=19;
-    public static final int IMPORT=65;
     public static final int T__92=92;
+    public static final int IMPORT=65;
     public static final int T__148=148;
     public static final int T__147=147;
     public static final int T__90=90;
@@ -72,20 +75,22 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int NewExpression=47;
     public static final int VAR=48;
     public static final int ANNOTATIONBLOCK=50;
-    public static final int COMMENT=21;
     public static final int T__154=154;
+    public static final int COMMENT=21;
     public static final int ABORT=43;
     public static final int NativeType=56;
     public static final int T__155=155;
+    public static final int T__156=156;
+    public static final int T__157=157;
     public static final int T__99=99;
     public static final int T__150=150;
     public static final int T__98=98;
     public static final int ITEMSELECTOR=72;
-    public static final int T__151=151;
     public static final int T__97=97;
-    public static final int T__152=152;
-    public static final int T__96=96;
+    public static final int T__151=151;
     public static final int MultiplicativeExpression=57;
+    public static final int T__96=96;
+    public static final int T__152=152;
     public static final int T__95=95;
     public static final int T__153=153;
     public static final int FLOAT_TYPE_SUFFIX=7;
@@ -93,7 +98,7 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int T__138=138;
     public static final int T__137=137;
     public static final int T__136=136;
-    public static final int EPLMODULE=85;
+    public static final int EPLMODULE=87;
     public static final int LINE_COMMENT=22;
     public static final int BREAKALL=39;
     public static final int TRANSACTION=41;
@@ -103,13 +108,12 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int EOLMODULE=60;
     public static final int MODELDECLARATION=66;
     public static final int PARAMLIST=25;
+    public static final int MATCH=85;
     public static final int INT=8;
     public static final int DELETE=52;
     public static final int T__141=141;
     public static final int T__142=142;
-    public static final int T__87=87;
     public static final int HELPERMETHOD=28;
-    public static final int T__86=86;
     public static final int T__140=140;
     public static final int T__89=89;
     public static final int T__145=145;
@@ -131,9 +135,9 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int GUARD=79;
     public static final int Annotation=23;
     public static final int T__130=130;
-    public static final int T__131=131;
-    public static final int EscapeSequence=13;
     public static final int Letter=16;
+    public static final int EscapeSequence=13;
+    public static final int T__131=131;
     public static final int T__132=132;
     public static final int THROW=53;
     public static final int T__133=133;
@@ -186,7 +190,7 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int T__102=102;
     public static final int T__101=101;
     public static final int T__100=100;
-    public static final int Tokens=156;
+    public static final int Tokens=160;
     public static final int DOMAIN=83;
     public static final int POINT_POINT=10;
     public static final int SpecialNameChar=17;

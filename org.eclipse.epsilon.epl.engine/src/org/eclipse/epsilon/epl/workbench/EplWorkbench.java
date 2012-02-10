@@ -21,6 +21,7 @@ public class EplWorkbench {
 		model.load();
 		
 		module.getContext().getModelRepository().addModel(model);
+		module.getContext().setModule(module);
 		
 		for (PatternSet patternSet : module.getPatternSets()) {
 			for (Pattern pattern : patternSet.getPatterns()) {

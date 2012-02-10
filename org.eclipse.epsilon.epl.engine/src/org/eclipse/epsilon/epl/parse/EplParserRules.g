@@ -44,6 +44,8 @@ tokens {
 	CARDINALITY;
 	DOMAIN;
 	COMPONENT;
+	MATCH;
+	DO;
 }
 
 @members {
@@ -62,10 +64,9 @@ patterns
 
 pattern
 	: 
-	'pattern'! c=NAME^ component (','! component)* statementBlock?
+	'pattern'! c=NAME^ component (','! component)* ('{'! match? do_? '}'!)?
 	{$c.setType(PATTERN);}
 	;
-
 
 component
 	: n=NAME^ ':'! t=typeName {setTokenType(t, TYPE);} cardinality? domain? guard?
@@ -85,4 +86,14 @@ bound
 domain :
 	c='in'^ expressionOrStatementBlock
 	{$c.setType(DOMAIN);}
+	;
+	
+match :
+	c='match'^ expressionOrStatementBlock
+	{$c.setType(MATCH);}
+	;
+
+do_ :
+	c='do'^ expressionOrStatementBlock
+	{$c.setType(DO);}
 	;
