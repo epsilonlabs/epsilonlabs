@@ -37,7 +37,6 @@ public class EplParserWorkbench {
 		CommonTokenStream stream = new CommonTokenStream(lexer);
 		EplParser parser = new EplParser(stream);
 		
-
 		EpsilonParseProblemManager.INSTANCE.reset();
 		
 		Tree tree = parser.eplModule().tree;

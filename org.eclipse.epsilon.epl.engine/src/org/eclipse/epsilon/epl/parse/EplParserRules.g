@@ -40,13 +40,18 @@ options {backtrack=true; output=AST;}
 
 tokens {
 	PATTERN;
-	CRITIQUE;
 	PATTERNS;
-	FIX;
-	CHECK;
-	DO;
-	TITLE;
-	MESSAGE;
+	CARDINALITY;
+	DOMAIN;
+	COMPONENT;
+}
+
+@members {
+
+public void setTokenType(ParserRuleReturnScope tree, int type) {
+	((CommonTree) tree.getTree()).getToken().setType(type);
+}
+
 }
 
 patterns 
@@ -57,42 +62,27 @@ patterns
 
 pattern
 	: 
-	'pattern'! c=NAME^ component (',' component)* statementBlock?
+	'pattern'! c=NAME^ component (','! component)* statementBlock?
 	{$c.setType(PATTERN);}
 	;
 
 
 component
-	: p=formalParameter
+	: n=NAME^ ':'! t=typeName {setTokenType(t, TYPE);} cardinality? domain? guard?
+	{$n.setType(COMPONENT);}
 	;
 
-critique
-	: 
-	'critique'! c=NAME^ '{'! guard? check message? (fix)* '}'!
-	{$c.setType(CRITIQUE);}
-	;
-	
-check
-	: c='check'^ expressionOrStatementBlock
-	{$c.setType(CHECK);}
-	;
-	
-message
-	: m='message'^ expressionOrStatementBlock
-	{$m.setType(MESSAGE);}
+
+cardinality
+	: c='['^ bound ('..'! bound)? ']'!
+	{$c.setType(CARDINALITY);}
 	;
 
-fix 
-	:	f='fix'^ '{'! guard? title fixBody '}'!
-	{$f.setType(FIX);}
+bound
+	: INT | '*'
 	;
 
-title
-	: t='title'^ expressionOrStatementBlock
-	{$t.setType(TITLE);}
-	;
-
-fixBody 
-	: d='do'^ statementBlock
-	{$d.setType(DO);}
+domain :
+	c='in'^ expressionOrStatementBlock
+	{$c.setType(DOMAIN);}
 	;

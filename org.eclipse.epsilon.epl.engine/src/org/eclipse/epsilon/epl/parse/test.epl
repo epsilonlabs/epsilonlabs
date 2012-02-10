@@ -1,8 +1,11 @@
 patterns P1s {
 	
 	pattern P1 
-		c : UML!Class,
-		d : Sequence {
+		c : UML!Class 
+			in : Class.all
+			guard { return c.isAbstract(); var a : Class; },
+		d : UML!Class[2..*],
+		e : Class[*] {
 	
 	}
 	
