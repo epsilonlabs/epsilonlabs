@@ -20,7 +20,7 @@ import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class EplModule extends EolLibraryModule {
 	
-	protected List<PatternSet> patternSets = new ArrayList<PatternSet>();
+	protected List<Pattern> patterns = new ArrayList<Pattern>();
 	protected EolContext context;
 	
 	public EplModule() {
@@ -51,13 +51,13 @@ public class EplModule extends EolLibraryModule {
 	@Override
 	public void buildModel() throws Exception {
 		super.buildModel();
-		for (AST patternSetAst : AstUtil.getChildren(ast, EplParser.PATTERNS)) {
-			patternSets.add(new PatternSet(patternSetAst));
+		for (AST patternAst : AstUtil.getChildren(ast, EplParser.PATTERN)) {
+			patterns.add(new Pattern(patternAst));
 		}
 	}
 	
-	public List<PatternSet> getPatternSets() {
-		return patternSets;
+	public List<Pattern> getPatterns() {
+		return patterns;
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ public class EplModule extends EolLibraryModule {
 		final List<ModuleElement> children = new ArrayList<ModuleElement>();
 		children.addAll(getImports());
 		//children.addAll(getDeclaredPre());
-		children.addAll(patternSets);
+		children.addAll(patterns);
 		//children.addAll(getDeclaredPost());
 		children.addAll(getDeclaredOperations());
 		return children;
@@ -83,7 +83,7 @@ public class EplModule extends EolLibraryModule {
 	@Override
 	public void reset() {
 		super.reset();
-		patternSets.clear();
+		patterns.clear();
 		context = new EolContext();
 	}
 	

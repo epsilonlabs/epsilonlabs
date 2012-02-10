@@ -5,9 +5,7 @@ import java.io.File;
 import org.eclipse.epsilon.commons.parse.problem.ParseProblem;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.epl.EplModule;
-import org.eclipse.epsilon.epl.Pattern;
 import org.eclipse.epsilon.epl.PatternMatcher;
-import org.eclipse.epsilon.epl.PatternSet;
 
 public class EplWorkbench {
 	
@@ -30,15 +28,7 @@ public class EplWorkbench {
 		
 		module.getContext().getModelRepository().addModel(model);
 		module.getContext().setModule(module);
-		
-		for (PatternSet patternSet : module.getPatternSets()) {
-			for (Pattern pattern : patternSet.getPatterns()) {
-				
-				PatternMatcher patternMatcher = new PatternMatcher();
-				patternMatcher.match(pattern, module.getContext());
-				
-			}
-		}
+		new PatternMatcher().match(module);
 		
 	}
 	

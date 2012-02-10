@@ -97,5 +97,5 @@ eplModule
 	;
 
 eplModuleContent
-	:	pre | annotationBlock | patterns | operationDeclaration | post
+	:	pre | annotationBlock | pattern | operationDeclaration | post
 	;

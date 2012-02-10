@@ -16,6 +16,13 @@ import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
 public class PatternMatcher {
 	
 	protected Frame frame = null;
+	protected PatternMatchModel model = new PatternMatchModel();
+	
+	public void match(EplModule module) throws EolRuntimeException {
+		for (Pattern pattern : module.getPatterns()) {
+			match(pattern, module.getContext());
+		}
+	}
 	
 	public void match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
 		
@@ -24,8 +31,7 @@ public class PatternMatcher {
 		for (Component component : pattern.getComponents()) {
 			generator.addCombinationGenerator(createCombinationGenerator(component, context));
 		}
-		
-		
+
 		generator.setValidator(new CompositeCombinationValidator<Object>() {
 			
 			@Override

@@ -40,7 +40,7 @@ options {backtrack=true; output=AST;}
 
 tokens {
 	PATTERN;
-	PATTERNS;
+	//PATTERNS;
 	CARDINALITY;
 	DOMAIN;
 	COMPONENT;
@@ -57,11 +57,11 @@ public void setTokenType(ParserRuleReturnScope tree, int type) {
 
 }
 
-patterns 
-	: 
-	'patterns'! c=NAME^ '{'! pattern* '}'!
-	{$c.setType(PATTERNS);}
-	;
+//patterns 
+//	: 
+//	'patterns'! c=NAME^ '{'! pattern* '}'!
+//	{$c.setType(PATTERNS);}
+//	;
 
 pattern
 	: 
