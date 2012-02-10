@@ -11,12 +11,26 @@
 package org.eclipse.epsilon.epl.dt.editor.outline;
 
 import org.eclipse.epsilon.eol.dt.editor.outline.EolModuleElementLabelProvider;
+import org.eclipse.epsilon.epl.Pattern;
+import org.eclipse.epsilon.epl.dt.EplPlugin;
+import org.eclipse.swt.graphics.Image;
 
 public class EplModuleElementLabelProvider extends EolModuleElementLabelProvider{
 	
-	/*
+	Image patternImage = EplPlugin.getDefault().createImage("icons/pattern.gif");
+	
+	
 	@Override
 	public Image getImage(Object element) {
+	
+		if (element instanceof Pattern) {
+			return patternImage;
+		}
+		else {
+			return super.getImage(element);
+		}
+		
+		/*
 		if (element instanceof EolLabeledBlock){
 			return EtlPlugin.getDefault().createImage("icons/" + ((EolLabeledBlock) element).getLabel() +".gif");
 		}
@@ -24,7 +38,7 @@ public class EplModuleElementLabelProvider extends EolModuleElementLabelProvider
 			return EtlPlugin.getDefault().createImage("icons/transformrule.gif");
 		} else {
 			return super.getImage(element);
-		}
-	}*/
+		}*/
+	}
 
 }

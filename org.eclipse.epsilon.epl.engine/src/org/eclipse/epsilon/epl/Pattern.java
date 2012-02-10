@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.epl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.epsilon.commons.module.AbstractModuleElement;
@@ -33,7 +34,7 @@ public class Pattern extends AbstractModuleElement {
 	}
 	
 	public List<Component> getComponents() {
-		return components;
+		return Collections.EMPTY_LIST;
 	}
 	
 	@Override

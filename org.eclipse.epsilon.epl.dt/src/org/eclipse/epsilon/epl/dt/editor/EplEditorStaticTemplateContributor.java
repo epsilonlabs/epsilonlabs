@@ -12,7 +12,7 @@ public class EplEditorStaticTemplateContributor implements IAbstractModuleEditor
 	public List<Template> getTemplates() {
 		if (templates == null) {
 			templates = new ArrayList<Template>();
-			templates.add(new Template("pattern", "pattern", "", "pattern ${rulename} \r\n s : ${sourcetype} {\r\n\tcheck: ${cursor}\r\n}",false));
+			templates.add(new Template("pattern", "pattern", "", "pattern ${rulename} \r\n\t s : ${sourcetype} {\r\n\tmatch: ${cursor}\r\n}",false));
 		}
 		return templates;
 	}
