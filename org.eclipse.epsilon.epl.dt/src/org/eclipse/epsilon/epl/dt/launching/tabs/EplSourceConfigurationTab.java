@@ -13,9 +13,6 @@ package org.eclipse.epsilon.epl.dt.launching.tabs;
 import org.eclipse.epsilon.common.dt.EpsilonPlugin;
 import org.eclipse.epsilon.common.dt.launching.AbstractSourceConfigurationTab;
 import org.eclipse.epsilon.epl.dt.EplPlugin;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 
 public class EplSourceConfigurationTab extends AbstractSourceConfigurationTab{
 
