@@ -10,6 +10,7 @@ import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.epl.combinations.BoundedCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGenerator;
+import org.eclipse.epsilon.epl.combinations.CombinationGeneratorListener;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
 
@@ -97,10 +98,17 @@ public class PatternMatcher {
 		}
 	}
 	
-	protected CombinationGenerator<Object> createCombinationGenerator(Component component, IEolContext context) throws EolRuntimeException {
+	protected CombinationGenerator<Object> createCombinationGenerator(final Component component, final IEolContext context) throws EolRuntimeException {
 		Cardinality cardinality = component.getCardinality();
-		CombinationGenerator<Object> combinationGenerator = null;
+		BoundedCombinationGenerator<Object> combinationGenerator = null;
 		combinationGenerator = new BoundedCombinationGenerator<Object>(component.getInstances(context), cardinality.getLowerBound(), cardinality.getUpperBound(), true);
+		combinationGenerator.addListener(new CombinationGeneratorListener<Object>() {			
+			@Override
+			public void generated(List<Object> next) {
+				context.getFrameStack().put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(next, component)));
+			}
+		});
+		
 		return combinationGenerator;
 	}
 	

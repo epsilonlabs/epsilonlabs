@@ -12,6 +12,15 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 	protected CombinationGenerator<T> currentCombinationGenerator = null;
 	protected static int UNBOUNDED = -1;
 	protected boolean ascending = true;
+	protected ArrayList<CombinationGeneratorListener<T>> listeners = new ArrayList<CombinationGeneratorListener<T>>();
+	
+	public void addListener(CombinationGeneratorListener<T> listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(CombinationGeneratorListener<T> listener) {
+		listeners.remove(listener);
+	}
 	
 	public BoundedCombinationGenerator(List<T> list, int upperBound) {
 		init(list, 1, upperBound, true);
@@ -26,7 +35,7 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 		this.ascending = ascending;
 		this.lowerBound = lowerBound;
 		if (upperBound == BoundedCombinationGenerator.UNBOUNDED) upperBound = list.size();
-		this.upperBound = Math.min(list.size(), upperBound);
+		this.upperBound = upperBound;
 		if (isAscending()) {
 			for (int i = lowerBound; i<=this.upperBound; i++) {
 				combinationGenerators.add(new FixedCombinationGenerator<T>(list, i));
@@ -46,6 +55,7 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 			g.reset();
 		}
 		currentCombinationGenerator = combinationGenerators.get(0);
+		if (list instanceof DynamicList) ((DynamicList) list).reset();
 	}
 	
 	public boolean isAscending() {
@@ -61,14 +71,16 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 	@Override
 	public List<T> getNext() {
 		findNextCombinationGenerator();
-		
-		if (currentCombinationGenerator == null) {
-			return null;
-		}
-		else {
-			return currentCombinationGenerator.getNext();
+		List<T> next = null;
+		if (currentCombinationGenerator != null) {
+			next = currentCombinationGenerator.getNext();
 		}
 		
+		for (CombinationGeneratorListener<T> listener : listeners) {
+			listener.generated(next);
+		}
+		
+		return next;
 	}
 	
 	protected void findNextCombinationGenerator() {

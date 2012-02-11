@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.epl.parse;
 
-// $ANTLR 3.1b1 ErlParserRules.g 2012-02-10 18:11:52
+// $ANTLR 3.1b1 ErlParserRules.g 2012-02-11 15:31:59
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -57,6 +57,7 @@ public class Epl_ErlParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
     public static final int StrangeNameLiteral=15;
     public static final int CASE=35;
     public static final int NEW=49;
+    public static final int T__160=160;
     public static final int DO=86;
     public static final int FeatureCall=59;
     public static final int EOF=-1;
@@ -68,8 +69,8 @@ public class Epl_ErlParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
     public static final int T__94=94;
     public static final int T__91=91;
     public static final int IMPORT=65;
-    public static final int T__92=92;
     public static final int NAME=19;
+    public static final int T__92=92;
     public static final int T__148=148;
     public static final int T__90=90;
     public static final int T__147=147;

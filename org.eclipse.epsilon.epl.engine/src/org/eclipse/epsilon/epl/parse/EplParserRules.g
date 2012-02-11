@@ -85,7 +85,7 @@ bound
 	;
 
 domain :
-	c='in'^ expressionOrStatementBlock
+	(c='in'^|c='from'^) expressionOrStatementBlock
 	{$c.setType(DOMAIN);}
 	;
 	

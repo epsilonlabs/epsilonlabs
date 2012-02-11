@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.epl;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -8,10 +7,7 @@ import java.util.List;
 import org.eclipse.epsilon.commons.module.AbstractModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.util.AstUtil;
-import org.eclipse.epsilon.commons.util.CollectionUtil;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
-import org.eclipse.epsilon.eol.exceptions.models.EolModelNotFoundException;
-import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
 import org.eclipse.epsilon.eol.types.EolSequence;
@@ -68,9 +64,7 @@ public class Component extends AbstractModuleElement {
 	public List getInstances(IEolContext context) throws EolRuntimeException {
 		
 		if (domain != null) {
-			Object result = context.getExecutorFactory().executeBlockOrExpressionAst(domain.getAst().getFirstChild(), context);
-			if (result instanceof Return) result = ((Return) result).getValue();
-			return CollectionUtil.asList(result);
+			return domain.getValues(context);
 		}
 		else {
 			if (type == null) {

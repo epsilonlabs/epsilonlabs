@@ -12,41 +12,54 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	private BigInteger remaining;
 	private BigInteger total;
 	protected List<T> list;
-
+	protected boolean initialised = false;
+	
+	public void initialise() {
+		if (initialised == false) {
+			this.n = list.size();
+			if (r > n) {
+				throw new IllegalArgumentException();
+			}
+			if (n < 1) {
+				throw new IllegalArgumentException();
+			}
+			a = new int[r];
+			BigInteger nFact = getFactorial(n);
+			BigInteger rFact = getFactorial(r);
+			BigInteger nminusrFact = getFactorial(n - r);
+			total = nFact.divide(rFact.multiply(nminusrFact));
+			
+			initialised = true;
+			reset();
+		}
+	}
+	
 	public FixedCombinationGenerator(List<T> list, int r) {
-		this.n = list.size();
-		this.list = list;
-		if (r > n) {
-			throw new IllegalArgumentException();
-		}
-		if (n < 1) {
-			throw new IllegalArgumentException();
-		}
 		this.r = r;
-		a = new int[r];
-		BigInteger nFact = getFactorial(n);
-		BigInteger rFact = getFactorial(r);
-		BigInteger nminusrFact = getFactorial(n - r);
-		total = nFact.divide(rFact.multiply(nminusrFact));
-		reset();
+		this.list = list;
 	}
 
 	public void reset() {
-		for (int i = 0; i < a.length; i++) {
-			a[i] = i;
+		if (initialised) {
+			for (int i = 0; i < a.length; i++) {
+				a[i] = i;
+			}
+			remaining = new BigInteger(total.toString());
 		}
-		remaining = new BigInteger(total.toString());
 	}
 
 	public BigInteger getRemaining() {
+		initialise();
 		return remaining;
 	}
 
 	public boolean hasMore() {
+		initialise();
 		return remaining.compareTo(BigInteger.ZERO) == 1;
 	}
 
 	public BigInteger getTotal() {
+		initialise();
 		return total;
 	}
 
@@ -59,6 +72,7 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	}
 
 	public List<T> getNext() {
+		initialise();
 
 		if (remaining.equals(total)) {
 			remaining = remaining.subtract(BigInteger.ONE);
