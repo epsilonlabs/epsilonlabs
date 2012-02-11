@@ -35,8 +35,28 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 		this.list = list;
 		this.ascending = ascending;
 		this.lowerBound = lowerBound;
-		if (upperBound == BoundedCombinationGenerator.UNBOUNDED) upperBound = list.size();
 		this.upperBound = upperBound;
+		
+		if (list instanceof DynamicList) {
+			((DynamicList) list).addListener(new DynamicListListener<T>() {
+				@Override
+				public void valuesChanged(DynamicList<T> list) {
+					initialiseCombinatorGenerators();
+				}
+			});
+		}
+		else {
+			initialiseCombinatorGenerators();
+		}
+		
+		
+	}
+	
+	protected void initialiseCombinatorGenerators() {
+		
+		if (upperBound == BoundedCombinationGenerator.UNBOUNDED) upperBound = list.size();
+
+		combinationGenerators.clear();
 		if (isAscending()) {
 			for (int i = lowerBound; i<=this.upperBound; i++) {
 				combinationGenerators.add(new FixedCombinationGenerator<T>(list, i));
@@ -48,13 +68,14 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 			}
 		}
 		
-		currentCombinationGenerator = combinationGenerators.get(0);
+		currentCombinationGenerator = combinationGenerators.get(0);		
 	}
 	
 	public void reset() {
 		for (CombinationGenerator<T> g : combinationGenerators) {
 			g.reset();
 		}
+		if (!combinationGenerators.isEmpty())
 		currentCombinationGenerator = combinationGenerators.get(0);
 		if (list instanceof DynamicList) ((DynamicList) list).reset();
 		for (CombinationGeneratorListener<T> listener : listeners) {
@@ -68,12 +89,14 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 	
 	@Override
 	public boolean hasMore() {
+		list.size();
 		findNextCombinationGenerator();
 		return currentCombinationGenerator != null && currentCombinationGenerator.hasMore();
 	}
 
 	@Override
 	public List<T> getNext() {
+		list.size();
 		findNextCombinationGenerator();
 		List<T> next = null;
 		if (currentCombinationGenerator != null) {
