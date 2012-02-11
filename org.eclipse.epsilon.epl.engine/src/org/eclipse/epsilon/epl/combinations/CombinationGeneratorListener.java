@@ -6,4 +6,6 @@ public interface CombinationGeneratorListener<T> {
 	
 	public void generated(List<T> next);
 	
+	public void reset();
+	
 }

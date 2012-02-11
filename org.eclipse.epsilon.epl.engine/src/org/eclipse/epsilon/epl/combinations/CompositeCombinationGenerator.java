@@ -21,7 +21,9 @@ public class CompositeCombinationGenerator<T> {
 	}
 	
 	public boolean removeCombinationGenerator(CombinationGenerator<T> g) {
-		return generators.remove(g);
+		boolean removed = generators.remove(g);
+		reset();
+		return removed;
 	}
 	
 	public List<List<T>> getNext() {
@@ -38,13 +40,13 @@ public class CompositeCombinationGenerator<T> {
 		currentStack.push(getCurrentGenerator().getNext());
 		
 		boolean validCombination = isValidCombination();
-				
+		
 		while (!isLastGenerator() && validCombination) {
 			setCurrentGenerator(getNextGenerator());
 			currentStack.push(getCurrentGenerator().getNext());
 			validCombination = isValidCombination();
 		}
-		
+		 
 		if (validCombination) {
 			return currentStack;
 		}

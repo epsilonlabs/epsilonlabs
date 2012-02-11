@@ -1,6 +1,6 @@
 pattern P1
 	n : t_node,
-	n2 : t_node in: t_node.all.select(t|t = n) {
+	n2 : t_node[*] in: t_node.all.select(t|t = n) {
 	
 	match : true
 	
@@ -8,5 +8,4 @@ pattern P1
 	  //n2.a_name.println();
 	  (n.a_name + " " + n2.a_name).println();
 	}
-	
 }

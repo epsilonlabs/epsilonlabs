@@ -27,6 +27,8 @@ public class PatternMatcher {
 	
 	public void match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
 		
+		context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+		
 		CompositeCombinationGenerator<Object> generator = new CompositeCombinationGenerator<Object>();
 		
 		for (Component component : pattern.getComponents()) {
@@ -86,6 +88,8 @@ public class PatternMatcher {
 			candidate = generator.getNext();
 		}
 		
+		context.getFrameStack().leave(pattern.getAst());
+		
 	}
 	
 	protected Object getVariableValue(List<Object> combination, Component component) {
@@ -106,6 +110,11 @@ public class PatternMatcher {
 			@Override
 			public void generated(List<Object> next) {
 				context.getFrameStack().put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(next, component)));
+			}
+			
+			@Override
+			public void reset() {
+				context.getFrameStack().remove(component.getName());
 			}
 		});
 		

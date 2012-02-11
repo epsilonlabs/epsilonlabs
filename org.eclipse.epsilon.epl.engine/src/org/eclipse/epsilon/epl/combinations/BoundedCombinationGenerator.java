@@ -14,6 +14,7 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 	protected boolean ascending = true;
 	protected ArrayList<CombinationGeneratorListener<T>> listeners = new ArrayList<CombinationGeneratorListener<T>>();
 	
+	
 	public void addListener(CombinationGeneratorListener<T> listener) {
 		listeners.add(listener);
 	}
@@ -56,6 +57,9 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 		}
 		currentCombinationGenerator = combinationGenerators.get(0);
 		if (list instanceof DynamicList) ((DynamicList) list).reset();
+		for (CombinationGeneratorListener<T> listener : listeners) {
+			listener.reset();
+		}
 	}
 	
 	public boolean isAscending() {
