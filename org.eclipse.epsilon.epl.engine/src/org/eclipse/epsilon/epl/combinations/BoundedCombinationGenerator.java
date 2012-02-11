@@ -89,14 +89,14 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 	
 	@Override
 	public boolean hasMore() {
-		list.size();
+		nudgeList();
 		findNextCombinationGenerator();
 		return currentCombinationGenerator != null && currentCombinationGenerator.hasMore();
 	}
 
 	@Override
 	public List<T> getNext() {
-		list.size();
+		nudgeList();
 		findNextCombinationGenerator();
 		List<T> next = null;
 		if (currentCombinationGenerator != null) {
@@ -124,5 +124,12 @@ public class BoundedCombinationGenerator<T> implements CombinationGenerator<T>{
 		}
 	}
 	
+	/**
+	 * Nudge the list so that it loads
+	 * its contents if it's dynamic
+	 */
+	protected void nudgeList() {
+		list.size();
+	}
 
 }

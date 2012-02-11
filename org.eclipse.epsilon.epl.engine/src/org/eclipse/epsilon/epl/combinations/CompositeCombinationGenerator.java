@@ -65,6 +65,11 @@ public class CompositeCombinationGenerator<T> {
 	}
 	
 	protected boolean isValidCombination() {
+		
+		for (List<T> t : currentStack) {
+			if (t == null) return false;
+		}
+		
 		if (validator == null) {
 			return true;
 		}

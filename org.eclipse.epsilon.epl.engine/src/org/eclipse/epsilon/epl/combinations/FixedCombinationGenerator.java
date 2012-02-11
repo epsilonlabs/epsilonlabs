@@ -17,12 +17,12 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	public void initialise() {
 		if (initialised == false) {
 			this.n = list.size();
-			if (r > n) {
-				throw new IllegalArgumentException();
-			}
-			if (n < 1) {
-				throw new IllegalArgumentException();
-			}
+			//if (r > n) {
+			//	throw new IllegalArgumentException();
+			//}
+			//if (n < 1) {
+			//	throw new IllegalArgumentException();
+			//}
 			a = new int[r];
 			BigInteger nFact = getFactorial(n);
 			BigInteger rFact = getFactorial(r);
@@ -55,6 +55,7 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 
 	public boolean hasMore() {
 		initialise();
+		if (list.isEmpty()) return false;
 		return remaining.compareTo(BigInteger.ZERO) == 1;
 	}
 

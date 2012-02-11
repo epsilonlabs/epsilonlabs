@@ -93,7 +93,7 @@ public class PatternMatcher {
 	}
 	
 	protected Object getVariableValue(List<Object> combination, Component component) {
-		if (component.getCardinality().isOne()) {
+		if (combination != null && component.getCardinality().isOne()) {
 			if (combination.size() > 0) return combination.get(0);
 			else return null;
 		}

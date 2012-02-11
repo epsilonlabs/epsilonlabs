@@ -3,6 +3,8 @@
 	<node name="a"/>
 	<node name="b"/>
 	<node name="c"/>
+	<node name="d"/>
 	<transition from="a" to="b"/>
 	<transition from="b" to="c"/>
+	
 </graph>

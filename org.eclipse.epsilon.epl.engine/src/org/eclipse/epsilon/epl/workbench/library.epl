@@ -1,10 +1,10 @@
 pattern P1
 	n : t_node,
-	n2 : t_node[*] from: t_node.all.select(node | node <> n) {
+	n2 : t_node from: Sequence{} {
+	//n2 : t_node from: t_node.all.select(node | node <> n) {
 	match : true
 	
 	do {
-	  //n2.a_name.println();
 	  (n.a_name + "->" + n2.collect(n2|n2.a_name)).println();
 	}
 }
