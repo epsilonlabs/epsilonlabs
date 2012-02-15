@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.epsilon.commons.parse.AST;
+import org.eclipse.epsilon.ecl.parse.EclParser;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 
@@ -17,15 +18,25 @@ public class StatementCoverageStrategy extends AbstractCoverageStrategy {
 	// TODO: Check this list with DK/LR - are there any others to ignore?
 	protected final ArrayList<Integer> ignoredASTElements = new ArrayList<Integer>(Arrays.asList(
 			EolParser.EOLMODULE, EolParser.PARAMETERS, EolParser.FORMAL, EolParser.BLOCK, 
-			EolParser.PARAMLIST//, EolParser.FEATURECALL
+			EolParser.PARAMLIST, EolParser.Annotation, EolParser.ANNOTATIONBLOCK//, EolParser.FEATURECALL
+			,EclParser.ECLMODULE, EclParser.MATCH, EclParser.COMPARE, EclParser.GUARD, EclParser.DO // FIXME ecl specific
 			));
 	
 	@Override
 	public void buildModel(AST ast) {
 		if (!ignoredASTElements.contains(ast.getType())) {
-			CoveragePoint point = new CoveragePoint(ast.getLine(), -1, -1);
+			
+			if (ast.getType() == EolParser.NAME && ast.getParent().getType() == EclParser.MATCH) {
+				return;
+			}
+			
+			CoveragePoint point = new CoveragePoint(ast.getLine(), -1, -1); // -1 because we only care about line numbers
 			if (!coveragePoints.contains(point)) {
 				coveragePoints.add(point);
+			}
+			
+			if (ast.getLine() == 10){
+				System.out.println(ast);
 			}
 		}
 	}

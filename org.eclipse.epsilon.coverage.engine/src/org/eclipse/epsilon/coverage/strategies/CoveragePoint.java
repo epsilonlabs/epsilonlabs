@@ -50,4 +50,9 @@ public class CoveragePoint implements Cloneable {
 	public int getAstType() {
 		return astType;
 	}
+	
+	public void reset() {
+		covered = false;
+		timesExecuted = 0;
+	}
 }

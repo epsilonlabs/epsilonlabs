@@ -7,6 +7,12 @@ public class DecisionPoint extends CoveragePoint {
 	public DecisionPoint(int line, int column, int astType) {
 		super(line, column, astType);
 	}
+	@Override
+	public void reset() {
+		super.reset();
+		coveredTrueBranch = false;
+		coveredFalseBranch = false;
+	}
 	
 	@Override
 	public String toString() {

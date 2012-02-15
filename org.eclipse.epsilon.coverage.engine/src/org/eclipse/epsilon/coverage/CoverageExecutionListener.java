@@ -63,4 +63,11 @@ public class CoverageExecutionListener implements IExecutionListener {
 	public List<ICoverageStrategy> getCoverageStrategies() {
 		return coverageStrategies;
 	}
+	
+	public void reset() {
+		for (ICoverageStrategy s : coverageStrategies) {
+			s.reset();
+		}
+		astAnalysed = false;
+	}
 }

@@ -56,8 +56,9 @@ public abstract class AbstractCoverageStrategy implements ICoverageStrategy {
 	public void finishCovering(AST ast, Object result) { }	
 
 	public void reset(){
-		for (CoveragePoint c : coveragePoints) {
-			c.setCovered(false);
-		}
+//		for (CoveragePoint c : coveragePoints) {
+//			c.reset();
+//		}
+		coveragePoints.clear(); // TODO
 	}
 }
