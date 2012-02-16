@@ -21,6 +21,7 @@ public class Component extends AbstractModuleElement {
 	protected Domain domain = null;
 	protected Guard guard = null;
 	protected EolModelElementType type = null;
+	protected String alias = null;
 	
 	public Component(AST ast) {
 		this.ast = ast;
@@ -36,6 +37,14 @@ public class Component extends AbstractModuleElement {
 		if (guardAst != null) {
 			guard = new Guard(guardAst);
 		}
+		AST aliasAst = AstUtil.getChild(ast, EplParser.ALIAS);
+		if (aliasAst != null) {
+			alias = aliasAst.getFirstChild().getText();
+		}
+	}
+	
+	public String getAlias() {
+		return alias;
 	}
 	
 	public List<String> getNames() {

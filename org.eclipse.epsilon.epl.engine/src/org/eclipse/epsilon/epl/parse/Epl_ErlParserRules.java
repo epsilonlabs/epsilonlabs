@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.epl.parse;
 
-// $ANTLR 3.1b1 ErlParserRules.g 2012-02-16 21:57:10
+// $ANTLR 3.1b1 ErlParserRules.g 2012-02-16 23:09:20
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -64,6 +64,7 @@ public class Epl_ErlParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
     public static final int BREAK=38;
     public static final int KEYVALLIST=75;
     public static final int TYPE=63;
+    public static final int T__161=161;
     public static final int PATTERN=80;
     public static final int T__93=93;
     public static final int T__94=94;

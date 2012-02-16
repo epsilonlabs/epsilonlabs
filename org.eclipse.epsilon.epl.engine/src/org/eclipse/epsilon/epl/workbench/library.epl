@@ -5,11 +5,6 @@ pattern P1
 		(n1.a_name + ' - ' + n2.a_name /*+ ' - ' + n3.a_name*/).println();
 	}
 	
-	/*
-	merge {
-		
-		check : self.nodes.
-		
-	}*/
+	// merge : self.nodes.intersects(other.nodes)
 	
 }

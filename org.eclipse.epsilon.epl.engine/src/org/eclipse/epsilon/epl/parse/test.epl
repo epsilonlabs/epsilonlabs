@@ -1,5 +1,5 @@
 pattern Book
-	b1, b2 : L!t_book {
+	b1, b2 : L!t_book as books {
 	
 	match: true
 	

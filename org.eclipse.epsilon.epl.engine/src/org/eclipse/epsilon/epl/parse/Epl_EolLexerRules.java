@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.epl.parse;
 
-// $ANTLR 3.1b1 EolLexerRules.g 2012-02-16 21:57:12
+// $ANTLR 3.1b1 EolLexerRules.g 2012-02-16 23:09:23
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -61,8 +61,9 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int BREAK=38;
     public static final int KEYVALLIST=75;
     public static final int TYPE=63;
-    public static final int PATTERN=80;
+    public static final int T__161=161;
     public static final int T__93=93;
+    public static final int PATTERN=80;
     public static final int T__94=94;
     public static final int T__91=91;
     public static final int T__92=92;
@@ -84,9 +85,9 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int T__156=156;
     public static final int T__157=157;
     public static final int T__99=99;
-    public static final int T__150=150;
     public static final int T__98=98;
     public static final int ITEMSELECTOR=72;
+    public static final int T__150=150;
     public static final int T__97=97;
     public static final int T__151=151;
     public static final int MultiplicativeExpression=57;
@@ -191,7 +192,7 @@ public class Epl_EolLexerRules extends Lexer {
     public static final int T__102=102;
     public static final int T__101=101;
     public static final int T__100=100;
-    public static final int Tokens=161;
+    public static final int Tokens=162;
     public static final int DOMAIN=82;
     public static final int POINT_POINT=10;
     public static final int SpecialNameChar=17;

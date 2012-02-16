@@ -28,7 +28,9 @@ public class PatternMatcher {
 		}
 	}
 	
-	public void match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
+	public List<PatternMatch> match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
+		
+		List<PatternMatch> patternMatches = new ArrayList<PatternMatch>();
 		
 		context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 		
@@ -94,7 +96,10 @@ public class PatternMatcher {
 				else throw new EolIllegalReturnException("Boolean", result, pattern.getMatchAst(), context);
 			}
 			
-			if (matches) context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+			if (matches) { 
+				context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+				patternMatches.add(createPatternMatch(pattern, candidate));
+			}
 			else context.getExecutorFactory().executeAST(pattern.getNoMatchAst(), context);
 			
 			context.getFrameStack().leave(pattern.getAst());
@@ -104,6 +109,7 @@ public class PatternMatcher {
 		
 		context.getFrameStack().leave(pattern.getAst());
 		
+		return patternMatches;
 	}
 	
 	protected List<Variable> getVariables(List<Object> combination, Component component) {
@@ -112,6 +118,9 @@ public class PatternMatcher {
 		for (String name : component.getNames()) {
 			variables.add(Variable.createReadOnlyVariable(name, combination.get(i)));
 			i++;
+		}
+		if (component.getAlias() != null) {
+			variables.add(Variable.createReadOnlyVariable(component.getAlias(), combination));
 		}
 		return variables;
 	}
@@ -136,6 +145,11 @@ public class PatternMatcher {
 		});
 		
 		return combinationGenerator;
+	}
+	
+	protected PatternMatch createPatternMatch(Pattern pattern, List<List<Object>> combination) {
+		PatternMatch patternMatch = new PatternMatch(pattern);
+		return patternMatch;
 	}
 	
 }
