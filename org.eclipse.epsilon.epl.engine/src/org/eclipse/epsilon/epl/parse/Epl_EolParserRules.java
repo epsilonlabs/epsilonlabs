@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.epl.parse;
 
-// $ANTLR 3.1b1 EolParserRules.g 2012-02-11 15:31:58
+// $ANTLR 3.1b1 EolParserRules.g 2012-02-16 21:57:08
 
 import org.antlr.runtime.*;
 import java.util.Stack;
@@ -446,7 +446,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: modelAlias, modelDriver, modelDeclarationParameters, NAME
+            // elements: modelDeclarationParameters, modelDriver, modelAlias, NAME
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1260,7 +1260,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: returnType, formalParameterList, ctx, statementBlock, operationName
+            // elements: ctx, returnType, formalParameterList, statementBlock, operationName
             // token labels: operationName
             // rule labels: retval, ctx, returnType
             // token list labels: 
@@ -1619,7 +1619,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: NAME, typeName
+            // elements: typeName, NAME
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1834,7 +1834,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: NAME, logicalExpression
+            // elements: logicalExpression, NAME
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3316,7 +3316,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: statementOrStatementBlock, logicalExpression, formalParameter
+            // elements: formalParameter, statementOrStatementBlock, logicalExpression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3452,7 +3452,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: logicalExpression, elseStatement, statementOrStatementBlock
+            // elements: elseStatement, logicalExpression, statementOrStatementBlock
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3625,7 +3625,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: caseStatement, defaultStatement, logicalExpression
+            // elements: defaultStatement, caseStatement, logicalExpression
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -4771,7 +4771,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: NAME, statementOrStatementBlock
+            // elements: statementOrStatementBlock, NAME
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6505,7 +6505,7 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
 
             // AST REWRITE
-            // elements: typeName, NAME, parameterList
+            // elements: NAME, parameterList, typeName
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -8744,8 +8744,8 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
     static final String DFA56_acceptS =
         "\2\uffff\1\2\5\uffff\1\1\11\uffff";
     static final String DFA56_specialS =
-        "\3\uffff\1\6\1\2\1\3\4\uffff\1\4\1\uffff\1\5\2\uffff\1\1\1\uffff"+
-        "\1\0}>";
+        "\3\uffff\1\2\1\0\1\3\4\uffff\1\1\1\uffff\1\4\2\uffff\1\5\1\uffff"+
+        "\1\6}>";
     static final String[] DFA56_transitionS = {
             "\3\2\13\uffff\1\2\101\uffff\1\2\1\1\1\2\2\uffff\5\2\1\uffff"+
             "\1\2\1\uffff\1\2\33\uffff\20\2\1\uffff\2\2\3\uffff\3\2\1\uffff"+
@@ -8808,36 +8808,6 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA56_17 = input.LA(1);
-
-                         
-                        int index56_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred86_EolParserRules()) ) {s = 8;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index56_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA56_15 = input.LA(1);
-
-                         
-                        int index56_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred86_EolParserRules()) ) {s = 8;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index56_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA56_4 = input.LA(1);
 
                          
@@ -8850,6 +8820,36 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
 
                          
                         input.seek(index56_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA56_10 = input.LA(1);
+
+                         
+                        int index56_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred86_EolParserRules()) ) {s = 8;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index56_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA56_3 = input.LA(1);
+
+                         
+                        int index56_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred86_EolParserRules()) ) {s = 8;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index56_3);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
@@ -8868,21 +8868,6 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA56_10 = input.LA(1);
-
-                         
-                        int index56_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred86_EolParserRules()) ) {s = 8;}
-
-                        else if ( (true) ) {s = 2;}
-
-                         
-                        input.seek(index56_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
                         int LA56_12 = input.LA(1);
 
                          
@@ -8897,11 +8882,11 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
                         input.seek(index56_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA56_3 = input.LA(1);
+                    case 5 : 
+                        int LA56_15 = input.LA(1);
 
                          
-                        int index56_3 = input.index();
+                        int index56_15 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred86_EolParserRules()) ) {s = 8;}
@@ -8909,7 +8894,22 @@ public class Epl_EolParserRules extends org.eclipse.epsilon.commons.parse.Epsilo
                         else if ( (true) ) {s = 2;}
 
                          
-                        input.seek(index56_3);
+                        input.seek(index56_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA56_17 = input.LA(1);
+
+                         
+                        int index56_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred86_EolParserRules()) ) {s = 8;}
+
+                        else if ( (true) ) {s = 2;}
+
+                         
+                        input.seek(index56_17);
                         if ( s>=0 ) return s;
                         break;
             }

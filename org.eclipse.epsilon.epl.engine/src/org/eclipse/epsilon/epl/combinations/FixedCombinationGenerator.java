@@ -13,6 +13,15 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	private BigInteger total;
 	protected List<T> list;
 	protected boolean initialised = false;
+	protected ArrayList<CombinationGeneratorListener<T>> listeners = new ArrayList<CombinationGeneratorListener<T>>();
+	
+	public void addListener(CombinationGeneratorListener<T> listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(CombinationGeneratorListener<T> listener) {
+		listeners.remove(listener);
+	}
 	
 	public void initialise() {
 		if (initialised == false) {
@@ -45,6 +54,10 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 				a[i] = i;
 			}
 			remaining = new BigInteger(total.toString());
+			
+			for (CombinationGeneratorListener<T> listener : listeners) {
+				listener.reset();
+			}
 		}
 	}
 
@@ -95,6 +108,11 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 		for (int j : a) {
 			next.add(list.get(j));
 		}
+		
+		for (CombinationGeneratorListener<T> listener : listeners) {
+			listener.generated(next);
+		}
+		
 		return next;
 
 	}

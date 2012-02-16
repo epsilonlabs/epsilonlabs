@@ -1,10 +1,6 @@
-patterns XML {
+pattern Book
+	b1, b2 : L!t_book {
 	
-	pattern Book
-		b : L!t_book {
-		
-		return true;
-		
-	}
+	match: true
 	
 }

@@ -39,7 +39,7 @@ public class EplParserWorkbench {
 		
 		EpsilonParseProblemManager.INSTANCE.reset();
 		
-		Tree tree = parser.eplModule().tree;
+		Tree tree = (Tree) parser.eplModule().getTree();
 		for (ParseProblem problem : EpsilonParseProblemManager.INSTANCE.getParseProblems()) {
 			System.err.println(problem);
 		}

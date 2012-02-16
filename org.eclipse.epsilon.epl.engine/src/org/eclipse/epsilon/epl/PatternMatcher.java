@@ -1,7 +1,9 @@
 package org.eclipse.epsilon.epl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.epsilon.eol.exceptions.EolIllegalReturnException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.Frame;
@@ -13,6 +15,7 @@ import org.eclipse.epsilon.epl.combinations.CombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGeneratorListener;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
+import org.eclipse.epsilon.epl.combinations.FixedCombinationGenerator;
 
 public class PatternMatcher {
 	
@@ -45,7 +48,9 @@ public class PatternMatcher {
 				Component component = null;
 				for (List<Object> values : combination) {
 					component = pattern.getComponents().get(i);
-					frame.put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(values, component)));
+					for (Variable variable : getVariables(values, component)) {
+						frame.put(variable);
+					}
 					i++;
 				}
 				if (component.getGuard() != null) {
@@ -64,26 +69,35 @@ public class PatternMatcher {
 		});
 		
 		List<List<Object>> candidate = generator.getNext();
+		
 		while (candidate != null) {
 			
-			if (pattern.getMatchAst() != null) {
+			boolean matches = true;
 			
-				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
-				
+			frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
+			
+			if (pattern.getMatchAst() != null || pattern.getNoMatchAst() != null || pattern.getDoAst() != null) {
 				int i = 0;
 				for (Component component : pattern.getComponents()) {
-					frame.put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(candidate.get(i), component)));
+					for (Variable variable : getVariables(candidate.get(i), component)) {
+						frame.put(variable);
+					}
 					i++;
 				}
-				
+			}
+			
+			if (pattern.getMatchAst() != null) {
 				Object result = context.getExecutorFactory().executeAST(pattern.getMatchAst(), context);
 				if (result instanceof Boolean) {
-					if ((Boolean)result == true) context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
-					else context.getExecutorFactory().executeAST(pattern.getNoMatchAst(), context);
+					matches = (Boolean) result;
 				}
-				
-				context.getFrameStack().leave(pattern.getAst());
+				else throw new EolIllegalReturnException("Boolean", result, pattern.getMatchAst(), context);
 			}
+			
+			if (matches) context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+			else context.getExecutorFactory().executeAST(pattern.getNoMatchAst(), context);
+			
+			context.getFrameStack().leave(pattern.getAst());
 			
 			candidate = generator.getNext();
 		}
@@ -92,29 +106,32 @@ public class PatternMatcher {
 		
 	}
 	
-	protected Object getVariableValue(List<Object> combination, Component component) {
-		if (combination != null && component.getCardinality().isOne()) {
-			if (combination.size() > 0) return combination.get(0);
-			else return null;
+	protected List<Variable> getVariables(List<Object> combination, Component component) {
+		ArrayList<Variable> variables = new ArrayList<Variable>();
+		int i = 0;
+		for (String name : component.getNames()) {
+			variables.add(Variable.createReadOnlyVariable(name, combination.get(i)));
+			i++;
 		}
-		else {
-			return combination;
-		}
+		return variables;
 	}
 	
 	protected CombinationGenerator<Object> createCombinationGenerator(final Component component, final IEolContext context) throws EolRuntimeException {
-		Cardinality cardinality = component.getCardinality();
-		BoundedCombinationGenerator<Object> combinationGenerator = null;
-		combinationGenerator = new BoundedCombinationGenerator<Object>(component.getInstances(context), cardinality.getLowerBound(), cardinality.getUpperBound(), true);
+		FixedCombinationGenerator<Object> combinationGenerator = null;
+		combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
 		combinationGenerator.addListener(new CombinationGeneratorListener<Object>() {			
 			@Override
 			public void generated(List<Object> next) {
-				context.getFrameStack().put(Variable.createReadOnlyVariable(component.getName(), getVariableValue(next, component)));
+				for (Variable variable : getVariables(next, component)) {
+					context.getFrameStack().put(variable);
+				}
 			}
 			
 			@Override
 			public void reset() {
-				context.getFrameStack().remove(component.getName());
+				for (String variableName : component.getNames()) {
+					context.getFrameStack().remove(variableName);
+				}
 			}
 		});
 		

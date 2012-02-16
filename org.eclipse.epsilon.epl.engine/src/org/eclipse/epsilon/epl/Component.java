@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.epl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -15,21 +16,18 @@ import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class Component extends AbstractModuleElement {
 	
-	protected String name;
+	protected ArrayList<String> names = new ArrayList<String>();
 	protected AST typeAst;
-	protected Cardinality cardinality = new Cardinality(1, 1);
 	protected Domain domain = null;
 	protected Guard guard = null;
 	protected EolModelElementType type = null;
 	
 	public Component(AST ast) {
 		this.ast = ast;
-		this.name = ast.getText();
-		this.typeAst = AstUtil.getChild(ast, EplParser.TYPE);
-		AST cardinalityAst = AstUtil.getChild(ast, EplParser.CARDINALITY);
-		if (cardinalityAst != null) {
-			cardinality = new Cardinality(cardinalityAst);
+		for (AST nameAst : AstUtil.getChildren(ast, EplParser.NAME)) {
+			this.names.add(nameAst.getText());
 		}
+		this.typeAst = AstUtil.getChild(ast, EplParser.TYPE);
 		AST domainAst = AstUtil.getChild(ast, EplParser.DOMAIN);
 		if (domainAst != null) {
 			domain = new Domain(domainAst);
@@ -40,17 +38,13 @@ public class Component extends AbstractModuleElement {
 		}
 	}
 	
-	public String getName() {
-		return name;
+	public List<String> getNames() {
+		return names;
 	}
 	
 	@Override
 	public List getChildren() {
 		return Collections.EMPTY_LIST;
-	}
-	
-	public Cardinality getCardinality() {
-		return cardinality;
 	}
 	
 	public Domain getDomain() {
