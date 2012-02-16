@@ -1,26 +1,29 @@
 package org.eclipse.epsilon.epl;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+
+import org.eclipse.epsilon.eol.execute.context.Variable;
 
 public class PatternMatch {
 	
 	protected Pattern pattern;
-	HashMap<String, Object> properties = new HashMap<String, Object>();
+	protected ArrayList<Variable> components = new ArrayList<Variable>();
 	
 	public PatternMatch(Pattern pattern) {
 		this.pattern = pattern;
 	}
 	
-	public void put(String component, Object value) {
-		properties.put(component, value);
+	public ArrayList<Variable> getComponents() {
+		return components;
 	}
 	
-	public Object get(String component) {
-		return properties.get(component);
-	}
-	
-	public HashMap<String, Object> getProperties() {
-		return properties;
+	public Variable getComponent(String name) {
+		for (Variable component : components) {
+			if (component.getName().equals(name)) {
+				return component;
+			}
+		}
+		return null;
 	}
 	
 	public Pattern getPattern() {

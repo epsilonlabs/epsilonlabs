@@ -22,14 +22,11 @@ public class PatternMatchModel extends Model{
 	protected PatternMatchPropertyGetter propertyGetter = new PatternMatchPropertyGetter();
 	protected PatternMatchPropertySetter propertySetter = new PatternMatchPropertySetter();
 	
-	public void addPattern(String name) {
-		matchMap.put(name, new ArrayList<PatternMatch>());
-	}
-	
 	public void addMatch(PatternMatch match) {
 		String patternName = match.getPattern().getName();
 		List<PatternMatch> matches = matchMap.get(patternName);
 		if (matches == null) matches = new ArrayList<PatternMatch>();
+		matches.add(match);
 		matchMap.put(patternName, matches);
 		this.matches.add(match);
 	}
@@ -70,7 +67,9 @@ public class PatternMatchModel extends Model{
 
 	@Override
 	public String getTypeNameOf(Object instance) {
-		// TODO Auto-generated method stub
+		if (instance instanceof PatternMatch) {
+			return ((PatternMatch) instance).getPattern().getName();
+		}
 		return null;
 	}
 

@@ -1,0 +1,3 @@
+for (p in EPL!P1.all) {
+	p.nodes.size().println();
+}

@@ -20,12 +20,15 @@ import org.eclipse.epsilon.epl.combinations.FixedCombinationGenerator;
 public class PatternMatcher {
 	
 	protected Frame frame = null;
-	protected PatternMatchModel model = new PatternMatchModel();
 	
-	public void match(EplModule module) throws EolRuntimeException {
+	public PatternMatchModel match(EplModule module) throws EolRuntimeException {
+		PatternMatchModel model = new PatternMatchModel();
 		for (Pattern pattern : module.getPatterns()) {
-			match(pattern, module.getContext());
+			for (PatternMatch match : match(pattern, module.getContext())) {
+				model.addMatch(match);
+			}
 		}
+		return model;
 	}
 	
 	public List<PatternMatch> match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
@@ -90,6 +93,7 @@ public class PatternMatcher {
 			
 			if (pattern.getMatchAst() != null) {
 				Object result = context.getExecutorFactory().executeAST(pattern.getMatchAst(), context);
+				if (result instanceof Return) result = ((Return) result).getValue();
 				if (result instanceof Boolean) {
 					matches = (Boolean) result;
 				}
@@ -149,6 +153,11 @@ public class PatternMatcher {
 	
 	protected PatternMatch createPatternMatch(Pattern pattern, List<List<Object>> combination) {
 		PatternMatch patternMatch = new PatternMatch(pattern);
+		int i = 0;
+		for (Component component : pattern.getComponents()) {
+			patternMatch.getComponents().addAll(getVariables(combination.get(i), component));
+			i++;
+		}
 		return patternMatch;
 	}
 	
