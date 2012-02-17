@@ -50,7 +50,6 @@ public class Domain extends AbstractModuleElement {
 			@Override
 			public void handleException(Exception ex) {
 				ex.printStackTrace();
-				System.exit(1);
 			}
 		});
 		

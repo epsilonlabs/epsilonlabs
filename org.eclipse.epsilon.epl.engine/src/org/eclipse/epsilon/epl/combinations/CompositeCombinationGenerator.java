@@ -11,6 +11,38 @@ public class CompositeCombinationGenerator<T> {
 	protected Stack<List<T>> currentStack = new Stack<List<T>>();
 	protected CompositeCombinationValidator<T> validator = null;
 	
+	public static void main(String[] args) {
+		
+		CompositeCombinationGenerator<String> ccg = new CompositeCombinationGenerator<String>();
+		FixedCombinationGenerator<String> f1 = new FixedCombinationGenerator<String>(createList("a", "b"), 1);
+		FixedCombinationGenerator<String> f2 = new FixedCombinationGenerator<String>(createList("a"), 2);
+		ccg.addCombinationGenerator(f1);
+		ccg.addCombinationGenerator(f2);
+		
+		List<List<String>> next = ccg.getNext();
+		ccg.setValidator(new CompositeCombinationValidator<String>() {
+			
+			@Override
+			public boolean isValid(List<List<String>> combination) {
+				System.err.println("Boo");
+				return true;
+			}
+		});
+		
+		while (next != null) {
+			System.out.println(next);
+			next = ccg.getNext();
+		}
+	}
+	
+	public static List<String> createList(String... strings) {
+		ArrayList<String> list = new ArrayList<String>();
+		for (String str : strings) {
+			list.add(str);
+		}
+		return list;
+	}
+	
 	public void setValidator(CompositeCombinationValidator<T> validator) {
 		this.validator = validator;
 	}

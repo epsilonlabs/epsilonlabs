@@ -69,6 +69,7 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	public boolean hasMore() {
 		initialise();
 		if (list.isEmpty()) return false;
+		if (r > list.size()) return false;
 		return remaining.compareTo(BigInteger.ZERO) == 1;
 	}
 
@@ -87,7 +88,8 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 
 	public List<T> getNext() {
 		initialise();
-
+		if (!hasMore()) return null;
+		
 		if (remaining.equals(total)) {
 			remaining = remaining.subtract(BigInteger.ONE);
 		}
