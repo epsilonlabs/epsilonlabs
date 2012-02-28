@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Coveragetests
+Bundle-SymbolicName: org.eclipse.epsilon.coverage.test.unit
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.junit;bundle-version="4.8.2",
+ org.eclipse.epsilon.dependencies;visibility:=reexport,
+ org.eclipse.epsilon.emc.emf,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.erl.engine,
+ org.eclipse.epsilon.coverage.engine,
+ org.easymock_2.4,
+ org.eclipse.epsilon.etl.engine,
+ org.eclipse.epsilon.ecl.engine,
+ org.eclipse.epsilon.coverage.model

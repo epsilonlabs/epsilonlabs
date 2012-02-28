@@ -1,0 +1,32 @@
+@namespace(uri="http://www.eclipse.org/epsilon/coverage", prefix="org.eclipse.epsilon.coverage")
+package EpsilonCoverage;
+
+class CoverageModel {
+   val CoverageStrategy[*] strategies;
+}
+
+class CoverageStrategy {
+   attr CoverageType type;
+   val CoveragePoint[*] points;
+}
+
+class CoveragePoint {
+   attr int line;
+   attr int column;
+   attr int astType;
+   attr int timesExecuted = 0;
+   attr String uri;
+}
+
+class BooleanCoveragePoint extends CoveragePoint {
+   attr boolean trueBranchCovered;
+   attr boolean falseBranchCovered;
+}
+
+enum CoverageType {
+   RULE;
+   STATEMENT;
+   DECISION;
+   CONDITION;
+   OPERATION;
+}

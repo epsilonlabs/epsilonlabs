@@ -1,0 +1,30 @@
+var triangle : Triangle := Triangle.all.first();
+var a = triangle.a;
+var b = triangle.b;
+var c = triangle.c;
+
+var type : String;
+
+if (a > b) {
+	var t = a;
+	a = b;
+	b = t;
+}
+if (a > c) {
+	var t = a;
+	a = c;
+	c = t;
+}
+if (a + b <= c) {
+	type = "Not a triangle";
+} else {
+	type = "Scalene";
+	
+	if (a==b and b==c) {
+		type = "Equilateral";
+	} else if (a == b or b == c) {
+		type = "Isosceles";
+	}	
+}
+
+type.println();

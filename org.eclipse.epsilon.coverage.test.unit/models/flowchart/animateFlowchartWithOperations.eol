@@ -1,0 +1,38 @@
+
+// Get the flowchart
+var flowchart : Flowchart := Flowchart.all.first();
+
+// Grab initial node
+var state : Node = flowchart.nodes.select(n | n.incoming.size() == 0).first();
+		
+// Print name
+state.name.println('-');
+
+// Animate!
+while (state.outgoing.size() > 0) {
+	
+	// Grab the next choice
+	state = state.handle();
+	
+	// Print new node name
+	state.name.println('-');
+}
+
+// End
+'Simulation complete.'.println();
+
+operation Decision handle() : Node {
+	var tran : Transition = System.getUser()
+					.chooseMany(self.name, self.outgoing).first();
+	
+	if (tran.isUndefined()) { // Catches 'cancel'
+		break;
+	} 
+	
+	tran.name.println('---');
+	return tran.target;
+}
+
+operation Action handle() : Node {
+	return self.outgoing.first().target;
+}

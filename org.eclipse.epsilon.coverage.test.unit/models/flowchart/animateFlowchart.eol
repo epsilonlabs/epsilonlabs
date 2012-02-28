@@ -1,0 +1,42 @@
+import 'util.eol';
+
+// Get the flowchart
+var flowchart : Flowchart := Flowchart.all.first();
+
+// Grab initial node
+var state : Node = flowchart.nodes.select(n | n.incoming.size() == 0).first();
+		
+// Print name
+state.name.println('-');
+
+// Animate!
+var runs : Integer = 0;
+while (state.outgoing.size() > 0 and runs < 10) {
+	
+	if (state.isTypeOf(Decision)) {
+		var tran : Transition = state.outgoing.first();
+		
+		if (tran.isUndefined()) { // Catches 'cancel'
+			break;
+		} 
+		
+		tran.name.println('--');
+
+		if (3 > 4 and 5 > 6) {
+			'nope!'.println();
+		}
+
+		state = tran.target;
+	} else if (state.isTypeOf(Action)){
+		state = state.outgoing.first().target;
+	} 
+	
+	// Print new node name
+	state.name.println('-');
+	runs = runs + 1;
+}
+
+// End
+'Simulation complete.'.println();
+
+test();

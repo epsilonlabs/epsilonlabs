@@ -1,0 +1,8 @@
+@namespace(uri="triangle", prefix="")
+package Triangle;
+
+class Triangle {
+   attr int a;
+   attr int b;
+   attr int c;
+}

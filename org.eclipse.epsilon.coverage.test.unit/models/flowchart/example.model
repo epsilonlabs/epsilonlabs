@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<flowchart:Flowchart xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowchart="flowchart" xmi:id="_LkiIkY0VEeCSxMlNY9MvPQ">
+  <nodes xsi:type="flowchart:Action" xmi:id="_NMNRAI0VEeCSxMlNY9MvPQ" name="Alarm goes off" outgoing="_Pr4_gI0VEeCSxMlNY9MvPQ" incoming="_ct8OoI0XEeCSxMlNY9MvPQ _8i7-YI0kEeC-Wr5F5AjkDw"/>
+  <nodes xsi:type="flowchart:Decision" xmi:id="_OYDZEI0VEeCSxMlNY9MvPQ" name="Too tired to get up?" outgoing="_ZvYWUI0YEeC-Wr5F5AjkDw _9hbdYI0YEeC-Wr5F5AjkDw" incoming="_Pr4_gI0VEeCSxMlNY9MvPQ"/>
+  <nodes xsi:type="flowchart:Action" xmi:id="_X6_nkY0YEeC-Wr5F5AjkDw" name="Hit snooze button" outgoing="_ct8OoI0XEeCSxMlNY9MvPQ" incoming="_ZvYWUI0YEeC-Wr5F5AjkDw"/>
+  <nodes xsi:type="flowchart:Action" xmi:id="_Asvi0I0ZEeC-Wr5F5AjkDw" name="Get out of bed" incoming="_9hbdYI0YEeC-Wr5F5AjkDw"/>
+  <nodes xsi:type="flowchart:Action" xmi:id="_4p1l4I0kEeC-Wr5F5AjkDw" name="Go to sleep" outgoing="_8i7-YI0kEeC-Wr5F5AjkDw"/>
+  <transitions xmi:id="_8i7-YI0kEeC-Wr5F5AjkDw" name="sleep2alarm" source="_4p1l4I0kEeC-Wr5F5AjkDw" target="_NMNRAI0VEeCSxMlNY9MvPQ"/>
+  <transitions xmi:id="_ZvYWUI0YEeC-Wr5F5AjkDw" name="Yes" source="_OYDZEI0VEeCSxMlNY9MvPQ" target="_X6_nkY0YEeC-Wr5F5AjkDw"/>
+  <transitions xmi:id="_9hbdYI0YEeC-Wr5F5AjkDw" name="No" source="_OYDZEI0VEeCSxMlNY9MvPQ" target="_Asvi0I0ZEeC-Wr5F5AjkDw"/>
+  <transitions xmi:id="_Pr4_gI0VEeCSxMlNY9MvPQ" name="alarm2tooTire" source="_NMNRAI0VEeCSxMlNY9MvPQ" target="_OYDZEI0VEeCSxMlNY9MvPQ"/>
+  <transitions xmi:id="_ct8OoI0XEeCSxMlNY9MvPQ" name="Snooze2Alarm" source="_X6_nkY0YEeC-Wr5F5AjkDw" target="_NMNRAI0VEeCSxMlNY9MvPQ"/>
+</flowchart:Flowchart>

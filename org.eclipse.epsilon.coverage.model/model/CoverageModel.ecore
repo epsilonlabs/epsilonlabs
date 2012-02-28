@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="EpsilonCoverage"
+    nsURI="http://www.eclipse.org/epsilon/coverage" nsPrefix="org.eclipse.epsilon.coverage">
+  <eClassifiers xsi:type="ecore:EClass" name="CoverageModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="strategies" upperBound="-1"
+        eType="#//CoverageStrategy" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoverageStrategy">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//CoverageType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="points" upperBound="-1"
+        eType="#//CoveragePoint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CoveragePoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="astType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timesExecuted" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanCoveragePoint" eSuperTypes="#//CoveragePoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trueBranchCovered" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="falseBranchCovered" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CoverageType">
+    <eLiterals name="RULE"/>
+    <eLiterals name="STATEMENT" value="1"/>
+    <eLiterals name="DECISION" value="2"/>
+    <eLiterals name="CONDITION" value="3"/>
+    <eLiterals name="OPERATION" value="4"/>
+  </eClassifiers>
+</ecore:EPackage>

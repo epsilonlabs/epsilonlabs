@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.epsilon.coverage.model/src"
+    modelPluginID="org.eclipse.epsilon.coverage.model" modelName="EpsilonCoverage"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>CoverageModel.ecore</foreignModel>
+  <genPackages prefix="EpsilonCoverage" disposableProviderFactory="true" ecorePackage="CoverageModel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="CoverageModel.ecore#//CoverageType">
+      <genEnumLiterals ecoreEnumLiteral="CoverageModel.ecore#//CoverageType/RULE"/>
+      <genEnumLiterals ecoreEnumLiteral="CoverageModel.ecore#//CoverageType/STATEMENT"/>
+      <genEnumLiterals ecoreEnumLiteral="CoverageModel.ecore#//CoverageType/DECISION"/>
+      <genEnumLiterals ecoreEnumLiteral="CoverageModel.ecore#//CoverageType/CONDITION"/>
+      <genEnumLiterals ecoreEnumLiteral="CoverageModel.ecore#//CoverageType/OPERATION"/>
+    </genEnums>
+    <genClasses ecoreClass="CoverageModel.ecore#//CoverageModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CoverageModel.ecore#//CoverageModel/strategies"/>
+    </genClasses>
+    <genClasses ecoreClass="CoverageModel.ecore#//CoverageStrategy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoverageStrategy/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CoverageModel.ecore#//CoverageStrategy/points"/>
+    </genClasses>
+    <genClasses ecoreClass="CoverageModel.ecore#//CoveragePoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoveragePoint/line"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoveragePoint/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoveragePoint/astType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoveragePoint/timesExecuted"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//CoveragePoint/uri"/>
+    </genClasses>
+    <genClasses ecoreClass="CoverageModel.ecore#//BooleanCoveragePoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//BooleanCoveragePoint/trueBranchCovered"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CoverageModel.ecore#//BooleanCoveragePoint/falseBranchCovered"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
