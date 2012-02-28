@@ -5,15 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.epsilon.commons.parse.AST;
-import org.eclipse.epsilon.coverage.strategies.BooleanExpressionCoverageStrategy;
-import org.eclipse.epsilon.coverage.strategies.DecisionPoint;
 import org.eclipse.epsilon.eol.parse.EolParser;
+
+import EpsilonCoverage.BooleanCoveragePoint;
+import EpsilonCoverage.CoverageType;
+import EpsilonCoverage.EpsilonCoverageFactory;
 
 
 public class ConditionCoverageStrategy extends BooleanExpressionCoverageStrategy {
 
 	public ConditionCoverageStrategy() {
 		super(Arrays.asList(EolParser.OPERATOR, EolParser.POINT));
+		strategyModel.setType(CoverageType.CONDITION);
 	}
 	
 	private List<Integer> astConditionAncestors = new ArrayList<Integer>(Arrays.asList(EolParser.IF, EolParser.CASE, EolParser.ELSE));
@@ -35,28 +38,14 @@ public class ConditionCoverageStrategy extends BooleanExpressionCoverageStrategy
 			if (holder != null) {
 				AST firstChild = holder.getFirstChild();
 				if (ast == firstChild || firstChild.getChildren().contains(ast)){
-					coveragePoints.add(new DecisionPoint(ast.getLine(), ast.getColumn(), ast.getType()));
+					BooleanCoveragePoint point = EpsilonCoverageFactory.eINSTANCE.createBooleanCoveragePoint();
+					point.setAstType(ast.getType());
+					point.setColumn(ast.getColumn());
+					point.setLine(ast.getLine());
+					point.setUri(ast.getUri().getPath());
+					strategyModel.getPoints().add(point);
 				}
 			}
 		}
 	}
-	
-
-	@Override
-	protected String getStrategyName() {
-		return "Condition";
-	}
-
-	public boolean isChildOfOneOfTheseAncestors(List<Integer> ancestors, AST child) {
-		
-		while (child != null) {
-			if (ancestors.contains(child.getType())) {
-				return true;
-			}
-			child = child.getParent();
-		}
-		
-		return false;
-	}
-	
 }

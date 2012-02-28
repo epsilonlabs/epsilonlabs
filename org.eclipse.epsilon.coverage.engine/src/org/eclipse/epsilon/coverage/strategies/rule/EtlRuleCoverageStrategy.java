@@ -2,7 +2,6 @@ package org.eclipse.epsilon.coverage.strategies.rule;
 
 import java.util.Arrays;
 
-import org.eclipse.epsilon.coverage.strategies.RuleCoverageStrategy;
 import org.eclipse.epsilon.etl.parse.EtlParser;
 
 public class EtlRuleCoverageStrategy extends RuleCoverageStrategy {

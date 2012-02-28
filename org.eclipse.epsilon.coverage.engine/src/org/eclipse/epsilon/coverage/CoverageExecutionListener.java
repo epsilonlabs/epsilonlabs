@@ -5,20 +5,28 @@ import java.util.List;
 
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.coverage.strategies.ICoverageStrategy;
+import org.eclipse.epsilon.eol.EolOperation;
+import org.eclipse.epsilon.eol.IEolExecutableModule;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.control.IExecutionListener;
+
+import EpsilonCoverage.CoverageModel;
+import EpsilonCoverage.EpsilonCoverageFactory;
 
 public class CoverageExecutionListener implements IExecutionListener {
 	
 	protected boolean astAnalysed = false;
 	protected List<ICoverageStrategy> coverageStrategies;
+	protected CoverageModel coverageModel;
 	
 	public CoverageExecutionListener() {
 		coverageStrategies = new ArrayList<ICoverageStrategy>();
+		coverageModel = EpsilonCoverageFactory.eINSTANCE.createCoverageModel();
 	}
 	
 	public void addCoverageStrategy(ICoverageStrategy strategy) {
 		this.coverageStrategies.add(strategy);
+		coverageModel.getStrategies().add(strategy.getModel());
 	}
 
 	@Override
@@ -35,6 +43,13 @@ public class CoverageExecutionListener implements IExecutionListener {
 				}
 			}
 			analyseAST(top);
+			
+			// Analyse any imported modules
+			if (context.getModule() instanceof IEolExecutableModule) {
+				for (EolOperation o : ((IEolExecutableModule)context.getModule()).getOperations()) {
+					analyseAST(o.getAst());
+				}
+			}
 			astAnalysed = true;
 		}
 		
@@ -62,6 +77,10 @@ public class CoverageExecutionListener implements IExecutionListener {
 	
 	public List<ICoverageStrategy> getCoverageStrategies() {
 		return coverageStrategies;
+	}
+	
+	public CoverageModel getCoverageModel() {
+		return coverageModel;
 	}
 	
 	public void reset() {

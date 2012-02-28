@@ -14,11 +14,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.epsilon.egl.engine,
  org.eclipse.epsilon.evl.engine,
  org.eclipse.epsilon.ewl.engine,
- org.eclipse.epsilon.flock.engine
+ org.eclipse.epsilon.flock.engine,
+ org.eclipse.epsilon.coverage.model
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.epsilon.coverage,
  org.eclipse.epsilon.coverage.strategies,
  org.eclipse.epsilon.coverage.strategies.booleanexp,
- org.eclipse.epsilon.coverage.strategies.rule
+ org.eclipse.epsilon.coverage.strategies.rule,
+ org.eclipse.epsilon.coverage.strategies.statement

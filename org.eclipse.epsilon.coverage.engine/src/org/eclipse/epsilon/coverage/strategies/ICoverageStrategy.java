@@ -1,8 +1,8 @@
 package org.eclipse.epsilon.coverage.strategies;
 
-import java.util.List;
-
 import org.eclipse.epsilon.commons.parse.AST;
+
+import EpsilonCoverage.CoverageStrategy;
 
 public interface ICoverageStrategy {
 
@@ -28,22 +28,22 @@ public interface ICoverageStrategy {
 	/**
 	 * @return The coverage model.
 	 */
-	public List<CoveragePoint> getModel();
+	public CoverageStrategy getModel();
 	
 	/**
 	 * @return A summary outlining how much of the model was covered during execution.
 	 */
-	public String getSummary();
+	//public String getSummary();
 	
 	/**
 	 * @return A detailed description of how much of the model was covered during execution.
 	 */
-	public String getDetail();
+	//public String getDetail();
 	
 	/**
 	 * @return A score based on the amount of the model that was covered during execution.
 	 */
-	public double getPercentageCovered();
+	//public double getPercentageCovered();
 
 	/**
 	 * Unsets the covered flag on all coverage points. Does not destroy the model.

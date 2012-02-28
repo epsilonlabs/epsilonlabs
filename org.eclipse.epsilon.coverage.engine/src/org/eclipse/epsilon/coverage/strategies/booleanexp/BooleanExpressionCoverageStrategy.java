@@ -1,11 +1,14 @@
-package org.eclipse.epsilon.coverage.strategies;
+package org.eclipse.epsilon.coverage.strategies.booleanexp;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.epsilon.commons.parse.AST;
+import org.eclipse.epsilon.coverage.strategies.AbstractCoverageStrategy;
+
+import EpsilonCoverage.BooleanCoveragePoint;
+import EpsilonCoverage.EpsilonCoverageFactory;
 
 
 public abstract class BooleanExpressionCoverageStrategy extends AbstractCoverageStrategy {
@@ -28,7 +31,13 @@ public abstract class BooleanExpressionCoverageStrategy extends AbstractCoverage
 	public void buildModel(AST ast) {
 		if (astTypesOfInterest.contains(ast.getType())) {
 			System.out.println(ast);
-			coveragePoints.add(new DecisionPoint(ast.getLine(), ast.getColumn(), ast.getType()));
+			
+			BooleanCoveragePoint point = EpsilonCoverageFactory.eINSTANCE.createBooleanCoveragePoint();
+			point.setAstType(ast.getType());
+			point.setColumn(ast.getColumn());
+			point.setLine(ast.getLine());
+			point.setUri(ast.getUri().getPath());
+			strategyModel.getPoints().add(point);
 		}
 	}
 	
@@ -43,25 +52,20 @@ public abstract class BooleanExpressionCoverageStrategy extends AbstractCoverage
 	public void finishCovering(AST ast, Object result) {
 		if (astsToMonitor.contains(ast)) {
 			
-			Iterator<CoveragePoint> iterator = coveragePoints.iterator();
+			Iterator<EpsilonCoverage.CoveragePoint> iterator = strategyModel.getPoints().iterator();
 			while (iterator.hasNext()) {
-				DecisionPoint dPoint = (DecisionPoint)iterator.next();
-//				System.out.println(ast + " = " + dPoint);
-				if (dPoint.line == ast.getLine() && dPoint.column == ast.getColumn() && dPoint.astType == ast.getType()) {
+				BooleanCoveragePoint dPoint = (BooleanCoveragePoint)iterator.next();
+				if (dPoint.getLine() == ast.getLine() && dPoint.getColumn() == ast.getColumn() && dPoint.getAstType() == ast.getType() && dPoint.getUri().equals(ast.getUri().getPath())) {
 					if (result instanceof Boolean) {
-//						System.out.println(result + ", " + dPoint);
 						if ((Boolean) result) {
-							dPoint.coveredTrueBranch = true;
+							dPoint.setTrueBranchCovered(true);
 						} else {
-							dPoint.coveredFalseBranch = true;						
+							dPoint.setFalseBranchCovered(true);						
 						}
-						
-						if (dPoint.coveredFalseBranch && dPoint.coveredTrueBranch) {
-							dPoint.covered = true;
-						}
+						dPoint.setTimesExecuted(dPoint.getTimesExecuted()+1);
 					} else {
 						// Result isn't a boolean (coming from a POINT AST), so let's remove it from the list
-						coveragePoints.remove(dPoint);
+						strategyModel.getPoints().remove(dPoint);
 					}
 					
 					break;
@@ -73,28 +77,11 @@ public abstract class BooleanExpressionCoverageStrategy extends AbstractCoverage
 
 	public int getNumberOfPointsPartiallyCovered() {
 		int numTrue = 0;
-		for (CoveragePoint c : coveragePoints) {
-			if (((DecisionPoint)c).coveredFalseBranch && !((DecisionPoint)c).coveredTrueBranch)  numTrue++;
-			if (((DecisionPoint)c).coveredTrueBranch && !((DecisionPoint)c).coveredFalseBranch)  numTrue++;
+		for (EpsilonCoverage.CoveragePoint c : strategyModel.getPoints()) {
+			if (((BooleanCoveragePoint)c).isFalseBranchCovered() && !((BooleanCoveragePoint)c).isTrueBranchCovered())  numTrue++;
+			if (((BooleanCoveragePoint)c).isTrueBranchCovered() && !((BooleanCoveragePoint)c).isFalseBranchCovered())  numTrue++;
 		}
 		return numTrue;
 	}
 	
-	@Override
-	public String getSummary() {
-		DecimalFormat df = new DecimalFormat("#.##");
-		
-		for (CoveragePoint c : coveragePoints) {
-			System.out.println(c);
-		}
-		
-		return getStrategyName() + " coverage = " + df.format(getPercentageCovered()) +"% : " 
-				+ getNumberOfPointsCovered() + "/" + coveragePoints.size() 
-				+ " (" + getNumberOfPointsPartiallyCovered() + "/" + coveragePoints.size() + ")";
-	}
-
-	@Override
-	protected String getStrategyName() {
-		return "Condition";
-	}
 }

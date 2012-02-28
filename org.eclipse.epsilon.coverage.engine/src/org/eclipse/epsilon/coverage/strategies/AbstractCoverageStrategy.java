@@ -1,64 +1,35 @@
 package org.eclipse.epsilon.coverage.strategies;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.epsilon.commons.parse.AST;
+
+import EpsilonCoverage.CoverageStrategy;
+import EpsilonCoverage.EpsilonCoverageFactory;
 
 public abstract class AbstractCoverageStrategy implements ICoverageStrategy {
 	
-	protected List<CoveragePoint> coveragePoints;
+	protected CoverageStrategy strategyModel;
 	
 	public AbstractCoverageStrategy() {
-		coveragePoints = new ArrayList<CoveragePoint>();
+		strategyModel = EpsilonCoverageFactory.eINSTANCE.createCoverageStrategy();
 	}
 	
-	abstract protected String getStrategyName();
-
 	@Override
-	public List<CoveragePoint> getModel() {
-		return coveragePoints;
+	final public CoverageStrategy getModel() {
+		return strategyModel;
 	}
 
-	@Override
-	public String getSummary() {
-		DecimalFormat df = new DecimalFormat("#.##");
-		return getStrategyName() + " coverage = " + df.format(getPercentageCovered()) +"% : " + getNumberOfPointsCovered() + "/" + coveragePoints.size();
-	}
-
-	@Override
-	public String getDetail() {
-		StringBuilder sb = new StringBuilder();
-		
-		for (CoveragePoint c : coveragePoints) {
-			sb.append(c.toString() + "\n");
-		}
-		
-		return sb.toString();
-	}
-	
 	public int getNumberOfPointsCovered() {
-		int numTrue = 0;
-		for (CoveragePoint c : coveragePoints) {
-			if (c.covered) numTrue++;
+		int numCovered = 0;
+		for (EpsilonCoverage.CoveragePoint c : strategyModel.getPoints()) {
+			if (c.getTimesExecuted() > 0) numCovered++;
 		}
-		return numTrue;
-	}
-
-	@Override
-	public double getPercentageCovered() {
-		if (coveragePoints.size() == 0) return 0;
-		return (Double.valueOf(getNumberOfPointsCovered()) / coveragePoints.size()) * 100;
+		return numCovered;
 	}
 
 	@Override
 	public void finishCovering(AST ast, Object result) { }	
 
 	public void reset(){
-//		for (CoveragePoint c : coveragePoints) {
-//			c.reset();
-//		}
-		coveragePoints.clear(); // TODO
+		strategyModel.getPoints().clear();
 	}
 }
