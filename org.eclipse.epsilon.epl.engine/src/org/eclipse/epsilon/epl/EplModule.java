@@ -117,7 +117,12 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	@Override
 	public Object execute() throws EolRuntimeException {
 		this.getContext().setModule(this);
-		new PatternMatcher().match(this);
+		try {
+			new PatternMatcher().match(this);
+		}
+		catch (Exception ex) {
+			EolRuntimeException.propagate(ex);
+		}
 		return null;
 	}
 	

@@ -20,7 +20,7 @@ public class PatternMatcher {
 	
 	protected Frame frame = null;
 	
-	public PatternMatchModel match(EplModule module) throws EolRuntimeException {
+	public PatternMatchModel match(EplModule module) throws Exception {
 		PatternMatchModel model = new PatternMatchModel();
 		for (Pattern pattern : module.getPatterns()) {
 			for (PatternMatch match : match(pattern, module.getContext())) {
@@ -30,7 +30,7 @@ public class PatternMatcher {
 		return model;
 	}
 	
-	public List<PatternMatch> match(final Pattern pattern, final IEolContext context) throws EolRuntimeException {
+	public List<PatternMatch> match(final Pattern pattern, final IEolContext context) throws Exception {
 		
 		List<PatternMatch> patternMatches = new ArrayList<PatternMatch>();
 		
@@ -45,7 +45,7 @@ public class PatternMatcher {
 		generator.setValidator(new CompositeCombinationValidator<Object>() {
 			
 			@Override
-			public boolean isValid(List<List<Object>> combination) {
+			public boolean isValid(List<List<Object>> combination) throws Exception {
 				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 				boolean result = true;
 				int i = 0;
@@ -59,13 +59,8 @@ public class PatternMatcher {
 				}
 				if (component.getGuard() != null) {
 					Return ret = null;
-					try {
-						ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(component.getGuard().getAst().getFirstChild(), context);
-						if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
-					} catch (EolRuntimeException e) {
-						e.printStackTrace();
-						result = false;
-					}
+					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(component.getGuard().getAst().getFirstChild(), context);
+					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
 				}
 				context.getFrameStack().leave(pattern.getAst());
 				return result;
@@ -129,6 +124,7 @@ public class PatternMatcher {
 	
 	protected CombinationGenerator<Object> createCombinationGenerator(final Component component, final IEolContext context) throws EolRuntimeException {
 		DynamicListCombinationGenerator<Object> combinationGenerator = null;
+		
 		combinationGenerator = new DynamicListCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
 		//FixedCombinationGenerator<Object> combinationGenerator = null;
 		//combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());

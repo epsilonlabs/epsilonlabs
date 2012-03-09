@@ -67,7 +67,7 @@ public class Component extends AbstractModuleElement {
 	public List getInstances(IEolContext context) throws EolRuntimeException {
 		
 		if (domain != null) {
-			return domain.getValues(context);
+			return domain.getValues(context, typeAst.getText());
 		}
 		else {
 			if (type == null) {

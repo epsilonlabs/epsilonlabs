@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface CombinationGenerator<T> {
 	
-	public boolean hasMore();
+	public boolean hasMore() throws Exception;
 	
-	public List<T> getNext();
+	public List<T> getNext() throws Exception;
 	
 	public void reset();
 }

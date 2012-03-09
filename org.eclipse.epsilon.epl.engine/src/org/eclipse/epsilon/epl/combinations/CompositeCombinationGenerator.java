@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-import org.w3c.dom.Element;
 
 public class CompositeCombinationGenerator<T> implements CombinationGenerator<List<T>> {
 	
@@ -17,18 +16,17 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 	protected List<List<T>> UNKNOWN = new LinkedList<List<T>>();
 	protected List<List<T>> lookahead = UNKNOWN;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		CompositeCombinationGenerator<String> ccg = new CompositeCombinationGenerator<String>();
-		CompositeCombinationGenerator<String> ccg1 = new CompositeCombinationGenerator<String>();
 		
 //		NCombinationGenerator<String> f1 = new NCombinationGenerator<String>(createList("a1", "a2", "a3", "a4"), 2);
 		DynamicListCombinationGenerator<String> f1 = new DynamicListCombinationGenerator<String>(createList("a", "b"), 1);
-		DynamicListCombinationGenerator<String> f2 = new DynamicListCombinationGenerator<String>(createList("c", "d"), 1);
-		DynamicListCombinationGenerator<String> f3 = new DynamicListCombinationGenerator<String>(createList("e", "f"), 1);
-		ccg1.addCombinationGenerator(f1);
-		ccg1.addCombinationGenerator(f2);
-		ccg.addCombinationGenerator(f3);
+		DynamicListCombinationGenerator<String> f2 = new DynamicListCombinationGenerator<String>(createList(), 1);
+		//DynamicListCombinationGenerator<String> f3 = new DynamicListCombinationGenerator<String>(createList("e", "f"), 1);
+		ccg.addCombinationGenerator(f1);
+		ccg.addCombinationGenerator(f2);
+		//ccg.addCombinationGenerator(f3);
 		//ccg.addCombinationGenerator(ccg1);
 		
 		//ccg.setValidator(new CompositeCombinationValidator<String>() {
@@ -73,7 +71,7 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		return removed;
 	}
 	
-	public boolean hasMore() {
+	public boolean hasMore() throws Exception {
 		if (lookahead == UNKNOWN) {
 			lookahead = getNextImpl();
 			while (lookahead == NEXT) {
@@ -84,7 +82,7 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		return lookahead != null;
 	}
 	
-	public List<List<T>> getNext() {
+	public List<List<T>> getNext() throws Exception{
 		if (lookahead != UNKNOWN) {
 			List<List<T>> result = lookahead;
 			lookahead = UNKNOWN;
@@ -98,7 +96,7 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		return next;
 	}
 	
-	protected List<List<T>> getNextImpl() {
+	protected List<List<T>> getNextImpl() throws Exception {
 		
 		while (!getCurrentGenerator().hasMore()) {
 			if (isFirstGenerator()) {
@@ -139,7 +137,7 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		}
 	}
 	
-	protected boolean isValidCombination() {
+	protected boolean isValidCombination() throws Exception {
 		
 		for (List<T> t : currentStack) {
 			if (t == null) return false;
