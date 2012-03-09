@@ -14,21 +14,24 @@ public class CompositeCombinationGenerator<T> {
 	public static void main(String[] args) {
 		
 		CompositeCombinationGenerator<String> ccg = new CompositeCombinationGenerator<String>();
-		FixedCombinationGenerator<String> f1 = new FixedCombinationGenerator<String>(createList("a", "b"), 1);
-		FixedCombinationGenerator<String> f2 = new FixedCombinationGenerator<String>(createList("a"), 2);
-		ccg.addCombinationGenerator(f1);
-		ccg.addCombinationGenerator(f2);
+//		NCombinationGenerator<String> f1 = new NCombinationGenerator<String>(createList("a1", "a2", "a3", "a4"), 2);
+		//FixedCombinationGenerator<String> f2 = new FixedCombinationGenerator<String>(createList("c", "d"), 2);
+		//FixedCombinationGenerator<String> f3 = new FixedCombinationGenerator<String>(createList("e"), 1);
+		//ccg.addCombinationGenerator(f1);
+		//ccg.addCombinationGenerator(f2);
+		//ccg.addCombinationGenerator(f3);
+		
+		
+		//ccg.setValidator(new CompositeCombinationValidator<String>() {
+			
+		//	@Override
+		//	public boolean isValid(List<List<String>> combination) {
+		//		System.err.println("Checked " + combination);
+		///		return combination.size() < 3;
+		//	}
+		//});
 		
 		List<List<String>> next = ccg.getNext();
-		ccg.setValidator(new CompositeCombinationValidator<String>() {
-			
-			@Override
-			public boolean isValid(List<List<String>> combination) {
-				System.err.println("Boo");
-				return true;
-			}
-		});
-		
 		while (next != null) {
 			System.out.println(next);
 			next = ccg.getNext();
@@ -58,9 +61,22 @@ public class CompositeCombinationGenerator<T> {
 		return removed;
 	}
 	
+	List<List<T>> NEXT = new ArrayList<List<T>>();
+	
 	public List<List<T>> getNext() {
+		List<List<T>> next = getNext2();
+		while (next == NEXT) {
+			next = getNext2();
+		}
+		return next;
+	}
+	
+	public List<List<T>> getNext2() {
+		
 		while (!getCurrentGenerator().hasMore()) {
-			if (isFirstGenerator()) return null;
+			if (isFirstGenerator()) {
+				return null;
+			}
 			else {
 				currentStack.pop();
 				getCurrentGenerator().reset();
@@ -80,10 +96,11 @@ public class CompositeCombinationGenerator<T> {
 		}
 		 
 		if (validCombination) {
+			//System.err.println(currentStack);
 			return currentStack;
 		}
 		else {
-			return getNext();
+			return NEXT;
 		}
 	}
 	
@@ -126,6 +143,8 @@ public class CompositeCombinationGenerator<T> {
 	
 	protected void setCurrentGenerator(CombinationGenerator<T> g) {
 		currentGeneratorIndex = generators.indexOf(g);
+		//System.err.println("Switching to generator " + currentGeneratorIndex);
+		//new Exception().printStackTrace();
 	}
 	
 	protected boolean isFirstGenerator() {

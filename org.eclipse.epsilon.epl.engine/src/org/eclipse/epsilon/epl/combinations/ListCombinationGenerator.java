@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
+public class ListCombinationGenerator<T> implements CombinationGenerator<T> {
 
 	private int[] a;
 	private int n;
@@ -13,15 +13,6 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 	private BigInteger total;
 	protected List<T> list;
 	protected boolean initialised = false;
-	protected ArrayList<CombinationGeneratorListener<T>> listeners = new ArrayList<CombinationGeneratorListener<T>>();
-	
-	public void addListener(CombinationGeneratorListener<T> listener) {
-		listeners.add(listener);
-	}
-	
-	public void removeListener(CombinationGeneratorListener<T> listener) {
-		listeners.remove(listener);
-	}
 	
 	public void initialise() {
 		if (initialised == false) {
@@ -43,7 +34,7 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 		}
 	}
 	
-	public FixedCombinationGenerator(List<T> list, int r) {
+	public ListCombinationGenerator(List<T> list, int r) {
 		this.r = r;
 		this.list = list;
 	}
@@ -54,10 +45,6 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 				a[i] = i;
 			}
 			remaining = new BigInteger(total.toString());
-			
-			for (CombinationGeneratorListener<T> listener : listeners) {
-				listener.reset();
-			}
 		}
 	}
 
@@ -109,10 +96,6 @@ public class FixedCombinationGenerator<T> implements CombinationGenerator<T> {
 		List<T> next = new ArrayList<T>();
 		for (int j : a) {
 			next.add(list.get(j));
-		}
-		
-		for (CombinationGeneratorListener<T> listener : listeners) {
-			listener.generated(next);
 		}
 		
 		return next;

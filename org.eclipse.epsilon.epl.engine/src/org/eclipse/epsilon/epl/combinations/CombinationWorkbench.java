@@ -14,9 +14,9 @@ public class CombinationWorkbench {
 		}
 		
 		CompositeCombinationGenerator<Integer> g = new CompositeCombinationGenerator<Integer>();
-		g.addCombinationGenerator(new BoundedCombinationGenerator<Integer>(list, BoundedCombinationGenerator.UNBOUNDED));
+		//g.addCombinationGenerator(new BoundedCombinationGenerator<Integer>(list, BoundedCombinationGenerator.UNBOUNDED));
 		g.addCombinationGenerator(new SingleCombinationGenerator<Integer>(3));
-		g.addCombinationGenerator(new FixedCombinationGenerator<Integer>(list, 1));
+		g.addCombinationGenerator(new ListCombinationGenerator<Integer>(list, 1));
 		g.setValidator(new CompositeCombinationValidator<Integer>() {
 			
 			@Override

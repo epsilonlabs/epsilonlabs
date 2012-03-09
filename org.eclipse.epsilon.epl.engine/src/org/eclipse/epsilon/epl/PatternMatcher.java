@@ -10,12 +10,12 @@ import org.eclipse.epsilon.eol.execute.context.Frame;
 import org.eclipse.epsilon.eol.execute.context.FrameType;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
-import org.eclipse.epsilon.epl.combinations.BoundedCombinationGenerator;
+import org.eclipse.epsilon.epl.combinations.DynamicListCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGeneratorListener;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
-import org.eclipse.epsilon.epl.combinations.FixedCombinationGenerator;
+import org.eclipse.epsilon.epl.combinations.ListCombinationGenerator;
 
 public class PatternMatcher {
 	
@@ -130,11 +130,15 @@ public class PatternMatcher {
 	}
 	
 	protected CombinationGenerator<Object> createCombinationGenerator(final Component component, final IEolContext context) throws EolRuntimeException {
-		FixedCombinationGenerator<Object> combinationGenerator = null;
-		combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
+		DynamicListCombinationGenerator<Object> combinationGenerator = null;
+		combinationGenerator = new DynamicListCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
+		//FixedCombinationGenerator<Object> combinationGenerator = null;
+		//combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
+		
 		combinationGenerator.addListener(new CombinationGeneratorListener<Object>() {			
 			@Override
 			public void generated(List<Object> next) {
+				if (next != null)
 				for (Variable variable : getVariables(next, component)) {
 					context.getFrameStack().put(variable);
 				}
