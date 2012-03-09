@@ -1,26 +1,35 @@
 package org.eclipse.epsilon.epl.combinations;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public class CompositeCombinationGenerator<T> {
+import org.w3c.dom.Element;
+
+public class CompositeCombinationGenerator<T> implements CombinationGenerator<List<T>> {
 	
 	protected ArrayList<CombinationGenerator<T>> generators = new ArrayList<CombinationGenerator<T>>();
 	protected int currentGeneratorIndex = 0;
 	protected Stack<List<T>> currentStack = new Stack<List<T>>();
 	protected CompositeCombinationValidator<T> validator = null;
+	protected List<List<T>> NEXT = new ArrayList<List<T>>();
+	protected List<List<T>> UNKNOWN = new LinkedList<List<T>>();
+	protected List<List<T>> lookahead = UNKNOWN;
 	
 	public static void main(String[] args) {
 		
 		CompositeCombinationGenerator<String> ccg = new CompositeCombinationGenerator<String>();
-//		NCombinationGenerator<String> f1 = new NCombinationGenerator<String>(createList("a1", "a2", "a3", "a4"), 2);
-		//FixedCombinationGenerator<String> f2 = new FixedCombinationGenerator<String>(createList("c", "d"), 2);
-		//FixedCombinationGenerator<String> f3 = new FixedCombinationGenerator<String>(createList("e"), 1);
-		//ccg.addCombinationGenerator(f1);
-		//ccg.addCombinationGenerator(f2);
-		//ccg.addCombinationGenerator(f3);
+		CompositeCombinationGenerator<String> ccg1 = new CompositeCombinationGenerator<String>();
 		
+//		NCombinationGenerator<String> f1 = new NCombinationGenerator<String>(createList("a1", "a2", "a3", "a4"), 2);
+		DynamicListCombinationGenerator<String> f1 = new DynamicListCombinationGenerator<String>(createList("a", "b"), 1);
+		DynamicListCombinationGenerator<String> f2 = new DynamicListCombinationGenerator<String>(createList("c", "d"), 1);
+		DynamicListCombinationGenerator<String> f3 = new DynamicListCombinationGenerator<String>(createList("e", "f"), 1);
+		ccg1.addCombinationGenerator(f1);
+		ccg1.addCombinationGenerator(f2);
+		ccg.addCombinationGenerator(f3);
+		//ccg.addCombinationGenerator(ccg1);
 		
 		//ccg.setValidator(new CompositeCombinationValidator<String>() {
 			
@@ -31,10 +40,9 @@ public class CompositeCombinationGenerator<T> {
 		//	}
 		//});
 		
-		List<List<String>> next = ccg.getNext();
-		while (next != null) {
-			System.out.println(next);
-			next = ccg.getNext();
+		
+		while (ccg.hasMore()) {
+			System.err.println(ccg.getNext());
 		}
 	}
 	
@@ -61,17 +69,32 @@ public class CompositeCombinationGenerator<T> {
 		return removed;
 	}
 	
-	List<List<T>> NEXT = new ArrayList<List<T>>();
+	public boolean hasMore() {
+		if (lookahead == UNKNOWN) {
+			lookahead = getNextImpl();
+			while (lookahead == NEXT) {
+				lookahead = getNextImpl();
+			}
+		}
+		
+		return lookahead != null;
+	}
 	
 	public List<List<T>> getNext() {
-		List<List<T>> next = getNext2();
-		while (next == NEXT) {
-			next = getNext2();
+		if (lookahead != UNKNOWN) {
+			List<List<T>> result = lookahead;
+			lookahead = UNKNOWN;
+			return result;
 		}
+		List<List<T>> next = getNextImpl();
+		while (next == NEXT) {
+			next = getNextImpl();
+		}
+
 		return next;
 	}
 	
-	public List<List<T>> getNext2() {
+	protected List<List<T>> getNextImpl() {
 		
 		while (!getCurrentGenerator().hasMore()) {
 			if (isFirstGenerator()) {
@@ -96,7 +119,6 @@ public class CompositeCombinationGenerator<T> {
 		}
 		 
 		if (validCombination) {
-			//System.err.println(currentStack);
 			return currentStack;
 		}
 		else {
@@ -143,8 +165,6 @@ public class CompositeCombinationGenerator<T> {
 	
 	protected void setCurrentGenerator(CombinationGenerator<T> g) {
 		currentGeneratorIndex = generators.indexOf(g);
-		//System.err.println("Switching to generator " + currentGeneratorIndex);
-		//new Exception().printStackTrace();
 	}
 	
 	protected boolean isFirstGenerator() {

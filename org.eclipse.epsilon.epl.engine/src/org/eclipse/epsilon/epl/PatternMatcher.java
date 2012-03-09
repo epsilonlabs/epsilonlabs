@@ -15,7 +15,6 @@ import org.eclipse.epsilon.epl.combinations.CombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CombinationGeneratorListener;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationGenerator;
 import org.eclipse.epsilon.epl.combinations.CompositeCombinationValidator;
-import org.eclipse.epsilon.epl.combinations.ListCombinationGenerator;
 
 public class PatternMatcher {
 	
@@ -73,10 +72,10 @@ public class PatternMatcher {
 			}
 		});
 		
-		List<List<Object>> candidate = generator.getNext();
-		
-		while (candidate != null) {
+		while (generator.hasMore()) {
 			
+			List<List<Object>> candidate = generator.getNext();
+		
 			boolean matches = true;
 			
 			frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
@@ -108,7 +107,6 @@ public class PatternMatcher {
 			
 			context.getFrameStack().leave(pattern.getAst());
 			
-			candidate = generator.getNext();
 		}
 		
 		context.getFrameStack().leave(pattern.getAst());
