@@ -54,6 +54,10 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		return list;
 	}
 	
+	public CompositeCombinationValidator<T> getValidator() {
+		return validator;
+	}
+	
 	public void setValidator(CompositeCombinationValidator<T> validator) {
 		this.validator = validator;
 	}
