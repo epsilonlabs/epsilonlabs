@@ -10,6 +10,7 @@ import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
+import org.eclipse.epsilon.eol.models.IModel;
 import org.eclipse.epsilon.eol.types.EolOrderedSet;
 import org.eclipse.epsilon.epl.combinations.DynamicList;
 import org.eclipse.epsilon.epl.combinations.ExceptionHandler;
@@ -45,7 +46,8 @@ public class Domain extends AbstractModuleElement {
 				
 				ArrayList filtered = new ArrayList();
 				for (Object o : (Collection) result) {
-					if (context.getModelRepository().getOwningModel(o).isOfType(o, type)) {
+					IModel owningModel = context.getModelRepository().getOwningModel(o);
+					if (owningModel!=null && owningModel.isOfType(o, type)) {
 						filtered.add(o);
 					}
 				}
