@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Ldo
+Bundle-SymbolicName: org.eclipse.epsilon.emc.ldo
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.emc.ldo.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.epsilon.emc.emf,
+ org.eclipse.epsilon.eol.engine,
+ org.h2_1.1.117;bundle-version="1.1.117"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

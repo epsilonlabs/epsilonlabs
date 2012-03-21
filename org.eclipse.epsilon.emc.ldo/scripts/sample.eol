@@ -1,0 +1,7 @@
+var c = EClass.all.selectOne(c|c.name="EClass");
+c.name.println();
+for (sf in c.eStructuralFeatures) {
+	var str = sf.name + ":" + sf.eType.name;
+	str = str + " " + "[" + sf.lowerBound + ".." + sf.upperBound + "]";
+	str.println();
+}
