@@ -47,6 +47,7 @@ tokens {
 	NOMATCH;
 	DO;
 	ALIAS;
+	NO;
 }
 
 @members {
@@ -64,14 +65,11 @@ pattern
 	;
 
 component
-	: NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} alias? domain? guard?
+	: no? NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} domain? guard?
 	{$n.setType(COMPONENT);}
 	;
 
-alias
-	: c='as'^ NAME
-	{$c.setType(ALIAS);}
-	;
+no : n='no' {$n.setType(NO);};
 
 cardinality
 	: c='['^ bound ('..'! bound)? ']'!

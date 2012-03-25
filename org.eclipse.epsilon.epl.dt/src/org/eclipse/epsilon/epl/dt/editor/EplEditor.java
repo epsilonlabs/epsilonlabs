@@ -36,6 +36,7 @@ public class EplEditor extends EolEditor{
 		keywords.add("do");
 		keywords.add("nomatch");
 		keywords.add("from");
+		keywords.add("no");
 
 		keywords.addAll(super.getKeywords());
 		

@@ -26,6 +26,10 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	
 	protected List<Pattern> declaredPatterns = new ArrayList<Pattern>();
 	protected EolContext context;
+	protected boolean repeatWhileMatchesFound = false;
+	protected int maxLoops = INFINITE;
+	
+	public static final int INFINITE = -1;
 	
 	public EplModule() {
 		reset();
@@ -117,13 +121,46 @@ public class EplModule extends EolLibraryModule implements IEolExecutableModule{
 	@Override
 	public Object execute() throws EolRuntimeException {
 		this.getContext().setModule(this);
+		PatternMatcher patternMatcher = new PatternMatcher();
+		PatternMatchModel matchModel = null;
 		try {
-			new PatternMatcher().match(this);
+			int loops = 1;
+			matchModel = patternMatcher.match(this);
+			if (repeatWhileMatchesFound) {
+				
+				while (!matchModel.allContents().isEmpty()) {
+					if (maxLoops != INFINITE) {
+						if (loops == maxLoops) break;
+					}
+					matchModel = patternMatcher.match(this);
+					loops++;
+				}
+			}
+			else {
+				return matchModel;
+			}
 		}
 		catch (Exception ex) {
 			EolRuntimeException.propagate(ex);
 		}
-		return null;
+		// Never gets here. Statement above always throws an exception
+		return matchModel;
+	}
+	
+	public int getMaxLoops() {
+		return maxLoops;
+	}
+	
+	public void setMaxLoops(int maxLoops) {
+		this.maxLoops = maxLoops;
+	}
+	
+	public boolean isRepeatWhileMatches() {
+		return repeatWhileMatchesFound;
+	}
+	
+	public void setRepeatWhileMatches(boolean repeatWhileMatches) {
+		this.repeatWhileMatchesFound = repeatWhileMatches;
 	}
 	
 }

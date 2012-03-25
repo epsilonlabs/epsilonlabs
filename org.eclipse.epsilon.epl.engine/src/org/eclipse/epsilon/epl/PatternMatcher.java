@@ -21,6 +21,7 @@ public class PatternMatcher {
 	protected Frame frame = null;
 	
 	public PatternMatchModel match(EplModule module) throws Exception {
+		frame = null;
 		PatternMatchModel model = new PatternMatchModel();
 		for (Pattern pattern : module.getPatterns()) {
 			for (PatternMatch match : match(pattern, module.getContext())) {
@@ -57,7 +58,7 @@ public class PatternMatcher {
 					}
 					i++;
 				}
-				if (component.getGuard() != null) {
+				if (!component.isNegative() && component.getGuard() != null) {
 					Return ret = null;
 					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(component.getGuard().getAst().getFirstChild(), context);
 					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
@@ -116,9 +117,9 @@ public class PatternMatcher {
 			variables.add(Variable.createReadOnlyVariable(name, combination.get(i)));
 			i++;
 		}
-		if (component.getAlias() != null) {
-			variables.add(Variable.createReadOnlyVariable(component.getAlias(), combination));
-		}
+		//if (component.getAlias() != null) {
+		//	variables.add(Variable.createReadOnlyVariable(component.getAlias(), combination));
+		//}
 		return variables;
 	}
 	

@@ -9,9 +9,13 @@ import org.eclipse.epsilon.commons.module.AbstractModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.util.AstUtil;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
+import org.eclipse.epsilon.eol.execute.Return;
+import org.eclipse.epsilon.eol.execute.context.FrameType;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
+import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
 import org.eclipse.epsilon.eol.types.EolSequence;
+import org.eclipse.epsilon.epl.combinations.DynamicList;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class Component extends AbstractModuleElement {
@@ -21,7 +25,7 @@ public class Component extends AbstractModuleElement {
 	protected Domain domain = null;
 	protected Guard guard = null;
 	protected EolModelElementType type = null;
-	protected String alias = null;
+	protected boolean negative;
 	
 	public Component(AST ast) {
 		this.ast = ast;
@@ -37,14 +41,12 @@ public class Component extends AbstractModuleElement {
 		if (guardAst != null) {
 			guard = new Guard(guardAst);
 		}
-		AST aliasAst = AstUtil.getChild(ast, EplParser.ALIAS);
-		if (aliasAst != null) {
-			alias = aliasAst.getFirstChild().getText();
-		}
+		AST noAST = AstUtil.getChild(ast, EplParser.NO);
+		negative = (noAST != null);
 	}
-	
-	public String getAlias() {
-		return alias;
+
+	public boolean isNegative() {
+		return negative;
 	}
 	
 	public List<String> getNames() {
@@ -64,10 +66,12 @@ public class Component extends AbstractModuleElement {
 		return guard;
 	}
 	
-	public List getInstances(IEolContext context) throws EolRuntimeException {
+	public List getInstances(final IEolContext context) throws EolRuntimeException {
+		
+		List instances = null;
 		
 		if (domain != null) {
-			return domain.getValues(context, typeAst.getText());
+			instances = domain.getValues(context, typeAst.getText());
 		}
 		else {
 			if (type == null) {
@@ -76,14 +80,76 @@ public class Component extends AbstractModuleElement {
 
 			Collection allInstances = type.getAllOfKind();
 			if (allInstances instanceof List) {
-				return (List) allInstances;
+				instances = (List) allInstances;
 			}
 			else {
 				EolSequence sequence = new EolSequence();
 				sequence.addAll(allInstances);
-				return sequence;
+				instances = sequence;
 			}
-			
 		}
+		
+		if (isNegative()) {
+			
+			final List domainValues = instances;
+			
+			DynamicList<Object> negativeDomainValues = new DynamicList<Object>() {
+
+				@Override
+				protected List<Object> getValues() throws Exception {
+					
+					if (getGuard()!=null) {
+						for (Object o : domainValues) {
+							boolean result = true;
+							Return ret = null;
+							context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
+							ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context);
+							context.getFrameStack().leave(getGuard().getAst());
+							if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
+							if (result == true) {
+								return new ArrayList();
+							}
+						}
+					}
+					else {
+						if (domainValues.size() > 0) return new ArrayList();
+					}
+					ArrayList noMatchList = new ArrayList();
+					noMatchList.add(NoMatch.INSTANCE);
+					return noMatchList;
+				}
+				
+				@Override
+				public void reset() {
+					super.reset();
+					if (domainValues instanceof DynamicList<?>) ((DynamicList<?>) domainValues).reset();
+				}
+			};
+			
+			negativeDomainValues.setResetable(getGuard()!=null || ((domainValues instanceof DynamicList<?>) && ((DynamicList<?>) domainValues).isResetable()));
+			
+			return negativeDomainValues;
+			
+			/*
+			if (getGuard()!=null) {
+				for (Object o : instances) {
+					boolean result = true;
+					Return ret = null;
+					context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
+					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context);
+					context.getFrameStack().leave(getGuard().getAst());
+					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
+					if (result == true) return new ArrayList();
+				}
+			}
+			else {
+				if (instances.size() > 0) return new ArrayList();
+			}
+			instances = new ArrayList();
+			instances.add(NoMatch.INSTANCE);*/
+		}
+	
+		return instances;
 	}
+	
 }
