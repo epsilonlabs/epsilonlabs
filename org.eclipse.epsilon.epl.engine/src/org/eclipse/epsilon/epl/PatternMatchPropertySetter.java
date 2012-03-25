@@ -9,12 +9,13 @@ public class PatternMatchPropertySetter extends AbstractPropertySetter {
 
 	@Override
 	public void invoke(Object value) throws EolRuntimeException {
-		PatternMatch match = (PatternMatch) object;
-		Variable component = match.getComponent(property);
-		if (component != null) {
-			component.setValueBruteForce(value);
-		}
-		else throw new EolIllegalPropertyException(object, property, ast, context);
+		//PatternMatch match = (PatternMatch) object;
+		//Variable component = match.getComponent(property);
+		//if (component != null) {
+		//	component.setValueBruteForce(value);
+		//}
+		//else 
+		throw new EolIllegalPropertyException(object, property, ast, context);
 	}
 
 }

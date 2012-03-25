@@ -26,6 +26,7 @@ public class PatternMatcher {
 		
 		IEolContext context = module.getContext();
 		PatternMatchModel model = new PatternMatchModel();
+		model.setPatterns(module.getPatterns());
 		for (Pattern pattern : module.getPatterns()) {
 			for (PatternMatch match : match(pattern, context)) {
 				model.addMatch(match);

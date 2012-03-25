@@ -11,25 +11,63 @@ import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundExce
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
+import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
+import org.eclipse.epsilon.eol.execute.operations.contributors.StringOperationContributor;
 import org.eclipse.epsilon.eol.models.Model;
 
 public class PatternMatchModel extends Model{
 	
 	protected HashMap<String, List<PatternMatch>> matchMap = new HashMap<String, List<PatternMatch>>();
 	protected HashSet<PatternMatch> matches = new HashSet<PatternMatch>();
-	protected PatternMatchPropertyGetter propertyGetter = new PatternMatchPropertyGetter();
+	protected PatternMatchPropertyGetter propertyGetter;
 	protected PatternMatchPropertySetter propertySetter = new PatternMatchPropertySetter();
+	protected HashMap<String, HashSet<Object>> componentMap = new HashMap<String, HashSet<Object>>();
 	
 	public void addMatch(PatternMatch match) {
 		String patternName = match.getPattern().getName();
 		List<PatternMatch> matches = matchMap.get(patternName);
-		if (matches == null) matches = new ArrayList<PatternMatch>();
 		matches.add(match);
 		matchMap.put(patternName, matches);
 		this.matches.add(match);
+		
+		StringOperationContributor stringOps = new StringOperationContributor();
+		for (Variable variable : match.getComponents()) {
+			stringOps.setTarget(variable.getName());
+			HashSet<Object> values = componentMap.get(patternName + stringOps.firstToUpperCase());
+			if (values!=null) values.add(variable.getValue()); 
+		}
 	}
+	
+	protected HashMap<String, HashSet<Object>> getComponentMap() {
+		return componentMap;
+	}
+	
+	public void setPatterns(List<Pattern> patterns) {
+		
+		StringOperationContributor stringOps = new StringOperationContributor();
+		
+		for (Pattern pattern : patterns) {
+			matchMap.put(pattern.getName(), new ArrayList<PatternMatch>());
+			for (Component component : pattern.getComponents()) {
+				if (component.isNegative()) continue;
+				for (String name : component.getNames()) {
+					stringOps.setTarget(name);
+					String componentName = pattern.getName() +
+							stringOps.firstToUpperCase();
+					componentMap.put(componentName, new HashSet<Object>());
+				}
+			}
+		}
+	}
+	
+	/*
+	@Override
+	public boolean knowsAboutProperty(Object instance, String property) {
+		return property.startsWith("is") && property.length() > 4
+			&& componentMap.get(property.substring(2)) != null;
+	}*/
 	
 	@Override
 	public void load() throws EolModelLoadingException {
@@ -55,7 +93,10 @@ public class PatternMatchModel extends Model{
 	@Override
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
-		return matchMap.get(type);
+		if (matchMap.containsKey(type))
+			return matchMap.get(type);
+		else 
+			return componentMap.get(type);
 	}
 
 	@Override
@@ -121,7 +162,8 @@ public class PatternMatchModel extends Model{
 
 	@Override
 	public boolean hasType(String type) {
-		return matchMap.keySet().contains(type);
+		return matchMap.containsKey(type) ||
+			componentMap.containsKey(type);
 	}
 
 	@Override
@@ -136,6 +178,9 @@ public class PatternMatchModel extends Model{
 	
 	@Override
 	public IPropertyGetter getPropertyGetter() {
+		if (propertyGetter == null) {
+			propertyGetter = new PatternMatchPropertyGetter();
+		}
 		return propertyGetter;
 	}
 	
