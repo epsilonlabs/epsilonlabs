@@ -45,6 +45,7 @@ tokens {
 	COMPONENT;
 	MATCH;
 	NOMATCH;
+	ONMATCH;
 	DO;
 	ALIAS;
 	NO;
@@ -60,7 +61,7 @@ public void setTokenType(ParserRuleReturnScope tree, int type) {
 
 pattern
 	: 
-	'pattern'! c=NAME^ component (','! component)* ('{'! match? do_? nomatch? '}'!)?
+	'pattern'! c=NAME^ component (','! component)* ('{'! (match | do_ | nomatch | onmatch)* '}'!)?
 	{$c.setType(PATTERN);}
 	;
 
@@ -94,7 +95,12 @@ do_ :
 	c='do'^ expressionOrStatementBlock
 	{$c.setType(DO);}
 	;
-	
+
+onmatch :
+	c='onmatch'^ expressionOrStatementBlock
+	{$c.setType(ONMATCH);}
+	;
+		
 nomatch :
 	c='nomatch'^ expressionOrStatementBlock
 	{$c.setType(NOMATCH);}

@@ -34,6 +34,7 @@ public class EplEditor extends EolEditor{
 		keywords.add("match");
 		keywords.add("guard");
 		keywords.add("do");
+		keywords.add("onmatch");
 		keywords.add("nomatch");
 		keywords.add("from");
 		keywords.add("no");

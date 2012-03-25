@@ -3,6 +3,7 @@ package org.eclipse.epsilon.epl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.eol.exceptions.EolIllegalReturnException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.Return;
@@ -22,12 +23,27 @@ public class PatternMatcher {
 	
 	public PatternMatchModel match(EplModule module) throws Exception {
 		frame = null;
+		
+		IEolContext context = module.getContext();
 		PatternMatchModel model = new PatternMatchModel();
 		for (Pattern pattern : module.getPatterns()) {
-			for (PatternMatch match : match(pattern, module.getContext())) {
+			for (PatternMatch match : match(pattern, context)) {
 				model.addMatch(match);
 			}
 		}
+		
+		for (PatternMatch match : model.getMatches()) {
+			AST doAst = match.getPattern().getDoAst();
+			if (doAst != null) {
+				context.getFrameStack().enter(FrameType.UNPROTECTED, doAst);
+				for (Variable component : match.getComponents()) {
+					context.getFrameStack().put(component);
+				}
+				context.getExecutorFactory().executeAST(doAst, context);
+				context.getFrameStack().leave(doAst);
+			}
+		}
+		
 		return model;
 	}
 	
@@ -76,7 +92,7 @@ public class PatternMatcher {
 			
 			frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 			
-			if (pattern.getMatchAst() != null || pattern.getNoMatchAst() != null || pattern.getDoAst() != null) {
+			if (pattern.getMatchAst() != null || pattern.getNoMatchAst() != null || pattern.getOnMatchAst() != null) {
 				int i = 0;
 				for (Component component : pattern.getComponents()) {
 					for (Variable variable : getVariables(candidate.get(i), component)) {
@@ -96,7 +112,7 @@ public class PatternMatcher {
 			}
 			
 			if (matches) { 
-				context.getExecutorFactory().executeAST(pattern.getDoAst(), context);
+				context.getExecutorFactory().executeAST(pattern.getOnMatchAst(), context);
 				patternMatches.add(createPatternMatch(pattern, candidate));
 			}
 			else context.getExecutorFactory().executeAST(pattern.getNoMatchAst(), context);

@@ -45,9 +45,13 @@ public class PatternMatchModel extends Model{
 
 	@Override
 	public Collection<?> allContents() {
+		return getMatches();
+	}
+	
+	public HashSet<PatternMatch> getMatches() {
 		return matches;
 	}
-
+	
 	@Override
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
