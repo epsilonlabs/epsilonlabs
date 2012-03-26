@@ -9,13 +9,9 @@ public class PatternMatchPropertyGetter extends JavaPropertyGetter {
 	@Override
 	public Object invoke(Object object, String property)
 			throws EolRuntimeException {
-		
 		if (object instanceof PatternMatch) {
 			PatternMatch match = (PatternMatch) object;
-			Variable component = match.getComponent(property);
-			if (component != null) {
-				return component.getValue();
-			}
+			return match.getComponent(property);
 		}
 		
 		return super.invoke(object, property);

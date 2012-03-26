@@ -37,8 +37,8 @@ public class PatternMatcher {
 			AST doAst = match.getPattern().getDoAst();
 			if (doAst != null) {
 				context.getFrameStack().enter(FrameType.UNPROTECTED, doAst);
-				for (Variable component : match.getComponents()) {
-					context.getFrameStack().put(component);
+				for (String componentName : match.getComponents().keySet()) {
+					context.getFrameStack().put(Variable.createReadOnlyVariable(componentName, match.getComponent(componentName)));
 				}
 				context.getExecutorFactory().executeAST(doAst, context);
 				context.getFrameStack().leave(doAst);
@@ -168,10 +168,14 @@ public class PatternMatcher {
 	}
 	
 	protected PatternMatch createPatternMatch(Pattern pattern, List<List<Object>> combination) {
+		
 		PatternMatch patternMatch = new PatternMatch(pattern);
 		int i = 0;
 		for (Component component : pattern.getComponents()) {
-			patternMatch.getComponents().addAll(getVariables(combination.get(i), component));
+			for (Variable variable : getVariables(combination.get(i), component)) {
+				patternMatch.getComponents().put(variable.getName(), variable.getValue());
+			}
+			
 			i++;
 		}
 		return patternMatch;

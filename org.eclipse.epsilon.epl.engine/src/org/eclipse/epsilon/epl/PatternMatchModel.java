@@ -27,16 +27,17 @@ public class PatternMatchModel extends Model{
 	
 	public void addMatch(PatternMatch match) {
 		String patternName = match.getPattern().getName();
-		List<PatternMatch> matches = matchMap.get(patternName);
+		List<PatternMatch> matchMapMatches = matchMap.get(patternName);
+		matchMapMatches.add(match);
+		matchMap.put(patternName, matchMapMatches);
+		
 		matches.add(match);
-		matchMap.put(patternName, matches);
-		this.matches.add(match);
 		
 		StringOperationContributor stringOps = new StringOperationContributor();
-		for (Variable variable : match.getComponents()) {
-			stringOps.setTarget(variable.getName());
+		for (String componentName : match.getComponents().keySet()) {
+			stringOps.setTarget(componentName);
 			HashSet<Object> values = componentMap.get(patternName + stringOps.firstToUpperCase());
-			if (values!=null) values.add(variable.getValue()); 
+			if (values!=null) values.add(match.getComponents().get(componentName)); 
 		}
 	}
 	
