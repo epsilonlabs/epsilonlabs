@@ -66,7 +66,7 @@ pattern
 	;
 
 component
-	: no? NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} domain? guard?
+	: no? NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} cardinality? domain? guard?
 	{$n.setType(COMPONENT);}
 	;
 

@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.execute.Return;
 import org.eclipse.epsilon.eol.execute.context.FrameType;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
+import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
 import org.eclipse.epsilon.eol.types.EolSequence;
 import org.eclipse.epsilon.epl.combinations.DynamicList;
@@ -26,6 +27,7 @@ public class Component extends AbstractModuleElement {
 	protected Guard guard = null;
 	protected EolModelElementType type = null;
 	protected boolean negative;
+	protected Cardinality cardinality = new Cardinality(1, 1);
 	
 	public Component(AST ast) {
 		this.ast = ast;
@@ -43,6 +45,11 @@ public class Component extends AbstractModuleElement {
 		}
 		AST noAST = AstUtil.getChild(ast, EplParser.NO);
 		negative = (noAST != null);
+		
+		AST cardinalityAst = AstUtil.getChild(ast, EplParser.CARDINALITY);
+		if (cardinalityAst != null) {
+			cardinality = new Cardinality(cardinalityAst);
+		}
 	}
 
 	public boolean isNegative() {
@@ -90,66 +97,52 @@ public class Component extends AbstractModuleElement {
 		}
 		
 		if (isNegative()) {
-			
-			final List domainValues = instances;
-			
-			DynamicList<Object> negativeDomainValues = new DynamicList<Object>() {
+			return getNegative(instances, context);
+		}
+		else {
+			return instances;
+		}
+	}
+	
+	protected List<?> getNegative(final List instances, final IEolContext context) {
+		
+		DynamicList<Object> negativeDomainValues = new DynamicList<Object>() {
 
-				@Override
-				protected List<Object> getValues() throws Exception {
-					
-					if (getGuard()!=null) {
-						for (Object o : domainValues) {
-							boolean result = true;
-							Return ret = null;
-							context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
-							ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context);
-							context.getFrameStack().leave(getGuard().getAst());
-							if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
-							if (result == true) {
-								return new ArrayList();
-							}
+			@Override
+			protected List<Object> getValues() throws Exception {
+				
+				if (getGuard()!=null) {
+					for (Object o : instances) {
+						boolean result = true;
+						Return ret = null;
+						context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
+						ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context);
+						context.getFrameStack().leave(getGuard().getAst());
+						if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
+						if (result == true) {
+							return new ArrayList();
 						}
 					}
-					else {
-						if (domainValues.size() > 0) return new ArrayList();
-					}
-					ArrayList noMatchList = new ArrayList();
-					noMatchList.add(NoMatch.INSTANCE);
-					return noMatchList;
 				}
-				
-				@Override
-				public void reset() {
-					super.reset();
-					if (domainValues instanceof DynamicList<?>) ((DynamicList<?>) domainValues).reset();
+				else {
+					if (instances.size() > 0) return new ArrayList();
 				}
-			};
-			
-			negativeDomainValues.setResetable(getGuard()!=null || ((domainValues instanceof DynamicList<?>) && ((DynamicList<?>) domainValues).isResetable()));
-			
-			return negativeDomainValues;
-			
-			/*
-			if (getGuard()!=null) {
-				for (Object o : instances) {
-					boolean result = true;
-					Return ret = null;
-					context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
-					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context);
-					context.getFrameStack().leave(getGuard().getAst());
-					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
-					if (result == true) return new ArrayList();
-				}
+				ArrayList noMatchList = new ArrayList();
+				noMatchList.add(NoMatch.INSTANCE);
+				return noMatchList;
 			}
-			else {
-				if (instances.size() > 0) return new ArrayList();
+			
+			@Override
+			public void reset() {
+				super.reset();
+				if (instances instanceof DynamicList<?>) ((DynamicList<?>) instances).reset();
 			}
-			instances = new ArrayList();
-			instances.add(NoMatch.INSTANCE);*/
-		}
-	
-		return instances;
+		};
+		
+		negativeDomainValues.setResetable(getGuard()!=null || ((instances instanceof DynamicList<?>) && ((DynamicList<?>) instances).isResetable()));
+		
+		return negativeDomainValues;
+		
 	}
 	
 }
