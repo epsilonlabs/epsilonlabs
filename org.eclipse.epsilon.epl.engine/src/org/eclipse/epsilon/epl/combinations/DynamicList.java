@@ -40,6 +40,10 @@ public abstract class DynamicList<T> implements List<T>{
 		}
 	}
 	
+	public ExceptionHandler getExceptionHandler() {
+		return exceptionHandler;
+	}
+	
 	public void setExceptionHandler(ExceptionHandler exceptionHandler) {
 		this.exceptionHandler = exceptionHandler;
 	}
