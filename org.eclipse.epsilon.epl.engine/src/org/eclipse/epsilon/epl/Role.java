@@ -68,6 +68,10 @@ public class Role extends AbstractModuleElement {
 		
 	}
 	
+	public Cardinality getCardinality() {
+		return cardinality;
+	}
+	
 	public boolean isActive(IEolContext context) throws EolRuntimeException {
 		return isActive(context, false);
 	}
@@ -137,9 +141,46 @@ public class Role extends AbstractModuleElement {
 		if (isNegative()) {
 			return getNegative(instances, context);
 		}
+		else if (getCardinality().isUnbounded()) {
+			return getAll(instances, context);
+		}
 		else {
 			return instances;
 		}
+	}
+	
+	protected List getAll(final List instances, final IEolContext context) {
+		DynamicList<Object> allValues = new DynamicList<Object>() {
+			@Override
+			protected List<Object> getValues() throws Exception {
+				
+				ArrayList<Object> filtered = new ArrayList<Object>();
+				
+				if (getGuard()!=null) {
+					for (Object o : instances) {
+						context.getFrameStack().enter(FrameType.UNPROTECTED, getGuard().getAst(), Variable.createReadOnlyVariable(getNames().get(0), o));
+						boolean ok = (Boolean) context.getExecutorFactory().executeBlockOrExpressionAst(getGuard().getAst().getFirstChild(), context, Boolean.class, false);
+						if (ok) { filtered.add(o); }
+						context.getFrameStack().leave(getGuard().getAst());
+					}
+				}
+				
+				ArrayList<Object> result = new ArrayList<Object>();
+				if (getCardinality().isInBounds(filtered.size())) {
+					result.add(filtered);
+				}
+				return result;
+			}
+
+			@Override
+			public void reset() {
+				super.reset();
+				if (instances instanceof DynamicList<?>) ((DynamicList<?>) instances).reset();
+			}
+		};
+		
+		allValues.setResetable(getGuard()!=null || ((instances instanceof DynamicList<?>) && ((DynamicList<?>) instances).isResetable()));
+		return allValues;
 	}
 	
 	protected List getNegative(final List instances, final IEolContext context) {

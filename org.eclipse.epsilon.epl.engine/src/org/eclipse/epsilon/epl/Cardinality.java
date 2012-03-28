@@ -52,8 +52,16 @@ public class Cardinality extends AbstractModuleElement {
 		return upperBound == UNBOUNDED;
 	}
 	
+	public boolean isMany() {
+		return !isOne();
+	}
+	
 	public boolean isOne() {
 		return upperBound == 1 && lowerBound == 1;
+	}
+	
+	public boolean isInBounds(int n) {
+		return n>=lowerBound && (upperBound == UNBOUNDED || n<=upperBound);
 	}
 	
 	@Override
