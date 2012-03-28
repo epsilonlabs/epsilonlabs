@@ -75,7 +75,7 @@ public class Domain extends AbstractModuleElement {
 			
 			@Override
 			public void handleException(Exception ex) {
-				ex.printStackTrace();
+				ex.printStackTrace(context.getErrorStream());
 			}
 		});
 		
