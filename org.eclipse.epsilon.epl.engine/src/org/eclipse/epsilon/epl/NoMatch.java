@@ -1,6 +1,8 @@
 package org.eclipse.epsilon.epl;
 
-public class NoMatch {
+import org.eclipse.epsilon.eol.execute.introspection.IUndefined;
+
+public class NoMatch implements IUndefined {
 	
 	private NoMatch(){}
 	
