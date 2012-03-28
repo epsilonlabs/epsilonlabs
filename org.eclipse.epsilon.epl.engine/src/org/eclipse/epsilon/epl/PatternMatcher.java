@@ -75,7 +75,7 @@ public class PatternMatcher {
 					}
 					i++;
 				}
-				if (!role.isNegative() && role.getGuard() != null) {
+				if (!role.isNegative() && role.getGuard() != null && role.isActive(context)) {
 					Return ret = null;
 					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(role.getGuard().getAst().getFirstChild(), context);
 					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();

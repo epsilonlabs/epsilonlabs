@@ -18,10 +18,12 @@ import org.eclipse.epsilon.epl.combinations.ExceptionHandler;
 public class Domain extends AbstractModuleElement {
 	
 	protected boolean dynamic = false;
+	protected Role role;
 	
-	public Domain(AST ast) {
+	public Domain(AST ast, Role role) {
 		this.ast = ast;
 		this.dynamic = "from".equals(ast.getText());
+		this.role = role;
 	}
 	
 	@Override
@@ -35,8 +37,9 @@ public class Domain extends AbstractModuleElement {
 			@Override
 			protected List<Object> getValues() throws Exception {
 		
-				Object result = context.getExecutorFactory().executeBlockOrExpressionAst(ast.getFirstChild(), context);
-				if (result instanceof Return) result = ((Return) result).getValue();
+				if (!role.isActive(context, true)) return NoMatch.asList();
+				
+				Object result = context.getExecutorFactory().executeBlockOrExpressionAst(ast.getFirstChild(), context, Object.class, Collections.EMPTY_LIST);
 				
 				if (!(result instanceof Collection)) {
 					List results = new ArrayList();

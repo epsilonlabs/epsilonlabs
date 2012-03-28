@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
+
 import org.eclipse.epsilon.commons.module.AbstractModuleElement;
 import org.eclipse.epsilon.commons.parse.AST;
 import org.eclipse.epsilon.commons.util.AstUtil;
@@ -30,6 +32,7 @@ public class Role extends AbstractModuleElement {
 	protected Cardinality cardinality = new Cardinality(1, 1);
 	protected AST optionalAst = null;
 	protected AST activeAst = null;
+	protected boolean isActiveCache = false;
 	
 	public Role(AST ast) {
 		this.ast = ast;
@@ -39,7 +42,7 @@ public class Role extends AbstractModuleElement {
 		this.typeAst = AstUtil.getChild(ast, EplParser.TYPE);
 		AST domainAst = AstUtil.getChild(ast, EplParser.DOMAIN);
 		if (domainAst != null) {
-			domain = new Domain(domainAst);
+			domain = new Domain(domainAst, this);
 		}
 		AST guardAst = AstUtil.getChild(ast, EplParser.GUARD);
 		if (guardAst != null) {
@@ -65,14 +68,21 @@ public class Role extends AbstractModuleElement {
 		
 	}
 	
-	public boolean isActive(IEolContext context) {
-		if (activeAst == null) return true;
-		else return false;
+	public boolean isActive(IEolContext context) throws EolRuntimeException {
+		return isActive(context, false);
 	}
 	
-	public boolean isOptional(IEolContext context) {
+	public boolean isActive(IEolContext context, boolean forceRecompute) throws EolRuntimeException {
+		if (forceRecompute) {
+			if (activeAst == null) isActiveCache = true;
+			else isActiveCache = (Boolean) context.getExecutorFactory().executeBlockOrExpressionAst(activeAst, context, Boolean.class, true);
+		}
+		return isActiveCache;
+	}
+	
+	public boolean isOptional(IEolContext context) throws EolRuntimeException {
 		if (optionalAst == null) return false;
-		else return false;
+		else return (Boolean) context.getExecutorFactory().executeBlockOrExpressionAst(optionalAst, context, Boolean.class, true);
 	}
 	
 	public boolean isNegative() {
@@ -98,12 +108,17 @@ public class Role extends AbstractModuleElement {
 	
 	public List getInstances(final IEolContext context) throws EolRuntimeException {
 		
+		
+		
 		List instances = null;
 		
 		if (domain != null) {
 			instances = domain.getValues(context, typeAst.getText());
 		}
 		else {
+			
+			if (!isActive(context, true)) return NoMatch.asList();
+			
 			if (type == null) {
 				type = EolModelElementType.forName(typeAst.getText(), context);
 			}
