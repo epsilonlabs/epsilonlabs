@@ -28,6 +28,8 @@ public class Role extends AbstractModuleElement {
 	protected EolModelElementType type = null;
 	protected boolean negative;
 	protected Cardinality cardinality = new Cardinality(1, 1);
+	protected AST optionalAst = null;
+	protected AST activeAst = null;
 	
 	public Role(AST ast) {
 		this.ast = ast;
@@ -50,8 +52,29 @@ public class Role extends AbstractModuleElement {
 		if (cardinalityAst != null) {
 			cardinality = new Cardinality(cardinalityAst);
 		}
+		
+		AST optionalAst = AstUtil.getChild(ast, EplParser.OPTIONAL);
+		if (optionalAst != null) {
+			this.optionalAst = optionalAst.getFirstChild();
+		}
+		
+		AST activeAst = AstUtil.getChild(ast, EplParser.ACTIVE);
+		if (activeAst != null) {
+			this.activeAst = activeAst.getFirstChild();
+		}
+		
 	}
-
+	
+	public boolean isActive(IEolContext context) {
+		if (activeAst == null) return true;
+		else return false;
+	}
+	
+	public boolean isOptional(IEolContext context) {
+		if (optionalAst == null) return false;
+		else return false;
+	}
+	
 	public boolean isNegative() {
 		return negative;
 	}
