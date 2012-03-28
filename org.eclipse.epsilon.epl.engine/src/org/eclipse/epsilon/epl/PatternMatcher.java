@@ -64,6 +64,11 @@ public class PatternMatcher {
 			
 			@Override
 			public boolean isValid(List<List<Object>> combination) throws Exception {
+				
+				for (Object o : combination.get(combination.size()-1)) {
+					if (o instanceof NoMatch) return true;
+				}
+				
 				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 				boolean result = true;
 				int i = 0;
@@ -143,7 +148,18 @@ public class PatternMatcher {
 	protected CombinationGenerator<Object> createCombinationGenerator(final Role role, final IEolContext context) throws EolRuntimeException {
 		DynamicListCombinationGenerator<Object> combinationGenerator = null;
 		
-		combinationGenerator = new DynamicListCombinationGenerator<Object>(role.getInstances(context), role.getNames().size());
+		combinationGenerator = new DynamicListCombinationGenerator<Object>(role.getInstances(context), role.getNames().size()) {
+			@Override
+			public Boolean checkOptional() {
+				try {
+					return role.isOptional(context);
+				} catch (EolRuntimeException e) {
+					e.printStackTrace(context.getErrorStream());
+				}
+				return false;
+			}
+		};
+		
 		//FixedCombinationGenerator<Object> combinationGenerator = null;
 		//combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
 		

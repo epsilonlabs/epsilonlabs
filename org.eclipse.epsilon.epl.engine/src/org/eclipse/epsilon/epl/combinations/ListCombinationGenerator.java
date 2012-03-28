@@ -101,4 +101,10 @@ public class ListCombinationGenerator<T> implements CombinationGenerator<T> {
 		return next;
 
 	}
+
+	@Override
+	public void producedValidCombination() {
+		// TODO Auto-generated method stub
+		
+	}
 }

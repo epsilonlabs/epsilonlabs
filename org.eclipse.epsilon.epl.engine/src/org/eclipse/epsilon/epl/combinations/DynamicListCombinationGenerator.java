@@ -3,12 +3,17 @@ package org.eclipse.epsilon.epl.combinations;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.epsilon.epl.NoMatch;
+
 public class DynamicListCombinationGenerator<T> implements CombinationGenerator<T>{
 	
 	protected int n;
 	protected List<T> list = null;
 	protected ListCombinationGenerator<T> listCombinationGenerator = null;
 	protected ArrayList<CombinationGeneratorListener<T>> listeners = new ArrayList<CombinationGeneratorListener<T>>();
+	protected boolean producedValidCombination = false;
+	protected State state = State.NORMAL;
+	protected Boolean optional = null;
 	
 	public void addListener(CombinationGeneratorListener<T> listener) {
 		listeners.add(listener);
@@ -50,16 +55,45 @@ public class DynamicListCombinationGenerator<T> implements CombinationGenerator<
 		for (CombinationGeneratorListener<T> listener : listeners) {
 			listener.reset();
 		}
+		producedValidCombination = false;
+		state = State.NORMAL;
+		optional = null;
 	}
 	
 	@Override
 	public boolean hasMore() {
+		
+		if (isOptional()) {
+			if (state == State.CAN_RETURN_OPTIONAL) return true;
+			if (state == State.HAS_RETURNED_OPTIONAL) return false;
+		}
+		
 		nudgeList();
-		return listCombinationGenerator.hasMore();
+		boolean hasMore = listCombinationGenerator.hasMore();
+		if (!hasMore && isOptional() && !producedValidCombination) {
+			state = State.CAN_RETURN_OPTIONAL;
+			hasMore = true;
+		}
+		
+		return hasMore;
 	}
 
 	@Override
 	public List<T> getNext() {
+		
+		if (isOptional()) {
+			if (state == State.HAS_RETURNED_OPTIONAL) return null;
+			
+			if (state == State.CAN_RETURN_OPTIONAL) {
+				ArrayList<T> optional = new ArrayList<T>();
+				for (int i=0;i<n;i++) {
+					optional.add((T) NoMatch.INSTANCE);
+				}
+				state = State.HAS_RETURNED_OPTIONAL;
+				return optional;
+			}
+		}
+		
 		nudgeList();
 		List<T> next = listCombinationGenerator.getNext();
 		
@@ -78,4 +112,26 @@ public class DynamicListCombinationGenerator<T> implements CombinationGenerator<
 		list.size();
 	}
 
+	@Override
+	public void producedValidCombination() {
+		this.producedValidCombination = true;
+	}
+	
+	public boolean isOptional() {
+		if (optional == null) {
+			optional = checkOptional();
+		}
+		return optional;
+	}
+	
+	public Boolean checkOptional() {
+		return false;
+	}
+	
+	enum State {
+		NORMAL,
+		CAN_RETURN_OPTIONAL,
+		HAS_RETURNED_OPTIONAL
+	}
+	
 }

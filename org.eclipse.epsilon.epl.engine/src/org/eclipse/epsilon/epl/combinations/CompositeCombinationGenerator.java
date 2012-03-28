@@ -21,11 +21,11 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		CompositeCombinationGenerator<String> ccg = new CompositeCombinationGenerator<String>();
 		
 //		NCombinationGenerator<String> f1 = new NCombinationGenerator<String>(createList("a1", "a2", "a3", "a4"), 2);
-		DynamicListCombinationGenerator<String> f1 = new DynamicListCombinationGenerator<String>(createList("a", "b"), 1);
-		DynamicListCombinationGenerator<String> f2 = new DynamicListCombinationGenerator<String>(createList(), 1);
+		//DynamicListCombinationGenerator<String> f1 = new DynamicListCombinationGenerator<String>(createList("a", "b"), 1);
+		//DynamicListCombinationGenerator<String> f2 = new DynamicListCombinationGenerator<String>(createList(), 1);
 		//DynamicListCombinationGenerator<String> f3 = new DynamicListCombinationGenerator<String>(createList("e", "f"), 1);
-		ccg.addCombinationGenerator(f1);
-		ccg.addCombinationGenerator(f2);
+		//ccg.addCombinationGenerator(f1);
+		//ccg.addCombinationGenerator(f2);
 		//ccg.addCombinationGenerator(f3);
 		//ccg.addCombinationGenerator(ccg1);
 		
@@ -39,9 +39,9 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		//});
 		
 		
-		while (ccg.hasMore()) {
-			System.err.println(ccg.getNext());
-		}
+		//while (ccg.hasMore()) {
+		//	System.err.println(ccg.getNext());
+		//}
 	}
 	
 	public static List<String> createList(String... strings) {
@@ -113,11 +113,13 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 		currentStack.push(getCurrentGenerator().getNext());
 		
 		boolean validCombination = isValidCombination();
+		if (validCombination) getCurrentGenerator().producedValidCombination();
 		
 		while (!isLastGenerator() && validCombination) {
 			setCurrentGenerator(getNextGenerator());
 			currentStack.push(getCurrentGenerator().getNext());
 			validCombination = isValidCombination();
+			if (validCombination) getCurrentGenerator().producedValidCombination();
 		}
 		 
 		if (validCombination) {
@@ -175,6 +177,12 @@ public class CompositeCombinationGenerator<T> implements CombinationGenerator<Li
 	
 	protected boolean isLastGenerator() {
 		return getNextGenerator() == null;
+	}
+
+	@Override
+	public void producedValidCombination() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

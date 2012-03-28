@@ -9,4 +9,7 @@ public interface CombinationGenerator<T> {
 	public List<T> getNext() throws Exception;
 	
 	public void reset();
+	
+	public void producedValidCombination();
+	
 }
