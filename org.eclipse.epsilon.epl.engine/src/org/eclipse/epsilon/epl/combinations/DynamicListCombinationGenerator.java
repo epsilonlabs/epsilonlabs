@@ -63,14 +63,14 @@ public class DynamicListCombinationGenerator<T> implements CombinationGenerator<
 	@Override
 	public boolean hasMore() {
 		
-		if (isOptional()) {
+		if (state!=State.NORMAL && isOptional()) {
 			if (state == State.CAN_RETURN_OPTIONAL) return true;
 			if (state == State.HAS_RETURNED_OPTIONAL) return false;
 		}
 		
 		nudgeList();
 		boolean hasMore = listCombinationGenerator.hasMore();
-		if (!hasMore && isOptional() && !producedValidCombination) {
+		if (!hasMore && !producedValidCombination && isOptional()) {
 			state = State.CAN_RETURN_OPTIONAL;
 			hasMore = true;
 		}
@@ -81,7 +81,7 @@ public class DynamicListCombinationGenerator<T> implements CombinationGenerator<
 	@Override
 	public List<T> getNext() {
 		
-		if (isOptional()) {
+		if (state != State.NORMAL && isOptional()) {
 			if (state == State.HAS_RETURNED_OPTIONAL) return null;
 			
 			if (state == State.CAN_RETURN_OPTIONAL) {
