@@ -154,7 +154,7 @@ public class PatternMatcher {
 				try {
 					return role.isOptional(context);
 				} catch (EolRuntimeException e) {
-					//e.printStackTrace(context.getErrorStream());
+					context.getExecutorFactory().reportException(e);
 				}
 				return false;
 			}
@@ -166,10 +166,15 @@ public class PatternMatcher {
 		combinationGenerator.addListener(new CombinationGeneratorListener<Object>() {			
 			@Override
 			public void generated(List<Object> next) {
-				if (next != null)
+				//if (next != null)
+				
+				if (next == null) {
+					context.getFrameStack().put(Variable.createReadOnlyVariable(role.getNames().get(0), NoMatch.INSTANCE));
+				}
+				else {
 				for (Variable variable : getVariables(next, role)) {
 					context.getFrameStack().put(variable);
-				}
+				}}
 			}
 			
 			@Override

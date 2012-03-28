@@ -31,7 +31,7 @@ public class Domain extends AbstractModuleElement {
 		return Collections.EMPTY_LIST;
 	}
 	
-	public List getValues(final IEolContext context, final String type) throws EolRuntimeException {
+	public DynamicList<Object> getValues(final IEolContext context, final String type) throws EolRuntimeException {
 		
 		DynamicList<Object> r = new DynamicList<Object>() {
 			@Override
@@ -42,13 +42,13 @@ public class Domain extends AbstractModuleElement {
 				Object result = context.getExecutorFactory().executeBlockOrExpressionAst(ast.getFirstChild(), context, Object.class, Collections.EMPTY_LIST);
 				
 				if (!(result instanceof Collection)) {
-					List results = new ArrayList();
+					List<Object> results = new ArrayList<Object>();
 					results.add(result);
 					result = results;
 				}
 				
-				ArrayList filtered = new ArrayList();
-				for (Object o : (Collection) result) {
+				ArrayList<Object> filtered = new ArrayList<Object>();
+				for (Object o : (Collection<?>) result) {
 					IModel owningModel = context.getModelRepository().getOwningModel(o);
 					if (owningModel!=null && owningModel.isOfType(o, type)) {
 						filtered.add(o);
@@ -56,31 +56,8 @@ public class Domain extends AbstractModuleElement {
 				}
 				
 				return filtered;
-				
-				/*
-				if (result instanceof Collection<?>) {
-					if (result instanceof List) return (List) result;
-					else {
-						ArrayList list = new ArrayList();
-						list.addAll((Collection) result);
-						return list;
-					}
-				}
-				else {
-					List results = new ArrayList();
-					results.add(result);
-					return results;
-				}*/
 			}
 		};
-		
-		r.setExceptionHandler(new ExceptionHandler() {
-			
-			@Override
-			public void handleException(Exception ex) {
-				ex.printStackTrace(context.getErrorStream());
-			}
-		});
 		
 		r.setResetable(isDynamic());
 		return r;

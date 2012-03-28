@@ -16,6 +16,7 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
 import org.eclipse.epsilon.eol.types.EolSequence;
 import org.eclipse.epsilon.epl.combinations.DynamicList;
+import org.eclipse.epsilon.epl.combinations.ExceptionHandler;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
 public class Role extends AbstractModuleElement {
@@ -109,36 +110,44 @@ public class Role extends AbstractModuleElement {
 	
 	public List getInstances(final IEolContext context) throws EolRuntimeException {
 		
-		
-		
-		List instances = null;
+		DynamicList<Object> instances = null;
 		
 		if (domain != null) {
 			instances = domain.getValues(context, typeAst.getText());
 		}
 		else {
 			
-			if (!isActive(context, true)) return NoMatch.asList();
-			
-			if (type == null) {
-				type = EolModelElementType.forName(typeAst.getText(), context);
-			}
+			instances = new DynamicList<Object>() {
+				@Override
+				protected List<Object> getValues() throws Exception {
+					
+					if (!isActive(context, true)) return NoMatch.asList();
+					
+					if (type == null) {
+						type = EolModelElementType.forName(typeAst.getText(), context);
+					}
 
-			Collection allInstances = type.getAllOfKind();
-			if (allInstances instanceof List) {
-				instances = (List) allInstances;
-			}
-			else {
-				EolSequence sequence = new EolSequence();
-				sequence.addAll(allInstances);
-				instances = sequence;
-			}
+					Collection<?> allInstances = type.getAllOfKind();
+					if (allInstances instanceof List) {
+						return (List) allInstances;
+					}
+					else {
+						EolSequence sequence = new EolSequence();
+						sequence.addAll(allInstances);
+						return sequence;
+					}
+				}
+			};
+			
 		}
+
+		instances.setExceptionHandler(new RuntimeExceptionThrower(context));
+		instances.setResetable(instances.isResetable() || activeAst != null);
 		
 		if (isNegative()) {
 			return getNegative(instances, context);
 		}
-		else if (getCardinality().isUnbounded()) {
+		else if (getCardinality().isMany()) {
 			return getAll(instances, context);
 		}
 		else {
@@ -146,7 +155,7 @@ public class Role extends AbstractModuleElement {
 		}
 	}
 	
-	protected List getAll(final List instances, final IEolContext context) {
+	protected List getAll(final DynamicList<Object> instances, final IEolContext context) {
 		DynamicList<Object> allValues = new DynamicList<Object>() {
 			@Override
 			protected List<Object> getValues() throws Exception {
@@ -161,6 +170,9 @@ public class Role extends AbstractModuleElement {
 						context.getFrameStack().leave(getGuard().getAst());
 					}
 				}
+				else {
+					filtered.addAll(instances);
+				}
 				
 				ArrayList<Object> result = new ArrayList<Object>();
 				if (getCardinality().isInBounds(filtered.size())) {
@@ -172,15 +184,16 @@ public class Role extends AbstractModuleElement {
 			@Override
 			public void reset() {
 				super.reset();
-				if (instances instanceof DynamicList<?>) ((DynamicList<?>) instances).reset();
+				instances.reset();
 			}
 		};
 		
-		allValues.setResetable(getGuard()!=null || ((instances instanceof DynamicList<?>) && ((DynamicList<?>) instances).isResetable()));
+		allValues.setExceptionHandler(instances.getExceptionHandler());
+		allValues.setResetable(instances.isResetable());
 		return allValues;
 	}
 	
-	protected List getNegative(final List instances, final IEolContext context) {
+	protected List getNegative(final DynamicList<Object> instances, final IEolContext context) {
 		
 		DynamicList<Object> negativeDomainValues = new DynamicList<Object>() {
 
@@ -211,12 +224,12 @@ public class Role extends AbstractModuleElement {
 			@Override
 			public void reset() {
 				super.reset();
-				if (instances instanceof DynamicList<?>) ((DynamicList<?>) instances).reset();
+				instances.reset();
 			}
 		};
 		
-		negativeDomainValues.setResetable(getGuard()!=null || ((instances instanceof DynamicList<?>) && ((DynamicList<?>) instances).isResetable()));
-		
+		negativeDomainValues.setExceptionHandler(instances.getExceptionHandler());
+		negativeDomainValues.setResetable(instances.isResetable());
 		return negativeDomainValues;
 		
 	}
