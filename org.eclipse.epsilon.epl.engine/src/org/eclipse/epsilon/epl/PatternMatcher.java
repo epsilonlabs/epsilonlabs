@@ -37,8 +37,8 @@ public class PatternMatcher {
 			AST doAst = match.getPattern().getDoAst();
 			if (doAst != null) {
 				context.getFrameStack().enter(FrameType.UNPROTECTED, doAst);
-				for (String componentName : match.getComponents().keySet()) {
-					context.getFrameStack().put(Variable.createReadOnlyVariable(componentName, match.getComponent(componentName)));
+				for (String componentName : match.getRoleBindings().keySet()) {
+					context.getFrameStack().put(Variable.createReadOnlyVariable(componentName, match.getRoleBinding(componentName)));
 				}
 				context.getExecutorFactory().executeAST(doAst, context);
 				context.getFrameStack().leave(doAst);
@@ -56,8 +56,8 @@ public class PatternMatcher {
 		
 		CompositeCombinationGenerator<Object> generator = new CompositeCombinationGenerator<Object>();
 		
-		for (Component component : pattern.getComponents()) {
-			generator.addCombinationGenerator(createCombinationGenerator(component, context));
+		for (Role role : pattern.getRoles()) {
+			generator.addCombinationGenerator(createCombinationGenerator(role, context));
 		}
 
 		generator.setValidator(new CompositeCombinationValidator<Object>() {
@@ -67,17 +67,17 @@ public class PatternMatcher {
 				frame = context.getFrameStack().enter(FrameType.PROTECTED, pattern.getAst());
 				boolean result = true;
 				int i = 0;
-				Component component = null;
+				Role role = null;
 				for (List<Object> values : combination) {
-					component = pattern.getComponents().get(i);
-					for (Variable variable : getVariables(values, component)) {
+					role = pattern.getRoles().get(i);
+					for (Variable variable : getVariables(values, role)) {
 						frame.put(variable);
 					}
 					i++;
 				}
-				if (!component.isNegative() && component.getGuard() != null) {
+				if (!role.isNegative() && role.getGuard() != null) {
 					Return ret = null;
-					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(component.getGuard().getAst().getFirstChild(), context);
+					ret = (Return) context.getExecutorFactory().executeBlockOrExpressionAst(role.getGuard().getAst().getFirstChild(), context);
 					if (ret.getValue() instanceof Boolean) result = (Boolean) ret.getValue();
 				}
 				context.getFrameStack().leave(pattern.getAst());
@@ -95,8 +95,8 @@ public class PatternMatcher {
 			
 			if (pattern.getMatchAst() != null || pattern.getNoMatchAst() != null || pattern.getOnMatchAst() != null) {
 				int i = 0;
-				for (Component component : pattern.getComponents()) {
-					for (Variable variable : getVariables(candidate.get(i), component)) {
+				for (Role role : pattern.getRoles()) {
+					for (Variable variable : getVariables(candidate.get(i), role)) {
 						frame.put(variable);
 					}
 					i++;
@@ -127,10 +127,10 @@ public class PatternMatcher {
 		return patternMatches;
 	}
 	
-	protected List<Variable> getVariables(List<Object> combination, Component component) {
+	protected List<Variable> getVariables(List<Object> combination, Role role) {
 		ArrayList<Variable> variables = new ArrayList<Variable>();
 		int i = 0;
-		for (String name : component.getNames()) {
+		for (String name : role.getNames()) {
 			variables.add(Variable.createReadOnlyVariable(name, combination.get(i)));
 			i++;
 		}
@@ -140,10 +140,10 @@ public class PatternMatcher {
 		return variables;
 	}
 	
-	protected CombinationGenerator<Object> createCombinationGenerator(final Component component, final IEolContext context) throws EolRuntimeException {
+	protected CombinationGenerator<Object> createCombinationGenerator(final Role role, final IEolContext context) throws EolRuntimeException {
 		DynamicListCombinationGenerator<Object> combinationGenerator = null;
 		
-		combinationGenerator = new DynamicListCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
+		combinationGenerator = new DynamicListCombinationGenerator<Object>(role.getInstances(context), role.getNames().size());
 		//FixedCombinationGenerator<Object> combinationGenerator = null;
 		//combinationGenerator = new FixedCombinationGenerator<Object>(component.getInstances(context), component.getNames().size());
 		
@@ -151,14 +151,14 @@ public class PatternMatcher {
 			@Override
 			public void generated(List<Object> next) {
 				if (next != null)
-				for (Variable variable : getVariables(next, component)) {
+				for (Variable variable : getVariables(next, role)) {
 					context.getFrameStack().put(variable);
 				}
 			}
 			
 			@Override
 			public void reset() {
-				for (String variableName : component.getNames()) {
+				for (String variableName : role.getNames()) {
 					context.getFrameStack().remove(variableName);
 				}
 			}
@@ -171,9 +171,9 @@ public class PatternMatcher {
 		
 		PatternMatch patternMatch = new PatternMatch(pattern);
 		int i = 0;
-		for (Component component : pattern.getComponents()) {
-			for (Variable variable : getVariables(combination.get(i), component)) {
-				patternMatch.getComponents().put(variable.getName(), variable.getValue());
+		for (Role role : pattern.getRoles()) {
+			for (Variable variable : getVariables(combination.get(i), role)) {
+				patternMatch.getRoleBindings().put(variable.getName(), variable.getValue());
 			}
 			
 			i++;

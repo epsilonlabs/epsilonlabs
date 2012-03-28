@@ -12,7 +12,7 @@ import org.eclipse.epsilon.epl.parse.EplParser;
 public class Pattern extends AbstractModuleElement {
 	
 	protected String name;
-	protected List<Component> components = new ArrayList<Component>();
+	protected List<Role> roles = new ArrayList<Role>();
 	protected AST doAst = null;
 	protected AST matchAst = null;
 	protected AST noMatchAst = null;
@@ -26,8 +26,8 @@ public class Pattern extends AbstractModuleElement {
 		noMatchAst = AstUtil.getChild(ast, EplParser.NOMATCH); if (noMatchAst != null) noMatchAst = noMatchAst.getFirstChild();
 		onMatchAst = AstUtil.getChild(ast, EplParser.ONMATCH); if (onMatchAst != null) onMatchAst = onMatchAst.getFirstChild();
 		
-		for (AST componentAst : AstUtil.getChildren(ast, EplParser.COMPONENT)) {
-			components.add(new Component(componentAst));
+		for (AST roleAst : AstUtil.getChildren(ast, EplParser.ROLE)) {
+			roles.add(new Role(roleAst));
 		}
 	}
 	
@@ -35,8 +35,8 @@ public class Pattern extends AbstractModuleElement {
 		return name;
 	}
 	
-	public List<Component> getComponents() {
-		return components;
+	public List<Role> getRoles() {
+		return roles;
 	}
 	
 	@Override

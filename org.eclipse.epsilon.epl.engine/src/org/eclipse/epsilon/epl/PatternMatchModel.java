@@ -34,10 +34,10 @@ public class PatternMatchModel extends Model{
 		matches.add(match);
 		
 		StringOperationContributor stringOps = new StringOperationContributor();
-		for (String componentName : match.getComponents().keySet()) {
+		for (String componentName : match.getRoleBindings().keySet()) {
 			stringOps.setTarget(componentName);
 			HashSet<Object> values = componentMap.get(patternName + stringOps.firstToUpperCase());
-			if (values!=null) values.add(match.getComponents().get(componentName)); 
+			if (values!=null) values.add(match.getRoleBindings().get(componentName)); 
 		}
 	}
 	
@@ -51,9 +51,9 @@ public class PatternMatchModel extends Model{
 		
 		for (Pattern pattern : patterns) {
 			matchMap.put(pattern.getName(), new ArrayList<PatternMatch>());
-			for (Component component : pattern.getComponents()) {
-				if (component.isNegative()) continue;
-				for (String name : component.getNames()) {
+			for (Role role : pattern.getRoles()) {
+				if (role.isNegative()) continue;
+				for (String name : role.getNames()) {
 					stringOps.setTarget(name);
 					String componentName = pattern.getName() +
 							stringOps.firstToUpperCase();

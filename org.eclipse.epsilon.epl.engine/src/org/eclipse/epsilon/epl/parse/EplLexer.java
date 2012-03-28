@@ -1,4 +1,4 @@
-// $ANTLR 3.1b1 Epl__.g 2012-03-27 23:36:43
+// $ANTLR 3.1b1 Epl__.g 2012-03-28 12:05:53
 
 /*******************************************************************************
  * Copyright (c) 2008 The University of York.
@@ -105,6 +105,7 @@ public class EplLexer extends Lexer {
     public static final int T__137=137;
     public static final int T__136=136;
     public static final int EPLMODULE=89;
+    public static final int ROLE=83;
     public static final int LINE_COMMENT=22;
     public static final int BREAKALL=39;
     public static final int TRANSACTION=41;
@@ -186,7 +187,6 @@ public class EplLexer extends Lexer {
     public static final int T__112=112;
     public static final int COLLECTION=42;
     public static final int DIGIT=5;
-    public static final int COMPONENT=83;
     public static final int EXPRRANGE=55;
     public static final int NOMATCH=85;
     public static final int OPERATOR=58;

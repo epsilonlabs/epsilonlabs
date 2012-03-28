@@ -5,18 +5,18 @@ import java.util.HashMap;
 public class PatternMatch {
 	
 	protected Pattern pattern;
-	protected HashMap<String, Object> components = new HashMap<String, Object>();
+	protected HashMap<String, Object> roleBindings = new HashMap<String, Object>();
 	
 	public PatternMatch(Pattern pattern) {
 		this.pattern = pattern;
 	}
 	
-	public HashMap<String, Object> getComponents() {
-		return components;
+	public HashMap<String, Object> getRoleBindings() {
+		return roleBindings;
 	}
 	
-	public Object getComponent(String name) {
-		return getComponents().get(name);
+	public Object getRoleBinding(String name) {
+		return getRoleBindings().get(name);
 	}
 	
 	public Pattern getPattern() {

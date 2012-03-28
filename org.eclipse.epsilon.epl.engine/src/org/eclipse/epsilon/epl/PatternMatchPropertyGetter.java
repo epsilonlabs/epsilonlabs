@@ -11,7 +11,7 @@ public class PatternMatchPropertyGetter extends JavaPropertyGetter {
 			throws EolRuntimeException {
 		if (object instanceof PatternMatch) {
 			PatternMatch match = (PatternMatch) object;
-			return match.getComponent(property);
+			return match.getRoleBinding(property);
 		}
 		
 		return super.invoke(object, property);

@@ -42,13 +42,15 @@ tokens {
 	PATTERN;
 	CARDINALITY;
 	DOMAIN;
-	COMPONENT;
+	ROLE;
 	MATCH;
 	NOMATCH;
 	ONMATCH;
 	DO;
 	ALIAS;
 	NO;
+	OPTIONAL;
+	ACTIVE;
 }
 
 @members {
@@ -61,13 +63,13 @@ public void setTokenType(ParserRuleReturnScope tree, int type) {
 
 pattern
 	: 
-	'pattern'! c=NAME^ component (','! component)* ('{'! (match | do_ | nomatch | onmatch)* '}'!)?
+	'pattern'! c=NAME^ role (','! role)* ('{'! (match | do_ | nomatch | onmatch)* '}'!)?
 	{$c.setType(PATTERN);}
 	;
 
-component
-	: no? NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} cardinality? domain? guard?
-	{$n.setType(COMPONENT);}
+role
+	: no? NAME (','! NAME)* n=':'^ t=typeName {setTokenType(t, TYPE);} cardinality? (domain | guard | optional | active)*
+	{$n.setType(ROLE);}
 	;
 
 no : n='no' {$n.setType(NO);};
@@ -91,6 +93,16 @@ match :
 	{$c.setType(MATCH);}
 	;
 
+optional :
+	c='optional'^ expressionOrStatementBlock
+	{$c.setType(OPTIONAL);}
+	;
+
+active :
+	c='active'^ expressionOrStatementBlock
+	{$c.setType(ACTIVE);}
+	;
+		
 do_ :
 	c='do'^ expressionOrStatementBlock
 	{$c.setType(DO);}

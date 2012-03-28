@@ -19,7 +19,7 @@ import org.eclipse.epsilon.eol.types.EolSequence;
 import org.eclipse.epsilon.epl.combinations.DynamicList;
 import org.eclipse.epsilon.epl.parse.EplParser;
 
-public class Component extends AbstractModuleElement {
+public class Role extends AbstractModuleElement {
 	
 	protected ArrayList<String> names = new ArrayList<String>();
 	protected AST typeAst;
@@ -29,7 +29,7 @@ public class Component extends AbstractModuleElement {
 	protected boolean negative;
 	protected Cardinality cardinality = new Cardinality(1, 1);
 	
-	public Component(AST ast) {
+	public Role(AST ast) {
 		this.ast = ast;
 		for (AST nameAst : AstUtil.getChildren(ast, EplParser.NAME)) {
 			this.names.add(nameAst.getText());
@@ -104,7 +104,7 @@ public class Component extends AbstractModuleElement {
 		}
 	}
 	
-	protected List<?> getNegative(final List instances, final IEolContext context) {
+	protected List getNegative(final List instances, final IEolContext context) {
 		
 		DynamicList<Object> negativeDomainValues = new DynamicList<Object>() {
 
