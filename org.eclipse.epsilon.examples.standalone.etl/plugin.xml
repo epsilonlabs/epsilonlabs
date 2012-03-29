@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.epsilon.standalone.transform">
+      <etlTransformation
+            etlTransform="epsilon/Tree2Graph.etl"
+            sourceMetaModelURI="http://tree/1.0"
+            sourceName="Tree"
+            sourceReadOnLoad="true"
+            sourceStoreOnDisposal="false"
+            targetMetaModelURI="http://graph/1.0"
+            targetName="Graph"
+            targetReadOnLoad="false"
+            targetStoreOnDisposal="true"></etlTransformation>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.epsilon.examples.standalone.etl.handlers.EtlHandler"
+            commandId="org.eclipse.epsilon.examples.standalone.etl.commands.etlCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.eclipse.epsilon.examples.standalone.etl.menus.sampleMenu"
+               label="ETL  Menu"
+               mnemonic="M">
+            <command
+                  commandId="org.eclipse.epsilon.examples.standalone.etl.commands.etlCommand"
+                  id="org.eclipse.epsilon.examples.standalone.etl.menus.etlCommand">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.eclipse.epsilon.examples.standalone.etl.commands.category"
+            name="ETL Category">
+      </category>
+      <command
+            categoryId="org.eclipse.epsilon.examples.standalone.etl.commands.category"
+            id="org.eclipse.epsilon.examples.standalone.etl.commands.etlCommand"
+            name="ETL Command">
+      </command>
+   </extension>
+
+</plugin>
