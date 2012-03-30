@@ -168,7 +168,9 @@ public class PatternMatcher {
 				//if (next != null)
 				
 				if (next == null) {
-					context.getFrameStack().put(Variable.createReadOnlyVariable(role.getNames().get(0), NoMatch.INSTANCE));
+					for (String name : role.getNames()) {
+						context.getFrameStack().put(Variable.createReadOnlyVariable(name, NoMatch.INSTANCE));
+					}
 				}
 				else {
 				for (Variable variable : getVariables(next, role)) {
