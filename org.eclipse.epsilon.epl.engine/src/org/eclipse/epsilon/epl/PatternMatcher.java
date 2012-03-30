@@ -154,9 +154,8 @@ public class PatternMatcher {
 				try {
 					return role.isOptional(context);
 				} catch (EolRuntimeException e) {
-					context.getExecutorFactory().reportException(e);
+					throw new RuntimeException(e);
 				}
-				return false;
 			}
 		};
 		
