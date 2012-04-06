@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilong Standalone Service
+Bundle-SymbolicName: org.eclipse.epsilon.standalone.service
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.standalone.service.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.7.101",
+ org.eclipse.epsilon.commons;bundle-version="0.9.1",
+ org.eclipse.epsilon.emc.emf;bundle-version="0.9.1",
+ org.eclipse.epsilon.eol.engine;bundle-version="0.9.1",
+ org.eclipse.epsilon.etl.engine;bundle-version="0.9.1",
+ org.eclipse.epsilon.erl.engine;bundle-version="0.9.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Service-Component: OSGI-INF/transformService.xml
+Export-Package: org.eclipse.epsilon.standalone.service,
+ org.eclipse.epsilon.standalone.service.handlers,
+ org.eclipse.epsilon.standalone.service.jobs,
+ org.eclipse.epsilon.standalone.service.transform
