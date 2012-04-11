@@ -1,0 +1,9 @@
+Things in the box:
+
+[%
+
+var aBox : Box := Box.allInstances().get(0);
+var template := TemplateFactory.load('boxOutput.egl');
+template.populate('box', aBox);
+template.generate('output');
+%]

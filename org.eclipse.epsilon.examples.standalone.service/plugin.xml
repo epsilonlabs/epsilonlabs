@@ -5,13 +5,18 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            name="Sample Category"
+            name="Epsilon Service Category"
             id="org.epsilon.examples.standalone.service.commands.category">
       </category>
       <command
             name="Epsilon ETL Command"
             categoryId="org.epsilon.examples.standalone.service.commands.category"
             id="org.epsilon.examples.standalone.service.commands.sampleCommand">
+      </command>
+      <command
+            categoryId="org.epsilon.examples.standalone.service.commands.category"
+            id="org.eclipse.epsilon.examples.standalone.service.command.egl"
+            name="Epstilon EGL Command">
       </command>
    </extension>
    <extension
@@ -20,15 +25,10 @@
             commandId="org.epsilon.examples.standalone.service.commands.sampleCommand"
             class="org.eclipse.epsilon.examples.standalone.service.handlers.TransformHandler">
       </handler>
-   </extension>
-   <extension
-         point="org.eclipse.ui.bindings">
-      <key
-            commandId="org.epsilon.examples.standalone.service.commands.sampleCommand"
-            contextId="org.eclipse.ui.contexts.window"
-            sequence="M1+6"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
-      </key>
+      <handler
+            class="org.eclipse.epsilon.examples.standalone.service.handlers.EglHandler"
+            commandId="org.eclipse.epsilon.examples.standalone.service.command.egl">
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -40,8 +40,12 @@
                id="org.epsilon.examples.standalone.service.menus.sampleMenu">
             <command
                   commandId="org.epsilon.examples.standalone.service.commands.sampleCommand"
-                  mnemonic="S"
                   id="org.epsilon.examples.standalone.service.menus.sampleCommand">
+            </command>
+            <command
+                  commandId="org.eclipse.epsilon.examples.standalone.service.command.egl"
+                  id="org.eclipse.epsilon.examples.standalone.service.command.egl"
+                  style="push">
             </command>
          </menu>
       </menuContribution>

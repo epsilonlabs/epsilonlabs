@@ -1,0 +1,5 @@
+In the [%=box.name%]:
+[%
+for ( thing in box.things) {%]
+	[%=thing.name%]
+[%}%]
