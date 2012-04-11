@@ -3,27 +3,33 @@ package org.eclipse.epsilon.standalone.service.transform;
 import org.eclipse.core.resources.IResourceRuleFactory;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.epsilon.standalone.service.jobs.EglTransformOperationJob;
 import org.eclipse.epsilon.standalone.service.jobs.EtlTransformOperationJob;
 
 public class TransformService implements ITransformService {
-
-	private EtlTransformOperationJob job;
 
 	public void startup() {
 		System.out.println("**** TRANSFORM SERVICE STARTED *****");
 	}
 
 	@Override
-	public void doEtlTransform(EtlTransformParameters etlTransformparameters) {
-
-		job = EtlTransformOperationJob.createJob(etlTransformparameters);
-		executeJob();
-		System.out.println("Transform done");
+	public void doEtlTransform(EtlTransformParameters parameters) {
+		EtlTransformOperationJob job = EtlTransformOperationJob
+				.createJob(parameters);
+		executeJob(job);
 	}
 
-	private void executeJob() {
+	@Override
+	public void doEglTransform(EglTransformParameters parameters) {
+		EglTransformOperationJob job = EglTransformOperationJob
+				.createJob(parameters);
+		executeJob(job);
+	}
+
+	private void executeJob(WorkspaceJob job) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		IResourceRuleFactory ruleFactory = workspace.getRuleFactory();
 		ISchedulingRule rule = ruleFactory.modifyRule(workspace.getRoot());
@@ -31,6 +37,7 @@ public class TransformService implements ITransformService {
 		job.setPriority(Job.INTERACTIVE);
 		job.setRule(rule);
 		job.schedule();
+		System.out.println(job.getName() + " done.");
 	}
 
 }

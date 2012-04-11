@@ -43,7 +43,7 @@ public abstract class AbstractTransformationHandler extends AbstractHandler {
 	}
 
 	public abstract EtlTransformParameters createTransformParameters(
-			EtlTransformParameters etlTransformParameters);
+			EtlTransformParameters parameters);
 
 	private IFile getSelectedModelFile(ExecutionEvent event) {
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
