@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eef-components="http://www.eclipse.org/emf/eef/components/1.0.0" xmlns:eef-views="http://www.eclipse.org/emf/eef/views/1.0.0">
+  <eef-components:PropertiesEditionContext xmi:id="_dFcZ0OcvEeGW3ZI927t13g" documentation="Edition Context for ewe GenPackage">
+    <categories xmi:id="_dFdA4OcvEeGW3ZI927t13g" name="ewe">
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA4ecvEeGW3ZI927t13g" name="Project" views="_dFdBoecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA4ucvEeGW3ZI927t13g" name="name" views="_dFdBo-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Project/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA4-cvEeGW3ZI927t13g" name="defaultTarget" views="_dFdBpOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Project/defaultTarget"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Project"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA5OcvEeGW3ZI927t13g" name="Task" views="_dFdBpecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA5ecvEeGW3ZI927t13g" name="name" views="_dFdBp-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA6OcvEeGW3ZI927t13g" name="attributes" views="_dFdBqucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/attributes"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA6ecvEeGW3ZI927t13g" name="LoadModelTask" views="_dFdBq-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA6ucvEeGW3ZI927t13g" name="name" views="_dFdBrecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA7ucvEeGW3ZI927t13g" name="parameters" views="_dFdBsecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadModelTask/parameters"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA7-cvEeGW3ZI927t13g" name="type" views="_dFdBsucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadModelTask/type"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadModelTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA8OcvEeGW3ZI927t13g" name="StoreModelTask" views="_dFdBs-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA8ecvEeGW3ZI927t13g" name="name" views="_dFdBtecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA9ecvEeGW3ZI927t13g" name="model" views="_dFdBuecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//StoreModelTask/model"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA9ucvEeGW3ZI927t13g" name="target" views="_dFdBuucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//StoreModelTask/target"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//StoreModelTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA9-cvEeGW3ZI927t13g" name="ParameterNestedElement" views="_dFdBu-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA-OcvEeGW3ZI927t13g" name="name" views="_dFdBvecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ParameterNestedElement/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA-ecvEeGW3ZI927t13g" name="value" views="_dFdBvucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ParameterNestedElement/value"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ParameterNestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA-ucvEeGW3ZI927t13g" name="VariableNestedElement" views="_dFdBv-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA--cvEeGW3ZI927t13g" name="ref" views="_dFdBwecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/ref"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA_OcvEeGW3ZI927t13g" name="as" views="_dFdBwucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/as"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA_ecvEeGW3ZI927t13g" name="optional" views="_dFdBw-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/optional"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdA_ucvEeGW3ZI927t13g" name="ExportsNestedElement" views="_dFdBxOcvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdA_-cvEeGW3ZI927t13g" name="ref" views="_dFdBxucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/ref"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBAOcvEeGW3ZI927t13g" name="as" views="_dFdBx-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/as"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBAecvEeGW3ZI927t13g" name="optional" views="_dFdByOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/optional"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExportsNestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBAucvEeGW3ZI927t13g" name="UsesNestedElement" views="_dFdByecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBA-cvEeGW3ZI927t13g" name="ref" views="_dFdBy-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/ref"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBBOcvEeGW3ZI927t13g" name="as" views="_dFdBzOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/as"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBBecvEeGW3ZI927t13g" name="optional" views="_dFdBzecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//VariableNestedElement/optional"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//UsesNestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBBucvEeGW3ZI927t13g" name="ModelNestedElement" views="_dFdBzucvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBB-cvEeGW3ZI927t13g" name="ref" views="_dFdB0OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ModelNestedElement/ref"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBCOcvEeGW3ZI927t13g" name="as" views="_dFdB0ecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ModelNestedElement/as"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ModelNestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBCecvEeGW3ZI927t13g" name="RollbackTransactionTask" views="_dFdB0ucvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBCucvEeGW3ZI927t13g" name="name" views="_dFdB1OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//RollbackTransactionTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBDucvEeGW3ZI927t13g" name="DisposeModelTask" views="_dFdB2OcvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBD-cvEeGW3ZI927t13g" name="name" views="_dFdB2ucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//DisposeModelTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBE-cvEeGW3ZI927t13g" name="StartTransactionTask" views="_dFdB3ucvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBFOcvEeGW3ZI927t13g" name="name" views="_dFdB4OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBGOcvEeGW3ZI927t13g" name="models" views="_dFdB5OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//StartTransactionTask/models"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//StartTransactionTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBGecvEeGW3ZI927t13g" name="EolTask" views="_dFdB5ecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBHucvEeGW3ZI927t13g" name="src" views="_dFdB6-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBH-cvEeGW3ZI927t13g" name="exports" views="_dFdB7OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBIOcvEeGW3ZI927t13g" name="uses" views="_dFdB7ecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBIecvEeGW3ZI927t13g" name="models" views="_dFdB7ucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EolTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBIucvEeGW3ZI927t13g" name="EmlTask" views="_dFdn8OcvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBJ-cvEeGW3ZI927t13g" name="src" views="_dFdn9ucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBKOcvEeGW3ZI927t13g" name="exports" views="_dFdn9-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBKecvEeGW3ZI927t13g" name="uses" views="_dFdn-OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBKucvEeGW3ZI927t13g" name="models" views="_dFdn-ecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBK-cvEeGW3ZI927t13g" name="useMatchTrace" views="_dFdn-ucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EmlTask/useMatchTrace"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBLOcvEeGW3ZI927t13g" name="exportTransformationTrace" views="_dFdn--cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EmlTask/exportTransformationTrace"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBLecvEeGW3ZI927t13g" name="exportMergeTrace" views="_dFdn_OcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EmlTask/exportMergeTrace"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EmlTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBLucvEeGW3ZI927t13g" name="EglTask" views="_dFdn_ecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBM-cvEeGW3ZI927t13g" name="src" views="_dFdoA-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBNOcvEeGW3ZI927t13g" name="exports" views="_dFdoBOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBNecvEeGW3ZI927t13g" name="uses" views="_dFdoBecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBNucvEeGW3ZI927t13g" name="models" views="_dFdoBucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBN-cvEeGW3ZI927t13g" name="target" views="_dFdoB-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EglTask/target"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EglTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBOOcvEeGW3ZI927t13g" name="EtlTask" views="_dFdoCOcvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBPecvEeGW3ZI927t13g" name="src" views="_dFdoDucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBPucvEeGW3ZI927t13g" name="exports" views="_dFdoD-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBP-cvEeGW3ZI927t13g" name="uses" views="_dFdoEOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBQOcvEeGW3ZI927t13g" name="models" views="_dFdoEecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBQecvEeGW3ZI927t13g" name="exportTransformationTrace" views="_dFdoEucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EtlTask/exportTransformationTrace"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EtlTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBQucvEeGW3ZI927t13g" name="EvlTask" views="_dFdoE-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBR-cvEeGW3ZI927t13g" name="src" views="_dFdoGecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBSOcvEeGW3ZI927t13g" name="exports" views="_dFdoGucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBSecvEeGW3ZI927t13g" name="uses" views="_dFdoG-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBSucvEeGW3ZI927t13g" name="models" views="_dFdoHOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBS-cvEeGW3ZI927t13g" name="failOnErrors" views="_dFdoHecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EvlTask/failOnErrors"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBTOcvEeGW3ZI927t13g" name="failOnWarnings" views="_dFdoHucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EvlTask/failOnWarnings"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBTecvEeGW3ZI927t13g" name="exportAsModel" views="_dFdoH-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EvlTask/exportAsModel"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBTucvEeGW3ZI927t13g" name="exportConstraintTrace" views="_dFdoIOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EvlTask/exportConstraintTrace"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EvlTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBT-cvEeGW3ZI927t13g" name="CommitTransactionTask" views="_dFdoIecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBUOcvEeGW3ZI927t13g" name="name" views="_dFdoI-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//CommitTransactionTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBVOcvEeGW3ZI927t13g" name="Property" views="_dFdoJ-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBVecvEeGW3ZI927t13g" name="name" views="_dFdoKecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Property"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBWecvEeGW3ZI927t13g" name="Target" views="_dFdoLecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBWucvEeGW3ZI927t13g" name="name" views="_dFdoL-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Target/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBXecvEeGW3ZI927t13g" name="description" views="_dFdoMucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Target/description"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Target"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBXucvEeGW3ZI927t13g" name="LoadEMFModelTask" views="_dFdoM-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBX-cvEeGW3ZI927t13g" name="name" views="_dFdoNecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBZOcvEeGW3ZI927t13g" name="type" views="_dFdoOucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadModelTask/type"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBZecvEeGW3ZI927t13g" name="modelFile" views="_dFdoO-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/modelFile"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBZucvEeGW3ZI927t13g" name="metamodelFile" views="_dFdoPOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/metamodelFile"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBZ-cvEeGW3ZI927t13g" name="isMetamodelFileBased" views="_dFdoPecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/isMetamodelFileBased"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBaOcvEeGW3ZI927t13g" name="readOnLoad" views="_dFdoPucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/readOnLoad"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBaecvEeGW3ZI927t13g" name="metamodelUri" views="_dFdoP-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/metamodelUri"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBaucvEeGW3ZI927t13g" name="storeOnDisposal" views="_dFdoQOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask/storeOnDisposal"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadEMFModelTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBa-cvEeGW3ZI927t13g" name="Attribute" views="_dFdoQecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBbOcvEeGW3ZI927t13g" name="name" views="_dFdoQ-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Attribute/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBbecvEeGW3ZI927t13g" name="value" views="_dFdoROcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Attribute/value"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Attribute"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBbucvEeGW3ZI927t13g" name="LoadXMLModelTask" views="_dFdoRecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBb-cvEeGW3ZI927t13g" name="name" views="_dFdoR-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBdOcvEeGW3ZI927t13g" name="type" views="_dFdoTOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadModelTask/type"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBdecvEeGW3ZI927t13g" name="file" views="_dFdoTecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadXMLModelTask/file"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBducvEeGW3ZI927t13g" name="uri" views="_dFdoTucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadXMLModelTask/uri"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//LoadXMLModelTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBd-cvEeGW3ZI927t13g" name="NestedElement" views="_dFdoT-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBeOcvEeGW3ZI927t13g" name="name" views="_dFdoUecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/name"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBe-cvEeGW3ZI927t13g" name="attributes" views="_dFdoVOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//Task/attributes"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//NestedElement"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBfOcvEeGW3ZI927t13g" name="FlockTask" views="_dFdoVecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBgecvEeGW3ZI927t13g" name="src" views="_dFdoW-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBgucvEeGW3ZI927t13g" name="exports" views="_dFdoXOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBg-cvEeGW3ZI927t13g" name="uses" views="_dFdoXecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBhOcvEeGW3ZI927t13g" name="models" views="_dFdoXucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBhecvEeGW3ZI927t13g" name="originalModel" views="_dFdoX-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//FlockTask/originalModel"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBhucvEeGW3ZI927t13g" name="migratedModel" views="_dFdoYOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//FlockTask/migratedModel"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//FlockTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBh-cvEeGW3ZI927t13g" name="EUnitTask" views="_dFdoYecvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBjOcvEeGW3ZI927t13g" name="src" views="_dFdoZ-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBjecvEeGW3ZI927t13g" name="exports" views="_dFdoaOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBjucvEeGW3ZI927t13g" name="uses" views="_dFdoaecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBj-cvEeGW3ZI927t13g" name="models" views="_dFdoaucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBkOcvEeGW3ZI927t13g" name="failOnErrors" views="_dFdoa-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EUnitTask/failOnErrors"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBkecvEeGW3ZI927t13g" name="report" views="_dFdobOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EUnitTask/report"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBkucvEeGW3ZI927t13g" name="toDir" views="_dFdobecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EUnitTask/toDir"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBk-cvEeGW3ZI927t13g" name="package" views="_dFdobucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EUnitTask/package"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EUnitTask"/>
+      </bindings>
+      <bindings xsi:type="eef-components:PropertiesEditionComponent" xmi:id="_dFdBlOcvEeGW3ZI927t13g" name="EclTask" views="_dFdob-cvEeGW3ZI927t13g">
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBmecvEeGW3ZI927t13g" name="src" views="_dFdodecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/src"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBmucvEeGW3ZI927t13g" name="exports" views="_dFdoducvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/exports"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBm-cvEeGW3ZI927t13g" name="uses" views="_dFdod-cvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/uses"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBnOcvEeGW3ZI927t13g" name="models" views="_dFdoeOcvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EReference" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//ExecutableModelTask/models"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBnecvEeGW3ZI927t13g" name="useMatchTrace" views="_dFdoeecvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EclTask/useMatchTrace"/>
+        </properties>
+        <properties xsi:type="eef-components:PropertiesEditionElement" xmi:id="_dFdBnucvEeGW3ZI927t13g" name="exportMatchTrace" views="_dFdoeucvEeGW3ZI927t13g">
+          <model xsi:type="ecore:EAttribute" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EclTask/exportMatchTrace"/>
+        </properties>
+        <model xsi:type="ecore:EClass" href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.ecore#//EclTask"/>
+      </bindings>
+    </categories>
+    <model href="platform:/resource/Epsilon_Workflow_Editor/model/epsilon_workflow_editor.genmodel#//ewe"/>
+  </eef-components:PropertiesEditionContext>
+  <eef-views:ViewsRepository xmi:id="_dFdBn-cvEeGW3ZI927t13g" documentation="Views repository for ewe GenPackage" name="ewe">
+    <RepositoryKind>SWT</RepositoryKind>
+    <RepositoryKind>Form</RepositoryKind>
+    <categories xmi:id="_dFdBoOcvEeGW3ZI927t13g" name="ewe">
+      <views xmi:id="_dFdBoecvEeGW3ZI927t13g" name="Project">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBoucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBo-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBpOcvEeGW3ZI927t13g" name="defaultTarget">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBpecvEeGW3ZI927t13g" name="Task">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBpucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBp-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBqucvEeGW3ZI927t13g" name="attributes">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBq-cvEeGW3ZI927t13g" name="LoadModelTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBrOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBrecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBsecvEeGW3ZI927t13g" name="parameters">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBsucvEeGW3ZI927t13g" name="type">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBs-cvEeGW3ZI927t13g" name="StoreModelTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBtOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBtecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBuecvEeGW3ZI927t13g" name="model">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBuucvEeGW3ZI927t13g" name="target">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBu-cvEeGW3ZI927t13g" name="ParameterNestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBvOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBvecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBvucvEeGW3ZI927t13g" name="value">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBv-cvEeGW3ZI927t13g" name="VariableNestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBwOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBwecvEeGW3ZI927t13g" name="ref">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBwucvEeGW3ZI927t13g" name="as">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBw-cvEeGW3ZI927t13g" name="optional">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBxOcvEeGW3ZI927t13g" name="ExportsNestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBxecvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBxucvEeGW3ZI927t13g" name="ref">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBx-cvEeGW3ZI927t13g" name="as">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdByOcvEeGW3ZI927t13g" name="optional">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdByecvEeGW3ZI927t13g" name="UsesNestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdByucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBy-cvEeGW3ZI927t13g" name="ref">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBzOcvEeGW3ZI927t13g" name="as">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdBzecvEeGW3ZI927t13g" name="optional">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdBzucvEeGW3ZI927t13g" name="ModelNestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdBz-cvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB0OcvEeGW3ZI927t13g" name="ref">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB0ecvEeGW3ZI927t13g" name="as">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdB0ucvEeGW3ZI927t13g" name="RollbackTransactionTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdB0-cvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB1OcvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdB2OcvEeGW3ZI927t13g" name="DisposeModelTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdB2ecvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB2ucvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdB3ucvEeGW3ZI927t13g" name="StartTransactionTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdB3-cvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB4OcvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB5OcvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.3"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdB5ecvEeGW3ZI927t13g" name="EolTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdB5ucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB6-cvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB7OcvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB7ecvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdB7ucvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdn8OcvEeGW3ZI927t13g" name="EmlTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdn8ecvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn9ucvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn9-cvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn-OcvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn-ecvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn-ucvEeGW3ZI927t13g" name="useMatchTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn--cvEeGW3ZI927t13g" name="exportTransformationTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdn_OcvEeGW3ZI927t13g" name="exportMergeTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdn_ecvEeGW3ZI927t13g" name="EglTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdn_ucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoA-cvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoBOcvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoBecvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoBucvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoB-cvEeGW3ZI927t13g" name="target">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoCOcvEeGW3ZI927t13g" name="EtlTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoCecvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoDucvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoD-cvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoEOcvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoEecvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoEucvEeGW3ZI927t13g" name="exportTransformationTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoE-cvEeGW3ZI927t13g" name="EvlTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoFOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoGecvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoGucvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoG-cvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoHOcvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoHecvEeGW3ZI927t13g" name="failOnErrors">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoHucvEeGW3ZI927t13g" name="failOnWarnings">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoH-cvEeGW3ZI927t13g" name="exportAsModel">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoIOcvEeGW3ZI927t13g" name="exportConstraintTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoIecvEeGW3ZI927t13g" name="CommitTransactionTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoIucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoI-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoJ-cvEeGW3ZI927t13g" name="Property">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoKOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoKecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoLecvEeGW3ZI927t13g" name="Target">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoLucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoL-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoMucvEeGW3ZI927t13g" name="description">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoM-cvEeGW3ZI927t13g" name="LoadEMFModelTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoNOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoNecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoOucvEeGW3ZI927t13g" name="type" readOnly="true">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoO-cvEeGW3ZI927t13g" name="modelFile">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoPOcvEeGW3ZI927t13g" name="metamodelFile">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoPecvEeGW3ZI927t13g" name="isMetamodelFileBased">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoPucvEeGW3ZI927t13g" name="readOnLoad">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoP-cvEeGW3ZI927t13g" name="metamodelUri">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoQOcvEeGW3ZI927t13g" name="storeOnDisposal">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoQecvEeGW3ZI927t13g" name="Attribute">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoQucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoQ-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoROcvEeGW3ZI927t13g" name="value">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoRecvEeGW3ZI927t13g" name="LoadXMLModelTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoRucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoR-cvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoTOcvEeGW3ZI927t13g" name="type" readOnly="true">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoTecvEeGW3ZI927t13g" name="file">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoTucvEeGW3ZI927t13g" name="uri">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoT-cvEeGW3ZI927t13g" name="NestedElement">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoUOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoUecvEeGW3ZI927t13g" name="name">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoVOcvEeGW3ZI927t13g" name="attributes">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoVecvEeGW3ZI927t13g" name="FlockTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoVucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoW-cvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoXOcvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoXecvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoXucvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoX-cvEeGW3ZI927t13g" name="originalModel">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoYOcvEeGW3ZI927t13g" name="migratedModel">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdoYecvEeGW3ZI927t13g" name="EUnitTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdoYucvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoZ-cvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoaOcvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoaecvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoaucvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoa-cvEeGW3ZI927t13g" name="failOnErrors">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.1"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdobOcvEeGW3ZI927t13g" name="report">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdobecvEeGW3ZI927t13g" name="toDir">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdobucvEeGW3ZI927t13g" name="package">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+      <views xmi:id="_dFdob-cvEeGW3ZI927t13g" name="EclTask">
+        <elements xsi:type="eef-views:Container" xmi:id="_dFdocOcvEeGW3ZI927t13g" name="properties">
+          <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.4"/>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdodecvEeGW3ZI927t13g" name="src">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoducvEeGW3ZI927t13g" name="exports">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdod-cvEeGW3ZI927t13g" name="uses">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoeOcvEeGW3ZI927t13g" name="models">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/EMFProperties.toolkits#//@widgets.7"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoeecvEeGW3ZI927t13g" name="useMatchTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+          <elements xsi:type="eef-views:ElementEditor" xmi:id="_dFdoeucvEeGW3ZI927t13g" name="exportMatchTrace">
+            <representation href="platform:/plugin/org.eclipse.emf.eef.views/std/SWT.toolkits#//@widgets.0"/>
+          </elements>
+        </elements>
+      </views>
+    </categories>
+  </eef-views:ViewsRepository>
+</xmi:XMI>

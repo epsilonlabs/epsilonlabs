@@ -1,0 +1,1035 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<!--
+
+-->
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="ewe_diagram"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="ewe_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="ewe.diagram.part.EweDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/EweDiagramFile.gif"
+         extensions="ewe_diagram"
+         default="true"
+         class="ewe.diagram.part.EweDiagramEditor"
+         matchingStrategy="ewe.diagram.part.EweMatchingStrategy"
+         contributorClass="ewe.diagram.part.EweDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="ewe.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/EweDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="ewe.diagram.part.EweCreationWizard"
+  	     id="ewe.diagram.part.EweCreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="Epsilon_Workflow_Editor.diagram.InitDiagram"
+            nameFilter="*.ewe"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="ewe.diagram.part.EweInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="Epsilon_Workflow_Editor.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="EwePresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="ewe.diagram.part.EweDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
+         id="EwePresentationPrint">
+         <Priority name="Lowest"/>
+         <ViewId id="ewe.diagram.part.EweDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="EwePresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="ewe.diagram.part.EweDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="EweRender">
+         <Priority name="Lowest"/>
+         <ViewId id="ewe.diagram.part.EweDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
+      <?gmfgen generated="true"?>
+      <MarkerNavigationProvider class="ewe.diagram.providers.EweMarkerNavigationProvider">
+         <MarkerType name="Epsilon_Workflow_Editor.diagram.diagnostic"/>
+         <Priority name="Lowest"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="diagnostic" name="Ewe Plugin problems" point="org.eclipse.core.resources.markers">
+      <?gmfgen generated="true"?>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>
+   </extension>   
+
+   <extension id="validationDecoratorProvider" name="ValidationDecorations" point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="ewe.diagram.providers.EweValidationDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart(org.eclipse.gmf.runtime.diagram.ui)" id="PRIMARY_VIEW"/>
+         <context decoratorTargets="PRIMARY_VIEW"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="ewe.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="Epsilon_Workflow_Editor.diagram.general"
+            name="%prefpage.Epsilon_Workflow_Editor.diagram.general"
+            class="ewe.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="Epsilon_Workflow_Editor.diagram.appearance"
+            name="%prefpage.Epsilon_Workflow_Editor.diagram.appearance"
+            category="Epsilon_Workflow_Editor.diagram.general"
+            class="ewe.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="Epsilon_Workflow_Editor.diagram.connections"
+            name="%prefpage.Epsilon_Workflow_Editor.diagram.connections"
+            category="Epsilon_Workflow_Editor.diagram.general"
+            class="ewe.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="Epsilon_Workflow_Editor.diagram.printing"
+            name="%prefpage.Epsilon_Workflow_Editor.diagram.printing"
+            category="Epsilon_Workflow_Editor.diagram.general"
+            class="ewe.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="Epsilon_Workflow_Editor.diagram.rulersAndGrid"
+            name="%prefpage.Epsilon_Workflow_Editor.diagram.rulersAndGrid"
+            category="Epsilon_Workflow_Editor.diagram.general"
+            class="ewe.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+
+
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="ewe.diagram.providers.EweViewProvider">
+         <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="ewe"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Ewe"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="ewe.diagram.providers.EweEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="Ewe"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,3001,3002,3003,3004,3005,3006,3007,3008,3009,3010,3011,3012,3013,3014,3015,3016,3017,3018,3019"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001,4002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5020,5001,5002,5003,5004,5005,5006,5007,5008,5009,5010,5011,5012,5013,5014,5015,5016,5017,5018,5019"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7001"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="ewe.diagram.providers.EweModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="ewe.diagram.edit.parts.ProjectEditPart" id="Project_1000"/>
+         <object class="ewe.diagram.edit.parts.TargetEditPart" id="Target_2001"/>
+         <context elements="Project_1000,Target_2001"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="ewe.diagram.providers.EweIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="ewe.diagram.providers.EweParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+      <?gmfgen generated="true"?>
+      <decoratorProvider class="ewe.diagram.providers.EweShortcutsDecoratorProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2001"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
+      </decoratorProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.Project_1000"
+               name="%metatype.name.Project_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Project"
+               edithelper="ewe.diagram.edit.helpers.ProjectEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.Target_2001"
+               name="%metatype.name.Target_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Target"
+               edithelper="ewe.diagram.edit.helpers.TargetEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EolTask_3001"
+               name="%metatype.name.EolTask_3001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EolTask"
+               edithelper="ewe.diagram.edit.helpers.EolTaskEditHelper">
+            <param name="semanticHint" value="3001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EmlTask_3002"
+               name="%metatype.name.EmlTask_3002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EmlTask"
+               edithelper="ewe.diagram.edit.helpers.EmlTaskEditHelper">
+            <param name="semanticHint" value="3002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EglTask_3003"
+               name="%metatype.name.EglTask_3003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EglTask"
+               edithelper="ewe.diagram.edit.helpers.EglTaskEditHelper">
+            <param name="semanticHint" value="3003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EtlTask_3004"
+               name="%metatype.name.EtlTask_3004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EtlTask"
+               edithelper="ewe.diagram.edit.helpers.EtlTaskEditHelper">
+            <param name="semanticHint" value="3004"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EvlTask_3005"
+               name="%metatype.name.EvlTask_3005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EvlTask"
+               edithelper="ewe.diagram.edit.helpers.EvlTaskEditHelper">
+            <param name="semanticHint" value="3005"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.LoadEMFModelTask_3006"
+               name="%metatype.name.LoadEMFModelTask_3006"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LoadEMFModelTask"
+               edithelper="ewe.diagram.edit.helpers.LoadEMFModelTaskEditHelper">
+            <param name="semanticHint" value="3006"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.LoadXMLModelTask_3007"
+               name="%metatype.name.LoadXMLModelTask_3007"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LoadXMLModelTask"
+               edithelper="ewe.diagram.edit.helpers.LoadXMLModelTaskEditHelper">
+            <param name="semanticHint" value="3007"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.FlockTask_3008"
+               name="%metatype.name.FlockTask_3008"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="FlockTask"
+               edithelper="ewe.diagram.edit.helpers.FlockTaskEditHelper">
+            <param name="semanticHint" value="3008"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EUnitTask_3009"
+               name="%metatype.name.EUnitTask_3009"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EUnitTask"
+               edithelper="ewe.diagram.edit.helpers.EUnitTaskEditHelper">
+            <param name="semanticHint" value="3009"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.EclTask_3010"
+               name="%metatype.name.EclTask_3010"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="EclTask"
+               edithelper="ewe.diagram.edit.helpers.EclTaskEditHelper">
+            <param name="semanticHint" value="3010"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.LoadModelTask_3011"
+               name="%metatype.name.LoadModelTask_3011"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LoadModelTask"
+               edithelper="ewe.diagram.edit.helpers.LoadModelTaskEditHelper">
+            <param name="semanticHint" value="3011"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.StoreModelTask_3012"
+               name="%metatype.name.StoreModelTask_3012"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="StoreModelTask"
+               edithelper="ewe.diagram.edit.helpers.StoreModelTaskEditHelper">
+            <param name="semanticHint" value="3012"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.RollbackTransactionTask_3013"
+               name="%metatype.name.RollbackTransactionTask_3013"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="RollbackTransactionTask"
+               edithelper="ewe.diagram.edit.helpers.RollbackTransactionTaskEditHelper">
+            <param name="semanticHint" value="3013"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.DisposeModelTask_3014"
+               name="%metatype.name.DisposeModelTask_3014"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="DisposeModelTask"
+               edithelper="ewe.diagram.edit.helpers.DisposeModelTaskEditHelper">
+            <param name="semanticHint" value="3014"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.StartTransactionTask_3015"
+               name="%metatype.name.StartTransactionTask_3015"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="StartTransactionTask"
+               edithelper="ewe.diagram.edit.helpers.StartTransactionTaskEditHelper">
+            <param name="semanticHint" value="3015"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.CommitTransactionTask_3016"
+               name="%metatype.name.CommitTransactionTask_3016"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="CommitTransactionTask"
+               edithelper="ewe.diagram.edit.helpers.CommitTransactionTaskEditHelper">
+            <param name="semanticHint" value="3016"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.Property_3017"
+               name="%metatype.name.Property_3017"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Property"
+               edithelper="ewe.diagram.edit.helpers.PropertyEditHelper">
+            <param name="semanticHint" value="3017"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.NestedElement_3018"
+               name="%metatype.name.NestedElement_3018"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="NestedElement"
+               edithelper="ewe.diagram.edit.helpers.NestedElementEditHelper">
+            <param name="semanticHint" value="3018"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <metamodelType
+               id="Epsilon_Workflow_Editor.diagram.Task_3019"
+               name="%metatype.name.Task_3019"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Task"
+               edithelper="ewe.diagram.edit.helpers.TaskEditHelper">
+            <param name="semanticHint" value="3019"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <specializationType
+               id="Epsilon_Workflow_Editor.diagram.TaskFollows_4001"
+               name="%metatype.name.TaskFollows_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="ewe">
+         <specializationType
+               id="Epsilon_Workflow_Editor.diagram.TargetDepends_4002"
+               name="%metatype.name.TargetDepends_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4002"/>
+         </specializationType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="Epsilon_Workflow_Editor.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="Epsilon_Workflow_Editor.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="Epsilon_Workflow_Editor.diagram.TypeContext">
+         <elementType ref="Epsilon_Workflow_Editor.diagram.Project_1000"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.Target_2001"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EolTask_3001"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EmlTask_3002"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EglTask_3003"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EtlTask_3004"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EvlTask_3005"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.LoadEMFModelTask_3006"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.LoadXMLModelTask_3007"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.FlockTask_3008"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EUnitTask_3009"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.EclTask_3010"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.LoadModelTask_3011"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.StoreModelTask_3012"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.RollbackTransactionTask_3013"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.DisposeModelTask_3014"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.StartTransactionTask_3015"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.CommitTransactionTask_3016"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.Property_3017"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.NestedElement_3018"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.Task_3019"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.TaskFollows_4001"/>
+         <elementType ref="Epsilon_Workflow_Editor.diagram.TargetDepends_4002"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="Epsilon_Workflow_Editor.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="Epsilon_Workflow_Editor.diagram"
+           properties="isURIEditorInput"
+           class="ewe.diagram.part.EweUriEditorInputTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="Epsilon_Workflow_Editor.diagram.ShortcutPropertyTester"
+           type="org.eclipse.gmf.runtime.notation.View"
+           namespace="Epsilon_Workflow_Editor.diagram"
+           properties="isShortcut"
+           class="ewe.diagram.part.EweShortcutPropertyTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="Epsilon_Workflow_Editor.diagram.resourceContent"/>
+			<contentExtension pattern="Epsilon_Workflow_Editor.diagram.domainResourceContent"/>
+            <contentExtension pattern="Epsilon_Workflow_Editor.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="Epsilon_Workflow_Editor.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="Epsilon_Workflow_Editor.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="ewe.diagram.navigator.EweNavigatorContentProvider" 
+            labelProvider="ewe.diagram.navigator.EweNavigatorLabelProvider"
+            icon="icons/obj16/EweDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="ewe_diagram"/>
+               </and>
+               <instanceof value="ewe.diagram.navigator.EweAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="Epsilon_Workflow_Editor.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="ewe.diagram.navigator.EweAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="Epsilon_Workflow_Editor.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="Epsilon_Workflow_Editor.diagram.navigatorSorter" 
+               class="ewe.diagram.navigator.EweNavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="ewe_diagram"/>
+                  </and>
+                  <instanceof value="ewe.diagram.navigator.EweAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="Epsilon_Workflow_Editor.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="ewe.diagram.navigator.EweDomainNavigatorContentProvider" 
+            labelProvider="ewe.diagram.navigator.EweDomainNavigatorLabelProvider"
+            icon="icons/obj16/EweDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="ewe"/>
+               </and>
+               <instanceof value="ewe.diagram.navigator.EweDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="ewe.diagram.navigator.EweDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="Epsilon_Workflow_Editor.diagram.navigatorActionProvider"
+            class="ewe.diagram.navigator.EweNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="ewe.diagram.navigator.EweAbstractNavigatorItem"/>
+           	   <adapt type="org.eclipse.gmf.runtime.notation.View">
+           	      <test property="Epsilon_Workflow_Editor.diagram.isShortcut"/>
+           	   </adapt>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="Epsilon_Workflow_Editor.diagram.navigatorLinkHelper"
+            class="ewe.diagram.navigator.EweNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="Epsilon_Workflow_Editor.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="ewe.diagram.navigator.EweAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="ewe.diagram.part.EweDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="ewe.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="ewe.diagram.updateDiagram"
+         contextId="ewe.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="Epsilon_Workflow_Editor.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="ewe.diagram.part.EweDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="ewe.diagram.edit.parts.ProjectEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="ewe.diagram.part.EweDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="Epsilon_Workflow_Editor.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="ewe.diagram.part.EweDiagramEditorID"
+         defaultHandler="ewe.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+   
+   <!-- optionally, specify keybindings -->
+   
+   <!-- EEF extensions -->
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <factory
+            uri="ewe"
+            class="ewe.providers.EweEEFAdapterFactory"
+            supportedTypes="org.eclipse.emf.eef.runtime.providers.PropertiesEditingProvider"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.eef.runtime.PropertiesEditionPartProvider">
+      <PropertiesEditionPartProvider
+            providerClass="ewe.providers.EwePropertiesEditionPartProvider">
+      </PropertiesEditionPartProvider>
+   </extension>
+
+   <!-- Tabbed properties views extension -->
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+      <propertyContributor
+            contributorId="ewe.properties">
+         <propertyCategory
+               category="default">
+         </propertyCategory>
+         <propertyCategory
+               category="extended">
+         </propertyCategory>
+         <propertyCategory
+               category="advanced">
+         </propertyCategory>
+      </propertyContributor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+      <propertyTabs
+            contributorId="ewe.properties">
+         <propertyTab
+               label="Base"
+               category="default"
+               id="Base">
+         </propertyTab>
+      </propertyTabs>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views.properties.tabbed.propertySections">
+      <propertySections
+            contributorId="ewe.properties">
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.Project"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.ProjectEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.Task"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.TaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EpsilonTask"
+               tab="Base">
+             <input
+                    type="ewe.EpsilonTask">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.LoadModelTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.LoadModelTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.StoreModelTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.StoreModelTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.ParameterNestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.ParameterNestedElementEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.VariableNestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.VariableNestedElementEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.ExportsNestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.ExportsNestedElementEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.UsesNestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.UsesNestedElementEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.ModelNestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.ModelNestedElementEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.ExecutableModelTask"
+               tab="Base">
+             <input
+                    type="ewe.ExecutableModelTask">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.RollbackTransactionTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.RollbackTransactionTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.DisposeModelTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.DisposeModelTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.StartTransactionTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.StartTransactionTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EolTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EolTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EmlTask"
+               tab="Base">
+             <input
+                   type="ewe.diagram.edit.parts.EmlTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EglTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EglTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EtlTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EtlTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EvlTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EvlTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EclTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EclTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.CommitTransactionTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.CommitTransactionTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.Property"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.PropertyEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.Target"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.TargetEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.LoadEMFModelTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.LoadEMFModelTaskEditPart">
+             </input>
+         </propertySection>
+	<propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.LoadXMLModelTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.LoadXMLModelTaskEditPart">
+             </input>
+          </propertySection>
+             <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.NestedElement"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.NestedElementEditPart">
+             </input>
+             </propertySection>
+	  <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.FlockTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.FlockTaskEditPart">
+             </input>
+         </propertySection>
+         <propertySection
+               class="org.eclipse.emf.eef.runtime.ui.properties.sections.PropertiesEditionSection"
+               id="ewe.section.EUnitTask"
+               tab="Base">
+             <input
+                    type="ewe.diagram.edit.parts.EUnitTaskEditPart">
+             </input>
+         </propertySection>
+      </propertySections>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="false"
+            id="Epsilon_Workflow_Editor.diagram.ewe"
+            nameFilter="*.ewe"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="ewe.diagram.workbench.Ewe2AntAction"
+               id="Epsilon_Workflow_Editor.diagram.generateANTXML"
+               label="Generate Workflow XML"
+               menubarPath="Epsilon_Workflow_Editor.diagram.ewe/actions">
+         </action>
+         <menu
+               id="Epsilon_Workflow_Editor.diagram.ewe"
+               label="EWE"
+               path="additions">
+            <separator
+                  name="actions">
+            </separator>
+         </menu>
+      </objectContribution>
+      <objectContribution
+            adaptable="false"
+            id="Epsilon_Workflow_Editor.diagram.xml"
+            nameFilter="*.xml"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="ewe.diagram.workbench.Ant2EweAction"
+               id="Epsilon_Workflow_Editor.diagram.generateEWEModel"
+               label="Generate Workflow Diagram Model"
+               menubarPath="Epsilon_Workflow_Editor.diagram.ewe/actions">
+         </action>
+         <menu
+               id="Epsilon_Workflow_Editor.diagram.ewe"
+               label="EWE"
+               path="additions">
+            <separator
+                  name="actions">
+            </separator>
+         </menu>
+      </objectContribution>
+   </extension>
+</plugin>

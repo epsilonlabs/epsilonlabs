@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<eef-gen:EEFGenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:eef-gen="http://www.eclipse.org/emf/eef/generation/1.0.0" genDirectory="/Epsilon_Workflow_Editor.diagram/src-gen">
+  <editionContexts basePackage="" descriptorsGenericPropertiesViews="true">
+    <PropertiesEditionContext href="epsilon_workflow_editor.components#_dFcZ0OcvEeGW3ZI927t13g"/>
+  </editionContexts>
+  <viewsRepositories basePackage="ewe" swtViews="true" formViews="true">
+    <viewsRepository href="epsilon_workflow_editor.components#_dFdBn-cvEeGW3ZI927t13g"/>
+  </viewsRepositories>
+</eef-gen:EEFGenModel>
