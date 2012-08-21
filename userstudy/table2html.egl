@@ -1,0 +1,19 @@
+[% "Started Model to text transformation".println(); %]
+<html>
+<head>
+<title> Library Visualisation </title>
+</head>
+
+<body>
+<table border="1">
+[% for(r in table!Row.allInstances()) { %]
+<tr>
+	[% for (c in r.cols) {  %]
+		<td> [%=c.name%] = [%=c.value%] </td>
+	[% } %]	
+</tr>
+[% } %]
+</table>
+</body>
+</html>
+[% "Finished Model to text transformation".println(); %]

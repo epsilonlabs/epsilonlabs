@@ -1,0 +1,27 @@
+pre {
+  "Started M2M Transformation".println();
+  var t : new table!Table;
+}
+
+post {
+ "Finished ETL".println();
+}
+
+rule Books2RowsCols 
+	transform lb : lib!Book
+	to r : table!Row {
+		 var title = new table!Column;
+		 title.name = "Title";
+		 title.value = lb.title;
+		 r.cols.add(title);
+		 var category = new table!Column;
+		 category.name = "Category";
+		 category.value = lb.category.asString();
+		 r.cols.add(category);
+		 var pages = new table!Column;
+		 pages.name = "Pages";
+		 pages.value = lb.pages.asString();
+		 r.cols.add(pages);
+		 r.name = lb.title;
+		 t.rows.add(r);
+}

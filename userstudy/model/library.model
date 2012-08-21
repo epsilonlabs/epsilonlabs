@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lib:Library xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:lib="lib" xmi:id="_FKKZwOt_EeGxN6oWCTyspg">
+  <writers xmi:id="_KykMsOt_EeGxN6oWCTyspg" name="A"/>
+  <writers xmi:id="_MInZoOt_EeGxN6oWCTyspg" name="B"/>
+  <books xmi:id="_GIj7sOt_EeGxN6oWCTyspg" title="A1" author="_KykMsOt_EeGxN6oWCTyspg"/>
+  <books xmi:id="_JT85oOt_EeGxN6oWCTyspg" title="B1" author="_MInZoOt_EeGxN6oWCTyspg"/>
+  <books xmi:id="_TfHtIOt_EeGxN6oWCTyspg" title="B2"/>
+</lib:Library>

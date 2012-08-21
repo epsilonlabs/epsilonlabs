@@ -1,0 +1,18 @@
+@namespace(uri="table", prefix="tab")
+package tab;
+
+class Table {
+  val Row[*] rows;
+  val Column[*] cols;
+}
+
+class Row {
+  attr String name;
+  ref Column[*] cols;
+}
+
+class Column {
+  attr String name;
+  attr String value;
+}
+
