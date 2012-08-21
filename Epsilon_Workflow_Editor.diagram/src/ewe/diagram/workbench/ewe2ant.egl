@@ -1,0 +1,160 @@
+[%
+var project : Project;
+project = Project.all().first();
+%]
+
+<project name="[%=project.name%]" default="[%=project.defaultTarget.name%]">
+
+	[% for (target in Target.all()) { %]
+		<target name="[%=target.name%]" description="[%=target.description%]" depends="[%=target.getDependencies()%]">
+			[% for (task in target.getTaskOrder()) { %]
+				[%=task.getTaskDetails()%]
+			[% } %]
+		</target>
+	[% } %]
+
+</project>
+
+[%
+
+//Get all the followers for a Task.
+//TaskSet is the set of tasks to search in. (the set of tasks for a target)
+//For every task in the set, get the task it follows, if this task matches the task on which the method is called
+//then the task is the follower. Repeat the process recursively for every follower to build the complete task order.
+operation Task getFollowers(taskSet: OrderedSet, followerSet : OrderedSet) {
+			for(tt : Task in taskSet) {
+				if(tt.follows = self) {
+					followerSet.add(tt);
+					tt.getFollowers(taskSet, followerSet);
+				}
+			} 
+}
+
+operation Target getTaskOrder() : OrderedSet {
+	var taskOrderSet : new OrderedSet;
+	var firstTask : Task;
+	//Get the task in the target which does not follow any other task. This must be the first task in the order.
+	firstTask = self.targetTasks.selectOne(t : Task | not t.follows.isDefined());
+	taskOrderSet.add(firstTask);
+	firstTask.getFollowers(self.targetTasks, taskOrderSet);
+	return taskOrderSet;
+}
+
+operation Target getDependencies() : String {
+	var dependencyList : String;
+	for(dtarget in self.depends) {
+		dependencyList = dependencyList.concat(dtarget.name);
+		if(hasMore) dependencyList.concat(",");
+	}
+	return dependencyList;
+}
+
+%]
+
+[% operation Task getTaskDetails() { %]
+		<[%=self.getAntTaskTag()%] [%=self.getTaskAttrs()%]>
+					[%=self.getTaskElements()%]
+        </[%=self.getAntTaskTag()%]>
+[% } %]
+
+
+[% 
+operation Any getAntTaskTag() : String {
+	switch(self.eClass.name) { 
+		case "Task" : return self.name;
+		case "NestedElement" : return self.name;
+		case "EolTask" : return "epsilon.eol";
+		case "EglTask" : return "epsilon.egl";
+		case "EvlTask" : return "epsilon.evl";
+		case "EclTask" : return "epsilon.ecl";
+		case "EtlTask" : return "epsilon.etl";
+		case "EmlTask" : return "epsilon.eml";
+		case "StartTransactionTask" : return "epsilon.startTransaction";
+		case "CommitTransactionTask" : return "epsilon.commitTransaction";
+		case "RollbackTransactionTask" : return "epsilon.rollbackTransaction";
+		case "LoadModelTask" : return "epsilon.loadModel";
+		case "LoadEMFModelTask" : return "epsilon.loadModel";
+		case "DisposeModelTask" : return "epsilon.disposeModel";
+		case "ModelNestedElement" : return "model";
+		case "ParameterNestedElement" : return "parameter";
+		default : return self.name;
+	}
+}
+
+
+%]
+
+[% operation Task getTaskAttrs() { 
+    //Direct class Attributes - For Epsilon Tasks mostly.
+	for(attr in self.eClass.eAllAttributes) {
+	    //Executable Model Tasks dont have the name attribute in the ANT XML Tasks.
+		if(self.isKindOf(ExecutableModelTask) and attr.name = 'name') continue; 
+		//For generic tasks as well skip the name attribute, it needs to be added through the nested Attribute
+		if(self.isTypeOf(Task)) continue;
+		var attrValue : String;
+		if(attr.isMany()) {
+			for (s : String in self.eGet(attr)) {
+				attrValue = attrValue + s;
+				if (hasMore) { 
+					attrValue = attrValue + ",";
+				}
+			}
+		} else {
+			attrValue = self.eGet(attr).asString();
+		} %]
+			[%=attr.name%]="[%=attrValue%]"
+	[% } 
+	//Attributes represented as nested elements. Note, this is NOT reflective.
+	for(attr in self.attributes) { %]
+			[%=attr.name%]="[%=attr.value%]"
+	[% } %]
+[% } %]
+
+[% operation Task getTaskElements() {
+	for(c in self.eContents()) {
+		if(c.eClass.name='Attribute') continue; //Handled in getTaskAttrs() above;
+		else if(c.eClass.name='NestedElement') c.getTaskDetails(); //A nested element is also a task.
+		else if(c.eClass.name='ParameterNestedElement') { %]
+			<[%=c.getAntTaskTag()%]
+			[%
+				var attrName = c.eClass.eAllAttributes.selectOne(a | a.name = 'name');
+				var attrValue = c.eClass.eAllAttributes.selectOne(a | a.name = 'value');
+			%]
+			[% if(attrName.isDefined() and attrValue.isDefined()) { %]
+				[%=c.eGet(attrName)%]="[%=c.eGet(attrValue)%]"
+			[% } %]	
+			/>
+		[% } else { %] 	 
+				<[%=c.getAntTaskTag()%]
+				[% for(attr in c.eClass.eAllAttributes) { %]
+					[% if(c.eGet(attr).isDefined()) { %]
+			 			[%=attr.name%]="[%=c.eGet(attr)%]"
+					[% } %]	 			
+				[% } %] />
+		[% } %]	
+	[% } %]
+[% } %]
+
+[% 
+//overriding getTaskAttrs and getTaskElements() method of Task class
+//In the model - the attributes are part of the class definition but in the ANT XML - they are represented as parameters
+
+operation LoadEMFModelTask getTaskAttrs() {
+	var directAttributes : Sequence = Sequence{"name", "type"}; 
+	for(attr in self.eClass.eAllAttributes) { 
+		if(directAttributes.includes(attr.name)) { %]
+			[%=attr.name%]="[%=self.eGet(attr)%]"
+		[% } %]		
+	[% } %]
+[% } %]
+
+[% operation LoadEMFModelTask getTaskElements() {
+	var parameterAttributes : Sequence = Sequence{"modelFile", "metamodelFile", "metamodelUri", "isMetamodelFileBased", "readOnLoad", "storeOnDisposal"}; 
+	for(attr in self.eClass.eAllAttributes) { 
+		if(parameterAttributes.includes(attr.name)) { %]
+			<parameter
+				name="[%=attr.name%]" value="[%=self.eGet(attr)%]"
+			/>
+		[% } %]		
+	[% } %]
+[% } %]
