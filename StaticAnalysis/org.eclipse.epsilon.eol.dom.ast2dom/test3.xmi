@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dom:Program xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dom="http://dom/1.0" line="2" column="6">
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="2" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.0" line="2" column="4" name="a" create="true"/>
+    <rhs xsi:type="dom:IntegerExpression" container="//@statements.0" line="2" column="8"/>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="4" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.1" line="4" column="4" name="b" create="true"/>
+    <rhs xsi:type="dom:IntegerExpression" container="//@statements.1" line="4" column="8" val="1"/>
+  </statements>
+  <statements xsi:type="dom:ExpressionStatement" container="/" line="8" column="4">
+    <expression xsi:type="dom:VariableDeclarationExpression" container="//@statements.2" line="8" column="4" name="c" create="true">
+      <type xsi:type="dom:OrderedSetType" container="//@statements.2/@expression" line="8" column="4"/>
+    </expression>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="10" column="2">
+    <lhs xsi:type="dom:NameExpression" container="//@statements.3" line="10" name="c"/>
+    <rhs xsi:type="dom:OrderedSetExpression" container="//@statements.3">
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="15" val="1"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="17"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="19" val="1000"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="24" val="2"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="26" val="59"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="29" val="64"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.3/@rhs" line="10" column="32" val="32"/>
+    </rhs>
+  </statements>
+  <statements xsi:type="dom:ExpressionStatement" container="/" line="12" column="1">
+    <expression xsi:type="dom:MethodCallExpression" container="//@statements.4" line="12" column="1" method="println">
+      <target xsi:type="dom:NameExpression" container="//@statements.4/@expression" line="12" name="c"/>
+    </expression>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="14" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.5" line="14" column="4" name="d" create="true"/>
+    <rhs xsi:type="dom:OrderedSetExpression" container="//@statements.5">
+      <values xsi:type="dom:StringExpression" container="//@statements.5/@rhs" line="14" column="19" val="zee"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.5/@rhs" line="14" column="26" val="hello"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.5/@rhs" line="14" column="35" val="world"/>
+    </rhs>
+  </statements>
+  <statements xsi:type="dom:ExpressionStatement" container="/" line="16" column="1">
+    <expression xsi:type="dom:MethodCallExpression" container="//@statements.6" line="16" column="1" method="println">
+      <target xsi:type="dom:NameExpression" container="//@statements.6/@expression" line="16" name="d"/>
+    </expression>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="18" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.7" line="18" column="4" name="e" create="true"/>
+    <rhs xsi:type="dom:BagExpression" container="//@statements.7">
+      <values xsi:type="dom:StringExpression" container="//@statements.7/@rhs" line="18" column="12" val="this"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.7/@rhs" line="18" column="20" val="is"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.7/@rhs" line="18" column="26" val="a"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.7/@rhs" line="18" column="31" val="bag"/>
+    </rhs>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="21" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.8" line="21" column="4" name="f" create="true"/>
+    <rhs xsi:type="dom:SetExpression" container="//@statements.8">
+      <values xsi:type="dom:IntegerExpression" container="//@statements.8/@rhs" line="21" column="12" val="1"/>
+      <values xsi:type="dom:RealExpression" container="//@statements.8/@rhs" line="21" column="15" val="1.5"/>
+      <values xsi:type="dom:StringExpression" container="//@statements.8/@rhs" line="21" column="20" val="this"/>
+    </rhs>
+  </statements>
+  <statements xsi:type="dom:ExpressionStatement" container="/" line="22" column="1">
+    <expression xsi:type="dom:MethodCallExpression" container="//@statements.9" line="22" column="1" method="println">
+      <target xsi:type="dom:NameExpression" container="//@statements.9/@expression" line="22" name="f"/>
+    </expression>
+  </statements>
+  <statements xsi:type="dom:AssignmentStatement" container="/" line="24" column="6">
+    <lhs xsi:type="dom:VariableDeclarationExpression" container="//@statements.10" line="24" column="4" name="g" create="true"/>
+    <rhs xsi:type="dom:SetExpression" container="//@statements.10">
+      <values xsi:type="dom:IntegerExpression" container="//@statements.10/@rhs" val="1"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.10/@rhs" val="2"/>
+      <values xsi:type="dom:IntegerExpression" container="//@statements.10/@rhs" val="3"/>
+    </rhs>
+  </statements>
+  <statements xsi:type="dom:ExpressionStatement" container="/" line="25" column="1">
+    <expression xsi:type="dom:MethodCallExpression" container="//@statements.11" line="25" column="1" method="println">
+      <target xsi:type="dom:NameExpression" container="//@statements.11/@expression" line="25" name="g"/>
+    </expression>
+  </statements>
+</dom:Program>
