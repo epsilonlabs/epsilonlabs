@@ -1,0 +1,43 @@
+"Started EEF modification...".println();
+
+var genDeleteList : Sequence = Sequence{"depends", "follows", "follower","depends","containingTarget","containingProject"}; 
+var exeModelTasks : Sequence = Sequence{"EolTask", "EglTask", "EvlTask", "EclTask", "EtlTask", "EmlTask","EUnitTask","FlockTask"};
+
+var pecList = eefc!PropertiesEditionElement.all();
+
+for(pec in eefc!PropertiesEditionComponent.all()) {
+	for(pelem in pec.properties.clone()) {
+		//Perform General Delete
+		if(deleteElement(pelem.name)) delete pelem;
+		//Perform Custom Deletes
+		switch(pelem.name) {
+			case "attributes" : if(pec.name <> "Task" and pec.name <> "NestedElement")  delete pelem;
+			case "parameters" : if(pec.name <> "LoadModelTask") delete pelem;
+			case "name" : if(isExeModelTask(pec.name)) delete pelem;  		
+		}
+	}
+}
+
+for(v in eefc!View.all()) {
+    var container = v.elements.first();
+	for(ee in container.elements.clone()) {
+	    //Perform General Delete
+		if(deleteElement(ee.name)) delete ee;
+		//Perform Custom Deletes
+		switch(ee.name) {
+			case "attributes" : if(v.name <> "Task" and v.name <> "NestedElement")  delete ee;
+			case "parameters" : if(v.name <> "LoadModelTask") delete ee;
+			case "name" : if(isExeModelTask(v.name)) delete ee;  		
+		}
+	}
+}
+
+"Finished EEF modification".println();
+
+operation deleteElement(elementName : String) : Boolean {
+	return genDeleteList.includes(elementName);
+}
+
+operation isExeModelTask(elementName : String) : Boolean {
+	return exeModelTasks.includes(elementName);
+}

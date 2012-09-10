@@ -1,0 +1,30 @@
+//First check if there is a single project element with the default target set, else throw an error.
+
+var illegalProjectNumber : String = "There should be only a single project defined";
+var noDefaultTarget : String = "There is no default target defined for the project";
+
+t_project.all().size().println();
+
+if(t_project.all().size() = 1) {
+	var ant_project = t_project.all().selectOne(p | p.a_default.isDefined());
+		if(ant_project.isDefined()) {
+			"Retrieved project : " + ant_project.a_name.println();
+			ant_project.addTargetsToProject();
+		} else {
+			throw noDefaultTarget;
+		}	
+} else {
+	throw illegalProjectNumber;	
+}
+
+operation t_project addTargetsToProject() {
+	//var ewe_project = new ewe!Project;
+	var ewe_targetSeq = new Sequence;
+	for(ant_target : t_target in self.children) {
+		//var ewe_target = new ewe!Target;
+		("Target : " + ant_target.a_name).println();
+		var dependsList : String = ant_target.a_depends;
+		("Depends List : " + dependsList).println();
+	}
+}
+ 

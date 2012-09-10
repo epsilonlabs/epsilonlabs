@@ -1,0 +1,174 @@
+@namespace(uri="ewe", prefix="ewe")
+package ewe;
+
+@gmf.diagram(note="Root class")
+class Project {
+  attr String name;
+  val Target[+]#containingProject targets;
+  ref Target[1] defaultTarget;
+}
+
+@gmf.node(label="name", border.width="2", border.color="0,0,0", color="249,249,213")
+class Task {
+
+  @ExtendedMetaData(namespace="")
+  attr String name;
+
+  @gmf.link(label="follows", target.decoration="arrow", style="dash", width="2", tool.small.bundle="Epsilon_Workflow_Editor.edit", tool.small.path="icons/full/obj16/Follows.gif")
+  ref Task#follower follows;
+  ref Task#follows follower;
+  val Attribute[*] attributes;
+  val NestedElement[*] taskelements;
+}
+
+abstract class EpsilonTask extends Task {
+}
+
+@gmf.node(tool.name="Load Model Task")
+class LoadModelTask extends EpsilonTask {
+  val ParameterNestedElement[*] parameters;
+  attr String type;
+}
+
+@gmf.node(tool.name="Store Model Task")
+class StoreModelTask extends EpsilonTask {
+  attr String model;
+  attr String target;
+}
+
+class ParameterNestedElement {
+
+  @gmf.node(label="name")
+  attr String name;
+  attr String value;
+}
+
+class VariableNestedElement {
+  attr String ~ref;
+  attr String as;
+  attr String optional;
+}
+
+class ExportsNestedElement extends VariableNestedElement {
+}
+
+class UsesNestedElement extends VariableNestedElement {
+}
+
+class ModelNestedElement {
+  attr String[1] ~ref;
+  attr String as;
+}
+
+@gmf.node(label="src")
+abstract class ExecutableModelTask extends EpsilonTask {
+  attr String[1] src;
+  val ExportsNestedElement[*] exports;
+  val UsesNestedElement[*] uses;
+  val ModelNestedElement[*] models;
+}
+
+@gmf.node(tool.name="Rollback Transaction Task")
+class RollbackTransactionTask extends EpsilonTask {
+}
+
+@gmf.node(tool.name="Dispose Model Task")
+class DisposeModelTask extends EpsilonTask {
+  attr String model;
+}
+
+@gmf.node(tool.name="Start Transaction Task")
+class StartTransactionTask extends EpsilonTask {
+  attr String[*] models;
+}
+
+@gmf.node(tool.name="EOL Task")
+class EolTask extends ExecutableModelTask {
+}
+
+@gmf.node(tool.name="EML Task")
+class EmlTask extends ExecutableModelTask {
+  attr String useMatchTrace;
+  attr String exportTransformationTrace;
+  attr String exportMergeTrace;
+}
+
+@gmf.node(tool.name="EGL Task")
+class EglTask extends ExecutableModelTask {
+  attr String[1] target;
+}
+
+@gmf.node(tool.name="ETL Task")
+class EtlTask extends ExecutableModelTask {
+  attr String exportTransformationTrace;
+}
+
+@gmf.node(tool.name="EVL Task")
+class EvlTask extends ExecutableModelTask {
+  attr boolean failOnErrors;
+  attr boolean failOnWarnings;
+  attr boolean exportAsModel;
+  attr String exportConstraintTrace = "";
+}
+
+@gmf.node(tool.name="Commit Transaction Task")
+class CommitTransactionTask extends EpsilonTask {
+}
+
+@gmf.node(label="name", border.width="2", border.color="0,0,0")
+class Target {
+
+  @gmf.compartment(note="targetTasks")
+  val Task[+] targetTasks;
+  attr String name;
+
+  @gmf.compartment(note="targets")
+  ref Project[1]#targets containingProject;
+
+  @gmf.link(label="depends", target.decoration="filledclosedarrow", style="dash", width="3", tool.small.bundle="Epsilon_Workflow_Editor.edit", tool.small.path="icons/full/obj16/Depends.gif")
+  ref Target[*] depends;
+  attr String description;
+}
+
+@gmf.node(tool.name="Load EMF Model Task")
+class LoadEMFModelTask extends LoadModelTask {
+  attr String[1] modelFile = "";
+  attr String metamodelFile;
+  attr boolean isMetamodelFileBased;
+  attr boolean readOnLoad;
+  attr String metamodelUri;
+  attr boolean storeOnDisposal;
+}
+
+class Attribute {
+  attr String name;
+  attr String value;
+}
+
+class NestedElement extends Task {
+}
+
+@gmf.node(tool.name="Flock Task")
+class FlockTask extends ExecutableModelTask {
+  attr String originalModel;
+  attr String migratedModel;
+}
+
+@gmf.node(tool.name="EUnit Task")
+class EUnitTask extends ExecutableModelTask {
+  attr boolean failOnErrors;
+  attr String report = "no";
+  attr String toDir;
+  attr String ~package;
+}
+
+@gmf.node(tool.name="ECL Task")
+class EclTask extends ExecutableModelTask {
+  attr String useMatchTrace;
+  attr String exportMatchTrace;
+}
+
+@gmf.node(tool.name="Dispose Models Task")
+class DisposeModelsTask extends EpsilonTask {
+}
+

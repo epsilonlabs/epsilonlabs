@@ -1,0 +1,29 @@
+
+/* Change all the task names in the palette to be more readable 
+
+var creationTools = GmfTool!CreationTool.all();
+
+for(ct in creationTools) {
+	ct.setReadableTaskTitle();
+}
+
+"Finished ECore2GMF.eol".println(); 
+
+
+operation GmfTool!CreationTool setReadableTaskTitle() {
+	switch(self.title) {
+		case "EolTask" : self.title = "EOL Task";
+		case "EclTask" : self.title = "ECL Task";
+		case "EglTask" : self.title = "EGL Task";
+		case "EmlTask" : self.title = "EML Task";
+		case "EtlTask" : self.title = "ETL Task";
+		case "EvlTask" : self.title = "EVL Task";
+		case "LoadModelTask" : self.title = "Load Model Task";
+		case "LoadEMFModelTask" : self.title = "Load EMF Model Task";
+		case "StoreModelTask" : self.title = "Store Model Task";
+		case "DisposeModelTask" : self.title = "Dispose Model Task";
+		case "StartTransactionTask" : self.title = "Start Transaction Task";
+		case "CommitTransactionTask" : self.title = "Commit Transaction Task";
+		case "RollbackTransactionTask" : self.title = "Rollback Transaction Task";
+	}
+} */
