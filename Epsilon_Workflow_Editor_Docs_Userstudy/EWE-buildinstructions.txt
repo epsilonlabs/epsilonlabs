@@ -1,0 +1,16 @@
+== STEPS TO BUILD EWE FROM SCRATCH ==
+
+1) Start with a blank GMF project, copy Ecore model from EWE project.
+2) Use EuGENia to generate the GMF Editor from the Ecore model.
+3) Create model folder and src-gen folder in generated EWE.diagram project.
+4) Copy MANIFEST.MF from EWE.Diagram project in SVN so that all dependencies are in place. (contains dependencies on eef runtime and epsilon plugins for validation + generated EEF provider package export)
+5) Copy Existing EEF models from EWE/models folder to EWE.Diagram model folder. (Changes are widgets for Task/NestedElement + Modifications after running fixeef.eol)
+6) Copy ewe.impl.LoadEMFModelImpl class from EWE project in SVN (only one method modified) 
+7) Copy ewe.diagram.part.EwePaletteFactory from EWE Diagram (Only nested element tool commented out)
+8) Generate EEF source code from EEF Gen model.
+9) Copy EWE diagram plugin.xml from EWE diagram project. (Existing tabbedProperty extensions removed and replaced with EEF generated ones and customized for GMF)
+10) Copy EweDiagramEditor.java from EWE diagram project. (Contains integrations with EEF)
+11) Copy ewe.diagram.workbench.*Action classes from EWEDiagram for Eclipse integration menu. Copy all scripts from EWE/model/ewescripts to this location as well.
+12) Copy Icons from Epsilon_Workflow_Editor.edit/icons/full/obj16 to EWE.Edit project.
+13) Copy EWE.Validation project from SVN (contains modified plugin + EVL script).
+
