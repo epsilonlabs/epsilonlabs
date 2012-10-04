@@ -1,0 +1,7 @@
+for (a in F!Action) { 
+	a.name.println();
+	for (t in a.source) {
+		t.label.println("->");
+		t.target.name.println("--");
+	}
+}
