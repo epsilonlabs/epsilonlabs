@@ -1,0 +1,6 @@
+for (c in `Class [UML]`.all) {
+	c.`Class name`.println();
+	for (a in c.`Attributes [UML]`) {
+		("- " + a.`Attribute name` + ":" + a.`Data type`).println();
+	}
+}

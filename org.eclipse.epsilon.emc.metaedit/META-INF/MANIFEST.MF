@@ -10,3 +10,4 @@ Require-Bundle: org.eclipse.ui,
  com.metacase.graphbrowser
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.eclipse.epsilon.emc.metaedit

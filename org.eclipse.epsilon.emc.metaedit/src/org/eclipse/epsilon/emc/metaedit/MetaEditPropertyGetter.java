@@ -25,37 +25,24 @@ public class MetaEditPropertyGetter extends AbstractPropertyGetter {
 		try {
 			MEOop np = (MEOop) object;
 			
-			ArrayList<MEOop> properties = new ArrayList<MEOop>();
-			
-			for (MEOop p : port.allProperties(np)) {
-				properties.add(p);
-			}
-			
-			for (MEOop p : properties) {
-				if (property.equals(port.typeName(port.type(p)))) {
-					//MEAny value = port.valueAt(np, properties.indexOf(p)+1);
-					// Check out setValueAt for setting properties
-					return port.userPrintString(p);
-					// If type is not a primitive format is x_yyyy, need to create 
-					// an MEOop manually (in this case meType is MEOop)
-				}
-			}
+			Object propertyValue = MEOopUtil.getPropertyValue(np, property, port);
+			if (propertyValue != null) return propertyValue;
 		
 			if (model.isRelationship(np)) {
 				METype roleType = new METype(property);
-				MEOop[] roles = port.rolesForRel(model.model, np, roleType);
+				MEOop[] roles = port.rolesForRel(model.graph, np, roleType);
 				if (roles.length > 0) {
 					MEOop role = roles[0];
-					return port.objsForRole(model.model, role, new METype("NonProperty"))[0];
+					return port.objsForRole(model.graph, role, new METype("NonProperty"))[0];
 				}
 			}
 			else {
 				METype roleType = new METype(property);
-				MEOop[] roles = port.rolesForObj(model.model, np, roleType);
+				MEOop[] roles = port.rolesForObj(model.graph, np, roleType);
 				if (roles.length > 0) {
 					ArrayList<MEOop> relationships = new ArrayList<MEOop>();
 					for (MEOop role : roles) {
-						relationships.add(port.relsForRole(model.model, role, new METype("NonProperty"))[0]);
+						relationships.add(port.relsForRole(model.graph, role, new METype("NonProperty"))[0]);
 					}
 					return relationships;
 				}

@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
@@ -17,48 +18,61 @@ import org.eclipse.epsilon.eol.models.Model;
 
 import com.metacase.API.MEOop;
 import com.metacase.API.METype;
+import com.metacase.API.MetaEditAPI;
 import com.metacase.API.MetaEditAPIPortType;
 
 public class MetaEditModel extends Model {
 
-	protected MEOop model = null;
+	protected MEOop graph = null;
 	protected MetaEditAPIPortType port = null;
+	protected String graphTypeName = "";
+	protected String graphName = "";
+	public static final String PROPERTY_GRAPH_NAME = "graphName";
+	public static final String PROPERTY_GRAPH_TYPE_NAME = "graphType";
 	
 	public static void main(String[] args) throws Exception {
 
 		MetaEditModel m = new MetaEditModel();
 		m.setName("F");
+		m.setGraphTypeName("Class Diagram [UML]");
+		//m.setGraphName("ChartTool");
+		m.setGraphName("Reverse engineered Java (ex 1)");
 		m.load();
 		
 		EolModule module = new EolModule();
-		module.parse("Button.all.collect(b|b.`Name [Watch]`).println();");
+		//module.parse("`Class [UML]`.all.println();");
 		//module.parse("context Action { constraint SomeName { check: self.name <> '' message: ''} } ")
 		//module.parse("for (t in F!Transition.all) { (t.source.name + ' -> ' + t.target.name).println(); }");
-		//module.parse(new File(MetaEditModel.class.getResource("test.eol").toURI()));
+		module.parse(new File("examples/uml.eol").toURI());
+		module.getContext().getPrettyPrinterManager().addPrettyPrinter(new MetaEditPrettyPrinter(m.port));
 		module.getContext().getModelRepository().addModel(m);
 		module.execute();
 	}
-
+	
+	@Override
+	public void load(StringProperties properties, String basePath)
+			throws EolModelLoadingException {
+		super.load(properties, basePath);
+		this.graphName = properties.getProperty(PROPERTY_GRAPH_NAME);
+		this.graphTypeName = properties.getProperty(PROPERTY_GRAPH_TYPE_NAME);
+		load();
+	}
+	
 	@Override
 	public void load() throws EolModelLoadingException {
-		com.metacase.API.MetaEditAPI meServer = null;
-		com.metacase.API.METype graphType = new com.metacase.API.METype();
-		com.metacase.API.MEOop[] graphs = null;
 
 		try {
-			meServer = new com.metacase.API.MetaEditAPILocator();
+			MetaEditAPI meServer = new com.metacase.API.MetaEditAPILocator();
 			port = meServer.getMetaEditAPIPort();
-		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-			System.exit(1);
+			for (MEOop graph : port.allGoodInstances(new METype(graphTypeName))) {
+				if (graphName.equals(port.userPrintString(graph))) {
+					this.graph = graph;
+				}
+			}
+			if (this.graph == null) throw new Exception("Graph '" + graphName + "' does not exit.");
 		}
-		graphType.setName("WatchApplication");
-		try {
-			graphs = port.allGoodInstances(graphType);
-			model = graphs[0];
-		} catch (Exception ex) {
-			System.err.println(ex.getMessage());
-			System.exit(1);
+		catch (Exception ex) {
+			throw new EolModelLoadingException(ex, this);
 		}
 		
 		allContents();
@@ -81,11 +95,11 @@ public class MetaEditModel extends Model {
 		try {
 			if (objects == null) {
 				objects = new ArrayList<MEOop>();
-				for (MEOop o : port.objectSet(model)) {
+				for (MEOop o : port.objectSet(graph)) {
 					objects.add(o);
 				}
 				relationships = new ArrayList<MEOop>();
-				for (MEOop o : port.relationshipSet(model)) {
+				for (MEOop o : port.relationshipSet(graph)) {
 					relationships.add(o);
 				}
 			}
@@ -131,14 +145,18 @@ public class MetaEditModel extends Model {
 
 	@Override
 	public Object getTypeOf(Object instance) {
-		// TODO Auto-generated method stub
-		return null;
+		System.err.println("T: " + getTypeNameOf(instance));
+		return getTypeNameOf(instance);
 	}
 
 	@Override
 	public String getTypeNameOf(Object instance) {
-		// TODO Auto-generated method stub
-		return null;
+		System.err.println("T: " + getTypeNameOf(instance));
+		try {
+			return port.typeName(port.type((MEOop) instance));
+		} catch (RemoteException e) {
+			return "Unknown";
+		}
 	}
 
 	@Override
@@ -175,7 +193,8 @@ public class MetaEditModel extends Model {
 
 	@Override
 	public boolean owns(Object instance) {
-		return objects.contains(instance) || relationships.contains(instance);
+		return instance instanceof MEOop;
+		//return objects.contains(instance) || relationships.contains(instance);
 	}
 
 	@Override
@@ -259,5 +278,24 @@ public class MetaEditModel extends Model {
 	public IPropertySetter getPropertySetter() {
 		return propertySetter;
 	}
-
+	
+	public String getGraphTypeName() {
+		return graphTypeName;
+	}
+	
+	public void setGraphTypeName(String graphTypeName) {
+		this.graphTypeName = graphTypeName;
+	}
+	
+	public String getGraphName() {
+		return graphName;
+	}
+	
+	public void setGraphName(String graphName) {
+		this.graphName = graphName;
+	}
+	
+	public MEOop getGraph() {
+		return graph;
+	}
 }
