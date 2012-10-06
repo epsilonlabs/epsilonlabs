@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Metaedit
+Bundle-Name: EMC MetaEdit+ Driver Dependencies
 Bundle-SymbolicName: org.eclipse.epsilon.emc.metaedit
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.epsilon.emc.metaedit.Activator
