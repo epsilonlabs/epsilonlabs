@@ -3,10 +3,12 @@ package org.eclipse.epsilon.emc.metaedit;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import com.metacase.API.MEAny;
-import com.metacase.API.MEOop;
-import com.metacase.API.METype;
-import com.metacase.API.MetaEditAPIPortType;
+import org.eclipse.epsilon.emc.metaedit.api.MEAny;
+import org.eclipse.epsilon.emc.metaedit.api.MEOop;
+import org.eclipse.epsilon.emc.metaedit.api.METype;
+import org.eclipse.epsilon.emc.metaedit.api.MetaEditAPIPortType;
+
+
 
 public class MEOopUtil {
 	

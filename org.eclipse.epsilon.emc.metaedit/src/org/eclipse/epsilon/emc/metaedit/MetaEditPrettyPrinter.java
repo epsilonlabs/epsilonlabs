@@ -2,10 +2,11 @@ package org.eclipse.epsilon.emc.metaedit;
 
 import java.rmi.RemoteException;
 
+import org.eclipse.epsilon.emc.metaedit.api.MEOop;
+import org.eclipse.epsilon.emc.metaedit.api.MetaEditAPIPortType;
 import org.eclipse.epsilon.eol.execute.prettyprinting.PrettyPrinter;
 
-import com.metacase.API.MEOop;
-import com.metacase.API.MetaEditAPIPortType;
+
 
 public class MetaEditPrettyPrinter implements PrettyPrinter {
 	

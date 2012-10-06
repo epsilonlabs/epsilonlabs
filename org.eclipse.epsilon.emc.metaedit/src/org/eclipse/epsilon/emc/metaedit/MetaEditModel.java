@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.epsilon.common.util.StringProperties;
+import org.eclipse.epsilon.emc.metaedit.api.MEOop;
+import org.eclipse.epsilon.emc.metaedit.api.METype;
+import org.eclipse.epsilon.emc.metaedit.api.MetaEditAPI;
+import org.eclipse.epsilon.emc.metaedit.api.MetaEditAPIPortType;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
@@ -16,10 +20,7 @@ import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.Model;
 
-import com.metacase.API.MEOop;
-import com.metacase.API.METype;
-import com.metacase.API.MetaEditAPI;
-import com.metacase.API.MetaEditAPIPortType;
+
 
 public class MetaEditModel extends Model {
 
@@ -62,7 +63,7 @@ public class MetaEditModel extends Model {
 	public void load() throws EolModelLoadingException {
 
 		try {
-			MetaEditAPI meServer = new com.metacase.API.MetaEditAPILocator();
+			MetaEditAPI meServer = new org.eclipse.epsilon.emc.metaedit.api.MetaEditAPILocator();
 			port = meServer.getMetaEditAPIPort();
 			for (MEOop graph : port.allGoodInstances(new METype(graphTypeName))) {
 				if (graphName.equals(port.userPrintString(graph))) {

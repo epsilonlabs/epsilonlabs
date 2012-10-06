@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.epsilon.emc.metaedit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.epsilon.eol.engine,
- com.metacase.graphbrowser
+ org.eclipse.epsilon.emc.metaedit.dependencies
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.epsilon.emc.metaedit
