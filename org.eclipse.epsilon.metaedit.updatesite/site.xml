@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.epsilon.metaedit.dt.feature_0.1.0.201210061110.jar" id="org.eclipse.epsilon.metaedit.dt.feature" version="0.1.0.201210061110">
+      <category name="MetaEdit+ Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.epsilon.metaedit.feature_0.1.0.201210061110.jar" id="org.eclipse.epsilon.metaedit.feature" version="0.1.0.201210061110">
+      <category name="MetaEdit+ Integration"/>
+   </feature>
+   <category-def name="MetaEdit+ Integration" label="MetaEdit+ Integration"/>
+</site>

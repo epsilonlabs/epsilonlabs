@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graph Browser
 Bundle-SymbolicName: org.eclipse.epsilon.emc.metaedit.dependencies;singleton:=true
-Bundle-Version: 1.0.3
+Bundle-Version: 0.1.0.qualifier
 Bundle-Activator: com.metacase.graphbrowser.Activator
 Bundle-Vendor: MetaCase
 Require-Bundle: org.eclipse.ui,
