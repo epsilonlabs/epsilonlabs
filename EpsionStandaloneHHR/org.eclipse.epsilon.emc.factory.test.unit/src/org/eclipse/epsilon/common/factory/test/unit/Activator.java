@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.emc.factory.test.unit;
+package org.eclipse.epsilon.common.factory.test.unit;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
