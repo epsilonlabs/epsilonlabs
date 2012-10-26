@@ -15,7 +15,6 @@ import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
 /**
  * Abstract implementation of the EpsilonModelConfig interface. Specific Epsilon
  * drivers should extend this class to provide specific driver configuration
@@ -228,7 +227,7 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/**
 	 * Gets the aliases.
 	 *
-	 * @return the aliases
+	 * @return the aliases as a comma separated list
 	 */
 	public String getAliases() {
 		

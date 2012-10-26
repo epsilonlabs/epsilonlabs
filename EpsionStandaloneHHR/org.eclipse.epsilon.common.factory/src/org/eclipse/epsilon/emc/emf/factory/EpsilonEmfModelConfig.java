@@ -13,8 +13,8 @@ package org.eclipse.epsilon.emc.emf.factory;
 
 import org.eclipse.epsilon.common.factory.EpsilonAbstractModelConfig;
 import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
+import org.eclipse.jdt.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class EpsilonEmfModelConfig.
  */
@@ -59,7 +59,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 *
 	 * @param metamodelUris the new metamodel uris
 	 */
-	public void setMetamodelUris(String metamodelUris) {
+	public void setMetamodelUris(@NonNull String metamodelUris) {
 		
 		// TODO Should we split the string and add to set to 
 		// avoid duplicate URIs?
@@ -91,7 +91,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 *
 	 * @param metamodelPaths the new metamodel paths
 	 */
-	public void setMetamodelPaths(String metamodelPaths) {
+	public void setMetamodelPaths(@NonNull String metamodelPaths) {
 		
 		parameters.put(FILE_METAMODELS, metamodelPaths);
 	}
