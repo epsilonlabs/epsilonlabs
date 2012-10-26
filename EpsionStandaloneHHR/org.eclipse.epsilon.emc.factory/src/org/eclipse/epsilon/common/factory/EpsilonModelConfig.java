@@ -8,7 +8,9 @@
  * Contributors:
  *     hhoyos - initial API and implementation
  ******************************************************************************/
-package org.eclipse.epsilon.emc.factory;
+package org.eclipse.epsilon.common.factory;
+
+import org.eclipse.jdt.annotation.NonNull;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -30,12 +32,17 @@ public interface EpsilonModelConfig {
 	
 	/**
 	 * Returns a String containing the value of the named configuration parameter,
-	 * or null if the parameter does not exist.
+	 * or null if the parameter does not exist. 
+	 * <p>
+	 * Depending on the specific implementation the underlying parameter
+	 * storage method (for example a Map) could allow values to be null, in which
+	 * case a null result is not sufficient proof that the parameter does not
+	 * exist.
 	 *
 	 * @param name the name of the parameter
 	 * @return the value of the parameter
 	 */
-	public String getParameter(String name);
+	public String getParameter(@NonNull String name);
 	
 	
 	/**
@@ -46,7 +53,7 @@ public interface EpsilonModelConfig {
 	 * @param parameter the parameter
 	 * @param value the value to assign to the parameter.
 	 */
-	public void setParameter(String parameter, String value);
+	public void setParameter(@NonNull String parameter, @NonNull String value);
 	
 	
 	/**

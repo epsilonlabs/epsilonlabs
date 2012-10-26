@@ -6,13 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *     hhoyos - initial API and implementation
+ *     Horacio Hoyos - initial API and implementation
  ******************************************************************************/
 package org.eclipse.epsilon.emc.emf.factory;
 
 
-import org.eclipse.epsilon.emc.factory.EpsilonAbstractModelConfig;
-import org.eclipse.epsilon.emc.factory.EpsilonModelConfig;
+import org.eclipse.epsilon.common.factory.EpsilonAbstractModelConfig;
+import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -26,7 +26,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 * loading. Otherwise, external references are not resolved. Paired with
 	 * "true" by default.
 	 */
-	public static final String EXPAND = "driver";
+	public static final String EXPAND = "expand";
 	
 	/**
 	 * The uri meta-models. This key is a comma-separated list of zero or more
@@ -34,7 +34,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 * Users may combine this key with {@link #FILE_METAMODELS} to load
 	 * both file-based and URI-based meta-models at the same time.
 	 */
-	public static final String URI_METAMODELS = "driver";
+	public static final String URI_METAMODELS = "uriMetamodels";
 	
 	/** The file meta-models. This key is a comma-separated list of zero or
 	 * more URIs that can be used to locate some of the meta-models
@@ -42,7 +42,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 * {@link #URI_METAMODELS} to load both file-based and URI-based
 	 * meta-models at the same time.
 	 */
-	public static final String FILE_METAMODELS = "driver";
+	public static final String FILE_METAMODELS = "fileMetamodels";
 	
 	/**
 	 * Instantiates a new epsilon emf model configuration by setting the DRIVER
@@ -66,7 +66,14 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 		parameters.put(URI_METAMODELS, metamodelUris);
 	}
 	
-	//TODO add a removeMetamodelURI
+	
+	/**
+	 * Removes the metamodel uris (if present)
+	 */
+	public void removeMetamodelUris() {
+		
+		parameters.remove(URI_METAMODELS);
+	}
 	
 	/**
 	 * Gets the metamodel uris.
@@ -86,7 +93,12 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 */
 	public void setMetamodelPaths(String metamodelPaths) {
 		
-		parameters.put(URI_METAMODELS, metamodelPaths);
+		parameters.put(FILE_METAMODELS, metamodelPaths);
+	}
+	
+	public void removeMetamodelPaths() {
+		
+		parameters.remove(FILE_METAMODELS);
 	}
 	
 	/**
@@ -117,7 +129,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 */
 	public boolean getExpand() {
 		
-		return Boolean.getBoolean(parameters.get(EXPAND));
+		return Boolean.valueOf(parameters.get(EXPAND));
 	}
 
 

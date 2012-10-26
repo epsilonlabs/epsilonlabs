@@ -6,17 +6,19 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *     hhoyos - initial API and implementation
+ *     Horacio Hoyos - initial API and implementation
  ******************************************************************************/
 package org.eclipse.epsilon.emc.emf.factory;
 
+import org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory;
+import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
+import org.eclipse.epsilon.common.factory.EpsilonModelFactory;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.emc.emf.EmfModel;
-import org.eclipse.epsilon.emc.factory.EpsilonModelConfig;
-import org.eclipse.epsilon.emc.factory.EpsilonModelFactory;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Epsilon EmfModel models.
  */
@@ -30,16 +32,21 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	}
 	
 	/**
-	 * Instantiates a new Epsilon emf model factory for the given model name
+	 * Instantiates a new Epsilon emf model factory for the given model name.
 	 *
 	 * @param modelName the model name
+	 * @param modelURI the model uri
 	 */
-	public EpsilonEmfModelFactory(String modelName) {
+	public EpsilonEmfModelFactory(String modelName, String modelURI) {
 		super();
 		config.setModelName(modelName);
+		config.setModelURI(modelURI);
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.emc.factory.EpsilonAbstractModelFactory#createModel()
+	 */
 	public IModel createModel() throws EolModelLoadingException {
 		// TODO test that the configuration has the needed parameters??
 		EmfModel emfModel = new EmfModel();
@@ -58,41 +65,67 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.emc.factory.EpsilonAbstractModelFactory#getConfiguration()
+	 */
 	@Override
 	public EpsilonModelConfig getConfiguration() {
 		return config;
 	}
 	
+	/**
+	 * Sets the configuration used in the factory. Convenience method for setting
+	 * the factory's configuration. 
+	 *
+	 * @param config the new configuration
+	 */
 	public void setConfiguration(EpsilonModelConfig config) {
 		
 		this.config = (EpsilonEmfModelConfig) config;
 	}
 	
 	// TODO Additional methods for the possible combinations of cached and expanded
-	
-	public void configSourceModelExpand(String modelURI) {
+
+	/**
+	 * Configure the factory to load models as source models and expand them on
+	 * load.
+	 */
+	public void configForSourceModelExpand() {
 		
-		configSourceModel(modelURI);
+		configForSourceModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
-	public void configCachedSourceModelExpand(String modelURI) {
+	/**
+	 * Configure the factory to load models as cached source models and expand
+	 * them on load.
+	 */
+	public void configCachedSourceModelExpand() {
 		
-		configCachedSourceModel(modelURI);
+		configForCachedSourceModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
-	public void configTargetModelExpand(String modelURI) {
+
+	/**
+	 * Configure the factory to load models as target models and expand them on
+	 * load.
+	 */
+	public void configForTargetModelExpand() {
 		
-		configTargetModel(modelURI);
+		configForTargetModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
-	public void configCachedTargetModelExpand(String modelURI) {
+	/**
+	 * Configure the factory to load models as cached target models and expand
+	 * them on load.
+	 */
+	public void configForCachedTargetModelExpand() {
 		
-		configCachedTargetModel(modelURI);
+		configForCachedTargetModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	

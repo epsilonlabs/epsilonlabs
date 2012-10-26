@@ -1,15 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Factory
-Bundle-SymbolicName: org.eclipse.epsilon.emc.factory
+Bundle-SymbolicName: org.eclipse.epsilon.common.factory
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.epsilon.emc.factory.Activator
+Bundle-Activator: org.eclipse.epsilon.common.factory.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.epsilon.eol.engine;bundle-version="0.9.1",
- org.junit
+ org.junit,
+ org.eclipse.jdt.annotation;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: org.eclipse.epsilon.emc.emf
-Export-Package: org.eclipse.epsilon.emc.emf.factory,
- org.eclipse.epsilon.emc.factory
+Export-Package: org.eclipse.epsilon.common.factory,
+ org.eclipse.epsilon.emc.emf.factory

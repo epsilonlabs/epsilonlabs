@@ -8,7 +8,7 @@
  * Contributors:
  *     hhoyos - initial API and implementation
  ******************************************************************************/
-package org.eclipse.epsilon.emc.factory;
+package org.eclipse.epsilon.common.factory;
 
 import org.eclipse.epsilon.emc.emf.factory.EpsilonEmfModelFactory;
 
