@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <script src="codemirror2/lib/codemirror.js" type="text/javascript"></script>
+    <script src="codemirror2/mode/javascript/javascript.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="codemirror2/lib/codemirror.css"></link>
+    <link rel="stylesheet" href="codemirror2/theme/eclipse.css"></link>
+    <script src="codemirror/js/mirrorframe.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="SpryTabbedPanels.css"/>
+    <link rel="stylesheet" href="CustomisedSpryTabbedPanels.css"/>
+    <script src="SpryTabbedPanels.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+	    
+	    var http = createRequestObject();
+
+	    function createRequestObject() {
+	    	var objAjax;
+	    	var browser = navigator.appName;
+	    	if(browser == "Microsoft Internet Explorer"){
+	    		objAjax = new ActiveXObject("Microsoft.XMLHTTP");
+	    	}else{
+	    		objAjax = new XMLHttpRequest();
+	    	}
+	    	return objAjax;
+	    }
+
+	    function run(){
+
+			var url = "evaluate?source=" + encodeURIComponent(source_editor.getValue());
+
+	    	http.open("get", url);
+	    	
+	    	http.onreadystatechange = updateNewContent;
+	    	http.send(null);
+	    	return false;
+	    }
+
+	    function updateNewContent(){
+	    	
+	    	if(http.readyState == 4){
+	    		
+	    		var response;
+	    			
+	    		if (http.status == "200") {
+	    			response = http.responseText;			
+	    		}
+	    		else {
+	    			response = "An unexpected error occurred. Sorry :(";
+	    		}
+				
+	    		console.setValue(response);
+	    		//document.getElementById("console_area").innerHTML = response;
+	    		//editAreaLoader.setValue('console_area', response);
+	    		//document.getElementById("console_area").scrollTop = document.getElementById("console_area").scrollHeight;
+	    	}
+	    }
+
+	</script>
+  </head>
+  <body style="background-color:#FFFFFF">
+  
+  	<textarea id="source_area" style="">// In this script, we query Ecore to find out:
+
+// ... how many classes it has
+EClass.all.size().println("All classes: ");
+
+// ... how many abstract classes it has
+EClass.all.select(c|c.abstract)
+    .size().println("Abstract classes: ");
+
+// ... the names of its classes and how many 
+// features each one has
+"Class names: ".println();
+for (c in EClass.all) {
+    var toPrint = " " + c.name;
+    toPrint = toPrint + "->" + 
+        c.eStructuralFeatures.size();
+
+    toPrint.println();
+}</textarea>
+		
+		<center>
+			<input type="image" src="images/play.png" style="padding:20px" onclick="run()"/>
+		</center>
+		
+  		<textarea id="console_area" style="height:100px;"></textarea>
+  		
+		<script type="text/javascript">
+			
+			
+			
+		  	//var source_area = document.getElementById('source_area');
+			var source_editor = CodeMirror.fromTextArea(document.getElementById("source_area"), {
+    lineNumbers: true
+  });
+  			
+			var console_area = document.getElementById('console_area');
+			var console = CodeMirror.fromTextArea(document.getElementById("console_area"), {
+    lineNumbers: true
+  });
+  		
+  		var editors = document.getElementsByClassName("codeMirror-scroll");
+  		editors[1].style.height="150px";
+  		editors[1].refresh();
+		</script>
+
+  </body>
+</html>

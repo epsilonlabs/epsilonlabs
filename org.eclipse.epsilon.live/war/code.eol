@@ -1,0 +1,18 @@
+-- Start off by printing the ubiqutous Hello World
+'Hello World'.println();
+
+-- Now let's define a variable and do some math
+var i : Integer;
+i = 5 + 10 * 100;
+i.println();
+
+-- Now that we've done our math, let's query the model
+-- and print the name of all EClasses in Ecore
+for (c in EClass.all) {
+	c.name.println();
+}
+
+-- Now let's keep only the non-abstract classes
+for (c in EClass.all.select(c|not c.abstract)) {
+	c.name.println();
+}

@@ -1,0 +1,8 @@
+<project default="main">
+	<target name="main">
+		<!--copy file="../org.antlr.runtime_3.1.b1/org.antlr.runtime_3.1.b1.jar" todir="war/WEB-INF/lib"></copy-->
+		<jar destfile="war/WEB-INF/lib/org.eclipse.epsilon.eol.engine.jar" basedir="../org.eclipse.epsilon.eol.engine/bin"/>	
+		<jar destfile="war/WEB-INF/lib/org.eclipse.epsilon.commons.jar" basedir="../org.eclipse.epsilon.commons/bin"/>
+		<jar destfile="war/WEB-INF/lib/org.eclipse.epsilon.emc.emf.jar" basedir="../org.eclipse.epsilon.emc.emf/bin"/>
+	</target>
+</project>
