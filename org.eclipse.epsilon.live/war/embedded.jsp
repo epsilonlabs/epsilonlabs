@@ -24,7 +24,7 @@
 			
 			document.getElementById("run").src = "images/clock.png";
 			
-			var url = "evaluate?source=" + encodeURIComponent(source_editor.getValue());
+			var url = "evaluate?language=<%= request.getParameter("language") %>&source=" + encodeURIComponent(source_editor.getValue());
 			
 	    	http.open("get", url);
 	    	
@@ -48,36 +48,14 @@
 				
 	    		console.setValue(response);
 	    		document.getElementById("run").src = "images/play.png";
-	    		
-	    		//document.getElementById("console_area").innerHTML = response;
-	    		//editAreaLoader.setValue('console_area', response);
-	    		//document.getElementById("console_area").scrollTop = document.getElementById("console_area").scrollHeight;
-	    	}
+		    }
 	    }
 
 	</script>
   </head>
   <body>
   
-  	<textarea id="source_area" style="">// In this script, we query Ecore to find out:
-
-// ... how many classes it has
-EClass.all.size().println("All classes: ");
-
-// ... how many abstract classes it has
-EClass.all.select(c|c.abstract)
-    .size().println("Abstract classes: ");
-
-// ... the names of its classes and how many 
-// features each one has
-"Class names: ".println();
-for (c in EClass.all) {
-    var toPrint = " " + c.name;
-    toPrint = toPrint + "->" + 
-        c.eStructuralFeatures.size();
-
-    toPrint.println();
-}</textarea>
+  	<textarea id="source_area" style=""><%= request.getParameter("source") %></textarea>
 		
 		<center>
 			<input id="run" type="image" src="images/play.png" style="padding:20px" onclick="run()"/>

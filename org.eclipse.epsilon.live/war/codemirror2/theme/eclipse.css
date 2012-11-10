@@ -17,3 +17,22 @@
 .cm-s-default span.cm-bracket {color: #cc7;}
 .cm-s-default span.cm-tag {color: #170;}
 .cm-s-default span.cm-attribute {color: #00c;}
+
+body {
+	position: relative;
+	top : -8px;
+	left : -8px;		
+}
+
+.CodeMirror {
+	width:100%;
+	border: 1px solid rgb(215, 215, 215);
+    background1: rgb(245,244,240);
+    background: white;
+    font-family: Monaco, Courier;
+    font-size: 14px;
+}
+
+.codemirror-gutter {
+	background-color: rgb(252, 252, 252);
+}
