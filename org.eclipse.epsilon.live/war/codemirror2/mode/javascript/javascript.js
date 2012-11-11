@@ -9,7 +9,7 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
     var operator = kw("operator"), atom = {type: "atom", style: "atom"};
     return {
-      "if": A, "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
+      "if": A, "not": A, "and": A, "or": A, "xor": A, "implies": A, "while": A, "with": A, "else": B, "do": B, "try": B, "finally": B,
       "return": C, "break": C, "continue": C, "new": C, "delete": C, "throw": C,
       "var": kw("var"), "function": kw("function"),"operation": kw("operation"), "catch": kw("catch"),
       "for": kw("for"), "switch": kw("switch"), "case": kw("case"), "default": kw("default"),
