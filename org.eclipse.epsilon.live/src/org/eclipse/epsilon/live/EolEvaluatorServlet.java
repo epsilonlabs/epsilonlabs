@@ -3,11 +3,13 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.Collections;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -15,8 +17,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.epsilon.commons.parse.problem.ParseProblem;
-import org.eclipse.epsilon.commons.util.StringProperties;
+import org.eclipse.epsilon.common.parse.problem.ParseProblem;
+import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.EolEvaluator;
@@ -32,35 +34,37 @@ public class EolEvaluatorServlet extends HttpServlet {
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		//String response = "";
 		resp.setContentType("text/html");
-		
-		//System.err.println(req.getServerName());
-		
-		/*
-		String server = "";
-		
-		if ("localhost".equals(req.getServerName())) {
-			server = "localhost:8888";
-			System.err.println("Source: " + req.getParameter("source"));
-		}
-		else {
-			server = "epsilon-live.appspot.com";
-		}*/
 		
 		EolModule module = new EolModule();
 		StringOutputStream output = new StringOutputStream();
 		
-		
 		ResourceSet rs = new ResourceSetImpl();
 		rs.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-		Resource r = rs.createResource(URI.createURI(""));
-		r.getContents().add(EcoreUtil.copy(EcorePackage.eINSTANCE));
+		Resource r = null;
+		EPackage metamodel = null;
 		
+		if (req.getParameter("metamodel") == null) {
+			r = rs.createResource(URI.createURI(""));
+			r.getContents().add(EcoreUtil.copy(EcorePackage.eINSTANCE));
+			metamodel = EcorePackage.eINSTANCE;
+		}
+		else {
+			r = rs.createResource(URI.createURI(req.getParameter("metamodel")));
+			r.load(Collections.emptyMap());
+			metamodel = (EPackage) r.getContents().get(0);
+			System.err.println(metamodel);
+			rs = new ResourceSetImpl();
+			rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+			rs.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
+			r = rs.createResource(URI.createURI(req.getParameter("model")));
+			r.load(Collections.emptyMap());
+			System.err.println("Resource: " + r.getContents().get(0));
+		}
 		
 		try {
-			InMemoryEmfModel model = new InMemoryEmfModel(r);
+			InMemoryEmfModel model = new InMemoryEmfModel("M", r, metamodel);
 			module.parse(req.getParameter("source"));
 			
 			if (module.getParseProblems().size() > 0) {
