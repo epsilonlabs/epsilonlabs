@@ -51,13 +51,12 @@ public class EolEvaluatorServlet extends HttpServlet {
 			r = rs.createResource(URI.createURI(req.getParameter("metamodel")));
 			r.load(Collections.emptyMap());
 			metamodel = (EPackage) r.getContents().get(0);
-			System.err.println(metamodel);
+
 			rs = new ResourceSetImpl();
 			rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
 			rs.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
 			r = rs.createResource(URI.createURI(req.getParameter("model")));
 			r.load(Collections.emptyMap());
-			System.err.println("Resource: " + r.getContents().get(0));
 		}
 		
 		try {

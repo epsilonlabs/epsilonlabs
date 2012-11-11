@@ -1,3 +1,9 @@
+<%
+String button = "play";
+if (request.getParameter("button") != null) {
+	button = request.getParameter("button") + "";
+}
+%>
 <html>
   <head>
     <script src="codemirror2/lib/codemirror.js" type="text/javascript"></script>
@@ -47,7 +53,7 @@
 	    		}
 				
 	    		console.setValue(response);
-	    		document.getElementById("run").src = "images/play.png";
+	    		document.getElementById("run").src = "images/<%=button%>.png";
 		    }
 	    }
 
@@ -58,7 +64,7 @@
   	<textarea id="source_area" style=""><%= request.getParameter("source") %></textarea>
 		
 		<center>
-			<input id="run" type="image" src="images/play.png" style="padding:20px" onclick="run()"/>
+			<input id="run" type="image" src="images/<%=button%>.png" style="padding:20px" onclick="run()"/>
 		</center>
 		
   		<textarea id="console_area" style="height:100px;"></textarea>
