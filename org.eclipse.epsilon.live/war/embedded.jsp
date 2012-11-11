@@ -1,7 +1,26 @@
+<%@ page import="java.net.URLEncoder"%>
 <%
 String button = "play";
+boolean compact = false;
+String metamodel = null;
+String model = null;
+String source = "";
+
+if (request.getParameter("source") != null) {
+	source = request.getParameter("source") + "";
+}
+
 if (request.getParameter("button") != null) {
 	button = request.getParameter("button") + "";
+}
+if (request.getParameter("compact") != null) {
+	compact = request.getParameter("compact").equalsIgnoreCase("1");
+}
+if (request.getParameter("metamodel") != null) {
+	metamodel = URLEncoder.encode(request.getParameter("metamodel"), "UTF-8");
+}
+if (request.getParameter("model") != null) {
+	model = URLEncoder.encode(request.getParameter("model"), "UTF-8");
 }
 %>
 <html>
@@ -32,6 +51,10 @@ if (request.getParameter("button") != null) {
 			
 			var url = "evaluate?language=<%= request.getParameter("language") %>&source=" + encodeURIComponent(source_editor.getValue());
 			
+			<%if(metamodel != null){%>
+			url = url + "&metamodel=<%=metamodel%>&model=<%=model%>";
+			<%}%>
+			
 	    	http.open("get", url);
 	    	
 	    	http.onreadystatechange = updateNewContent;
@@ -61,18 +84,21 @@ if (request.getParameter("button") != null) {
   </head>
   <body>
   
-  	<textarea id="source_area" style=""><%= request.getParameter("source") %></textarea>
+  		<textarea id="source_area"><%=source%></textarea>
 		
 		<center>
 			<input id="run" type="image" src="images/<%=button%>.png" style="padding:20px" onclick="run()"/>
 		</center>
 		
-  		<textarea id="console_area" style="height:100px;"></textarea>
+  		<textarea id="console_area"></textarea>
   		
 		<script type="text/javascript">
 			var source_editor = CodeMirror.fromTextArea(document.getElementById("source_area"), {lineNumbers: true});		
 			var console = CodeMirror.fromTextArea(document.getElementById("console_area"), {lineNumbers: true}); 		
   			var editors = document.getElementsByClassName("codeMirror-scroll");
+  			<%if (compact){%>
+  			editors[0].style.height="150px";
+  			<%}%>
   			editors[1].style.height="150px";
   			editors[1].refresh();
 		</script>

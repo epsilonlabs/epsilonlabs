@@ -71,6 +71,7 @@ public class EolEvaluatorServlet extends HttpServlet {
 			}
 			
 			module.getContext().getModelRepository().addModel(model);
+			module.getContext().getPrettyPrinterManager().addPrettyPrinter(new SecretiveEmfPrettyPrinter());
 			module.getContext().setOutputStream(new PrintStream(output));
 			module.getContext().setErrorStream(new PrintStream(output));
 			module.execute();
