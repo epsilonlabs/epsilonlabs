@@ -80,7 +80,7 @@ public class EolEvaluatorServlet extends HttpServlet {
 			return;
 		}
 
-		resp.getWriter().println(output.getValue());
+		resp.getWriter().println(output.getValue().trim());
 		
 		module.getContext().getModelRepository().dispose();
 		module.getContext().dispose();
