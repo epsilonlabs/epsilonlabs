@@ -1,0 +1,2 @@
+serviceClass: org.eclipse.epsilon.live.webxeed.client.EmfModelRetrievalService
+path: 47757EC5B96E5190315C5AC22B728261.gwt.rpc

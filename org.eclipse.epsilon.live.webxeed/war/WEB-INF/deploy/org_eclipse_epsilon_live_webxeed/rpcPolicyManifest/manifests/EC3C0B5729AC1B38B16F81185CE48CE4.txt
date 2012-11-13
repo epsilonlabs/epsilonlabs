@@ -1,0 +1,2 @@
+serviceClass: org.eclipse.epsilon.live.webxeed.client.GreetingService
+path: 9D382F39D27389F017EE36E12D08C9AE.gwt.rpc
