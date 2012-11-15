@@ -1,2 +1,0 @@
-# Module org_eclipse_epsilon_live_webxeed
-# RPC service class, partial path of RPC policy file
