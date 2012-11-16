@@ -14,6 +14,8 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
@@ -44,7 +46,10 @@ public class Webxeed implements EntryPoint {
 	protected TreeItem createTreeItem(WObject wObject) {
 		WObjectTreeItem treeItem = new WObjectTreeItem();
 		treeItem.setWObject(wObject);
-		treeItem.setText(wObject.getTypeName());
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		horizontalPanel.add(new Image("images/object.gif"));
+		horizontalPanel.add(new HTML(wObject.getTypeName()));
+		treeItem.setWidget(horizontalPanel);
 		
 		for (WSlot slot : wObject.getSlots()) {
 			if (slot instanceof WReferenceSlot && ((WReferenceSlot)slot).isContainment()) {
@@ -70,6 +75,7 @@ public class Webxeed implements EntryPoint {
 		textbox.setValue(Location.getParameter("user"));
 		
 		final Grid grid = new Grid();
+		grid.setStyleName("table table-striped table-bordered");
 		
 		SplitLayoutPanel dockLayoutPanel = new SplitLayoutPanel();
 		
@@ -100,9 +106,12 @@ public class Webxeed implements EntryPoint {
 			@Override
 			public void onSelection(SelectionEvent<TreeItem> event) {
 				WObject wObject = ((WObjectTreeItem) event.getSelectedItem()).getWObject();
-				grid.resize(wObject.getSlots().size(), 2);
+				grid.resize(wObject.getSlots().size()+1, 2);
 				
-				int i = 0;
+				grid.setWidget(0, 0, new HTML("Name"));
+				grid.setWidget(0, 1, new HTML("Value"));
+				
+				int i = 1;
 				for (WSlot wSlot : wObject.getSlots()) {
 					grid.setWidget(i, 0, new HTML(wSlot.getName()));
 					grid.setWidget(i, 1, new HTML(wSlot.getValues() + ""));

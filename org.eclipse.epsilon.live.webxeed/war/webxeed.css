@@ -1,8 +1,20 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu);
 /** Add css rules here for your application. */
 
-body {
-	font-family: 'Ubuntu';
+.gwt-HTML{
+	font-family: 'Ubuntu', Tahoma, sans-serif;
+	font-size: 12px;
+}
+
+.gwt-TreeItem {
+	font-family: 'Ubuntu', Tahoma, sans-serif;
+	font-size: 12px;
+	position:relative;
+	top:1px;
+}
+
+.propertyGrid {
+	padding: 4px;
 }
 
 /** Example rules used by the template application (remove for your app) */
