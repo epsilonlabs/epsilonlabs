@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.live.webxeed.server;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -10,6 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.dt.exeed.EObjectImageTextProvider;
+import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.live.webxeed.client.EmfModelRetrievalService;
 import org.eclipse.epsilon.live.webxeed.shared.WAttributeSlot;
 import org.eclipse.epsilon.live.webxeed.shared.WObject;
@@ -22,12 +23,21 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class EmfModelRetrievalServiceImpl extends RemoteServiceServlet implements EmfModelRetrievalService {
 	
 	protected HashMap<EObject, WObject> cache = new HashMap<EObject, WObject>();
+	protected EObjectImageTextProvider imageTextProvider = null;
 	
 	@Override
 	public WObject getEmfModel(String modelUrl, String metamodelUrl) {
 		
 		try {
 			Resource resource = new RemoteModelLoader().load(modelUrl, metamodelUrl);
+			imageTextProvider = new EObjectImageTextProvider(new InMemoryEmfModel(resource), System.out, System.err, false) {
+				
+				@Override
+				protected void logException(Exception ex) {
+					
+				}
+			};
+			
 			return createWObject(resource.getContents().get(0));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -42,7 +52,9 @@ public class EmfModelRetrievalServiceImpl extends RemoteServiceServlet implement
 		}
 		
 		WObject wObject = new WObject();
+		cache.put(o, wObject);
 		wObject.setTypeName(o.eClass().getName());
+		wObject.setTitle(imageTextProvider.getEObjectLabel(o, o.eClass().getName(), false));
 		for (EStructuralFeature sf : o.eClass().getEAllStructuralFeatures()) {
 			WSlot wSlot = null;
 			
@@ -58,7 +70,7 @@ public class EmfModelRetrievalServiceImpl extends RemoteServiceServlet implement
 					}
 					
 				}
-				else {
+				else if (o.eIsSet(eReference)){
 					wReferenceSlot.getValues().add(createWObject((EObject)o.eGet(eReference)));
 				}
 			}

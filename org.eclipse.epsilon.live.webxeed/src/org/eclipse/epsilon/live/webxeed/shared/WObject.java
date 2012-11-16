@@ -34,4 +34,9 @@ public class WObject implements Serializable {
 		this.typeName = typeName;
 	}
 	
+	@Override
+	public String toString() {
+		return getTitle()+"";
+	}
+	
 }

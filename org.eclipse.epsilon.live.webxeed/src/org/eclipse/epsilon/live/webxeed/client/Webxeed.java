@@ -45,11 +45,14 @@ public class Webxeed implements EntryPoint {
 	
 	protected TreeItem createTreeItem(WObject wObject) {
 		WObjectTreeItem treeItem = new WObjectTreeItem();
+		treeItem.setText(wObject.toString() + " (" + wObject.getTypeName() + ")");
 		treeItem.setWObject(wObject);
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		horizontalPanel.add(new Image("images/object.gif"));
-		horizontalPanel.add(new HTML(wObject.getTypeName()));
-		treeItem.setWidget(horizontalPanel);
+		//horizontalPanel.add(new Image("images/object.png"));
+		HTML treeItemLabel = new HTML(wObject.toString() + " (" + wObject.getTypeName() + ")");
+		//treeItemLabel.setStyleName("treeItem");
+		//horizontalPanel.add(treeItemLabel);
+		//treeItem.setWidget(treeItemLabel);
 		
 		for (WSlot slot : wObject.getSlots()) {
 			if (slot instanceof WReferenceSlot && ((WReferenceSlot)slot).isContainment()) {
@@ -82,7 +85,7 @@ public class Webxeed implements EntryPoint {
 		RootLayoutPanel.get().add(dockLayoutPanel);
 		
 		
-		dockLayoutPanel.addSouth(grid, 200);
+		dockLayoutPanel.addSouth(new ScrollPanel(grid), 200);
 		
 		final Tree tree = new Tree();
 		
