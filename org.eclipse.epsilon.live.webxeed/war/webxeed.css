@@ -6,6 +6,14 @@
 	font-size: 12px;
 }
 
+.propertiesTable {
+	width: 100%;
+}
+
+.propertyName {
+	font-weight: bold;
+}
+
 .gwt-TreeItem, .treeItem {
 	font-family: 'Ubuntu', Tahoma, sans-serif;
 	font-size: 12px;

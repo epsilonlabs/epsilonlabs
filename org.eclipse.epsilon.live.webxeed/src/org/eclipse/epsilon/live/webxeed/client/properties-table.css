@@ -1,0 +1,36 @@
+.cellTableHeader {
+	font-family: 'Ubuntu', Tahoma, sans-serif;
+	font-size: 12px;
+	text-shadow:none;
+	border-bottom:0px;
+}
+
+.cellTableCell {
+	font-family: 'Ubuntu', Tahoma, sans-serif;
+	font-size: 12px;
+}
+
+.cellTableEvenRow {
+	background: #ffffff;
+}
+
+.cellTableOddRow {
+	background: #ECECEC;
+}
+
+.cellTableSelectedRow {
+	background: #628cd5;
+}
+
+.cellTableSelectedRowCell {
+	border: none;
+}
+
+.cellTableHoveredRow {
+	border: 0px;
+	padding: 0px;
+}
+
+.cellTableHoveredRowCell {
+	border: none;
+}
