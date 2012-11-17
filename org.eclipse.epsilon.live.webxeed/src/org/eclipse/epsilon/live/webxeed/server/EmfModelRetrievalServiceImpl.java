@@ -54,7 +54,9 @@ public class EmfModelRetrievalServiceImpl extends RemoteServiceServlet implement
 		WObject wObject = new WObject();
 		cache.put(o, wObject);
 		wObject.setTypeName(o.eClass().getName());
-		wObject.setTitle(imageTextProvider.getEObjectLabel(o, o.eClass().getName(), false));
+		wObject.setLabel(imageTextProvider.getEObjectLabel(o, o.eClass().getName(), false));
+		wObject.setIcon(imageTextProvider.getEObjectImage(o, "object"));
+		
 		for (EStructuralFeature sf : o.eClass().getEAllStructuralFeatures()) {
 			WSlot wSlot = null;
 			
