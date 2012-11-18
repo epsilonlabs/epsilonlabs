@@ -55,6 +55,7 @@ public class EmfModelRetrievalServiceImpl extends RemoteServiceServlet implement
 		cache.put(o, wObject);
 		wObject.setTypeName(o.eClass().getName());
 		wObject.setLabel(imageTextProvider.getEObjectLabel(o, o.eClass().getName(), false));
+		wObject.setReferenceLabel(imageTextProvider.getEObjectReferenceLabel(o, wObject.getLabel()));
 		wObject.setIcon(imageTextProvider.getEObjectImage(o, "object"));
 		
 		for (EStructuralFeature sf : o.eClass().getEAllStructuralFeatures()) {

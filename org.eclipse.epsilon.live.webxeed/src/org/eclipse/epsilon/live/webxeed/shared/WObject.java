@@ -11,6 +11,15 @@ public class WObject implements Serializable {
 	protected String icon;
 	protected String referenceLabel;
 	protected String typeName;
+	protected int id = 0;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public ArrayList<WSlot> getSlots() {
 		return slots;
@@ -37,7 +46,10 @@ public class WObject implements Serializable {
 	}
 	
 	public String getReferenceLabel() {
-		return referenceLabel;
+		if (referenceLabel != null) {
+			return referenceLabel;
+		}
+		else return getLabel();
 	}
 	
 	public void setReferenceLabel(String referenceLabel) {
