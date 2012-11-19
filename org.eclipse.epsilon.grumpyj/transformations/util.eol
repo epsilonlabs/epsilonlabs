@@ -4,6 +4,15 @@ operation EClass extends() {
 	}
 }
 
+operation EStructuralFeature getJavaImplementationType() {
+	if (self.isMany) {
+		return "Array" + self.getJavaType();
+	}
+	else {
+		return self.getJavaType();
+	}
+}
+
 operation EStructuralFeature getJavaType() {
 	
 	var typeName : String = "";
@@ -20,7 +29,7 @@ operation EStructuralFeature getJavaType() {
 	}
 	
 	if (self.isMany) {
-		typeName = "ArrayList<" + typeName + ">";
+		typeName = "List<" + typeName + ">";
 	}
 	
 	return typeName;
@@ -28,13 +37,13 @@ operation EStructuralFeature getJavaType() {
 
 operation EStructuralFeature getInitialValue() {
 	if (self.isMany) {
-		return " = new " + self.getJavaType() + "()";
+		return " = new " + self.getJavaImplementationType() + "()";
 	}
 	else return "";
 }
 
 operation EClass getImports() {
 	if (self.eStructuralFeatures.exists(f|f.isMany)) {
-		return "import java.util.ArrayList;";
+		return "import java.util.ArrayList;\nimport java.util.List;";
 	}
 }

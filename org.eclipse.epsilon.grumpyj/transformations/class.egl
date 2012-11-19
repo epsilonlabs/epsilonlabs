@@ -16,4 +16,10 @@ public class [%=c.name%] [%=c.extends()%]{
 	}
 	
 	[%}%]
+	[%for (sf in c.eStructuralFeatures.select(sf|not sf.isDerived)) { %]
+	public [%=sf.getJavaType()%] get[%=sf.name.ftuc()%]() {
+		return [%=sf.name%];
+	}
+	
+	[%}%]
 }
