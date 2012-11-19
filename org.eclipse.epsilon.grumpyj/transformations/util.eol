@@ -1,0 +1,40 @@
+operation EClass extends() {
+	if (self.eSuperTypes.size() > 0) {
+		return "extends " + self.eSuperTypes.first().name + " ";
+	}
+}
+
+operation EStructuralFeature getJavaType() {
+	
+	var typeName : String = "";
+	
+	if (self.eType.isTypeOf(EClass) or self.eType.isTypeOf(EEnum)) {
+		typeName = self.eType.name;
+	}
+	else {
+		switch (self.eType.name) {
+			case "EBooleanObject": typeName = "boolean";
+			case "EString": typeName = "String";
+			default: throw "Unsupported type " + self.eType.name;
+		}
+	}
+	
+	if (self.isMany) {
+		typeName = "ArrayList<" + typeName + ">";
+	}
+	
+	return typeName;
+}
+
+operation EStructuralFeature getInitialValue() {
+	if (self.isMany) {
+		return " = new " + self.getJavaType() + "()";
+	}
+	else return "";
+}
+
+operation EClass getImports() {
+	if (self.eStructuralFeatures.exists(f|f.isMany)) {
+		return "import java.util.ArrayList;";
+	}
+}

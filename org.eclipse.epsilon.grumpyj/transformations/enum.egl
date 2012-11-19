@@ -1,0 +1,9 @@
+[%import "util.eol";%]
+package [%=package%];
+
+public enum [%=e.name%] {
+[%for (l in e.eLiterals) { %]
+	[%=l.name%][%if (hasMore){%],[%}%]
+	
+[%}%]
+}

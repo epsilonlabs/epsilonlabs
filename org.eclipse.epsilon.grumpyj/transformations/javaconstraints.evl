@@ -1,0 +1,35 @@
+pre {
+	var javaKeywords = Sequence{"abstract", "continue", "for", "new", "switch",
+								"assert", "default", "goto", "package", "synchronized", 
+								"boolean", "do", "if", "private", "this", "break", 
+								"double", "implements", "protected", "throw", "byte", 
+								"else", "import", "public", "throws", "case", "enum", 
+								"instanceof", "return", "transient", "catch", "extends", 
+								"int", "short", "try", "char", "final", "interface", 
+								"static", "void", "class", "finally", "long", "strictfp", 
+								"volatile", "const*", "float", "native", "super", "while"};
+}
+
+context EClass {
+	
+	constraint SingleInheritance {
+		
+		check: self.eSuperTypes.size() < 2
+		
+		message: "Multiple inheritance detected in class " + self.name
+		
+	}
+	
+}
+
+context ENamedElement {
+	
+	constraint NameNotAJavaKeyword {
+		
+		check : javaKeywords.excludes(self.name)
+		
+		message : "The name of " + self.eClass.name + " '" + self.name +
+			"' is a reserved Java keyword"
+		
+	}
+}

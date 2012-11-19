@@ -1,0 +1,20 @@
+<project default="main">
+	<target name="main">
+		
+		<epsilon.emf.loadModel name="Ecore" modelfile="/Users/dimitrioskolovos/Projects/Eclipse/4.2/runtime-examples/org.eclipse.epsilon.grumpyj.demo/src/org/eclipse/epsilon/grumpyj/demo/OO.ecore"
+			metamodeluri="http://www.eclipse.org/emf/2002/Ecore" read="true" store="false"/>
+		
+		<epsilon.evl src="javaconstraints.evl">
+			<model ref="Ecore"/>
+		</epsilon.evl>
+		
+		<epsilon.eol src="fixnames.eol">
+			<model ref="Ecore"/>
+		</epsilon.eol>
+		
+		<epsilon.egl src="main.egx">
+			<model ref="Ecore"/>
+		</epsilon.egl>
+		
+	</target>
+</project>

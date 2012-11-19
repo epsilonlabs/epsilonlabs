@@ -1,0 +1,19 @@
+[%import "util.eol";%]
+package [%=package%];
+
+[%=c.getImports()%]
+
+public class [%=c.name%] [%=c.extends()%]{
+	
+	[%for (sf in c.eStructuralFeatures.select(sf|not sf.isDerived)) { %]
+	protected [%=sf.getJavaType()%] [%=sf.name%][%=sf.getInitialValue()%];
+	[%}%]
+
+	[%for (sf in c.eStructuralFeatures.select(sf|not sf.isDerived and not sf.isMany)) { %]
+	public [%=c.name%] set[%=sf.name.ftuc()%]([%=sf.getJavaType()%] [%=sf.name%]) {
+		this.[%=sf.name%] = [%=sf.name%];
+		return this;
+	}
+	
+	[%}%]
+}
