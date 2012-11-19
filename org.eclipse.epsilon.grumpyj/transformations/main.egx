@@ -1,13 +1,9 @@
 pre {
 	var gen_dir = "/Users/dimitrioskolovos/Projects/Eclipse/4.2/runtime-examples/org.eclipse.epsilon.grumpyj.demo/src/org/eclipse/epsilon/grumpyj/demo/";
-	var package = "org.eclipse.epsilon.grumpyj.demo";
-	var params = Map { "package" = package };
 }
 
 rule EClass2Class 
 	transform c : EClass {
-	
-	parameters : params
 	
 	template : "class.egl"
 	
@@ -18,8 +14,6 @@ rule EClass2Class
 rule EEnum2Enum
 	transform e : EEnum {
 	
-	parameters : params
-
 	template : "enum.egl"
 	
 	target : gen_dir + e.name + ".java"

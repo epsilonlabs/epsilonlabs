@@ -1,5 +1,5 @@
 [%import "util.eol";%]
-package [%=package%];
+package [%=e.eContainer().name%];
 
 public enum [%=e.name%] {
 [%for (l in e.eLiterals) { %]
