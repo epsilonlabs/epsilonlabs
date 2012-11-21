@@ -1,5 +1,0 @@
-@namespace(uri="p1", prefix="")
-package p1;
-
-class C1 {
-}

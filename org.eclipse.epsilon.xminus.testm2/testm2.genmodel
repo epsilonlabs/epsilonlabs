@@ -20,7 +20,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/effort"/>
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//Task">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/partners"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference testm2.ecore#//Task/partners"/>
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//Effort">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//Effort/partner"/>

@@ -18,7 +18,7 @@ class WP {
 }
 
 class Task {
-   attr String[*] partners;
+   ref Partner[*] partners;
 }
 
 class Effort {

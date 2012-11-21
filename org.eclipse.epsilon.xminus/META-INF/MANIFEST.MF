@@ -7,6 +7,8 @@ Bundle-Activator: org.eclipse.epsilon.xminus.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
- org.eclipse.epsilon.xminus.testm2
+ org.eclipse.epsilon.xminus.testm2,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.emc.emf
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -60,11 +61,70 @@ public class XminusResource extends ResourceImpl {
 	}
 	
 	protected void resolveReferences() {
-		
+		TreeIterator<EObject> iterator = getAllContents();
+		while (iterator.hasNext()) {
+			EObject eObject = iterator.next();
+			Node node = eObjectNodes.get(eObject);
+			
+			for (Node attribute : getAttributes(node)) {
+				for (EReference eReference : eObject.eClass().getEAllReferences()) {
+					if (eReference.isChangeable() && !eReference.isContainment() && eReference.getName().equalsIgnoreCase(attribute.getNodeName())) {
+						setEReferenceValue(eObject, eReference, attribute.getNodeValue());
+					}
+				}
+			}
+			
+			for (int i=0; i<node.getChildNodes().getLength(); i++) {
+				Node child = node.getChildNodes().item(i);
+				
+			}
+		}
 	}
 	
-	protected EObject findEObject(EClass eClass, String id) {
+	protected List<Node> getAttributes(Node node) {
+		ArrayList<Node> attributes = new ArrayList<Node>();
+		for (int i=0; i<node.getAttributes().getLength(); i++) {
+			attributes.add(node.getAttributes().item(i));
+		}
+		return attributes;
+	}
+	
+	protected List<Node> getChildren(Node node) {
+		ArrayList<Node> children = new ArrayList<Node>();
+		for (int i=0; i<node.getChildNodes().getLength(); i++) {
+			Node child = node.getChildNodes().item(i);
+			if (child.getNodeType() == ElementNodeType) {
+				children.add(child);
+			}
+		}
+		return children;
+	}
+	
+	protected EObject findEObject(EClassifier eClassifier, String id) {
+		TreeIterator<EObject> iterator = getAllContents();
+		while (iterator.hasNext()) {
+			EObject eObject = iterator.next();
+			if (isAssignable(eObject.eClass(), eClassifier) && id.equalsIgnoreCase(EcoreUtil.getID(eObject))) {
+				return eObject;
+			}
+		}
 		return null;
+	}
+	
+	protected List<EObject> findEObjects(EClassifier eClassifier) {
+		ArrayList<EObject> eObjects = new ArrayList<EObject>();
+		TreeIterator<EObject> iterator = getAllContents();
+		while (iterator.hasNext()) {
+			EObject eObject = iterator.next();
+			if (isAssignable(eObject.eClass(), eClassifier)) {
+				eObjects.add(eObject);
+			}
+		}
+		return eObjects;
+	}
+	
+	protected boolean isAssignable(EClass source, EClassifier target) {
+		return source == target || source.getEAllSuperTypes().contains(target);
 	}
 	
 	protected EObject createEObject(Node node, EClass eClass) {
@@ -74,8 +134,7 @@ public class XminusResource extends ResourceImpl {
 		EObject eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
 		eObjectNodes.put(eObject, node);
 		
-		for (int i = 0; i<node.getAttributes().getLength(); i++) {
-			Node attribute = node.getAttributes().item(i);
+		for (Node attribute : getAttributes(node)) {
 			for (EAttribute eAttribute : eClass.getEAllAttributes()) {
 				if (eAttribute.getName().equalsIgnoreCase(attribute.getNodeName())) {
 					setEAttributeValue(eObject, eAttribute, attribute.getNodeValue());
@@ -83,8 +142,7 @@ public class XminusResource extends ResourceImpl {
 			}
 		}
 		
-		for (int i = 0; i<node.getChildNodes().getLength(); i++) {
-			Node child = node.getChildNodes().item(i);
+		for (Node child : getChildren(node)) {
 			
 			for (EAttribute eAttribute : eClass.getEAllAttributes()) {
 				if (eAttribute.isChangeable() && eAttribute.getName().equalsIgnoreCase(child.getNodeName())) {
@@ -112,6 +170,30 @@ public class XminusResource extends ResourceImpl {
 		return eObject;
 	}
 	
+	protected void setEReferenceValue(EObject eObject, EReference eReference, String value) {
+		if (eReference.isMany()) {
+			List<Object> eValues = (List<Object>) eObject.eGet(eReference);
+			if ("*".equals(value.trim())) {
+				eValues.addAll(findEObjects(eReference.getEType()));
+			}
+			else {
+				String[] valueIds = value.split(",");
+				for (String valueId : valueIds) {
+					EObject target = findEObject(eReference.getEType(), valueId.trim());
+					if (target != null) {
+						eValues.add(target);
+					}
+				}
+			}
+		}
+		else {
+			EObject target = findEObject(eReference.getEType(), value.trim());
+			if (target != null) {
+				eObject.eSet(eReference, target);
+			}
+		}
+	}
+	
 	protected void setEAttributeValue(EObject eObject, EAttribute eAttribute, String value) {
 		
 		EFactory eFactory = eAttribute.getEAttributeType().getEPackage().getEFactoryInstance();
@@ -130,8 +212,7 @@ public class XminusResource extends ResourceImpl {
 	
 	protected EClass getAssignableEClass(EClassifier classifier, String name) {
 		for (EClass eClass : getEClasses()) {
-			if (eClass.getName().equalsIgnoreCase(name) && (
-					eClass == classifier || eClass.getEAllSuperTypes().contains(classifier))){
+			if (eClass.getName().equalsIgnoreCase(name) && isAssignable(eClass, classifier)){
 				return eClass;
 			}
 		}

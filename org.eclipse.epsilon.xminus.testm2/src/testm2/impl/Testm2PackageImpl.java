@@ -241,8 +241,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTask_Partners() {
-		return (EAttribute)taskEClass.getEStructuralFeatures().get(0);
+	public EReference getTask_Partners() {
+		return (EReference)taskEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		createEReference(wpEClass, WP__EFFORT);
 
 		taskEClass = createEClass(TASK);
-		createEAttribute(taskEClass, TASK__PARTNERS);
+		createEReference(taskEClass, TASK__PARTNERS);
 
 		effortEClass = createEClass(EFFORT);
 		createEReference(effortEClass, EFFORT__PARTNER);
@@ -388,7 +388,7 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		initEReference(getWP_Effort(), this.getEffort(), null, "effort", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(taskEClass, Task.class, "Task", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTask_Partners(), ecorePackage.getEString(), "partners", null, 0, -1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTask_Partners(), this.getPartner(), null, "partners", null, 0, -1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(effortEClass, Effort.class, "Effort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEffort_Partner(), this.getPartner(), null, "partner", null, 0, 1, Effort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

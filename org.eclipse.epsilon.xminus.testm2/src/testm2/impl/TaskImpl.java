@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import testm2.Partner;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import testm2.Task;
 import testm2.Testm2Package;
@@ -27,14 +29,14 @@ import testm2.Testm2Package;
  */
 public class TaskImpl extends EObjectImpl implements Task {
 	/**
-	 * The cached value of the '{@link #getPartners() <em>Partners</em>}' attribute list.
+	 * The cached value of the '{@link #getPartners() <em>Partners</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getPartners()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<String> partners;
+	protected EList<Partner> partners;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -60,9 +62,9 @@ public class TaskImpl extends EObjectImpl implements Task {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<String> getPartners() {
+	public EList<Partner> getPartners() {
 		if (partners == null) {
-			partners = new EDataTypeUniqueEList<String>(String.class, this, Testm2Package.TASK__PARTNERS);
+			partners = new EObjectResolvingEList<Partner>(Partner.class, this, Testm2Package.TASK__PARTNERS);
 		}
 		return partners;
 	}
@@ -92,7 +94,7 @@ public class TaskImpl extends EObjectImpl implements Task {
 		switch (featureID) {
 			case Testm2Package.TASK__PARTNERS:
 				getPartners().clear();
-				getPartners().addAll((Collection<? extends String>)newValue);
+				getPartners().addAll((Collection<? extends Partner>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -125,22 +127,6 @@ public class TaskImpl extends EObjectImpl implements Task {
 				return partners != null && !partners.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (partners: ");
-		result.append(partners);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TaskImpl

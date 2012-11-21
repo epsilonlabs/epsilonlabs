@@ -194,7 +194,7 @@ public interface Testm2Package extends EPackage {
 	int TASK = 2;
 
 	/**
-	 * The feature id for the '<em><b>Partners</b></em>' attribute list.
+	 * The feature id for the '<em><b>Partners</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -419,15 +419,15 @@ public interface Testm2Package extends EPackage {
 	EClass getTask();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link testm2.Task#getPartners <em>Partners</em>}'.
+	 * Returns the meta object for the reference list '{@link testm2.Task#getPartners <em>Partners</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Partners</em>'.
+	 * @return the meta object for the reference list '<em>Partners</em>'.
 	 * @see testm2.Task#getPartners()
 	 * @see #getTask()
 	 * @generated
 	 */
-	EAttribute getTask_Partners();
+	EReference getTask_Partners();
 
 	/**
 	 * Returns the meta object for class '{@link testm2.Effort <em>Effort</em>}'.
@@ -615,12 +615,12 @@ public interface Testm2Package extends EPackage {
 		EClass TASK = eINSTANCE.getTask();
 
 		/**
-		 * The meta object literal for the '<em><b>Partners</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Partners</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute TASK__PARTNERS = eINSTANCE.getTask_Partners();
+		EReference TASK__PARTNERS = eINSTANCE.getTask_Partners();
 
 		/**
 		 * The meta object literal for the '{@link testm2.impl.EffortImpl <em>Effort</em>}' class.
