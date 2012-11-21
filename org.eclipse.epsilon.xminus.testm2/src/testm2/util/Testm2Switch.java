@@ -84,6 +84,12 @@ public class Testm2Switch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case Testm2Package.DELIVERABLE: {
+				Deliverable deliverable = (Deliverable)theEObject;
+				T result = caseDeliverable(deliverable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case Testm2Package.EFFORT: {
 				Effort effort = (Effort)theEObject;
 				T result = caseEffort(effort);
@@ -142,6 +148,21 @@ public class Testm2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTask(Task object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Deliverable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Deliverable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDeliverable(Deliverable object) {
 		return null;
 	}
 

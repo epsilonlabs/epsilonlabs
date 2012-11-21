@@ -80,6 +80,10 @@ public class Testm2AdapterFactory extends AdapterFactoryImpl {
 				return createTaskAdapter();
 			}
 			@Override
+			public Adapter caseDeliverable(Deliverable object) {
+				return createDeliverableAdapter();
+			}
+			@Override
 			public Adapter caseEffort(Effort object) {
 				return createEffortAdapter();
 			}
@@ -146,6 +150,20 @@ public class Testm2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTaskAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testm2.Deliverable <em>Deliverable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testm2.Deliverable
+	 * @generated
+	 */
+	public Adapter createDeliverableAdapter() {
 		return null;
 	}
 

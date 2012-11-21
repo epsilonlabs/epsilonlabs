@@ -49,6 +49,15 @@ public interface Testm2Factory extends EFactory {
 	Task createTask();
 
 	/**
+	 * Returns a new object of class '<em>Deliverable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Deliverable</em>'.
+	 * @generated
+	 */
+	Deliverable createDeliverable();
+
+	/**
 	 * Returns a new object of class '<em>Effort</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

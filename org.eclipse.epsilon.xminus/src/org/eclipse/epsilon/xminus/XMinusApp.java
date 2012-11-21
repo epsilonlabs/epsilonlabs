@@ -28,7 +28,8 @@ public class XMinusApp {
 		
 		EolModule module = new EolModule();
 		//module.parse("for (wp in WP.all) { wp.leader.id.println(wp.title + '->');}");
-		module.parse("for (task in Task.all) { task.partners.size().println(); }");
+		//module.parse("for (task in Task.all) { task.partners.size().println(); }");
+		//module.parse("Effort.all.collect(e|e.months).sum().println();");
 		InMemoryEmfModel model = new InMemoryEmfModel(r);
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();

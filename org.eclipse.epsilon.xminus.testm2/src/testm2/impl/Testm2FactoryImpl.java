@@ -59,6 +59,7 @@ public class Testm2FactoryImpl extends EFactoryImpl implements Testm2Factory {
 			case Testm2Package.PROJECT: return createProject();
 			case Testm2Package.WP: return createWP();
 			case Testm2Package.TASK: return createTask();
+			case Testm2Package.DELIVERABLE: return createDeliverable();
 			case Testm2Package.EFFORT: return createEffort();
 			case Testm2Package.PARTNER: return createPartner();
 			default:
@@ -94,6 +95,16 @@ public class Testm2FactoryImpl extends EFactoryImpl implements Testm2Factory {
 	public Task createTask() {
 		TaskImpl task = new TaskImpl();
 		return task;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Deliverable createDeliverable() {
+		DeliverableImpl deliverable = new DeliverableImpl();
+		return deliverable;
 	}
 
 	/**

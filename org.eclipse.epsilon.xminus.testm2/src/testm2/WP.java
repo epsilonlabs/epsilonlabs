@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link testm2.WP#getLeader <em>Leader</em>}</li>
  *   <li>{@link testm2.WP#getType <em>Type</em>}</li>
  *   <li>{@link testm2.WP#getEffort <em>Effort</em>}</li>
+ *   <li>{@link testm2.WP#getDeliverables <em>Deliverables</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,5 +137,21 @@ public interface WP extends EObject {
 	 * @generated
 	 */
 	EList<Effort> getEffort();
+
+	/**
+	 * Returns the value of the '<em><b>Deliverables</b></em>' containment reference list.
+	 * The list contents are of type {@link testm2.Deliverable}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Deliverables</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Deliverables</em>' containment reference list.
+	 * @see testm2.Testm2Package#getWP_Deliverables()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Deliverable> getDeliverables();
 
 } // WP

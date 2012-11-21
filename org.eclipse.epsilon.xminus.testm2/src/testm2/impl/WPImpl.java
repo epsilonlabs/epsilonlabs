@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import testm2.Deliverable;
 import testm2.Effort;
 import testm2.Partner;
 import testm2.Task;
@@ -36,6 +37,7 @@ import testm2.WP;
  *   <li>{@link testm2.impl.WPImpl#getLeader <em>Leader</em>}</li>
  *   <li>{@link testm2.impl.WPImpl#getType <em>Type</em>}</li>
  *   <li>{@link testm2.impl.WPImpl#getEffort <em>Effort</em>}</li>
+ *   <li>{@link testm2.impl.WPImpl#getDeliverables <em>Deliverables</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,6 +109,16 @@ public class WPImpl extends EObjectImpl implements WP {
 	 * @ordered
 	 */
 	protected EList<Effort> effort;
+
+	/**
+	 * The cached value of the '{@link #getDeliverables() <em>Deliverables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeliverables()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Deliverable> deliverables;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -236,6 +248,18 @@ public class WPImpl extends EObjectImpl implements WP {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Deliverable> getDeliverables() {
+		if (deliverables == null) {
+			deliverables = new EObjectContainmentEList<Deliverable>(Deliverable.class, this, Testm2Package.WP__DELIVERABLES);
+		}
+		return deliverables;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -243,6 +267,8 @@ public class WPImpl extends EObjectImpl implements WP {
 				return ((InternalEList<?>)getTasks()).basicRemove(otherEnd, msgs);
 			case Testm2Package.WP__EFFORT:
 				return ((InternalEList<?>)getEffort()).basicRemove(otherEnd, msgs);
+			case Testm2Package.WP__DELIVERABLES:
+				return ((InternalEList<?>)getDeliverables()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -266,6 +292,8 @@ public class WPImpl extends EObjectImpl implements WP {
 				return getType();
 			case Testm2Package.WP__EFFORT:
 				return getEffort();
+			case Testm2Package.WP__DELIVERABLES:
+				return getDeliverables();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -296,6 +324,10 @@ public class WPImpl extends EObjectImpl implements WP {
 				getEffort().clear();
 				getEffort().addAll((Collection<? extends Effort>)newValue);
 				return;
+			case Testm2Package.WP__DELIVERABLES:
+				getDeliverables().clear();
+				getDeliverables().addAll((Collection<? extends Deliverable>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -323,6 +355,9 @@ public class WPImpl extends EObjectImpl implements WP {
 			case Testm2Package.WP__EFFORT:
 				getEffort().clear();
 				return;
+			case Testm2Package.WP__DELIVERABLES:
+				getDeliverables().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -345,6 +380,8 @@ public class WPImpl extends EObjectImpl implements WP {
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case Testm2Package.WP__EFFORT:
 				return effort != null && !effort.isEmpty();
+			case Testm2Package.WP__DELIVERABLES:
+				return deliverables != null && !deliverables.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

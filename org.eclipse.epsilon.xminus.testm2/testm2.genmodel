@@ -18,9 +18,20 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/leader"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//WP/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/effort"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/deliverables"/>
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//Task">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/start"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/end"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference testm2.ecore#//Task/partners"/>
+    </genClasses>
+    <genClasses ecoreClass="testm2.ecore#//Deliverable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Deliverable/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Deliverable/due"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Deliverable/nature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Deliverable/dissemination"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//Deliverable/partner"/>
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//Effort">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//Effort/partner"/>
@@ -28,6 +39,8 @@
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//Partner">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Partner/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Partner/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Partner/country"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

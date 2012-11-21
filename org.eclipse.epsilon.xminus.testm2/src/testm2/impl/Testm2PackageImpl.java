@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import testm2.Deliverable;
 import testm2.Effort;
 import testm2.Partner;
 import testm2.Project;
@@ -43,6 +44,13 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * @generated
 	 */
 	private EClass taskEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass deliverableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -232,6 +240,15 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWP_Deliverables() {
+		return (EReference)wpEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTask() {
 		return taskEClass;
 	}
@@ -241,8 +258,89 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTask_Title() {
+		return (EAttribute)taskEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTask_Start() {
+		return (EAttribute)taskEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTask_End() {
+		return (EAttribute)taskEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getTask_Partners() {
-		return (EReference)taskEClass.getEStructuralFeatures().get(0);
+		return (EReference)taskEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDeliverable() {
+		return deliverableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeliverable_Title() {
+		return (EAttribute)deliverableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeliverable_Due() {
+		return (EAttribute)deliverableEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeliverable_Nature() {
+		return (EAttribute)deliverableEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDeliverable_Dissemination() {
+		return (EAttribute)deliverableEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getDeliverable_Partner() {
+		return (EReference)deliverableEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -295,6 +393,24 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPartner_Name() {
+		return (EAttribute)partnerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPartner_Country() {
+		return (EAttribute)partnerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Testm2Factory getTestm2Factory() {
 		return (Testm2Factory)getEFactoryInstance();
 	}
@@ -331,9 +447,20 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		createEReference(wpEClass, WP__LEADER);
 		createEAttribute(wpEClass, WP__TYPE);
 		createEReference(wpEClass, WP__EFFORT);
+		createEReference(wpEClass, WP__DELIVERABLES);
 
 		taskEClass = createEClass(TASK);
+		createEAttribute(taskEClass, TASK__TITLE);
+		createEAttribute(taskEClass, TASK__START);
+		createEAttribute(taskEClass, TASK__END);
 		createEReference(taskEClass, TASK__PARTNERS);
+
+		deliverableEClass = createEClass(DELIVERABLE);
+		createEAttribute(deliverableEClass, DELIVERABLE__TITLE);
+		createEAttribute(deliverableEClass, DELIVERABLE__DUE);
+		createEAttribute(deliverableEClass, DELIVERABLE__NATURE);
+		createEAttribute(deliverableEClass, DELIVERABLE__DISSEMINATION);
+		createEReference(deliverableEClass, DELIVERABLE__PARTNER);
 
 		effortEClass = createEClass(EFFORT);
 		createEReference(effortEClass, EFFORT__PARTNER);
@@ -341,6 +468,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 
 		partnerEClass = createEClass(PARTNER);
 		createEAttribute(partnerEClass, PARTNER__ID);
+		createEAttribute(partnerEClass, PARTNER__NAME);
+		createEAttribute(partnerEClass, PARTNER__COUNTRY);
 	}
 
 	/**
@@ -386,9 +515,20 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		initEReference(getWP_Leader(), this.getPartner(), null, "leader", null, 0, 1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWP_Type(), ecorePackage.getEString(), "type", null, 0, 1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWP_Effort(), this.getEffort(), null, "effort", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWP_Deliverables(), this.getDeliverable(), null, "deliverables", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(taskEClass, Task.class, "Task", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTask_Title(), ecorePackage.getEString(), "title", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTask_Start(), ecorePackage.getEInt(), "start", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTask_End(), ecorePackage.getEInt(), "end", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTask_Partners(), this.getPartner(), null, "partners", null, 0, -1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(deliverableEClass, Deliverable.class, "Deliverable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDeliverable_Title(), ecorePackage.getEString(), "title", null, 0, 1, Deliverable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeliverable_Due(), ecorePackage.getEInt(), "due", null, 0, 1, Deliverable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeliverable_Nature(), ecorePackage.getEString(), "nature", null, 0, 1, Deliverable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDeliverable_Dissemination(), ecorePackage.getEString(), "dissemination", null, 0, 1, Deliverable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDeliverable_Partner(), this.getPartner(), null, "partner", null, 0, 1, Deliverable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(effortEClass, Effort.class, "Effort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEffort_Partner(), this.getPartner(), null, "partner", null, 0, 1, Effort.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -396,6 +536,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 
 		initEClass(partnerEClass, Partner.class, "Partner", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPartner_Id(), ecorePackage.getEString(), "id", null, 0, 1, Partner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPartner_Name(), ecorePackage.getEString(), "name", null, 0, 1, Partner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPartner_Country(), ecorePackage.getEString(), "country", null, 0, 1, Partner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
