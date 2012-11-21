@@ -1,0 +1,31 @@
+@namespace(uri="testm2", prefix="")
+package testm2;
+
+class Project {
+   attr String name;
+   attr int duration;
+   attr String title;
+   val WP[*] wps;
+   val Partner[*] partners;
+}
+
+class WP {
+   val Task[*] tasks;
+   attr String title;
+   ref Partner leader;
+   attr String type;
+   val Effort[*] effort;
+}
+
+class Task {
+   attr String[*] partners;
+}
+
+class Effort {
+   ref Partner partner;
+   attr float months;
+}
+
+class Partner {
+   id attr String ~id;
+}
