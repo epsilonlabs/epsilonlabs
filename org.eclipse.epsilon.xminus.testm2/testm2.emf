@@ -7,6 +7,8 @@ class Project {
    attr String title;
    val WP[*] wps;
    val Partner[*] partners;
+   val Thing thing;
+   val ThingWithNoId[*] thingsWithNoId;
 }
 
 class WP {
@@ -16,6 +18,24 @@ class WP {
    attr String type;
    val Effort[*] effort;
    val Deliverable[*] deliverables;
+   ref Thing thing;
+   ref ThingWithNoId[*] thingsWithNoId;
+}
+
+abstract class Thing {
+   id attr String name;
+}
+
+class ThingWithNoId {
+   attr String name;
+}
+
+class ConcreteThing extends Thing {
+   
+}
+
+class ConcreteThing2 extends Thing {
+   
 }
 
 class Task {

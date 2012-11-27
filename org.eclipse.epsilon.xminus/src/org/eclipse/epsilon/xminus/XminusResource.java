@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,20 +28,24 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-//TODO: Support lazy reference resolution
 public class XminusResource extends ResourceImpl {
 	
 	protected short ElementNodeType = 1;
-	protected List<EClass> eClasses = null;
+	protected short AttributeNodeType = 2;
+	
+	protected HashMap<String, EClass> eClasses = null;
 	protected HashMap<EObject, Node> eObjectNodes = new HashMap<EObject, Node>();
 	protected Document document = null;
+	protected HashMap<String, String> namespaces = new HashMap<String, String>();
 	
 	public XminusResource(URI uri) {
 		setURI(uri);
@@ -53,13 +58,24 @@ public class XminusResource extends ResourceImpl {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			document = documentBuilder.parse(inputStream);
+			cacheNamespaces(document.getDocumentElement());
 			getContents().add(createEObject(document.getDocumentElement(), null));
-			resolveReferences();
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	protected void cacheNamespaces(Element e) {
+		for (Node attribute : getAttributes(e)) {
+			if (getPrefix(attribute).equals("xmlns")) {
+				namespaces.put(getName(attribute), attribute.getNodeValue());
+			}
+			else if (getName(attribute).equals("xmlns")) {
+				namespaces.put("", attribute.getNodeValue());
+			}
+		}
 	}
 	
 	@Override
@@ -83,27 +99,6 @@ public class XminusResource extends ResourceImpl {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-		}
-	}
-	
-	protected void resolveReferences() {
-		TreeIterator<EObject> iterator = getAllContents();
-		while (iterator.hasNext()) {
-			EObject eObject = iterator.next();
-			Node node = eObjectNodes.get(eObject);
-			
-			for (Node attribute : getAttributes(node)) {
-				for (EReference eReference : eObject.eClass().getEAllReferences()) {
-					if (eReference.isChangeable() && !eReference.isContainment() && eReference.getName().equalsIgnoreCase(attribute.getNodeName())) {
-						setEReferenceValue(eObject, eReference, attribute.getNodeValue());
-					}
-				}
-			}
-			
-			for (int i=0; i<node.getChildNodes().getLength(); i++) {
-				Node child = node.getChildNodes().item(i);
-				
-			}
 		}
 	}
 	
@@ -154,46 +149,108 @@ public class XminusResource extends ResourceImpl {
 	}
 	
 	protected EObject createEObject(Node node, EClass eClass) {
-		String tagName = node.getNodeName();
-		if (eClass == null) eClass = eClassForName(tagName);
+		String tagName = getName(node);
+		if (eClass == null) eClass = eClassForName(tagName, getNamespaceUri(node));
 		
-		EObject eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
+		EObject eObject = EcoreUtil.create(eClass);
 		eObjectNodes.put(eObject, node);
 		
-		for (Node attribute : getAttributes(node)) {
-			for (EAttribute eAttribute : eClass.getEAllAttributes()) {
-				if (eAttribute.getName().equalsIgnoreCase(attribute.getNodeName())) {
-					setEAttributeValue(eObject, eAttribute, attribute.getNodeValue());
-				}
-			}
-		}
-		
-		for (Node child : getChildren(node)) {
+		for (Node childOrAttribute : getChildrenAndAttributes(node)) {
+			
+			boolean consumed = false;
 			
 			for (EAttribute eAttribute : eClass.getEAllAttributes()) {
-				if (eAttribute.isChangeable() && eAttribute.getName().equalsIgnoreCase(child.getNodeName())) {
-					setEAttributeValue(eObject, eAttribute, child.getTextContent()+"");
+				if (eAttribute.isTransient()) continue;
+				if (eAttribute.getName().equalsIgnoreCase(getName(childOrAttribute))) {
+					setEAttributeValue(eObject, eAttribute, getValue(childOrAttribute));
+					consumed = true;
 				}
 			}
 			
 			for (EReference eReference : eClass.getEAllReferences()) {
-				if (eReference.isContainment() && eReference.isChangeable()) {
-					EClass valueEClass = getAssignableEClass(eReference.getEType(), child.getNodeName());
+				if (eReference.isTransient()) continue;
+				
+				if (eReference.isContainment() && isElement(childOrAttribute)) {
 					
-					if (valueEClass != null) {
+					if (eReference.getName().equalsIgnoreCase(getName(childOrAttribute))) {
+						List<Node> valueNodes = getChildren(childOrAttribute);
 						if (eReference.isMany()) {
-							((List<EObject>) eObject.eGet(eReference)).add(createEObject(child, valueEClass));
+							List<EObject> eReferenceValues = (List<EObject>) eObject.eGet(eReference);
+							for (Node valueNode : valueNodes) {
+								eReferenceValues.add(createEObject(valueNode, null));
+							}
 						}
 						else {
-							eObject.eSet(eReference, createEObject(child, valueEClass));
+							if (valueNodes.size() > 0) {
+								if (valueNodes.size() > 1) {
+									addWarning("Multiple values provided for single-valued feature " + eReference.getName(), childOrAttribute);
+								}
+								eObject.eSet(eReference, createEObject(valueNodes.get(0), null));
+							}
+						}
+						consumed = true;
+					}
+					else {
+						Node child = childOrAttribute;
+						EClass valueEClass = getAssignableEClass(eReference.getEType(), child);
+						
+						if (valueEClass != null) {
+							if (eReference.isMany()) {
+								((List<EObject>) eObject.eGet(eReference)).add(createEObject(child, valueEClass));
+							}
+							else {
+								if (eObject.eIsSet(eReference)) {
+									addWarning("Multiple values provided for single-valued feature " + eReference.getName(), child);
+								}
+								eObject.eSet(eReference, createEObject(child, valueEClass));
+							}
+							consumed = true;
 						}
 					}
 				}
+				else {
+					if (eReference.getName().equalsIgnoreCase(getName(childOrAttribute))) {
+						EClass proxyEClass = (EClass) eReference.getEType();
+						if (proxyEClass.isAbstract()) {
+							proxyEClass = findConcreteEClass(proxyEClass);
+						}
+						
+						if (eReference.isMany()) {
+							String[] valueIds = getValue(childOrAttribute).split(",");
+							for (String valueId : valueIds) {
+								EObject proxy = EcoreUtil.create(proxyEClass);
+								((InternalEObject) proxy).eSetProxyURI(getURI().appendFragment(valueId));
+								((Collection<EObject>) eObject.eGet(eReference)).add(proxy);
+							}
+						}
+						else {
+							EObject proxy = EcoreUtil.create(proxyEClass);
+							((InternalEObject) proxy).eSetProxyURI(getURI().appendFragment(getValue(childOrAttribute)));
+							eObject.eSet(eReference, proxy);
+						}
+						
+						consumed = true;
+					}
+				}
+				
+			}
+			
+			if (consumed == false && !isNamespaceDeclaration(childOrAttribute)) {
+				addWarning("Node " + getName(childOrAttribute) + " could not be mapped to a valid feature of " + eObject, childOrAttribute);
 			}
 			
 		}
-		
+				
 		return eObject;
+	}
+	
+	protected EClass findConcreteEClass(EClass abstractEClass) {
+		for (EClass eClass : getEClasses().values()) {
+			if (abstractEClass.isSuperTypeOf(eClass) && !eClass.isAbstract()) {
+				return eClass;
+			}
+		}
+		return null;
 	}
 	
 	protected void setEReferenceValue(EObject eObject, EReference eReference, String value) {
@@ -236,25 +293,24 @@ public class XminusResource extends ResourceImpl {
 		}
 	}
 	
-	protected EClass getAssignableEClass(EClassifier classifier, String name) {
-		for (EClass eClass : getEClasses()) {
-			if (eClass.getName().equalsIgnoreCase(name) && isAssignable(eClass, classifier)){
-				return eClass;
-			}
+	protected EClass getAssignableEClass(EClassifier classifier, Node node) {
+		EClass eClass = eClassForName(getName(node), getNamespaceUri(node));
+		if (eClass != null && isAssignable(eClass, classifier)) {
+			return eClass;
 		}
 		return null;
 	}
 	
-	protected List<EClass> getEClasses() {
+	protected HashMap<String, EClass> getEClasses() {
 		if (eClasses == null) {
-			eClasses = new ArrayList<EClass>();
+			eClasses = new HashMap<String, EClass>();
 			for (String nsUri : resourceSet.getPackageRegistry().keySet()) {
 				Object o = resourceSet.getPackageRegistry().get(nsUri);
 				if (o instanceof EPackage) {
 					EPackage ePackage = (EPackage) o;
 					for (EClassifier eClassifier : ePackage.getEClassifiers()) {
 						if (eClassifier instanceof EClass) {
-							eClasses.add((EClass) eClassifier);
+							eClasses.put(ePackage.getNsURI() + "#" + eClassifier.getName(), (EClass) eClassifier);
 						}
 					}
 				}
@@ -263,13 +319,92 @@ public class XminusResource extends ResourceImpl {
 		return eClasses;
 	}
 	
-	protected EClass eClassForName(String name) {
-		for (EClass eClass : getEClasses()) {
-			if (eClass.getName().equalsIgnoreCase(name)) {
-				return eClass;
+	protected EClass eClassForName(String name, String namespaceUri) {
+		if (namespaceUri != null) {
+			for (String eClassUri : getEClasses().keySet()) {
+				if (eClassUri.equalsIgnoreCase(namespaceUri + "#" + name)) {
+					return getEClasses().get(eClassUri);
+				}
+			}
+		}
+		else {
+			for (EClass eClass : getEClasses().values()) {
+				if (eClass.getName().equalsIgnoreCase(name)) {
+					return eClass;
+				}
 			}
 		}
 		return null;
+	}
+	
+	protected String getName(Node node) {
+		String name = node.getNodeName();
+		if (name.indexOf(':') > 0) {
+			name = name.split(":")[1];
+		}
+		return name;
+	}
+	
+	protected String getPrefix(Node node) {
+		String name = node.getNodeName();
+		if (name.indexOf(':') > 0) {
+			return name.split(":")[0];
+		}
+		else {
+			return "";
+		}		
+	}
+	
+	protected String getNamespaceUri(Node node) {
+		
+		String name = node.getNodeName();
+		if (name.indexOf(':') > 0) {
+			String prefix = name.split(":")[0];
+			return namespaces.get(prefix);
+		}
+		else {
+			return namespaces.get("");
+		}
+	}
+	
+	protected List<Node> getChildrenAndAttributes(Node parent) {
+		ArrayList<Node> childrenAndAttributes = new ArrayList<Node>();
+		childrenAndAttributes.addAll(getAttributes(parent));
+		childrenAndAttributes.addAll(getChildren(parent));
+		return childrenAndAttributes;
+	}
+	
+	protected String getNamespaceUri(EClassifier eClassifier) {
+		return eClassifier.getEPackage().getNsURI() + "#" + eClassifier.getName();
+	}
+	
+	protected boolean isAttribute(Node node) {
+		return node.getNodeType() == AttributeNodeType;
+	}
+	
+	protected String getValue(Node node) {
+		if (isElement(node)) {
+			return ("" + node.getTextContent()).trim();
+		}
+		else {
+			return node.getNodeValue().trim();
+		}
+	}
+	
+	protected boolean isElement(Node node) {
+		return node.getNodeType() == ElementNodeType;
+	}
+	
+	protected boolean isNamespaceDeclaration(Node node) {
+		return isAttribute(node) && (getName(node).equals("xmlns") || getPrefix(node).equals("xmlns"));
+	}
+	
+	protected void addWarning(String reason, Node node) {
+		getWarnings().add(new XminusDiagnostic(reason, node));
+	}
+	
+	protected void addError(String reason, Node node) {
+		getErrors().add(new XminusDiagnostic(reason, node));
 	}
 	
 }

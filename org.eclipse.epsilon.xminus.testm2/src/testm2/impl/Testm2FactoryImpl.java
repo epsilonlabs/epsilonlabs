@@ -58,6 +58,9 @@ public class Testm2FactoryImpl extends EFactoryImpl implements Testm2Factory {
 		switch (eClass.getClassifierID()) {
 			case Testm2Package.PROJECT: return createProject();
 			case Testm2Package.WP: return createWP();
+			case Testm2Package.THING_WITH_NO_ID: return createThingWithNoId();
+			case Testm2Package.CONCRETE_THING: return createConcreteThing();
+			case Testm2Package.CONCRETE_THING2: return createConcreteThing2();
 			case Testm2Package.TASK: return createTask();
 			case Testm2Package.DELIVERABLE: return createDeliverable();
 			case Testm2Package.EFFORT: return createEffort();
@@ -85,6 +88,36 @@ public class Testm2FactoryImpl extends EFactoryImpl implements Testm2Factory {
 	public WP createWP() {
 		WPImpl wp = new WPImpl();
 		return wp;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ThingWithNoId createThingWithNoId() {
+		ThingWithNoIdImpl thingWithNoId = new ThingWithNoIdImpl();
+		return thingWithNoId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteThing createConcreteThing() {
+		ConcreteThingImpl concreteThing = new ConcreteThingImpl();
+		return concreteThing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcreteThing2 createConcreteThing2() {
+		ConcreteThing2Impl concreteThing2 = new ConcreteThing2Impl();
+		return concreteThing2;
 	}
 
 	/**

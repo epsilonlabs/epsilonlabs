@@ -9,6 +9,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="partners" upperBound="-1"
         eType="#//Partner" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thing" eType="#//Thing"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingsWithNoId" upperBound="-1"
+        eType="#//ThingWithNoId" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WP">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tasks" upperBound="-1"
@@ -20,7 +24,19 @@
         eType="#//Effort" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="deliverables" upperBound="-1"
         eType="#//Deliverable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thing" eType="#//Thing"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="thingsWithNoId" upperBound="-1"
+        eType="#//ThingWithNoId"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Thing" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ThingWithNoId">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteThing" eSuperTypes="#//Thing"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConcreteThing2" eSuperTypes="#//Thing"/>
   <eClassifiers xsi:type="ecore:EClass" name="Task">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="start" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

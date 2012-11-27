@@ -11,6 +11,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Project/title"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//Project/wps"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//Project/partners"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//Project/thing"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//Project/thingsWithNoId"/>
     </genClasses>
     <genClasses ecoreClass="testm2.ecore#//WP">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/tasks"/>
@@ -19,7 +21,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//WP/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/effort"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/deliverables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/thing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference testm2.ecore#//WP/thingsWithNoId"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="testm2.ecore#//Thing">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Thing/name"/>
+    </genClasses>
+    <genClasses ecoreClass="testm2.ecore#//ThingWithNoId">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//ThingWithNoId/name"/>
+    </genClasses>
+    <genClasses ecoreClass="testm2.ecore#//ConcreteThing"/>
+    <genClasses ecoreClass="testm2.ecore#//ConcreteThing2"/>
     <genClasses ecoreClass="testm2.ecore#//Task">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute testm2.ecore#//Task/start"/>

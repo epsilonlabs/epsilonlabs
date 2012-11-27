@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.epsilon.xminus.rss/src" modelPluginID="org.eclipse.epsilon.xminus.rss"
+    modelName="Rss" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>rss.ecore</foreignModel>
+  <genPackages prefix="Rss" disposableProviderFactory="true" ecorePackage="rss.ecore#/">
+    <genClasses ecoreClass="rss.ecore#//Rss">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rss.ecore#//Rss/channels"/>
+    </genClasses>
+    <genClasses ecoreClass="rss.ecore#//Channel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Channel/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Channel/link"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Channel/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Channel/language"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rss.ecore#//Channel/image"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rss.ecore#//Channel/items"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rss.ecore#//Channel/atomLink"/>
+    </genClasses>
+    <genClasses ecoreClass="rss.ecore#//Image">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Image/url"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Image/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Image/link"/>
+    </genClasses>
+    <genClasses ecoreClass="rss.ecore#//Item">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Item/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rss.ecore#//Item/link"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Atom" ecorePackage="http://www.w3.org/2005/Atom#/">
+    <genClasses ecoreClass="http://www.w3.org/2005/Atom#//Link">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute http://www.w3.org/2005/Atom#//Link/href"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute http://www.w3.org/2005/Atom#//Link/rel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute http://www.w3.org/2005/Atom#//Link/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

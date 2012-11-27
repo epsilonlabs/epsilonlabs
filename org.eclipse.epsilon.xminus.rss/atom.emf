@@ -1,0 +1,8 @@
+@namespace(uri="http://www.w3.org/2005/Atom", prefix="")
+package atom;
+
+class Link {
+   attr String href;
+   attr String rel;
+   attr String type;
+}

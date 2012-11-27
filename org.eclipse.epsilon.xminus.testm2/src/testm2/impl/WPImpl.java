@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import testm2.Deliverable;
@@ -23,6 +24,8 @@ import testm2.Effort;
 import testm2.Partner;
 import testm2.Task;
 import testm2.Testm2Package;
+import testm2.Thing;
+import testm2.ThingWithNoId;
 import testm2.WP;
 
 /**
@@ -38,6 +41,8 @@ import testm2.WP;
  *   <li>{@link testm2.impl.WPImpl#getType <em>Type</em>}</li>
  *   <li>{@link testm2.impl.WPImpl#getEffort <em>Effort</em>}</li>
  *   <li>{@link testm2.impl.WPImpl#getDeliverables <em>Deliverables</em>}</li>
+ *   <li>{@link testm2.impl.WPImpl#getThing <em>Thing</em>}</li>
+ *   <li>{@link testm2.impl.WPImpl#getThingsWithNoId <em>Things With No Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,6 +124,26 @@ public class WPImpl extends EObjectImpl implements WP {
 	 * @ordered
 	 */
 	protected EList<Deliverable> deliverables;
+
+	/**
+	 * The cached value of the '{@link #getThing() <em>Thing</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThing()
+	 * @generated
+	 * @ordered
+	 */
+	protected Thing thing;
+
+	/**
+	 * The cached value of the '{@link #getThingsWithNoId() <em>Things With No Id</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThingsWithNoId()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThingWithNoId> thingsWithNoId;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,6 +285,56 @@ public class WPImpl extends EObjectImpl implements WP {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Thing getThing() {
+		if (thing != null && thing.eIsProxy()) {
+			InternalEObject oldThing = (InternalEObject)thing;
+			thing = (Thing)eResolveProxy(oldThing);
+			if (thing != oldThing) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Testm2Package.WP__THING, oldThing, thing));
+			}
+		}
+		return thing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Thing basicGetThing() {
+		return thing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setThing(Thing newThing) {
+		Thing oldThing = thing;
+		thing = newThing;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Testm2Package.WP__THING, oldThing, thing));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ThingWithNoId> getThingsWithNoId() {
+		if (thingsWithNoId == null) {
+			thingsWithNoId = new EObjectResolvingEList<ThingWithNoId>(ThingWithNoId.class, this, Testm2Package.WP__THINGS_WITH_NO_ID);
+		}
+		return thingsWithNoId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -294,6 +369,11 @@ public class WPImpl extends EObjectImpl implements WP {
 				return getEffort();
 			case Testm2Package.WP__DELIVERABLES:
 				return getDeliverables();
+			case Testm2Package.WP__THING:
+				if (resolve) return getThing();
+				return basicGetThing();
+			case Testm2Package.WP__THINGS_WITH_NO_ID:
+				return getThingsWithNoId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -328,6 +408,13 @@ public class WPImpl extends EObjectImpl implements WP {
 				getDeliverables().clear();
 				getDeliverables().addAll((Collection<? extends Deliverable>)newValue);
 				return;
+			case Testm2Package.WP__THING:
+				setThing((Thing)newValue);
+				return;
+			case Testm2Package.WP__THINGS_WITH_NO_ID:
+				getThingsWithNoId().clear();
+				getThingsWithNoId().addAll((Collection<? extends ThingWithNoId>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -358,6 +445,12 @@ public class WPImpl extends EObjectImpl implements WP {
 			case Testm2Package.WP__DELIVERABLES:
 				getDeliverables().clear();
 				return;
+			case Testm2Package.WP__THING:
+				setThing((Thing)null);
+				return;
+			case Testm2Package.WP__THINGS_WITH_NO_ID:
+				getThingsWithNoId().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -382,6 +475,10 @@ public class WPImpl extends EObjectImpl implements WP {
 				return effort != null && !effort.isEmpty();
 			case Testm2Package.WP__DELIVERABLES:
 				return deliverables != null && !deliverables.isEmpty();
+			case Testm2Package.WP__THING:
+				return thing != null;
+			case Testm2Package.WP__THINGS_WITH_NO_ID:
+				return thingsWithNoId != null && !thingsWithNoId.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

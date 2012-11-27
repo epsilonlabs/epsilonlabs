@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link testm2.WP#getType <em>Type</em>}</li>
  *   <li>{@link testm2.WP#getEffort <em>Effort</em>}</li>
  *   <li>{@link testm2.WP#getDeliverables <em>Deliverables</em>}</li>
+ *   <li>{@link testm2.WP#getThing <em>Thing</em>}</li>
+ *   <li>{@link testm2.WP#getThingsWithNoId <em>Things With No Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,5 +155,47 @@ public interface WP extends EObject {
 	 * @generated
 	 */
 	EList<Deliverable> getDeliverables();
+
+	/**
+	 * Returns the value of the '<em><b>Thing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Thing</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Thing</em>' reference.
+	 * @see #setThing(Thing)
+	 * @see testm2.Testm2Package#getWP_Thing()
+	 * @model
+	 * @generated
+	 */
+	Thing getThing();
+
+	/**
+	 * Sets the value of the '{@link testm2.WP#getThing <em>Thing</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Thing</em>' reference.
+	 * @see #getThing()
+	 * @generated
+	 */
+	void setThing(Thing value);
+
+	/**
+	 * Returns the value of the '<em><b>Things With No Id</b></em>' reference list.
+	 * The list contents are of type {@link testm2.ThingWithNoId}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Things With No Id</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Things With No Id</em>' reference list.
+	 * @see testm2.Testm2Package#getWP_ThingsWithNoId()
+	 * @model
+	 * @generated
+	 */
+	EList<ThingWithNoId> getThingsWithNoId();
 
 } // WP

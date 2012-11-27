@@ -9,6 +9,8 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import testm2.ConcreteThing;
+import testm2.ConcreteThing2;
 import testm2.Deliverable;
 import testm2.Effort;
 import testm2.Partner;
@@ -16,6 +18,8 @@ import testm2.Project;
 import testm2.Task;
 import testm2.Testm2Factory;
 import testm2.Testm2Package;
+import testm2.Thing;
+import testm2.ThingWithNoId;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,6 +41,34 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * @generated
 	 */
 	private EClass wpEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass thingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass thingWithNoIdEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass concreteThingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass concreteThing2EClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -186,6 +218,24 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getProject_Thing() {
+		return (EReference)projectEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getProject_ThingsWithNoId() {
+		return (EReference)projectEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getWP() {
 		return wpEClass;
 	}
@@ -242,6 +292,78 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 	 */
 	public EReference getWP_Deliverables() {
 		return (EReference)wpEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWP_Thing() {
+		return (EReference)wpEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWP_ThingsWithNoId() {
+		return (EReference)wpEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getThing() {
+		return thingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThing_Name() {
+		return (EAttribute)thingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getThingWithNoId() {
+		return thingWithNoIdEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getThingWithNoId_Name() {
+		return (EAttribute)thingWithNoIdEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConcreteThing() {
+		return concreteThingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConcreteThing2() {
+		return concreteThing2EClass;
 	}
 
 	/**
@@ -440,6 +562,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		createEAttribute(projectEClass, PROJECT__TITLE);
 		createEReference(projectEClass, PROJECT__WPS);
 		createEReference(projectEClass, PROJECT__PARTNERS);
+		createEReference(projectEClass, PROJECT__THING);
+		createEReference(projectEClass, PROJECT__THINGS_WITH_NO_ID);
 
 		wpEClass = createEClass(WP);
 		createEReference(wpEClass, WP__TASKS);
@@ -448,6 +572,18 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		createEAttribute(wpEClass, WP__TYPE);
 		createEReference(wpEClass, WP__EFFORT);
 		createEReference(wpEClass, WP__DELIVERABLES);
+		createEReference(wpEClass, WP__THING);
+		createEReference(wpEClass, WP__THINGS_WITH_NO_ID);
+
+		thingEClass = createEClass(THING);
+		createEAttribute(thingEClass, THING__NAME);
+
+		thingWithNoIdEClass = createEClass(THING_WITH_NO_ID);
+		createEAttribute(thingWithNoIdEClass, THING_WITH_NO_ID__NAME);
+
+		concreteThingEClass = createEClass(CONCRETE_THING);
+
+		concreteThing2EClass = createEClass(CONCRETE_THING2);
 
 		taskEClass = createEClass(TASK);
 		createEAttribute(taskEClass, TASK__TITLE);
@@ -500,6 +636,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		concreteThingEClass.getESuperTypes().add(this.getThing());
+		concreteThing2EClass.getESuperTypes().add(this.getThing());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -508,6 +646,8 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		initEAttribute(getProject_Title(), ecorePackage.getEString(), "title", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getProject_Wps(), this.getWP(), null, "wps", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getProject_Partners(), this.getPartner(), null, "partners", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProject_Thing(), this.getThing(), null, "thing", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProject_ThingsWithNoId(), this.getThingWithNoId(), null, "thingsWithNoId", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wpEClass, testm2.WP.class, "WP", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWP_Tasks(), this.getTask(), null, "tasks", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -516,6 +656,18 @@ public class Testm2PackageImpl extends EPackageImpl implements Testm2Package {
 		initEAttribute(getWP_Type(), ecorePackage.getEString(), "type", null, 0, 1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWP_Effort(), this.getEffort(), null, "effort", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getWP_Deliverables(), this.getDeliverable(), null, "deliverables", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWP_Thing(), this.getThing(), null, "thing", null, 0, 1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWP_ThingsWithNoId(), this.getThingWithNoId(), null, "thingsWithNoId", null, 0, -1, testm2.WP.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(thingEClass, Thing.class, "Thing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getThing_Name(), ecorePackage.getEString(), "name", null, 0, 1, Thing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(thingWithNoIdEClass, ThingWithNoId.class, "ThingWithNoId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getThingWithNoId_Name(), ecorePackage.getEString(), "name", null, 0, 1, ThingWithNoId.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(concreteThingEClass, ConcreteThing.class, "ConcreteThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(concreteThing2EClass, ConcreteThing2.class, "ConcreteThing2", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(taskEClass, Task.class, "Task", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTask_Title(), ecorePackage.getEString(), "title", null, 0, 1, Task.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

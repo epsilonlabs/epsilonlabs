@@ -1,7 +1,12 @@
 <?xml version="1.0"?>
 <project name="MONDO" title="Scalable Modelling and \\ Model Management on the Cloud" duration="30">
 	
-	<wp title="Requirements and Use Cases" leader="TOG" type="RTD">
+	<concreteThing2 name="CT"/>
+	<concreteThing2 name="CT2"/>
+	<thingWithNoId name="TNI"/>
+	
+	<wp title="Requirements and Use Cases" leader="TOG" type="RTD" thing="CT" thingswithnoid="//@thingsWithNoId.0">
+		
 		<effort partner="TOG" months="4"/>
 		<effort partner="YORK" months="6"/>
 		<effort partner="UAM" months="2.5"/>

@@ -76,6 +76,22 @@ public class Testm2AdapterFactory extends AdapterFactoryImpl {
 				return createWPAdapter();
 			}
 			@Override
+			public Adapter caseThing(Thing object) {
+				return createThingAdapter();
+			}
+			@Override
+			public Adapter caseThingWithNoId(ThingWithNoId object) {
+				return createThingWithNoIdAdapter();
+			}
+			@Override
+			public Adapter caseConcreteThing(ConcreteThing object) {
+				return createConcreteThingAdapter();
+			}
+			@Override
+			public Adapter caseConcreteThing2(ConcreteThing2 object) {
+				return createConcreteThing2Adapter();
+			}
+			@Override
 			public Adapter caseTask(Task object) {
 				return createTaskAdapter();
 			}
@@ -136,6 +152,62 @@ public class Testm2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWPAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testm2.Thing <em>Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testm2.Thing
+	 * @generated
+	 */
+	public Adapter createThingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testm2.ThingWithNoId <em>Thing With No Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testm2.ThingWithNoId
+	 * @generated
+	 */
+	public Adapter createThingWithNoIdAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testm2.ConcreteThing <em>Concrete Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testm2.ConcreteThing
+	 * @generated
+	 */
+	public Adapter createConcreteThingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link testm2.ConcreteThing2 <em>Concrete Thing2</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see testm2.ConcreteThing2
+	 * @generated
+	 */
+	public Adapter createConcreteThing2Adapter() {
 		return null;
 	}
 

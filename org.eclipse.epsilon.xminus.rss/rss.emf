@@ -1,0 +1,29 @@
+@namespace(uri="rss", prefix="")
+package rss;
+
+import "http://www.w3.org/2005/Atom";
+
+class Rss {
+   val Channel[*] channels;
+}
+
+class Channel {
+   attr String title;
+   attr String link;
+   attr String description;
+   attr String language;
+   val Image image;
+   val Item[*] items;
+   val atom.Link atomLink;
+}
+
+class Image {
+   attr String url;
+   attr String title;
+   attr String link;
+}
+
+class Item {
+   attr String title;
+   attr String link;
+}

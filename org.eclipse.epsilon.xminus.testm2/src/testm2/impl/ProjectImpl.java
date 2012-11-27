@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import testm2.Partner;
 import testm2.Project;
 import testm2.Testm2Package;
+import testm2.Thing;
+import testm2.ThingWithNoId;
 import testm2.WP;
 
 /**
@@ -35,6 +37,8 @@ import testm2.WP;
  *   <li>{@link testm2.impl.ProjectImpl#getTitle <em>Title</em>}</li>
  *   <li>{@link testm2.impl.ProjectImpl#getWps <em>Wps</em>}</li>
  *   <li>{@link testm2.impl.ProjectImpl#getPartners <em>Partners</em>}</li>
+ *   <li>{@link testm2.impl.ProjectImpl#getThing <em>Thing</em>}</li>
+ *   <li>{@link testm2.impl.ProjectImpl#getThingsWithNoId <em>Things With No Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -115,6 +119,24 @@ public class ProjectImpl extends EObjectImpl implements Project {
 	 */
 	protected EList<Partner> partners;
 
+	/**
+	 * The cached value of the '{@link #getThing() <em>Thing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThing()
+	 * @generated
+	 * @ordered
+	 */
+	protected Thing thing;
+	/**
+	 * The cached value of the '{@link #getThingsWithNoId() <em>Things With No Id</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThingsWithNoId()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ThingWithNoId> thingsWithNoId;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -226,6 +248,61 @@ public class ProjectImpl extends EObjectImpl implements Project {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Thing getThing() {
+		return thing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetThing(Thing newThing, NotificationChain msgs) {
+		Thing oldThing = thing;
+		thing = newThing;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, Testm2Package.PROJECT__THING, oldThing, newThing);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setThing(Thing newThing) {
+		if (newThing != thing) {
+			NotificationChain msgs = null;
+			if (thing != null)
+				msgs = ((InternalEObject)thing).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - Testm2Package.PROJECT__THING, null, msgs);
+			if (newThing != null)
+				msgs = ((InternalEObject)newThing).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - Testm2Package.PROJECT__THING, null, msgs);
+			msgs = basicSetThing(newThing, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, Testm2Package.PROJECT__THING, newThing, newThing));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ThingWithNoId> getThingsWithNoId() {
+		if (thingsWithNoId == null) {
+			thingsWithNoId = new EObjectContainmentEList<ThingWithNoId>(ThingWithNoId.class, this, Testm2Package.PROJECT__THINGS_WITH_NO_ID);
+		}
+		return thingsWithNoId;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -233,6 +310,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
 				return ((InternalEList<?>)getWps()).basicRemove(otherEnd, msgs);
 			case Testm2Package.PROJECT__PARTNERS:
 				return ((InternalEList<?>)getPartners()).basicRemove(otherEnd, msgs);
+			case Testm2Package.PROJECT__THING:
+				return basicSetThing(null, msgs);
+			case Testm2Package.PROJECT__THINGS_WITH_NO_ID:
+				return ((InternalEList<?>)getThingsWithNoId()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -255,6 +336,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
 				return getWps();
 			case Testm2Package.PROJECT__PARTNERS:
 				return getPartners();
+			case Testm2Package.PROJECT__THING:
+				return getThing();
+			case Testm2Package.PROJECT__THINGS_WITH_NO_ID:
+				return getThingsWithNoId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -285,6 +370,13 @@ public class ProjectImpl extends EObjectImpl implements Project {
 				getPartners().clear();
 				getPartners().addAll((Collection<? extends Partner>)newValue);
 				return;
+			case Testm2Package.PROJECT__THING:
+				setThing((Thing)newValue);
+				return;
+			case Testm2Package.PROJECT__THINGS_WITH_NO_ID:
+				getThingsWithNoId().clear();
+				getThingsWithNoId().addAll((Collection<? extends ThingWithNoId>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -312,6 +404,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
 			case Testm2Package.PROJECT__PARTNERS:
 				getPartners().clear();
 				return;
+			case Testm2Package.PROJECT__THING:
+				setThing((Thing)null);
+				return;
+			case Testm2Package.PROJECT__THINGS_WITH_NO_ID:
+				getThingsWithNoId().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -334,6 +432,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
 				return wps != null && !wps.isEmpty();
 			case Testm2Package.PROJECT__PARTNERS:
 				return partners != null && !partners.isEmpty();
+			case Testm2Package.PROJECT__THING:
+				return thing != null;
+			case Testm2Package.PROJECT__THINGS_WITH_NO_ID:
+				return thingsWithNoId != null && !thingsWithNoId.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

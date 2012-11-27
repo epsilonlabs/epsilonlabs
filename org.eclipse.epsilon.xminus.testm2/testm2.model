@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="testm2" xmi:id="_3-fhsDeFEeKonvOUMlCAbw">
+  <wps xmi:id="_5o_7sDeFEeKonvOUMlCAbw" thing="_6cvs0DeFEeKonvOUMlCAbw"/>
+  <things xsi:type="ConcreteThing" xmi:id="_6cvs0DeFEeKonvOUMlCAbw" name="CT"/>
+</Project>

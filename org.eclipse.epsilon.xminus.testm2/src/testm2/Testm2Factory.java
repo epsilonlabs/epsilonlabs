@@ -40,6 +40,33 @@ public interface Testm2Factory extends EFactory {
 	WP createWP();
 
 	/**
+	 * Returns a new object of class '<em>Thing With No Id</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Thing With No Id</em>'.
+	 * @generated
+	 */
+	ThingWithNoId createThingWithNoId();
+
+	/**
+	 * Returns a new object of class '<em>Concrete Thing</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concrete Thing</em>'.
+	 * @generated
+	 */
+	ConcreteThing createConcreteThing();
+
+	/**
+	 * Returns a new object of class '<em>Concrete Thing2</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concrete Thing2</em>'.
+	 * @generated
+	 */
+	ConcreteThing2 createConcreteThing2();
+
+	/**
 	 * Returns a new object of class '<em>Task</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

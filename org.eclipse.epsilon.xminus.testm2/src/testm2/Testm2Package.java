@@ -111,13 +111,31 @@ public interface Testm2Package extends EPackage {
 	int PROJECT__PARTNERS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Thing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROJECT__THING = 5;
+
+	/**
+	 * The feature id for the '<em><b>Things With No Id</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROJECT__THINGS_WITH_NO_ID = 6;
+
+	/**
 	 * The number of structural features of the '<em>Project</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROJECT_FEATURE_COUNT = 5;
+	int PROJECT_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link testm2.impl.WPImpl <em>WP</em>}' class.
@@ -184,13 +202,143 @@ public interface Testm2Package extends EPackage {
 	int WP__DELIVERABLES = 5;
 
 	/**
+	 * The feature id for the '<em><b>Thing</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WP__THING = 6;
+
+	/**
+	 * The feature id for the '<em><b>Things With No Id</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WP__THINGS_WITH_NO_ID = 7;
+
+	/**
 	 * The number of structural features of the '<em>WP</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WP_FEATURE_COUNT = 6;
+	int WP_FEATURE_COUNT = 8;
+
+	/**
+	 * The meta object id for the '{@link testm2.impl.ThingImpl <em>Thing</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testm2.impl.ThingImpl
+	 * @see testm2.impl.Testm2PackageImpl#getThing()
+	 * @generated
+	 */
+	int THING = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THING__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Thing</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THING_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link testm2.impl.ThingWithNoIdImpl <em>Thing With No Id</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testm2.impl.ThingWithNoIdImpl
+	 * @see testm2.impl.Testm2PackageImpl#getThingWithNoId()
+	 * @generated
+	 */
+	int THING_WITH_NO_ID = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THING_WITH_NO_ID__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Thing With No Id</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int THING_WITH_NO_ID_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link testm2.impl.ConcreteThingImpl <em>Concrete Thing</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testm2.impl.ConcreteThingImpl
+	 * @see testm2.impl.Testm2PackageImpl#getConcreteThing()
+	 * @generated
+	 */
+	int CONCRETE_THING = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_THING__NAME = THING__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Concrete Thing</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_THING_FEATURE_COUNT = THING_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link testm2.impl.ConcreteThing2Impl <em>Concrete Thing2</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see testm2.impl.ConcreteThing2Impl
+	 * @see testm2.impl.Testm2PackageImpl#getConcreteThing2()
+	 * @generated
+	 */
+	int CONCRETE_THING2 = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_THING2__NAME = THING__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Concrete Thing2</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCRETE_THING2_FEATURE_COUNT = THING_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link testm2.impl.TaskImpl <em>Task</em>}' class.
@@ -200,7 +348,7 @@ public interface Testm2Package extends EPackage {
 	 * @see testm2.impl.Testm2PackageImpl#getTask()
 	 * @generated
 	 */
-	int TASK = 2;
+	int TASK = 6;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -256,7 +404,7 @@ public interface Testm2Package extends EPackage {
 	 * @see testm2.impl.Testm2PackageImpl#getDeliverable()
 	 * @generated
 	 */
-	int DELIVERABLE = 3;
+	int DELIVERABLE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Title</b></em>' attribute.
@@ -320,7 +468,7 @@ public interface Testm2Package extends EPackage {
 	 * @see testm2.impl.Testm2PackageImpl#getEffort()
 	 * @generated
 	 */
-	int EFFORT = 4;
+	int EFFORT = 8;
 
 	/**
 	 * The feature id for the '<em><b>Partner</b></em>' reference.
@@ -357,7 +505,7 @@ public interface Testm2Package extends EPackage {
 	 * @see testm2.impl.Testm2PackageImpl#getPartner()
 	 * @generated
 	 */
-	int PARTNER = 5;
+	int PARTNER = 9;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -462,6 +610,28 @@ public interface Testm2Package extends EPackage {
 	EReference getProject_Partners();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link testm2.Project#getThing <em>Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Thing</em>'.
+	 * @see testm2.Project#getThing()
+	 * @see #getProject()
+	 * @generated
+	 */
+	EReference getProject_Thing();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link testm2.Project#getThingsWithNoId <em>Things With No Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Things With No Id</em>'.
+	 * @see testm2.Project#getThingsWithNoId()
+	 * @see #getProject()
+	 * @generated
+	 */
+	EReference getProject_ThingsWithNoId();
+
+	/**
 	 * Returns the meta object for class '{@link testm2.WP <em>WP</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -536,6 +706,90 @@ public interface Testm2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getWP_Deliverables();
+
+	/**
+	 * Returns the meta object for the reference '{@link testm2.WP#getThing <em>Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Thing</em>'.
+	 * @see testm2.WP#getThing()
+	 * @see #getWP()
+	 * @generated
+	 */
+	EReference getWP_Thing();
+
+	/**
+	 * Returns the meta object for the reference list '{@link testm2.WP#getThingsWithNoId <em>Things With No Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Things With No Id</em>'.
+	 * @see testm2.WP#getThingsWithNoId()
+	 * @see #getWP()
+	 * @generated
+	 */
+	EReference getWP_ThingsWithNoId();
+
+	/**
+	 * Returns the meta object for class '{@link testm2.Thing <em>Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Thing</em>'.
+	 * @see testm2.Thing
+	 * @generated
+	 */
+	EClass getThing();
+
+	/**
+	 * Returns the meta object for the attribute '{@link testm2.Thing#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see testm2.Thing#getName()
+	 * @see #getThing()
+	 * @generated
+	 */
+	EAttribute getThing_Name();
+
+	/**
+	 * Returns the meta object for class '{@link testm2.ThingWithNoId <em>Thing With No Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Thing With No Id</em>'.
+	 * @see testm2.ThingWithNoId
+	 * @generated
+	 */
+	EClass getThingWithNoId();
+
+	/**
+	 * Returns the meta object for the attribute '{@link testm2.ThingWithNoId#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see testm2.ThingWithNoId#getName()
+	 * @see #getThingWithNoId()
+	 * @generated
+	 */
+	EAttribute getThingWithNoId_Name();
+
+	/**
+	 * Returns the meta object for class '{@link testm2.ConcreteThing <em>Concrete Thing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concrete Thing</em>'.
+	 * @see testm2.ConcreteThing
+	 * @generated
+	 */
+	EClass getConcreteThing();
+
+	/**
+	 * Returns the meta object for class '{@link testm2.ConcreteThing2 <em>Concrete Thing2</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concrete Thing2</em>'.
+	 * @see testm2.ConcreteThing2
+	 * @generated
+	 */
+	EClass getConcreteThing2();
 
 	/**
 	 * Returns the meta object for class '{@link testm2.Task <em>Task</em>}'.
@@ -804,6 +1058,22 @@ public interface Testm2Package extends EPackage {
 		EReference PROJECT__PARTNERS = eINSTANCE.getProject_Partners();
 
 		/**
+		 * The meta object literal for the '<em><b>Thing</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROJECT__THING = eINSTANCE.getProject_Thing();
+
+		/**
+		 * The meta object literal for the '<em><b>Things With No Id</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROJECT__THINGS_WITH_NO_ID = eINSTANCE.getProject_ThingsWithNoId();
+
+		/**
 		 * The meta object literal for the '{@link testm2.impl.WPImpl <em>WP</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -860,6 +1130,78 @@ public interface Testm2Package extends EPackage {
 		 * @generated
 		 */
 		EReference WP__DELIVERABLES = eINSTANCE.getWP_Deliverables();
+
+		/**
+		 * The meta object literal for the '<em><b>Thing</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WP__THING = eINSTANCE.getWP_Thing();
+
+		/**
+		 * The meta object literal for the '<em><b>Things With No Id</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WP__THINGS_WITH_NO_ID = eINSTANCE.getWP_ThingsWithNoId();
+
+		/**
+		 * The meta object literal for the '{@link testm2.impl.ThingImpl <em>Thing</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testm2.impl.ThingImpl
+		 * @see testm2.impl.Testm2PackageImpl#getThing()
+		 * @generated
+		 */
+		EClass THING = eINSTANCE.getThing();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THING__NAME = eINSTANCE.getThing_Name();
+
+		/**
+		 * The meta object literal for the '{@link testm2.impl.ThingWithNoIdImpl <em>Thing With No Id</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testm2.impl.ThingWithNoIdImpl
+		 * @see testm2.impl.Testm2PackageImpl#getThingWithNoId()
+		 * @generated
+		 */
+		EClass THING_WITH_NO_ID = eINSTANCE.getThingWithNoId();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute THING_WITH_NO_ID__NAME = eINSTANCE.getThingWithNoId_Name();
+
+		/**
+		 * The meta object literal for the '{@link testm2.impl.ConcreteThingImpl <em>Concrete Thing</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testm2.impl.ConcreteThingImpl
+		 * @see testm2.impl.Testm2PackageImpl#getConcreteThing()
+		 * @generated
+		 */
+		EClass CONCRETE_THING = eINSTANCE.getConcreteThing();
+
+		/**
+		 * The meta object literal for the '{@link testm2.impl.ConcreteThing2Impl <em>Concrete Thing2</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see testm2.impl.ConcreteThing2Impl
+		 * @see testm2.impl.Testm2PackageImpl#getConcreteThing2()
+		 * @generated
+		 */
+		EClass CONCRETE_THING2 = eINSTANCE.getConcreteThing2();
 
 		/**
 		 * The meta object literal for the '{@link testm2.impl.TaskImpl <em>Task</em>}' class.

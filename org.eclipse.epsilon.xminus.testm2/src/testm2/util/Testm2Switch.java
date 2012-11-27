@@ -78,6 +78,32 @@ public class Testm2Switch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case Testm2Package.THING: {
+				Thing thing = (Thing)theEObject;
+				T result = caseThing(thing);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case Testm2Package.THING_WITH_NO_ID: {
+				ThingWithNoId thingWithNoId = (ThingWithNoId)theEObject;
+				T result = caseThingWithNoId(thingWithNoId);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case Testm2Package.CONCRETE_THING: {
+				ConcreteThing concreteThing = (ConcreteThing)theEObject;
+				T result = caseConcreteThing(concreteThing);
+				if (result == null) result = caseThing(concreteThing);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case Testm2Package.CONCRETE_THING2: {
+				ConcreteThing2 concreteThing2 = (ConcreteThing2)theEObject;
+				T result = caseConcreteThing2(concreteThing2);
+				if (result == null) result = caseThing(concreteThing2);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case Testm2Package.TASK: {
 				Task task = (Task)theEObject;
 				T result = caseTask(task);
@@ -133,6 +159,66 @@ public class Testm2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseWP(WP object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thing</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thing</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThing(Thing object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Thing With No Id</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Thing With No Id</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseThingWithNoId(ThingWithNoId object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Concrete Thing</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Concrete Thing</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConcreteThing(ConcreteThing object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Concrete Thing2</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Concrete Thing2</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConcreteThing2(ConcreteThing2 object) {
 		return null;
 	}
 

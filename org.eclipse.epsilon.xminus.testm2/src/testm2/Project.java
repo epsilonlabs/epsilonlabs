@@ -4,6 +4,7 @@ package testm2;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link testm2.Project#getTitle <em>Title</em>}</li>
  *   <li>{@link testm2.Project#getWps <em>Wps</em>}</li>
  *   <li>{@link testm2.Project#getPartners <em>Partners</em>}</li>
+ *   <li>{@link testm2.Project#getThing <em>Thing</em>}</li>
+ *   <li>{@link testm2.Project#getThingsWithNoId <em>Things With No Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,5 +139,47 @@ public interface Project extends EObject {
 	 * @generated
 	 */
 	EList<Partner> getPartners();
+
+	/**
+	 * Returns the value of the '<em><b>Thing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Thing</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Thing</em>' containment reference.
+	 * @see #setThing(Thing)
+	 * @see testm2.Testm2Package#getProject_Thing()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Thing getThing();
+
+	/**
+	 * Sets the value of the '{@link testm2.Project#getThing <em>Thing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Thing</em>' containment reference.
+	 * @see #getThing()
+	 * @generated
+	 */
+	void setThing(Thing value);
+
+	/**
+	 * Returns the value of the '<em><b>Things With No Id</b></em>' containment reference list.
+	 * The list contents are of type {@link testm2.ThingWithNoId}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Things With No Id</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Things With No Id</em>' containment reference list.
+	 * @see testm2.Testm2Package#getProject_ThingsWithNoId()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ThingWithNoId> getThingsWithNoId();
 
 } // Project
