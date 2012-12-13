@@ -15,13 +15,12 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IModel;
 
 /**
- * A factory for creating EpsilonAbstractModel objects.
+ * An abstract implementation of the EpsilonModelFactory interface.
  */
 public abstract class EpsilonAbstractModelFactory implements
 		EpsilonModelFactory {
 
-	
-	/** The config. */
+	/** The configuration. */
 	protected EpsilonAbstractModelConfig config;
 	
 	/* (non-Javadoc)
@@ -34,31 +33,27 @@ public abstract class EpsilonAbstractModelFactory implements
 	 */
 	public abstract EpsilonModelConfig getConfiguration();
 	
-	/**
-	 * Sets the model name used by the factory.
-	 *
-	 * @param name the new model name
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#setModelName(java.lang.String)
 	 */
 	public void setModelName(@NonNull String name) {
 		
 		config.setModelName(name);
 	}
 	
-	/**
-	 * Sets the model uri used by the factory.
-	 *
-	 * @param modelURI the new model uri
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#setModelURI(java.lang.String)
 	 */
 	public void setModelURI(@NonNull String modelURI) {
 		
 		config.setModelURI(modelURI);
 	}
 	
-	/**
-	 * Sets the model name and URI used by the factory.
-	 *
-	 * @param name the name
-	 * @param modelURI the model uri
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#setModel(java.lang.String, java.lang.String)
 	 */
 	public void setModel(@NonNull String name, @NonNull String modelURI) {
 		
@@ -67,10 +62,8 @@ public abstract class EpsilonAbstractModelFactory implements
 	}
 	
 	
-	/**
-	 * Sets the model aliases used by the factory
-	 *
-	 * @param aliases Comma separated list of model aliases
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#setModelAliases(java.lang.String)
 	 */
 	public void setModelAliases(@NonNull String aliases) {
 		
@@ -78,8 +71,8 @@ public abstract class EpsilonAbstractModelFactory implements
 	}
 
 	
-	/**
-	 * Configure the factory to load models as source models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForSourceModel()
 	 */
 	public void configForSourceModel() {
 		
@@ -89,18 +82,19 @@ public abstract class EpsilonAbstractModelFactory implements
 	}
 	
 
-	/**
-	 * Configure the factory to load models as cached source models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForCachedSourceModel()
 	 */
 	public void configForCachedSourceModel() {
 		
 		config.setReadOnLoad(true);
+		config.setStoreOnDisposal(false);
 		config.setCached(true);
 	}
 	
 
-	/**
-	 * Configure the factory to load models as target models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForTargetModel()
 	 */
 	public void configForTargetModel() {
 		
@@ -110,18 +104,19 @@ public abstract class EpsilonAbstractModelFactory implements
 	}
 	
 
-	/**
-	 * Configure the factory to load models as cached target models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForCachedTargetModel()
 	 */
 	public void configForCachedTargetModel() {
 		
 		config.setStoreOnDisposal(true);
+		config.setReadOnLoad(false);
 		config.setCached(true);
 	}
 	
 
-	/**
-	 * Configure the factory to load models as bi-directional models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForBidirectionalModel()
 	 */
 	public void configForBidirectionalModel() {
 		
@@ -131,10 +126,10 @@ public abstract class EpsilonAbstractModelFactory implements
 	}
 	
 
-	/**
-	 * Configure the factory to load models as cached bi-directional models.
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForCachedBidirectionalModel()
 	 */
-	public void configForCachedBidirModel() {
+	public void configForCachedBidirectionalModel() {
 		
 		configForBidirectionalModel();
 		config.setCached(true);

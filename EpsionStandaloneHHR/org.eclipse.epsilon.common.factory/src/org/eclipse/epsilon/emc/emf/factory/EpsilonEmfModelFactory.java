@@ -18,7 +18,6 @@ import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IModel;
 
-// TODO: Auto-generated Javadoc
 /**
  * A factory for creating Epsilon EmfModel models.
  */
@@ -38,7 +37,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 * @param modelURI the model uri
 	 */
 	public EpsilonEmfModelFactory(String modelName, String modelURI) {
-		super();
+		config = new EpsilonEmfModelConfig();
 		config.setModelName(modelName);
 		config.setModelURI(modelURI);
 	}
@@ -84,7 +83,15 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 		this.config = (EpsilonEmfModelConfig) config;
 	}
 	
-	// TODO Additional methods for the possible combinations of cached and expanded
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForSourceModel()
+	 */
+	@Override
+	public void configForSourceModel() {
+		super.configForSourceModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		
+	}
 
 	/**
 	 * Configure the factory to load models as source models and expand them on
@@ -96,17 +103,35 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForCachedSourceModel()
+	 */
+	@Override
+	public void configForCachedSourceModel() {
+		super.configForCachedSourceModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+	}
+	
 	
 	/**
 	 * Configure the factory to load models as cached source models and expand
 	 * them on load.
 	 */
-	public void configCachedSourceModelExpand() {
+	public void configForCachedSourceModelExpand() {
 		
 		configForCachedSourceModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForTargetModel()
+	 */
+	@Override
+	public void configForTargetModel() {
+		super.configForTargetModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+	}
 
 	/**
 	 * Configure the factory to load models as target models and expand them on
@@ -118,14 +143,62 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForCachedTargetModel()
+	 */
+	@Override
+	public void configForCachedTargetModel() {
+		super.configForCachedTargetModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+	}
+	
 	
 	/**
 	 * Configure the factory to load models as cached target models and expand
 	 * them on load.
 	 */
-	public void configForCachedTargetModelExpand() {
-		
+	public void configForCachedTargetModelExpand() {		
 		configForCachedTargetModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForBidirectionalModel()
+	 */
+	@Override
+	public void configForBidirectionalModel() {
+		super.configForBidirectionalModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+	}
+	
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForCachedBidirectionalModel()
+	 */
+	@Override
+	public void configForCachedBidirectionalModel() {
+		super.configForCachedBidirectionalModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+	}
+	
+	
+	/**
+	 * Configure the factory to load models as bi-directional models and expand
+	 * them on load.
+	 */
+	public void configForBidirectionalModelExpand() {
+		super.configForBidirectionalModel();
+		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+	}
+	
+	
+	/**
+	 * Configure the factory to load models as cached bi-directional models and expand
+	 * them on load.
+	 */
+	public void configForCachedBidirectionalModelExpand() {
+		super.configForCachedBidirectionalModel();
 		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
 	}
 	
@@ -140,24 +213,17 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 * 	for multiple URIs)
 	 */
 	void addMetamodelUri(String metamodelURI) {
-		
+		// TODO some how test the well formness of the parameter
 		StringBuilder metamodels = null;
-		try {
-			metamodels = new StringBuilder(config.getParameter(EpsilonEmfModelConfig.URI_METAMODELS));
-		} catch (NullPointerException ex) {
-			
-		} finally {
-			if(metamodels == null) {
-				metamodels = new StringBuilder();
-			}
-			if(metamodels.length() > 0) {
-				// Some previous list of meta-models exist
-				metamodels.append(",");
-			}
-			metamodels.append(metamodelURI);
-			config.setParameter(EpsilonEmfModelConfig.URI_METAMODELS, metamodels.toString());
+		String oldMetamodels = config.getParameter(EpsilonEmfModelConfig.URI_METAMODELS);
+		if (oldMetamodels == null) {
+			metamodels = new StringBuilder();
+		} else {
+			metamodels = new StringBuilder(oldMetamodels);
+			metamodels.append(",");
 		}
-		
+		metamodels.append(metamodelURI);
+		config.setParameter(EpsilonEmfModelConfig.URI_METAMODELS, metamodels.toString());
 	}
 	
 	/**
@@ -170,22 +236,17 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 *  (for multiple paths)
 	 */
 	public void addMetamodelFile(String metamodelPath) {
+		// TODO some how test the well formness of the parameter		
 		StringBuilder metamodels = null;
-		try {
-			metamodels = new StringBuilder(config.getParameter(EpsilonEmfModelConfig.FILE_METAMODELS));
-		} catch (NullPointerException ex) {
-			
-		} finally {
-			if(metamodels == null) {
-				metamodels = new StringBuilder();
-			}
-			if(metamodels.length() > 0) {
-				// Some previous list of meta-models exist
-				metamodels.append(",");
-			}
-			metamodels.append(metamodelPath);
-			config.setParameter(EpsilonEmfModelConfig.FILE_METAMODELS, metamodels.toString());
+		String oldMetamodels = config.getParameter(EpsilonEmfModelConfig.FILE_METAMODELS);
+		if (oldMetamodels == null) {
+			metamodels = new StringBuilder();
+		} else {
+			metamodels = new StringBuilder(oldMetamodels);
+			metamodels.append(",");
 		}
+		metamodels.append(metamodelPath);
+		config.setParameter(EpsilonEmfModelConfig.FILE_METAMODELS, metamodels.toString());
 	}
 
 }
