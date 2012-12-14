@@ -15,9 +15,12 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IModel;
 
 /**
- * An abstract implementation of the EpsilonModelFactory interface.
+ * AbstractEpsilonModelFactory is the abstract base class for all Epsilon Model
+ * Factories.
+ * An AbstractEpsilonModelFactory provides helper methods to configure how a
+ * model should be loaded.  
  */
-public abstract class EpsilonAbstractModelFactory implements
+public abstract class AbstractEpsilonModelFactory implements
 		EpsilonModelFactory {
 
 	/** The configuration. */

@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.eclipse.epsilon.emc.emf.factory;
 
-import org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory;
+import org.eclipse.epsilon.common.factory.AbstractEpsilonModelFactory;
 import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
 import org.eclipse.epsilon.common.factory.EpsilonModelFactory;
 import org.eclipse.epsilon.common.util.StringProperties;
@@ -21,7 +21,7 @@ import org.eclipse.epsilon.eol.models.IModel;
 /**
  * A factory for creating Epsilon EmfModel models.
  */
-public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implements EpsilonModelFactory {
+public class EpsilonEmfModelFactory extends AbstractEpsilonModelFactory implements EpsilonModelFactory {
 	
 	/**
 	 * Instantiates a new Epsilon emf model factory.
