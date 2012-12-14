@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *     hhoyos - initial API and implementation
+ *     Horacio Hoyos - initial API and implementation
  ******************************************************************************/
 package org.eclipse.epsilon.common.factory;
 
@@ -15,6 +15,7 @@ import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+// TODO: Auto-generated Javadoc
 /**
  * Abstract implementation of the EpsilonModelConfig interface. Specific Epsilon
  * drivers should extend this class to provide specific driver configuration
@@ -28,10 +29,14 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	
 	/**
 	 * This parameter defines the preferred driver to load the model. Values depend
-	 * on the avaliable Epsilon model drivers, for example bibtex, csv, emf, hutn,
+	 * on the available Epsilon model drivers, for example bibtex, csv, emf, hutn,
 	 * plainxml, etc.
 	 */
 	public static final String DRIVER = "driver";
+	
+	
+	/** The Constant FACTORY. */
+	public static final String FACTORY = "factoryName";
 	
 	/**
 	 * This parameter defines the model name used as identifier within the ExL
@@ -109,6 +114,7 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.emc.factory.EpsilonModelConfig#getParameter(java.lang.String)
 	 */
+	@Override
 	public String getParameter(@NonNull String name) {
 		
 		return parameters.get(name);
@@ -118,6 +124,7 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.emc.factory.EpsilonModelConfig#setParameter(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void setParameter(@NonNull String parameter, @NonNull String value) {
 		
 		parameters.put(parameter, value);
@@ -126,17 +133,22 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.emc.factory.EpsilonModelConfig#getDriverName()
 	 */
+	@Override
 	public String getDriverName() {
 		
 		return parameters.get(DRIVER);
 	}
+	
+	public String getFactoryName() {
+		
+		return parameters.get(FACTORY);
+	}
 
 	
-	/**
-	 * Sets the model name. This method overwrites the previous value.
-	 *
-	 * @param name the new model name
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setModelName(java.lang.String)
 	 */
+	@Override
 	public void setModelName(@NonNull String name) {
 		
 		parameters.put(NAME, name);
@@ -146,110 +158,109 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.emc.factory.EpsilonModelConfig#getModelName()
 	 */
+	@Override
 	public String getModelName() {
 		
 		return parameters.get(NAME);
 	}
 	
 	
-	/**
-	 * Sets the model uri. This method overwrites the previous value.
-	 *
-	 * @param modelURI the new model uri
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setModelURI(java.lang.String)
 	 */
+	@Override
 	public void setModelURI(@NonNull String modelURI) {
 		
 		parameters.put(MODEL_URI, modelURI);
 	}
 	
-	/**
-	 * Gets the model uri.
-	 *
-	 * @return the model uri
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#getModelURI()
 	 */
+	@Override
 	public String getModelURI() {
 		
 		return parameters.get(MODEL_URI);
 	}
 
 
-	/**
-	 * Sets the read on load setting. This method overwrites the previous value.
-	 *
-	 * @param value the new read on load
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setReadOnLoad(boolean)
 	 */
+	@Override
 	public void setReadOnLoad(boolean value) {
 		
 		parameters.put(READ_ON_LOAD, String.valueOf(value));
 	}
 	
-	/**
-	 * Gets the read on load value.
-	 *
-	 * @return the read on load
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#getReadOnLoad()
 	 */
+	@Override
 	public boolean getReadOnLoad() {
 		
 		return Boolean.valueOf(parameters.get(READ_ON_LOAD));
 	}
 
 
-	/**
-	 * Sets the store on disposal setting. This method overwrites the previous value.
-	 *
-	 * @param value the new store on disposal
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setStoreOnDisposal(boolean)
 	 */
+	@Override
 	public void setStoreOnDisposal(boolean value) {
 		
 		parameters.put(STORE_ON_DISPOSAL, String.valueOf(value));
 	}
 	
-	/**
-	 * Gets the store on disposal value.
-	 *
-	 * @return the store on disposal
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#getStoreOnDisposal()
 	 */
+	@Override
 	public boolean getStoreOnDisposal() {
 		
 		return Boolean.valueOf(parameters.get(STORE_ON_DISPOSAL));
 	}
 	
-	/**
-	 * Sets the aliases. This method overwrites the previous value.
-	 *
-	 * @param aliases A comma separated list of aliases.
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setAliases(java.lang.String)
 	 */
+	@Override
 	public void setAliases(@NonNull String aliases) {
 		
 		parameters.put(ALIASES, aliases);
 	}
 	
-	/**
-	 * Gets the aliases.
-	 *
-	 * @return the aliases as a comma separated list
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#getAliases()
 	 */
+	@Override
 	public String getAliases() {
 		
 		return parameters.get(ALIASES);
 	}
 
 
-	/**
-	 * Sets the cached setting. This method overwrites the previous value.
-	 *
-	 * @param value the new cached
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#setCached(boolean)
 	 */
+	@Override
 	public void setCached(boolean value) {
 		
 		parameters.put(CACHED, String.valueOf(value));
 	}
 	
-	/**
-	 * Gets the cached value.
-	 *
-	 * @return the cached
+	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.common.factory.EpsilonModelConfig#getCached()
 	 */
+	@Override
 	public boolean getCached() {
 		
 		return Boolean.valueOf(parameters.get(CACHED));
