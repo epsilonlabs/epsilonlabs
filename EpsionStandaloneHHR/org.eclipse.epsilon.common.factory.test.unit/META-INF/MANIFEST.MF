@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Unit
 Bundle-SymbolicName: org.eclipse.epsilon.common.factory.test.unit
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.epsilon.common.factory.test.unit.Activator
+Bundle-Activator: org.eclipse.epsilon.emc.emf.factory.test.unit.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.junit;bundle-version="4.10.0",

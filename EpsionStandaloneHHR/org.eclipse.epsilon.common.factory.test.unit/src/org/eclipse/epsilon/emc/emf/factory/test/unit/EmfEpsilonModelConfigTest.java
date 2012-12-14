@@ -8,7 +8,7 @@
  * Contributors:
  *     Horacio Hoyos - initial API and implementation
  ******************************************************************************/
-package org.eclipse.epsilon.common.factory.test.unit;
+package org.eclipse.epsilon.emc.emf.factory.test.unit;
 
 import static org.junit.Assert.*;
 
