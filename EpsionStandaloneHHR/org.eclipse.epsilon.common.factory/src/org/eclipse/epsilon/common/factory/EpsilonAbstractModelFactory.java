@@ -21,7 +21,7 @@ public abstract class EpsilonAbstractModelFactory implements
 		EpsilonModelFactory {
 
 	/** The configuration. */
-	protected EpsilonAbstractModelConfig config;
+	protected AbstractEpsilonModelConfig config;
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.emc.factory.EpsilonModelFactory#createModel()

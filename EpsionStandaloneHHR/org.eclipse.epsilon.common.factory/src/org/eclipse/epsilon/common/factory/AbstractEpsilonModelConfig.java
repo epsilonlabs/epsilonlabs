@@ -15,17 +15,24 @@ import java.util.Map;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
 /**
- * Abstract implementation of the EpsilonModelConfig interface. Specific Epsilon
- * drivers should extend this class to provide specific driver configuration
- * parameter setting. 
+ * AbstractEpsilonModelConfig is the abstract base class for all Epsilon Model
+ * Configurations.
+ * An EpsilonModelConfig object encapsulates the information needed to load a
+ * model in order to use it with any of the Epsilon Languages. This information
+ * includes:
+ * <ul>
+ * <li>The Factory used to load the models associated to the configuration
+ * <li>The name of the model as used in the Epsilon Language(s)
+ * <li>The URI of the model
+ * <li>The model aliases used in the the Epsilon Language(s)
+ * <li>The vallue of the ReadOnLoad, StoreOnDisposal and Cached properties
+ * </ul>
  * <p>
- * To provide a driver specific Model Configuration, extend this class and add
- * the required parameters as Static final Strings. The provide setter and getter
- * method for these parameters.
+ * Specific Epsilon drivers should extend this class to provide specific driver
+ * configuration parameter setting. 
  */
-public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
+public abstract class AbstractEpsilonModelConfig implements EpsilonModelConfig {
 	
 	/**
 	 * This parameter defines the preferred driver to load the model. Values depend
@@ -106,7 +113,7 @@ public abstract class EpsilonAbstractModelConfig implements EpsilonModelConfig {
 	/**
 	 * Instantiates a new epsilon model config.
 	 */
-	public EpsilonAbstractModelConfig() {
+	public AbstractEpsilonModelConfig() {
 		parameters = new HashMap<String, String>();
 	}
 

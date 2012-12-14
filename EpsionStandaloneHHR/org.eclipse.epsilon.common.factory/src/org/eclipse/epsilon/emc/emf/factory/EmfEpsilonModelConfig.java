@@ -11,14 +11,15 @@
 package org.eclipse.epsilon.emc.emf.factory;
 
 
-import org.eclipse.epsilon.common.factory.EpsilonAbstractModelConfig;
+import org.eclipse.epsilon.common.factory.AbstractEpsilonModelConfig;
 import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
 import org.eclipse.jdt.annotation.NonNull;
 
 /**
- * The Class EpsilonEmfModelConfig.
+ * EpsilonEmfModelConfig is the class that provides additional configuration
+ * options for EMF models.
  */
-public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
+public class EmfEpsilonModelConfig extends AbstractEpsilonModelConfig implements
 		EpsilonModelConfig {
 	
 	/**
@@ -48,14 +49,16 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	 * Instantiates a new epsilon emf model configuration by setting the DRIVER
 	 * parameter to "emf".
 	 */
-	public EpsilonEmfModelConfig() {
+	public EmfEpsilonModelConfig() {
 		super();
-		parameters.put(DRIVER, "emf");
+		parameters.put(FACTORY, EmfEpsilonModelConfig.class.getName());
 	}
 
 
 	/**
-	 * Sets the metamodel uris.
+	 * Sets the value of the configuration metamodel uris. To supply more than
+	 * one metamodel URI the metamodelUris parameter should be a comma separated
+	 * string of URIs.
 	 *
 	 * @param metamodelUris the new metamodel uris
 	 */
@@ -68,7 +71,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	
 	
 	/**
-	 * Removes the metamodel uris (if present)
+	 * Removes the configuration metamodel uris (if present).
 	 */
 	public void removeMetamodelUris() {
 		
@@ -87,7 +90,9 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 
 
 	/**
-	 * Sets the metamodel paths.
+	 * Sets the value of the configuration metamodel paths. To supply more than
+	 * one metamodel path the metamodelPaths parameter should be a comma
+	 * separated string of paths.
 	 *
 	 * @param metamodelPaths the new metamodel paths
 	 */
@@ -96,6 +101,10 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 		parameters.put(FILE_METAMODELS, metamodelPaths);
 	}
 	
+	
+	/**
+	 * Removes the metamodel paths.
+	 */
 	public void removeMetamodelPaths() {
 		
 		parameters.remove(FILE_METAMODELS);
@@ -113,7 +122,8 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 
 
 	/**
-	 * Sets the expand.
+	 * Sets the value of the configuration expand option. Configurations with 
+	 * this ption set to True, will expand the model when loading it..
 	 *
 	 * @param value the new expand
 	 */
@@ -123,7 +133,7 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 	}
 	
 	/**
-	 * Gets the expand.
+	 * Gets the value of the expand option of the configuration.
 	 *
 	 * @return the expand
 	 */
@@ -131,6 +141,5 @@ public class EpsilonEmfModelConfig extends EpsilonAbstractModelConfig implements
 		
 		return Boolean.valueOf(parameters.get(EXPAND));
 	}
-
 
 }

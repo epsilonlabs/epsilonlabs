@@ -27,7 +27,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 * Instantiates a new Epsilon emf model factory.
 	 */
 	public EpsilonEmfModelFactory() {
-		config = new EpsilonEmfModelConfig();
+		config = new EmfEpsilonModelConfig();
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 * @param modelURI the model uri
 	 */
 	public EpsilonEmfModelFactory(String modelName, String modelURI) {
-		config = new EpsilonEmfModelConfig();
+		config = new EmfEpsilonModelConfig();
 		config.setModelName(modelName);
 		config.setModelURI(modelURI);
 	}
@@ -50,15 +50,15 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 		// TODO test that the configuration has the needed parameters??
 		EmfModel emfModel = new EmfModel();
 		StringProperties properties = new StringProperties();
-		properties.put(EmfModel.PROPERTY_NAME, config.getParameter(EpsilonEmfModelConfig.NAME));
-		properties.put(EmfModel.PROPERTY_ALIASES, config.getParameter(EpsilonEmfModelConfig.ALIASES));
-		properties.put(EmfModel.PROPERTY_MODEL_URI, config.getParameter(EpsilonEmfModelConfig.MODEL_URI));
-		properties.put(EmfModel.PROPERTY_READONLOAD, config.getParameter(EpsilonEmfModelConfig.READ_ON_LOAD));
-		properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, config.getParameter(EpsilonEmfModelConfig.STORE_ON_DISPOSAL));
-		properties.put(EmfModel.PROPERTY_CACHED, config.getParameter(EpsilonEmfModelConfig.CACHED));
-		properties.put(EmfModel.PROPERTY_EXPAND, config.getParameter(EpsilonEmfModelConfig.EXPAND));
-		properties.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI, config.getParameter(EpsilonEmfModelConfig.FILE_METAMODELS));
-		properties.put(EmfModel.PROPERTY_METAMODEL_URI, config.getParameter(EpsilonEmfModelConfig.URI_METAMODELS));
+		properties.put(EmfModel.PROPERTY_NAME, config.getParameter(EmfEpsilonModelConfig.NAME));
+		properties.put(EmfModel.PROPERTY_ALIASES, config.getParameter(EmfEpsilonModelConfig.ALIASES));
+		properties.put(EmfModel.PROPERTY_MODEL_URI, config.getParameter(EmfEpsilonModelConfig.MODEL_URI));
+		properties.put(EmfModel.PROPERTY_READONLOAD, config.getParameter(EmfEpsilonModelConfig.READ_ON_LOAD));
+		properties.put(EmfModel.PROPERTY_STOREONDISPOSAL, config.getParameter(EmfEpsilonModelConfig.STORE_ON_DISPOSAL));
+		properties.put(EmfModel.PROPERTY_CACHED, config.getParameter(EmfEpsilonModelConfig.CACHED));
+		properties.put(EmfModel.PROPERTY_EXPAND, config.getParameter(EmfEpsilonModelConfig.EXPAND));
+		properties.put(EmfModel.PROPERTY_FILE_BASED_METAMODEL_URI, config.getParameter(EmfEpsilonModelConfig.FILE_METAMODELS));
+		properties.put(EmfModel.PROPERTY_METAMODEL_URI, config.getParameter(EmfEpsilonModelConfig.URI_METAMODELS));
 		emfModel.load(properties, null);
 		return emfModel;
 	}
@@ -80,8 +80,10 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 */
 	public void setConfiguration(EpsilonModelConfig config) {
 		
-		this.config = (EpsilonEmfModelConfig) config;
+		this.config = (EmfEpsilonModelConfig) config;
 	}
+	
+	
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForSourceModel()
@@ -89,7 +91,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForSourceModel() {
 		super.configForSourceModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 		
 	}
 
@@ -100,7 +102,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	public void configForSourceModelExpand() {
 		
 		configForSourceModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	/* (non-Javadoc)
@@ -109,7 +111,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForCachedSourceModel() {
 		super.configForCachedSourceModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	
@@ -120,7 +122,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	public void configForCachedSourceModelExpand() {
 		
 		configForCachedSourceModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
@@ -130,7 +132,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForTargetModel() {
 		super.configForTargetModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 
 	/**
@@ -140,7 +142,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	public void configForTargetModelExpand() {
 		
 		configForTargetModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	/* (non-Javadoc)
@@ -149,7 +151,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForCachedTargetModel() {
 		super.configForCachedTargetModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	
@@ -159,7 +161,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 */
 	public void configForCachedTargetModelExpand() {		
 		configForCachedTargetModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
@@ -169,7 +171,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForBidirectionalModel() {
 		super.configForBidirectionalModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	
@@ -179,7 +181,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	@Override
 	public void configForCachedBidirectionalModel() {
 		super.configForCachedBidirectionalModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	
@@ -189,7 +191,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 */
 	public void configForBidirectionalModelExpand() {
 		super.configForBidirectionalModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
@@ -199,7 +201,7 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 */
 	public void configForCachedBidirectionalModelExpand() {
 		super.configForCachedBidirectionalModel();
-		config.setParameter(EpsilonEmfModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
@@ -212,18 +214,22 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	 * @param metamodelURI the meta-model URI or a comma separated list of URI (
 	 * 	for multiple URIs)
 	 */
-	void addMetamodelUri(String metamodelURI) {
+	public void addMetamodelUri(String metamodelURI) {
 		// TODO some how test the well formness of the parameter
 		StringBuilder metamodels = null;
-		String oldMetamodels = config.getParameter(EpsilonEmfModelConfig.URI_METAMODELS);
+		String oldMetamodels = config.getParameter(EmfEpsilonModelConfig.URI_METAMODELS);
 		if (oldMetamodels == null) {
 			metamodels = new StringBuilder();
 		} else {
 			metamodels = new StringBuilder(oldMetamodels);
 			metamodels.append(",");
 		}
+		metamodelURI = metamodelURI.trim();
+		if (metamodelURI.endsWith(",")) {
+			metamodelURI = metamodelURI.substring(0, metamodelURI.length()-1);
+		}
 		metamodels.append(metamodelURI);
-		config.setParameter(EpsilonEmfModelConfig.URI_METAMODELS, metamodels.toString());
+		config.setParameter(EmfEpsilonModelConfig.URI_METAMODELS, metamodels.toString());
 	}
 	
 	/**
@@ -238,15 +244,37 @@ public class EpsilonEmfModelFactory extends EpsilonAbstractModelFactory implemen
 	public void addMetamodelFile(String metamodelPath) {
 		// TODO some how test the well formness of the parameter		
 		StringBuilder metamodels = null;
-		String oldMetamodels = config.getParameter(EpsilonEmfModelConfig.FILE_METAMODELS);
+		String oldMetamodels = config.getParameter(EmfEpsilonModelConfig.FILE_METAMODELS);
 		if (oldMetamodels == null) {
 			metamodels = new StringBuilder();
 		} else {
 			metamodels = new StringBuilder(oldMetamodels);
 			metamodels.append(",");
 		}
+		metamodelPath = metamodelPath.trim();
+		if (metamodelPath.endsWith(",")) {
+			metamodelPath = metamodelPath.substring(0, metamodelPath.length()-1);
+		}
+		
 		metamodels.append(metamodelPath);
-		config.setParameter(EpsilonEmfModelConfig.FILE_METAMODELS, metamodels.toString());
+		config.setParameter(EmfEpsilonModelConfig.FILE_METAMODELS, metamodels.toString());
+	}
+	
+	/**
+	 * Removes all metamodel URIs previously added to the Factory. 
+	 */
+	public void clearMetamodelUris() {
+		
+		config.setParameter(EmfEpsilonModelConfig.URI_METAMODELS, "");
+	}
+	
+	
+	/**
+	 * Removes all metamodel paths (file based) previously added to the Factory.
+	 */
+	public void clearMetamodelPaths() {
+		
+		config.setParameter(EmfEpsilonModelConfig.FILE_METAMODELS, "");
 	}
 
 }
