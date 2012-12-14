@@ -5,6 +5,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.epsilon.emc.emf"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.epsilon.eol.engine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.epsilon.common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.epsilon.emc.factory"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
