@@ -16,13 +16,19 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundExce
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.models.Model;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IInitializer;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.ILocalVariable;
+import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 
-public class JdtModel extends Model {
+public class JdtModel extends JavaModel {
 	
 	public static String PROPERTY_PROJECT_NAME = "projectName";
 	protected String projectName = null;
@@ -59,6 +65,38 @@ public class JdtModel extends Model {
 				    }
 		    	}
 		    }
+		    
+		    addClasses(IJavaProject.class, IPackageFragment.class, ICompilationUnit.class,
+		    	IType.class, IField.class, IMethod.class, IInitializer.class, 
+		    	ILocalVariable.class);
+		    
+		    for (IJavaProject javaProject : javaProjects) {
+		    	addObject(javaProject);
+		    	for (IPackageFragment packageFragment : javaProject.getPackageFragments()) {
+		    		if (packageFragment.getKind() == IPackageFragmentRoot.K_SOURCE) {
+		    			addObject(packageFragment);
+		    			for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
+		    				addObject(compilationUnit);
+		    				for (IType type : compilationUnit.getTypes()) {
+		    					addObject(type);
+		    					for (IMethod method : type.getMethods()) {
+		    						addObject(method);
+		    						for (ILocalVariable parameter : method.getParameters()) {
+		    							addObject(parameter);
+		    						}
+		    					}
+		    					for (IField field : type.getFields()) {
+		    						addObject(field);
+		    					}
+		    					for (IInitializer initialiser : type.getInitializers()) {
+		    						addObject(initialiser);
+		    					}
+		    				}
+		    			}
+		    		}
+		    	}
+		    }
+		    
 		}
 		catch (Exception ex) {
 			throw new EolModelLoadingException(ex, this);
@@ -71,110 +109,4 @@ public class JdtModel extends Model {
 		return javaProject;
 	}
 	
-	@Override
-	public Object getEnumerationValue(String enumeration, String label)
-			throws EolEnumerationValueNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<?> allContents() {
-		return javaProjects;
-	}
-
-	@Override
-	public Collection<?> getAllOfType(String type)
-			throws EolModelElementTypeNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<?> getAllOfKind(String type)
-			throws EolModelElementTypeNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getTypeOf(Object instance) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getTypeNameOf(Object instance) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object createInstance(String type)
-			throws EolModelElementTypeNotFoundException,
-			EolNotInstantiableModelElementTypeException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getElementById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getElementId(Object instance) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setElementId(Object instance, String newId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteElement(Object instance) throws EolRuntimeException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean owns(Object instance) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isInstantiable(String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isModelElement(Object instance) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasType(String type) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean store(String location) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean store() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
