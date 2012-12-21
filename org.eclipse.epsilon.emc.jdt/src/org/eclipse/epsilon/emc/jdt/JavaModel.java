@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.emc.jdt;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +13,9 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundExce
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.models.Model;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 public class JavaModel extends Model {
 	
@@ -26,9 +30,13 @@ public class JavaModel extends Model {
 	}
 	
 	protected void addObject(Object o, Class<?> asType) {
-		if (classObjectMap.containsKey(asType)) {
-			classObjectMap.get(asType).add(o);
+		
+		if (asType == Object.class) return;
+		
+		if (!classObjectMap.containsKey(asType)) {
+			addClass(asType);
 		}
+		classObjectMap.get(asType).add(o);
 		
 		if (asType.getSuperclass() != null) {
 			addObject(o, asType.getSuperclass());

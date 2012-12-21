@@ -16,6 +16,9 @@
       <operationContributor
             class="org.eclipse.epsilon.emc.jdt.IJavaProjectOperationContributor">
       </operationContributor>
+      <operationContributor
+            class="org.eclipse.epsilon.emc.jdt.ICompilationUnitOperationContributor">
+      </operationContributor>
    </extension>
 
 </plugin>

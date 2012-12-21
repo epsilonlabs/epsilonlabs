@@ -27,6 +27,9 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.dom.ASTNode;
+import org.eclipse.jdt.core.dom.ASTVisitor;
+import org.eclipse.jdt.core.dom.SimpleName;
 
 public class JdtModel extends JavaModel {
 	
@@ -66,9 +69,14 @@ public class JdtModel extends JavaModel {
 		    	}
 		    }
 		    
+		    /*
 		    addClasses(IJavaProject.class, IPackageFragment.class, ICompilationUnit.class,
 		    	IType.class, IField.class, IMethod.class, IInitializer.class, 
 		    	ILocalVariable.class);
+		    */
+		    
+		    ASTCollector astCollector = new ASTCollector();
+		    ICompilationUnitOperationContributor compilationUnitOperationContributor = new ICompilationUnitOperationContributor();
 		    
 		    for (IJavaProject javaProject : javaProjects) {
 		    	addObject(javaProject);
@@ -77,6 +85,11 @@ public class JdtModel extends JavaModel {
 		    			addObject(packageFragment);
 		    			for (ICompilationUnit compilationUnit : packageFragment.getCompilationUnits()) {
 		    				addObject(compilationUnit);
+		    				
+		    				compilationUnitOperationContributor.setTarget(compilationUnit);
+		    				compilationUnitOperationContributor.parse(astCollector);
+		    				
+		    				/*
 		    				for (IType type : compilationUnit.getTypes()) {
 		    					addObject(type);
 		    					for (IMethod method : type.getMethods()) {
@@ -91,7 +104,7 @@ public class JdtModel extends JavaModel {
 		    					for (IInitializer initialiser : type.getInitializers()) {
 		    						addObject(initialiser);
 		    					}
-		    				}
+		    				}*/
 		    			}
 		    		}
 		    	}
@@ -99,7 +112,7 @@ public class JdtModel extends JavaModel {
 		    
 		}
 		catch (Exception ex) {
-			throw new EolModelLoadingException(ex, this);
+			//throw new EolModelLoadingException(ex, this);
 		}
 	}
 
@@ -107,6 +120,29 @@ public class JdtModel extends JavaModel {
 		IJavaProject javaProject = JavaCore.create(project);
 		javaProject.open(new NullProgressMonitor());
 		return javaProject;
+	}
+	
+	@Override
+	public boolean hasType(String type) {
+		if (!super.hasType(type)) {
+			try {
+				addClass(Class.forName("org.eclipse.jdt.core.dom." + type));
+				return true;
+			}
+			catch (Exception ex) {
+				System.err.println("No class: " + type);
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	class ASTCollector extends ASTVisitor {
+		@Override
+		public void preVisit(ASTNode node) {
+			if (!(node instanceof SimpleName))
+			addObject(node);
+		}
 	}
 	
 }
