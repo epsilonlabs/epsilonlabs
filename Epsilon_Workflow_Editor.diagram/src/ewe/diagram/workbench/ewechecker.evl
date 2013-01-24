@@ -33,7 +33,7 @@ context Target {
             	var msg : String = "The tasks: ";
             	var taskLabel : String = "";
             	for(t in notFollowingTasks) {
-            		taskLabel = '"' + t.getTaskLabel() + '""';
+            		taskLabel = '"' + t.getTaskLabel() + '"';
             		msg = msg + taskLabel;
             		if(hasMore) msg = msg + ", ";
             	}
