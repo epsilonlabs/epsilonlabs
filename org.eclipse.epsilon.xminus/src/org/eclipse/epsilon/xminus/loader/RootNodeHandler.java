@@ -15,7 +15,7 @@ public class RootNodeHandler extends ContextualNodeHandler {
 	@Override
 	public void handle(Node node, EObject o) {
 		EClass eClass = context.eClassForName(context.getName(node), context.getNamespaceUri(node));
-		EObject eObject = EcoreUtil.create(eClass);
+		EObject eObject = context.createInstance(eClass, node);
 		context.getResource().getContents().add(eObject);
 		context.handleChildren(node, eObject);
 	}

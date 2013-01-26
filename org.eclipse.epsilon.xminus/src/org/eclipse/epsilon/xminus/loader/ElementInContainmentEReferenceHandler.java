@@ -4,7 +4,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.w3c.dom.Node;
 
 public class ElementInContainmentEReferenceHandler extends ContextualNodeHandler {
@@ -17,7 +16,7 @@ public class ElementInContainmentEReferenceHandler extends ContextualNodeHandler
 	@Override
 	public void handle(Node node, EObject parent) {
 		EClass eClass = context.eClassForName(context.getName(node), context.getNamespaceUri(node));
-		EObject eObject = EcoreUtil.create(eClass);
+		EObject eObject = context.createInstance(eClass, node);
 		
 		EReference eReference = (EReference) context.getContainer();
 		

@@ -31,7 +31,7 @@ public class TypeNameMatchingContainmentEReferenceHandler extends ContextualNode
 
 	@Override
 	public void handle(Node node, EObject p) {
-		EObject eObject =  EcoreUtil.create(eClass);
+		EObject eObject =  context.createInstance(eClass, node);
 		new EReferenceValueSetter().setValue(eReference, p, eObject, context);
 		context.handleChildren(node, eObject);
 	}

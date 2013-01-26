@@ -14,7 +14,7 @@ public class NameMatchingNodeNonContainmentEReferenceValueHandler extends NameMa
 	
 	@Override
 	public void handle(Node node, EObject eObject) {
-		new EReferenceValueSetter().setValue((EReference) eStructuralFeature, eObject, context.getValue(node), context);
+		new EReferenceValueSetter().setValue((EReference) eStructuralFeature, eObject, node, context);
 	}
 
 	@Override

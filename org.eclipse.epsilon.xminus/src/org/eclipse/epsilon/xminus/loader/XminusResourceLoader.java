@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.xminus.XminusDiagnostic;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -204,5 +205,9 @@ public class XminusResourceLoader {
 	public void load(Document document) {
 		cacheNamespaces(document.getDocumentElement());
 		handleNode(document.getDocumentElement(), null);
+	}
+	
+	public EObject createInstance(EClass eClass, Node node) {
+		return EcoreUtil.create(eClass);
 	}
 }
