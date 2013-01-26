@@ -1,22 +1,13 @@
 <?xml version="1.0"?>
-<?import source="ecore1.xml"?>
+<?import ecore1.xml?>
 
 <epackage name="p">
-	
-	<eclassifiers>
-		<eClass name="c1" eSuperTypes="../org.eclipse.epsilon.xminus/ecore1.xml#//c3, //c2" >
-			<eStructuralFeatures>
-				<eAttribute name="a1" eType="//s"/>
-				<eReference name="r1" eType="//c2" eOpposite="//c2/r2"/>
-			</eStructuralFeatures>
-		</eClass>
-		<eDataType name="s"/>
-	</eclassifiers>
-	
-	<eclassifiers>
-		<eClass name="c2">
-			<eReference name="r2" eType="//c1" eOpposite="//c1/r1"/>
-		</eClass>
-	</eclassifiers>
-	
+	<eClass name="c1" eSuperTypes="../org.eclipse.epsilon.xminus/ecore1.xml#//c3, //c2" >
+		<eAttribute name="a1" eType="//s"/>
+		<eReference name="r1" eType="//c2" eOpposite="//c2/r2"/>
+	</eClass>
+	<eDataType name="s"/>
+	<eClass name="c2">
+		<eReference name="r2" eType="//c1" eOpposite="//c1/r1"/>
+	</eClass>
 </epackage>

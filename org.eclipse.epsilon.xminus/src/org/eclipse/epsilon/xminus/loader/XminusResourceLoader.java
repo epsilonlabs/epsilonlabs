@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.xminus.XminusDiagnostic;
+import org.eclipse.epsilon.xminus.XminusResource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,13 +20,13 @@ import org.w3c.dom.NodeList;
 
 public class XminusResourceLoader {
 	
-	protected Resource resource = null;
+	protected XminusResource resource = null;
 	protected ArrayList<NodeHandler> nodeHandlers = new ArrayList<NodeHandler>();
 	protected EStructuralFeature container;
 	protected HashMap<String, EClass> eClasses = null;
 	protected HashMap<String, String> namespaces = new HashMap<String, String>();
 	
-	public XminusResourceLoader(Resource resource) {
+	public XminusResourceLoader(XminusResource resource) {
 		this.resource = resource;
 		getNodeHandlers().add(new ImportProcessingInstructionHandler());
 		getNodeHandlers().add(new RootNodeHandler());
@@ -48,7 +49,7 @@ public class XminusResourceLoader {
 		}
 	}
 	
-	public Resource getResource() {
+	public XminusResource getResource() {
 		return resource;
 	}
 	

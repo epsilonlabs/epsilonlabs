@@ -3,6 +3,7 @@ package org.eclipse.epsilon.xminus.loader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -14,10 +15,21 @@ public class XmlUtil {
 		for (int i=0; i<nodeList.getLength(); i++) {
 			children.add(nodeList.item(i));
 		}
+		NamedNodeMap attributes = node.getAttributes();
+		if (attributes != null) {
+			for (int i=0; i<attributes.getLength(); i++) {
+				children.add(attributes.item(i));
+			}
+		}
 		return children;
 	}
 	
 	public static String getAttributeValue(Node node, String attributeName) {
-		return node.getAttributes().getNamedItem(attributeName).getNodeValue();
+		for (Node child : getChildren(node)) {
+			if (child.getNodeName().equalsIgnoreCase(attributeName)) {
+				return child.getNodeValue();
+			}
+		}
+		return null;
 	}
 }
