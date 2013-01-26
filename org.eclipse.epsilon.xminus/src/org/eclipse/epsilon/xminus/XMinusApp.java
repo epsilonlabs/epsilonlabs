@@ -45,7 +45,9 @@ public class XMinusApp {
 		//}
 		
 		EolModule module = new EolModule();
-		//module.parse("EPackage.all.first().eClassifiers.println();");
+		//module.parse("EReference.all.second().id().println(); EReference.all.second().eOpposite.name.println();");
+		
+		//module.parse("EReference.all.first().eOpposite.name.println();");
 		module.parse("EClass.all.first().eSuperTypes.first().name.println();");
 		//module.parse("EClass.all.collect(c|c.id()).println();");
 		

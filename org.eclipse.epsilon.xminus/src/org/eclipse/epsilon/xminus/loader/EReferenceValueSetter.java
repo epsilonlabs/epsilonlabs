@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.w3c.dom.Node;
 
@@ -24,15 +25,26 @@ public class EReferenceValueSetter {
 			String[] valueIds = value.split(",");
 			for (String valueId : valueIds) {
 				EObject proxy = context.createInstance(proxyEClass, node);
-				((InternalEObject) proxy).eSetProxyURI(context.getResource().getURI().appendFragment(valueId));
+				((InternalEObject) proxy).eSetProxyURI(createProxyURI(valueId.trim(), context.getResource()));
 				setValue(eReference, eObject, proxy, context);
 			}
 		}
 		else {
 			EObject proxy = context.createInstance(proxyEClass, node);
-			((InternalEObject) proxy).eSetProxyURI(context.getResource().getURI().appendFragment(value));
+			((InternalEObject) proxy).eSetProxyURI(createProxyURI(value.trim(), context.getResource()));
 			setValue(eReference, eObject, proxy, context);
 		}
+	}
+	
+	protected URI createProxyURI(String uriFragment, Resource resource) {
+		URI proxyURI = null;
+		if (uriFragment.startsWith("//")) {
+			proxyURI = resource.getURI().appendFragment(uriFragment);
+		}
+		else {
+			proxyURI = URI.createURI(uriFragment).resolve(resource.getURI());
+		}
+		return proxyURI;
 	}
 	
 	public void setValue(EReference eReference, EObject eObject, EObject value, XminusResourceLoader context) {
