@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <epackage name="p">
 	<eclassifiers>
-		<eClass name="c1">
+		<eClass name="c1" eSuperTypes="//c2">
 			<eStructuralFeatures>
-				<eAttribute name="a1" eType="#//s"/>
+				<eAttribute name="a1" eType="//s"/>
 			</eStructuralFeatures>
 		</eClass>
 		<eDataType name="s"/>
 	</eclassifiers>
+	<eClass name="c2"/>
 </epackage>

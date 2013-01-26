@@ -1,13 +1,13 @@
-package org.eclipse.epsilon.xminus.valuesetters;
+package org.eclipse.epsilon.xminus.handlers;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.xminus.XminusContext;
 
 public class EReferenceValueSetter {
 	
@@ -15,7 +15,7 @@ public class EReferenceValueSetter {
 		
 		EClass proxyEClass = (EClass) eReference.getEType();
 		if (proxyEClass.isAbstract()) {
-			proxyEClass = context.getResource().findConcreteEClass(proxyEClass);
+			proxyEClass = context.findConcreteEClass(proxyEClass);
 		}
 		
 		if (eReference.isMany()) {
@@ -29,7 +29,6 @@ public class EReferenceValueSetter {
 		else {
 			EObject proxy = EcoreUtil.create(proxyEClass);
 			((InternalEObject) proxy).eSetProxyURI(context.getResource().getURI().appendFragment(value));
-			System.err.println(proxy);
 			setValue(eReference, eObject, proxy, context);
 		}
 	}
@@ -42,5 +41,7 @@ public class EReferenceValueSetter {
 			eObject.eSet(eReference, value);
 		}
 	}
+	
+	
 	
 }

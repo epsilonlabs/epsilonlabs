@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.types.EolSequence;
 
 import rss.RssPackage;
 import testm2.Testm2Factory;
@@ -39,16 +40,30 @@ public class XMinusApp {
 			System.err.println(diagnostic.getMessage());
 		}
 		
-		for (EObject o : r.getContents()) {
-			print(o,0);
-		}
+		//for (EObject o : r.getContents()) {
+		//	print(o,0);
+		//}
 		
 		EolModule module = new EolModule();
-		module.parse("EDataType.all.first.id().println('id:');");
+		//module.parse("EPackage.all.first().eClassifiers.println();");
+		module.parse("EClass.all.first().eSuperTypes.first().name.println();");
+		//module.parse("EClass.all.collect(c|c.id()).println();");
+		
 		InMemoryEmfModel model = new InMemoryEmfModel(r);
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 		
+		/*
+		EolSequence<?> objects = (EolSequence<?>) module.execute();
+		EObject eDataType = (EObject) objects.get(0);
+		EObject eProxy = (EObject) objects.get(1);
+		
+		System.err.println(eDataType);
+		System.err.println(eDataType.eResource().getURIFragment(eDataType));
+		System.err.println(eProxy);
+		System.err.println(eProxy.eIsProxy());
+		
+		System.err.println(r.getEObject("//s"));
 		
 		/*
 		EolModule module = new EolModule();

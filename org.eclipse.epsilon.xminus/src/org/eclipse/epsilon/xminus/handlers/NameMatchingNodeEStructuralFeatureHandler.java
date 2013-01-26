@@ -3,22 +3,21 @@ package org.eclipse.epsilon.xminus.handlers;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.epsilon.xminus.XminusContext;
 import org.w3c.dom.Node;
 
-public abstract class NameMatchingNodeEStructuralFeatureHandler extends AbstractNodeHandler {
+public abstract class NameMatchingNodeEStructuralFeatureHandler extends ContextualNodeHandler {
 	
 	protected EStructuralFeature eStructuralFeature;
 
 	@Override
-	public boolean canHandle(Node node, EObject eObject, XminusContext context) {
+	public boolean canHandle(Node node, EObject eObject) {
 		if (eObject == null) return false;
 		EClass eClass = eObject.eClass();
 		if (appliesToNode(node)) {
 			for (EStructuralFeature eStructuralFeature : eClass.getEAllStructuralFeatures()) {
 				if (eStructuralFeature.isTransient()) continue;
 				if (!appliesToEStructuralFeature(eStructuralFeature)) continue;
-				if (eStructuralFeature.getName().equalsIgnoreCase(getName(node))) {
+				if (eStructuralFeature.getName().equalsIgnoreCase(context.getName(node))) {
 					this.eStructuralFeature = eStructuralFeature;
 					return true;
 				}

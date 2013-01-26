@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.xminus.valuesetters;
+package org.eclipse.epsilon.xminus.handlers;
 
 import java.util.List;
 

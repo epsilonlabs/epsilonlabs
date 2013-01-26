@@ -3,6 +3,6 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="p">
   <eClassifiers xsi:type="ecore:EDataType" name="s" instanceClassName="java.lang.String"/>
   <eClassifiers xsi:type="ecore:EClass" name="c">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" eType="#//s"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="a" eType="//s"/>
   </eClassifiers>
 </ecore:EPackage>
