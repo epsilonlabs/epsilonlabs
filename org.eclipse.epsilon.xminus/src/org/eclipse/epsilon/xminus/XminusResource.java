@@ -36,16 +36,15 @@ public class XminusResource extends ResourceImpl {
 	protected void doLoad(InputStream inputStream, Map<?, ?> options)
 			throws IOException {
 		try {
+			// Line numbers: http://stackoverflow.com/questions/4915422/get-line-number-from-xml-node-java
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			document = documentBuilder.parse(inputStream);
 			new XminusResourceLoader(this).load(document);
-			
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
+			throw new IOException(ex);
 		}
-		
 	}
 	
 	@Override

@@ -82,7 +82,6 @@ public class XMinusApp {
 		r.save(new FileOutputStream(new File("test.copy.xml")), null);
 		*/
 		
-
 	}
 	
 	protected void print(EObject eObject, int indent) {

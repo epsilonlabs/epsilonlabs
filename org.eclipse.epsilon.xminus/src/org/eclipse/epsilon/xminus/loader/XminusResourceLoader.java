@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.epsilon.xminus.XminusDiagnostic;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -60,7 +61,11 @@ public class XminusResourceLoader {
 		for (NodeHandler nodeHandler : getNodeHandlers()) {
 			if (nodeHandler.canHandle(node, eObject)) {
 				nodeHandler.handle(node, eObject);
+				return;
 			}
+		}
+		if (isAttribute(node) || isElement(node)) {
+			resource.getWarnings().add(new XminusDiagnostic("Ignored node " + getName(node), node));
 		}
 	}
 	

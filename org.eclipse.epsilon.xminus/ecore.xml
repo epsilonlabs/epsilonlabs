@@ -9,4 +9,5 @@
 		<eDataType name="s"/>
 	</eclassifiers>
 	<eClass name="c2"/>
+	<foo/>
 </epackage>
