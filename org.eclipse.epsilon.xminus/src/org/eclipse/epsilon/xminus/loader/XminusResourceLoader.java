@@ -24,11 +24,10 @@ public class XminusResourceLoader {
 	protected EStructuralFeature container;
 	protected HashMap<String, EClass> eClasses = null;
 	protected HashMap<String, String> namespaces = new HashMap<String, String>();
-	protected short AttributeNodeType = 2;
-	protected short ElementNodeType = 1;
 	
 	public XminusResourceLoader(Resource resource) {
 		this.resource = resource;
+		getNodeHandlers().add(new ImportProcessingInstructionHandler());
 		getNodeHandlers().add(new RootNodeHandler());
 		getNodeHandlers().add(new NameMatchingNodeEAttributeHandler());
 		getNodeHandlers().add(new NameMatchingElementContainmentEReferenceHandler());
@@ -39,6 +38,13 @@ public class XminusResourceLoader {
 			if (nodeHandler instanceof ContextualNodeHandler) {
 				((ContextualNodeHandler) nodeHandler).setContext(this);
 			}
+		}
+	}
+	
+	public void load(Document document) {
+		cacheNamespaces(document.getDocumentElement());
+		for (Node node : XmlUtil.getChildren(document)) {
+			handleNode(node, null);
 		}
 	}
 	
@@ -182,11 +188,15 @@ public class XminusResourceLoader {
 	}	
 
 	public boolean isAttribute(Node node) {
-		return node.getNodeType() == AttributeNodeType;
+		return node.getNodeType() == Node.ATTRIBUTE_NODE;
 	}
 
 	public boolean isElement(Node node) {
-		return node.getNodeType() == ElementNodeType;
+		return node.getNodeType() == Node.ELEMENT_NODE;
+	}
+	
+	public boolean isProcessingInstruction(Node node) {
+		return node.getNodeType() == Node.PROCESSING_INSTRUCTION_NODE;
 	}
 	
 	public String getValue(Node node) {
@@ -200,11 +210,6 @@ public class XminusResourceLoader {
 	
 	protected boolean isNamespaceDeclaration(Node node) {
 		return isAttribute(node) && (getName(node).equals("xmlns") || getPrefix(node).equals("xmlns"));
-	}
-	
-	public void load(Document document) {
-		cacheNamespaces(document.getDocumentElement());
-		handleNode(document.getDocumentElement(), null);
 	}
 	
 	public EObject createInstance(EClass eClass, Node node) {

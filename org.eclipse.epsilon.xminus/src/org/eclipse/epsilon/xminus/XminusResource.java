@@ -3,7 +3,9 @@ package org.eclipse.epsilon.xminus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,6 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.epsilon.xminus.loader.XminusResourceLoader;
 import org.w3c.dom.Document;
@@ -27,6 +30,7 @@ public class XminusResource extends ResourceImpl {
 	
 	protected HashMap<EObject, Node> eObjectNodes = new HashMap<EObject, Node>();
 	protected Document document = null;
+	protected List<Resource> importedResources = new ArrayList<>();
 	
 	public XminusResource(URI uri) {
 		setURI(uri);
@@ -69,6 +73,10 @@ public class XminusResource extends ResourceImpl {
 		catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public List<Resource> getImportedResources() {
+		return importedResources;
 	}
 	
 }

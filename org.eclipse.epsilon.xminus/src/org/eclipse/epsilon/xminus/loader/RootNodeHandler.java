@@ -2,14 +2,14 @@ package org.eclipse.epsilon.xminus.loader;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 public class RootNodeHandler extends ContextualNodeHandler {
 
 	@Override
 	public boolean canHandle(Node node, EObject eObject) {
-		return eObject == null;
+		return context.isElement(node) && node.getParentNode() instanceof Document;
 	}
 
 	@Override
