@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.epsilon.xminus.handlers.ElementInContainmentEReferenceHandler;
 import org.eclipse.epsilon.xminus.handlers.NameMatchingElementContainmentEReferenceHandler;
 import org.eclipse.epsilon.xminus.handlers.NameMatchingNodeEAttributeHandler;
+import org.eclipse.epsilon.xminus.handlers.NameMatchingNodeNonContainmentEReferenceValueHandler;
 import org.eclipse.epsilon.xminus.handlers.NodeHandler;
 import org.eclipse.epsilon.xminus.handlers.RootNodeHandler;
 import org.w3c.dom.Document;
@@ -61,6 +62,7 @@ public class XminusResource extends ResourceImpl {
 		context.getNodeHandlers().add(new NameMatchingNodeEAttributeHandler());
 		context.getNodeHandlers().add(new NameMatchingElementContainmentEReferenceHandler());
 		context.getNodeHandlers().add(new ElementInContainmentEReferenceHandler());
+		context.getNodeHandlers().add(new NameMatchingNodeNonContainmentEReferenceValueHandler());
 	}
 	
 	@Override

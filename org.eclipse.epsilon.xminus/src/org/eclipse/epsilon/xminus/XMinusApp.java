@@ -44,10 +44,11 @@ public class XMinusApp {
 		}
 		
 		EolModule module = new EolModule();
-		module.parse("EAttribute.all.println();");
+		module.parse("EDataType.all.first.id().println('id:');");
 		InMemoryEmfModel model = new InMemoryEmfModel(r);
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
+		
 		
 		/*
 		EolModule module = new EolModule();

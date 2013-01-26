@@ -3,7 +3,7 @@
 	<eclassifiers>
 		<eClass name="c1">
 			<eStructuralFeatures>
-				<eAttribute name="a1" eType="#//z"/>
+				<eAttribute name="a1" eType="#//s"/>
 			</eStructuralFeatures>
 		</eClass>
 		<eDataType name="s"/>

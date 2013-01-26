@@ -12,6 +12,7 @@ import org.eclipse.epsilon.xminus.XminusContext;
 public class EReferenceValueSetter {
 	
 	public void setValue(EReference eReference, EObject eObject, String value, XminusContext context) {
+		
 		EClass proxyEClass = (EClass) eReference.getEType();
 		if (proxyEClass.isAbstract()) {
 			proxyEClass = context.getResource().findConcreteEClass(proxyEClass);
@@ -28,6 +29,7 @@ public class EReferenceValueSetter {
 		else {
 			EObject proxy = EcoreUtil.create(proxyEClass);
 			((InternalEObject) proxy).eSetProxyURI(context.getResource().getURI().appendFragment(value));
+			System.err.println(proxy);
 			setValue(eReference, eObject, proxy, context);
 		}
 	}

@@ -17,7 +17,7 @@ public class RootNodeHandler extends AbstractNodeHandler {
 	public void handle(Node node, EObject o, XminusContext context) {
 		EClass eClass = context.getResource().eClassForName(getName(node), context.getResource().getNamespaceUri(node));
 		EObject eObject = EcoreUtil.create(eClass);
-		context.getResource().getContents().add(eClass);
+		context.getResource().getContents().add(eObject);
 		context.handleChildren(node, eObject);
 	}
 
