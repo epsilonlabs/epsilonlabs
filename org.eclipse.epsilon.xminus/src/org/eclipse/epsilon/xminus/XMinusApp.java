@@ -27,11 +27,11 @@ public class XMinusApp {
 	public void run() throws Exception {
 		ResourceSet rs = new ResourceSetImpl();
 		rs.getPackageRegistry().put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
-		rs.getPackageRegistry().put(Testm2Package.eINSTANCE.getNsURI(), Testm2Package.eINSTANCE);
+		//rs.getPackageRegistry().put(Testm2Package.eINSTANCE.getNsURI(), Testm2Package.eINSTANCE);
 		//rs.getPackageRegistry().put(RssPackage.eINSTANCE.getNsURI(), RssPackage.eINSTANCE);
 		
 		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XminusResourceFactory());
-		Resource r = rs.createResource(URI.createFileURI(new File("test.xml").getAbsolutePath()));
+		Resource r = rs.createResource(URI.createFileURI(new File("ecore.xml").getAbsolutePath()));
 		//Resource r = rs.createResource(URI.createURI("http://kolovos.wordpress.com/feed"));
 		r.load(null);
 		
@@ -39,7 +39,17 @@ public class XMinusApp {
 			System.err.println(diagnostic.getMessage());
 		}
 		
+		for (EObject o : r.getContents()) {
+			print(o,0);
+		}
 		
+		EolModule module = new EolModule();
+		module.parse("EAttribute.all.println();");
+		InMemoryEmfModel model = new InMemoryEmfModel(r);
+		module.getContext().getModelRepository().addModel(model);
+		module.execute();
+		
+		/*
 		EolModule module = new EolModule();
 		//module.parse("for (wp in Project.all) { wp.c.println(); }");
 		//module.parse("for (task in Task.all) { task.partners.size().println(task.title + '->'); }");
@@ -54,11 +64,9 @@ public class XMinusApp {
 		module.execute();
 		
 		r.save(new FileOutputStream(new File("test.copy.xml")), null);
+		*/
 		
-		/*
-		for (EObject o : r.getContents()) {
-			print(o,0);
-		}*/
+
 	}
 	
 	protected void print(EObject eObject, int indent) {

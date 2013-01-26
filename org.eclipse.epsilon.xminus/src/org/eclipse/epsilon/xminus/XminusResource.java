@@ -33,6 +33,11 @@ import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
+import org.eclipse.epsilon.xminus.handlers.ElementInContainmentEReferenceHandler;
+import org.eclipse.epsilon.xminus.handlers.NameMatchingElementContainmentEReferenceHandler;
+import org.eclipse.epsilon.xminus.handlers.NameMatchingNodeEAttributeHandler;
+import org.eclipse.epsilon.xminus.handlers.NodeHandler;
+import org.eclipse.epsilon.xminus.handlers.RootNodeHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -46,9 +51,16 @@ public class XminusResource extends ResourceImpl {
 	protected HashMap<EObject, Node> eObjectNodes = new HashMap<EObject, Node>();
 	protected Document document = null;
 	protected HashMap<String, String> namespaces = new HashMap<String, String>();
+	protected XminusContext context = null;
 	
 	public XminusResource(URI uri) {
 		setURI(uri);
+		context = new XminusContext();
+		context.setResource(this);
+		context.getNodeHandlers().add(new RootNodeHandler());
+		context.getNodeHandlers().add(new NameMatchingNodeEAttributeHandler());
+		context.getNodeHandlers().add(new NameMatchingElementContainmentEReferenceHandler());
+		context.getNodeHandlers().add(new ElementInContainmentEReferenceHandler());
 	}
 	
 	@Override
@@ -59,7 +71,8 @@ public class XminusResource extends ResourceImpl {
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			document = documentBuilder.parse(inputStream);
 			cacheNamespaces(document.getDocumentElement());
-			getContents().add(createEObject(document.getDocumentElement(), null));
+			context.handleNode(document.getDocumentElement(), null);
+			//getContents().add(createEObject(document.getDocumentElement(), null));
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -244,7 +257,7 @@ public class XminusResource extends ResourceImpl {
 		return eObject;
 	}
 	
-	protected EClass findConcreteEClass(EClass abstractEClass) {
+	public EClass findConcreteEClass(EClass abstractEClass) {
 		for (EClass eClass : getEClasses().values()) {
 			if (abstractEClass.isSuperTypeOf(eClass) && !eClass.isAbstract()) {
 				return eClass;
@@ -319,7 +332,7 @@ public class XminusResource extends ResourceImpl {
 		return eClasses;
 	}
 	
-	protected EClass eClassForName(String name, String namespaceUri) {
+	public EClass eClassForName(String name, String namespaceUri) {
 		if (namespaceUri != null) {
 			for (String eClassUri : getEClasses().keySet()) {
 				if (eClassUri.equalsIgnoreCase(namespaceUri + "#" + name)) {
@@ -355,7 +368,7 @@ public class XminusResource extends ResourceImpl {
 		}		
 	}
 	
-	protected String getNamespaceUri(Node node) {
+	public String getNamespaceUri(Node node) {
 		
 		String name = node.getNodeName();
 		if (name.indexOf(':') > 0) {
