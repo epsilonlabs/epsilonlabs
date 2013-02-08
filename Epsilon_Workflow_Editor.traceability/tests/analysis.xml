@@ -1,0 +1,16 @@
+<project>
+ 	<target name="run-tests">
+		<epsilon.eunit src="chain.eunit">
+			<modelTasks>
+   				<epsilon.emf.loadModel name="Workflow"
+					modelfile="workflow.model"
+					metamodeluri="ewe"
+					read="false" store="false"/>
+   				<epsilon.emf.loadModel name="WorkflowAnalysis"
+					modelfile="workflow_analysis.model"
+					metamodeluri="ewe_trace_analysis"
+					read="false" store="false"/>
+			</modelTasks>
+ 		</epsilon.eunit>
+	</target>
+</project>

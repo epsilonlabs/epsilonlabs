@@ -1,0 +1,159 @@
+import "../merge/analysis.eol";
+import "serialise.eol";
+
+@test
+operation chain() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "C"));
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	
+	assertEquals("(f o (g o h))", t.createSchedule().toString());
+}
+
+@test
+operation chainUnordered() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "C"));
+	
+	assertEquals("(f o (g o h))", t.createSchedule().toString());
+}
+
+@test
+operation split() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "A", "C"));
+	t.targetTasks.add(createEtl("h", "A", "D"));
+	
+	assertEquals("(f U (g U h))", t.createSchedule().toString());
+}
+
+@test
+operation merge() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "Z"));
+	t.targetTasks.add(createEtl("g", "B", "Z"));
+	t.targetTasks.add(createEtl("h", "C", "Z"));
+	
+	assertEquals("(f U (g U h))", t.createSchedule().toString());
+}
+
+@test
+operation splitThenChain() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "A", "C"));
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	
+	assertEquals("(f U (g o h))", t.createSchedule().toString());
+}
+
+@test
+operation splitThenDoublechain() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "A", "C"));
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	t.targetTasks.add(createEtl("i", "D", "E"));
+	
+	assertEquals("(f U (g o (h o i)))", t.createSchedule().toString());
+}
+
+@test
+operation chainThenSplit() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "C"));
+	t.targetTasks.add(createEtl("h", "B", "D"));
+	
+	assertEquals("(f o (g U h))", t.createSchedule().toString());
+}
+
+@test
+operation doublechainThenSplit() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("e", "Z", "A"));
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "C"));
+	t.targetTasks.add(createEtl("h", "B", "D"));
+	
+	assertEquals("(e o (f o (g U h)))", t.createSchedule().toString());
+}
+
+@test
+operation mergeThenChain() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "Y"));
+	t.targetTasks.add(createEtl("g", "B", "Y"));
+	t.targetTasks.add(createEtl("h", "Y", "Z"));
+	
+	assertEquals("(f o h) U (g o h)", t.createSchedule().toString());
+}
+
+@test
+operation mergeThenDoublechain() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "Y"));
+	t.targetTasks.add(createEtl("g", "B", "Y"));
+	t.targetTasks.add(createEtl("h", "Y", "Z"));
+	t.targetTasks.add(createEtl("i", "Z", "X"));
+	
+	assertEquals("(f o (h o i)) U (g o (h o i))", t.createSchedule().toString());
+}
+
+@test
+operation chainThenMerge() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "D"));
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	
+	assertEquals("(f o g) U h", t.createSchedule().toString());
+}
+
+@test
+operation doublechainThenMerge() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("e", "Z", "A"));
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "B", "D"));
+	t.targetTasks.add(createEtl("h", "C", "D"));
+	
+	assertEquals("(e o (f o g)) U h", t.createSchedule().toString());
+}
+
+@test
+operation mergeThenSplit() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "X"));
+	t.targetTasks.add(createEtl("g", "B", "X"));
+	t.targetTasks.add(createEtl("h", "X", "Y"));
+	t.targetTasks.add(createEtl("i", "X", "Z"));
+	
+	assertEquals("(f o (h U i)) U (g o (h U i))", t.createSchedule().toString());
+}
+
+@test
+operation splitThenMerge() {
+	var t = new Workflow!Target;
+	t.targetTasks.add(createEtl("f", "A", "B"));
+	t.targetTasks.add(createEtl("g", "A", "C"));
+	t.targetTasks.add(createEtl("h", "B", "D"));
+	t.targetTasks.add(createEtl("i", "C", "D"));
+	
+	assertEquals("(f o h) U (g o i)", t.createSchedule().toString());
+}
+
+
+operation createEtl(name : String, source : String, target: String) {
+	var f = new EtlTask;
+	f.name = name;
+	f.models.add(new ModelNestedElement);
+	f.models.last.ref = source;
+	f.models.add(new ModelNestedElement);
+	f.models.last.ref = target;
+	return f;
+}

@@ -1,0 +1,21 @@
+@namespace(uri="ewe_trace_analysis", prefix="ewe_trace_analysis")
+package ewe_trace_analysis;
+
+class Schedule {
+	val Operator[1] root;  
+}
+
+abstract class Operator {}
+
+class Symbol extends Operator {
+   attr String[1] name;
+}
+
+abstract class BinaryOperator extends Operator {
+	val Operator[1] left;
+	val Operator[1] right;
+}
+
+class Composition extends BinaryOperator {}
+
+class Union extends BinaryOperator {}

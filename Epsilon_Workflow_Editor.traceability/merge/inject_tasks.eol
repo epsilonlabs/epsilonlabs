@@ -1,0 +1,34 @@
+operation WorkflowAnalysis!Schedule toString() : String {
+	return self.root.toString().bracketed();
+}
+
+operation WorkflowAnalysis!Composition toString() : Workflow!EolTask {
+	var task = new EolTask;
+	task.src = "../compose_traces.eol";
+		
+	task.uses.add(new UsesNestedElement);	
+	task.uses.last.ref = "promotedTrace" + self.left;
+	task.uses.last.`as` = "left";
+	
+	task.uses.add(new UsesNestedElement);
+	task.uses.last.ref = "promotedTrace" + index;
+	task.uses.last.`as` = "right";
+	
+	task.models.add(new ModelNestedElement);
+	task.models.last.ref = "EweTrace";
+	
+	task.exports.add(new ExportsNestedElement);
+	task.exports.last.ref = "master";
+	task.exports.last.`as` = "promotedTrace" + trg.~id;
+	
+	task.exports.add(new ExportsNestedElement);
+	task.exports.last.ref = "master";
+	task.exports.last.`as` = "promotedTrace" + index;
+	
+	return task;
+}
+
+operation WorkflowAnalysis!Union toString() : String {
+	return self.left.toString().bracketed() + " U " + self.right.toString().bracketed();
+}
+

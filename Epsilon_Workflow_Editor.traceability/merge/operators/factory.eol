@@ -1,0 +1,39 @@
+operation createSchedule(root : WorkflowAnalysis!Operator) : WorkflowAnalysis!Schedule {
+	var s = new WorkflowAnalysis!Schedule;
+	s.root = root;
+	return s;
+}
+
+operation createSymbol(name : String) : WorkflowAnalysis!Symbol {
+	var s = new WorkflowAnalysis!Symbol;
+	s.name = name;
+	return s;
+}
+
+operation createComposition(left : WorkflowAnalysis!Operator, right : WorkflowAnalysis!Operator) : WorkflowAnalysis!Composition {
+	var c = new WorkflowAnalysis!Composition;
+	c.left = left;
+	c.right = right;
+	return c;
+}
+
+operation createUnion(left : WorkflowAnalysis!Operator, right : WorkflowAnalysis!Operator) : WorkflowAnalysis!Union {
+	var c = new WorkflowAnalysis!Union;
+	c.left = left;
+	c.right = right;
+	return c;
+}
+
+operation createUnion(members : Collection) : WorkflowAnalysis!Operator {
+	if (members.size() == 1) {
+		return members.first;
+	} else {
+		return createUnion(members.first, createUnion(members.tail()));
+	}
+}
+
+operation Collection tail() : Collection {
+	var tailed = self.clone();
+	tailed.removeAt(0);
+	return tailed;
+}

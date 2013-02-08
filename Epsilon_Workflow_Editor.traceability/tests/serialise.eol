@@ -1,0 +1,24 @@
+operation WorkflowAnalysis!Schedule toString() : String {
+	return self.root.toString().bracketed();
+}
+
+operation WorkflowAnalysis!Composition toString() : String {
+	return self.left.toString().bracketed() + " o " + self.right.toString().bracketed();
+}
+
+operation WorkflowAnalysis!Union toString() : String {
+	return self.left.toString().bracketed() + " U " + self.right.toString().bracketed();
+}
+
+operation WorkflowAnalysis!Symbol toString() : String {
+	return self.name;
+}
+
+
+operation String bracketed() {
+	if (self.length <= 1 or self.startsWith("(")) {
+		return self;
+	} else {
+		return "(" + self + ")";
+	}
+}

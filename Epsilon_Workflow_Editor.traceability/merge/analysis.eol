@@ -1,0 +1,40 @@
+import "operators/factory.eol";
+
+operation Target createSchedule() {
+	return createSchedule(self.inputs().createOperators());
+}
+
+operation ExecutableModelTask createOperator() {
+	if (self.successors().isEmpty()) {
+		return createSymbol(self.name);
+	
+	} else {
+		return createComposition(createSymbol(self.name), self.successors().createOperators());
+	}
+}
+
+operation Collection(ExecutableModelTask) createOperators() {
+	return createUnion(self.collect(t|t.createOperator()));
+}
+
+operation Target inputs() : Collection(ExecutableModelTask) {
+	return self.targetTasks.select(
+		t1 | self.targetTasks.forAll(t2| t2.target() <> t1.source() ) 
+	);
+}
+
+operation ExecutableModelTask source() : String {
+	return self.models.first.ref;
+}
+
+operation ExecutableModelTask target() : String {
+	return self.models.second.ref;
+}
+
+operation ExecutableModelTask successors() : Collection(ExecutableModelTask) {
+	return self.siblings().select(t|t.source() == self.target());
+}
+
+operation ExecutableModelTask siblings() : Collection(ExecutableModelTask) {
+	return self.eContainer().targetTasks;
+}
