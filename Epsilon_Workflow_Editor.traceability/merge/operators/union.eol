@@ -1,0 +1,50 @@
+// Assumes three parameters: left : Trace, right : Trace, master : Trace. left and right are union-ed into master
+
+master.links.addAll(left.links.collect(l|l.clone());
+master.links.addAll(right.links.collect(l|l.clone());
+
+operation CompositeLink clone() {
+	var clone = new CompositeLink;
+	clone.source = self.source;
+	clone.targets = self.targets;
+	clone.links = self.links.collect(l|l.clone());
+	return clone;
+}
+
+operation EtlLink clone() {
+	var clone = new EtlLink;
+	clone.source = self.source;
+	clone.targets = self.targets;
+	clone.cause = self.cause.clone();
+	return clone;
+}
+
+operation EvlLink clone() {
+	var clone = new EvlLink;
+	clone.source = self.source;
+	clone.cause = self.cause.clone();
+	return clone;
+}
+
+operation EglLink clone() {
+	var clone = new EglLink;
+	clone.source = self.source;
+	if (self.cause.isDefined()) { clone.cause = self.cause.clone(); }
+	clone.targets = self.targets.collect(t|t.clone());
+	return clone;
+}
+
+operation ProgramElement clone() {
+	var clone = new ProgramElement;
+	clone.name = self.name;
+	clone.resource = self.resource;
+	return clone;
+}
+
+operation TextLocation clone() {
+	var clone = new TextLocation;
+	clone.resource = self.resource;
+	clone.offset = self.offset;
+	clone.length = self.length;
+	return clone;
+}
