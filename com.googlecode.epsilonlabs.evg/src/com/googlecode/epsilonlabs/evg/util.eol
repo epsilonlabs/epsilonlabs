@@ -1,0 +1,12 @@
+operation GenClass getPackageName() {
+	var package = "";
+	if (self.genPackage.basePackage.isDefined()) { 
+		package = self.genPackage.basePackage + "."; 
+	}
+	package = package + self.genPackage.ecorePackage.name + ".visitor";
+	return package;
+}
+
+operation GenClass getPackagePath() {
+	return self.getPackageName().replace("\\.", "/");
+}

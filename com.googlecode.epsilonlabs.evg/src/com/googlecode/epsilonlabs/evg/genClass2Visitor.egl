@@ -1,0 +1,6 @@
+[%import "util.eol";%]
+[%if (gc.getPackageName() <> ""){%]package [%=gc.getPackageName()%];[%}%]
+
+public class [%=gc.ecoreClass.name%]Visitor {
+	
+}

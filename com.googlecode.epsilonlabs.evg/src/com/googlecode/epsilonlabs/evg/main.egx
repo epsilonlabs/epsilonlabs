@@ -1,0 +1,9 @@
+import "util.eol";
+
+rule GenClass2Class
+	transform gc : GenClass {
+	
+	template : "genClass2Visitor.egl"
+	
+	target : (gc.getPackagePath() + "/" + gc.eCoreClass.name + "Visitor.java").println()
+}
