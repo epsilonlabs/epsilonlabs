@@ -45,6 +45,7 @@ public class PluginProjectBuilder {
 	protected IProgressMonitor progressMonitor = new NullProgressMonitor(); 
 	protected Shell shell = null;
 	protected boolean overwriteIfExists = false;
+	protected boolean confirmOverwrite = true;
 	
 	public PluginProjectBuilder setProjectName(String projectName) {
 		this.projectName = projectName;
@@ -86,10 +87,16 @@ public class PluginProjectBuilder {
 		return this;
 	}
 	
-	public void setReferencedProjectNames(List<String> referencedProjectNames) {
+	public PluginProjectBuilder setReferencedProjectNames(List<String> referencedProjectNames) {
 		for (String referencedProjectName : referencedProjectNames) {
 			referencedProjects.add(ResourcesPlugin.getWorkspace().getRoot().getProject(referencedProjectName));
 		}
+		return this;
+	}
+	
+	public PluginProjectBuilder setConfirmOverwrite(boolean confirmOverwrite) {
+		this.confirmOverwrite = confirmOverwrite;
+		return this;
 	}
 	
 	public IProject build() throws CoreException, IOException {
@@ -104,19 +111,24 @@ public class PluginProjectBuilder {
 				
 				if (!overwriteIfExists) return project;
 				
-//				final boolean[] result = new boolean[1];
-//				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-//					public void run() {
-//						result[0] = MessageDialog.openQuestion(shell, "Do you want to overwrite the project "
-//								+ projectName, "Note that everything inside the project '" + projectName
-//								+ "' will be deleted if you confirm this dialog.");
-//					}
-//				});
-//				if (result[0]) {
-					project.delete(true, true, new SubProgressMonitor(progressMonitor, 1));
-//				}
-//				else
-//					return null;
+				if (confirmOverwrite) {
+					final boolean[] result = new boolean[1];
+					PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+						public void run() {
+							result[0] = MessageDialog.openQuestion(shell, "Do you want to overwrite the project "
+									+ projectName, "Note that everything inside the project '" + projectName
+									+ "' will be deleted if you confirm this dialog.");
+						}
+					});
+					if (result[0]) {
+						project.delete(true, true, new SubProgressMonitor(progressMonitor, 1));
+					}
+					else
+						return null;
+				}
+				else {
+					project.delete(true, true, new SubProgressMonitor(progressMonitor, 1));					
+				}
 			}
 
 			final IJavaProject javaProject = JavaCore.create(project);

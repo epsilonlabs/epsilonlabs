@@ -26,13 +26,18 @@ public class EVisitorGenerator {
 	
 	public void generate() throws Exception {
 		
-		String projectName = genModel.getGenModel().getModelPluginID() + ".visitor";
+		String modelProjectName = genModel.getGenModel().getModelPluginID();
+		String visitorProjectName = modelProjectName + ".visitor";
 		
-		// Create visitor project if it does not exist
+		// Create visitor project
 		IProject project = new PluginProjectBuilder().
-				setProjectName(projectName).setShell(shell).
-				setProgressMonitor(progressMonitor).setOverwriteIfExists(true).
-				setExportedPackages(Arrays.asList(projectName)).build();
+				setProjectName(visitorProjectName).setShell(shell).
+				setProgressMonitor(progressMonitor).
+				setOverwriteIfExists(true).
+				setConfirmOverwrite(false).
+				setExportedPackages(Arrays.asList(visitorProjectName)).
+				setReferencedProjectNames(Arrays.asList(modelProjectName)).
+				build();
 		
 		// Create model
 		InMemoryEmfModel model = new InMemoryEmfModel("G", genModel.eResource(), GenModelPackage.eINSTANCE);
