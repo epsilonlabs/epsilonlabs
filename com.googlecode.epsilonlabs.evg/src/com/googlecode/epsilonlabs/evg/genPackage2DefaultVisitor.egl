@@ -11,10 +11,10 @@ public class [%=gp.ecorePackage.name.ftuc()%]DefaultVisitor<T, R> {
 		return true;
 	}
 	
-	public R visit (EObject o, T context, [%=gp.ecorePackage.name.ftuc()%]VisitorController<T, R> f) {
+	public R visit (EObject o, T context, [%=gp.ecorePackage.name.ftuc()%]VisitorController<T, R> controller) {
 		
 		for (EObject content : o.eContents()) {
-			f.visit(content, context);
+			controller.visit(content, context);
 		}
 		
 		return null;
