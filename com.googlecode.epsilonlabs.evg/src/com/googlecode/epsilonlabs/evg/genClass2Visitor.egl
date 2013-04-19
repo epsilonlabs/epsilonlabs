@@ -7,10 +7,10 @@ import [%=gc.genPackage.getModelPackageName()%].*;
 
 public abstract class [%=gc.ecoreClass.name%]Visitor<T, R> {
 	
-	public boolean appliesTo([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context) {
-		return [%=gc.ecoreClass.name.ftlc()%] instanceof [%=gc.ecoreClass.name%];
+	public boolean appliesTo([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc().escape()%], T context) {
+		return [%=gc.ecoreClass.name.ftlc().escape()%] instanceof [%=gc.ecoreClass.name%];
 	}
 	
-	public abstract R visit ([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context, [%=gc.genPackage.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
+	public abstract R visit ([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc().escape()%], T context, [%=gc.genPackage.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
 	
 }

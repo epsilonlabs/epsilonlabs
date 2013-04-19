@@ -22,3 +22,25 @@ operation GenClass getPackageName() {
 operation GenClass getPackagePath() {
 	return self.genPackage.getPackagePath();
 }
+
+operation String escape() {
+	
+	var keywords = Sequence{"abstract", "assert", "boolean",
+		"break", "byte", "case", "catch", "char", "class", 
+		"const", "continue", "default", "do", "double", "else",
+		"enum", "extends", "final", "finally", "float", "for",
+		"goto", "if", "implements", "import", "instanceof",
+		"int", "interface", "long", "native", "new", "package",
+		"private", "protected", "public", "return", "short",
+		"static", "strictfp", "super", "switch", "synchronized",
+		"this", "throw", "throws", "transient", "try", "void",
+		"volatile", "while", "null", "true", "false"};
+		
+		if (keywords.includes(self)) {
+			return "_" + self;
+		}
+		else {
+			return self;
+		}
+	
+}

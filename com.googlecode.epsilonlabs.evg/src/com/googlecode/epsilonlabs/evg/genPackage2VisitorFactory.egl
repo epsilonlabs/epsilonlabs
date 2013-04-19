@@ -39,13 +39,23 @@ public class [%=gp.name.ftuc()%]VisitorFactory<T, R> {
 	}
 	
 	[%for (gc in genClasses){%]
-	public void add[%=gc.ecoreClass.name%]Visitor([%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor) {
-		this.[%=gc.ecoreClass.name.ftlc()%]Visitors.add([%=gc.ecoreClass.name.ftlc()%]Visitor);
+	public boolean add[%=gc.ecoreClass.name%]Visitor([%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor) {
+		return this.[%=gc.ecoreClass.name.ftlc()%]Visitors.add([%=gc.ecoreClass.name.ftlc()%]Visitor);
 	}
+	
 	[%}%]
-	
-	public void addDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
-		this.defaultVisitors.add(defaultVisitor);
+
+	[%for (gc in genClasses){%]
+	public boolean remove[%=gc.ecoreClass.name%]Visitor([%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor) {
+		return this.[%=gc.ecoreClass.name.ftlc()%]Visitors.remove([%=gc.ecoreClass.name.ftlc()%]Visitor);
 	}
 	
+	[%}%]	
+	public boolean addDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
+		return this.defaultVisitors.add(defaultVisitor);
+	}
+	
+	public boolean removeDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
+		return this.defaultVisitors.remove(defaultVisitor);
+	}
 }
