@@ -45,11 +45,11 @@ public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 	}
 	
 	[%for (gc in genClasses){%]
-	public R visitAs[%=gc.ecoreClass.name%]([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context) {
+	public R visitAs[%=gc.ecoreClass.name%]([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc().escape()%], T context) {
 		if (![%=gc.ecoreClass.name.ftlc()%]Visitors.isEmpty()) {
 			for ([%=gc.ecoreClass.name%]Visitor<T, R> visitor : [%=gc.ecoreClass.name.ftlc()%]Visitors) {
-				if (visitor.appliesTo(([%=gc.ecoreClass.name%]) [%=gc.ecoreClass.name.ftlc()%], context)) {
-					return visitor.visit(([%=gc.ecoreClass.name%]) [%=gc.ecoreClass.name.ftlc()%], context, this);
+				if (visitor.appliesTo(([%=gc.ecoreClass.name%]) [%=gc.ecoreClass.name.ftlc().escape()%], context)) {
+					return visitor.visit(([%=gc.ecoreClass.name%]) [%=gc.ecoreClass.name.ftlc().escape()%], context, this);
 				}
 			}
 		}

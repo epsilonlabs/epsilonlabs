@@ -4,7 +4,10 @@ operation GenPackage getModelPackageName() {
 		package = self.basePackage + "."; 
 	}
 	package = package + self.ecorePackage.name;
-	return package;	
+	if (self.interfacePackageSuffix.isDefined()) {
+		package = package + "." + self.interfacePackageSuffix;
+	}
+	return package;
 }
 
 operation GenPackage getPackageName() {
