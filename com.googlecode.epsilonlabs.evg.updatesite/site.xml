@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.googlecode.epsilonlabs.evg.feature_1.0.0.201304191346.jar" id="com.googlecode.epsilonlabs.evg.feature" version="1.0.0.201304191346">
+      <category name="EpsilonLabs"/>
+   </feature>
+   <category-def name="EpsilonLabs" label="EpsilonLabs"/>
+</site>
