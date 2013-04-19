@@ -10,12 +10,12 @@ rule GenClass2Visitor
 	target : gc.getPackagePath() + "/" + gc.eCoreClass.name + "Visitor.java"
 }
 
-rule GenPackage2VisitorFactory
+rule GenPackage2VisitorController
 	transform gp : GenPackage {
 	
-	template : "genPackage2VisitorFactory.egl"
+	template : "genPackage2VisitorController.egl"
 	
-	target : gp.getPackagePath() + "/" + gp.name.ftuc() + "VisitorFactory.java"
+	target : gp.getPackagePath() + "/" + gp.name.ftuc() + "VisitorController.java"
 }
 
 rule GenPackage2DefaultVisitor

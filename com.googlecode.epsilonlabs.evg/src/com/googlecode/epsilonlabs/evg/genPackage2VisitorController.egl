@@ -13,7 +13,7 @@ var genClasses = gp.genClasses.sortBy(gc|-gc.ecoreClass.eAllSuperTypes.size())
 	.select(gc|gc.ecoreClass.instanceTypeName.isUndefined());
 %]
 
-public class [%=gp.name.ftuc()%]VisitorFactory<T, R> {
+public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 
 	[%for (gc in genClasses){%]
 	protected List<[%=gc.ecoreClass.name%]Visitor<T, R>> [%=gc.ecoreClass.name.ftlc()%]Visitors = new ArrayList<[%=gc.ecoreClass.name%]Visitor<T, R>>();
