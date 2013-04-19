@@ -5,8 +5,12 @@ package [%=gc.getPackageName()%];
 
 import [%=gc.genPackage.getModelPackageName()%].*;
 
-public interface [%=gc.ecoreClass.name%]Visitor<T, R> {
+public abstract class [%=gc.ecoreClass.name%]Visitor<T, R> {
 	
-	public R visit ([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context, [%=gc.genPackage.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
+	public boolean appliesTo([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context) {
+		return [%=gc.ecoreClass.name.ftlc()%] instanceof [%=gc.ecoreClass.name%];
+	}
+	
+	public abstract R visit ([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context, [%=gc.genPackage.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
 	
 }

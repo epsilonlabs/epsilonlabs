@@ -5,6 +5,8 @@ package [%=gp.getPackageName()%];
 
 import [%=gp.getModelPackageName()%].*;
 import org.eclipse.emf.ecore.EObject;
+import java.util.List;
+import java.util.ArrayList;
 
 [%
 var genClasses = gp.genClasses.sortBy(gc|-gc.ecoreClass.eAllSuperTypes.size())
@@ -14,27 +16,36 @@ var genClasses = gp.genClasses.sortBy(gc|-gc.ecoreClass.eAllSuperTypes.size())
 public class [%=gp.name.ftuc()%]VisitorFactory<T, R> {
 
 	[%for (gc in genClasses){%]
-	protected [%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor;
+	protected List<[%=gc.ecoreClass.name%]Visitor<T, R>> [%=gc.ecoreClass.name.ftlc()%]Visitors = new ArrayList<[%=gc.ecoreClass.name%]Visitor<T, R>>();
 	[%}%]
-	protected [%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor;
+	protected List<[%=gp.name.ftuc()%]DefaultVisitor<T, R>> defaultVisitors = new ArrayList<[%=gp.name.ftuc()%]DefaultVisitor<T, R>>();
 		
 	public R visit(EObject o, T context) {
 		[%for (gc in genClasses){%]
-		if (o instanceof [%=gc.ecoreClass.name%] && [%=gc.ecoreClass.name.ftlc()%]Visitor != null) {
-			return [%=gc.ecoreClass.name.ftlc()%]Visitor.visit(([%=gc.ecoreClass.name%]) o, context, this);
+		if (o instanceof [%=gc.ecoreClass.name%] && ![%=gc.ecoreClass.name.ftlc()%]Visitors.isEmpty()) {
+			for ([%=gc.ecoreClass.name%]Visitor<T, R> visitor : [%=gc.ecoreClass.name.ftlc()%]Visitors) {
+				if (visitor.appliesTo(([%=gc.ecoreClass.name%]) o, context)) {
+					return visitor.visit(([%=gc.ecoreClass.name%]) o, context, this);
+				}
+			}
 		}
 		[%}%]
-		return defaultVisitor.visit(o, context, this);
+		for ([%=gp.name.ftuc()%]DefaultVisitor<T, R> visitor : defaultVisitors) {
+			if (visitor.appliesTo(o, context)) {
+				return visitor.visit(o, context, this);
+			}
+		}
+		return null;
 	}
 	
 	[%for (gc in genClasses){%]
-	public void set[%=gc.ecoreClass.name%]Visitor([%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor) {
-		this.[%=gc.ecoreClass.name.ftlc()%]Visitor = [%=gc.ecoreClass.name.ftlc()%]Visitor;
+	public void add[%=gc.ecoreClass.name%]Visitor([%=gc.ecoreClass.name%]Visitor<T, R> [%=gc.ecoreClass.name.ftlc()%]Visitor) {
+		this.[%=gc.ecoreClass.name.ftlc()%]Visitors.add([%=gc.ecoreClass.name.ftlc()%]Visitor);
 	}
 	[%}%]
 	
-	public void setDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
-		this.defaultVisitor = defaultVisitor;
+	public void addDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
+		this.defaultVisitors.add(defaultVisitor);
 	}
 	
 }
