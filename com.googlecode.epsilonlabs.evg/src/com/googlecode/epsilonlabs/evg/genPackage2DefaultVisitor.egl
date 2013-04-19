@@ -5,12 +5,19 @@ package [%=gp.getPackageName()%];
 
 import org.eclipse.emf.ecore.EObject;
 
-public abstract class [%=gp.ecorePackage.name.ftuc()%]DefaultVisitor<T, R> {
+public class [%=gp.ecorePackage.name.ftuc()%]DefaultVisitor<T, R> {
 	
 	public boolean appliesTo (EObject o, T context) {
 		return true;
 	}
 	
-	public abstract R visit (EObject o, T context, [%=gp.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
+	public R visit (EObject o, T context, [%=gp.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f) {
+		
+		for (EObject content : o.eContents()) {
+			f.visit(content, context);
+		}
+		
+		return null;
+	}
 	
 }
