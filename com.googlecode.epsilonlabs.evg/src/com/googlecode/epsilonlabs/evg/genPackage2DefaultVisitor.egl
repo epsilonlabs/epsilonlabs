@@ -1,0 +1,12 @@
+[%import "util.eol";%]
+[%if (gp.getPackageName() <> ""){%]
+package [%=gp.getPackageName()%];
+[%}%]
+
+import org.eclipse.emf.ecore.EObject;
+
+public interface [%=gp.ecorePackage.name.ftuc()%]DefaultVisitor<T, R> {
+	
+	public R visit (EObject o, T context, [%=gp.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
+	
+}

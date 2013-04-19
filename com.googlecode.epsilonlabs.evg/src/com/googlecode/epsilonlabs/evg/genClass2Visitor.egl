@@ -1,6 +1,12 @@
 [%import "util.eol";%]
-[%if (gc.getPackageName() <> ""){%]package [%=gc.getPackageName()%];[%}%]
+[%if (gc.getPackageName() <> ""){%]
+package [%=gc.getPackageName()%];
+[%}%]
 
-public class [%=gc.ecoreClass.name%]Visitor {
+import [%=gc.genPackage.getModelPackageName()%].*;
+
+public interface [%=gc.ecoreClass.name%]Visitor<T, R> {
+	
+	public R visit ([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context, [%=gc.genPackage.ecorePackage.name.ftuc()%]VisitorFactory<T, R> f);
 	
 }

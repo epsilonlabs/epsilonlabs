@@ -1,12 +1,24 @@
-operation GenClass getPackageName() {
+operation GenPackage getModelPackageName() {
 	var package = "";
-	if (self.genPackage.basePackage.isDefined()) { 
-		package = self.genPackage.basePackage + "."; 
+	if (self.basePackage.isDefined()) { 
+		package = self.basePackage + "."; 
 	}
-	package = package + self.genPackage.ecorePackage.name + ".visitor";
-	return package;
+	package = package + self.ecorePackage.name;
+	return package;	
+}
+
+operation GenPackage getPackageName() {
+	return self.getModelPackageName() + ".visitor";
+}
+
+operation GenPackage getPackagePath() {
+	return self.getPackageName().replace("\\.", "/");
+}
+
+operation GenClass getPackageName() {
+	return self.genPackage.getPackageName();
 }
 
 operation GenClass getPackagePath() {
-	return self.getPackageName().replace("\\.", "/");
+	return self.genPackage.getPackagePath();
 }

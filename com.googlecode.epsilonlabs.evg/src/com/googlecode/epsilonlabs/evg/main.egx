@@ -1,9 +1,27 @@
 import "util.eol";
 
-rule GenClass2Class
+rule GenClass2Visitor
 	transform gc : GenClass {
+	
+	guard : gc.ecoreClass.instanceTypeName.isUndefined()
 	
 	template : "genClass2Visitor.egl"
 	
-	target : (gc.getPackagePath() + "/" + gc.eCoreClass.name + "Visitor.java").println()
+	target : gc.getPackagePath() + "/" + gc.eCoreClass.name + "Visitor.java"
+}
+
+rule GenPackage2VisitorFactory
+	transform gp : GenPackage {
+	
+	template : "genPackage2VisitorFactory.egl"
+	
+	target : gp.getPackagePath() + "/" + gp.name.ftuc() + "VisitorFactory.java"
+}
+
+rule GenPackage2DefaultVisitor
+	transform gp : GenPackage {
+	
+	template : "genPackage2DefaultVisitor.egl"
+	
+	target : gp.getPackagePath() + "/" + gp.name.ftuc() + "DefaultVisitor.java"
 }

@@ -33,10 +33,9 @@ public class EVisitorGenerator {
 		IProject project = new PluginProjectBuilder().
 				setProjectName(visitorProjectName).setShell(shell).
 				setProgressMonitor(progressMonitor).
-				setOverwriteIfExists(true).
-				setConfirmOverwrite(false).
+				setOverwriteIfExists(false).
 				setExportedPackages(Arrays.asList(visitorProjectName)).
-				setReferencedProjectNames(Arrays.asList(modelProjectName)).
+				setRequiredBundles(Arrays.asList(modelProjectName, "org.eclipse.emf.common", "org.eclipse.emf.ecore")).
 				build();
 		
 		// Create model

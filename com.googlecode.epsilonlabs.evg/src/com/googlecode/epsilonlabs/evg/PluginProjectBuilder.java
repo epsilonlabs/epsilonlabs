@@ -40,7 +40,7 @@ public class PluginProjectBuilder {
 	protected String projectName = "";
 	protected List<String> srcFolders = Arrays.asList("src");
 	protected List<IProject> referencedProjects = new ArrayList<IProject>();
-	protected Set<String> requiredBundles = new HashSet<>();
+	protected List<String> requiredBundles = new ArrayList<>();
 	protected List<String> exportedPackages = new ArrayList<>();
 	protected IProgressMonitor progressMonitor = new NullProgressMonitor(); 
 	protected Shell shell = null;
@@ -62,7 +62,7 @@ public class PluginProjectBuilder {
 		return this;
 	}
 	
-	public PluginProjectBuilder setRequiredBundles(Set<String> requiredBundles) {
+	public PluginProjectBuilder setRequiredBundles(List<String> requiredBundles) {
 		this.requiredBundles = requiredBundles;
 		return this;
 	}
@@ -198,7 +198,7 @@ public class PluginProjectBuilder {
 		
 	}
 
-	protected IFile createFile(final String name, final IContainer container, final String content) throws CoreException, IOException {
+	private IFile createFile(final String name, final IContainer container, final String content) throws CoreException, IOException {
 		final IFile file = container.getFile(new Path(name));
 		assertExist(file.getParent());
 		
@@ -216,17 +216,7 @@ public class PluginProjectBuilder {
 		return file;
 	}
 
-	protected IFile createFile(final String name, final IContainer container, final String content,
-			final String charSet) throws CoreException, IOException {
-		final IFile file = createFile(name, container, content);
-		if (file != null && charSet != null) {
-			file.setCharset(charSet, progressMonitor);
-		}
-
-		return file;
-	}
-
-	protected void createBuildProps(final IProject project) throws CoreException, IOException {
+	private void createBuildProps(final IProject project) throws CoreException, IOException {
 		final StringBuilder bpContent = new StringBuilder("source.. = ");
 		for (final Iterator<String> iterator = srcFolders.iterator(); iterator.hasNext();) {
 			bpContent.append(iterator.next()).append('/');
@@ -239,7 +229,7 @@ public class PluginProjectBuilder {
 		createFile("build.properties", project, bpContent.toString());
 	}
 
-	protected void createManifest(final IProject project)
+	private void createManifest(final IProject project)
 	throws CoreException, IOException {
 		final StringBuilder maniContent = new StringBuilder("Manifest-Version: 1.0\n");
 		maniContent.append("Bundle-ManifestVersion: 2\n");
@@ -247,9 +237,14 @@ public class PluginProjectBuilder {
 		maniContent.append("Bundle-SymbolicName: " + projectName + "; singleton:=true\n");
 		maniContent.append("Bundle-Version: 1.0.0\n");
 		// maniContent.append("Bundle-Localization: plugin\n");
-		if (!requiredBundles.isEmpty()) maniContent.append("Require-Bundle: ");
-		for (final String entry : requiredBundles) {
-			maniContent.append(" " + entry + ",\n");
+		if (!requiredBundles.isEmpty()) {
+			maniContent.append("Require-Bundle: ");
+			boolean first = true;
+			for (String entry : requiredBundles) {
+				if (first) { first = false; continue; }
+				maniContent.append(" " + entry + ",\n");
+			}
+			maniContent.append(" " + requiredBundles.get(0) + "\n");
 		}
 		//maniContent.append(" org.openarchitectureware.dependencies\n");
 
@@ -267,39 +262,7 @@ public class PluginProjectBuilder {
 		createFile("MANIFEST.MF", metaInf, maniContent.toString());
 	}
 
-	protected IFile createFile(final String name, final IContainer container, final URL contentUrl) {
-
-		final IFile file = container.getFile(new Path(name));
-		InputStream inputStream = null;
-		try {
-			inputStream = contentUrl.openStream();
-			if (file.exists()) {
-				file.setContents(inputStream, true, true, progressMonitor);
-			}
-			else {
-				file.create(inputStream, true, progressMonitor);
-			}
-			inputStream.close();
-		}
-		catch (final Exception e) {
-			//OawLog.logError(e);
-		}
-		finally {
-			if (null != inputStream) {
-				try {
-					inputStream.close();
-				}
-				catch (final IOException e) {
-					//OawLog.logError(e);
-				}
-			}
-		}
-		progressMonitor.worked(1);
-
-		return file;
-	}
-
-	protected void assertExist(final IContainer c) {
+	private void assertExist(final IContainer c) {
 		if (!c.exists()) {
 			if (!c.getParent().exists()) {
 				assertExist(c.getParent());
@@ -317,17 +280,4 @@ public class PluginProjectBuilder {
 
 	}
 
-	protected void openFileToEdit(final Shell s, final IFile file) {
-		s.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				final IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				try {
-					IDE.openEditor(page, file, true);
-				}
-				catch (final PartInitException e) {
-					//OawLog.logError(e);
-				}
-			}
-		});
-	}
 }
