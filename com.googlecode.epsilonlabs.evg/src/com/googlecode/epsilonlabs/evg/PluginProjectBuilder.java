@@ -40,8 +40,8 @@ public class PluginProjectBuilder {
 	protected String projectName = "";
 	protected List<String> srcFolders = Arrays.asList("src");
 	protected List<IProject> referencedProjects = new ArrayList<IProject>();
-	protected List<String> requiredBundles = new ArrayList<>();
-	protected List<String> exportedPackages = new ArrayList<>();
+	protected List<String> requiredBundles = new ArrayList<String>();
+	protected List<String> exportedPackages = new ArrayList<String>();
 	protected IProgressMonitor progressMonitor = new NullProgressMonitor(); 
 	protected Shell shell = null;
 	protected boolean overwriteIfExists = false;
