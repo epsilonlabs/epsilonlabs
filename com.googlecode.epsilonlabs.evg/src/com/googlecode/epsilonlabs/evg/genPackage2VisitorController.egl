@@ -38,6 +38,12 @@ public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 		return null;
 	}
 	
+	public void visitContents(EObject o, T context) {
+		for (EObject content : o.eContents()) {
+			visit(content, context);
+		}
+	}
+	
 	[%for (gc in genClasses){%]
 	public R visitAs[%=gc.ecoreClass.name%]([%=gc.ecoreClass.name%] [%=gc.ecoreClass.name.ftlc()%], T context) {
 		if (![%=gc.ecoreClass.name.ftlc()%]Visitors.isEmpty()) {
