@@ -26,6 +26,18 @@ operation GenClass getPackagePath() {
 	return self.genPackage.getPackagePath();
 }
 
+operation GenPackage getBaseGenPackage() {
+	var basePackageAnnotation = self.genAnnotations.selectOne(ga|ga.source = "emf.gen" and ga.getDetail("extends").isDefined());
+	if (basePackageAnnotation.isDefined()) {
+		return self.genModel.usedGenPackages.selectOne(p|p.ecorePackage.name = basePackageAnnotation.getDetail("extends"));
+	}
+}
+
+operation GenAnnotation getDetail(key : String) {
+	var detail = self.details.selectOne(d|d.key = key);
+	if (detail.isDefined()) return detail.value;
+}
+
 operation String escape() {
 	
 	var keywords = Sequence{"abstract", "assert", "boolean",

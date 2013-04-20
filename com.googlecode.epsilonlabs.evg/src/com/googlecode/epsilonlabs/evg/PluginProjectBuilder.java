@@ -40,6 +40,7 @@ public class PluginProjectBuilder {
 	protected Shell shell = null;
 	protected boolean overwriteIfExists = false;
 	protected boolean confirmOverwrite = true;
+	protected String runtimeEnvironment = "J2SE-1.5";
 	
 	public PluginProjectBuilder setProjectName(String projectName) {
 		this.projectName = projectName;
@@ -64,6 +65,10 @@ public class PluginProjectBuilder {
 	public PluginProjectBuilder setExportedPackages(List<String> exportedPackages) {
 		this.exportedPackages = exportedPackages;
 		return this;
+	}
+	
+	public void setRuntimeEnvironment(String runtimeEnvironment) {
+		this.runtimeEnvironment = runtimeEnvironment;
 	}
 	
 	public PluginProjectBuilder setProgressMonitor(IProgressMonitor progressMonitor) {
@@ -222,38 +227,37 @@ public class PluginProjectBuilder {
 		bpContent.append("bin.includes = META-INF/,.\n");
 		createFile("build.properties", project, bpContent.toString());
 	}
-
-	private void createManifest(final IProject project)
-	throws CoreException, IOException {
-		final StringBuilder maniContent = new StringBuilder("Manifest-Version: 1.0\n");
-		maniContent.append("Bundle-ManifestVersion: 2\n");
-		maniContent.append("Bundle-Name: " + projectName + "\n");
-		maniContent.append("Bundle-SymbolicName: " + projectName + "; singleton:=true\n");
-		maniContent.append("Bundle-Version: 1.0.0\n");
+	
+	public void createManifest(final IProject project) throws CoreException, IOException {
+		final StringBuilder content = new StringBuilder("Manifest-Version: 1.0\n");
+		content.append("Bundle-ManifestVersion: 2\n");
+		content.append("Bundle-Name: " + projectName + "\n");
+		content.append("Bundle-SymbolicName: " + projectName + "; singleton:=true\n");
+		content.append("Bundle-Version: 1.0.0\n");
 		// maniContent.append("Bundle-Localization: plugin\n");
 		if (!requiredBundles.isEmpty()) {
-			maniContent.append("Require-Bundle: ");
+			content.append("Require-Bundle: ");
 			boolean first = true;
 			for (String entry : requiredBundles) {
 				if (first) { first = false; continue; }
-				maniContent.append(" " + entry + ",\n");
+				content.append(" " + entry + ";visibility:=reexport,\n");
 			}
-			maniContent.append(" " + requiredBundles.get(0) + "\n");
+			content.append(" " + requiredBundles.get(0) + ";visibility:=reexport\n");
 		}
 		//maniContent.append(" org.openarchitectureware.dependencies\n");
 
 		if (exportedPackages != null && !exportedPackages.isEmpty()) {
-			maniContent.append("Export-Package: " + exportedPackages.get(0));
+			content.append("Export-Package: " + exportedPackages.get(0));
 			for (int i = 1, x = exportedPackages.size(); i < x; i++) {
-				maniContent.append(",\n " + exportedPackages.get(i));
+				content.append(",\n " + exportedPackages.get(i));
 			}
-			maniContent.append("\n");
+			content.append("\n");
 		}
-		//maniContent.append("Bundle-RequiredExecutionEnvironment: J2SE-1.5\r\n");
+		content.append("Bundle-RequiredExecutionEnvironment: " + runtimeEnvironment + "\r\n");
 
 		final IFolder metaInf = project.getFolder("META-INF");
-		metaInf.create(false, true, new SubProgressMonitor(progressMonitor, 1));
-		createFile("MANIFEST.MF", metaInf, maniContent.toString());
+		if (!metaInf.exists()) metaInf.create(false, true, new SubProgressMonitor(progressMonitor, 1));
+		createFile("MANIFEST.MF", metaInf, content.toString());
 	}
 
 	private void assertExist(final IContainer c) {

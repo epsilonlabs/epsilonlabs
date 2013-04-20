@@ -35,7 +35,10 @@ public class EVisitorGeneratorActionDelegate implements IObjectActionDelegate {
 	public void run(IAction action) {
 		
 		try {
-			new EVisitorGenerator((GenModel) selection.getFirstElement(), shell, new NullProgressMonitor()).generate();
+			new EVisitorGenerator((GenModel) selection.getFirstElement(), 
+					shell, new NullProgressMonitor()).
+						generate(action.getId().endsWith("forceaction"));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

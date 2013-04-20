@@ -11,15 +11,29 @@ import java.util.ArrayList;
 [%
 var genClasses = gp.genClasses.sortBy(gc|-gc.ecoreClass.eAllSuperTypes.size())
 	.select(gc|gc.ecoreClass.instanceTypeName.isUndefined());
+
+var baseGenPackage = gp.getBaseGenPackage();
+var extends = "";
+var extendsImport = "";
+if (baseGenPackage.isDefined()) {
+	extendsImport = "import " + baseGenPackage.getPackageName() + ".*;";
+	extends = "extends " + baseGenPackage.name.ftuc() + "VisitorController<T, R> ";
+	extraBundles.add(baseGenPackage.genModel.modelPluginID + ".visitor");
+	extraBundles.add(baseGenPackage.genModel.modelPluginID);
+}
 %]
 
-public class [%=gp.name.ftuc()%]VisitorController<T, R> {
+[%=extendsImport%]
+
+public class [%=gp.name.ftuc()%]VisitorController<T, R> [%=extends%]{
 
 	[%for (gc in genClasses){%]
 	protected List<[%=gc.ecoreClass.name%]Visitor<T, R>> [%=gc.ecoreClass.name.ftlc()%]Visitors = new ArrayList<[%=gc.ecoreClass.name%]Visitor<T, R>>();
 	[%}%]
+	[%if (baseGenPackage.isUndefined()){%]
 	protected List<[%=gp.name.ftuc()%]DefaultVisitor<T, R>> defaultVisitors = new ArrayList<[%=gp.name.ftuc()%]DefaultVisitor<T, R>>();
-		
+	[%}%]
+	
 	public R visit(EObject o, T context) {
 		[%for (gc in genClasses){%]
 		if (o instanceof [%=gc.ecoreClass.name%] && ![%=gc.ecoreClass.name.ftlc()%]Visitors.isEmpty()) {
@@ -30,11 +44,15 @@ public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 			}
 		}
 		[%}%]
+		
+		[%if (baseGenPackage.isUndefined()){%]
 		for ([%=gp.name.ftuc()%]DefaultVisitor<T, R> visitor : defaultVisitors) {
 			if (visitor.appliesTo(o, context)) {
 				return visitor.visit(o, context, this);
 			}
 		}
+		[%}%]
+		
 		return null;
 	}
 	
@@ -70,6 +88,8 @@ public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 	}
 	
 	[%}%]	
+	
+	[%if (baseGenPackage.isUndefined()){%]
 	public boolean addDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
 		return this.defaultVisitors.add(defaultVisitor);
 	}
@@ -77,4 +97,5 @@ public class [%=gp.name.ftuc()%]VisitorController<T, R> {
 	public boolean removeDefaultVisitor([%=gp.name.ftuc()%]DefaultVisitor<T, R> defaultVisitor) {
 		return this.defaultVisitors.remove(defaultVisitor);
 	}
+	[%}%]
 }

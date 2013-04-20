@@ -6,12 +6,28 @@
       <objectContribution
             id="com.googlecode.evisitor.contribution1"
             objectClass="org.eclipse.emf.codegen.ecore.genmodel.GenModel">
+         <menu
+               id="com.googlecode.epsilonlabs.evg.menu"
+               label="Visitor Generation"
+               path="edit">
+            <separator
+                  name="group">
+            </separator>
+         </menu>
+          <action
+               class="com.googlecode.epsilonlabs.evg.EVisitorGeneratorActionDelegate"
+               enablesFor="1"
+               id="com.googlecode.epsilonlabs.evg.generateforceaction"
+               label="Overwrite Visitor Project"
+               menubarPath="com.googlecode.epsilonlabs.evg.menu/group">
+         </action>
+ 
          <action
                class="com.googlecode.epsilonlabs.evg.EVisitorGeneratorActionDelegate"
                enablesFor="1"
-               id="com.googlecode.evisitor.newAction"
+               id="com.googlecode.epsilonlabs.evg.generateaction"
                label="Generate Visitor Code"
-               menubarPath="org.eclipse.emf.codegen.ecore.genmodelMenuID">
+               menubarPath="com.googlecode.epsilonlabs.evg.menu/group">
          </action>
       </objectContribution>
    </extension>

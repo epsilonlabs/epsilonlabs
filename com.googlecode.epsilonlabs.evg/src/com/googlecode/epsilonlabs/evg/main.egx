@@ -1,9 +1,14 @@
 import "util.eol";
 
+pre {
+	var firstPackage = GenPackage.all.first();
+}
+
 rule GenClass2Visitor
 	transform gc : GenClass {
 	
-	guard : gc.ecoreClass.instanceTypeName.isUndefined()
+	guard : gc.ecoreClass.instanceTypeName.isUndefined() and 
+		gc.eContainer() = firstPackage
 	
 	template : "genClass2Visitor.egl"
 	
@@ -13,6 +18,10 @@ rule GenClass2Visitor
 rule GenPackage2VisitorController
 	transform gp : GenPackage {
 	
+	guard : gp = firstPackage
+	
+	parameters : Map { "extraBundles" = extraBundles }
+	
 	template : "genPackage2VisitorController.egl"
 	
 	target : gp.getPackagePath() + "/" + gp.name.ftuc() + "VisitorController.java"
@@ -20,6 +29,8 @@ rule GenPackage2VisitorController
 
 rule GenPackage2DefaultVisitor
 	transform gp : GenPackage {
+	
+	guard : gp = firstPackage
 	
 	template : "genPackage2DefaultVisitor.egl"
 	
