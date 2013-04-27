@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,11 +17,14 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
+import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
+import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.ISearchableModel;
 import org.eclipse.epsilon.eol.parse.EolParser;
+import org.eclipse.epsilon.eol.types.EolMap;
 
 public abstract class JdbcModel extends ImmutableModel implements ISearchableModel {
 	
@@ -31,7 +35,8 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	protected String password;
 	protected Connection connection;
 	protected List<String> tables = new ArrayList<String>();
-	protected ResultSetPropertyGetter propertyGetter = new ResultSetPropertyGetter();
+	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter();
+	protected ResultPropertySetter propertySetter = new ResultPropertySetter();
 	
 	protected abstract String getDriverClass();
 	protected abstract String getJdbcUrl();
@@ -40,6 +45,51 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 		while (rs.next()) {
 			System.err.println(rs.getString(3));
 		}
+	}
+	
+	@Override
+	public Object createInstance(String type)
+			throws EolModelElementTypeNotFoundException,
+			EolNotInstantiableModelElementTypeException {
+		return createInstance(type, Collections.emptyList());
+	}
+	
+	@Override
+	public Object createInstance(String type, Collection<Object> parameters)
+			throws EolModelElementTypeNotFoundException,
+			EolNotInstantiableModelElementTypeException {
+
+		try {
+
+			// Create a Statement for scrollable ResultSet
+			Statement sta = connection.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+			// Catch the ResultSet object
+			ResultSet res = sta.executeQuery("SELECT * FROM " + type
+					+ " WHERE 1=2");
+
+			// Move the cursor to the insert row
+			res.moveToInsertRow();
+
+			if (parameters.iterator().hasNext()) {
+				EolMap values = (EolMap) parameters.iterator().next();
+				for (Object key : values.keySet()) {
+					res.updateObject(key + "", values.get(key));
+				}
+			}
+
+			// Store the insert into database
+			res.insertRow();
+			res.next();
+			
+			return new Result(res, res.getRow(), this, type);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
 	}
 	
 	@Override
@@ -72,7 +122,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 			PreparedStatement statement = 
 					connection.prepareStatement("select * from " + type, 
 							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
-							  ResultSet.CONCUR_READ_ONLY);
+							  ResultSet.CONCUR_UPDATABLE);
 			
 			return new ResultSetCollection(statement.executeQuery(), this, type);
 		} catch (SQLException e) {
@@ -158,6 +208,11 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	@Override
 	public IPropertyGetter getPropertyGetter() {
 		return propertyGetter;
+	}
+	
+	@Override
+	public IPropertySetter getPropertySetter() {
+		return propertySetter;
 	}
 	
 	@Override

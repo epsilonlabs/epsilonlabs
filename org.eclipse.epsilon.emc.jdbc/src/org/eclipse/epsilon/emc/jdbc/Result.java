@@ -21,12 +21,20 @@ public class Result {
 		return row;
 	}
 	
-	protected Object getCell(String name) throws SQLException {
+	protected Object getValue(String name) throws SQLException {
 		int oldRow = resultSet.getRow();
 		resultSet.absolute(row);
 		Object result = resultSet.getObject(name);
 		if (oldRow > 0) resultSet.absolute(oldRow);
 		return result;
+	}
+	
+	protected void setValue(String name, Object value) throws SQLException {
+		int oldRow = resultSet.getRow();
+		resultSet.absolute(row);
+		resultSet.updateObject(name, value);
+		resultSet.updateRow();
+		if (oldRow > 0) resultSet.absolute(oldRow);	
 	}
 	
 	public JdbcModel getModel() {
