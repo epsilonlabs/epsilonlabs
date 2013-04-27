@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.emc.jdbc;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.eclipse.epsilon.eol.exceptions.EolInternalException;
@@ -13,7 +12,7 @@ public class ResultSetPropertyGetter extends AbstractPropertyGetter {
 	public Object invoke(Object object, String property)
 			throws EolRuntimeException {
 		try {
-			return ((ResultSet) object).getObject(property);
+			return ((Result) object).getCell(property);
 		} catch (SQLException e) {
 			throw new EolInternalException(e);
 		}

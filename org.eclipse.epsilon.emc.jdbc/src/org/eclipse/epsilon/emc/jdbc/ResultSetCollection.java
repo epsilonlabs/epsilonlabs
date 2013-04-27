@@ -5,14 +5,16 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.sql.rowset.JdbcRowSet;
-
 public class ResultSetCollection extends ImmutableCollection<Object>{
 
 	protected ResultSet rs = null;
+	protected JdbcModel model = null;
+	protected String table = null;
 	
-	public ResultSetCollection(ResultSet rs) {
+	public ResultSetCollection(ResultSet rs, JdbcModel model, String table) {
 		this.rs = rs;
+		this.model = model;
+		this.table = table;
 	}
 	
 	@Override
@@ -32,7 +34,7 @@ public class ResultSetCollection extends ImmutableCollection<Object>{
 
 	@Override
 	public Iterator<Object> iterator() {
-		return new ResultSetIterator(rs);
+		return new ResultSetIterator(rs, model, table);
 	}
 
 	@Override

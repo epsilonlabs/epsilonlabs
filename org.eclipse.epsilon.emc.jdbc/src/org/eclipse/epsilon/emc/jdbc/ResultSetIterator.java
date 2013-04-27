@@ -7,9 +7,13 @@ import java.util.Iterator;
 public class ResultSetIterator implements Iterator<Object> {
 	
 	protected ResultSet rs = null;
+	protected JdbcModel model = null;
+	protected String table = null;
 	
-	public ResultSetIterator(ResultSet rs) {
+	public ResultSetIterator(ResultSet rs, JdbcModel model, String table) {
 		this.rs = rs;
+		this.model = model;
+		this.table = table;
 	}
 	
 	@Override
@@ -26,6 +30,8 @@ public class ResultSetIterator implements Iterator<Object> {
 	public Object next() {
 		try {
 			rs.next();
+			return new Result(rs, rs.getRow(), model, table);
+			//rs.next();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

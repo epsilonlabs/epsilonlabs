@@ -33,8 +33,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	protected List<String> tables = new ArrayList<String>();
 	protected ResultSetPropertyGetter propertyGetter = new ResultSetPropertyGetter();
 	
-	protected abstract String getDriver();
-	
+	protected abstract String getDriverClass();
 	protected abstract String getJdbcUrl();
 	
 	public void print(ResultSet rs) throws Exception {
@@ -46,7 +45,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	@Override
 	public void load() throws EolModelLoadingException {
 		try {
-		Class.forName(getDriver());
+		Class.forName(getDriverClass());
 	        connection = DriverManager.getConnection(getJdbcUrl() , username, password);
 	        
 	        // Cache table names
@@ -70,8 +69,12 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
 		try {
-			PreparedStatement statement = connection.prepareStatement("select * from " + type);
-			return new ResultSetCollection(statement.executeQuery());
+			PreparedStatement statement = 
+					connection.prepareStatement("select * from " + type, 
+							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
+							  ResultSet.CONCUR_READ_ONLY);
+			
+			return new ResultSetCollection(statement.executeQuery(), this, type);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -103,18 +106,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	
 	@Override
 	public String getTypeNameOf(Object instance) {
-		if (instance instanceof ResultSet) {
-			ResultSet rs = (ResultSet) instance;
-			try {
-				if (rs.getMetaData().getColumnCount() > 0) {
-					return rs.getMetaData().getTableName(1);
-				}
-			}
-			catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-		return null;
+		return ((Result) instance).getTable();
 	}
 	
 	@Override
@@ -127,7 +119,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 		System.err.println(sql);
 		
 		try {
-			return new ResultSetCollection(connection.prepareStatement(sql).executeQuery());
+			return new ResultSetCollection(connection.prepareStatement(sql).executeQuery(), this, iterator.getType().getName());
 		} catch (SQLException e) {
 			throw new EolInternalException(e);
 		}
@@ -176,7 +168,8 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	
 	@Override
 	public boolean owns(Object instance) {
-		return instance instanceof ResultSet;
+		return instance instanceof Result && 
+			((Result) instance).getModel() == this;
 	}
 	
 	public String getServer() {

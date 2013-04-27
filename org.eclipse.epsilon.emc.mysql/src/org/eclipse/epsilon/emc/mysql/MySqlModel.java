@@ -19,13 +19,13 @@ public class MySqlModel extends JdbcModel {
 		
 		//module.parse("M.find(h:help_topic|h.help_category_id > 12 /*and h.name.startsWith('join')*/);");
 		//module.parse("help_topic.all.first().isTypeOf(help_topic).println();");
-		//module.parse("for (t in help_topic.all) { (t.help_category_id + 1).println(); }");
+		module.parse("for (t in help_topic.all) { (t.help_category_id + 1).println(); }");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}
 
 	@Override
-	protected String getDriver() {
+	protected String getDriverClass() {
 		return "com.mysql.jdbc.Driver";
 	}
 

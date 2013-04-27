@@ -19,7 +19,6 @@ public abstract class ImmutableCollection<T> implements Collection<T>{
 		throw new UnsupportedOperationException();
 	}
 
-
 	@Override
 	public boolean remove(Object arg0) {
 		throw new UnsupportedOperationException();
