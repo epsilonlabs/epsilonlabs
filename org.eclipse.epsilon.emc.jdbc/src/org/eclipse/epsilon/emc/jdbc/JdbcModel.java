@@ -23,6 +23,7 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.ISearchableModel;
+import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
 
@@ -227,6 +228,44 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 			((Result) instance).getModel() == this;
 	}
 	
+	@Override
+	public IModelTransactionSupport getTransactionSupport() {
+		return new IModelTransactionSupport() {
+			
+			@Override
+			public void startTransaction() {
+				try {
+					connection.setAutoCommit(false);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void commitTransaction() {
+				try {
+					connection.commit();
+					connection.setAutoCommit(true);
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void rollbackTransaction() {
+				try {
+					connection.rollback();
+					connection.setAutoCommit(true);
+				}
+				catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+		};
+	}
+	
 	public String getServer() {
 		return server;
 	}
@@ -266,5 +305,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
 	
 }
