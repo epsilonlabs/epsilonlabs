@@ -23,8 +23,8 @@ public class MySqlModel extends JdbcModel {
 		
 		//module.parse("var x : new person2; x.name='Mary';");
 		// Add support for dates
-		module.parse("transaction {for (p in Person.all) { p.name = 'foo2' + loopCount; } 'foo'.moo();}");
-		
+		//module.parse("transaction {for (p in Person.all) { p.name = 'foo2' + loopCount; } 'foo'.moo();}");
+		module.parse("transaction {var p : new Person(Map{'age' = 18});}");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}

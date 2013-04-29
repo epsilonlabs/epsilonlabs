@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.exceptions.EolInternalException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
@@ -23,11 +24,19 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.ISearchableModel;
+import org.eclipse.epsilon.eol.models.Model;
 import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
 
-public abstract class JdbcModel extends ImmutableModel implements ISearchableModel {
+public abstract class JdbcModel extends Model implements ISearchableModel {
+	
+	public static final String PROPERTY_SERVER = "server";
+	public static final String PROPERTY_PORT = "port";
+	public static final String PROPERTY_DATABASE = "database";
+	public static final String PROPERTY_USERNAME = "username";
+	public static final String PROPERTY_PASSWORD = "password";
+	public static final String PROPERTY_READONLY = "readonly";
 	
 	protected String server;
 	protected int port;
@@ -37,7 +46,8 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	protected Connection connection;
 	protected List<String> tables = new ArrayList<String>();
 	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter();
-	protected ResultPropertySetter propertySetter = new ResultPropertySetter();
+	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
+	protected boolean readOnly = true;
 	
 	protected abstract String getDriverClass();
 	protected abstract String getJdbcUrl();
@@ -49,10 +59,30 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 	}
 	
 	@Override
+	public void load(StringProperties properties, String basePath)
+			throws EolModelLoadingException {
+		super.load(properties, basePath);
+		this.database = properties.getProperty(PROPERTY_DATABASE);
+		this.server = properties.getProperty(PROPERTY_SERVER, this.server);
+		this.port = properties.getIntegerProperty(PROPERTY_PORT, this.port);
+		this.username = properties.getProperty(PROPERTY_USERNAME);
+		this.password = properties.getProperty(PROPERTY_PASSWORD);
+	}
+	
+	@Override
 	public Object createInstance(String type)
 			throws EolModelElementTypeNotFoundException,
 			EolNotInstantiableModelElementTypeException {
 		return createInstance(type, Collections.emptyList());
+	}
+	
+	protected int getResultSetType() {
+		if (!isReadOnly()) {
+			return ResultSet.CONCUR_UPDATABLE;
+		}
+		else {
+			return ResultSet.CONCUR_READ_ONLY;
+		}
 	}
 	
 	@Override
@@ -61,10 +91,10 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 			EolNotInstantiableModelElementTypeException {
 
 		try {
-
+			
 			// Create a Statement for scrollable ResultSet
 			Statement sta = connection.createStatement(
-					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+					ResultSet.TYPE_SCROLL_INSENSITIVE, getResultSetType());
 
 			// Catch the ResultSet object
 			ResultSet res = sta.executeQuery("SELECT * FROM " + type
@@ -123,7 +153,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 			PreparedStatement statement = 
 					connection.prepareStatement("select * from " + type, 
 							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
-							  ResultSet.CONCUR_UPDATABLE);
+							  getResultSetType());
 			
 			return new ResultSetCollection(statement.executeQuery(), this, type);
 		} catch (SQLException e) {
@@ -166,8 +196,6 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 		
 		String sql = "select * from " + iterator.getType().getName() + 
 				" where " + ast2sql(iterator, ast, context);
-		
-		System.err.println(sql);
 		
 		try {
 			return new ResultSetCollection(connection.prepareStatement(sql).executeQuery(), this, iterator.getType().getName());
@@ -236,8 +264,8 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 			public void startTransaction() {
 				try {
 					connection.setAutoCommit(false);
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException ex) {
+					throw new RuntimeException(ex);
 				}
 			}
 			
@@ -248,7 +276,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 					connection.setAutoCommit(true);
 				}
 				catch (SQLException ex) {
-					ex.printStackTrace();
+					throw new RuntimeException(ex);
 				}
 			}
 			
@@ -259,7 +287,7 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 					connection.setAutoCommit(true);
 				}
 				catch (SQLException ex) {
-					ex.printStackTrace();
+					throw new RuntimeException(ex);
 				}
 			}
 			
@@ -306,6 +334,42 @@ public abstract class JdbcModel extends ImmutableModel implements ISearchableMod
 		this.password = password;
 	}
 	
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
 	
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+	}
+	
+	@Override
+	public void setElementId(Object instance, String newId) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public void deleteElement(Object instance) throws EolRuntimeException {
+		
+	}
+	
+	@Override
+	public boolean isInstantiable(String type) {
+		return !readOnly;
+	}
+	
+	@Override
+	public boolean store(String location) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public boolean store() {
+		throw new UnsupportedOperationException();
+	}
 	
 }
