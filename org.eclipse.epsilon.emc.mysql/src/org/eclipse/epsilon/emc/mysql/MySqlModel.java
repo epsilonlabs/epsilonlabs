@@ -1,7 +1,11 @@
 package org.eclipse.epsilon.emc.mysql;
 
+import java.sql.SQLException;
+
 import org.eclipse.epsilon.emc.jdbc.JdbcModel;
 import org.eclipse.epsilon.eol.EolModule;
+
+import com.mysql.jdbc.Driver;
 
 public class MySqlModel extends JdbcModel {
 
@@ -30,8 +34,8 @@ public class MySqlModel extends JdbcModel {
 	}
 
 	@Override
-	protected String getDriverClass() {
-		return "com.mysql.jdbc.Driver";
+	protected Driver createDriver() throws SQLException {
+		return new Driver();
 	}
 
 	@Override

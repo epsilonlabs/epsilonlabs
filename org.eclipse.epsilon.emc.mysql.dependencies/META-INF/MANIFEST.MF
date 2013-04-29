@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dependencies
-Bundle-SymbolicName: org.eclipse.epsilon.emc.mysql.dependencies
+Bundle-SymbolicName: org.eclipse.epsilon.emc.mysql.dependencies;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-ClassPath: mysql-connector-java-5.1.18-bin.jar
 Export-Package: com.mysql.jdbc,
