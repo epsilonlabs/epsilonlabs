@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.emc.jdbc;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.util.StringProperties;
@@ -49,7 +51,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
 	
-	protected abstract String getDriverClass();
+	protected abstract Driver createDriver() throws SQLException;
 	protected abstract String getJdbcUrl();
 	
 	public void print(ResultSet rs) throws Exception {
@@ -67,6 +69,8 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		this.port = properties.getIntegerProperty(PROPERTY_PORT, this.port);
 		this.username = properties.getProperty(PROPERTY_USERNAME);
 		this.password = properties.getProperty(PROPERTY_PASSWORD);
+		this.readOnly = properties.getBooleanProperty(PROPERTY_READONLY, this.readOnly);
+		load();
 	}
 	
 	@Override
@@ -126,8 +130,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public void load() throws EolModelLoadingException {
 		try {
-		Class.forName(getDriverClass());
-	        connection = DriverManager.getConnection(getJdbcUrl() , username, password);
+			Driver driver = createDriver();
+			Properties properties = new Properties();
+			properties.put("user", username);
+			properties.put("password", password);
+			connection = driver.connect(getJdbcUrl(), properties);
 	        
 	        // Cache table names
 	        ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{});
