@@ -25,11 +25,6 @@ public abstract class ImmutableModel extends Model {
 	}
 
 	@Override
-	public boolean isInstantiable(String type) {
-		return false;
-	}
-
-	@Override
 	public boolean store(String location) {
 		throw new UnsupportedOperationException();
 	}

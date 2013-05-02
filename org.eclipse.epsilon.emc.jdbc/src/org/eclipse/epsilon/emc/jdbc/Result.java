@@ -8,9 +8,9 @@ public class Result {
 	protected ResultSet resultSet;
 	protected int row;
 	protected JdbcModel model;
-	protected String table;
+	protected Table table;
 	
-	public Result(ResultSet rs, int row, JdbcModel model, String table) {
+	public Result(ResultSet rs, int row, JdbcModel model, Table table) {
 		this.resultSet = rs;
 		this.row = row;
 		this.model = model;
@@ -22,19 +22,19 @@ public class Result {
 	}
 	
 	protected Object getValue(String name) throws SQLException {
-		int oldRow = resultSet.getRow();
+		//int oldRow = resultSet.getRow();
 		resultSet.absolute(row);
 		Object result = resultSet.getObject(name);
-		if (oldRow > 0) resultSet.absolute(oldRow);
+		//if (oldRow > 0) resultSet.absolute(oldRow);
 		return result;
 	}
 	
 	protected void setValue(String name, Object value) throws SQLException {
-		int oldRow = resultSet.getRow();
+		//int oldRow = resultSet.getRow();
 		resultSet.absolute(row);
 		resultSet.updateObject(name, value);
 		resultSet.updateRow();
-		if (oldRow > 0) resultSet.absolute(oldRow);	
+		//if (oldRow > 0) resultSet.absolute(oldRow);	
 	}
 	
 	public JdbcModel getModel() {
@@ -45,7 +45,7 @@ public class Result {
 		return resultSet;
 	}
 	
-	public String getTable() {
+	public Table getTable() {
 		return table;
 	}
 	

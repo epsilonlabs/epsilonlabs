@@ -2,14 +2,13 @@ package org.eclipse.epsilon.emc.jdbc;
 
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -46,7 +45,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected String username;
 	protected String password;
 	protected Connection connection;
-	protected List<String> tables = new ArrayList<String>();
+	protected List<Table> tables = new ArrayList<Table>();
 	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter();
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
@@ -54,10 +53,22 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected abstract Driver createDriver() throws SQLException;
 	protected abstract String getJdbcUrl();
 	
-	public void print(ResultSet rs) throws Exception {
-		while (rs.next()) {
-			System.err.println(rs.getString(3));
+	protected Table getTable(String name) {
+		for (Table table : tables) {
+			if (table.getName().equals(name)) return table;
 		}
+		return null;
+	}
+	
+	public void print(ResultSet rs) throws Exception {
+		System.err.println("---");
+		while (rs.next()) {
+			for (int i = 1; i < rs.getMetaData().getColumnCount(); i++) {
+				System.err.print( rs.getMetaData().getColumnName(i) + "=" + rs.getString(i) + " - ");
+			}
+			System.err.println();
+		}
+		System.err.println("---");
 	}
 	
 	@Override
@@ -71,6 +82,12 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		this.password = properties.getProperty(PROPERTY_PASSWORD);
 		this.readOnly = properties.getBooleanProperty(PROPERTY_READONLY, this.readOnly);
 		load();
+	}
+	
+	public ResultSetList query(String sql) throws SQLException {
+		return new ResultSetList(
+				connection.createStatement().executeQuery(sql),
+				this, null);
 	}
 	
 	@Override
@@ -89,6 +106,16 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		}
 	}
 	
+	protected HashMap<String, PreparedStatement> preparedStatementCache = new HashMap<String, PreparedStatement>();
+	protected PreparedStatement prepareStatement(String sql, int options, int resultSetType) throws SQLException {
+		PreparedStatement preparedStatement = preparedStatementCache.get(sql + options + "" + resultSetType);
+		if (preparedStatement == null) {
+			preparedStatement = connection.prepareStatement(sql, options, resultSetType);
+			preparedStatementCache.put(sql + options + "" + resultSetType, preparedStatement);
+		}
+		return preparedStatement;
+	}
+	
 	@Override
 	public Object createInstance(String type, Collection<Object> parameters)
 			throws EolModelElementTypeNotFoundException,
@@ -97,12 +124,12 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		try {
 			
 			// Create a Statement for scrollable ResultSet
-			Statement sta = connection.createStatement(
+			PreparedStatement sta = prepareStatement("SELECT * FROM " + type
+					+ " WHERE 1=2 limit 1",
 					ResultSet.TYPE_SCROLL_INSENSITIVE, getResultSetType());
 
 			// Catch the ResultSet object
-			ResultSet res = sta.executeQuery("SELECT * FROM " + type
-					+ " WHERE 1=2");
+			ResultSet res = sta.executeQuery();
 
 			// Move the cursor to the insert row
 			res.moveToInsertRow();
@@ -117,8 +144,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			// Store the insert into database
 			res.insertRow();
 			res.next();
-			
-			return new Result(res, res.getRow(), this, type);
+			return new Result(res, res.getRow(), this, getTable(type));
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -139,8 +165,21 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	        // Cache table names
 	        ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{});
 			while (rs.next()) {
-				tables.add(rs.getString(3));
+				Table table = new Table(rs.getString(3));
+				tables.add(table);
+				/*
+				System.err.println("->" + table.getName());
+				ResultSet foreignKeysRs = connection.getMetaData().getImportedKeys(null, null, table.getName());
+				while (foreignKeysRs.next()) {
+					ForeignKey foreignKey = new ForeignKey();
+					foreignKey.setColumn(foreignKeysRs.getString("FKCOLUMN_NAME"));
+					foreignKey.setForeignTable(foreignKeysRs.getString("PKTABLE_NAME"));
+					foreignKey.setForeignColumn("PKCOLUMN_NAME");
+					foreignKey.setName(foreignKeysRs.getString("FK_NAME"));
+					table.getOutgoing().add(foreignKey);
+				}*/
 			}
+			
 			
 		}
 		catch (Exception ex) {
@@ -150,7 +189,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	@Override
 	public boolean hasType(String type) {
-		return tables.contains(type);
+		return getTable(type) != null;
 	}
 	
 	@Override
@@ -158,11 +197,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			throws EolModelElementTypeNotFoundException {
 		try {
 			PreparedStatement statement = 
-					connection.prepareStatement("select * from " + type, 
+					prepareStatement("select * from " + type, 
 							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
 							  getResultSetType());
 			
-			return new ResultSetCollection(statement.executeQuery(), this, type);
+			return new ResultSetList(statement.executeQuery(), this, getTable(type));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -194,40 +233,55 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	@Override
 	public String getTypeNameOf(Object instance) {
-		return ((Result) instance).getTable();
+		return ((Result) instance).getTable().getName();
 	}
 	
 	@Override
 	public Collection<?> find(Variable iterator, AST ast, IEolContext context)
 			throws EolRuntimeException {
 		
+		ArrayList<Object> variables = new ArrayList<Object>();
 		String sql = "select * from " + iterator.getType().getName() + 
-				" where " + ast2sql(iterator, ast, context);
-		
+				" where " + ast2sql(iterator, ast, context, variables);
+
 		try {
-			return new ResultSetCollection(connection.prepareStatement(sql).executeQuery(), this, iterator.getType().getName());
+			PreparedStatement preparedStatement = prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, 
+				  getResultSetType());
+			
+			preparedStatement.clearParameters();
+			
+			int i = 1;
+			for (Object variable : variables) {
+				preparedStatement.setObject(i, variable);
+				i++;
+			}
+			
+			return new ResultSetList(preparedStatement.executeQuery(), this, getTable(iterator.getType().getName()));
 		} catch (SQLException e) {
 			throw new EolInternalException(e);
 		}
 	}
 	
-	public String ast2sql(Variable iterator, AST ast, IEolContext context) throws EolRuntimeException {
+	public String ast2sql(Variable iterator, AST ast, IEolContext context, ArrayList<Object> variables) throws EolRuntimeException {
 		if (ast.getType() == EolParser.OPERATOR) {
-			return "(" + ast2sql(iterator, ast.getFirstChild(), context)
+			return "(" + ast2sql(iterator, ast.getFirstChild(), context, variables)
 					+ ast.getText() + 
-					ast2sql(iterator, ast.getFirstChild().getNextSibling(), context) + ")";
+					ast2sql(iterator, ast.getFirstChild().getNextSibling(), context, variables) + ")";
 		}
 		else if (ast.getType() == EolParser.POINT && ast.getFirstChild().getText().equals(iterator.getName())) {
 			return ast.getFirstChild().getNextSibling().getText();
 		}
 		else {
 			Object result = context.getExecutorFactory().executeAST(ast, context);
+			variables.add(result);
+			return "?";
+			/*
 			if (result instanceof String) {
 				return "\"" + result + "\"";
 			}
 			else {
 				return result + "";
-			}
+			}*/
 		}
 	}
 	
@@ -352,6 +406,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public void dispose() {
 		super.dispose();
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 	@Override
