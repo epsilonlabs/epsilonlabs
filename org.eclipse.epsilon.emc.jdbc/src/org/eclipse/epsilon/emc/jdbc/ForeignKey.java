@@ -5,7 +5,7 @@ public class ForeignKey {
 	protected String name;
 	protected String column;
 	protected String foreignColumn;
-	protected String foreignTable;
+	protected Table foreignTable;
 	
 	public String getName() {
 		return name;
@@ -31,11 +31,11 @@ public class ForeignKey {
 		this.foreignColumn = foreignColumn;
 	}
 	
-	public String getForeignTable() {
+	public Table getForeignTable() {
 		return foreignTable;
 	}
 	
-	public void setForeignTable(String foreignTable) {
+	public void setForeignTable(Table foreignTable) {
 		this.foreignTable = foreignTable;
 	}
 	

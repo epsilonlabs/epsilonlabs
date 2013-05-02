@@ -41,11 +41,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	protected String server;
 	protected int port;
-	protected String database;
+	protected String databaseName;
 	protected String username;
 	protected String password;
 	protected Connection connection;
-	protected List<Table> tables = new ArrayList<Table>();
+	protected Database database;
 	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter();
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
@@ -54,7 +54,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected abstract String getJdbcUrl();
 	
 	protected Table getTable(String name) {
-		for (Table table : tables) {
+		for (Table table : database.getTables()) {
 			if (table.getName().equals(name)) return table;
 		}
 		return null;
@@ -75,7 +75,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	public void load(StringProperties properties, String basePath)
 			throws EolModelLoadingException {
 		super.load(properties, basePath);
-		this.database = properties.getProperty(PROPERTY_DATABASE);
+		this.databaseName = properties.getProperty(PROPERTY_DATABASE);
 		this.server = properties.getProperty(PROPERTY_SERVER, this.server);
 		this.port = properties.getIntegerProperty(PROPERTY_PORT, this.port);
 		this.username = properties.getProperty(PROPERTY_USERNAME);
@@ -161,25 +161,28 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			properties.put("user", username);
 			properties.put("password", password);
 			connection = driver.connect(getJdbcUrl(), properties);
-	        
+	        Database database = new Database();
+			
 	        // Cache table names
 	        ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{});
 			while (rs.next()) {
-				Table table = new Table(rs.getString(3));
-				tables.add(table);
-				/*
-				System.err.println("->" + table.getName());
+				Table table = new Table(rs.getString(3), database);
+				database.getTables().add(table);
+			}
+			
+			for (Table table : database.getTables()) {
 				ResultSet foreignKeysRs = connection.getMetaData().getImportedKeys(null, null, table.getName());
 				while (foreignKeysRs.next()) {
 					ForeignKey foreignKey = new ForeignKey();
 					foreignKey.setColumn(foreignKeysRs.getString("FKCOLUMN_NAME"));
-					foreignKey.setForeignTable(foreignKeysRs.getString("PKTABLE_NAME"));
+					Table foreignTable = getTable(foreignKeysRs.getString("PKTABLE_NAME"));
+					foreignKey.setForeignTable(foreignTable);
 					foreignKey.setForeignColumn("PKCOLUMN_NAME");
 					foreignKey.setName(foreignKeysRs.getString("FK_NAME"));
 					table.getOutgoing().add(foreignKey);
-				}*/
+					foreignTable.getIncoming().add(foreignKey);
+				}
 			}
-			
 			
 		}
 		catch (Exception ex) {
@@ -372,11 +375,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	}
 
 	public String getDatabase() {
-		return database;
+		return databaseName;
 	}
 
 	public void setDatabase(String database) {
-		this.database = database;
+		this.databaseName = database;
 	}
 
 	public String getUsername() {
