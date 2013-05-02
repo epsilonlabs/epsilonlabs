@@ -161,7 +161,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			properties.put("user", username);
 			properties.put("password", password);
 			connection = driver.connect(getJdbcUrl(), properties);
-	        Database database = new Database();
+	        database = new Database();
 			
 	        // Cache table names
 	        ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{});
