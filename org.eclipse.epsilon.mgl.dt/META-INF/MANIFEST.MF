@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Generation Language Development Tools
+Bundle-SymbolicName: org.eclipse.epsilon.mgl.dt;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.mgl.dt.Activator
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.epsilon.eol.dt,
+ org.eclipse.ui.ide,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.common.dt,
+ org.eclipse.epsilon.mgl.engine
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.epsilon.mgl.dt

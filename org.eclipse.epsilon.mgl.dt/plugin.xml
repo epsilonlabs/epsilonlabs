@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.eclipse.epsilon.mgl.dt.MglLaunchConfigurationDelegate"
+            id="org.eclipse.epsilon.mgl.dt.MglLaunchConfigurationDelegate"
+            modes="run, debug"
+            name="Model Generation Program">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.eclipse.epsilon.mgl.dt.MglLaunchConfigurationDelegate"
+            icon="icons/mgl.gif"
+            id="MglProgram"/>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.eclipse.epsilon.eol.dt.launching.EolLaunchConfigurationTabGroup"
+            description="Create a configuration to launch a model generation program."
+            id="org.eclipse.epsilon.mgl.dt.launching.MglLaunchConfigurationTabGroup"
+            type="org.eclipse.epsilon.mgl.dt.MglLaunchConfigurationDelegate"/>
+   </extension>
+</plugin>

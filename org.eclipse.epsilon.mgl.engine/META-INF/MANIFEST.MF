@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Generation Language Engine
+Bundle-SymbolicName: org.eclipse.epsilon.mgl.engine
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.mgl.engine.Activator
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.emc.plainxml
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.epsilon.mgl.engine
