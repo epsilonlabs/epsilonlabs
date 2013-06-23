@@ -10,5 +10,12 @@ public class Database {
 	public List<Table> getTables() {
 		return tables;
 	}
+
+	public Table getTable(String name) {
+		for (Table table : getTables()) {
+			if (table.getName().equals(name)) return table;
+		}
+		return null;
+	}
 	
 }

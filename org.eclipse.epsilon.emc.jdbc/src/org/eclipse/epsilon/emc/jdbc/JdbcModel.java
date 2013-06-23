@@ -53,13 +53,6 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected abstract Driver createDriver() throws SQLException;
 	protected abstract String getJdbcUrl();
 	
-	protected Table getTable(String name) {
-		for (Table table : database.getTables()) {
-			if (table.getName().equals(name)) return table;
-		}
-		return null;
-	}
-	
 	public void print(ResultSet rs) throws Exception {
 		System.err.println("---");
 		while (rs.next()) {
@@ -144,7 +137,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			// Store the insert into database
 			res.insertRow();
 			res.next();
-			return new Result(res, res.getRow(), this, getTable(type));
+			return new Result(res, res.getRow(), this, database.getTable(type));
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -175,7 +168,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 				while (foreignKeysRs.next()) {
 					ForeignKey foreignKey = new ForeignKey();
 					foreignKey.setColumn(foreignKeysRs.getString("FKCOLUMN_NAME"));
-					Table foreignTable = getTable(foreignKeysRs.getString("PKTABLE_NAME"));
+					Table foreignTable = database.getTable(foreignKeysRs.getString("PKTABLE_NAME"));
 					foreignKey.setForeignTable(foreignTable);
 					foreignKey.setForeignColumn("PKCOLUMN_NAME");
 					foreignKey.setName(foreignKeysRs.getString("FK_NAME"));
@@ -192,7 +185,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	@Override
 	public boolean hasType(String type) {
-		return getTable(type) != null;
+		return database.getTable(type) != null;
 	}
 	
 	@Override
@@ -204,7 +197,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
 							  getResultSetType());
 			
-			return new ResultSetList(statement.executeQuery(), this, getTable(type));
+			return new ResultSetList(statement.executeQuery(), this, database.getTable(type));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -240,7 +233,19 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	}
 	
 	@Override
-	public Collection<?> find(Variable iterator, AST ast, IEolContext context)
+	public Object findOne(Variable iterator, AST ast, IEolContext context)
+			throws EolRuntimeException {
+		Collection<?> results = find(iterator, ast, context, true);
+		if (results.isEmpty()) return null;
+		else return results.iterator().next();
+	}
+	
+	@Override
+	public java.util.Collection<?> find(Variable iterator, AST ast, IEolContext context) throws EolRuntimeException {
+		return find(iterator, ast, context, false);
+	};
+	
+	public Collection<?> find(Variable iterator, AST ast, IEolContext context, boolean one)
 			throws EolRuntimeException {
 		
 		ArrayList<Object> variables = new ArrayList<Object>();
@@ -259,7 +264,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 				i++;
 			}
 			
-			return new ResultSetList(preparedStatement.executeQuery(), this, getTable(iterator.getType().getName()));
+			return new ResultSetList(preparedStatement.executeQuery(), this, database.getTable(iterator.getType().getName()));
 		} catch (SQLException e) {
 			throw new EolInternalException(e);
 		}
