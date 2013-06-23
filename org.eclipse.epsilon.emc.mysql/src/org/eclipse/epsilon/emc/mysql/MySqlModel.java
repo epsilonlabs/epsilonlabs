@@ -40,7 +40,7 @@ public class MySqlModel extends JdbcModel {
 
 	@Override
 	protected String getJdbcUrl() {
-		return "jdbc:mysql://" + server + ":" + port + "/" + database;
+		return "jdbc:mysql://" + server + ":" + port + "/" + databaseName;
 	}
 
 }
