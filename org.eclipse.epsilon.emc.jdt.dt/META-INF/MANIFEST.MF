@@ -9,5 +9,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.epsilon.common.dt,
  org.eclipse.epsilon.emc.jdt
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.epsilon.emc.jdt.dt

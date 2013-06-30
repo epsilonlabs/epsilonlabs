@@ -28,7 +28,7 @@ public class IJavaProjectOperationContributor extends OperationContributor {
 	}
 	
 	protected ArrayList<IPackageFragment> getPackages(int type) throws JavaModelException {
-		ArrayList<IPackageFragment> packageFragments = new ArrayList<>();
+		ArrayList<IPackageFragment> packageFragments = new ArrayList<IPackageFragment>();
 		for (IPackageFragment pf : getJavaProject().getPackageFragments()) {
 			if (pf.getKind() == type) {
 				packageFragments.add(pf);
