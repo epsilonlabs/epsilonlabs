@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.epsilon.emc.yed.Node#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.Node#getSlots <em>Slots</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.Node#getIncoming <em>Incoming</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.Node#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,39 +96,5 @@ public interface Node extends EObject {
 	 * @generated
 	 */
 	void setType(NodeType value);
-
-	/**
-	 * Returns the value of the '<em><b>Incoming</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.Edge}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.yed.Edge#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Incoming</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming</em>' reference list.
-	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNode_Incoming()
-	 * @see org.eclipse.epsilon.emc.yed.Edge#getTarget
-	 * @model opposite="target"
-	 * @generated
-	 */
-	EList<Edge> getIncoming();
-
-	/**
-	 * Returns the value of the '<em><b>Outgoing</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.Edge}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Outgoing</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing</em>' reference list.
-	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNode_Outgoing()
-	 * @model
-	 * @generated
-	 */
-	EList<Edge> getOutgoing();
 
 } // Node

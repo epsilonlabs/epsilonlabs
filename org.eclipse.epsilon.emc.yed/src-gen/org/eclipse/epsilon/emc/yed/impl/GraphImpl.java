@@ -31,7 +31,6 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.GraphImpl#getTypes <em>Types</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.GraphImpl#getNodes <em>Nodes</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.impl.GraphImpl#getEdges <em>Edges</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,16 +56,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 * @ordered
 	 */
 	protected EList<Node> nodes;
-
-	/**
-	 * The cached value of the '{@link #getEdges() <em>Edges</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEdges()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> edges;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -116,18 +105,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Edge> getEdges() {
-		if (edges == null) {
-			edges = new EObjectContainmentEList<Edge>(Edge.class, this, YedPackage.GRAPH__EDGES);
-		}
-		return edges;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -135,8 +112,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 				return ((InternalEList<?>)getTypes()).basicRemove(otherEnd, msgs);
 			case YedPackage.GRAPH__NODES:
 				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
-			case YedPackage.GRAPH__EDGES:
-				return ((InternalEList<?>)getEdges()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -153,8 +128,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 				return getTypes();
 			case YedPackage.GRAPH__NODES:
 				return getNodes();
-			case YedPackage.GRAPH__EDGES:
-				return getEdges();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,10 +149,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 				getNodes().clear();
 				getNodes().addAll((Collection<? extends Node>)newValue);
 				return;
-			case YedPackage.GRAPH__EDGES:
-				getEdges().clear();
-				getEdges().addAll((Collection<? extends Edge>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -198,9 +167,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 			case YedPackage.GRAPH__NODES:
 				getNodes().clear();
 				return;
-			case YedPackage.GRAPH__EDGES:
-				getEdges().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -217,8 +183,6 @@ public class GraphImpl extends EObjectImpl implements Graph {
 				return types != null && !types.isEmpty();
 			case YedPackage.GRAPH__NODES:
 				return nodes != null && !nodes.isEmpty();
-			case YedPackage.GRAPH__EDGES:
-				return edges != null && !edges.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

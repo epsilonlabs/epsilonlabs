@@ -38,13 +38,14 @@ public class GraphXmlImporter {
 		
 		GraphXmlImporter importer = new GraphXmlImporter();
 		Graph graph = importer.importGraph(new File("/Users/dimitrioskolovos/Desktop/sample.graphml"));
-	
+		
 		YedModel model = new YedModel();
 		model.setName("X");
 		model.setGraph(graph);
 		
 		EolModule module = new EolModule();
-		module.parse("Entity.all.first().admin.collect(f|f.language).println();");
+		//module.parse("Entity.all.first().admin.collect(f|f.language).println();");
+		module.parse("Foo.all.size().println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}
@@ -80,14 +81,7 @@ public class GraphXmlImporter {
 				
 				// Set the type of the node
 				if (!isSlotValueLabel(label) && !isReferenceLabel(label)) {
-					
-					NodeType nodeType = nodeTypeForName(label);
-					if (nodeType == null) {
-						nodeType = YedFactory.eINSTANCE.createNodeType();
-						nodeType.setName(label);
-						graph.getTypes().add(nodeType);
-					}
-					node.setType(nodeType);
+					node.setType(nodeTypeForName(label));
 				}
 				// Add a slot to the node
 				else if (node.getType() != null) {
@@ -118,6 +112,7 @@ public class GraphXmlImporter {
 			slot.getValues().add(target);
 		}
 		
+		// Try to put orphan edge targets to suitable slots
 		for (OrphanEdge orphanEdge : orphanEdges) {
 			Slot slot = findSuitableSlot(orphanEdge.getSource(), orphanEdge.getTarget());
 			if (slot != null) {
@@ -132,7 +127,6 @@ public class GraphXmlImporter {
 	 * multiple values, adjust the multiplicity accordingly
 	 */
 	protected void adjustMultiplicities() {
-		
 		for (Node node : graph.getNodes()) {
 			for (Slot slot : node.getSlots()) {
 				if (!slot.getPrototype().isMany() && slot.getValues().size() > 1) {
@@ -140,7 +134,6 @@ public class GraphXmlImporter {
 				}
 			}
 		}
-		
 	}
 	
 	protected Slot findSuitableSlot(Node source, Node target) {
@@ -257,12 +250,32 @@ public class GraphXmlImporter {
 	}
 	
 	protected NodeType nodeTypeForName(String name) {
+		
+		int gt = name.indexOf(">");
+		
+		if (gt > -1) {
+			
+			String typeName = name.substring(0, gt).trim();
+			String superTypeName = name.substring(gt+1, name.length()).trim();
+
+			NodeType type = nodeTypeForName(typeName);
+			NodeType superType = nodeTypeForName(superTypeName);
+			if (!type.getSuperTypes().contains(superType)) {
+				type.getSuperTypes().add(superType);
+			}
+			return type;
+		}
+		
 		for (Type type : graph.getTypes()) {
 			if (type instanceof NodeType && type.getName().equals(name)) {
 				return (NodeType) type;
 			}
 		}
-		return null;
+		
+		NodeType nodeType = YedFactory.eINSTANCE.createNodeType();
+		nodeType.setName(name);
+		graph.getTypes().add(nodeType);
+		return nodeType;
 	}
 	
 	public IntegerType getIntegerType() {

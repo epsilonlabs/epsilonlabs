@@ -57,7 +57,6 @@ public class YedFactoryImpl extends EFactoryImpl implements YedFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case YedPackage.GRAPH: return createGraph();
-			case YedPackage.EDGE: return createEdge();
 			case YedPackage.NODE: return createNode();
 			case YedPackage.SLOT: return createSlot();
 			case YedPackage.COMPOSITE_TYPE: return createCompositeType();
@@ -80,16 +79,6 @@ public class YedFactoryImpl extends EFactoryImpl implements YedFactory {
 	public Graph createGraph() {
 		GraphImpl graph = new GraphImpl();
 		return graph;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Edge createEdge() {
-		EdgeImpl edge = new EdgeImpl();
-		return edge;
 	}
 
 	/**

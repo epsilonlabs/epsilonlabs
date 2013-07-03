@@ -72,10 +72,6 @@ public class YedAdapterFactory extends AdapterFactoryImpl {
 				return createGraphAdapter();
 			}
 			@Override
-			public Adapter caseEdge(Edge object) {
-				return createEdgeAdapter();
-			}
-			@Override
 			public Adapter caseNode(Node object) {
 				return createNodeAdapter();
 			}
@@ -150,20 +146,6 @@ public class YedAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGraphAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.yed.Edge <em>Edge</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.emc.yed.Edge
-	 * @generated
-	 */
-	public Adapter createEdgeAdapter() {
 		return null;
 	}
 

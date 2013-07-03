@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.yed.Graph#getTypes <em>Types</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.Graph#getNodes <em>Nodes</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.Graph#getEdges <em>Edges</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,21 +55,5 @@ public interface Graph extends EObject {
 	 * @generated
 	 */
 	EList<Node> getNodes();
-
-	/**
-	 * Returns the value of the '<em><b>Edges</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.Edge}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Edges</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Edges</em>' containment reference list.
-	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getGraph_Edges()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Edge> getEdges();
 
 } // Graph

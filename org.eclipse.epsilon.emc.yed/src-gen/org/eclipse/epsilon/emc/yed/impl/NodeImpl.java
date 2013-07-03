@@ -36,8 +36,6 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl#getSlots <em>Slots</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl#getIncoming <em>Incoming</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl#getOutgoing <em>Outgoing</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,26 +81,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @ordered
 	 */
 	protected NodeType type;
-
-	/**
-	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIncoming()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> incoming;
-
-	/**
-	 * The cached value of the '{@link #getOutgoing() <em>Outgoing</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOutgoing()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Edge> outgoing;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -221,30 +199,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Edge> getIncoming() {
-		if (incoming == null) {
-			incoming = new EObjectWithInverseResolvingEList<Edge>(Edge.class, this, YedPackage.NODE__INCOMING, YedPackage.EDGE__TARGET);
-		}
-		return incoming;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Edge> getOutgoing() {
-		if (outgoing == null) {
-			outgoing = new EObjectResolvingEList<Edge>(Edge.class, this, YedPackage.NODE__OUTGOING);
-		}
-		return outgoing;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -255,8 +209,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				if (type != null)
 					msgs = ((InternalEObject)type).eInverseRemove(this, YedPackage.NODE_TYPE__INSTANCES, NodeType.class, msgs);
 				return basicSetType((NodeType)otherEnd, msgs);
-			case YedPackage.NODE__INCOMING:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncoming()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -273,8 +225,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return ((InternalEList<?>)getSlots()).basicRemove(otherEnd, msgs);
 			case YedPackage.NODE__TYPE:
 				return basicSetType(null, msgs);
-			case YedPackage.NODE__INCOMING:
-				return ((InternalEList<?>)getIncoming()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -294,10 +244,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
-			case YedPackage.NODE__INCOMING:
-				return getIncoming();
-			case YedPackage.NODE__OUTGOING:
-				return getOutgoing();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -321,14 +267,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__TYPE:
 				setType((NodeType)newValue);
 				return;
-			case YedPackage.NODE__INCOMING:
-				getIncoming().clear();
-				getIncoming().addAll((Collection<? extends Edge>)newValue);
-				return;
-			case YedPackage.NODE__OUTGOING:
-				getOutgoing().clear();
-				getOutgoing().addAll((Collection<? extends Edge>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -350,12 +288,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__TYPE:
 				setType((NodeType)null);
 				return;
-			case YedPackage.NODE__INCOMING:
-				getIncoming().clear();
-				return;
-			case YedPackage.NODE__OUTGOING:
-				getOutgoing().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -374,10 +306,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 				return slots != null && !slots.isEmpty();
 			case YedPackage.NODE__TYPE:
 				return type != null;
-			case YedPackage.NODE__INCOMING:
-				return incoming != null && !incoming.isEmpty();
-			case YedPackage.NODE__OUTGOING:
-				return outgoing != null && !outgoing.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

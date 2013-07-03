@@ -44,13 +44,6 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass edgeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass nodeEClass = null;
 
 	/**
@@ -216,60 +209,6 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGraph_Edges() {
-		return (EReference)graphEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEdge() {
-		return edgeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEdge_Id() {
-		return (EAttribute)edgeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEdge_Name() {
-		return (EAttribute)edgeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEdge_Target() {
-		return (EReference)edgeEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEdge_Outgoing() {
-		return (EReference)edgeEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getNode() {
 		return nodeEClass;
 	}
@@ -299,24 +238,6 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 */
 	public EReference getNode_Type() {
 		return (EReference)nodeEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNode_Incoming() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNode_Outgoing() {
-		return (EReference)nodeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -486,6 +407,24 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getNodeType_SuperTypes() {
+		return (EReference)nodeTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNodeType_SubTypes() {
+		return (EReference)nodeTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPrimitiveType() {
 		return primitiveTypeEClass;
 	}
@@ -557,20 +496,11 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		graphEClass = createEClass(GRAPH);
 		createEReference(graphEClass, GRAPH__TYPES);
 		createEReference(graphEClass, GRAPH__NODES);
-		createEReference(graphEClass, GRAPH__EDGES);
-
-		edgeEClass = createEClass(EDGE);
-		createEAttribute(edgeEClass, EDGE__ID);
-		createEAttribute(edgeEClass, EDGE__NAME);
-		createEReference(edgeEClass, EDGE__TARGET);
-		createEReference(edgeEClass, EDGE__OUTGOING);
 
 		nodeEClass = createEClass(NODE);
 		createEAttribute(nodeEClass, NODE__ID);
 		createEReference(nodeEClass, NODE__SLOTS);
 		createEReference(nodeEClass, NODE__TYPE);
-		createEReference(nodeEClass, NODE__INCOMING);
-		createEReference(nodeEClass, NODE__OUTGOING);
 
 		slotEClass = createEClass(SLOT);
 		createEAttribute(slotEClass, SLOT__NAME);
@@ -594,6 +524,8 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		nodeTypeEClass = createEClass(NODE_TYPE);
 		createEReference(nodeTypeEClass, NODE_TYPE__INSTANCES);
 		createEReference(nodeTypeEClass, NODE_TYPE__SLOT_PROTOTYPES);
+		createEReference(nodeTypeEClass, NODE_TYPE__SUPER_TYPES);
+		createEReference(nodeTypeEClass, NODE_TYPE__SUB_TYPES);
 
 		primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
 
@@ -646,20 +578,11 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		initEClass(graphEClass, Graph.class, "Graph", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGraph_Types(), this.getType(), null, "types", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGraph_Nodes(), this.getNode(), null, "nodes", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGraph_Edges(), this.getEdge(), null, "edges", null, 0, -1, Graph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(edgeEClass, Edge.class, "Edge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEdge_Id(), ecorePackage.getEString(), "id", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEdge_Name(), ecorePackage.getEString(), "name", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEdge_Target(), this.getNode(), this.getNode_Incoming(), "target", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEdge_Outgoing(), this.getNode(), null, "outgoing", null, 0, 1, Edge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNode_Id(), ecorePackage.getEString(), "id", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_Slots(), this.getSlot(), this.getSlot_OwningNode(), "slots", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNode_Type(), this.getNodeType(), this.getNodeType_Instances(), "type", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNode_Incoming(), this.getEdge(), this.getEdge_Target(), "incoming", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNode_Outgoing(), this.getEdge(), null, "outgoing", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(slotEClass, Slot.class, "Slot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSlot_Name(), ecorePackage.getEString(), "name", null, 0, 1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -683,6 +606,8 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		initEClass(nodeTypeEClass, NodeType.class, "NodeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNodeType_Instances(), this.getNode(), this.getNode_Type(), "instances", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeType_SlotPrototypes(), this.getSlotPrototype(), this.getSlotPrototype_OwningType(), "slotPrototypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNodeType_SuperTypes(), this.getNodeType(), this.getNodeType_SubTypes(), "superTypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNodeType_SubTypes(), this.getNodeType(), this.getNodeType_SuperTypes(), "subTypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

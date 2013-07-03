@@ -31,15 +31,6 @@ public interface YedFactory extends EFactory {
 	Graph createGraph();
 
 	/**
-	 * Returns a new object of class '<em>Edge</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Edge</em>'.
-	 * @generated
-	 */
-	Edge createEdge();
-
-	/**
 	 * Returns a new object of class '<em>Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

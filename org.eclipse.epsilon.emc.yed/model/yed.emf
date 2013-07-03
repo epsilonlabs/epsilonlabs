@@ -5,22 +5,12 @@ package yed;
 class Graph {
 	val Type[*] types;
 	val Node[*] nodes;
-	val Edge[*] edges;
-}
-
-class Edge {
-	attr String ~id;
-	attr String name;
-	ref Node#incoming target;
-	ref Node#source outgoing;
 }
 
 class Node {
 	attr String ~id;
 	val Slot[*]#owningNode slots;
 	ref NodeType#instances type;
-	ref Edge[*]#target incoming;
-	ref Edge[*]#source outgoing;
 }
 
 class Slot {
@@ -49,6 +39,8 @@ class SlotPrototype {
 class NodeType extends Type {
 	ref Node[*]#type instances;
 	val SlotPrototype[*]#owningType slotPrototypes;
+	ref NodeType[*]#subTypes superTypes;
+	ref NodeType[*]#superTypes subTypes;
 }
 
 abstract class PrimitiveType extends Type {}

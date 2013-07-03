@@ -9,20 +9,11 @@
     <genClasses ecoreClass="yed.ecore#//Graph">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference yed.ecore#//Graph/types"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference yed.ecore#//Graph/nodes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference yed.ecore#//Graph/edges"/>
-    </genClasses>
-    <genClasses ecoreClass="yed.ecore#//Edge">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute yed.ecore#//Edge/id"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute yed.ecore#//Edge/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//Edge/target"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//Edge/outgoing"/>
     </genClasses>
     <genClasses ecoreClass="yed.ecore#//Node">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute yed.ecore#//Node/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference yed.ecore#//Node/slots"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//Node/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//Node/incoming"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//Node/outgoing"/>
     </genClasses>
     <genClasses ecoreClass="yed.ecore#//Slot">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute yed.ecore#//Slot/name"/>
@@ -46,6 +37,8 @@
     <genClasses ecoreClass="yed.ecore#//NodeType">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//NodeType/instances"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference yed.ecore#//NodeType/slotPrototypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//NodeType/superTypes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference yed.ecore#//NodeType/subTypes"/>
     </genClasses>
     <genClasses image="false" ecoreClass="yed.ecore#//PrimitiveType"/>
     <genClasses ecoreClass="yed.ecore#//IntegerType"/>

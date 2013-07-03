@@ -14,6 +14,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.yed.NodeType#getInstances <em>Instances</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.NodeType#getSlotPrototypes <em>Slot Prototypes</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.yed.NodeType#getSuperTypes <em>Super Types</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.yed.NodeType#getSubTypes <em>Sub Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,5 +59,41 @@ public interface NodeType extends Type {
 	 * @generated
 	 */
 	EList<SlotPrototype> getSlotPrototypes();
+
+	/**
+	 * Returns the value of the '<em><b>Super Types</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.NodeType}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.yed.NodeType#getSubTypes <em>Sub Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Super Types</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Super Types</em>' reference list.
+	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNodeType_SuperTypes()
+	 * @see org.eclipse.epsilon.emc.yed.NodeType#getSubTypes
+	 * @model opposite="subTypes"
+	 * @generated
+	 */
+	EList<NodeType> getSuperTypes();
+
+	/**
+	 * Returns the value of the '<em><b>Sub Types</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.NodeType}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.yed.NodeType#getSuperTypes <em>Super Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sub Types</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sub Types</em>' reference list.
+	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNodeType_SubTypes()
+	 * @see org.eclipse.epsilon.emc.yed.NodeType#getSuperTypes
+	 * @model opposite="superTypes"
+	 * @generated
+	 */
+	EList<NodeType> getSubTypes();
 
 } // NodeType

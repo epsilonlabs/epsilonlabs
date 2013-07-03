@@ -85,77 +85,13 @@ public interface YedPackage extends EPackage {
 	int GRAPH__NODES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Edges</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GRAPH__EDGES = 2;
-
-	/**
 	 * The number of structural features of the '<em>Graph</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GRAPH_FEATURE_COUNT = 3;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.emc.yed.impl.EdgeImpl <em>Edge</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.emc.yed.impl.EdgeImpl
-	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getEdge()
-	 * @generated
-	 */
-	int EDGE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__ID = 0;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__NAME = 1;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__TARGET = 2;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE__OUTGOING = 3;
-
-	/**
-	 * The number of structural features of the '<em>Edge</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EDGE_FEATURE_COUNT = 4;
+	int GRAPH_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl <em>Node</em>}' class.
@@ -165,7 +101,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getNode()
 	 * @generated
 	 */
-	int NODE = 2;
+	int NODE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -195,31 +131,13 @@ public interface YedPackage extends EPackage {
 	int NODE__TYPE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Incoming</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__INCOMING = 3;
-
-	/**
-	 * The feature id for the '<em><b>Outgoing</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE__OUTGOING = 4;
-
-	/**
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_FEATURE_COUNT = 5;
+	int NODE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl <em>Slot</em>}' class.
@@ -229,7 +147,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getSlot()
 	 * @generated
 	 */
-	int SLOT = 3;
+	int SLOT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -284,7 +202,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 4;
+	int TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -312,7 +230,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getCompositeType()
 	 * @generated
 	 */
-	int COMPOSITE_TYPE = 5;
+	int COMPOSITE_TYPE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -349,7 +267,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getSlotPrototype()
 	 * @generated
 	 */
-	int SLOT_PROTOTYPE = 6;
+	int SLOT_PROTOTYPE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -413,7 +331,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getNodeType()
 	 * @generated
 	 */
-	int NODE_TYPE = 7;
+	int NODE_TYPE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -443,13 +361,31 @@ public interface YedPackage extends EPackage {
 	int NODE_TYPE__SLOT_PROTOTYPES = TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Super Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_TYPE__SUPER_TYPES = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Sub Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_TYPE__SUB_TYPES = TYPE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Node Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+	int NODE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.yed.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
@@ -459,7 +395,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 8;
+	int PRIMITIVE_TYPE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -487,7 +423,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getIntegerType()
 	 * @generated
 	 */
-	int INTEGER_TYPE = 9;
+	int INTEGER_TYPE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -515,7 +451,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getStringType()
 	 * @generated
 	 */
-	int STRING_TYPE = 10;
+	int STRING_TYPE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -543,7 +479,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getBooleanType()
 	 * @generated
 	 */
-	int BOOLEAN_TYPE = 11;
+	int BOOLEAN_TYPE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -571,7 +507,7 @@ public interface YedPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getRealType()
 	 * @generated
 	 */
-	int REAL_TYPE = 12;
+	int REAL_TYPE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -625,71 +561,6 @@ public interface YedPackage extends EPackage {
 	EReference getGraph_Nodes();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.emc.yed.Graph#getEdges <em>Edges</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Edges</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Graph#getEdges()
-	 * @see #getGraph()
-	 * @generated
-	 */
-	EReference getGraph_Edges();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.yed.Edge <em>Edge</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Edge</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Edge
-	 * @generated
-	 */
-	EClass getEdge();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.yed.Edge#getId <em>Id</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Edge#getId()
-	 * @see #getEdge()
-	 * @generated
-	 */
-	EAttribute getEdge_Id();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.yed.Edge#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Edge#getName()
-	 * @see #getEdge()
-	 * @generated
-	 */
-	EAttribute getEdge_Name();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.yed.Edge#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Edge#getTarget()
-	 * @see #getEdge()
-	 * @generated
-	 */
-	EReference getEdge_Target();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.yed.Edge#getOutgoing <em>Outgoing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Outgoing</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Edge#getOutgoing()
-	 * @see #getEdge()
-	 * @generated
-	 */
-	EReference getEdge_Outgoing();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.yed.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -731,28 +602,6 @@ public interface YedPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNode_Type();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.emc.yed.Node#getIncoming <em>Incoming</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Incoming</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Node#getIncoming()
-	 * @see #getNode()
-	 * @generated
-	 */
-	EReference getNode_Incoming();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.emc.yed.Node#getOutgoing <em>Outgoing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Outgoing</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Node#getOutgoing()
-	 * @see #getNode()
-	 * @generated
-	 */
-	EReference getNode_Outgoing();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.yed.Slot <em>Slot</em>}'.
@@ -948,6 +797,28 @@ public interface YedPackage extends EPackage {
 	EReference getNodeType_SlotPrototypes();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.emc.yed.NodeType#getSuperTypes <em>Super Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Super Types</em>'.
+	 * @see org.eclipse.epsilon.emc.yed.NodeType#getSuperTypes()
+	 * @see #getNodeType()
+	 * @generated
+	 */
+	EReference getNodeType_SuperTypes();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.emc.yed.NodeType#getSubTypes <em>Sub Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Sub Types</em>'.
+	 * @see org.eclipse.epsilon.emc.yed.NodeType#getSubTypes()
+	 * @see #getNodeType()
+	 * @generated
+	 */
+	EReference getNodeType_SubTypes();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.yed.PrimitiveType <em>Primitive Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1046,56 +917,6 @@ public interface YedPackage extends EPackage {
 		EReference GRAPH__NODES = eINSTANCE.getGraph_Nodes();
 
 		/**
-		 * The meta object literal for the '<em><b>Edges</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference GRAPH__EDGES = eINSTANCE.getGraph_Edges();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.yed.impl.EdgeImpl <em>Edge</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.emc.yed.impl.EdgeImpl
-		 * @see org.eclipse.epsilon.emc.yed.impl.YedPackageImpl#getEdge()
-		 * @generated
-		 */
-		EClass EDGE = eINSTANCE.getEdge();
-
-		/**
-		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EDGE__ID = eINSTANCE.getEdge_Id();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute EDGE__NAME = eINSTANCE.getEdge_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EDGE__TARGET = eINSTANCE.getEdge_Target();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EDGE__OUTGOING = eINSTANCE.getEdge_Outgoing();
-
-		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.yed.impl.NodeImpl <em>Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1128,22 +949,6 @@ public interface YedPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE__TYPE = eINSTANCE.getNode_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Incoming</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference NODE__INCOMING = eINSTANCE.getNode_Incoming();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference NODE__OUTGOING = eINSTANCE.getNode_Outgoing();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl <em>Slot</em>}' class.
@@ -1298,6 +1103,22 @@ public interface YedPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE_TYPE__SLOT_PROTOTYPES = eINSTANCE.getNodeType_SlotPrototypes();
+
+		/**
+		 * The meta object literal for the '<em><b>Super Types</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE_TYPE__SUPER_TYPES = eINSTANCE.getNodeType_SuperTypes();
+
+		/**
+		 * The meta object literal for the '<em><b>Sub Types</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NODE_TYPE__SUB_TYPES = eINSTANCE.getNodeType_SubTypes();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.yed.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.

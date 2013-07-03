@@ -10,15 +10,6 @@
         eType="#//Type" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//Node" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="edges" upperBound="-1"
-        eType="#//Edge" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Edge">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Node"
-        eOpposite="#//Node/incoming"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" eType="#//Node"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -26,10 +17,6 @@
         eType="#//Slot" containment="true" eOpposite="#//Slot/owningNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//NodeType"
         eOpposite="#//NodeType/instances"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="incoming" upperBound="-1"
-        eType="#//Edge" eOpposite="#//Edge/target"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
-        eType="#//Edge"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Slot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -62,6 +49,10 @@
         eType="#//Node" eOpposite="#//Node/type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="slotPrototypes" upperBound="-1"
         eType="#//SlotPrototype" containment="true" eOpposite="#//SlotPrototype/owningType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superTypes" upperBound="-1"
+        eType="#//NodeType" eOpposite="#//NodeType/subTypes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subTypes" upperBound="-1"
+        eType="#//NodeType" eOpposite="#//NodeType/superTypes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerType" eSuperTypes="#//PrimitiveType"/>

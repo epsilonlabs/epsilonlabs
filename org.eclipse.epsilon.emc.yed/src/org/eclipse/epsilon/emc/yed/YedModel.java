@@ -1,6 +1,10 @@
 package org.eclipse.epsilon.emc.yed;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
@@ -10,6 +14,7 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.models.Model;
+import org.w3c.dom.traversal.NodeFilter;
 
 public class YedModel extends Model {
 	
@@ -54,11 +59,12 @@ public class YedModel extends Model {
 		model.setName("X");
 		model.setGraph(graph);
 		
+		/*
 		EolModule module = new EolModule();
 		module.parse("for (e in Entity.all) { e.name.println(); e.extends.add(e); e.extends.println(); }");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
-		
+		*/
 	}
 	
 	
@@ -97,9 +103,29 @@ public class YedModel extends Model {
 	@Override
 	public Collection<?> getAllOfKind(String type)
 			throws EolModelElementTypeNotFoundException {
-		return getAllOfType(type);
+		
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		for (NodeType nodeType : getAllSubTypes(nodeTypeForName(type))) {
+			nodes.addAll(nodeType.getInstances());
+		}
+		return nodes;
 	}
-
+	
+	protected Set<NodeType> getAllSubTypes(NodeType nodeType) {
+		HashSet<NodeType> allSubTypes = new HashSet<NodeType>();
+		collectAllSubTypes(nodeType, allSubTypes);
+		return allSubTypes;
+	}
+	
+	protected void collectAllSubTypes(NodeType nodeType, Set<NodeType> allSubTypes) {
+		if (!allSubTypes.contains(nodeType)) {
+			allSubTypes.add(nodeType);
+			for (NodeType subType : nodeType.getSubTypes()) {
+				collectAllSubTypes(subType, allSubTypes);
+			}
+		}
+	}
+	
 	@Override
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {

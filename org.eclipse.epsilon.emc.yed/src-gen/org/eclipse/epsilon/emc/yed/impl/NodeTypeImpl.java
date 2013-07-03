@@ -29,6 +29,8 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeTypeImpl#getInstances <em>Instances</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeTypeImpl#getSlotPrototypes <em>Slot Prototypes</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeTypeImpl#getSuperTypes <em>Super Types</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.yed.impl.NodeTypeImpl#getSubTypes <em>Sub Types</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,6 +56,26 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 	 * @ordered
 	 */
 	protected EList<SlotPrototype> slotPrototypes;
+
+	/**
+	 * The cached value of the '{@link #getSuperTypes() <em>Super Types</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuperTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NodeType> superTypes;
+
+	/**
+	 * The cached value of the '{@link #getSubTypes() <em>Sub Types</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubTypes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NodeType> subTypes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,6 +125,30 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<NodeType> getSuperTypes() {
+		if (superTypes == null) {
+			superTypes = new EObjectWithInverseResolvingEList.ManyInverse<NodeType>(NodeType.class, this, YedPackage.NODE_TYPE__SUPER_TYPES, YedPackage.NODE_TYPE__SUB_TYPES);
+		}
+		return superTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<NodeType> getSubTypes() {
+		if (subTypes == null) {
+			subTypes = new EObjectWithInverseResolvingEList.ManyInverse<NodeType>(NodeType.class, this, YedPackage.NODE_TYPE__SUB_TYPES, YedPackage.NODE_TYPE__SUPER_TYPES);
+		}
+		return subTypes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -111,6 +157,10 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInstances()).basicAdd(otherEnd, msgs);
 			case YedPackage.NODE_TYPE__SLOT_PROTOTYPES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSlotPrototypes()).basicAdd(otherEnd, msgs);
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSuperTypes()).basicAdd(otherEnd, msgs);
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSubTypes()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -127,6 +177,10 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 				return ((InternalEList<?>)getInstances()).basicRemove(otherEnd, msgs);
 			case YedPackage.NODE_TYPE__SLOT_PROTOTYPES:
 				return ((InternalEList<?>)getSlotPrototypes()).basicRemove(otherEnd, msgs);
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				return ((InternalEList<?>)getSuperTypes()).basicRemove(otherEnd, msgs);
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				return ((InternalEList<?>)getSubTypes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -143,6 +197,10 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 				return getInstances();
 			case YedPackage.NODE_TYPE__SLOT_PROTOTYPES:
 				return getSlotPrototypes();
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				return getSuperTypes();
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				return getSubTypes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -164,6 +222,14 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 				getSlotPrototypes().clear();
 				getSlotPrototypes().addAll((Collection<? extends SlotPrototype>)newValue);
 				return;
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				getSuperTypes().clear();
+				getSuperTypes().addAll((Collection<? extends NodeType>)newValue);
+				return;
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				getSubTypes().clear();
+				getSubTypes().addAll((Collection<? extends NodeType>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -182,6 +248,12 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 			case YedPackage.NODE_TYPE__SLOT_PROTOTYPES:
 				getSlotPrototypes().clear();
 				return;
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				getSuperTypes().clear();
+				return;
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				getSubTypes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -198,6 +270,10 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 				return instances != null && !instances.isEmpty();
 			case YedPackage.NODE_TYPE__SLOT_PROTOTYPES:
 				return slotPrototypes != null && !slotPrototypes.isEmpty();
+			case YedPackage.NODE_TYPE__SUPER_TYPES:
+				return superTypes != null && !superTypes.isEmpty();
+			case YedPackage.NODE_TYPE__SUB_TYPES:
+				return subTypes != null && !subTypes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
