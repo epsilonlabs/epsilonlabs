@@ -254,7 +254,7 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSlot_Name() {
+	public EAttribute getSlot_Values() {
 		return (EAttribute)slotEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -263,17 +263,8 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSlot_Values() {
-		return (EAttribute)slotEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getSlot_Prototype() {
-		return (EReference)slotEClass.getEStructuralFeatures().get(2);
+		return (EReference)slotEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -282,7 +273,7 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 	 * @generated
 	 */
 	public EReference getSlot_OwningNode() {
-		return (EReference)slotEClass.getEStructuralFeatures().get(3);
+		return (EReference)slotEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -503,7 +494,6 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		createEReference(nodeEClass, NODE__TYPE);
 
 		slotEClass = createEClass(SLOT);
-		createEAttribute(slotEClass, SLOT__NAME);
 		createEAttribute(slotEClass, SLOT__VALUES);
 		createEReference(slotEClass, SLOT__PROTOTYPE);
 		createEReference(slotEClass, SLOT__OWNING_NODE);
@@ -585,7 +575,6 @@ public class YedPackageImpl extends EPackageImpl implements YedPackage {
 		initEReference(getNode_Type(), this.getNodeType(), this.getNodeType_Instances(), "type", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(slotEClass, Slot.class, "Slot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSlot_Name(), ecorePackage.getEString(), "name", null, 0, 1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSlot_Values(), ecorePackage.getEJavaObject(), "values", null, 0, -1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSlot_Prototype(), this.getSlotPrototype(), this.getSlotPrototype_Slots(), "prototype", null, 0, 1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSlot_OwningNode(), this.getNode(), this.getNode_Slots(), "owningNode", null, 0, 1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

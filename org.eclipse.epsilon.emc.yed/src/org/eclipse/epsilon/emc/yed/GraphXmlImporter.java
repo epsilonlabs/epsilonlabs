@@ -33,6 +33,7 @@ public class GraphXmlImporter {
 	protected Element graphElement = null;
 	protected Namespace namespace;
 	protected List<OrphanEdge> orphanEdges;
+	protected List<String> extraKeys;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -44,7 +45,9 @@ public class GraphXmlImporter {
 		model.setGraph(graph);
 		
 		EolModule module = new EolModule();
-		module.parse("Entity.all.second().admin.collect(f|f.language).println();");
+		
+		//module.parse("Admin.all.collect(a|a.language).println();");
+		module.parse("Entity.all.second().admin.collect(a|a.language).println();");
 		//module.parse("Foo.all.size().println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
@@ -55,6 +58,8 @@ public class GraphXmlImporter {
 		graph = YedFactory.eINSTANCE.createGraph();
 		nodeMap = new HashMap<String, Node>();
 		orphanEdges = new ArrayList<OrphanEdge>();
+		extraKeys = new ArrayList<String>();
+		extraKeys.add("d6");
 		
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(file);
@@ -260,16 +265,30 @@ public class GraphXmlImporter {
 		if (e.getName().equals("edge")) labelTag = "EdgeLabel";
 		List<String> labels = new ArrayList<String>();
 		for (Element labelElement : getDescendants(e, labelTag)) {
-			String label = labelElement.getText().trim();
-			for (String line : label.split("\\n")) {
-				labels.add(line.trim());
+			labels.addAll(getLabels(labelElement.getText()));
+		}
+		
+		for (Element descriptionElement : getDescendants(e, "data")) {
+			if (extraKeys.contains(descriptionElement.getAttributeValue("key"))) {
+				labels.addAll(getLabels(descriptionElement.getText()));
+			}
+		}
+		return labels;
+	}
+	
+	protected List<String> getLabels(String s) {
+		List<String> labels = new ArrayList<String>();
+		s = s.trim();
+		for (String label : s.split("\\n")) {
+			if (label.trim().length() > 0) {
+				labels.add(label.trim());
 			}
 		}
 		return labels;
 	}
 	
 	protected List<Element> getDescendants(Element node, final String name) {
-		List<Element> labels = new ArrayList<>();
+		List<Element> descendants = new ArrayList<>();
 		Iterator iterator = node.getDescendants(new Filter() {
 			@Override
 			public boolean matches(Object o) {
@@ -277,9 +296,9 @@ public class GraphXmlImporter {
 			}
 		});
 		while (iterator.hasNext()) {
-			labels.add((Element) iterator.next());
+			descendants.add((Element) iterator.next());
 		}
-		return labels;
+		return descendants;
 	}
 	
 	protected List<Element> getNodeElements() {
@@ -341,5 +360,16 @@ public class GraphXmlImporter {
 	
 	public RealType getRealType() {
 		return realType;
+	}
+	
+	/**
+	 * The extra data keys of interest in
+	 * the input .graphml file. By default
+	 * it contains "d6" which corresponds
+	 * to the description element in yEd
+	 * @return
+	 */
+	public List<String> getExtraKeys() {
+		return extraKeys;
 	}
 }

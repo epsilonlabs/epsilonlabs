@@ -14,7 +14,6 @@ class Node {
 }
 
 class Slot {
-	attr String name;
 	attr EJavaObject[*] values;
 	ref SlotPrototype#slots prototype;
 	ref Node#slots owningNode;

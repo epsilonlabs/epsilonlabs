@@ -150,22 +150,13 @@ public interface YedPackage extends EPackage {
 	int SLOT = 2;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SLOT__NAME = 0;
-
-	/**
 	 * The feature id for the '<em><b>Values</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT__VALUES = 1;
+	int SLOT__VALUES = 0;
 
 	/**
 	 * The feature id for the '<em><b>Prototype</b></em>' reference.
@@ -174,7 +165,7 @@ public interface YedPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT__PROTOTYPE = 2;
+	int SLOT__PROTOTYPE = 1;
 
 	/**
 	 * The feature id for the '<em><b>Owning Node</b></em>' container reference.
@@ -183,7 +174,7 @@ public interface YedPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT__OWNING_NODE = 3;
+	int SLOT__OWNING_NODE = 2;
 
 	/**
 	 * The number of structural features of the '<em>Slot</em>' class.
@@ -192,7 +183,7 @@ public interface YedPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT_FEATURE_COUNT = 4;
+	int SLOT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.yed.impl.TypeImpl <em>Type</em>}' class.
@@ -614,17 +605,6 @@ public interface YedPackage extends EPackage {
 	EClass getSlot();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.yed.Slot#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.epsilon.emc.yed.Slot#getName()
-	 * @see #getSlot()
-	 * @generated
-	 */
-	EAttribute getSlot_Name();
-
-	/**
 	 * Returns the meta object for the attribute list '{@link org.eclipse.epsilon.emc.yed.Slot#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -959,14 +939,6 @@ public interface YedPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SLOT = eINSTANCE.getSlot();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SLOT__NAME = eINSTANCE.getSlot_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Values</b></em>' attribute list feature.

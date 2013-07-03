@@ -28,7 +28,6 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl#getValues <em>Values</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl#getPrototype <em>Prototype</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.yed.impl.SlotImpl#getOwningNode <em>Owning Node</em>}</li>
@@ -38,26 +37,6 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  * @generated
  */
 public class SlotImpl extends EObjectImpl implements Slot {
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -95,27 +74,6 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	@Override
 	protected EClass eStaticClass() {
 		return YedPackage.Literals.SLOT;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, YedPackage.SLOT__NAME, oldName, name));
 	}
 
 	/**
@@ -289,8 +247,6 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case YedPackage.SLOT__NAME:
-				return getName();
 			case YedPackage.SLOT__VALUES:
 				return getValues();
 			case YedPackage.SLOT__PROTOTYPE:
@@ -311,9 +267,6 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case YedPackage.SLOT__NAME:
-				setName((String)newValue);
-				return;
 			case YedPackage.SLOT__VALUES:
 				getValues().clear();
 				getValues().addAll((Collection<? extends Object>)newValue);
@@ -336,9 +289,6 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case YedPackage.SLOT__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case YedPackage.SLOT__VALUES:
 				getValues().clear();
 				return;
@@ -360,8 +310,6 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case YedPackage.SLOT__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case YedPackage.SLOT__VALUES:
 				return values != null && !values.isEmpty();
 			case YedPackage.SLOT__PROTOTYPE:
@@ -382,9 +330,7 @@ public class SlotImpl extends EObjectImpl implements Slot {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", values: ");
+		result.append(" (values: ");
 		result.append(values);
 		result.append(')');
 		return result.toString();
