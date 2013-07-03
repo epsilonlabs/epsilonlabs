@@ -44,7 +44,7 @@ public class GraphXmlImporter {
 		model.setGraph(graph);
 		
 		EolModule module = new EolModule();
-		module.parse("Entity.all.first().admin.collect(f|f.age).println();");
+		module.parse("Entity.all.first().admin.collect(f|f.language).println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}

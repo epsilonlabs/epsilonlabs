@@ -1,13 +1,5 @@
 package org.eclipse.epsilon.emc.yed;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.lang.model.type.PrimitiveType;
-
-import org.eclipse.epsilon.emc.yed.SlotPrototype;
-import org.eclipse.epsilon.emc.yed.YedFactory;
-import org.eclipse.ui.internal.preferences.PropertyListenerList;
 
 public class ValuedSlotPrototypeLabelParser {
 	
@@ -60,9 +52,9 @@ public class ValuedSlotPrototypeLabelParser {
 		prototype.setMany(many);
 		
 		if (typeLabel != null) {
-			if (typeLabel.equals("Integer")) prototype.setType(PrimitiveTypes.getIntegerType());
-			else if (typeLabel.equals("Boolean")) prototype.setType(PrimitiveTypes.getBooleanType());
-			else if (typeLabel.equals("Real")) prototype.setType(PrimitiveTypes.getRealType());
+			if (typeLabel.equalsIgnoreCase("Integer") || typeLabel.equals("int")) prototype.setType(PrimitiveTypes.getIntegerType());
+			else if (typeLabel.equalsIgnoreCase("Boolean") || typeLabel.equals("bool")) prototype.setType(PrimitiveTypes.getBooleanType());
+			else if (typeLabel.equalsIgnoreCase("Real") || typeLabel.equalsIgnoreCase("real")) prototype.setType(PrimitiveTypes.getRealType());
 			else prototype.setType(PrimitiveTypes.getStringType());
 		}
 		
