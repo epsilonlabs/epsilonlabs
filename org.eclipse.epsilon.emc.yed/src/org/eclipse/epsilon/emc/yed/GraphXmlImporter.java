@@ -32,6 +32,7 @@ public class GraphXmlImporter {
 	protected HashMap<String, Node> nodeMap;
 	protected Element graphElement = null;
 	protected Namespace namespace;
+	protected List<OrphanEdge> orphanEdges;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -43,7 +44,7 @@ public class GraphXmlImporter {
 		model.setGraph(graph);
 		
 		EolModule module = new EolModule();
-		module.parse("Field.all.collect(f|f.name).println();");
+		module.parse("Entity.all.first().admin.collect(f|f.age).println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}
@@ -52,6 +53,7 @@ public class GraphXmlImporter {
 		
 		graph = YedFactory.eINSTANCE.createGraph();
 		nodeMap = new HashMap<String, Node>();
+		orphanEdges = new ArrayList<OrphanEdge>();
 		
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(file);
@@ -60,20 +62,14 @@ public class GraphXmlImporter {
 		
 		graphElement = root.getChild("graph", namespace);
 		createNodes();
-		
-		/*
-		for (Element edgeElement : getEdgeElements()) {
-			System.err.println(edgeElement.getAttributeValue("source") + "->" + edgeElement.getAttributeValue("target"));
-			for (Element label : getDescendants(edgeElement, "EdgeLabel")) {
-				System.err.println(label.getText().trim());
-			}
-		}*/
+		adjustMultiplicities();
 		
 		return graph;
 	}
 	
 	protected void createNodes() {
 		
+		// Process node elements
 		for (Element nodeElement : getNodeElements()) {
 			Node node = YedFactory.eINSTANCE.createNode();
 			node.setId(nodeElement.getAttributeValue("id"));
@@ -83,7 +79,8 @@ public class GraphXmlImporter {
 			for (String label : getLabels(nodeElement)) {
 				
 				// Set the type of the node
-				if (label.indexOf("=") == -1 && !label.startsWith("@")) {
+				if (!isSlotValueLabel(label) && !isReferenceLabel(label)) {
+					
 					NodeType nodeType = nodeTypeForName(label);
 					if (nodeType == null) {
 						nodeType = YedFactory.eINSTANCE.createNodeType();
@@ -104,14 +101,83 @@ public class GraphXmlImporter {
 			}
 		}
 		
+		// Process edge elements
 		for (Element edgeElement : getEdgeElements()) {
 			Node source = nodeMap.get(edgeElement.getAttributeValue("source"));
 			Node target = nodeMap.get(edgeElement.getAttributeValue("target"));
 			
+			String label = getFirstLabel(edgeElement);
+			if (label == null) {
+				orphanEdges.add(new OrphanEdge(source, target));
+				continue;
+			}
 			
-			
+			SlotPrototype prototype = new EdgePrototypeLabelParser(label).getPrototype();
+			Slot slot = addSlot(source, prototype);
+			slot.setPrototype(addSlotPrototype(source.getType(), prototype));
+			slot.getValues().add(target);
 		}
 		
+		for (OrphanEdge orphanEdge : orphanEdges) {
+			Slot slot = findSuitableSlot(orphanEdge.getSource(), orphanEdge.getTarget());
+			if (slot != null) {
+				slot.getValues().add(orphanEdge.getTarget());
+			}
+		}
+		
+	}
+	
+	/**
+	 * If single-valued slots are found to have
+	 * multiple values, adjust the multiplicity accordingly
+	 */
+	protected void adjustMultiplicities() {
+		
+		for (Node node : graph.getNodes()) {
+			for (Slot slot : node.getSlots()) {
+				if (!slot.getPrototype().isMany() && slot.getValues().size() > 1) {
+					slot.getPrototype().setMany(true);
+				}
+			}
+		}
+		
+	}
+	
+	protected Slot findSuitableSlot(Node source, Node target) {
+		SlotPrototype slotPrototype = findSuitableSlotPrototype(source.getType(), target);
+		if (slotPrototype == null) return null;
+		for (Slot slot : source.getSlots()) {
+			if (slot.getPrototype() == slotPrototype) {
+				return slot;
+			}
+		}
+		
+		Slot slot = YedFactory.eINSTANCE.createSlot();
+		slot.setPrototype(slotPrototype);
+		source.getSlots().add(slot);
+		return slot;
+		
+	}
+	
+	protected SlotPrototype findSuitableSlotPrototype(NodeType type, Node value) {
+		for (SlotPrototype slotPrototype : type.getSlotPrototypes()) {
+			for (Slot slot : slotPrototype.getSlots()) {
+				for (Object existingValue : slot.getValues()) {
+					if (existingValue instanceof Node && ((Node) existingValue).getType().equals(value.getType())) {
+						return slotPrototype;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	protected boolean isReferenceLabel(String label) {
+		return label.startsWith("@");
+	}
+	
+	protected boolean isSlotValueLabel(String label) {
+		return label.indexOf('=') > -1;
 	}
 	
 	protected Slot addSlot(Node node, SlotPrototype prototype) {
@@ -139,6 +205,12 @@ public class GraphXmlImporter {
 		}
 		nodeType.getSlotPrototypes().add(prototype);
 		return prototype;
+	}
+	
+	protected String getFirstLabel(Element e) {
+		List<String> labels = getLabels(e);
+		if (labels.size() > 0) return labels.get(0);
+		else return null;
 	}
 	
 	protected List<String> getLabels(Element e) {
