@@ -44,8 +44,8 @@ public class GraphXmlImporter {
 		model.setGraph(graph);
 		
 		EolModule module = new EolModule();
-		//module.parse("Entity.all.first().admin.collect(f|f.language).println();");
-		module.parse("Foo.all.size().println();");
+		module.parse("Entity.all.second().admin.collect(f|f.language).println();");
+		//module.parse("Foo.all.size().println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 	}
@@ -95,6 +95,13 @@ public class GraphXmlImporter {
 			}
 		}
 		
+		for (Element referenceElement : getNodeElements()) {
+			Node node = findReferenceTarget(referenceElement);
+			if (node != null) {
+				nodeMap.put(referenceElement.getAttributeValue("id"), node);
+			}
+		}
+		
 		// Process edge elements
 		for (Element edgeElement : getEdgeElements()) {
 			Node source = nodeMap.get(edgeElement.getAttributeValue("source"));
@@ -120,6 +127,48 @@ public class GraphXmlImporter {
 			}
 		}
 		
+	}
+	
+	protected Node findReferenceTarget(Element referenceElement) {
+		String referenceType = null;
+		
+		for (String label : getLabels(referenceElement)) {
+			if (isReferenceLabel(label)) {
+				referenceType = label.trim().substring(1);
+				break;
+			}
+		}
+		
+		if (referenceType == null) return null;
+		
+		NodeType nodeType = nodeTypeForName(referenceType);
+		
+		for (Node node : nodeType.getInstances()) {
+			if (matches(node, referenceElement)) {
+				return node;
+			}
+		}
+		
+		return null;
+		
+	}
+	
+	protected boolean matches(Node node, Element referenceElement) {
+		for (String label : getLabels(referenceElement)) {
+			if (isReferenceLabel(label)) continue;
+			ValuedSlotPrototypeLabelParser parser = new ValuedSlotPrototypeLabelParser(label);
+			Slot slot = findSlot(node, parser.getPrototype().getName());
+			if (slot == null) return false;
+			if (!slot.getValues().contains(parser.getValue())) return false;
+		}
+		return true;
+	}
+	
+	protected Slot findSlot(Node node, String slotName) {
+		for (Slot slot : node.getSlots()) {
+			if (slot.getPrototype().getName().equals(slotName)) return slot;
+		}
+		return null;
 	}
 	
 	/**
