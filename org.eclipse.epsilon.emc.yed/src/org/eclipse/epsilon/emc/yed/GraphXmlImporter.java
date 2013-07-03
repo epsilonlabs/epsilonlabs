@@ -104,6 +104,14 @@ public class GraphXmlImporter {
 			}
 		}
 		
+		for (Element edgeElement : getEdgeElements()) {
+			Node source = nodeMap.get(edgeElement.getAttributeValue("source"));
+			Node target = nodeMap.get(edgeElement.getAttributeValue("target"));
+			
+			
+			
+		}
+		
 	}
 	
 	protected Slot addSlot(Node node, SlotPrototype prototype) {
