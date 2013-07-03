@@ -22,6 +22,7 @@ public class YedModelPropertyGetter extends AbstractPropertyGetter {
 			slot.setName(prototype.getName());
 			slot.setPrototype(prototype);
 			slot.setValue(getDefaultSlotValue(prototype));
+			node.getSlots().add(slot);
 		}
 		
 		return slot.getValue();

@@ -49,7 +49,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owningType" eType="#//NodeType"
         eOpposite="#//NodeType/slotPrototypes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="slots" upperBound="-1"
@@ -57,7 +57,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeType" eSuperTypes="#//Type">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instances" upperBound="-1"
-        eType="#//Node" containment="true" eOpposite="#//Node/type"/>
+        eType="#//Node" eOpposite="#//Node/type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="slotPrototypes" upperBound="-1"
         eType="#//SlotPrototype" containment="true" eOpposite="#//SlotPrototype/owningType"/>
   </eClassifiers>

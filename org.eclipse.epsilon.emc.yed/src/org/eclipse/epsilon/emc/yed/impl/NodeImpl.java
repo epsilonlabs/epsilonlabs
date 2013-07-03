@@ -78,6 +78,16 @@ public class NodeImpl extends EObjectImpl implements Node {
 	protected EList<Slot> slots;
 
 	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected NodeType type;
+
+	/**
 	 * The cached value of the '{@link #getIncoming() <em>Incoming</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -155,8 +165,24 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public NodeType getType() {
-		if (eContainerFeatureID() != YedPackage.NODE__TYPE) return null;
-		return (NodeType)eInternalContainer();
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (NodeType)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, YedPackage.NODE__TYPE, oldType, type));
+			}
+		}
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NodeType basicGetType() {
+		return type;
 	}
 
 	/**
@@ -165,7 +191,12 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public NotificationChain basicSetType(NodeType newType, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newType, YedPackage.NODE__TYPE, msgs);
+		NodeType oldType = type;
+		type = newType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, YedPackage.NODE__TYPE, oldType, newType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
 		return msgs;
 	}
 
@@ -175,12 +206,10 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	public void setType(NodeType newType) {
-		if (newType != eInternalContainer() || (eContainerFeatureID() != YedPackage.NODE__TYPE && newType != null)) {
-			if (EcoreUtil.isAncestor(this, newType))
-				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+		if (newType != type) {
 			NotificationChain msgs = null;
-			if (eInternalContainer() != null)
-				msgs = eBasicRemoveFromContainer(msgs);
+			if (type != null)
+				msgs = ((InternalEObject)type).eInverseRemove(this, YedPackage.NODE_TYPE__INSTANCES, NodeType.class, msgs);
 			if (newType != null)
 				msgs = ((InternalEObject)newType).eInverseAdd(this, YedPackage.NODE_TYPE__INSTANCES, NodeType.class, msgs);
 			msgs = basicSetType(newType, msgs);
@@ -226,8 +255,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__SLOTS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getSlots()).basicAdd(otherEnd, msgs);
 			case YedPackage.NODE__TYPE:
-				if (eInternalContainer() != null)
-					msgs = eBasicRemoveFromContainer(msgs);
+				if (type != null)
+					msgs = ((InternalEObject)type).eInverseRemove(this, YedPackage.NODE_TYPE__INSTANCES, NodeType.class, msgs);
 				return basicSetType((NodeType)otherEnd, msgs);
 			case YedPackage.NODE__INCOMING:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncoming()).basicAdd(otherEnd, msgs);
@@ -259,20 +288,6 @@ public class NodeImpl extends EObjectImpl implements Node {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID()) {
-			case YedPackage.NODE__TYPE:
-				return eInternalContainer().eInverseRemove(this, YedPackage.NODE_TYPE__INSTANCES, NodeType.class, msgs);
-		}
-		return super.eBasicRemoveFromContainerFeature(msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case YedPackage.NODE__ID:
@@ -280,7 +295,8 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__SLOTS:
 				return getSlots();
 			case YedPackage.NODE__TYPE:
-				return getType();
+				if (resolve) return getType();
+				return basicGetType();
 			case YedPackage.NODE__INCOMING:
 				return getIncoming();
 			case YedPackage.NODE__OUTGOING:
@@ -360,7 +376,7 @@ public class NodeImpl extends EObjectImpl implements Node {
 			case YedPackage.NODE__SLOTS:
 				return slots != null && !slots.isEmpty();
 			case YedPackage.NODE__TYPE:
-				return getType() != null;
+				return type != null;
 			case YedPackage.NODE__INCOMING:
 				return incoming != null && !incoming.isEmpty();
 			case YedPackage.NODE__OUTGOING:

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface NodeType extends Type {
 	/**
-	 * Returns the value of the '<em><b>Instances</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Instances</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.emc.yed.Node}.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
@@ -34,10 +34,10 @@ public interface NodeType extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Instances</em>' containment reference list.
+	 * @return the value of the '<em>Instances</em>' reference list.
 	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNodeType_Instances()
 	 * @see org.eclipse.epsilon.emc.yed.Node#getType
-	 * @model opposite="type" containment="true"
+	 * @model opposite="type"
 	 * @generated
 	 */
 	EList<Node> getInstances();

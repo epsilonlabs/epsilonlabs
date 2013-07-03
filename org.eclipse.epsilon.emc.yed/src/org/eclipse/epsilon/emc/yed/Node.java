@@ -72,7 +72,7 @@ public interface Node extends EObject {
 	EList<Slot> getSlots();
 
 	/**
-	 * Returns the value of the '<em><b>Type</b></em>' container reference.
+	 * Returns the value of the '<em><b>Type</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.yed.NodeType#getInstances <em>Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -80,20 +80,20 @@ public interface Node extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' container reference.
+	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(NodeType)
 	 * @see org.eclipse.epsilon.emc.yed.YedPackage#getNode_Type()
 	 * @see org.eclipse.epsilon.emc.yed.NodeType#getInstances
-	 * @model opposite="instances" transient="false"
+	 * @model opposite="instances"
 	 * @generated
 	 */
 	NodeType getType();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}' container reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' container reference.
+	 * @param value the new value of the '<em>Type</em>' reference.
 	 * @see #getType()
 	 * @generated
 	 */

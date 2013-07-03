@@ -85,7 +85,7 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	protected boolean many = MANY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getType()
@@ -171,6 +171,14 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 * @generated
 	 */
 	public Type getType() {
+		if (type != null && type.eIsProxy()) {
+			InternalEObject oldType = (InternalEObject)type;
+			type = (Type)eResolveProxy(oldType);
+			if (type != oldType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, YedPackage.SLOT_PROTOTYPE__TYPE, oldType, type));
+			}
+		}
 		return type;
 	}
 
@@ -179,14 +187,8 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetType(Type newType, NotificationChain msgs) {
-		Type oldType = type;
-		type = newType;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, YedPackage.SLOT_PROTOTYPE__TYPE, oldType, newType);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public Type basicGetType() {
+		return type;
 	}
 
 	/**
@@ -195,17 +197,10 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 * @generated
 	 */
 	public void setType(Type newType) {
-		if (newType != type) {
-			NotificationChain msgs = null;
-			if (type != null)
-				msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - YedPackage.SLOT_PROTOTYPE__TYPE, null, msgs);
-			if (newType != null)
-				msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - YedPackage.SLOT_PROTOTYPE__TYPE, null, msgs);
-			msgs = basicSetType(newType, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, YedPackage.SLOT_PROTOTYPE__TYPE, newType, newType));
+		Type oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, YedPackage.SLOT_PROTOTYPE__TYPE, oldType, type));
 	}
 
 	/**
@@ -288,8 +283,6 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case YedPackage.SLOT_PROTOTYPE__TYPE:
-				return basicSetType(null, msgs);
 			case YedPackage.SLOT_PROTOTYPE__OWNING_TYPE:
 				return basicSetOwningType(null, msgs);
 			case YedPackage.SLOT_PROTOTYPE__SLOTS:
@@ -325,7 +318,8 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 			case YedPackage.SLOT_PROTOTYPE__MANY:
 				return isMany();
 			case YedPackage.SLOT_PROTOTYPE__TYPE:
-				return getType();
+				if (resolve) return getType();
+				return basicGetType();
 			case YedPackage.SLOT_PROTOTYPE__OWNING_TYPE:
 				return getOwningType();
 			case YedPackage.SLOT_PROTOTYPE__SLOTS:

@@ -41,13 +41,13 @@ class CompositeType extends Type {
 class SlotPrototype {
 	attr String name;
 	attr boolean many = false;
-	val Type type;
+	ref Type type;
 	ref NodeType#slotPrototypes owningType;
 	ref Slot[*]#prototype slots;
 }
 
 class NodeType extends Type {
-	val Node[*]#type instances;
+	ref Node[*]#type instances;
 	val SlotPrototype[*]#owningType slotPrototypes;
 }
 

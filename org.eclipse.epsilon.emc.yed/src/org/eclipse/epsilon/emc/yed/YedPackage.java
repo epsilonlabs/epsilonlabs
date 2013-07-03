@@ -186,7 +186,7 @@ public interface YedPackage extends EPackage {
 	int NODE__SLOTS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' container reference.
+	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -371,7 +371,7 @@ public interface YedPackage extends EPackage {
 	int SLOT_PROTOTYPE__MANY = 1;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -426,7 +426,7 @@ public interface YedPackage extends EPackage {
 	int NODE_TYPE__NAME = TYPE__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -723,10 +723,10 @@ public interface YedPackage extends EPackage {
 	EReference getNode_Slots();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.yed.Node#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Type</em>'.
+	 * @return the meta object for the reference '<em>Type</em>'.
 	 * @see org.eclipse.epsilon.emc.yed.Node#getType()
 	 * @see #getNode()
 	 * @generated
@@ -884,10 +884,10 @@ public interface YedPackage extends EPackage {
 	EAttribute getSlotPrototype_Many();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.emc.yed.SlotPrototype#getType <em>Type</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.yed.SlotPrototype#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Type</em>'.
+	 * @return the meta object for the reference '<em>Type</em>'.
 	 * @see org.eclipse.epsilon.emc.yed.SlotPrototype#getType()
 	 * @see #getSlotPrototype()
 	 * @generated
@@ -927,10 +927,10 @@ public interface YedPackage extends EPackage {
 	EClass getNodeType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.emc.yed.NodeType#getInstances <em>Instances</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.emc.yed.NodeType#getInstances <em>Instances</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Instances</em>'.
+	 * @return the meta object for the reference list '<em>Instances</em>'.
 	 * @see org.eclipse.epsilon.emc.yed.NodeType#getInstances()
 	 * @see #getNodeType()
 	 * @generated
@@ -1123,7 +1123,7 @@ public interface YedPackage extends EPackage {
 		EReference NODE__SLOTS = eINSTANCE.getNode_Slots();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' container reference feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1251,7 +1251,7 @@ public interface YedPackage extends EPackage {
 		EAttribute SLOT_PROTOTYPE__MANY = eINSTANCE.getSlotPrototype_Many();
 
 		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -1285,7 +1285,7 @@ public interface YedPackage extends EPackage {
 		EClass NODE_TYPE = eINSTANCE.getNodeType();
 
 		/**
-		 * The meta object literal for the '<em><b>Instances</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Instances</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

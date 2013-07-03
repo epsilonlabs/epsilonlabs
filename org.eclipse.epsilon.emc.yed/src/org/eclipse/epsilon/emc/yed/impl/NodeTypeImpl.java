@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.emc.yed.Node;
@@ -39,7 +40,7 @@ import org.eclipse.epsilon.emc.yed.YedPackage;
  */
 public class NodeTypeImpl extends TypeImpl implements NodeType {
 	/**
-	 * The cached value of the '{@link #getInstances() <em>Instances</em>}' containment reference list.
+	 * The cached value of the '{@link #getInstances() <em>Instances</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInstances()
@@ -84,7 +85,7 @@ public class NodeTypeImpl extends TypeImpl implements NodeType {
 	 */
 	public EList<Node> getInstances() {
 		if (instances == null) {
-			instances = new EObjectContainmentWithInverseEList<Node>(Node.class, this, YedPackage.NODE_TYPE__INSTANCES, YedPackage.NODE__TYPE);
+			instances = new EObjectWithInverseResolvingEList<Node>(Node.class, this, YedPackage.NODE_TYPE__INSTANCES, YedPackage.NODE__TYPE);
 		}
 		return instances;
 	}

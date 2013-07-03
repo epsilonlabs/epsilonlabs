@@ -2,6 +2,7 @@ package org.eclipse.epsilon.emc.yed;
 
 import java.util.Collection;
 
+import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
@@ -13,7 +14,7 @@ import org.eclipse.epsilon.eol.models.Model;
 public class YedModel extends Model {
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		Graph graph = YedFactory.eINSTANCE.createGraph();
 		IntegerType integerType = YedFactory.eINSTANCE.createIntegerType();
@@ -26,21 +27,42 @@ public class YedModel extends Model {
 		graph.getTypes().add(entityType);
 		
 		SlotPrototype namePrototype = YedFactory.eINSTANCE.createSlotPrototype();
+		namePrototype.setName("name");
 		namePrototype.setType(stringType);
 		namePrototype.setOwningType(entityType);
 		
+		SlotPrototype extendsPrototype = YedFactory.eINSTANCE.createSlotPrototype();
+		extendsPrototype.setName("extends");
+		extendsPrototype.setType(entityType);
+		extendsPrototype.setOwningType(entityType);
+		extendsPrototype.setMany(true);
+		
 		Node customerNode = YedFactory.eINSTANCE.createNode();
+		customerNode.setType(entityType);
 		Slot customerNameSlot = YedFactory.eINSTANCE.createSlot();
 		customerNameSlot.setPrototype(namePrototype);
+		customerNode.getSlots().add(customerNameSlot);
+		customerNameSlot.setValue("Customer");
 		
 		Node personNode = YedFactory.eINSTANCE.createNode();
+		personNode.setType(entityType);
 		Slot personNameSlot = YedFactory.eINSTANCE.createSlot();
 		personNameSlot.setPrototype(namePrototype);
-		
+		personNode.getSlots().add(personNameSlot);
+		personNameSlot.setValue("Person");
 		
 		graph.getNodes().add(customerNode);
 		graph.getNodes().add(personNode);
 		
+		
+		YedModel model = new YedModel();
+		model.setName("X");
+		model.setGraph(graph);
+		
+		EolModule module = new EolModule();
+		module.parse("for (e in Entity.all) { e.name.println(); e.extends.add(e); e.extends.println(); }");
+		module.getContext().getModelRepository().addModel(model);
+		module.execute();
 		
 	}
 	
@@ -150,7 +172,10 @@ public class YedModel extends Model {
 	
 	protected NodeType nodeTypeForName(String name) {
 		for (Type type : graph.getTypes()) {
-			if (type.getName().equals(name)) return (NodeType) type;
+			if (type instanceof NodeType && type.getName().equals(name)) {
+				System.err.println(((NodeType) type).getInstances());
+				return (NodeType) type;
+			}
 		}
 		return null;
 	}
