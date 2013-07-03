@@ -290,7 +290,7 @@ public class GraphmlImporter {
 	}
 	
 	protected List<Element> getDescendants(Element node, final String name) {
-		List<Element> descendants = new ArrayList<>();
+		List<Element> descendants = new ArrayList<Element>();
 		Iterator iterator = node.getDescendants(new Filter() {
 			@Override
 			public boolean matches(Object o) {

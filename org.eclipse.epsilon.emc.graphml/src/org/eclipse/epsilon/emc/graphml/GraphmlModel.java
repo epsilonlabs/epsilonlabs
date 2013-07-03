@@ -7,6 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.epsilon.common.util.StringProperties;
+import org.eclipse.epsilon.emc.graphml.Graph;
+import org.eclipse.epsilon.emc.graphml.GraphmlFactory;
+import org.eclipse.epsilon.emc.graphml.Node;
+import org.eclipse.epsilon.emc.graphml.NodeType;
+import org.eclipse.epsilon.emc.graphml.Type;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
@@ -20,6 +25,10 @@ public class GraphmlModel extends Model {
 	public static final String PROPERTY_FILE = "file";
 	protected File file = null;	
 	protected Graph graph;
+	
+	public GraphmlModel() {
+		
+	}
 	
 	@Override
 	public void load(StringProperties properties, String basePath)
