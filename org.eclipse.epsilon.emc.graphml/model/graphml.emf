@@ -1,0 +1,53 @@
+@namespace(uri="http://www.eclipse.org/epsilon/emc/graphml", prefix="")
+@emf.gen(basePackage="org.eclipse.epsilon.emc", modelDirectory="/org.eclipse.epsilon.emc.graphml/src-gen")
+package graphml;
+
+class Graph {
+	val Type[*] types;
+	val Node[*] nodes;
+}
+
+class Node {
+	attr String ~id;
+	val Slot[*]#owningNode slots;
+	ref NodeType#instances type;
+}
+
+class Slot {
+	attr EJavaObject[*] values;
+	ref SlotPrototype#slots prototype;
+	ref Node#slots owningNode;
+}
+
+abstract class Type {
+	attr String name;
+}
+
+class CompositeType extends Type {
+	val Type[*] types;
+}
+
+class SlotPrototype {
+	attr String name;
+	attr boolean many = false;
+	ref Type type;
+	ref NodeType#slotPrototypes owningType;
+	ref Slot[*]#prototype slots;
+}
+
+class NodeType extends Type {
+	ref Node[*]#type instances;
+	val SlotPrototype[*]#owningType slotPrototypes;
+	ref NodeType[*]#subTypes superTypes;
+	ref NodeType[*]#superTypes subTypes;
+}
+
+abstract class PrimitiveType extends Type {}
+
+class IntegerType extends PrimitiveType {}
+
+class StringType extends PrimitiveType {}
+
+class BooleanType extends PrimitiveType {}
+
+class RealType extends PrimitiveType {}
