@@ -23,9 +23,6 @@
     <genClasses image="false" ecoreClass="graphml.ecore#//Type">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//Type/name"/>
     </genClasses>
-    <genClasses ecoreClass="graphml.ecore#//CompositeType">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphml.ecore#//CompositeType/types"/>
-    </genClasses>
     <genClasses ecoreClass="graphml.ecore#//SlotPrototype">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//SlotPrototype/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//SlotPrototype/many"/>

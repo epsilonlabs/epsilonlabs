@@ -23,10 +23,6 @@ abstract class Type {
 	attr String name;
 }
 
-class CompositeType extends Type {
-	val Type[*] types;
-}
-
 class SlotPrototype {
 	attr String name;
 	attr boolean many = false;

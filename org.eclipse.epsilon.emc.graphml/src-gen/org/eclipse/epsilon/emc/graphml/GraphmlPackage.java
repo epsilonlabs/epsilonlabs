@@ -214,43 +214,6 @@ public interface GraphmlPackage extends EPackage {
 	int TYPE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.emc.graphml.impl.CompositeTypeImpl <em>Composite Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.emc.graphml.impl.CompositeTypeImpl
-	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getCompositeType()
-	 * @generated
-	 */
-	int COMPOSITE_TYPE = 4;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_TYPE__NAME = TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_TYPE__TYPES = TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Composite Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl <em>Slot Prototype</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -258,7 +221,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getSlotPrototype()
 	 * @generated
 	 */
-	int SLOT_PROTOTYPE = 5;
+	int SLOT_PROTOTYPE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -331,7 +294,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getNodeType()
 	 * @generated
 	 */
-	int NODE_TYPE = 6;
+	int NODE_TYPE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -395,7 +358,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getEdgeType()
 	 * @generated
 	 */
-	int EDGE_TYPE = 7;
+	int EDGE_TYPE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -495,7 +458,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 8;
+	int PRIMITIVE_TYPE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -523,7 +486,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getIntegerType()
 	 * @generated
 	 */
-	int INTEGER_TYPE = 9;
+	int INTEGER_TYPE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -551,7 +514,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getStringType()
 	 * @generated
 	 */
-	int STRING_TYPE = 10;
+	int STRING_TYPE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -579,7 +542,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getBooleanType()
 	 * @generated
 	 */
-	int BOOLEAN_TYPE = 11;
+	int BOOLEAN_TYPE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -607,7 +570,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getRealType()
 	 * @generated
 	 */
-	int REAL_TYPE = 12;
+	int REAL_TYPE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -766,27 +729,6 @@ public interface GraphmlPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getType_Name();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.graphml.CompositeType <em>Composite Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Composite Type</em>'.
-	 * @see org.eclipse.epsilon.emc.graphml.CompositeType
-	 * @generated
-	 */
-	EClass getCompositeType();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.emc.graphml.CompositeType#getTypes <em>Types</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Types</em>'.
-	 * @see org.eclipse.epsilon.emc.graphml.CompositeType#getTypes()
-	 * @see #getCompositeType()
-	 * @generated
-	 */
-	EReference getCompositeType_Types();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.graphml.SlotPrototype <em>Slot Prototype</em>}'.
@@ -1155,24 +1097,6 @@ public interface GraphmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE__NAME = eINSTANCE.getType_Name();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.graphml.impl.CompositeTypeImpl <em>Composite Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.emc.graphml.impl.CompositeTypeImpl
-		 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getCompositeType()
-		 * @generated
-		 */
-		EClass COMPOSITE_TYPE = eINSTANCE.getCompositeType();
-
-		/**
-		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference COMPOSITE_TYPE__TYPES = eINSTANCE.getCompositeType_Types();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl <em>Slot Prototype</em>}' class.

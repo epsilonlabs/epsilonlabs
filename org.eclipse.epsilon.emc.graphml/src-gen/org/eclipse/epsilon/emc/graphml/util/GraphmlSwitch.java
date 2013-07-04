@@ -90,13 +90,6 @@ public class GraphmlSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GraphmlPackage.COMPOSITE_TYPE: {
-				CompositeType compositeType = (CompositeType)theEObject;
-				T result = caseCompositeType(compositeType);
-				if (result == null) result = caseType(compositeType);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GraphmlPackage.SLOT_PROTOTYPE: {
 				SlotPrototype slotPrototype = (SlotPrototype)theEObject;
 				T result = caseSlotPrototype(slotPrototype);
@@ -218,21 +211,6 @@ public class GraphmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseType(Type object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Composite Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Composite Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCompositeType(CompositeType object) {
 		return null;
 	}
 

@@ -59,7 +59,6 @@ public class GraphmlFactoryImpl extends EFactoryImpl implements GraphmlFactory {
 			case GraphmlPackage.GRAPH: return createGraph();
 			case GraphmlPackage.NODE: return createNode();
 			case GraphmlPackage.SLOT: return createSlot();
-			case GraphmlPackage.COMPOSITE_TYPE: return createCompositeType();
 			case GraphmlPackage.SLOT_PROTOTYPE: return createSlotPrototype();
 			case GraphmlPackage.NODE_TYPE: return createNodeType();
 			case GraphmlPackage.EDGE_TYPE: return createEdgeType();
@@ -100,16 +99,6 @@ public class GraphmlFactoryImpl extends EFactoryImpl implements GraphmlFactory {
 	public Slot createSlot() {
 		SlotImpl slot = new SlotImpl();
 		return slot;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompositeType createCompositeType() {
-		CompositeTypeImpl compositeType = new CompositeTypeImpl();
-		return compositeType;
 	}
 
 	/**

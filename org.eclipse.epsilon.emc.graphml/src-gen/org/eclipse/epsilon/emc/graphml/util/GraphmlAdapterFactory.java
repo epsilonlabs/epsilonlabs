@@ -84,10 +84,6 @@ public class GraphmlAdapterFactory extends AdapterFactoryImpl {
 				return createTypeAdapter();
 			}
 			@Override
-			public Adapter caseCompositeType(CompositeType object) {
-				return createCompositeTypeAdapter();
-			}
-			@Override
 			public Adapter caseSlotPrototype(SlotPrototype object) {
 				return createSlotPrototypeAdapter();
 			}
@@ -192,20 +188,6 @@ public class GraphmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.graphml.CompositeType <em>Composite Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.emc.graphml.CompositeType
-	 * @generated
-	 */
-	public Adapter createCompositeTypeAdapter() {
 		return null;
 	}
 

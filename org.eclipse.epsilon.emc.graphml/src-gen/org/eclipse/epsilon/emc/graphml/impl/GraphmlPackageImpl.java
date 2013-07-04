@@ -65,13 +65,6 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass compositeTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass slotPrototypeEClass = null;
 
 	/**
@@ -299,24 +292,6 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 */
 	public EAttribute getType_Name() {
 		return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCompositeType() {
-		return compositeTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCompositeType_Types() {
-		return (EReference)compositeTypeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -562,9 +537,6 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		typeEClass = createEClass(TYPE);
 		createEAttribute(typeEClass, TYPE__NAME);
 
-		compositeTypeEClass = createEClass(COMPOSITE_TYPE);
-		createEReference(compositeTypeEClass, COMPOSITE_TYPE__TYPES);
-
 		slotPrototypeEClass = createEClass(SLOT_PROTOTYPE);
 		createEAttribute(slotPrototypeEClass, SLOT_PROTOTYPE__NAME);
 		createEAttribute(slotPrototypeEClass, SLOT_PROTOTYPE__MANY);
@@ -624,7 +596,6 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		compositeTypeEClass.getESuperTypes().add(this.getType());
 		nodeTypeEClass.getESuperTypes().add(this.getType());
 		edgeTypeEClass.getESuperTypes().add(this.getNodeType());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
@@ -650,9 +621,6 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(compositeTypeEClass, CompositeType.class, "CompositeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompositeType_Types(), this.getType(), null, "types", null, 0, -1, CompositeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(slotPrototypeEClass, SlotPrototype.class, "SlotPrototype", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSlotPrototype_Name(), ecorePackage.getEString(), "name", null, 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -49,15 +49,6 @@ public interface GraphmlFactory extends EFactory {
 	Slot createSlot();
 
 	/**
-	 * Returns a new object of class '<em>Composite Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Composite Type</em>'.
-	 * @generated
-	 */
-	CompositeType createCompositeType();
-
-	/**
 	 * Returns a new object of class '<em>Slot Prototype</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
