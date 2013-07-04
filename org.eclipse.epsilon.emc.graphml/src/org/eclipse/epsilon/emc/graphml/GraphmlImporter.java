@@ -27,10 +27,6 @@ import org.jdom.input.SAXBuilder;
 public class GraphmlImporter {
 	
 	// Add support for node label patterns
-	protected IntegerType integerType;
-	protected StringType stringType;
-	protected BooleanType booleanType;
-	protected RealType realType;
 	protected Graph graph = null;
 	protected HashMap<String, Node> nodeMap;
 	protected HashMap<Node, Element> nodeElementMap;
@@ -76,13 +72,13 @@ public class GraphmlImporter {
 		graphElement = root.getChild("graph", namespace);
 		configuration = new GraphmlConfiguration(root);
 		
-		createNodes();
+		populateGraph();
 		adjustMultiplicities();
 		
 		return graph;
 	}
 	
-	protected void createNodes() {
+	protected void populateGraph() {
 		
 		// Process node elements
 		for (Element nodeElement : getNodeElements()) {
@@ -231,8 +227,6 @@ public class GraphmlImporter {
 		SlotPrototype prototype = new EdgePrototypeLabelParser(slotPrototypeLabel).getPrototype(); 
 		return prototype;
 	}
-	
-	//protected SlotPrototype create
 	
 	protected void addNodeToEdgeNode(Node edgeNode, Node node, SlotPrototype prototype) {
 		if (prototype == null) return;
@@ -489,7 +483,7 @@ public class GraphmlImporter {
 	
 	protected List<Element> getDescendants(Element node, final String name) {
 		List<Element> descendants = new ArrayList<Element>();
-		Iterator iterator = node.getDescendants(new Filter() {
+		Iterator<?> iterator = node.getDescendants(new Filter() {
 			@Override
 			public boolean matches(Object o) {
 				return o instanceof Element && ((Element) o).getName().equals(name);
@@ -558,22 +552,6 @@ public class GraphmlImporter {
 		nodeType.setName(name);
 		graph.getTypes().add(nodeType);
 		return nodeType;
-	}
-	
-	public IntegerType getIntegerType() {
-		return integerType;
-	}
-	
-	public StringType getStringType() {
-		return stringType;
-	}
-	
-	public BooleanType getBooleanType() {
-		return booleanType;
-	}
-	
-	public RealType getRealType() {
-		return realType;
 	}
 	
 	public GraphmlConfiguration getConfiguration() {
