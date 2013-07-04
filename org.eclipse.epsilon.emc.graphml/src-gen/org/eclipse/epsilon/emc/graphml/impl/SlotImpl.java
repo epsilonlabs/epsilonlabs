@@ -157,7 +157,7 @@ public class SlotImpl extends EObjectImpl implements Slot {
 	 */
 	public Node getOwningNode() {
 		if (eContainerFeatureID() != GraphmlPackage.SLOT__OWNING_NODE) return null;
-		return (Node)eInternalContainer();
+		return (Node)eContainer();
 	}
 
 	/**

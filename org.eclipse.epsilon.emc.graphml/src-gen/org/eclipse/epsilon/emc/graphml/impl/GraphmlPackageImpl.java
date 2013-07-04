@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.epsilon.emc.graphml.BooleanType;
 import org.eclipse.epsilon.emc.graphml.CompositeType;
+import org.eclipse.epsilon.emc.graphml.EdgeType;
 import org.eclipse.epsilon.emc.graphml.Graph;
 import org.eclipse.epsilon.emc.graphml.GraphmlFactory;
 import org.eclipse.epsilon.emc.graphml.GraphmlPackage;
@@ -79,6 +80,13 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 * @generated
 	 */
 	private EClass nodeTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass edgeTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -343,8 +351,8 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSlotPrototype_Type() {
-		return (EReference)slotPrototypeEClass.getEStructuralFeatures().get(2);
+	public EAttribute getSlotPrototype_Primary() {
+		return (EAttribute)slotPrototypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -352,7 +360,7 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSlotPrototype_OwningType() {
+	public EReference getSlotPrototype_Type() {
 		return (EReference)slotPrototypeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -361,8 +369,17 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSlotPrototype_Slots() {
+	public EReference getSlotPrototype_OwningType() {
 		return (EReference)slotPrototypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSlotPrototype_Slots() {
+		return (EReference)slotPrototypeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -408,6 +425,51 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 	 */
 	public EReference getNodeType_SubTypes() {
 		return (EReference)nodeTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEdgeType() {
+		return edgeTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdgeType_SourcePrototype() {
+		return (EReference)edgeTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdgeType_TargetPrototype() {
+		return (EReference)edgeTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdgeType_RoleInSourcePrototype() {
+		return (EReference)edgeTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEdgeType_RoleInTargetPrototype() {
+		return (EReference)edgeTypeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -506,6 +568,7 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		slotPrototypeEClass = createEClass(SLOT_PROTOTYPE);
 		createEAttribute(slotPrototypeEClass, SLOT_PROTOTYPE__NAME);
 		createEAttribute(slotPrototypeEClass, SLOT_PROTOTYPE__MANY);
+		createEAttribute(slotPrototypeEClass, SLOT_PROTOTYPE__PRIMARY);
 		createEReference(slotPrototypeEClass, SLOT_PROTOTYPE__TYPE);
 		createEReference(slotPrototypeEClass, SLOT_PROTOTYPE__OWNING_TYPE);
 		createEReference(slotPrototypeEClass, SLOT_PROTOTYPE__SLOTS);
@@ -515,6 +578,12 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		createEReference(nodeTypeEClass, NODE_TYPE__SLOT_PROTOTYPES);
 		createEReference(nodeTypeEClass, NODE_TYPE__SUPER_TYPES);
 		createEReference(nodeTypeEClass, NODE_TYPE__SUB_TYPES);
+
+		edgeTypeEClass = createEClass(EDGE_TYPE);
+		createEReference(edgeTypeEClass, EDGE_TYPE__SOURCE_PROTOTYPE);
+		createEReference(edgeTypeEClass, EDGE_TYPE__TARGET_PROTOTYPE);
+		createEReference(edgeTypeEClass, EDGE_TYPE__ROLE_IN_SOURCE_PROTOTYPE);
+		createEReference(edgeTypeEClass, EDGE_TYPE__ROLE_IN_TARGET_PROTOTYPE);
 
 		primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
 
@@ -557,6 +626,7 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		// Add supertypes to classes
 		compositeTypeEClass.getESuperTypes().add(this.getType());
 		nodeTypeEClass.getESuperTypes().add(this.getType());
+		edgeTypeEClass.getESuperTypes().add(this.getNodeType());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
 		integerTypeEClass.getESuperTypes().add(this.getPrimitiveType());
 		stringTypeEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -587,6 +657,7 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		initEClass(slotPrototypeEClass, SlotPrototype.class, "SlotPrototype", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSlotPrototype_Name(), ecorePackage.getEString(), "name", null, 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getSlotPrototype_Many(), ecorePackage.getEBoolean(), "many", "false", 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSlotPrototype_Primary(), ecorePackage.getEBoolean(), "primary", "false", 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSlotPrototype_Type(), this.getType(), null, "type", null, 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSlotPrototype_OwningType(), this.getNodeType(), this.getNodeType_SlotPrototypes(), "owningType", null, 0, 1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSlotPrototype_Slots(), this.getSlot(), this.getSlot_Prototype(), "slots", null, 0, -1, SlotPrototype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -596,6 +667,12 @@ public class GraphmlPackageImpl extends EPackageImpl implements GraphmlPackage {
 		initEReference(getNodeType_SlotPrototypes(), this.getSlotPrototype(), this.getSlotPrototype_OwningType(), "slotPrototypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeType_SuperTypes(), this.getNodeType(), this.getNodeType_SubTypes(), "superTypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeType_SubTypes(), this.getNodeType(), this.getNodeType_SuperTypes(), "subTypes", null, 0, -1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(edgeTypeEClass, EdgeType.class, "EdgeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEdgeType_SourcePrototype(), this.getSlotPrototype(), null, "sourcePrototype", null, 0, 1, EdgeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdgeType_TargetPrototype(), this.getSlotPrototype(), null, "targetPrototype", null, 0, 1, EdgeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdgeType_RoleInSourcePrototype(), this.getSlotPrototype(), null, "roleInSourcePrototype", null, 0, 1, EdgeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEdgeType_RoleInTargetPrototype(), this.getSlotPrototype(), null, "roleInTargetPrototype", null, 0, 1, EdgeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

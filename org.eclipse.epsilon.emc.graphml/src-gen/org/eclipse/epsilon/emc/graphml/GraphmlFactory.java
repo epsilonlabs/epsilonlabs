@@ -76,6 +76,15 @@ public interface GraphmlFactory extends EFactory {
 	NodeType createNodeType();
 
 	/**
+	 * Returns a new object of class '<em>Edge Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Edge Type</em>'.
+	 * @generated
+	 */
+	EdgeType createEdgeType();
+
+	/**
 	 * Returns a new object of class '<em>Integer Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

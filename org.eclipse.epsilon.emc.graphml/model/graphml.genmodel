@@ -29,6 +29,7 @@
     <genClasses ecoreClass="graphml.ecore#//SlotPrototype">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//SlotPrototype/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//SlotPrototype/many"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute graphml.ecore#//SlotPrototype/primary"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//SlotPrototype/type"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference graphml.ecore#//SlotPrototype/owningType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//SlotPrototype/slots"/>
@@ -38,6 +39,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphml.ecore#//NodeType/slotPrototypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//NodeType/superTypes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//NodeType/subTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="graphml.ecore#//EdgeType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//EdgeType/sourcePrototype"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference graphml.ecore#//EdgeType/targetPrototype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphml.ecore#//EdgeType/roleInSourcePrototype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference graphml.ecore#//EdgeType/roleInTargetPrototype"/>
     </genClasses>
     <genClasses image="false" ecoreClass="graphml.ecore#//PrimitiveType"/>
     <genClasses ecoreClass="graphml.ecore#//IntegerType"/>

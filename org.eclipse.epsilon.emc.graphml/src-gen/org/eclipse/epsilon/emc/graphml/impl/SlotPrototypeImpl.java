@@ -34,6 +34,7 @@ import org.eclipse.epsilon.emc.graphml.Type;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#isMany <em>Many</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#isPrimary <em>Primary</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#getOwningType <em>Owning Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.impl.SlotPrototypeImpl#getSlots <em>Slots</em>}</li>
@@ -82,6 +83,26 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 * @ordered
 	 */
 	protected boolean many = MANY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPrimary() <em>Primary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPrimary()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PRIMARY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPrimary() <em>Primary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPrimary()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean primary = PRIMARY_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
@@ -169,6 +190,27 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isPrimary() {
+		return primary;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPrimary(boolean newPrimary) {
+		boolean oldPrimary = primary;
+		primary = newPrimary;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GraphmlPackage.SLOT_PROTOTYPE__PRIMARY, oldPrimary, primary));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Type getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
@@ -209,7 +251,7 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 	 */
 	public NodeType getOwningType() {
 		if (eContainerFeatureID() != GraphmlPackage.SLOT_PROTOTYPE__OWNING_TYPE) return null;
-		return (NodeType)eInternalContainer();
+		return (NodeType)eContainer();
 	}
 
 	/**
@@ -316,6 +358,8 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 				return getName();
 			case GraphmlPackage.SLOT_PROTOTYPE__MANY:
 				return isMany();
+			case GraphmlPackage.SLOT_PROTOTYPE__PRIMARY:
+				return isPrimary();
 			case GraphmlPackage.SLOT_PROTOTYPE__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
@@ -341,6 +385,9 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 				return;
 			case GraphmlPackage.SLOT_PROTOTYPE__MANY:
 				setMany((Boolean)newValue);
+				return;
+			case GraphmlPackage.SLOT_PROTOTYPE__PRIMARY:
+				setPrimary((Boolean)newValue);
 				return;
 			case GraphmlPackage.SLOT_PROTOTYPE__TYPE:
 				setType((Type)newValue);
@@ -370,6 +417,9 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 			case GraphmlPackage.SLOT_PROTOTYPE__MANY:
 				setMany(MANY_EDEFAULT);
 				return;
+			case GraphmlPackage.SLOT_PROTOTYPE__PRIMARY:
+				setPrimary(PRIMARY_EDEFAULT);
+				return;
 			case GraphmlPackage.SLOT_PROTOTYPE__TYPE:
 				setType((Type)null);
 				return;
@@ -395,6 +445,8 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GraphmlPackage.SLOT_PROTOTYPE__MANY:
 				return many != MANY_EDEFAULT;
+			case GraphmlPackage.SLOT_PROTOTYPE__PRIMARY:
+				return primary != PRIMARY_EDEFAULT;
 			case GraphmlPackage.SLOT_PROTOTYPE__TYPE:
 				return type != null;
 			case GraphmlPackage.SLOT_PROTOTYPE__OWNING_TYPE:
@@ -419,6 +471,8 @@ public class SlotPrototypeImpl extends EObjectImpl implements SlotPrototype {
 		result.append(name);
 		result.append(", many: ");
 		result.append(many);
+		result.append(", primary: ");
+		result.append(primary);
 		result.append(')');
 		return result.toString();
 	}

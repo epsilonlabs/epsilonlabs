@@ -279,13 +279,22 @@ public interface GraphmlPackage extends EPackage {
 	int SLOT_PROTOTYPE__MANY = 1;
 
 	/**
+	 * The feature id for the '<em><b>Primary</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SLOT_PROTOTYPE__PRIMARY = 2;
+
+	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT_PROTOTYPE__TYPE = 2;
+	int SLOT_PROTOTYPE__TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Owning Type</b></em>' container reference.
@@ -294,7 +303,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT_PROTOTYPE__OWNING_TYPE = 3;
+	int SLOT_PROTOTYPE__OWNING_TYPE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Slots</b></em>' reference list.
@@ -303,7 +312,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT_PROTOTYPE__SLOTS = 4;
+	int SLOT_PROTOTYPE__SLOTS = 5;
 
 	/**
 	 * The number of structural features of the '<em>Slot Prototype</em>' class.
@@ -312,7 +321,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SLOT_PROTOTYPE_FEATURE_COUNT = 5;
+	int SLOT_PROTOTYPE_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.graphml.impl.NodeTypeImpl <em>Node Type</em>}' class.
@@ -379,6 +388,106 @@ public interface GraphmlPackage extends EPackage {
 	int NODE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.emc.graphml.impl.EdgeTypeImpl <em>Edge Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.emc.graphml.impl.EdgeTypeImpl
+	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getEdgeType()
+	 * @generated
+	 */
+	int EDGE_TYPE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__NAME = NODE_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Instances</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__INSTANCES = NODE_TYPE__INSTANCES;
+
+	/**
+	 * The feature id for the '<em><b>Slot Prototypes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__SLOT_PROTOTYPES = NODE_TYPE__SLOT_PROTOTYPES;
+
+	/**
+	 * The feature id for the '<em><b>Super Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__SUPER_TYPES = NODE_TYPE__SUPER_TYPES;
+
+	/**
+	 * The feature id for the '<em><b>Sub Types</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__SUB_TYPES = NODE_TYPE__SUB_TYPES;
+
+	/**
+	 * The feature id for the '<em><b>Source Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__SOURCE_PROTOTYPE = NODE_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target Prototype</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__TARGET_PROTOTYPE = NODE_TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Role In Source Prototype</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__ROLE_IN_SOURCE_PROTOTYPE = NODE_TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Role In Target Prototype</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE__ROLE_IN_TARGET_PROTOTYPE = NODE_TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Edge Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EDGE_TYPE_FEATURE_COUNT = NODE_TYPE_FEATURE_COUNT + 4;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.graphml.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -386,7 +495,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 7;
+	int PRIMITIVE_TYPE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -414,7 +523,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getIntegerType()
 	 * @generated
 	 */
-	int INTEGER_TYPE = 8;
+	int INTEGER_TYPE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -442,7 +551,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getStringType()
 	 * @generated
 	 */
-	int STRING_TYPE = 9;
+	int STRING_TYPE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -470,7 +579,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getBooleanType()
 	 * @generated
 	 */
-	int BOOLEAN_TYPE = 10;
+	int BOOLEAN_TYPE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -498,7 +607,7 @@ public interface GraphmlPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getRealType()
 	 * @generated
 	 */
-	int REAL_TYPE = 11;
+	int REAL_TYPE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -712,6 +821,17 @@ public interface GraphmlPackage extends EPackage {
 	EAttribute getSlotPrototype_Many();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#isPrimary <em>Primary</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Primary</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.SlotPrototype#isPrimary()
+	 * @see #getSlotPrototype()
+	 * @generated
+	 */
+	EAttribute getSlotPrototype_Primary();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -797,6 +917,60 @@ public interface GraphmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNodeType_SubTypes();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.graphml.EdgeType <em>Edge Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Edge Type</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType
+	 * @generated
+	 */
+	EClass getEdgeType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.graphml.EdgeType#getSourcePrototype <em>Source Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source Prototype</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType#getSourcePrototype()
+	 * @see #getEdgeType()
+	 * @generated
+	 */
+	EReference getEdgeType_SourcePrototype();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.graphml.EdgeType#getTargetPrototype <em>Target Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target Prototype</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType#getTargetPrototype()
+	 * @see #getEdgeType()
+	 * @generated
+	 */
+	EReference getEdgeType_TargetPrototype();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.emc.graphml.EdgeType#getRoleInSourcePrototype <em>Role In Source Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Role In Source Prototype</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType#getRoleInSourcePrototype()
+	 * @see #getEdgeType()
+	 * @generated
+	 */
+	EReference getEdgeType_RoleInSourcePrototype();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.emc.graphml.EdgeType#getRoleInTargetPrototype <em>Role In Target Prototype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Role In Target Prototype</em>'.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType#getRoleInTargetPrototype()
+	 * @see #getEdgeType()
+	 * @generated
+	 */
+	EReference getEdgeType_RoleInTargetPrototype();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.graphml.PrimitiveType <em>Primitive Type</em>}'.
@@ -1027,6 +1201,14 @@ public interface GraphmlPackage extends EPackage {
 		EAttribute SLOT_PROTOTYPE__MANY = eINSTANCE.getSlotPrototype_Many();
 
 		/**
+		 * The meta object literal for the '<em><b>Primary</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SLOT_PROTOTYPE__PRIMARY = eINSTANCE.getSlotPrototype_Primary();
+
+		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1091,6 +1273,48 @@ public interface GraphmlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NODE_TYPE__SUB_TYPES = eINSTANCE.getNodeType_SubTypes();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.graphml.impl.EdgeTypeImpl <em>Edge Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.epsilon.emc.graphml.impl.EdgeTypeImpl
+		 * @see org.eclipse.epsilon.emc.graphml.impl.GraphmlPackageImpl#getEdgeType()
+		 * @generated
+		 */
+		EClass EDGE_TYPE = eINSTANCE.getEdgeType();
+
+		/**
+		 * The meta object literal for the '<em><b>Source Prototype</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE_TYPE__SOURCE_PROTOTYPE = eINSTANCE.getEdgeType_SourcePrototype();
+
+		/**
+		 * The meta object literal for the '<em><b>Target Prototype</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE_TYPE__TARGET_PROTOTYPE = eINSTANCE.getEdgeType_TargetPrototype();
+
+		/**
+		 * The meta object literal for the '<em><b>Role In Source Prototype</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE_TYPE__ROLE_IN_SOURCE_PROTOTYPE = eINSTANCE.getEdgeType_RoleInSourcePrototype();
+
+		/**
+		 * The meta object literal for the '<em><b>Role In Target Prototype</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EDGE_TYPE__ROLE_IN_TARGET_PROTOTYPE = eINSTANCE.getEdgeType_RoleInTargetPrototype();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.graphml.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.

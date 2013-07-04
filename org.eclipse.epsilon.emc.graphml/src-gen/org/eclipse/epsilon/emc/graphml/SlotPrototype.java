@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#isMany <em>Many</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#isPrimary <em>Primary</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#getOwningType <em>Owning Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#getSlots <em>Slots</em>}</li>
@@ -79,6 +80,33 @@ public interface SlotPrototype extends EObject {
 	 * @generated
 	 */
 	void setMany(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Primary</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Primary</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Primary</em>' attribute.
+	 * @see #setPrimary(boolean)
+	 * @see org.eclipse.epsilon.emc.graphml.GraphmlPackage#getSlotPrototype_Primary()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isPrimary();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.emc.graphml.SlotPrototype#isPrimary <em>Primary</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Primary</em>' attribute.
+	 * @see #isPrimary()
+	 * @generated
+	 */
+	void setPrimary(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.

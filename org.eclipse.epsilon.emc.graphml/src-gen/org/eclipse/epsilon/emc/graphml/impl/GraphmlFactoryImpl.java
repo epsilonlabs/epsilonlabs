@@ -27,7 +27,7 @@ public class GraphmlFactoryImpl extends EFactoryImpl implements GraphmlFactory {
 	 */
 	public static GraphmlFactory init() {
 		try {
-			GraphmlFactory theGraphmlFactory = (GraphmlFactory)EPackage.Registry.INSTANCE.getEFactory(GraphmlPackage.eNS_URI);
+			GraphmlFactory theGraphmlFactory = (GraphmlFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/epsilon/emc/graphml"); 
 			if (theGraphmlFactory != null) {
 				return theGraphmlFactory;
 			}
@@ -62,6 +62,7 @@ public class GraphmlFactoryImpl extends EFactoryImpl implements GraphmlFactory {
 			case GraphmlPackage.COMPOSITE_TYPE: return createCompositeType();
 			case GraphmlPackage.SLOT_PROTOTYPE: return createSlotPrototype();
 			case GraphmlPackage.NODE_TYPE: return createNodeType();
+			case GraphmlPackage.EDGE_TYPE: return createEdgeType();
 			case GraphmlPackage.INTEGER_TYPE: return createIntegerType();
 			case GraphmlPackage.STRING_TYPE: return createStringType();
 			case GraphmlPackage.BOOLEAN_TYPE: return createBooleanType();
@@ -129,6 +130,16 @@ public class GraphmlFactoryImpl extends EFactoryImpl implements GraphmlFactory {
 	public NodeType createNodeType() {
 		NodeTypeImpl nodeType = new NodeTypeImpl();
 		return nodeType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EdgeType createEdgeType() {
+		EdgeTypeImpl edgeType = new EdgeTypeImpl();
+		return edgeType;
 	}
 
 	/**

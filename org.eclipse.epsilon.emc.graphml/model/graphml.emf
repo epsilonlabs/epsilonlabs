@@ -30,6 +30,7 @@ class CompositeType extends Type {
 class SlotPrototype {
 	attr String name;
 	attr boolean many = false;
+	attr boolean primary = false;
 	ref Type type;
 	ref NodeType#slotPrototypes owningType;
 	ref Slot[*]#prototype slots;
@@ -40,6 +41,13 @@ class NodeType extends Type {
 	val SlotPrototype[*]#owningType slotPrototypes;
 	ref NodeType[*]#subTypes superTypes;
 	ref NodeType[*]#superTypes subTypes;
+}
+
+class EdgeType extends NodeType {
+	ref SlotPrototype sourcePrototype;
+	ref SlotPrototype targetPrototype;
+	val SlotPrototype roleInSourcePrototype;
+	val SlotPrototype roleInTargetPrototype;
 }
 
 abstract class PrimitiveType extends Type {}

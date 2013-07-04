@@ -110,6 +110,14 @@ public class GraphmlSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GraphmlPackage.EDGE_TYPE: {
+				EdgeType edgeType = (EdgeType)theEObject;
+				T result = caseEdgeType(edgeType);
+				if (result == null) result = caseNodeType(edgeType);
+				if (result == null) result = caseType(edgeType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GraphmlPackage.PRIMITIVE_TYPE: {
 				PrimitiveType primitiveType = (PrimitiveType)theEObject;
 				T result = casePrimitiveType(primitiveType);
@@ -255,6 +263,21 @@ public class GraphmlSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseNodeType(NodeType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Edge Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Edge Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEdgeType(EdgeType object) {
 		return null;
 	}
 

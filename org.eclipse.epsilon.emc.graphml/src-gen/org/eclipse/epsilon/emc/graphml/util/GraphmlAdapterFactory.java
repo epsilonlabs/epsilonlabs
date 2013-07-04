@@ -96,6 +96,10 @@ public class GraphmlAdapterFactory extends AdapterFactoryImpl {
 				return createNodeTypeAdapter();
 			}
 			@Override
+			public Adapter caseEdgeType(EdgeType object) {
+				return createEdgeTypeAdapter();
+			}
+			@Override
 			public Adapter casePrimitiveType(PrimitiveType object) {
 				return createPrimitiveTypeAdapter();
 			}
@@ -230,6 +234,20 @@ public class GraphmlAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNodeTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.graphml.EdgeType <em>Edge Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.epsilon.emc.graphml.EdgeType
+	 * @generated
+	 */
+	public Adapter createEdgeTypeAdapter() {
 		return null;
 	}
 

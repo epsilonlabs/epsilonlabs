@@ -38,6 +38,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="primary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owningType" eType="#//NodeType"
         eOpposite="#//NodeType/slotPrototypes"/>
@@ -53,6 +55,14 @@
         eType="#//NodeType" eOpposite="#//NodeType/subTypes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subTypes" upperBound="-1"
         eType="#//NodeType" eOpposite="#//NodeType/superTypes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EdgeType" eSuperTypes="#//NodeType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourcePrototype" eType="#//SlotPrototype"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetPrototype" eType="#//SlotPrototype"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roleInSourcePrototype"
+        eType="#//SlotPrototype" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roleInTargetPrototype"
+        eType="#//SlotPrototype" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerType" eSuperTypes="#//PrimitiveType"/>
