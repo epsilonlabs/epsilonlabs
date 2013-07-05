@@ -48,10 +48,9 @@
       <data key="d4"><![CDATA[Action]]></data>
       <data key="d5"><![CDATA[boolean start = true]]></data>
       <data key="d6"><![CDATA[name]]></data>
-      <data key="d8"/>
       <data key="d9">
         <y:ShapeNode>
-          <y:Geometry height="61.0" width="119.0" x="-343.0" y="-70.0"/>
+          <y:Geometry height="61.0" width="119.0" x="-594.0" y="-263.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" textColor="#000000" visible="true" width="53.388671875" x="32.8056640625" y="21.43359375">Wake up<y:LabelModel>
@@ -68,10 +67,9 @@
     <node id="n1">
       <data key="d4"><![CDATA[Decision]]></data>
       <data key="d6"><![CDATA[name]]></data>
-      <data key="d8"/>
       <data key="d9">
         <y:ShapeNode>
-          <y:Geometry height="106.0" width="138.0" x="-352.5" y="75.0"/>
+          <y:Geometry height="106.0" width="138.0" x="-603.5" y="-118.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" textColor="#000000" visible="true" width="85.17578125" x="26.412109375" y="43.93359375">Is it too early?<y:LabelModel>
@@ -87,10 +85,9 @@
     </node>
     <node id="n2">
       <data key="d4"><![CDATA[Action]]></data>
-      <data key="d8"/>
       <data key="d9">
         <y:ShapeNode>
-          <y:Geometry height="61.0" width="119.0" x="-475.0" y="247.0"/>
+          <y:Geometry height="61.0" width="119.0" x="-726.0" y="54.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" textColor="#000000" visible="true" width="42.642578125" x="38.1787109375" y="21.43359375">Get up<y:LabelModel>
@@ -106,10 +103,9 @@
     </node>
     <node id="n3">
       <data key="d4"><![CDATA[Action]]></data>
-      <data key="d8"/>
       <data key="d9">
         <y:ShapeNode>
-          <y:Geometry height="61.0" width="119.0" x="-216.0" y="247.0"/>
+          <y:Geometry height="61.0" width="119.0" x="-467.0" y="54.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" textColor="#000000" visible="true" width="92.423828125" x="13.2880859375" y="21.43359375">Go back to bed<y:LabelModel>
@@ -125,7 +121,6 @@
     </node>
     <edge id="e0" source="n0" target="n1">
       <data key="d11"><![CDATA[Transition]]></data>
-      <data key="d19"/>
       <data key="d20">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -137,11 +132,10 @@
     </edge>
     <edge id="e1" source="n3" target="n0">
       <data key="d11"><![CDATA[Transition]]></data>
-      <data key="d19"/>
       <data key="d20">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="-156.5" y="-39.5"/>
+            <y:Point x="-407.5" y="-232.5"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
@@ -151,13 +145,12 @@
     </edge>
     <edge id="e2" source="n1" target="n2">
       <data key="d11"><![CDATA[Transition]]></data>
-      <data key="d19"/>
       <data key="d20">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="18.818359375" x="-87.01718485939205" y="33.50444208169483">no<y:LabelModel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="18.818359375" x="-87.01718485939205" y="33.50444208169488">no<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -173,16 +166,15 @@
       <data key="d11"><![CDATA[Transition]]></data>
       <data key="d12"><![CDATA[source]]></data>
       <data key="d13"><![CDATA[target]]></data>
-      <data key="d15"><![CDATA[outgoing]]></data>
-      <data key="d16"><![CDATA[incoming]]></data>
+      <data key="d15"><![CDATA[outgoing *]]></data>
+      <data key="d16"><![CDATA[incoming *]]></data>
       <data key="d17"><![CDATA[name]]></data>
-      <data key="d19"/>
       <data key="d20">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="23.072265625" x="-2.2285632865169873" y="48.22745370718667">yes<y:LabelModel>
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.1328125" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" visible="true" width="23.072265625" x="-2.228563286517044" y="48.22745370718664">yes<y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
             <y:ModelParameter>
