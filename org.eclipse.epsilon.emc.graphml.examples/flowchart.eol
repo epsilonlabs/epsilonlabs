@@ -1,0 +1,15 @@
+Action.all.selectOne(a|a.start).process();
+
+operation Action process() {
+	("Action: " + self.name).println();
+	if (self.outgoing.size() == 1) {
+		self.outgoing.first().target.process();
+	}
+}
+
+operation Decision process() {
+	("Decision: " + self.name).println();
+	var randomTransition = self.outgoing.random();
+	("Chose: " + randomTransition.name).println();
+	randomTransition.target.process();
+}
