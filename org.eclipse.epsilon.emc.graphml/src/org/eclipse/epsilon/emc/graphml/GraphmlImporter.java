@@ -73,7 +73,7 @@ public class GraphmlImporter {
 		configuration = new GraphmlConfiguration(root);
 		
 		populateGraph();
-		adjustMultiplicities();
+		adjustSlotPrototypeMultiplicitiesAndSlotValueTypes();
 		
 		return graph;
 	}
@@ -326,16 +326,50 @@ public class GraphmlImporter {
 	
 	/**
 	 * If single-valued slots are found to have
-	 * multiple values, adjust the multiplicity accordingly
+	 * multiple values, adjust the multiplicity accordingly.
+	 * Also, adjust the type of slot values
 	 */
-	protected void adjustMultiplicities() {
+	protected void adjustSlotPrototypeMultiplicitiesAndSlotValueTypes() {
 		for (Node node : graph.getNodes()) {
 			for (Slot slot : node.getSlots()) {
 				if (!slot.getPrototype().isMany() && slot.getValues().size() > 1) {
 					slot.getPrototype().setMany(true);
 				}
+				if (slot.getValues().size() > 0) {
+					Type slotType = slot.getPrototype().getType();
+					if (slotType instanceof IntegerType || slotType instanceof BooleanType || slotType instanceof RealType) {
+						List<Object> castedValues = new ArrayList<Object>();
+						for (Object value : slot.getValues()) {
+							castedValues.add(cast(value, slotType));
+						}
+						slot.getValues().clear();
+						slot.getValues().addAll(castedValues);
+					}
+				}
 			}
 		}
+	}
+	
+	protected Object cast(Object object, Type type) {
+		if (type instanceof IntegerType) {
+			try {
+				return Integer.parseInt(object + "");
+			}
+			catch (Exception ex) { return 0; }
+		}
+		else if (type instanceof BooleanType) {
+			try {
+				return Boolean.parseBoolean(object + "");
+			}
+			catch (Exception ex) { return false; }			
+		}
+		else if (type instanceof RealType) {
+			try {
+				return Float.parseFloat(object + "");
+			}
+			catch (Exception ex) { return 0.0f; }
+		}
+		else return object;
 	}
 	
 	protected Slot findSuitableSlot(Node source, Node target) {
