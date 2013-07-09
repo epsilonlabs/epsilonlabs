@@ -87,7 +87,7 @@ public class DomOutlineElement implements IPropertySource{
 	protected String getLabel(Object o) {
 		if (o instanceof DomElement) {
 			DomElement domElement = (DomElement) o;
-			return domElement.eClass().getName() + " (" + domElement.getLine() + "," + domElement.getColumn() + ")";
+			return domElement.eClass().getName() /*+ " (" + domElement.getLine() + "," + domElement.getColumn() + ")"*/;
 		}
 		else {
 			return o + "";

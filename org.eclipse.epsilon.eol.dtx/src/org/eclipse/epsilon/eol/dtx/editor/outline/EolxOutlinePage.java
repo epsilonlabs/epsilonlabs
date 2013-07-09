@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.dtx.editor.outline;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -9,9 +10,12 @@ import org.eclipse.epsilon.common.dt.editor.outline.EditorSelection;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
+import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -44,22 +48,22 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 			DomElement selected = ((DomOutlineElement) ((IStructuredSelection) event
 					.getSelection()).getFirstElement()).getDomElement();
 			
-			EditorSelection editorSelection = getEditorSelection(selected);
+			IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
+			TextRegion region = selected.getRegion();
 			
-			EclipseUtil.openEditorAt(editorSelection.getFile(), editorSelection.getLine(), 
-					editorSelection.getColumn(), 1, false);
+			int startOffset = doc.getLineOffset(region.getStart().getLine()-1) + region.getStart().getColumn();
+			int endOffset = doc.getLineOffset(region.getEnd().getLine()-1) + region.getEnd().getColumn();
+			
+			FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
+			IFile file = fileInputEditor.getFile();
+			
+			EclipseUtil.openEditorAt(new File(file.getLocation().toOSString()), region.getStart().getLine(), 
+					region.getStart().getColumn(), endOffset - startOffset, false);
+
 		}
 		catch (Exception ex) {
 			
 		}
-	}
-	
-	@Override
-	protected EditorSelection getEditorSelection(Object selection) {
-		DomElement element = (DomElement) selection;
-		FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
-		IFile file = fileInputEditor.getFile();
-		return new EditorSelection(new File(file.getLocation().toOSString()), element.getLine(), element.getColumn());
 	}
 	
 	@Override
@@ -93,15 +97,14 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 			
 			@Override
 			public Object[] getChildren(Object parentElement) {
-				//return ((EObject) parentElement).eContents().toArray();
 				List<EObject> contents = ((DomOutlineElement) parentElement).getDomElement().eContents();
-				DomOutlineElement[] domOutlineElements = new DomOutlineElement[contents.size()];
-				int i = 0;
+				List<DomOutlineElement> children = new ArrayList<DomOutlineElement>();
 				for (EObject content : contents) {
-					domOutlineElements[i] = new DomOutlineElement((DomElement) content);
-					i++;
+					if (content instanceof DomElement) {
+						children.add(new DomOutlineElement((DomElement) content));
+					}
 				}
-				return domOutlineElements;
+				return children.toArray();
 			}
 		};
 	}
