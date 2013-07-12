@@ -271,7 +271,9 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	}
 	
 	public String ast2sql(Variable iterator, AST ast, IEolContext context, ArrayList<Object> variables) throws EolRuntimeException {
-		if (ast.getType() == EolParser.OPERATOR) {
+		if (ast.getType() == EolParser.OPERATOR && ast.getText().equals("not")) {
+			return "not (" + ast2sql(iterator, ast.getFirstChild(), context, variables) + ")";
+		} else if (ast.getType() == EolParser.OPERATOR && ast.getChildren().size() == 2) {
 			return "(" + ast2sql(iterator, ast.getFirstChild(), context, variables)
 					+ ast.getText() + 
 					ast2sql(iterator, ast.getFirstChild().getNextSibling(), context, variables) + ")";
