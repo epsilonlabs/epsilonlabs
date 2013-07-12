@@ -33,7 +33,7 @@ public class MySqlApp {
 		//e.execute("M.find(p:Person|p.name = 'p4').size().println();");
 		//System.err.println(System.currentTimeMillis() - now);
 		//now = System.currentTimeMillis();
-		e.execute("Person.all.selectOne(p|p.name = 'p200').name.println();");
+		e.execute("Person.all.forAll(p|p.name = '200').println();");
 		System.err.println(System.currentTimeMillis() - now);
 
 	}

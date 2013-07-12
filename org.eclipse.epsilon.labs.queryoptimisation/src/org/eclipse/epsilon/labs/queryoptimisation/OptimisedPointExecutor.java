@@ -1,5 +1,9 @@
 package org.eclipse.epsilon.labs.queryoptimisation;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.antlr.runtime.CommonToken;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.PointExecutor;
@@ -10,7 +14,14 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
 
 public class OptimisedPointExecutor extends PointExecutor {
-
+	
+	protected List<String> optimisableOperations = Arrays.asList("select", "selectOne", "exists", "forAll");
+	
+	// select - OK
+	// selectOne - OK
+	// exists - OK
+	// forAll - OK?
+	
 	@Override
 	public Object execute(AST ast, IEolContext context)
 			throws EolRuntimeException {
@@ -18,18 +29,20 @@ public class OptimisedPointExecutor extends PointExecutor {
 		AST targetAst = ast.getChild(0);
 		AST featureCallAst = ast.getChild(1);
 		
-		if ((featureCallAst.getText().equals("selectOne") || featureCallAst.getText().equals("select"))
-				&& targetAst.getType() == EolParser.POINT) {
+		String operationName = featureCallAst.getText();
+		
+		if (targetAst.getType() == EolParser.POINT && optimisableOperations.contains(operationName)) {
 			
 			AST targetTargetAst = targetAst.getChild(0);
 			AST targetFeatureCallAst = targetAst.getChild(1);
 			
 			if (targetFeatureCallAst.getText().equals("all") && targetTargetAst.getChildren().isEmpty()) {
 				
+				
 				try {
 					EolModelElementType type = EolModelElementType.forName(targetTargetAst.getText(), context);
 					
-					boolean one = featureCallAst.getText().equals("selectOne");
+					boolean one = !operationName.equals("select");
 					
 					if (type != null && type.getModel() instanceof ISearchableModel) {
 						ISearchableModel searchableModel = (ISearchableModel) type.getModel();
@@ -37,19 +50,32 @@ public class OptimisedPointExecutor extends PointExecutor {
 						String iteratorName = featureCallAst.getFirstChild().getFirstChild().getFirstChild().getText();
 						Variable iterator = new Variable(iteratorName, null, type);
 						
+						AST parametersAst = featureCallAst.getChild(1);
+						if (operationName.equals("forAll")) {
+							CommonToken notToken = new CommonToken(EolParser.OPERATOR);
+							notToken.setText("not");
+							AST notAst = new AST(notToken, null);
+							notAst.addChild(parametersAst);
+							parametersAst = notAst;
+						}
+						
 						if (one) {
-							return searchableModel.findOne(iterator, featureCallAst.getChild(1), context);
+							Object result = searchableModel.findOne(iterator, parametersAst, context);
+							if (operationName.equals("exists")) return result != null;
+							else if (operationName.equals("selectOne")) return result;
+							else if (operationName.equals("forAll")) return result == null;
 						}
 						else {
-							return searchableModel.find(iterator, featureCallAst.getChild(1), context);
+							return searchableModel.find(iterator, parametersAst, context);
 						}
 					}
 					
 				}
-				catch (Exception ex) {}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
-		
 		return super.execute(ast, context);
 	}
 
