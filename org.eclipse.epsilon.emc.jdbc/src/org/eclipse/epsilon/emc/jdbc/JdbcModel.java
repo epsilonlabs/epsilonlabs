@@ -235,9 +235,9 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public Object findOne(Variable iterator, AST ast, IEolContext context)
 			throws EolRuntimeException {
-		Collection<?> results = find(iterator, ast, context, true);
+		ResultSetList results = (ResultSetList) find(iterator, ast, context, true);
 		if (results.isEmpty()) return null;
-		else return results.iterator().next();
+		else return results.get(0);
 	}
 	
 	@Override
