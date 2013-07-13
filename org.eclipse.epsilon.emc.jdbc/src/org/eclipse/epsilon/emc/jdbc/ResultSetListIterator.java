@@ -3,72 +3,18 @@ package org.eclipse.epsilon.emc.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ResultSetListIterator extends ImmutableListIterator<Result> {
-	
-	protected ResultSet rs = null;
-	protected JdbcModel model = null;
-	protected Table table = null;
-	
+public class ResultSetListIterator extends ResultSetBackedIterator<Result> {
+
 	public ResultSetListIterator(ResultSet rs, JdbcModel model, Table table) {
-		this.rs = rs;
-		this.model = model;
-		this.table = table;
-	}
-	
-	@Override
-	public boolean hasNext() {
-		try {
-			return !rs.isLast();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		super(rs, model, table);
 	}
 
 	@Override
-	public Result next() {
+	protected Result getValueAtCurrentIndex() {
 		try {
-			rs.next();
 			return new Result(rs, rs.getRow(), model, table);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException();
 		}
 	}
-
-	@Override
-	public boolean hasPrevious() {
-		try {
-			return !rs.isFirst();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public int nextIndex() {
-		try {
-			return rs.getRow() + 1;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public Result previous() {
-		try {
-			rs.previous();
-			return new Result(rs, rs.getRow(), model, table);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	public int previousIndex() {
-		try {
-			return rs.getRow() - 1;
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
 }

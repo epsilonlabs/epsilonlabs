@@ -76,12 +76,13 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		this.readOnly = properties.getBooleanProperty(PROPERTY_READONLY, this.readOnly);
 		load();
 	}
-	
+
+	/*
 	public ResultSetList query(String sql) throws SQLException {
 		return new ResultSetList(
-				connection.createStatement().executeQuery(sql),
-				this, null);
-	}
+				connection.createStatement(),
+				this, null, null, null);
+	}*/
 	
 	@Override
 	public Object createInstance(String type)
@@ -191,17 +192,8 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
-		try {
-			PreparedStatement statement = 
-					prepareStatement("select * from " + type, 
-							  ResultSet.TYPE_SCROLL_INSENSITIVE, 
-							  getResultSetType());
-			
-			return new ResultSetList(statement.executeQuery(), this, database.getTable(type));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return Collections.emptyList();
+		
+		return new ResultSetList(this, database.getTable(type), "", null);
 	}
 	
 	@Override
@@ -248,25 +240,18 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	public Collection<?> find(Variable iterator, AST ast, IEolContext context, boolean one)
 			throws EolRuntimeException {
 		
-		ArrayList<Object> variables = new ArrayList<Object>();
-		String sql = "select * from " + iterator.getType().getName() + 
-				" where " + ast2sql(iterator, ast, context, variables);
+		ArrayList<Object> parameters = new ArrayList<Object>();
+		String condition = ast2sql(iterator, ast, context, parameters);
+		return new ResultSetList(this, database.getTable(iterator.getType().getName()), condition, parameters);
 
-		try {
-			PreparedStatement preparedStatement = prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, 
-				  getResultSetType());
-			
-			preparedStatement.clearParameters();
-			
-			int i = 1;
-			for (Object variable : variables) {
-				preparedStatement.setObject(i, variable);
-				i++;
-			}
-			
-			return new ResultSetList(preparedStatement.executeQuery(), this, database.getTable(iterator.getType().getName()));
-		} catch (SQLException e) {
-			throw new EolInternalException(e);
+	}
+	
+	protected void setParameters(PreparedStatement preparedStatement, List<Object> parameters) throws SQLException {
+		preparedStatement.clearParameters();
+		int i = 1;
+		for (Object parameter : parameters) {
+			preparedStatement.setObject(i, parameter);
+			i++;
 		}
 	}
 	
@@ -323,8 +308,10 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	@Override
 	public boolean owns(Object instance) {
-		return instance instanceof Result && 
-			((Result) instance).getModel() == this;
+		return (instance instanceof Result && 
+			((Result) instance).getModel() == this)
+			|| ((instance instanceof ResultSetList) && 
+			((ResultSetList) instance).getModel() == this);
 	}
 	
 	@Override

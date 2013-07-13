@@ -1,27 +1,28 @@
 package org.eclipse.epsilon.emc.jdbc;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ResultSetList extends ImmutableList<Result>{
+public class ResultSetList extends TableViewList<Result> {
 
-	protected ResultSet rs = null;
-	protected JdbcModel model = null;
-	protected Table table = null;
 	protected int size = -1;
+	protected ResultSet resultSet = null;
 	
-	public ResultSetList(ResultSet rs, JdbcModel model, Table table) {
-		this.rs = rs;
-		this.model = model;
-		this.table = table;
+	public ResultSetList(JdbcModel model, Table table, String condition, List<Object> parameters) {
+		super(model, table, condition, parameters);
+	}
+	
+	@Override
+	protected String getSelection() {
+		return "*";
 	}
 	
 	@Override
 	public boolean contains(Object o) {
-		return (o instanceof Result && ((Result) o).getResultSet() == rs);
+		return (o instanceof Result && ((Result) o).getResultSet() == getResultSet());
 	}
 
 	@Override
@@ -38,50 +39,44 @@ public class ResultSetList extends ImmutableList<Result>{
 	}
 
 	@Override
-	public Iterator<Result> iterator() {
-		return listIterator();
-	}
-
-	@Override
 	public int size() {
-		//if (size == -1) {
-			try {
-				int row = rs.getRow();
-				rs.last();
-				size = rs.getRow();
-				if (row != 0) rs.absolute(row);
+		
+		if (size != -1) return size;
+		
+		try {
+			if (condition != null && table != null) {
+				String sql = "select count(*) from " + table.getName();
+				if (condition.trim().length() > 0) {
+					sql += " where " + condition;
+				}
+				PreparedStatement statement = model.prepareStatement(
+					sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				
+				if (parameters != null) {
+					model.setParameters(statement, parameters);
+				}
+				
+				ResultSet resultSet = statement.executeQuery();
+				resultSet.next();
+				size = resultSet.getInt(1);
 			}
-			catch (Exception ex) {
-				throw new RuntimeException(ex);
+			else {
+					ResultSet rs = getResultSet();
+					int row = rs.getRow();
+					rs.last();
+					size = rs.getRow();
+					if (row != 0) rs.absolute(row);
+				}
 			}
-		//}
+		catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
 		return size;
 	}
 
 	@Override
-	public Object[] toArray() {
-		Iterator<Result> iterator = iterator();
-		int size = size();
-		Object[] array = new Object[size];
-		for (int i=0;i<size;i++) {
-			array[i] = iterator.next();
-		}
-		return array;
-	}
-
-	@Override
-	public <T> T[] toArray(T[] arg0) {
-		throw new UnsupportedOperationException();
-	}
-
-
-	@Override
 	public Result get(int index) {
-		//try {
-			return new Result(rs, index+1, model, table);
-		//} catch (SQLException e) {
-		//	throw new RuntimeException(e);
-		//}
+		return new Result(getResultSet(), index+1, model, table);
 	}
 
 	@Override
@@ -96,17 +91,7 @@ public class ResultSetList extends ImmutableList<Result>{
 
 	@Override
 	public ListIterator<Result> listIterator() {
-		return new ResultSetListIterator(rs, model, table);
+		return new ResultSetListIterator(getResultSet(), model, table);
 	}
-
-	@Override
-	public ListIterator<Result> listIterator(int arg0) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public List<Result> subList(int arg0, int arg1) {
-		throw new UnsupportedOperationException();
-	}
-		
+	
 }
