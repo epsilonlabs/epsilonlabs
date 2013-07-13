@@ -1,8 +1,5 @@
 package org.eclipse.epsilon.emc.jdbc;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -23,7 +20,7 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 	
 	public PrimitiveValuesList asSet() {
 		if (this.distinct) return this;
-		else return new PrimitiveValuesList(model, table, feature, condition, values, true);
+		else return new PrimitiveValuesList(model, table, feature, condition, parameters, true);
 	}
 	
 	@Override
