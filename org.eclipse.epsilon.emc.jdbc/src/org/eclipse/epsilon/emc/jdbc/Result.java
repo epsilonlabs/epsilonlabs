@@ -6,9 +6,15 @@ import java.sql.SQLException;
 public class Result {
 	
 	protected ResultSet resultSet;
-	protected int row;
+	protected int row = -1;
 	protected JdbcModel model;
 	protected Table table;
+	
+	public Result(ResultSet rs, JdbcModel model, Table table) {
+		this.resultSet = rs;
+		this.model = model;
+		this.table = table;
+	}
 	
 	public Result(ResultSet rs, int row, JdbcModel model, Table table) {
 		this.resultSet = rs;
@@ -23,7 +29,7 @@ public class Result {
 	
 	protected Object getValue(String name) throws SQLException {
 		//int oldRow = resultSet.getRow();
-		resultSet.absolute(row);
+		if (row != -1) resultSet.absolute(row);
 		Object result = resultSet.getObject(name);
 		//if (oldRow > 0) resultSet.absolute(oldRow);
 		return result;
@@ -31,7 +37,7 @@ public class Result {
 	
 	protected void setValue(String name, Object value) throws SQLException {
 		//int oldRow = resultSet.getRow();
-		resultSet.absolute(row);
+		if (row != -1) resultSet.absolute(row);
 		resultSet.updateObject(name, value);
 		resultSet.updateRow();
 		//if (oldRow > 0) resultSet.absolute(oldRow);	

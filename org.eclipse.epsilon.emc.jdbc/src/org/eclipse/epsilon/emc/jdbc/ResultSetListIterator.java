@@ -14,7 +14,8 @@ public class ResultSetListIterator extends ResultSetBackedIterator<Result> {
 		try {
 			return new Result(rs, rs.getRow(), model, table);
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			throw new RuntimeException(e);
 		}
 	}
+	
 }

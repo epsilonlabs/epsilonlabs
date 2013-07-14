@@ -10,9 +10,9 @@ public class ResultSetList extends TableViewList<Result> {
 
 	protected int size = -1;
 	protected ResultSet resultSet = null;
-	
-	public ResultSetList(JdbcModel model, Table table, String condition, List<Object> parameters) {
-		super(model, table, condition, parameters);
+
+	public ResultSetList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed) {
+		super(model, table, condition, parameters, streamed);
 	}
 	
 	@Override
@@ -50,7 +50,7 @@ public class ResultSetList extends TableViewList<Result> {
 					sql += " where " + condition;
 				}
 				PreparedStatement statement = model.prepareStatement(
-					sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+					sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 				
 				if (parameters != null) {
 					model.setParameters(statement, parameters);
@@ -91,7 +91,22 @@ public class ResultSetList extends TableViewList<Result> {
 
 	@Override
 	public ListIterator<Result> listIterator() {
-		return new ResultSetListIterator(getResultSet(), model, table);
+		if (streamed) {
+			return new StreamedResultSetListIterator(getResultSet(), model, table);
+		}
+		else {
+			return new ResultSetListIterator(getResultSet(), model, table);
+		}
+	}
+	
+	public ResultSetList fetch() {
+		ResultSetList fetched = new ResultSetList(model, table, condition, parameters, false);
+		return fetched;
+	}
+	
+	public ResultSetList stream() {
+		ResultSetList streamed = new ResultSetList(model, table, condition, parameters, true);
+		return streamed;		
 	}
 	
 }

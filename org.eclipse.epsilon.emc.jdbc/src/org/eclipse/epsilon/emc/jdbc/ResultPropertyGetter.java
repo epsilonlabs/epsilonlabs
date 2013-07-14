@@ -8,6 +8,12 @@ import org.eclipse.epsilon.eol.execute.introspection.AbstractPropertyGetter;
 
 public class ResultPropertyGetter extends AbstractPropertyGetter {
 	
+	protected JdbcModel model = null;
+	
+	public ResultPropertyGetter(JdbcModel model) {
+		this.model = model;
+	}
+	
 	@Override
 	public Object invoke(Object object, String property)
 			throws EolRuntimeException {
@@ -15,7 +21,7 @@ public class ResultPropertyGetter extends AbstractPropertyGetter {
 		if (object instanceof ResultSetList) {
 			ResultSetList resultSetList = (ResultSetList) object;
 			return new PrimitiveValuesList(resultSetList.getModel(), resultSetList.getTable(), 
-					property, resultSetList.getCondition(), resultSetList.getParameters(), false);
+					property, resultSetList.getCondition(), resultSetList.getParameters(), false, model.isStreamResults());
 		}
 		else {
 			try {

@@ -38,6 +38,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	public static final String PROPERTY_USERNAME = "username";
 	public static final String PROPERTY_PASSWORD = "password";
 	public static final String PROPERTY_READONLY = "readonly";
+	public static final String PROPERTY_STREAMRESULTS = "streamresults";
 	
 	protected String server;
 	protected int port;
@@ -46,9 +47,10 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected String password;
 	protected Connection connection;
 	protected Database database;
-	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter();
+	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter(this);
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
+	protected boolean streamResults = true;
 	
 	protected abstract Driver createDriver() throws SQLException;
 	protected abstract String getJdbcUrl();
@@ -74,6 +76,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		this.username = properties.getProperty(PROPERTY_USERNAME);
 		this.password = properties.getProperty(PROPERTY_PASSWORD);
 		this.readOnly = properties.getBooleanProperty(PROPERTY_READONLY, this.readOnly);
+		this.streamResults = properties.getBooleanProperty(PROPERTY_STREAMRESULTS, this.readOnly);
 		load();
 	}
 
@@ -100,11 +103,13 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		}
 	}
 	
+	// Create separate connections for each streamed list
 	protected HashMap<String, PreparedStatement> preparedStatementCache = new HashMap<String, PreparedStatement>();
 	protected PreparedStatement prepareStatement(String sql, int options, int resultSetType) throws SQLException {
 		PreparedStatement preparedStatement = preparedStatementCache.get(sql + options + "" + resultSetType);
 		if (preparedStatement == null) {
 			preparedStatement = connection.prepareStatement(sql, options, resultSetType);
+			//preparedStatement.setFetchSize(Integer.MIN_VALUE);
 			preparedStatementCache.put(sql + options + "" + resultSetType, preparedStatement);
 		}
 		return preparedStatement;
@@ -193,7 +198,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
 		
-		return new ResultSetList(this, database.getTable(type), "", null);
+		return new ResultSetList(this, database.getTable(type), "", null, streamResults);
 	}
 	
 	@Override
@@ -242,7 +247,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		
 		ArrayList<Object> parameters = new ArrayList<Object>();
 		String condition = ast2sql(iterator, ast, context, parameters);
-		return new ResultSetList(this, database.getTable(iterator.getType().getName()), condition, parameters);
+		return new ResultSetList(this, database.getTable(iterator.getType().getName()), condition, parameters, streamResults);
 
 	}
 	
@@ -433,6 +438,14 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public boolean store() {
 		throw new UnsupportedOperationException();
+	}
+	
+	public boolean isStreamResults() {
+		return streamResults;
+	}
+	
+	public void setStreamResults(boolean streamResults) {
+		this.streamResults = streamResults;
 	}
 	
 }

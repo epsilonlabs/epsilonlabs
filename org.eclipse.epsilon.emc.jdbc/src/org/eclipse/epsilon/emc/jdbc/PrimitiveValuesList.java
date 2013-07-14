@@ -12,15 +12,15 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 	protected String feature = null;
 	protected boolean distinct = false;
 	
-	public PrimitiveValuesList(JdbcModel model, Table table, String feature, String condition, List<Object> parameters, boolean distinct) {
-		super(model, table, condition, parameters);
+	public PrimitiveValuesList(JdbcModel model, Table table, String feature, String condition, List<Object> parameters, boolean distinct, boolean streamed) {
+		super(model, table, condition, parameters, streamed);
 		this.feature = feature;
 		this.distinct = distinct;
 	}
 	
 	public PrimitiveValuesList asSet() {
 		if (this.distinct) return this;
-		else return new PrimitiveValuesList(model, table, feature, condition, parameters, true);
+		else return new PrimitiveValuesList(model, table, feature, condition, parameters, true, streamed);
 	}
 	
 	@Override
@@ -91,5 +91,14 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 		return getValues().size();
 	}
 
+	public PrimitiveValuesList fetch() {
+		PrimitiveValuesList fetched = new PrimitiveValuesList(model, table, feature, condition, parameters, distinct, false);
+		return fetched;
+	}
+	
+	public PrimitiveValuesList stream() {
+		PrimitiveValuesList streamed = new PrimitiveValuesList(model, table, feature, condition, parameters, distinct, true);
+		return streamed;		
+	}
 
 }

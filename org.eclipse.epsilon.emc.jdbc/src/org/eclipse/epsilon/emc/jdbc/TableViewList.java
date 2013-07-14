@@ -11,13 +11,15 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 	protected String condition;
 	protected List<Object> parameters;
 	protected ResultSet resultSet = null;
+	protected boolean streamed = false;
 	
-	public TableViewList(JdbcModel model, Table table, String condition, List<Object> parameters) {
+	public TableViewList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed) {
 		super();
 		this.model = model;
 		this.table = table;
 		this.condition = condition;
 		this.parameters = parameters;
+		this.streamed = streamed;
 	}
 	
 	protected abstract String getSelection();
@@ -29,8 +31,23 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 				if (condition != null && condition.trim().length() > 0) {
 					sql += " where " + condition;
 				}
-				PreparedStatement preparedStatement = model.prepareStatement(sql, 
-						ResultSet.TYPE_SCROLL_INSENSITIVE, model.getResultSetType());
+				
+				int options = ResultSet.TYPE_SCROLL_INSENSITIVE;
+				int resultSetType = model.getResultSetType();
+				
+				if (streamed) {
+					options = ResultSet.TYPE_FORWARD_ONLY;
+					resultSetType = ResultSet.CONCUR_READ_ONLY;
+				}
+				
+				PreparedStatement preparedStatement = model.prepareStatement(sql, options, resultSetType);
+				
+				if (streamed) {
+					preparedStatement.setFetchSize(Integer.MIN_VALUE);
+				}
+				else {
+					preparedStatement.setFetchSize(Integer.MAX_VALUE);
+				}
 				
 				if (parameters != null) {
 					model.setParameters(preparedStatement, parameters);
@@ -59,4 +76,11 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 		return parameters;
 	}
 	
+	public boolean isStreamed() {
+		return streamed;
+	}
+	
+	public void setStreamed(boolean streamed) {
+		this.streamed = streamed;
+	}
 }
