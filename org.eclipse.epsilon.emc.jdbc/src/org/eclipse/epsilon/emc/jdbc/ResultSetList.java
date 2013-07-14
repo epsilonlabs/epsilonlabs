@@ -76,7 +76,7 @@ public class ResultSetList extends TableViewList<Result> {
 
 	@Override
 	public Result get(int index) {
-		return new Result(getResultSet(), index+1, model, table);
+		return new Result(getResultSet(), index+1, model, table, streamed);
 	}
 
 	@Override

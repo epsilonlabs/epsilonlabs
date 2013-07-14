@@ -143,7 +143,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 			// Store the insert into database
 			res.insertRow();
 			res.next();
-			return new Result(res, res.getRow(), this, database.getTable(type));
+			return new Result(res, res.getRow(), this, database.getTable(type), false);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -1,12 +1,14 @@
 package org.eclipse.epsilon.emc.jdbc;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public abstract class StreamedResultSetBackedIterator<T> extends ResultSetBackedIterator<T> {
 
 	protected T next = null;
 	protected boolean nextConsumed = true;
-
+	protected boolean hasNext;
+	
 	public StreamedResultSetBackedIterator(ResultSet rs, JdbcModel model, Table table) {
 		super(rs, model, table);
 	}
@@ -17,15 +19,17 @@ public abstract class StreamedResultSetBackedIterator<T> extends ResultSetBacked
 		// so we need to peek ahead
 		if (nextConsumed) {
 			try {
-				boolean hasNext = rs.next();
-				if (hasNext) next = getValueAtCurrentIndex();
-				return hasNext;
-			}
-			catch (Exception ex) {
+				hasNext = rs.next();
+			} catch (SQLException e) {
 				return false;
 			}
+
+			if (hasNext) { 
+				next = getValueAtCurrentIndex();
+				nextConsumed = false;
+			}
 		}
-		return (next != null);
+		return hasNext;
 	}
 	
 	@Override

@@ -12,7 +12,7 @@ public class ResultSetListIterator extends ResultSetBackedIterator<Result> {
 	@Override
 	protected Result getValueAtCurrentIndex() {
 		try {
-			return new Result(rs, rs.getRow(), model, table);
+			return new Result(rs, rs.getRow(), model, table, false);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

@@ -10,7 +10,7 @@ public class StreamedResultSetListIterator extends StreamedResultSetBackedIterat
 	
 	@Override
 	protected Result getValueAtCurrentIndex() {
-		return new Result(rs, model, table);
+		return new Result(rs, model, table, true);
 	}
 	
 }
