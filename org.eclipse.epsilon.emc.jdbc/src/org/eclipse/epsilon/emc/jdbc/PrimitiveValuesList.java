@@ -6,7 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class PrimitiveValuesList extends TableViewList<Object>{
+import org.eclipse.epsilon.eol.models.IModel;
+import org.eclipse.epsilon.eol.models.IModelElement;
+
+public class PrimitiveValuesList extends TableViewList<Object> implements IModelElement {
 	
 	protected List<Object> values = null;
 	protected String feature = null;
@@ -24,7 +27,7 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 	}
 	
 	@Override
-	protected String getSelection() {
+	public String getSelection() {
 		String selection = " " + feature + " ";
 		if (distinct) { selection = " distinct" + selection; }
 		return selection;
@@ -63,7 +66,7 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 
 	@Override
 	public boolean isEmpty() {
-		return getValues().isEmpty();
+		return size() == 0;
 	}
 
 	@Override
@@ -79,7 +82,12 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 	@Override
 	public ListIterator<Object> listIterator() {
 		if (values == null) {
-			return new PrimitiveValuesListIterator(getResultSet(), null, null);
+			if (isStreamed()) {
+				return new StreamedPrimitiveValuesListIterator(getResultSet(), model, table);
+			}
+			else {
+				return new PrimitiveValuesListIterator(getResultSet(), model, table);
+			}
 		}
 		else {
 			return values.listIterator();
@@ -88,7 +96,13 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 
 	@Override
 	public int size() {
-		return getValues().size();
+		if (streamed) {
+			long count = new StreamedPrimitiveValuesListSqlOperation<Long>("count", getSelection(), condition, parameters, model, table).getValue();
+			return (int) count;
+		}
+		else {
+			return getValues().size();
+		}
 	}
 
 	public PrimitiveValuesList fetch() {
@@ -99,6 +113,11 @@ public class PrimitiveValuesList extends TableViewList<Object>{
 	public PrimitiveValuesList stream() {
 		PrimitiveValuesList streamed = new PrimitiveValuesList(model, table, feature, condition, parameters, distinct, true);
 		return streamed;		
+	}
+
+	@Override
+	public IModel getOwningModel() {
+		return model;
 	}
 
 }

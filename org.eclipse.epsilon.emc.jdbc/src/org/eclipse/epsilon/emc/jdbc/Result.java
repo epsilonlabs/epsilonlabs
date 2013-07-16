@@ -7,7 +7,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-public class Result {
+import org.eclipse.epsilon.eol.models.IModelElement;
+
+public class Result implements IModelElement {
 	
 	protected ResultSet resultSet;
 	protected int row = -1;
@@ -78,7 +80,7 @@ public class Result {
 		}
 	}
 	
-	public JdbcModel getModel() {
+	public JdbcModel getOwningModel() {
 		return model;
 	}
 	

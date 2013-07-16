@@ -6,7 +6,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ResultSetList extends TableViewList<Result> {
+import org.eclipse.epsilon.eol.models.IModel;
+import org.eclipse.epsilon.eol.models.IModelElement;
+
+public class ResultSetList extends TableViewList<Result> implements IModelElement {
 
 	protected int size = -1;
 	protected ResultSet resultSet = null;
@@ -16,7 +19,7 @@ public class ResultSetList extends TableViewList<Result> {
 	}
 	
 	@Override
-	protected String getSelection() {
+	public String getSelection() {
 		return "*";
 	}
 	
@@ -107,6 +110,11 @@ public class ResultSetList extends TableViewList<Result> {
 	public ResultSetList stream() {
 		ResultSetList streamed = new ResultSetList(model, table, condition, parameters, true);
 		return streamed;		
+	}
+
+	@Override
+	public IModel getOwningModel() {
+		return model;
 	}
 	
 }

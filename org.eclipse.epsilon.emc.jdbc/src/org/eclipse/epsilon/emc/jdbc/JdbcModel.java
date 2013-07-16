@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.util.StringProperties;
-import org.eclipse.epsilon.eol.exceptions.EolInternalException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
@@ -24,13 +23,15 @@ import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
+import org.eclipse.epsilon.eol.execute.operations.contributors.IOperationContributorProvider;
+import org.eclipse.epsilon.eol.execute.operations.contributors.OperationContributor;
 import org.eclipse.epsilon.eol.models.ISearchableModel;
 import org.eclipse.epsilon.eol.models.Model;
 import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
 
-public abstract class JdbcModel extends Model implements ISearchableModel {
+public abstract class JdbcModel extends Model implements ISearchableModel, IOperationContributorProvider {
 	
 	public static final String PROPERTY_SERVER = "server";
 	public static final String PROPERTY_PORT = "port";
@@ -51,6 +52,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
 	protected boolean streamResults = true;
+	protected StreamedPrimitiveValuesListOperationContributor operationContributor = new StreamedPrimitiveValuesListOperationContributor();
 	
 	protected abstract Driver createDriver() throws SQLException;
 	protected abstract String getJdbcUrl();
@@ -115,6 +117,41 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 		return preparedStatement;
 	}
 	
+	public ResultSet getResultSet(String selection, String condition, List<Object> parameters, Table table, boolean streamed) {
+			try {
+				String sql = "select " + selection + " from " + table.getName();
+				if (condition != null && condition.trim().length() > 0) {
+					sql += " where " + condition;
+				}
+				
+				System.err.println(sql);
+				
+				int options = ResultSet.TYPE_SCROLL_INSENSITIVE;
+				int resultSetType = this.getResultSetType();
+				
+				if (streamed) {
+					options = ResultSet.TYPE_FORWARD_ONLY;
+					resultSetType = ResultSet.CONCUR_READ_ONLY;
+				}
+				
+				PreparedStatement preparedStatement = this.prepareStatement(sql, options, resultSetType);
+				
+				if (streamed) {
+					preparedStatement.setFetchSize(Integer.MIN_VALUE);
+				}
+				else {
+					preparedStatement.setFetchSize(Integer.MAX_VALUE);
+				}
+				
+				if (parameters != null) {
+					this.setParameters(preparedStatement, parameters);
+				}
+				
+				return preparedStatement.executeQuery();
+			}
+			catch (Exception ex) { throw new RuntimeException(ex); } 
+	}
+	
 	@Override
 	public Object createInstance(String type, Collection<Object> parameters)
 			throws EolModelElementTypeNotFoundException,
@@ -169,6 +206,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 				database.getTables().add(table);
 			}
 			
+			/*
 			for (Table table : database.getTables()) {
 				ResultSet foreignKeysRs = connection.getMetaData().getImportedKeys(null, null, table.getName());
 				while (foreignKeysRs.next()) {
@@ -181,7 +219,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 					table.getOutgoing().add(foreignKey);
 					foreignTable.getIncoming().add(foreignKey);
 				}
-			}
+			}*/
 			
 		}
 		catch (Exception ex) {
@@ -314,7 +352,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	@Override
 	public boolean owns(Object instance) {
 		return (instance instanceof Result && 
-			((Result) instance).getModel() == this)
+			((Result) instance).getOwningModel() == this)
 			|| ((instance instanceof ResultSetList) && 
 			((ResultSetList) instance).getModel() == this);
 	}
@@ -446,6 +484,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel {
 	
 	public void setStreamResults(boolean streamResults) {
 		this.streamResults = streamResults;
+	}
+	
+	@Override
+	public OperationContributor getOperationContributor() {
+		return operationContributor;
 	}
 	
 }
