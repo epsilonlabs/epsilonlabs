@@ -67,8 +67,10 @@ public abstract class ImmutableList<T> implements List<T>{
 		Iterator<T> iterator = iterator();
 		int size = size();
 		Object[] array = new Object[size];
-		for (int i=0;i<size;i++) {
+		int i = 0;
+		while (iterator.hasNext()) {
 			array[i] = iterator.next();
+			i++;
 		}
 		return array;
 	}

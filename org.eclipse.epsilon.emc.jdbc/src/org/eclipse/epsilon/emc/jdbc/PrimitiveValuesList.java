@@ -35,7 +35,7 @@ public class PrimitiveValuesList extends TableViewList<Object> implements IModel
 	
 	public List<Object> getValues() {
 		if (values == null) {
-			ListIterator<Object> listIterator = listIterator();
+			ListIterator<Object> listIterator = new PrimitiveValuesListIterator(getResultSet(), model, table);
 			values = new ArrayList<Object>();
 			while (listIterator.hasNext()) {
 				values.add(listIterator.next());
@@ -81,16 +81,11 @@ public class PrimitiveValuesList extends TableViewList<Object> implements IModel
 
 	@Override
 	public ListIterator<Object> listIterator() {
-		if (values == null) {
-			if (isStreamed()) {
-				return new StreamedPrimitiveValuesListIterator(getResultSet(), model, table);
-			}
-			else {
-				return new PrimitiveValuesListIterator(getResultSet(), model, table);
-			}
+		if (isStreamed()) {
+			return new StreamedPrimitiveValuesListIterator(getResultSet(), model, table);
 		}
 		else {
-			return values.listIterator();
+			return getValues().listIterator();
 		}
 	}
 

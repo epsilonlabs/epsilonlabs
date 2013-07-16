@@ -30,6 +30,7 @@ import org.eclipse.epsilon.eol.models.Model;
 import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
+import org.eclipse.epsilon.eol.types.EolModelElementType;
 
 public abstract class JdbcModel extends Model implements ISearchableModel, IOperationContributorProvider {
 	
@@ -123,8 +124,6 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 				if (condition != null && condition.trim().length() > 0) {
 					sql += " where " + condition;
 				}
-				
-				System.err.println(sql);
 				
 				int options = ResultSet.TYPE_SCROLL_INSENSITIVE;
 				int resultSetType = this.getResultSetType();
@@ -282,10 +281,10 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	
 	public Collection<?> find(Variable iterator, AST ast, IEolContext context, boolean one)
 			throws EolRuntimeException {
-		
 		ArrayList<Object> parameters = new ArrayList<Object>();
 		String condition = ast2sql(iterator, ast, context, parameters);
-		return new ResultSetList(this, database.getTable(iterator.getType().getName()), condition, parameters, streamResults);
+		EolModelElementType modelElementType = (EolModelElementType) iterator.getType();
+		return new ResultSetList(this, database.getTable(modelElementType.getTypeName()), condition, parameters, streamResults);
 
 	}
 	
