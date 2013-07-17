@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.emc.jdbc;
 
-import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.util.StringProperties;
@@ -27,7 +25,6 @@ import org.eclipse.epsilon.eol.execute.operations.contributors.IOperationContrib
 import org.eclipse.epsilon.eol.execute.operations.contributors.OperationContributor;
 import org.eclipse.epsilon.eol.models.ISearchableModel;
 import org.eclipse.epsilon.eol.models.Model;
-import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
 import org.eclipse.epsilon.eol.types.EolModelElementType;
@@ -47,12 +44,12 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	protected String databaseName;
 	protected String username;
 	protected String password;
-	protected Connection connection;
 	protected Database database;
 	protected ResultPropertyGetter propertyGetter = new ResultPropertyGetter(this);
 	protected ResultPropertySetter propertySetter = new ResultPropertySetter(this);
 	protected boolean readOnly = true;
 	protected boolean streamResults = true;
+	protected ConnectionPool connectionPool = null;
 	protected StreamedPrimitiveValuesListOperationContributor operationContributor = new StreamedPrimitiveValuesListOperationContributor();
 	
 	protected abstract Driver createDriver() throws SQLException;
@@ -108,13 +105,21 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	
 	// Create separate connections for each streamed list
 	protected HashMap<String, PreparedStatement> preparedStatementCache = new HashMap<String, PreparedStatement>();
-	protected PreparedStatement prepareStatement(String sql, int options, int resultSetType) throws SQLException {
-		PreparedStatement preparedStatement = preparedStatementCache.get(sql + options + "" + resultSetType);
-		if (preparedStatement == null) {
-			preparedStatement = connection.prepareStatement(sql, options, resultSetType);
-			//preparedStatement.setFetchSize(Integer.MIN_VALUE);
-			preparedStatementCache.put(sql + options + "" + resultSetType, preparedStatement);
+	protected PreparedStatement prepareStatement(String sql, int options, int resultSetType, boolean streamed) throws SQLException {
+		
+		PreparedStatement preparedStatement = null;
+		
+		if (!streamed) {
+			preparedStatement = preparedStatementCache.get(sql + options + "" + resultSetType);
+			if (preparedStatement == null) {
+				preparedStatement = connectionPool.getConnection(streamed).prepareStatement(sql, options, resultSetType);
+				preparedStatementCache.put(sql + options + "" + resultSetType, preparedStatement);
+			}
 		}
+		else {
+			preparedStatement = connectionPool.getConnection(streamed).prepareStatement(sql, options, resultSetType);
+		}
+		
 		return preparedStatement;
 	}
 	
@@ -133,7 +138,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 					resultSetType = ResultSet.CONCUR_READ_ONLY;
 				}
 				
-				PreparedStatement preparedStatement = this.prepareStatement(sql, options, resultSetType);
+				PreparedStatement preparedStatement = this.prepareStatement(sql, options, resultSetType, streamed);
 				
 				if (streamed) {
 					preparedStatement.setFetchSize(Integer.MIN_VALUE);
@@ -146,7 +151,9 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 					this.setParameters(preparedStatement, parameters);
 				}
 				
-				return preparedStatement.executeQuery();
+				ResultSet resultSet = preparedStatement.executeQuery();
+				connectionPool.register(resultSet, preparedStatement.getConnection());
+				return resultSet;
 			}
 			catch (Exception ex) { throw new RuntimeException(ex); } 
 	}
@@ -161,7 +168,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 			// Create a Statement for scrollable ResultSet
 			PreparedStatement sta = prepareStatement("SELECT * FROM " + type
 					+ " WHERE 1=2 limit 1",
-					ResultSet.TYPE_SCROLL_INSENSITIVE, getResultSetType());
+					ResultSet.TYPE_SCROLL_INSENSITIVE, getResultSetType(), false);
 
 			// Catch the ResultSet object
 			ResultSet res = sta.executeQuery();
@@ -191,15 +198,11 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	@Override
 	public void load() throws EolModelLoadingException {
 		try {
-			Driver driver = createDriver();
-			Properties properties = new Properties();
-			properties.put("user", username);
-			properties.put("password", password);
-			connection = driver.connect(getJdbcUrl(), properties);
+			connectionPool = new ConnectionPool(createDriver(), getJdbcUrl(), username, password);
 	        database = new Database();
 			
 	        // Cache table names
-	        ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[]{});
+	        ResultSet rs = connectionPool.getSharedConnection().getMetaData().getTables(null, null, null, new String[]{});
 			while (rs.next()) {
 				Table table = new Table(rs.getString(3), database);
 				database.getTables().add(table);
@@ -356,6 +359,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 			((ResultSetList) instance).getModel() == this);
 	}
 	
+	/*
 	@Override
 	public IModelTransactionSupport getTransactionSupport() {
 		return new IModelTransactionSupport() {
@@ -392,7 +396,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 			}
 			
 		};
-	}
+	}*/
 	
 	public String getServer() {
 		return server;
@@ -446,7 +450,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	public void dispose() {
 		super.dispose();
 		try {
-			connection.close();
+			connectionPool.dispose();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -488,6 +492,10 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	@Override
 	public OperationContributor getOperationContributor() {
 		return operationContributor;
+	}
+	
+	public ConnectionPool getConnectionPool() {
+		return connectionPool;
 	}
 	
 }

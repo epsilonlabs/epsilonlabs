@@ -28,6 +28,9 @@ public abstract class StreamedResultSetBackedIterator<T> extends ResultSetBacked
 				next = getValueAtCurrentIndex();
 				nextConsumed = false;
 			}
+			else {
+				model.getConnectionPool().finishedStreaming(rs);
+			}
 		}
 		return hasNext;
 	}

@@ -54,4 +54,9 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 	public void setStreamed(boolean streamed) {
 		this.streamed = streamed;
 	}
+	
+	@Override
+	public boolean isEmpty() {
+		return size() == 0;
+	}
 }

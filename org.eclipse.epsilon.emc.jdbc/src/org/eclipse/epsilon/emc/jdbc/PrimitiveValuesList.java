@@ -64,10 +64,7 @@ public class PrimitiveValuesList extends TableViewList<Object> implements IModel
 		return getValues().indexOf(o);
 	}
 
-	@Override
-	public boolean isEmpty() {
-		return size() == 0;
-	}
+
 
 	@Override
 	public Iterator<Object> iterator() {
