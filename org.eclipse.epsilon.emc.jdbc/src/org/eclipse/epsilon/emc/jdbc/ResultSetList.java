@@ -5,16 +5,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.eclipse.epsilon.eol.models.IModel;
-import org.eclipse.epsilon.eol.models.IModelElement;
+import org.eclipse.epsilon.eol.execute.operations.AbstractOperation;
+import org.eclipse.epsilon.eol.execute.operations.declarative.IAbstractOperationContributor;
 
-public class ResultSetList extends TableViewList<Result> implements IModelElement {
+public class ResultSetList extends ResultSetBackedList<Result> implements IAbstractOperationContributor {
 
 	protected int size = -1;
 	protected ResultSet resultSet = null;
-
-	public ResultSetList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed) {
-		super(model, table, condition, parameters, streamed);
+	protected static ResultSetListSelectOperation resultSetListSelectOperation = new ResultSetListSelectOperation();
+	protected static ResultSetListCollectOperation resultSetBackedListCollectOperation = new ResultSetListCollectOperation();
+	
+	public ResultSetList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed, boolean one) {
+		super(model, table, condition, parameters, streamed, one);
 	}
 	
 	@Override
@@ -40,7 +42,7 @@ public class ResultSetList extends TableViewList<Result> implements IModelElemen
 		
 		if (size == -1) {
 			if (streamed) {
-				size = (int) (long) new StreamedPrimitiveValuesListSqlOperation<Long>("count", getSelection(), condition, parameters, model, table).getValue();
+				size = (int) (long) new StreamedPrimitiveValuesListSqlOperation<Long>("count", getSelection(), condition, parameters, model, table, one).getValue();
 			}
 			else {
 				try {
@@ -85,18 +87,25 @@ public class ResultSetList extends TableViewList<Result> implements IModelElemen
 	}
 	
 	public ResultSetList fetch() {
-		ResultSetList fetched = new ResultSetList(model, table, condition, parameters, false);
+		ResultSetList fetched = new ResultSetList(model, table, condition, parameters, false, one);
 		return fetched;
 	}
 	
 	public ResultSetList stream() {
-		ResultSetList streamed = new ResultSetList(model, table, condition, parameters, true);
+		ResultSetList streamed = new ResultSetList(model, table, condition, parameters, true, one);
 		return streamed;		
 	}
-
+	
 	@Override
-	public IModel getOwningModel() {
-		return model;
+	public AbstractOperation getAbstractOperation(String name) {
+		if ("select".equals(name)) {
+			return resultSetListSelectOperation;
+		}
+		else if ("collect".equals(name)) {
+			return resultSetBackedListCollectOperation;
+		}
+		else return null;
 	}
 	
+
 }

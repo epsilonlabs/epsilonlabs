@@ -18,18 +18,20 @@ public class ResultPropertyGetter extends AbstractPropertyGetter {
 	public Object invoke(Object object, String property)
 			throws EolRuntimeException {
 		
+		try {
+			return ((Result) object).getValue(property);
+		} catch (SQLException e) {
+			throw new EolInternalException(e);
+		}
+		/*
 		if (object instanceof ResultSetList) {
 			ResultSetList resultSetList = (ResultSetList) object;
 			return new PrimitiveValuesList(resultSetList.getModel(), resultSetList.getTable(), 
 					property, resultSetList.getCondition(), resultSetList.getParameters(), false, model.isStreamResults());
 		}
 		else {
-			try {
-				return ((Result) object).getValue(property);
-			} catch (SQLException e) {
-				throw new EolInternalException(e);
-			}
-		}
+			
+		}*/
 	}
 
 }

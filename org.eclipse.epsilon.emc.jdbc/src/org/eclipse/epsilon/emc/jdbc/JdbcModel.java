@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
@@ -23,13 +22,11 @@ import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.execute.operations.contributors.IOperationContributorProvider;
 import org.eclipse.epsilon.eol.execute.operations.contributors.OperationContributor;
-import org.eclipse.epsilon.eol.models.ISearchableModel;
 import org.eclipse.epsilon.eol.models.Model;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.types.EolMap;
-import org.eclipse.epsilon.eol.types.EolModelElementType;
 
-public abstract class JdbcModel extends Model implements ISearchableModel, IOperationContributorProvider {
+public abstract class JdbcModel extends Model implements IOperationContributorProvider {
 	
 	public static final String PROPERTY_SERVER = "server";
 	public static final String PROPERTY_PORT = "port";
@@ -123,12 +120,15 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 		return preparedStatement;
 	}
 	
-	public ResultSet getResultSet(String selection, String condition, List<Object> parameters, Table table, boolean streamed) {
+	public ResultSet getResultSet(String selection, String condition, List<Object> parameters, Table table, boolean streamed, boolean one) {
 			try {
 				String sql = "select " + selection + " from " + table.getName();
 				if (condition != null && condition.trim().length() > 0) {
 					sql += " where " + condition;
 				}
+				if (one) { sql += " limit 1"; }
+				
+				System.err.println(sql);
 				
 				int options = ResultSet.TYPE_SCROLL_INSENSITIVE;
 				int resultSetType = this.getResultSetType();
@@ -238,7 +238,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
 		
-		return new ResultSetList(this, database.getTable(type), "", null, streamResults);
+		return new ResultSetList(this, database.getTable(type), "", null, streamResults, false);
 	}
 	
 	@Override
@@ -268,29 +268,7 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	public String getTypeNameOf(Object instance) {
 		return ((Result) instance).getTable().getName();
 	}
-	
-	@Override
-	public Object findOne(Variable iterator, AST ast, IEolContext context)
-			throws EolRuntimeException {
-		ResultSetList results = (ResultSetList) find(iterator, ast, context, true);
-		if (results.isEmpty()) return null;
-		else return results.get(0);
-	}
-	
-	@Override
-	public java.util.Collection<?> find(Variable iterator, AST ast, IEolContext context) throws EolRuntimeException {
-		return find(iterator, ast, context, false);
-	};
-	
-	public Collection<?> find(Variable iterator, AST ast, IEolContext context, boolean one)
-			throws EolRuntimeException {
-		ArrayList<Object> parameters = new ArrayList<Object>();
-		String condition = ast2sql(iterator, ast, context, parameters);
-		EolModelElementType modelElementType = (EolModelElementType) iterator.getType();
-		return new ResultSetList(this, database.getTable(modelElementType.getTypeName()), condition, parameters, streamResults);
-
-	}
-	
+		
 	protected void setParameters(PreparedStatement preparedStatement, List<Object> parameters) throws SQLException {
 		preparedStatement.clearParameters();
 		int i = 1;
@@ -315,13 +293,6 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 			Object result = context.getExecutorFactory().executeAST(ast, context);
 			variables.add(result);
 			return "?";
-			/*
-			if (result instanceof String) {
-				return "\"" + result + "\"";
-			}
-			else {
-				return result + "";
-			}*/
 		}
 	}
 	
@@ -354,9 +325,9 @@ public abstract class JdbcModel extends Model implements ISearchableModel, IOper
 	@Override
 	public boolean owns(Object instance) {
 		return (instance instanceof Result && 
-			((Result) instance).getOwningModel() == this)
+			((Result) instance).getOwningModel() == this)/*
 			|| ((instance instanceof ResultSetList) && 
-			((ResultSetList) instance).getModel() == this);
+			((ResultSetList) instance).getModel() == this)*/;
 	}
 	
 	/*

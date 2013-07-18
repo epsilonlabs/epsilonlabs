@@ -1,10 +1,9 @@
 package org.eclipse.epsilon.emc.jdbc;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-public abstract class TableViewList<T> extends ImmutableList<T> {
+public abstract class ResultSetBackedList<T> extends ImmutableList<T> {
 	
 	protected JdbcModel model = null;
 	protected Table table = null;
@@ -12,21 +11,23 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 	protected List<Object> parameters;
 	protected ResultSet resultSet = null;
 	protected boolean streamed = false;
+	protected boolean one = false;
 	
-	public TableViewList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed) {
+	public ResultSetBackedList(JdbcModel model, Table table, String condition, List<Object> parameters, boolean streamed, boolean one) {
 		super();
 		this.model = model;
 		this.table = table;
 		this.condition = condition;
 		this.parameters = parameters;
 		this.streamed = streamed;
+		this.one = one;
 	}
 	
 	public abstract String getSelection();
 	
 	protected ResultSet getResultSet() {
 		if (resultSet == null) {
-			resultSet = model.getResultSet(getSelection(), condition, parameters, table, streamed);
+			resultSet = model.getResultSet(getSelection(), condition, parameters, table, streamed, isOne());
 		}
 		return resultSet;
 	}
@@ -58,5 +59,13 @@ public abstract class TableViewList<T> extends ImmutableList<T> {
 	@Override
 	public boolean isEmpty() {
 		return size() == 0;
+	}
+	
+	public boolean isOne() {
+		return one;
+	}
+	
+	public void setOne(boolean one) {
+		this.one = one;
 	}
 }

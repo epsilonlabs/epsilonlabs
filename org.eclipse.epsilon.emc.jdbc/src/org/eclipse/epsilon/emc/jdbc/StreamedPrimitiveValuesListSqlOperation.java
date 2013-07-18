@@ -12,8 +12,9 @@ public class StreamedPrimitiveValuesListSqlOperation<T> {
 	protected JdbcModel model;
 	protected Table table;
 	protected String operation;
+	protected boolean one = false;
 	
-	public StreamedPrimitiveValuesListSqlOperation(String operation, String selection, String condition, List<Object> parameters, JdbcModel model, Table table) {
+	public StreamedPrimitiveValuesListSqlOperation(String operation, String selection, String condition, List<Object> parameters, JdbcModel model, Table table, boolean one) {
 		super();
 		this.operation = operation;
 		this.selection = selection;
@@ -21,6 +22,7 @@ public class StreamedPrimitiveValuesListSqlOperation<T> {
 		this.parameters = parameters;
 		this.model = model;
 		this.table = table;
+		this.one = one;
 	}
 	
 	public String getSelection() {
@@ -28,7 +30,7 @@ public class StreamedPrimitiveValuesListSqlOperation<T> {
 	}
 	
 	public T getValue() {
-		ResultSet resultSet = model.getResultSet(getSelection(), condition, parameters, table, false);
+		ResultSet resultSet = model.getResultSet(getSelection(), condition, parameters, table, false, one);
 		try {
 			if (resultSet.next()) {
 				return (T) resultSet.getObject(1);
