@@ -128,7 +128,7 @@ public abstract class JdbcModel extends Model implements IOperationContributorPr
 				}
 				if (one) { sql += " limit 1"; }
 				
-				System.err.println(sql);
+				// System.err.println(sql);
 				
 				int options = ResultSet.TYPE_SCROLL_INSENSITIVE;
 				int resultSetType = this.getResultSetType();
