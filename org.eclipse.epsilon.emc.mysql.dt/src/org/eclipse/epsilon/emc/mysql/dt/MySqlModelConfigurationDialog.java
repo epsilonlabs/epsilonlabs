@@ -35,6 +35,7 @@ public class MySqlModelConfigurationDialog extends AbstractModelConfigurationDia
 	protected Text usernameText;	
 	protected Text passwordText;
 	protected Button readonlyButton;
+	protected Button streamedResultsButton;
 	
 	protected void createGroups(Composite control) {
 		super.createGroups(control);
@@ -50,6 +51,7 @@ public class MySqlModelConfigurationDialog extends AbstractModelConfigurationDia
 		usernameText = createLabeledText(groupContent, "Username");
 		passwordText = createLabeledText(groupContent, "Password", SWT.BORDER | SWT.PASSWORD);
 		readonlyButton = createLabeledButton(groupContent, "Read-only", SWT.CHECK);
+		streamedResultsButton = createLabeledButton(groupContent, "Stream results", SWT.CHECK);
 		
 		groupContent.layout();
 		groupContent.pack();
@@ -91,8 +93,8 @@ public class MySqlModelConfigurationDialog extends AbstractModelConfigurationDia
 		usernameText.setText(properties.getProperty(MySqlModel.PROPERTY_USERNAME));
 		passwordText.setText(properties.getProperty(MySqlModel.PROPERTY_PASSWORD));
 		readonlyButton.setSelection(properties.getBooleanProperty(MySqlModel.PROPERTY_READONLY, true));
+		streamedResultsButton.setSelection(properties.getBooleanProperty(MySqlModel.PROPERTY_STREAMRESULTS, true));
 	}
-	
 	
 	protected void storeProperties(){
 		super.storeProperties();
@@ -102,5 +104,6 @@ public class MySqlModelConfigurationDialog extends AbstractModelConfigurationDia
 		properties.put(MySqlModel.PROPERTY_USERNAME, usernameText.getText());
 		properties.put(MySqlModel.PROPERTY_PASSWORD, passwordText.getText());
 		properties.put(MySqlModel.PROPERTY_READONLY, readonlyButton.getSelection() + "");
+		properties.put(MySqlModel.PROPERTY_STREAMRESULTS, streamedResultsButton.getSelection() + "");
 	}
 }

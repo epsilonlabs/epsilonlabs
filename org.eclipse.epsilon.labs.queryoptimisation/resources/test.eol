@@ -1,0 +1,2 @@
+Flight.all.select(f|f.origin = "JFK" and f.dest = "ATL").
+	collect(f|f.dayOfMonth + f.dayOfWeek).asSet().sum().println();
