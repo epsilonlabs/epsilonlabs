@@ -13,12 +13,17 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
+import org.eclipse.epsilon.eol.execute.introspection.IReflectivePropertySetter;
 import org.eclipse.epsilon.eol.models.IModel;
+import org.eclipse.epsilon.eol.models.IReflectiveModel;
 import org.eclipse.epsilon.eol.models.ModelReference;
+import org.eclipse.epsilon.eol.types.EolNoType;
+import org.eclipse.epsilon.eol.types.EolNoType.EolNoTypeInstance;
 
 public class MglModule extends EolModule {
 	
 	protected String initOperationName = "init";
+	protected List<Object> created = new ArrayList<Object>();
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -37,13 +42,64 @@ public class MglModule extends EolModule {
 	public Object execute() throws EolRuntimeException {
 		wrapModels();
 		context.getOperationContributorRegistry().add(new ModelElementTypeOperationContributor());
-		return super.execute();
+		Object result = super.execute();
+		for (Object instance : created) {
+			init(instance);
+		}
+		return result;
 	}
 	
 	protected void created(Object instance) {
+		created.add(instance);
+	}
+	
+	protected IReflectiveModel getReflectiveModel(IModel model) {
+		if (model instanceof IReflectiveModel) {
+			return (IReflectiveModel) model;
+		}
+		else if (model instanceof ModelReference) {
+			return getReflectiveModel(((ModelReference) model).getTarget());
+		}
+		else {
+			return null;
+		}
+	}
+	protected void init(Object instance) {
 		try {
 			getContext().setInstanceCount(getContext().getInstanceCount()+1);
 			List<Integer> parameters = Arrays.asList(getContext().getInstanceCount());
+			
+			IModel model = getContext().getModelRepository().getOwningModel(instance);
+			IReflectiveModel reflectiveModel = getReflectiveModel(model);
+			
+			if (reflectiveModel != null) {
+				EolOperation defaultValueOperation = getOperations().getOperation("getDefaultValue");
+				String typeName = reflectiveModel.getTypeNameOf(instance);
+				IReflectivePropertySetter propertySetter = reflectiveModel.getPropertySetter();
+				propertySetter.setContext(getContext());
+				propertySetter.setObject(instance);
+				
+				for (String property : reflectiveModel.getPropertiesOf(typeName)) {
+					propertySetter.setProperty(property);
+					
+					try {
+						Object defaultValue = null;
+						if (defaultValueOperation != null) {
+							defaultValue = defaultValueOperation.execute(EolNoType.NoInstance, Arrays.asList(typeName, property, getContext().getInstanceCount()), context);
+						}
+						else {
+							defaultValue = typeName + "." + property + " " + getContext().getInstanceCount();
+						}
+						
+						if (propertySetter.conforms(defaultValue)) {
+							propertySetter.invoke(defaultValue);
+						}
+					}
+					catch (Exception ex) {
+						// Ignore exception and move on with the next property
+					}
+				}
+			}
 			
 			List<EolOperation> inits = new ArrayList<EolOperation>();
 			
