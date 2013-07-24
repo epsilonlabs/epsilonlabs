@@ -15,6 +15,8 @@ import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
+import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -35,7 +37,15 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 	
 	@Override
 	public Object getOutlineRoot(IModule module) {
-		return new DomOutlineElement(new EolElementCreatorFactory().createDomElement(module.getAst(), null, new Ast2DomContext()));
+		DomElement dom = new EolElementCreatorFactory().createDomElement(module.getAst(), null, new Ast2DomContext());
+		VariableResolver vr = new VariableResolver();
+		vr.run(dom);
+		
+		TypeResolver tr = new TypeResolver();
+		tr.run(dom);
+		
+		
+		return new DomOutlineElement(dom);
 	}
 	
 	@Override
