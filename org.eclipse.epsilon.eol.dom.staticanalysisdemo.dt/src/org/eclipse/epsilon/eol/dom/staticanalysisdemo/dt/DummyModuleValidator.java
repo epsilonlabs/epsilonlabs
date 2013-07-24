@@ -42,6 +42,22 @@ public class DummyModuleValidator implements IModuleValidator {
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
 		
+		for(log.Error error: vr.getVariableResolutionContext().getLogBook().getErrors())
+		{
+			TextRegion textRegion = error.getDomElement().getRegion();
+			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+			ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+			markers.add(marker);
+		}
+		for(log.Warning warning: vr.getVariableResolutionContext().getLogBook().getWarnings())
+		{
+			TextRegion textRegion = warning.getDomElement().getRegion();
+			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+
+			ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+			markers.add(marker);
+		}
+		
 		TypeResolver tr = new TypeResolver();
 		tr.run(dom);
 		
