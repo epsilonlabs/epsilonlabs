@@ -10,6 +10,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
     
+    <!--
     <EditText
         android:id="@+id/codeText"
         android:layout_width="match_parent"
@@ -29,12 +30,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Run" />
-
-    <fragment
-        android:id="@+id/codeText1"
+	-->
+	
+	<fragment
+        android:id="@+id/codeText"
         android:name="org.eclipse.epsilon.epsilonoid.CodeEditorFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:layout="@layout/code_editor_fragment" />
 
+	<fragment
+        android:id="@+id/modelText"
+        android:name="org.eclipse.epsilon.epsilonoid.CodeEditorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/code_editor_fragment" />
+		
+	<fragment
+        android:id="@+id/outputText"
+        android:name="org.eclipse.epsilon.epsilonoid.CodeEditorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/code_editor_fragment" />
 </LinearLayout>

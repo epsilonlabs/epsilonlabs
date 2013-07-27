@@ -9,14 +9,22 @@ import android.widget.EditText;
 
 public class CodeEditorFragment extends Fragment {
 	
+	protected EditText editText = null;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.code_editor_fragment, container, false);
+		View view = inflater.inflate(R.layout.code_editor_fragment, container, false);
+		editText = ((EditText)view.findViewById(R.id.textView));
+		return view;
 	}
 	
 	public void setText(String text) {
-		((MyEditText)getView().findViewById(R.id.textView)).paintRed();
+		editText.setText(text);
+	}
+	
+	public String getText() {
+		return editText.getText().toString();
 	}
 	
 }

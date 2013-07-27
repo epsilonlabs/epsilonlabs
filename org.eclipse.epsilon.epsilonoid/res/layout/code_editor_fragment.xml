@@ -3,12 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <org.eclipse.epsilon.epsilonoid.MyEditText
+    <EditText
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lines="2"
-        android:inputType="textMultiLine"        
-        android:text="I'm a fragment"/>
+        android:layout_height="match_parent"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="insideInset"
+        android:background="#00000000"
+        />
 
 </LinearLayout>
