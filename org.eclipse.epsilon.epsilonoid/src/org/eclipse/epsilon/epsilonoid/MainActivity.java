@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -31,6 +33,8 @@ public class MainActivity extends Activity {
 	protected CodeEditorFragment outputText = null;
 	protected String output = "";
 	protected Tab outputTab = null;
+	protected Tab modelTab = null;
+	protected Tab codeTab = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,8 @@ public class MainActivity extends Activity {
 		modelText.setText("<?xml version='1.0'?>\n<library>\n\t<book title='book1'/>\n\t<book title='book2'/>\n</library>");
 		outputText.setText("");
 		
-		createTab("Code", codeText);
-		createTab("Model", modelText);
+		codeTab = createTab("Code", codeText);
+		modelTab = createTab("Model", modelText);
 		outputTab = createTab("Output", outputText);
 		
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -115,7 +119,15 @@ public class MainActivity extends Activity {
 						PlainXmlModel model = new PlainXmlModel();
 						model.setName("M");
 						model.setXml(modelText.getText());
-						model.load();
+						
+						try {
+							model.load();
+						}
+						catch (Exception ex) {
+							modelText.setError(ex.getMessage().substring(0, 200));
+							modelTab.select();
+							return true;
+						}
 						
 						module.getContext().setOutputStream(new PrintStream(new OutputStream() {
 							
@@ -128,18 +140,23 @@ public class MainActivity extends Activity {
 						
 						module.getContext().getModelRepository().addModel(model);
 						module.execute();
+						outputText.setText(output);
+						outputTab.select();
 					}
 					else {
 						for (ParseProblem problem : module.getParseProblems()) {
 							output += problem.toString() + "\n";
 						}
+						codeText.setError(output);
+						codeTab.select();
 					}
-					outputText.setText(output);
+					
 				}
 				catch (Exception ex) {
 					outputText.setText(ex.getMessage());
+					outputTab.select();
 				}
-				outputTab.select();
+				
 				return true;
 			}
 		});

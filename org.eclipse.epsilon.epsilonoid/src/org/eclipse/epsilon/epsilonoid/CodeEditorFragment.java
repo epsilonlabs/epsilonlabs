@@ -27,4 +27,8 @@ public class CodeEditorFragment extends Fragment {
 		return editText.getText().toString();
 	}
 	
+	public void setError(String text) {
+		editText.setError(text);
+	}
+	
 }
