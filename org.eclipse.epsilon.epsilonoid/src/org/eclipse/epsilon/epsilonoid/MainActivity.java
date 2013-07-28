@@ -1,13 +1,5 @@
 package org.eclipse.epsilon.epsilonoid;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-
-import org.eclipse.epsilon.common.parse.problem.ParseProblem;
-import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
-import org.eclipse.epsilon.eol.EolModule;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
@@ -38,7 +30,6 @@ public class MainActivity extends Activity {
 	protected CodeEditorFragment codeText = null;
 	protected CodeEditorFragment modelText = null;
 	protected CodeEditorFragment outputText = null;
-	protected String output = "";
 	protected Tab outputTab = null;
 	protected Tab modelTab = null;
 	protected Tab codeTab = null;
@@ -69,7 +60,8 @@ public class MainActivity extends Activity {
 		
 		
 		// Set up examplesList
-		exampleSet = loadExampleSet();
+		exampleSet = new ExampleSet();
+		exampleSet.load(getResources().openRawResource(R.raw.examples));
 		examplesList = (ListView) findViewById(R.id.examplesList);
 		examplesList.setAdapter(new ArrayAdapter<Example>(this, android.R.layout.simple_list_item_1, exampleSet.getExamples()){
 			@Override
@@ -122,15 +114,6 @@ public class MainActivity extends Activity {
 		outputText.setText("");
 		codeTab.select();
 		getActionBar().setSubtitle(example.getTitle());
-	}
-	
-	protected ExampleSet loadExampleSet() {
-		XStream xStream = new XStream(new DomDriver());
-		xStream.alias("exampleset", ExampleSet.class);
-		xStream.alias("example", Example.class);
-		xStream.useAttributeFor(Example.class, "title");
-		xStream.useAttributeFor(Example.class, "language");
-		return (ExampleSet) xStream.fromXML(getResources().openRawResource(R.raw.examples));
 	}
 	
 	protected Tab createTab(String text, Fragment fragment) {
@@ -193,56 +176,29 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public boolean onMenuItemClick(MenuItem arg0) {
-				try {
-					EolModule module = new EolModule();
-					output = "";
-					module.parse(codeText.getText());
 					
-					if (module.getParseProblems().size() == 0) {
-						
-						if (modelText.getText().trim().length() > 0) {
-							PlainXmlModel model = new PlainXmlModel();
-							model.setName("M");
-							model.setXml(modelText.getText());
-							
-							try {
-								model.load();
-							}
-							catch (Exception ex) {
-								modelText.setError(ex.getMessage().substring(0, 200));
-								modelTab.select();
-								return true;
-							}
-							module.getContext().getModelRepository().addModel(model);
-						}
-						
-						module.getContext().setOutputStream(new PrintStream(new OutputStream() {
-							
-							@Override
-							public void write(int c) throws IOException {
-								output += (char) c;
-							}
-							
-						}));
-						
-						module.execute();
-						outputText.setText(output);
-						outputTab.select();
-					}
-					else {
-						for (ParseProblem problem : module.getParseProblems()) {
-							output += problem.toString() + "\n";
-						}
-						codeText.setError(output);
-						codeTab.select();
-					}
-					
-				}
-				catch (Exception ex) {
-					outputText.setText(ex.getMessage());
-					outputTab.select();
-				}
+				Example example = new Example();
+				example.setCode(codeText.getText().trim());
+				example.setModel(modelText.getText().trim());
+				example.execute();
 				
+				if (example.getCodeParseError() != null) {
+					codeText.setError(example.getCodeParseError());
+					codeTab.select();
+				}
+				else if (example.getModelLoadingError() != null) {
+					modelText.setError(example.getModelLoadingError().substring(0, 200));
+					modelTab.select();
+				}
+				else if (example.getRuntimeError() != null) {
+					codeText.setError(example.getRuntimeError());
+					codeTab.select();
+				}
+				else {
+					outputText.setText(example.getOutput());
+					outputTab.select();						
+				}
+
 				return true;
 			}
 		});
