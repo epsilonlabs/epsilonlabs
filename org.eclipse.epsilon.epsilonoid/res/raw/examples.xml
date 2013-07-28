@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<exampleset>
+    <examples>
+	    <example>
+	        <code>
+	            <![CDATA[
+for (b in t_book.all) {
+	b.a_title.println();
+}
+	            ]]>            
+	        </code>
+	        <model>
+	            <![CDATA[
+<?xml version="1.0"?>
+<library>
+	<book title="b1"/>
+	<book title="b2"/>
+	<book title="b3"/>	
+</library>
+	            ]]>
+	        </model>
+	    </example>
+    </examples>
+</exampleset>

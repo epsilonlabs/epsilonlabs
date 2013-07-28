@@ -9,6 +9,10 @@ import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.epsilonoid.R;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
 import android.app.ActionBar.Tab;
 import android.app.ActionBar;
 import android.app.ActionBar.TabListener;
@@ -64,9 +68,21 @@ public class MainActivity extends Activity {
 		modelText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.modelText);
 		outputText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.outputText);
 		
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("exampleset", ExampleSet.class);
+		xStream.alias("example", Example.class);
+		ExampleSet exampleSet = (ExampleSet) xStream.fromXML(getResources().openRawResource(R.raw.examples));
+		
+		Example example = exampleSet.getExamples().get(0);
+		
+		codeText.setText(example.getCode().trim());
+		modelText.setText(example.getModel().trim());
+		
+		/*
 		codeText.setText("for (b in t_book.all) {\n\t b.a_title.println();\n}");
 		modelText.setText("<?xml version='1.0'?>\n<library>\n\t<book title='book1'/>\n\t<book title='book2'/>\n</library>");
 		outputText.setText("");
+		*/
 		
 		codeTab = createTab("Code", codeText);
 		modelTab = createTab("Model", modelText);
