@@ -16,28 +16,6 @@
 	    android:scrollbars="vertical"
 	    android:orientation="vertical"
 	    >
-	    
-	    <!--
-	    <EditText
-	        android:id="@+id/codeText"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:inputType="textMultiLine"
-	        android:lines="2" />
-	
-	    <EditText
-	        android:id="@+id/outputText"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:inputType="textMultiLine"
-	        android:lines="2" />
-	    
-	    <Button
-	        android:id="@+id/runButton"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:text="Run" />
-		-->
 		
 		<fragment
 	        android:id="@+id/codeText"
@@ -62,8 +40,8 @@
 	</LinearLayout>
 	
 	<ListView
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+        android:id="@+id/examplesList"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"

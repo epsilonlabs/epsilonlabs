@@ -1,24 +1,58 @@
 <?xml version="1.0"?>
 <exampleset>
     <examples>
-	    <example>
+	    <example title="Hello world" language="EOL">
 	        <code>
 	            <![CDATA[
+"Hello world".println();
+	            ]]>            
+	        </code>
+	        <model></model>
+	    </example>	   
+
+	    <example title="Loops, branches and variables" language="EOL">
+	        <code>
+	            <![CDATA[
+var min = 2;
+var max = 5;
+for (i in 1.to(max)) {
+	if (i > min) {
+		i.println();
+	}
+}
+	            ]]>            
+	        </code>
+	        <model></model>
+	    </example>	
+	    	    	    
+	    <example title="Model query example" language="EOL">
+	        <code>
+	            <![CDATA[
+// Print the titles of all books
 for (b in t_book.all) {
 	b.a_title.println();
 }
+
+// Print the number of books
+t_book.all.size().println();
+
+// Print the total number of pages
+t_book.all.collect(b|b.i_pages).
+	sum().println();
 	            ]]>            
 	        </code>
 	        <model>
 	            <![CDATA[
 <?xml version="1.0"?>
 <library>
-	<book title="b1"/>
-	<book title="b2"/>
-	<book title="b3"/>	
+	<book title="b1" pages="42"/>
+	<book title="b2" pages="314"/>
+	<book title="b3" pages="271"/>
 </library>
 	            ]]>
 	        </model>
 	    </example>
+
+ 	    
     </examples>
 </exampleset>

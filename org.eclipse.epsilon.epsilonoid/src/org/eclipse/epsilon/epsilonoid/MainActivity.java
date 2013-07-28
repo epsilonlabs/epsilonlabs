@@ -7,32 +7,31 @@ import java.io.PrintStream;
 import org.eclipse.epsilon.common.parse.problem.ParseProblem;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.epsilonoid.R;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-
-import android.app.ActionBar.Tab;
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
 public class MainActivity extends Activity {
 	
@@ -44,6 +43,9 @@ public class MainActivity extends Activity {
 	protected Tab modelTab = null;
 	protected Tab codeTab = null;
 	protected ActionBarDrawerToggle actionBarDrawerToggle;
+	protected ExampleSet exampleSet = null;
+	protected ListView examplesList = null;
+	protected DrawerLayout drawerLayout = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +61,39 @@ public class MainActivity extends Activity {
 		//getActionBar().setDisplayShowTitleEnabled(false);
 		//getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		
-		DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		// Set up drawerLayout
+		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, 
 				drawerLayout, R.drawable.ic_drawer, R.string.show, R.string.hide);
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		
+		
+		// Set up examplesList
+		exampleSet = loadExampleSet();
+		examplesList = (ListView) findViewById(R.id.examplesList);
+		examplesList.setAdapter(new ArrayAdapter<Example>(this, android.R.layout.simple_list_item_1, exampleSet.getExamples()){
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				View view = super.getView(position, convertView, parent);
+				TextView textView=(TextView) view.findViewById(android.R.id.text1);
+	            textView.setTextColor(Color.WHITE);
+				return view;
+			}
+		});
+		examplesList.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				examplesList.setItemChecked(position, true);
+				drawerLayout.closeDrawer(examplesList);
+				displayExample(exampleSet.getExamples().get(position));
+			}
+		});
+		
 		codeText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.codeText);
 		modelText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.modelText);
 		outputText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.outputText);
-		
-		XStream xStream = new XStream(new DomDriver());
-		xStream.alias("exampleset", ExampleSet.class);
-		xStream.alias("example", Example.class);
-		ExampleSet exampleSet = (ExampleSet) xStream.fromXML(getResources().openRawResource(R.raw.examples));
-		
-		Example example = exampleSet.getExamples().get(0);
-		
-		codeText.setText(example.getCode().trim());
-		modelText.setText(example.getModel().trim());
-		
-		/*
-		codeText.setText("for (b in t_book.all) {\n\t b.a_title.println();\n}");
-		modelText.setText("<?xml version='1.0'?>\n<library>\n\t<book title='book1'/>\n\t<book title='book2'/>\n</library>");
-		outputText.setText("");
-		*/
 		
 		codeTab = createTab("Code", codeText);
 		modelTab = createTab("Model", modelText);
@@ -92,7 +103,34 @@ public class MainActivity extends Activity {
 		ft.hide(modelText);
 		ft.hide(outputText);
 		ft.commit();
+		
+		displayExample(exampleSet.getExamples().get(0));
 				
+	}
+	
+	protected void displayExample(Example example) {
+		
+		if (example.getModel().trim().length() == 0 && getActionBar().getTabCount() == 3) {
+			getActionBar().removeTab(modelTab);
+		}
+		else if (example.getModel().trim().length() > 0 && getActionBar().getTabCount() == 2) {
+			getActionBar().addTab(modelTab, 1);
+		}
+		
+		codeText.setText(example.getCode().trim());
+		modelText.setText(example.getModel().trim());
+		outputText.setText("");
+		codeTab.select();
+		getActionBar().setSubtitle(example.getTitle());
+	}
+	
+	protected ExampleSet loadExampleSet() {
+		XStream xStream = new XStream(new DomDriver());
+		xStream.alias("exampleset", ExampleSet.class);
+		xStream.alias("example", Example.class);
+		xStream.useAttributeFor(Example.class, "title");
+		xStream.useAttributeFor(Example.class, "language");
+		return (ExampleSet) xStream.fromXML(getResources().openRawResource(R.raw.examples));
 	}
 	
 	protected Tab createTab(String text, Fragment fragment) {
@@ -162,17 +200,20 @@ public class MainActivity extends Activity {
 					
 					if (module.getParseProblems().size() == 0) {
 						
-						PlainXmlModel model = new PlainXmlModel();
-						model.setName("M");
-						model.setXml(modelText.getText());
-						
-						try {
-							model.load();
-						}
-						catch (Exception ex) {
-							modelText.setError(ex.getMessage().substring(0, 200));
-							modelTab.select();
-							return true;
+						if (modelText.getText().trim().length() > 0) {
+							PlainXmlModel model = new PlainXmlModel();
+							model.setName("M");
+							model.setXml(modelText.getText());
+							
+							try {
+								model.load();
+							}
+							catch (Exception ex) {
+								modelText.setError(ex.getMessage().substring(0, 200));
+								modelTab.select();
+								return true;
+							}
+							module.getContext().getModelRepository().addModel(model);
 						}
 						
 						module.getContext().setOutputStream(new PrintStream(new OutputStream() {
@@ -184,7 +225,6 @@ public class MainActivity extends Activity {
 							
 						}));
 						
-						module.getContext().getModelRepository().addModel(model);
 						module.execute();
 						outputText.setText(output);
 						outputTab.select();
