@@ -5,8 +5,15 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.eclipse.epsilon.common.parse.problem.ParseProblem;
+import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
+import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.IEolExecutableModule;
+import org.eclipse.epsilon.eol.models.IModel;
+import org.eclipse.epsilon.etl.EtlModule;
+import org.eclipse.epsilon.evl.EvlModule;
+import org.eclipse.epsilon.evl.EvlUnsatisfiedConstraint;
 
 public class Example {
 	
@@ -74,7 +81,7 @@ public class Example {
 	
 	public void execute() {
 		try {
-			EolModule module = new EolModule();
+			IEolExecutableModule module = createModule();
 			final StringBuffer outputBuffer = new StringBuffer();
 			module.parse(code);
 			
@@ -82,7 +89,7 @@ public class Example {
 				
 				if (model.length() > 0) {
 					PlainXmlModel model = new PlainXmlModel();
-					model.setName("M");
+					model.setName("Source");
 					model.setXml(this.model);
 					
 					try {
@@ -104,7 +111,9 @@ public class Example {
 					
 				}));
 				
-				module.execute();
+				customiseModule(module);
+				Object result = module.execute();
+				collectAdditionalOutput(module, result, outputBuffer);
 				output = outputBuffer.toString();
 			}
 			else {
@@ -118,6 +127,47 @@ public class Example {
 		catch (Exception ex) {
 			runtimeError = ex.getMessage();
 		}
+	}
+	
+	protected IEolExecutableModule createModule() {
+		if ("EVL".equalsIgnoreCase(language)) {
+			return new EvlModule();
+		}
+		else if ("EGL".equalsIgnoreCase(language)) {
+			return new EglTemplateFactoryModuleAdapter(new EglFileGeneratingTemplateFactory());
+		}
+		else if ("ETL".equalsIgnoreCase(language)) {
+			return new EtlModule();
+		}
+		return new EolModule();
+	}
+	
+	protected void customiseModule(IEolExecutableModule module) {
+		if (module instanceof EtlModule) {
+			PlainXmlModel targetModel = new PlainXmlModel();
+			targetModel.setReadOnLoad(false);
+			targetModel.setName("Target");
+			try { targetModel.load(); } catch (Exception ex) {}
+			module.getContext().getModelRepository().addModel(targetModel);
+		}
+	}
+	
+	protected String collectAdditionalOutput(IEolExecutableModule module, Object result, StringBuffer outputBuffer) {
+		if (module instanceof EvlModule) {
+			for (EvlUnsatisfiedConstraint constraint : ((EvlModule)module).getContext().getUnsatisfiedConstraints()) {
+				outputBuffer.append(constraint.getMessage() + "\n");
+			}
+		} else if (module instanceof EglTemplateFactoryModuleAdapter) {
+			outputBuffer.append(result);
+		}
+		else if (module instanceof EtlModule) {
+			try {
+				PlainXmlModel targetModel = (PlainXmlModel) module.getContext().getModelRepository().getModelByName("Target");
+				outputBuffer.append(targetModel.getXml());
+			}
+			catch (Exception ex) {}
+		}
+		return outputBuffer.toString();
 	}
 	
 }

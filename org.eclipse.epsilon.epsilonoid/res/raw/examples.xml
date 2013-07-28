@@ -25,7 +25,7 @@ for (i in 1.to(max)) {
 	        <model></model>
 	    </example>	
 	    	    	    
-	    <example title="Model query example" language="EOL">
+	    <example title="Querying a model" language="EOL">
 	        <code>
 	            <![CDATA[
 // Print the titles of all books
@@ -53,6 +53,83 @@ t_book.all.collect(b|b.i_pages).
 	        </model>
 	    </example>
 
- 	    
+	    <example title="Validating a model" language="EVL">
+	        <code>
+	            <![CDATA[
+context t_book {
+	constraint TooLong {
+		check : self.i_pages < 200
+		message : "Book " + self.a_title +
+			" is too long"
+	}
+}
+	            ]]>            
+	        </code>
+	        <model>
+	            <![CDATA[
+<?xml version="1.0"?>
+<library>
+	<book title="b1" pages="42"/>
+	<book title="b2" pages="314"/>
+	<book title="b3" pages="271"/>
+</library>
+	            ]]>
+	        </model>
+	    </example>
+
+	    <example title="Generating text from a model" language="EGL">
+	        <code>
+	            <![CDATA[
+The following books are in the library
+[%for (b in t_book.all){%]
+- [%=b.a_title%] ([%=b.i_pages%] pages)
+[%}%]
+	            ]]>            
+	        </code>
+	        <model>
+	            <![CDATA[
+<?xml version="1.0"?>
+<library>
+	<book title="b1" pages="42"/>
+	<book title="b2" pages="314"/>
+	<book title="b3" pages="271"/>
+</library>
+	            ]]>
+	        </model>
+	    </example>	   
+	    
+	    <example title="Transforming a model" language="ETL">
+	        <code>
+	            <![CDATA[
+rule Library2Library 
+	transform s : Source!t_library
+	to t : Target!t_library {
+	
+	Target.root = t;
+	for (book in s.c_book) {
+		t.appendChild(book.equivalent());
+	}
+}
+
+rule Book2Book
+	transform s : Source!t_book
+	to t : Target!t_book {
+	
+	t.a_title = s.a_title.firstToUpperCase();
+	t.i_pages = s.i_pages + 1;
+}
+	            ]]>            
+	        </code>
+	        <model>
+	            <![CDATA[
+<?xml version="1.0"?>
+<library>
+	<book title="b1" pages="42"/>
+	<book title="b2" pages="314"/>
+	<book title="b3" pages="271"/>
+</library>
+	            ]]>
+	        </model>
+	    </example>		    	     	    
     </examples>
 </exampleset>

@@ -37,6 +37,7 @@ public class MainActivity extends Activity {
 	protected ExampleSet exampleSet = null;
 	protected ListView examplesList = null;
 	protected DrawerLayout drawerLayout = null;
+	protected Example currentExample = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,8 @@ public class MainActivity extends Activity {
 	}
 	
 	protected void displayExample(Example example) {
+		
+		currentExample = example;
 		
 		if (example.getModel().trim().length() == 0 && getActionBar().getTabCount() == 3) {
 			getActionBar().removeTab(modelTab);
@@ -180,6 +183,7 @@ public class MainActivity extends Activity {
 				Example example = new Example();
 				example.setCode(codeText.getText().trim());
 				example.setModel(modelText.getText().trim());
+				example.setLanguage(currentExample.getLanguage());
 				example.execute();
 				
 				if (example.getCodeParseError() != null) {
