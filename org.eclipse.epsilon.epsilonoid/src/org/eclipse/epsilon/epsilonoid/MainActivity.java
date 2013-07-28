@@ -15,7 +15,10 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +28,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
-
+	
 	protected CodeEditorFragment codeText = null;
 	protected CodeEditorFragment modelText = null;
 	protected CodeEditorFragment outputText = null;
@@ -35,6 +39,7 @@ public class MainActivity extends Activity {
 	protected Tab outputTab = null;
 	protected Tab modelTab = null;
 	protected Tab codeTab = null;
+	protected ActionBarDrawerToggle actionBarDrawerToggle;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +48,17 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		//getActionBar().setSubtitle("Epsilon demo app");
-		getActionBar().setHomeButtonEnabled(true);
-		
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        
 		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		//getActionBar().setDisplayShowTitleEnabled(false);
 		//getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		
+		DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		actionBarDrawerToggle = new ActionBarDrawerToggle(this, 
+				drawerLayout, R.drawable.ic_drawer, R.string.show, R.string.hide);
+		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		
 		codeText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.codeText);
 		modelText = (CodeEditorFragment) getFragmentManager().findFragmentById(R.id.modelText);
@@ -99,6 +109,26 @@ public class MainActivity extends Activity {
 			ft.hide(fragment);
 		}
 		
+	}
+	
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		actionBarDrawerToggle.syncState();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		actionBarDrawerToggle.onConfigurationChanged(newConfig);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
