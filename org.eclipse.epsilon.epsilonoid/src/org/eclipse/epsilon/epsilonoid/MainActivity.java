@@ -59,16 +59,16 @@ public class MainActivity extends Activity {
 				drawerLayout, R.drawable.ic_drawer, R.string.show, R.string.hide);
 		drawerLayout.setDrawerListener(actionBarDrawerToggle);
 		
-		
 		// Set up examplesList
 		exampleSet = new ExampleSet();
 		exampleSet.load(getResources().openRawResource(R.raw.examples));
 		examplesList = (ListView) findViewById(R.id.examplesList);
+		
 		examplesList.setAdapter(new ArrayAdapter<Example>(this, android.R.layout.simple_list_item_1, exampleSet.getExamples()){
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View view = super.getView(position, convertView, parent);
-				TextView textView=(TextView) view.findViewById(android.R.id.text1);
+				TextView textView = (TextView) view.findViewById(android.R.id.text1);
 	            textView.setTextColor(Color.WHITE);
 				return view;
 			}
@@ -181,6 +181,7 @@ public class MainActivity extends Activity {
 			public boolean onMenuItemClick(MenuItem arg0) {
 					
 				Example example = new Example();
+				example.setContext(MainActivity.this);
 				example.setCode(codeText.getText().trim());
 				example.setModel(modelText.getText().trim());
 				example.setLanguage(currentExample.getLanguage());

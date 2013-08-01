@@ -10,10 +10,14 @@ import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.emc.plainxml.PlainXmlModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.IEolExecutableModule;
+import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.models.IModel;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.EvlUnsatisfiedConstraint;
+
+import android.app.Activity;
+import android.widget.Toast;
 
 public class Example {
 	
@@ -25,9 +29,14 @@ public class Example {
 	protected String modelLoadingError = null;
 	protected String codeParseError = null;
 	protected String runtimeError = null;
+	protected Activity context;
 	
 	public String getCode() {
 		return code;
+	}
+	
+	public void setContext(Activity context) {
+		this.context = context;
 	}
 	
 	public void setCode(String code) {
@@ -101,6 +110,8 @@ public class Example {
 					}
 					module.getContext().getModelRepository().addModel(model);
 				}
+				
+				module.getContext().getFrameStack().put(Variable.createReadOnlyVariable("ctx", context));
 				
 				module.getContext().setOutputStream(new PrintStream(new OutputStream() {
 					
