@@ -15,8 +15,9 @@
         android:theme="@style/AppTheme"
         android:name="org.eclipse.epsilon.epsilonoid.Epsilonoid" >
         <activity
-            android:name="org.eclipse.epsilon.epsilonoid.MainActivity"
-            android:label="@string/app_name" 
+            android:name="org.eclipse.epsilon.epsilonoid.EpsilonoidActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

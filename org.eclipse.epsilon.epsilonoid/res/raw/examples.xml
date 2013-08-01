@@ -4,6 +4,7 @@
 	    <example title="Hello world" language="EOL">
 	        <code>
 	            <![CDATA[
+// The ubiquitous hello world program
 "Hello world".println();
 	            ]]>            
 	        </code>
@@ -13,10 +14,11 @@
 	    <example title="Loops, branches and variables" language="EOL">
 	        <code>
 	            <![CDATA[
+// Print all numbers from 2 to 5
 var min = 2;
 var max = 5;
 for (i in 1.to(max)) {
-	if (i > min) {
+	if (i >= min) {
 		i.println();
 	}
 }
@@ -28,9 +30,11 @@ for (i in 1.to(max)) {
 	    <example title="Native libraries" language="EOL">
 	        <code>
 	            <![CDATA[
+// Display an Android toast
 var t = Native("android.widget.Toast").
 	makeText(ctx, "Hello from EOL!", 5);
-	
+
+t.setGravity(17, 0, 0);
 t.show();
 	            ]]>            
 	        </code>
@@ -68,6 +72,8 @@ t_book.all.collect(b|b.i_pages).
 	    <example title="Validating a model" language="EVL">
 	        <code>
 	            <![CDATA[
+// Check that no book has
+// more than 200 pages
 context t_book {
 	constraint TooLong {
 		check : self.i_pages < 200
@@ -92,7 +98,10 @@ context t_book {
 	    <example title="Generating text from a model" language="EGL">
 	        <code>
 	            <![CDATA[
-The following books are in the library
+[%
+// Print a list of all books
+%]
+List of books:
 [%for (b in t_book.all){%]
 - [%=b.a_title%] ([%=b.i_pages%] pages)
 [%}%]

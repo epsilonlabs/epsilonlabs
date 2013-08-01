@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
@@ -21,11 +22,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-public class MainActivity extends Activity {
+public class EpsilonoidActivity extends Activity {
 	
 	protected CodeEditorFragment codeText = null;
 	protected CodeEditorFragment modelText = null;
@@ -104,6 +106,7 @@ public class MainActivity extends Activity {
 	protected void displayExample(Example example) {
 		
 		currentExample = example;
+		Toast a;
 		
 		if (example.getModel().trim().length() == 0 && getActionBar().getTabCount() == 3) {
 			getActionBar().removeTab(modelTab);
@@ -112,9 +115,9 @@ public class MainActivity extends Activity {
 			getActionBar().addTab(modelTab, 1);
 		}
 		
-		codeText.setText(example.getCode().trim());
-		modelText.setText(example.getModel().trim());
-		outputText.setText("");
+		codeText.setText(example.getCode().trim(), example.getLanguage());
+		modelText.setText(example.getModel().trim(), "xml");
+		outputText.setText("", null);
 		codeTab.select();
 		getActionBar().setSubtitle(example.getTitle());
 	}
@@ -181,7 +184,7 @@ public class MainActivity extends Activity {
 			public boolean onMenuItemClick(MenuItem arg0) {
 					
 				Example example = new Example();
-				example.setContext(MainActivity.this);
+				example.setContext(EpsilonoidActivity.this);
 				example.setCode(codeText.getText().trim());
 				example.setModel(modelText.getText().trim());
 				example.setLanguage(currentExample.getLanguage());
@@ -200,7 +203,7 @@ public class MainActivity extends Activity {
 					codeTab.select();
 				}
 				else {
-					outputText.setText(example.getOutput());
+					outputText.setText(example.getOutput(), null);
 					outputTab.select();						
 				}
 
