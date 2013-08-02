@@ -6,7 +6,7 @@
       <modelType
             class="org.eclipse.epsilon.emc.incquery.IncQueryModel"
             dialog="org.eclipse.epsilon.emc.incquery.dt.IncQueryModelConfigurationDialog"
-            icon="icons/incquery.gif"
+            icon="icons/incquery.png"
             label="IncQuery Model"
             stable="true"
             type="IncQuery">

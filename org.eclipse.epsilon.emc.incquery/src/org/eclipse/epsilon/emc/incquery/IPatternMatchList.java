@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.emc.incquery;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -13,22 +14,27 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 import org.eclipse.epsilon.eol.execute.operations.AbstractOperation;
 import org.eclipse.epsilon.eol.execute.operations.declarative.IAbstractOperationContributor;
 import org.eclipse.epsilon.eol.execute.operations.declarative.IteratorOperation;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatch;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatcher;
+import org.eclipse.incquery.runtime.api.IPatternMatch;
+import org.eclipse.incquery.runtime.api.IncQueryMatcher;
 
-public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, IAbstractOperationContributor {
+public class IPatternMatchList implements List<IPatternMatch>, IAbstractOperationContributor {
 	
-	protected ObservablePatternMatcher matcher = null;
+	protected IncQueryMatcher<IPatternMatch> matcher = null;
+	protected List<IPatternMatch> delegate = null;
 	
-	public ObsevablePatternMatchList(ObservablePatternMatcher matcher) {
+	public IPatternMatchList(IncQueryMatcher<IPatternMatch> matcher) {
 		this.matcher = matcher;
 		
 	}
 	
-	protected List<ObservablePatternMatch> getDelegate() {
-		return matcher.getMatches();
+	protected List<IPatternMatch> getDelegate() {
+		if (delegate == null) {
+			delegate = new ArrayList<IPatternMatch>();
+			delegate.addAll(matcher.getAllMatches());
+		}
+		return delegate;
 	}
+		
 	
 	@Override
 	public int size() {
@@ -46,7 +52,7 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 	}
 
 	@Override
-	public Iterator<ObservablePatternMatch> iterator() {
+	public Iterator<IPatternMatch> iterator() {
 		return getDelegate().iterator();
 	}
 
@@ -61,7 +67,7 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 	}
 
 	@Override
-	public boolean add(ObservablePatternMatch e) {
+	public boolean add(IPatternMatch e) {
 		return getDelegate().add(e);
 	}
 
@@ -76,13 +82,13 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends ObservablePatternMatch> c) {
+	public boolean addAll(Collection<? extends IPatternMatch> c) {
 		return getDelegate().addAll(c);
 	}
 
 	@Override
 	public boolean addAll(int index,
-			Collection<? extends ObservablePatternMatch> c) {
+			Collection<? extends IPatternMatch> c) {
 		return getDelegate().addAll(index, c);
 	}
 
@@ -102,22 +108,22 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 	}
 
 	@Override
-	public ObservablePatternMatch get(int index) {
+	public IPatternMatch get(int index) {
 		return getDelegate().get(index);
 	}
 
 	@Override
-	public ObservablePatternMatch set(int index, ObservablePatternMatch element) {
+	public IPatternMatch set(int index, IPatternMatch element) {
 		return getDelegate().set(index, element);
 	}
 
 	@Override
-	public void add(int index, ObservablePatternMatch element) {
+	public void add(int index, IPatternMatch element) {
 		getDelegate().add(index, element);
 	}
 
 	@Override
-	public ObservablePatternMatch remove(int index) {
+	public IPatternMatch remove(int index) {
 		return getDelegate().remove(index);
 	}
 
@@ -132,17 +138,17 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 	}
 
 	@Override
-	public ListIterator<ObservablePatternMatch> listIterator() {
+	public ListIterator<IPatternMatch> listIterator() {
 		return getDelegate().listIterator();
 	}
 
 	@Override
-	public ListIterator<ObservablePatternMatch> listIterator(int index) {
+	public ListIterator<IPatternMatch> listIterator(int index) {
 		return getDelegate().listIterator(index);
 	}
 
 	@Override
-	public List<ObservablePatternMatch> subList(int fromIndex, int toIndex) {
+	public List<IPatternMatch> subList(int fromIndex, int toIndex) {
 		return getDelegate().subList(fromIndex, toIndex);
 	}
 
@@ -158,7 +164,7 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 					AST propertyAst = expressionAst.getFirstChild().getChild(1);
 					AST valueAst = expressionAst.getChild(1);
 					
-					EList<org.eclipse.incquery.patternlanguage.patternLanguage.Variable> variables = matcher.getMatcher().getPattern().getParameters();
+					EList<org.eclipse.incquery.patternlanguage.patternLanguage.Variable> variables = matcher.getPattern().getParameters();
 					
 					Object[] filter = new Object[variables.size()];
 					
@@ -176,11 +182,13 @@ public class ObsevablePatternMatchList implements List<ObservablePatternMatch>, 
 					}
 					System.err.println();
 					
-					//matcher.setFilter(new Object[variables.size()]);
-					matcher.setFilter(filter);
-					List<ObservablePatternMatch> result = matcher.getMatches();
+					// Should call get matches partial pattern match
 					
-					return result;
+					//matcher.setFilter(new Object[variables.size()]);
+					//matcher.setFilter(filter);
+					//List<ObservablePatternMatch> result = matcher.getMatches();
+					
+					return null;
 				}
 			};
 		}

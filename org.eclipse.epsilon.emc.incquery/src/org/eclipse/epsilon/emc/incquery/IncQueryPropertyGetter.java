@@ -4,7 +4,7 @@ import org.eclipse.epsilon.emc.emf.EmfPropertyGetter;
 import org.eclipse.epsilon.eol.exceptions.EolIllegalPropertyException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.incquery.patternlanguage.patternLanguage.Variable;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatch;
+import org.eclipse.incquery.runtime.api.IPatternMatch;
 
 public class IncQueryPropertyGetter extends EmfPropertyGetter {
 
@@ -12,15 +12,13 @@ public class IncQueryPropertyGetter extends EmfPropertyGetter {
 	public Object invoke(Object object, String property)
 			throws EolRuntimeException {
 		
-		System.err.println("Getting property " + property + " of " + object);
-		
-		if (object instanceof ObservablePatternMatch) {
-			ObservablePatternMatch match = (ObservablePatternMatch) object;
+		if (object instanceof IPatternMatch) {
+			IPatternMatch match = (IPatternMatch) object;
 			
-			Object result = match.getPatternMatch().get(property);
+			Object result = match.get(property);
 			
 			if (result == null) {
-				for (Variable variable : match.getPatternMatch().pattern().getParameters()) {
+				for (Variable variable : match.pattern().getParameters()) {
 					if (variable.getName().equals(property)) return result;
 				}
 			}

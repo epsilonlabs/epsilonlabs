@@ -2,7 +2,11 @@ package org.eclipse.epsilon.emc.incquery;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
@@ -11,43 +15,68 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.models.Model;
-import org.eclipse.incquery.tooling.ui.queryexplorer.QueryExplorer;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.MatcherTreeViewerRoot;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatch;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatcher;
-import org.eclipse.incquery.tooling.ui.queryexplorer.content.matcher.ObservablePatternMatcherRoot;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.incquery.patternlanguage.emf.EMFPatternLanguageStandaloneSetup;
+import org.eclipse.incquery.patternlanguage.patternLanguage.Pattern;
+import org.eclipse.incquery.patternlanguage.patternLanguage.PatternModel;
+import org.eclipse.incquery.runtime.api.IPatternMatch;
+import org.eclipse.incquery.runtime.api.IQuerySpecification;
+import org.eclipse.incquery.runtime.api.IncQueryEngine;
+import org.eclipse.incquery.runtime.api.IncQueryMatcher;
+import org.eclipse.incquery.runtime.exception.IncQueryException;
+import org.eclipse.incquery.runtime.extensibility.QuerySpecificationRegistry;
+import org.eclipse.incquery.tooling.core.generator.GeneratorModule;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class IncQueryModel extends Model {
 	
-	protected ObservablePatternMatcherRoot observablePatternMatcherRoot = null;
+	public static final String PROPERTY_MODEL_FILE = "modelFile";
+	public static final String PROPERTY_PATTERNS_FILE = "patternsFile";
+	
 	protected IncQueryPropertyGetter propertyGetter = new IncQueryPropertyGetter();
 	
-	public void setObservablePatternMatcherRoot(
-			ObservablePatternMatcherRoot observablePatternMatcherRoot) {
-		this.observablePatternMatcherRoot = observablePatternMatcherRoot;
-	}
+	protected String modelFile = "/org.eclipse.epsilon.emc.incquery.demo/src/org/eclipse/epsilon/emc/incquery/demo/anotherdemo.ecore";
+	protected String patternsFile = "/org.eclipse.epsilon.emc.incquery.demo/src/org/eclipse/epsilon/emc/incquery/demo/demo.eiq";
+	protected PatternModel patternModel = null;
+	protected IncQueryEngine engine = null;
 	
 	@Override
 	public void load(StringProperties properties, String basePath)
 			throws EolModelLoadingException {
 		super.load(properties, basePath);
+		modelFile = properties.getProperty(PROPERTY_MODEL_FILE);
+		patternsFile = properties.getProperty(PROPERTY_PATTERNS_FILE);
 		load();
 	}
 	
 	@Override
 	public void load() throws EolModelLoadingException {
+				
+		try {
 		
-		Display.getDefault().syncExec(new Runnable() {
+			new EMFPatternLanguageStandaloneSetup() {
+				@Override
+				public Injector createInjector() {
+					return Guice.createInjector(new GeneratorModule());
+				}
+			}.createInjectorAndDoEMFRegistration();
 			
-			@Override
-			public void run() {
-				MatcherTreeViewerRoot root = QueryExplorer.getInstance().getMatcherTreeViewerRoot();
-				setObservablePatternMatcherRoot(root.getRoots().get(0));
-			}
-		});
+			ResourceSet modelResourceSet = new ResourceSetImpl();
+			Resource modelResource = modelResourceSet.createResource(URI.createPlatformResourceURI(modelFile, true));
+			modelResource.load(null);
+			
+			engine = IncQueryEngine.on(modelResource); 
+			
+			ResourceSet patternsResourceSet = new ResourceSetImpl();
+			Resource patternsResource = patternsResourceSet.createResource(URI.createPlatformResourceURI(patternsFile, true));
+			patternsResource.load(null);
+			patternModel = (PatternModel) patternsResource.getContents().get(0);
+			
+		} catch (Exception e) {
+			throw new EolModelLoadingException(e, this);
+		}
+		
 	}
 
 	@Override
@@ -66,8 +95,17 @@ public class IncQueryModel extends Model {
 	public Collection<?> getAllOfType(String type)
 			throws EolModelElementTypeNotFoundException {
 		
-		return new ObsevablePatternMatchList(getObservablePatternMatcher(type));
-
+		try {
+			
+			IQuerySpecification<? extends IncQueryMatcher<? extends IPatternMatch>> querySpecification 
+					= QuerySpecificationRegistry.getOrCreateQuerySpecification(getPattern(type));
+			
+			return querySpecification.
+					getMatcher(engine).getAllMatches();
+		} catch (IncQueryException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	@Override
@@ -78,8 +116,8 @@ public class IncQueryModel extends Model {
 
 	@Override
 	public String getTypeNameOf(Object instance) {
-		ObservablePatternMatch match = (ObservablePatternMatch) instance;
-		return match.getPatternMatch().patternName();
+		IPatternMatch match = (IPatternMatch) instance;
+		return match.patternName();
 	}
 
 	@Override
@@ -91,20 +129,16 @@ public class IncQueryModel extends Model {
 
 	@Override
 	public Object getElementById(String id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getElementId(Object instance) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setElementId(Object instance, String newId) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -115,10 +149,14 @@ public class IncQueryModel extends Model {
 	@Override
 	public boolean owns(Object instance) {
 		
-		if (!(instance instanceof ObservablePatternMatch)) return false;
+		if (instance instanceof IPatternMatch) {
+			
+			IPatternMatch match = (IPatternMatch) instance;
+			return patternModel.getPatterns().contains(match.pattern());
+			
+		}
 		
-		ObservablePatternMatch match = (ObservablePatternMatch) instance;
-		return match.getParent().getParent() == observablePatternMatcherRoot;
+		return false;
 		
 	}
 
@@ -134,16 +172,16 @@ public class IncQueryModel extends Model {
 	
 	@Override
 	public boolean hasType(String type) {
-		return getObservablePatternMatcher(type) != null;
+		return getPattern(type) != null;
 	}
-
-	protected ObservablePatternMatcher getObservablePatternMatcher(String type) {
-		for (ObservablePatternMatcher matcher : observablePatternMatcherRoot.getMatchers()) {
-			if (matcher.getPatternName().endsWith(type)) return matcher;
+	
+	protected Pattern getPattern(String type) {
+		for (Pattern pattern : patternModel.getPatterns()) {
+			if (pattern.getName().endsWith(type)) return pattern;
 		}
 		return null;
 	}
-	
+		
 	@Override
 	public boolean store(String location) {
 		throw new UnsupportedOperationException();
@@ -157,6 +195,10 @@ public class IncQueryModel extends Model {
 	@Override
 	public IPropertyGetter getPropertyGetter() {
 		return propertyGetter;
+	}
+	
+	public PatternModel getPatternModel() {
+		return patternModel;
 	}
 	
 }

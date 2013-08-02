@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.epsilon.eol.dt,
  org.eclipse.epsilon.common.dt,
  org.eclipse.incquery.runtime,
- org.eclipse.epsilon.emc.emf
+ org.eclipse.epsilon.emc.emf,
+ org.eclipse.incquery.tooling.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.epsilon.emc.incquery,
