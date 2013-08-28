@@ -27,6 +27,8 @@ import org.eclipse.epsilon.standalone.util.SourceLoadException;
 
 /**
  * The Class EolStandaloneEngine.
+ * 
+ * @author Horacio Hoyos
  */
 public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 	
@@ -60,15 +62,16 @@ public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 	}
 	
 	/**
-	 * Prepare.
-	 * When executing specific operations {@link #executeOperation(String)}
-	 * this method behaves similar to the execute method, but it does not
-	 * call the module's execute.
-	 * Note: When using this method, a call to the {@link close()} method
-	 * should be executed when no more operations are being executed,
+	 * Prepares the EOL engine's environemnt by parsing the source and loading
+	 * the models. This method should be called before invoking {@link #executeOperation(String)}
+	 * when invoking specific operations in the EOL source. When using this
+	 * method, a call to the {@link close()} method should be executed when no
+	 * more operations are being executed.
 	 *
-	 * @throws SourceLoadException the source load exception
-	 * @throws ParseException the parse exception
+	 * @throws SourceLoadException If there was an error loading the source file
+	 * 		   or during initial source parsing.
+	 * @throws ParseException If syntax errors were detected in the source file.
+	 *         Error details will be printed in the System.err stream.
 	 */
 	public void prepare() throws SourceLoadException, ParseException  {
 		
@@ -94,10 +97,9 @@ public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 	}
 	
 	/**
-	 * Close.
 	 * When executing specific operations ({@link executeOperation(String)}) 
 	 * this method disposes the models. This method should be called
-	 * when no more operations are being executed
+	 * when no more operations are being executed.
 	 */
 	public void close() {
 		
@@ -107,12 +109,12 @@ public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 	
 	/**
 	 * Execute a specific operation, identified by the operationName parameter.
-	 * {@link #prepare()} should be invoked before calling this method. The result
-	 * of executing the operation in the loaded model(s) is stored in the result
-	 * attribute.
+	 * {@link #prepare()} should be invoked (once) before calling this method 
+	 * (and the method can then be called repeatedly). The result of executing
+	 * the operation in the loaded model(s) is stored in the {@see #result} field.
 	 * 	
-	 * @param operationName the name of the operation in the EOL module operation name
-	 * @throws ExecutionException if there was an error executing the operation 
+	 * @param operationName The name of the operation in the EOL source
+	 * @throws ExecutionException If there was an error executing the operation 
 	 */
 	public void executeOperation(String operationName) throws ExecutionException {
 		
@@ -121,38 +123,16 @@ public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 		postProcess();
 	}
 	
-	
-
-	/**
-	 * Execute operation.
-	 *
-	 * @param module the module
-	 * @param operationName the operation name
-	 * @return the object
-	 * @throws ExecutionException the execution exception
-	 */
-	private Object executeOperation(IEolExecutableModule module, String operationName) throws ExecutionException {
-		EolOperation operation = module.getDeclaredOperations().getOperation(operationName);
-		if(operation != null) {
-			try {
-				return operation.execute(null, Collections.EMPTY_LIST, module.getContext());
-			} catch (EolRuntimeException e) {
-				e.printStackTrace();
-				throw new ExecutionException(e.getMessage());
-			}
-		}
-		return null;
-	}
-	
 
 	/**
 	 * Executes the first operation found in the EOL source. To invoke a specific
 	 * operation use {@link #executeOperation(IEolExecutableModule, String)}.
 	 * The result of the operation will be stored in the result field.
 	 *
-	 * @throws ParseException If there are errors parsing the EOL source
-	 * @throws SourceLoadException If there was an error loading the EOL source
-	 * @throws ExecutionException the execution exception
+	 * @throws ParseException If syntax errors were detected in the EOL source file.
+	 *         Error details will be printed in the System.err stream.
+	 * @throws SourceLoadException If there was an error loading the EOL source.
+	 * @throws ExecutionException If there was an error executing the operation.
 	 */
 	@Override
 	public void execute() throws ParseException, SourceLoadException, ExecutionException {
@@ -175,6 +155,27 @@ public class EolStandaloneEngine extends EpsilonStandaloneEngine {
 	@Override
 	public void postProcess() {
 		System.out.println(result);
+	}
+	
+	/**
+	 * Invokes the actual execution of an operation in the EOL source.  
+	 *
+	 * @param module the module
+	 * @param operationName the operation name
+	 * @return the object
+	 * @throws ExecutionException the execution exception
+	 */
+	private Object executeOperation(IEolExecutableModule module, String operationName) throws ExecutionException {
+		EolOperation operation = module.getDeclaredOperations().getOperation(operationName);
+		if(operation != null) {
+			try {
+				return operation.execute(null, Collections.EMPTY_LIST, module.getContext());
+			} catch (EolRuntimeException e) {
+				e.printStackTrace();
+				throw new ExecutionException(e.getMessage());
+			}
+		}
+		return null;
 	}
 
 }

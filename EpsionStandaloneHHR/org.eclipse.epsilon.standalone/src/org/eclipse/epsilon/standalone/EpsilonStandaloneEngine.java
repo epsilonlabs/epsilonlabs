@@ -56,7 +56,7 @@ public abstract class EpsilonStandaloneEngine {
 	}
 	
 	/**
-	 * Gets the list of models
+	 * Gets the list of models available to the engine
 	 *
 	 * @return the model list
 	 */
@@ -65,7 +65,7 @@ public abstract class EpsilonStandaloneEngine {
 	}
 	
 	/**
-	 * Sets the models.
+	 * Sets the models available to the engine
 	 *
 	 * @param models the new models
 	 */
@@ -76,7 +76,8 @@ public abstract class EpsilonStandaloneEngine {
 	
 	/**
 	 * Gets the models loaded to the engine. The loaded models can be different
-	 * to the list of models because some models could probably fail to load.
+	 * to the list of models because some models for example if a model fails
+	 * to load.
 	 *
 	 * @return the module models
 	 */
@@ -86,18 +87,18 @@ public abstract class EpsilonStandaloneEngine {
 	
 	
 	/**
-	 * Post process. This method is called after the engine has executed if
-	 * there were no exceptions. Extending classes should override this method
-	 * to provide any required post-processing after the engine has executed.
-	 * For example modifying the result object. This method should be called after
-	 * module execution if the extending class has overridden {@link #execute()}
-	 * to provide a more fined grained control over the module execution.
+	 * This method is invoked after the engine has executed if there were no
+	 * exceptions. Implementations should override this method o provide any
+	 * required post-processing after the engine has executed. For example
+	 * modifying the result object. This method should be called after module
+	 * execution if the extending class has overridden {@link #execute()} to
+	 * provide a more fined grained control over the module execution.
 	 */
 	public void postProcess() {};
 	
 	/**
-	 * Pre process. This method executes after the EXL source is parsed and the
-	 * models are loaded to the module's context. Extending classes should
+	 * This method is invoked after the ExL source is parsed and the
+	 * models are loaded to the engine's context. Implementations should
 	 * override this method to provide any required pre-processing before the
 	 * engine is executed. This method should be called after module execution
 	 * if the extending class has overridden {@link #execute()}
@@ -106,16 +107,18 @@ public abstract class EpsilonStandaloneEngine {
 	public void preProcess() {};
 	
 	/**
-	 * Execute. Executes the Epsilon source on the loaded models. Parses the
-	 * Epsilon source for errors, loads the models to the module's repository
-	 * and executes the module.
+	 * Executes the Epsilon source on the loaded models using the engine.
+	 * Parses the Epsilon source for errors, loads the models to the engine's
+	 * repository, invokes the {@link #preProcess()} method, executes the engine
+	 * and the invokes the {@link #postProcess()} method. The result of executing
+	 * the engine is saved in the {@see #result} field. Models are disposed (i.e.
+	 * un-loaded) after execution.
 	 *
 	 * @throws ParseException If syntax errors were detected in the source file.
 	 *         Error details will be printed in the System.err stream.
 	 *         TODO Provide a better way of getting the errors, log4j or other
 	 *         method in case the host application has not console
-	 * @throws SourceLoadException If there was an error loading the source file
-	 * 		   or during initial source parsing.
+	 * @throws SourceLoadException If there was an error loading the source file.
 	 * @throws ExecutionException If there was an error executing the source
 	 */
 	public void execute() throws ParseException, SourceLoadException, ExecutionException {
@@ -164,7 +167,8 @@ public abstract class EpsilonStandaloneEngine {
 	 *
 	 * @param module the module
 	 * @return the object
-	 * @throws EolRuntimeException the eol runtime exception
+	 * @throws EolRuntimeException if there is an exception during parsing, loading
+	 * of the models or execution of the engine.
 	 */
 	protected Object execute(IEolExecutableModule module) throws EolRuntimeException {
 		return module.execute();
