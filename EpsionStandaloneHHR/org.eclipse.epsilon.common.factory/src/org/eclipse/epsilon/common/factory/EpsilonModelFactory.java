@@ -16,6 +16,8 @@ import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * A factory interface for creating Epsilon Model objects.
+ * 
+ * @author Horacio Hoyos
  */
 public interface EpsilonModelFactory {
 	
@@ -23,7 +25,7 @@ public interface EpsilonModelFactory {
 	 * Creates a new EpsilonModel object for the corresponding driver. The factory
 	 * uses a {@link EpsilonModelConfig} object to set the various attributes 
 	 * needed for loading a model for the corresponding driver. Implementing factories
-	 * should provide additional methods to initialize the configuration.
+	 * should provide additional methods to initialise the configuration.
 	 *
 	 * @return the model
 	 * @throws EolModelLoadingException If there is a problem loading the model

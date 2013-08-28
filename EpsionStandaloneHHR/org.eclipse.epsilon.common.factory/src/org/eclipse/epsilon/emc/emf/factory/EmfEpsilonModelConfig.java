@@ -52,6 +52,7 @@ public class EmfEpsilonModelConfig extends AbstractEpsilonModelConfig implements
 	public EmfEpsilonModelConfig() {
 		super();
 		parameters.put(FACTORY, EmfEpsilonModelConfig.class.getName());
+		parameters.put(DRIVER, "emf");
 	}
 
 

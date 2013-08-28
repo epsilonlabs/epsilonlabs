@@ -31,22 +31,24 @@ import org.eclipse.jdt.annotation.NonNull;
  * <p>
  * Specific Epsilon drivers should extend this class to provide specific driver
  * configuration parameter setting. 
+ * 
+ * @author Horacio Hoyos
  */
 public abstract class AbstractEpsilonModelConfig implements EpsilonModelConfig {
 	
 	/**
-	 * This parameter defines the preferred driver to load the model. Values depend
+	 * This field defines the preferred driver to load the model. Values depend
 	 * on the available Epsilon model drivers, for example bibtex, csv, emf, hutn,
 	 * plainxml, etc.
 	 */
 	public static final String DRIVER = "driver";
 	
 	
-	/** The Constant FACTORY. */
+	/** The name of the factory used to create the configuration */
 	public static final String FACTORY = "factoryName";
 	
 	/**
-	 * This parameter defines the model name used as identifier within the ExL
+	 * This field defines the model name used as identifier within the ExL
 	 * source.
 	 */
 	public static final String NAME = "name";

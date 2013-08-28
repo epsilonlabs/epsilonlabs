@@ -12,10 +12,11 @@ package org.eclipse.epsilon.common.factory;
 
 import org.eclipse.jdt.annotation.NonNull;
 
-// TODO: Auto-generated Javadoc
 /**
  * An Epsilon Model configuration object used by the Epsilon Model Factory to
  * set the parameters for loading models with a specific driver.
+ * 
+ * @author Horacio Hoyos
  */
 public interface EpsilonModelConfig {
 	
