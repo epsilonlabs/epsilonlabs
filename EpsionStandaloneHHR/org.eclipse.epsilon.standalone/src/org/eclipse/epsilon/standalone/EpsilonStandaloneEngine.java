@@ -23,6 +23,8 @@ import org.eclipse.epsilon.standalone.util.SourceLoadException;
  * Provides the basic attributes and methods for the set of Epsilon standalone
  * engines. Specific implementations for each of the Epsilon languages (i.e., EOL,
  *  ETL, etc.) override methods as required, and provide additional functionality
+ *  
+ *  @author Horacio Hoyos
  */
 public abstract class EpsilonStandaloneEngine {
 	
