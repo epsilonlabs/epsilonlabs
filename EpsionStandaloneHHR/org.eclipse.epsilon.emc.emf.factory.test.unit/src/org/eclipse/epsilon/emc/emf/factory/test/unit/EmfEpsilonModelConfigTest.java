@@ -26,13 +26,6 @@ public class EmfEpsilonModelConfigTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-
-	@Test
-	public void testEpsilonEmfModelConfig() {
-		EmfEpsilonModelConfig tester = new EmfEpsilonModelConfig();
-		String driver = EmfEpsilonModelConfig.DRIVER;
-		assertEquals("Dirver is not emf", "emf", tester.getParameter(driver));
-	}
 	
 	@Test
 	public void testGetParameter() {

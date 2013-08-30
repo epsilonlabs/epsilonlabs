@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<simplegraph:Graph xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:simplegraph="http://www.eclipse.org/qvt/examples/0.1/SimpleGraph" xsi:schemaLocation="http://www.eclipse.org/qvt/examples/0.1/SimpleGraph SimpleGraph.ecore" name="GraphOne">
+  <element xsi:type="simplegraph:Node" incoming="//@element.3" outgoing="//@element.1" label="York"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.2" source="//@element.0"/>
+  <element xsi:type="simplegraph:Node" incoming="//@element.1 //@element.10" outgoing="//@element.4 //@element.3" label="Stansted"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.0" source="//@element.2"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.5" source="//@element.2"/>
+  <element xsi:type="simplegraph:Node" incoming="//@element.4" outgoing="//@element.6" label="Munich"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.7" source="//@element.5"/>
+  <element xsi:type="simplegraph:Node" incoming="//@element.6" outgoing="//@element.8" label="Innsbruck"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.9" source="//@element.7"/>
+  <element xsi:type="simplegraph:Node" incoming="//@element.8" outgoing="//@element.10" label="Stuttgart"/>
+  <element xsi:type="simplegraph:Edge" target="//@element.2" source="//@element.9"/>
+</simplegraph:Graph>

@@ -1,0 +1,9 @@
+context Graph {
+    
+    constraint hasName {
+        check {
+            self.name.println();
+            return self.name.isDefined();
+        }
+    }
+}
