@@ -91,18 +91,18 @@ public class EpsilonEmfModelFactory extends AbstractEpsilonModelFactory implemen
 	@Override
 	public void configForSourceModel() {
 		super.configForSourceModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 		
 	}
 
 	/**
-	 * Configure the factory to load models as source models and expand them on
+	 * Configure the factory to load models as source models and don't expand them on
 	 * load.
 	 */
-	public void configForSourceModelExpand() {
+	public void configForSourceModelNoExpand() {
 		
 		configForSourceModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	/* (non-Javadoc)
@@ -111,18 +111,18 @@ public class EpsilonEmfModelFactory extends AbstractEpsilonModelFactory implemen
 	@Override
 	public void configForCachedSourceModel() {
 		super.configForCachedSourceModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
 	
 	/**
-	 * Configure the factory to load models as cached source models and expand
+	 * Configure the factory to load models as cached source models and don't expand
 	 * them on load.
 	 */
-	public void configForCachedSourceModelExpand() {
+	public void configForCachedSourceModelNoExpand() {
 		
 		configForCachedSourceModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	
@@ -132,17 +132,17 @@ public class EpsilonEmfModelFactory extends AbstractEpsilonModelFactory implemen
 	@Override
 	public void configForTargetModel() {
 		super.configForTargetModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 
 	/**
-	 * Configure the factory to load models as target models and expand them on
+	 * Configure the factory to load models as target models and don't expand them on
 	 * load.
 	 */
-	public void configForTargetModelExpand() {
+	public void configForTargetModelNoExpand() {
 		
 		configForTargetModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
 	
 	/* (non-Javadoc)
@@ -151,59 +151,54 @@ public class EpsilonEmfModelFactory extends AbstractEpsilonModelFactory implemen
 	@Override
 	public void configForCachedTargetModel() {
 		super.configForCachedTargetModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
-	}
-	
-	
-	/**
-	 * Configure the factory to load models as cached target models and expand
-	 * them on load.
-	 */
-	public void configForCachedTargetModelExpand() {		
-		configForCachedTargetModel();
 		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
+	/**
+	 * Configure the factory to load models as cached target models and don't expand
+	 * them on load.
+	 */
+	public void configForCachedTargetModelNoExpand() {		
+		configForCachedTargetModel();
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForBidirectionalModel()
 	 */
 	@Override
-	public void configForBidirectionalModel() {
-		super.configForBidirectionalModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+	public void configForUpdateModel() {
+		super.configForUpdateModel();
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
 	}
 	
+	/**
+	 * Configure the factory to load models as cached target models and don't expand
+	 * them on load.
+	 */
+	public void configForUpdateModelNoExpand() {
+		
+		configForUpdateModel();
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
+	}
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.common.factory.EpsilonAbstractModelFactory#configForCachedBidirectionalModel()
 	 */
 	@Override
-	public void configForCachedBidirectionalModel() {
-		super.configForCachedBidirectionalModel();
+	public void configForCachedUpdateModel() {
+		super.configForCachedUpdateModel();
+		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
+	}
+	
+	/**
+	 * Configure the factory to load models as cached target models and don't expand
+	 * them on load.
+	 */
+	public void configForCachedUpdateModelNoExpand() {		
+		configForCachedUpdateModel();
 		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(false));
 	}
-	
-	
-	/**
-	 * Configure the factory to load models as bi-directional models and expand
-	 * them on load.
-	 */
-	public void configForBidirectionalModelExpand() {
-		super.configForBidirectionalModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
-	}
-	
-	
-	/**
-	 * Configure the factory to load models as cached bi-directional models and expand
-	 * them on load.
-	 */
-	public void configForCachedBidirectionalModelExpand() {
-		super.configForCachedBidirectionalModel();
-		config.setParameter(EmfEpsilonModelConfig.EXPAND, String.valueOf(true));
-	}
-	
 	
 	/**
 	 * Adds the meta-model URI (or UIRs) to the configuration list of URI based

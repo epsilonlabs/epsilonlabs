@@ -121,7 +121,7 @@ public abstract class AbstractEpsilonModelFactory implements
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForBidirectionalModel()
 	 */
-	public void configForBidirectionalModel() {
+	public void configForUpdateModel() {
 		
 		config.setReadOnLoad(true);
 		config.setStoreOnDisposal(true);
@@ -132,9 +132,9 @@ public abstract class AbstractEpsilonModelFactory implements
 	/* (non-Javadoc)
 	 * @see org.eclipse.epsilon.common.factory.EpsilonModelFactory#configForCachedBidirectionalModel()
 	 */
-	public void configForCachedBidirectionalModel() {
+	public void configForCachedUpdateModel() {
 		
-		configForBidirectionalModel();
+		configForUpdateModel();
 		config.setCached(true);
 	}
 

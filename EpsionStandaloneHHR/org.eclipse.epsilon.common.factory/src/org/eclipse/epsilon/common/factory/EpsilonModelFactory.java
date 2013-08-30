@@ -92,13 +92,15 @@ public interface EpsilonModelFactory {
 	public void configForCachedTargetModel();
 	
 	/**
-	 * Configure the factory to load models as bi-directional models.
+	 * Configure the factory to load models as update models, i.e. target models
+	 * that are read on load.
 	 */
-	public void configForBidirectionalModel();
+	public void configForUpdateModel();
 	
 	/**
-	 * Configure the factory to load models as cached bi-directional models.
+	 * Configure the factory to load models as cached update models, i.e. target
+	 * models that are read on load.
 	 */
-	public void configForCachedBidirectionalModel();
+	public void configForCachedUpdateModel();
 	
 }
