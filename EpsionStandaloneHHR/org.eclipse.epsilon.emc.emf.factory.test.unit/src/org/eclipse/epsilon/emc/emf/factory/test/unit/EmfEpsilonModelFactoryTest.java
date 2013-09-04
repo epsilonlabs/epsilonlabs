@@ -12,6 +12,16 @@ package org.eclipse.epsilon.emc.emf.factory.test.unit;
 
 import static org.junit.Assert.*;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.epsilon.common.factory.EpsilonModelConfig;
 import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.emc.emf.factory.EmfEpsilonModelConfig;
@@ -26,6 +36,22 @@ public class EmfEpsilonModelFactoryTest {
 
 	@Before
 	public void setUp() throws Exception {
+		// Register the metamodels
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+		    "ecore", new EcoreResourceFactoryImpl());
+
+		ResourceSet rs = new ResourceSetImpl();
+		// enable extended metadata
+		final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(rs.getPackageRegistry());
+		rs.getLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA,
+		    extendedMetaData);
+		
+		Resource r = rs.getResource(URI.createURI("file:/C:/Users/hhoyos/epsilonws/org.eclipse.epsilon.emc.emf.factory.test.unit/src/org/eclipse/epsilon/emc/emf/factory/test/unit/model/SimpleGraph.ecore"), true);
+		EObject eObject = r.getContents().get(0);
+		if (eObject instanceof EPackage) {
+		    EPackage p = (EPackage)eObject;
+		    EPackage.Registry.INSTANCE.put(p.getNsURI(), p);
+		}
 	}
 
 	@After
@@ -56,8 +82,7 @@ public class EmfEpsilonModelFactoryTest {
 		emfModel.dispose();
 		
 		// URI metamodel
-		factory.clearMetamodelPaths();
-		factory.setModelURI("src/org/eclipse/epsilon/emc/emf/factory/test/unit/model/SimpleGraph.xmi");
+		factory = new EpsilonEmfModelFactory("SimpleGraph", "src/org/eclipse/epsilon/emc/emf/factory/test/unit/model/SimpleGraphF.xmi");
 		factory.addMetamodelUri("http://www.eclipse.org/qvt/examples/0.1/SimpleGraph");
 		factory.configForSourceModel();
 		emfModel = null;
