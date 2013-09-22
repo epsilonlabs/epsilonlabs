@@ -34,7 +34,7 @@ public class WsModel extends Model implements IOperationContributorProvider {
 		model.load();
 		
 		EolModule module = new EolModule();
-		module.parse("var c : new CalculatorService; c.foo(1, 2);");
+		module.parse("var c : new CalculatorService; c.add(1, 2);");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 		
