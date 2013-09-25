@@ -1,0 +1,11 @@
+@namespace(uri="anotherdemo", prefix="")
+package anotherdemo;
+
+class C3 {
+	attr String s4;
+	attr String s5;
+}
+
+class C4 {
+	attr String s6;
+}

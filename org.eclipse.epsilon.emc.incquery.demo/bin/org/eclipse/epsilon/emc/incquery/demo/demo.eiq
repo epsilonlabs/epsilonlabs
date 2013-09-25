@@ -1,0 +1,25 @@
+package org.eclipse.epsilon.emc.incquery.demo
+
+import "http://www.eclipse.org/emf/2002/Ecore"
+ 
+pattern EClassesWithManyEAttributes(class) {
+	EClass(class);
+	//EClass.eStructuralFeatures(class, attribute);
+	//EAttribute(attribute);
+	//check ( class.EStructuralFeatures.size > 0 )
+	nr == count find EClassWithAttribute(class, _attribute);
+	neg find IsInECore(class);
+	check (nr > 1);
+}
+
+pattern EClassWithAttribute(class, attribute) {
+	EClass.eStructuralFeatures(class, attribute);
+	EAttribute(attribute);
+	neg find IsInECore(class);
+}
+
+pattern IsInECore(Element) = {
+	EClassifier.ePackage(Element,EP);
+	EPackage(EP);
+	EPackage.nsURI(EP,"http://www.eclipse.org/emf/2002/Ecore");
+}

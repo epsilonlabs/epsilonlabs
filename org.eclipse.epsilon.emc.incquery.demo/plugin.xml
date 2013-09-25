@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <!--
+   <extension
+         id="org.eclipse.epsilon.emc.incquery.demo.EClassesWithManyEAttributes"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="org.eclipse.epsilon.emc.incquery.demo.util.EClassesWithManyEAttributesQuerySpecification$Provider"
+            id="org.eclipse.epsilon.emc.incquery.demo.EClassesWithManyEAttributes">
+      </matcher>
+   </extension>
+   <extension
+         id="org.eclipse.epsilon.emc.incquery.demo.EClassesWithManyEAttributes"
+         point="org.eclipse.incquery.runtime.xexpressionevaluator">
+      <evaluator
+            evaluatorClass="org.eclipse.epsilon.emc.incquery.demo.util.EClassesWithManyEAttributesEvaluator1_1"
+            id="org.eclipse.epsilon.emc.incquery.demo.EClassesWithManyEAttributes_1_1">
+      </evaluator>
+   </extension>
+   <extension
+         id="org.eclipse.epsilon.emc.incquery.demo.EClassWithAttribute"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="org.eclipse.epsilon.emc.incquery.demo.util.EClassWithAttributeQuerySpecification$Provider"
+            id="org.eclipse.epsilon.emc.incquery.demo.EClassWithAttribute">
+      </matcher>
+   </extension>
+   <extension
+         id="org.eclipse.epsilon.emc.incquery.demo.IsInECore"
+         point="org.eclipse.incquery.runtime.queryspecification">
+      <matcher
+            querySpecificationProvider="org.eclipse.epsilon.emc.incquery.demo.util.IsInECoreQuerySpecification$Provider"
+            id="org.eclipse.epsilon.emc.incquery.demo.IsInECore">
+      </matcher>
+   </extension>
+   -->
+</plugin>

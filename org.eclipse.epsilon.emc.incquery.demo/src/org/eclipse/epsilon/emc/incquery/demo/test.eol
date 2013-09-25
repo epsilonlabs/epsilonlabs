@@ -1,0 +1,3 @@
+for(match in EClassesWithManyEAttributes.allInstances()) {
+	("Match found: " + match.class.name).println();
+}
