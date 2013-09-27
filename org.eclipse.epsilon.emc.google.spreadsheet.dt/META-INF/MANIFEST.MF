@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Google Spreadsheet Dt
+Bundle-SymbolicName: org.eclipse.epsilon.emc.google.spreadsheet.dt;singleton:=true
+Bundle-Version: 1.1.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.emc.google.spreadsheet.dt.Activator
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Eclipse.org
+Export-Package: org.eclipse.epsilon.emc.google.spreadsheet.dt
+Bundle-ClassPath: .
+Import-Package: org.eclipse.equinox.security.storage
+Require-Bundle: org.eclipse.epsilon.common.dt;bundle-version="1.0.0",
+ org.eclipse.epsilon.emc.google.spreadsheet;bundle-version="1.0.0",
+ org.eclipse.epsilon.emc.google.spreadsheet.dependencies;bundle-version="1.0.0"

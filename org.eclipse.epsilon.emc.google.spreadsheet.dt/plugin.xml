@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension point="org.eclipse.epsilon.common.dt.modelType">
+      <modelType
+            class="org.eclipse.epsilon.emc.google.spreadsheet.dt.SecureGSModel"
+            dialog="org.eclipse.epsilon.emc.google.spreadsheet.dt.GSModelConfigurationDialog"
+            icon="images/spreadsheet.jpg"
+            label="Google Spreadsheet"
+            stable="false"
+            type="GoogleSpreadsheet">
+      </modelType>
+   </extension>
+</plugin>
