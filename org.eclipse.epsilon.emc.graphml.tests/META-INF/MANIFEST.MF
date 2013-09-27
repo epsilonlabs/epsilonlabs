@@ -6,7 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.epsilon.emc.graphml.tests.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.junit4,
- org.eclipse.epsilon.emc.graphml
+ org.eclipse.epsilon.emc.graphml,
+ org.junit
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

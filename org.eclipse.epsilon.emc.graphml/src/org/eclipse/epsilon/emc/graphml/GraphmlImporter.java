@@ -6,17 +6,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.epsilon.emc.graphml.BooleanType;
-import org.eclipse.epsilon.emc.graphml.Graph;
-import org.eclipse.epsilon.emc.graphml.IntegerType;
-import org.eclipse.epsilon.emc.graphml.Node;
-import org.eclipse.epsilon.emc.graphml.NodeType;
-import org.eclipse.epsilon.emc.graphml.RealType;
-import org.eclipse.epsilon.emc.graphml.Slot;
-import org.eclipse.epsilon.emc.graphml.SlotPrototype;
-import org.eclipse.epsilon.emc.graphml.StringType;
-import org.eclipse.epsilon.emc.graphml.Type;
-import org.eclipse.epsilon.emc.graphml.GraphmlFactory;
+import org.eclipse.epsilon.emc.muddle.BooleanType;
+import org.eclipse.epsilon.emc.muddle.Feature;
+import org.eclipse.epsilon.emc.muddle.IntegerType;
+import org.eclipse.epsilon.emc.muddle.LinkElementType;
+import org.eclipse.epsilon.emc.muddle.Muddle;
+import org.eclipse.epsilon.emc.muddle.MuddleElement;
+import org.eclipse.epsilon.emc.muddle.MuddleElementType;
+import org.eclipse.epsilon.emc.muddle.MuddleFactory;
+import org.eclipse.epsilon.emc.muddle.RealType;
+import org.eclipse.epsilon.emc.muddle.Slot;
+import org.eclipse.epsilon.emc.muddle.Type;
 import org.eclipse.epsilon.eol.EolModule;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -27,19 +27,20 @@ import org.jdom.input.SAXBuilder;
 public class GraphmlImporter {
 	
 	// Add support for node label patterns
-	protected Graph graph = null;
-	protected HashMap<String, Node> nodeMap;
-	protected HashMap<Node, Element> nodeElementMap;
+	protected Muddle graph = null;
+	protected HashMap<String, MuddleElement> nodeMap;
+	protected HashMap<MuddleElement, Element> nodeElementMap;
 	protected Element graphElement = null;
 	protected Namespace namespace;
-	protected List<OrphanEdge> orphanEdges;
+	protected List<OrphanLink> orphanEdges;
 	protected GraphmlConfiguration configuration;
-	protected List<Node> referenceNodes;
+	protected List<MuddleElement> referenceNodes;
 	
+	/*
 	public static void main(String[] args) throws Exception {
 		
 		GraphmlImporter importer = new GraphmlImporter();
-		Graph graph = importer.importGraph(new File("/Users/dimitrioskolovos/Desktop/sample.graphml"));
+		Muddle graph = importer.importGraph(new File("/Users/dimitrioskolovos/Desktop/sample.graphml"));
 		
 		GraphmlModel model = new GraphmlModel();
 		model.setName("X");
@@ -54,15 +55,15 @@ public class GraphmlImporter {
 		//module.parse("Foo.all.size().println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
-	}
+	}*/
 	
-	public Graph importGraph(File file) throws Exception {
+	public Muddle importGraph(File file) throws Exception {
 		
-		graph = GraphmlFactory.eINSTANCE.createGraph();
-		nodeMap = new HashMap<String, Node>();
-		nodeElementMap = new HashMap<Node, Element>();
-		orphanEdges = new ArrayList<OrphanEdge>();
-		referenceNodes = new ArrayList<Node>();
+		graph = MuddleFactory.eINSTANCE.createMuddle();
+		nodeMap = new HashMap<String, MuddleElement>();
+		nodeElementMap = new HashMap<MuddleElement, Element>();
+		orphanEdges = new ArrayList<OrphanLink>();
+		referenceNodes = new ArrayList<MuddleElement>();
 		
 		SAXBuilder builder = new SAXBuilder();
 		Document doc = builder.build(file);
@@ -93,7 +94,7 @@ public class GraphmlImporter {
 			}
 			
 			// Create nodes only for typed node elements
-			Node node = GraphmlFactory.eINSTANCE.createNode();
+			MuddleElement node = MuddleFactory.eINSTANCE.createMuddleElement();
 			node.setId(nodeElement.getAttributeValue("id"));
 			nodeMap.put(node.getId(), node);
 			nodeElementMap.put(node, nodeElement);
@@ -101,7 +102,7 @@ public class GraphmlImporter {
 			if (isReference) {
 				referenceNodes.add(node);
 			}
-			graph.getNodes().add(node);
+			graph.getElements().add(node);
 			node.setType(nodeTypeForName(nodeTypeName));
 			
 			// If the node is a reference there's nothing
@@ -111,22 +112,22 @@ public class GraphmlImporter {
 			createPrimaryPrototypeSlot(node, nodeElement, configuration.getNodePrimarySlotPrototypeNameKey());
 		}
 		
-		for (Node node : graph.getNodes()) {
+		for (MuddleElement node : graph.getElements()) {
 			Element nodeElement = nodeElementMap.get(node);
 			populateSlots(node, nodeElement);
 		}
 		
 		// Replace references with actual elements in the node map
-		for (Node referenceNode : referenceNodes) {
-			Node target = findReferenceTarget(referenceNode);
+		for (MuddleElement referenceNode : referenceNodes) {
+			MuddleElement target = findReferenceTarget(referenceNode);
 			if (target != null) {
 				nodeMap.put(referenceNode.getId(), target);
 			}
 		}
 		
 		// We don't need references any more
-		graph.getNodes().removeAll(referenceNodes);
-		for (Node referenceNode : referenceNodes) {
+		graph.getElements().removeAll(referenceNodes);
+		for (MuddleElement referenceNode : referenceNodes) {
 			annihilate(referenceNode);
 		}
 		
@@ -136,122 +137,122 @@ public class GraphmlImporter {
 			String edgeTypeName = getElementData(edgeElement, configuration.getEdgeTypeKey());
 			if (edgeTypeName != null) continue;
 				
-			Node source = nodeMap.get(edgeElement.getAttributeValue("source"));
-			Node target = nodeMap.get(edgeElement.getAttributeValue("target"));
+			MuddleElement source = nodeMap.get(edgeElement.getAttributeValue("source"));
+			MuddleElement target = nodeMap.get(edgeElement.getAttributeValue("target"));
 			
 			String label = getFirstLabel(edgeElement);
 			if (label == null) {
-				orphanEdges.add(new OrphanEdge(source, target));
+				orphanEdges.add(new OrphanLink(source, target));
 				continue;
 			}
 			
-			SlotPrototype prototype = new EdgePrototypeLabelParser(label).getPrototype();
+			Feature prototype = new LinkFeatureLabelParser(label).getFeature();
 			Slot slot = addSlot(source, prototype);
-			slot.setPrototype(addSlotPrototype(source.getType(), prototype));
+			slot.setFeature(addSlotPrototype(source.getType(), prototype));
 			slot.getValues().add(target);
 		}
 		
 		// Try to put orphan edge targets to suitable slots
-		for (OrphanEdge orphanEdge : orphanEdges) {
+		for (OrphanLink orphanEdge : orphanEdges) {
 			Slot slot = findSuitableSlot(orphanEdge.getSource(), orphanEdge.getTarget());
 			if (slot != null) {
 				slot.getValues().add(orphanEdge.getTarget());
 			}
 		}
 		
-		List<Node> typedEdgeNodes = new ArrayList<Node>();
+		List<MuddleElement> typedEdgeNodes = new ArrayList<MuddleElement>();
 		
 		// Create nodes for typed edges
 		for (Element edgeElement : getEdgeElements()) {
 			String edgeTypeName = getElementData(edgeElement, configuration.getEdgeTypeKey());
 			if (edgeTypeName == null) continue;
 			
-			Node node = GraphmlFactory.eINSTANCE.createNode();
+			MuddleElement node = MuddleFactory.eINSTANCE.createMuddleElement();
 			node.setId(edgeElement.getAttributeValue("id"));
 			nodeElementMap.put(node, edgeElement);
-			graph.getNodes().add(node);
+			graph.getElements().add(node);
 			typedEdgeNodes.add(node);
-			EdgeType edgeType = edgeTypeForName(edgeTypeName);
+			LinkElementType edgeType = edgeTypeForName(edgeTypeName);
 			node.setType(edgeType);
 			createPrimaryPrototypeSlot(node, edgeElement, configuration.getEdgePrimarySlotPrototypeNameKey());
 			
-			SlotPrototype sourcePrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeSourceKey());
+			Feature sourcePrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeSourceKey());
 			
-			if (sourcePrototype != null && edgeType.getSourcePrototype() == null) {
-				edgeType.setSourcePrototype(sourcePrototype);
-				edgeType.getSlotPrototypes().add(sourcePrototype);
+			if (sourcePrototype != null && edgeType.getSourceFeature() == null) {
+				edgeType.setSourceFeature(sourcePrototype);
+				edgeType.getFeatures().add(sourcePrototype);
 			}
 			
-			SlotPrototype targetPrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeTargetKey());
-			if (targetPrototype != null && edgeType.getTargetPrototype() == null) {
-				edgeType.setTargetPrototype(targetPrototype);
-				edgeType.getSlotPrototypes().add(targetPrototype);
+			Feature targetPrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeTargetKey());
+			if (targetPrototype != null && edgeType.getTargetFeature() == null) {
+				edgeType.setTargetFeature(targetPrototype);
+				edgeType.getFeatures().add(targetPrototype);
 			}
 			
-			SlotPrototype roleInSourcePrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeRoleInSourceKey());
-			if (roleInSourcePrototype != null && edgeType.getRoleInSourcePrototype() == null) {
-				edgeType.setRoleInSourcePrototype(roleInSourcePrototype);
+			Feature roleInSourcePrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeRoleInSourceKey());
+			if (roleInSourcePrototype != null && edgeType.getRoleInSourceFeature() == null) {
+				edgeType.setRoleInSourceFeature(roleInSourcePrototype);
 			}
 			
-			SlotPrototype roleInTargetPrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeRoleInTargetKey());
-			if (roleInTargetPrototype != null && edgeType.getRoleInTargetPrototype() == null) {
-				edgeType.setRoleInTargetPrototype(roleInTargetPrototype);
+			Feature roleInTargetPrototype = createEdgeTypeSlotPrototype(node, configuration.getEdgeRoleInTargetKey());
+			if (roleInTargetPrototype != null && edgeType.getRoleInTargetFeature() == null) {
+				edgeType.setRoleInTargetFeature(roleInTargetPrototype);
 			}
 		}
 		
 		// Populate nodes for typed edges
-		for (Node edgeNode : typedEdgeNodes) {
+		for (MuddleElement edgeNode : typedEdgeNodes) {
 			Element edgeElement = nodeElementMap.get(edgeNode);
 			populateSlots(edgeNode, edgeElement);
 			
-			Node source = nodeMap.get(edgeElement.getAttributeValue("source"));
-			Node target = nodeMap.get(edgeElement.getAttributeValue("target"));
+			MuddleElement source = nodeMap.get(edgeElement.getAttributeValue("source"));
+			MuddleElement target = nodeMap.get(edgeElement.getAttributeValue("target"));
 		
 			if (source != null) {
-				addEdgeNodeToNode(edgeNode, source, ((EdgeType) edgeNode.getType()).getRoleInSourcePrototype());
-				addNodeToEdgeNode(edgeNode, source, ((EdgeType) edgeNode.getType()).getSourcePrototype());
+				addEdgeNodeToNode(edgeNode, source, ((LinkElementType) edgeNode.getType()).getRoleInSourceFeature());
+				addNodeToEdgeNode(edgeNode, source, ((LinkElementType) edgeNode.getType()).getSourceFeature());
 				
 			}
 			if (target != null) {
-				addEdgeNodeToNode(edgeNode, target, ((EdgeType) edgeNode.getType()).getRoleInTargetPrototype());
-				addNodeToEdgeNode(edgeNode, target, ((EdgeType) edgeNode.getType()).getTargetPrototype());
+				addEdgeNodeToNode(edgeNode, target, ((LinkElementType) edgeNode.getType()).getRoleInTargetFeature());
+				addNodeToEdgeNode(edgeNode, target, ((LinkElementType) edgeNode.getType()).getTargetFeature());
 			}
 			
 		}
 		
 	}
 	
-	protected SlotPrototype createEdgeTypeSlotPrototype(Node edgeNode, String key) {
+	protected Feature createEdgeTypeSlotPrototype(MuddleElement edgeNode, String key) {
 		String slotPrototypeLabel = getNodeData(edgeNode, key);
 		if (slotPrototypeLabel == null) return null;
-		SlotPrototype prototype = new EdgePrototypeLabelParser(slotPrototypeLabel).getPrototype(); 
+		Feature prototype = new LinkFeatureLabelParser(slotPrototypeLabel).getFeature(); 
 		return prototype;
 	}
 	
-	protected void addNodeToEdgeNode(Node edgeNode, Node node, SlotPrototype prototype) {
+	protected void addNodeToEdgeNode(MuddleElement edgeNode, MuddleElement node, Feature prototype) {
 		if (prototype == null) return;
 		Slot slot = addSlot(edgeNode, prototype);
 		slot.getValues().add(node);
 	}
 	
-	protected void addEdgeNodeToNode(Node edgeNode, Node node, SlotPrototype prototype) {
+	protected void addEdgeNodeToNode(MuddleElement edgeNode, MuddleElement node, Feature prototype) {
 		if (prototype == null) return;
 		Slot slot = addSlot(node, addSlotPrototype(node.getType(), clone(prototype)));
 		slot.getValues().add(edgeNode);
 	}
 	
-	protected String getNodeData(Node node, String key) {
+	protected String getNodeData(MuddleElement node, String key) {
 		return getElementData(nodeElementMap.get(node), key);
 	}
 	
-	protected void populateSlots(Node node, Element element) {
+	protected void populateSlots(MuddleElement node, Element element) {
 		for (String label : getLabels(element)) {
 			
 			// Named slot value
 			if (isSlotValueLabel(label)) {
-				ValuedSlotPrototypeLabelParser parser = new ValuedSlotPrototypeLabelParser(label);
-				Slot slot = addSlot(node, parser.getPrototype());
-				slot.setPrototype(addSlotPrototype(node.getType(), parser.getPrototype()));
+				ValuedSlotFeatureLabelParser parser = new ValuedSlotFeatureLabelParser(label);
+				Slot slot = addSlot(node, parser.getFeature());
+				slot.setFeature(addSlotPrototype(node.getType(), parser.getFeature()));
 				slot.getValues().add(parser.getValue());
 			}
 			// Default slot value
@@ -263,13 +264,13 @@ public class GraphmlImporter {
 		}
 	}
 	
-	protected void createPrimaryPrototypeSlot(Node node, Element element, String defaultSlotPrototypeNameKey) {
+	protected void createPrimaryPrototypeSlot(MuddleElement node, Element element, String defaultSlotPrototypeNameKey) {
 		// Create default prototype slot if exists
 		String defaultSlotPrototypeName = defaultSlotPrototypeNameKey;
 		if (defaultSlotPrototypeName == null) return;
 		String defaultSlotPrototypeLabel = getElementData(element, defaultSlotPrototypeName);
 		if (defaultSlotPrototypeLabel == null) return;
-		SlotPrototype prototype = new ValuedSlotPrototypeLabelParser(defaultSlotPrototypeLabel + " = 0").getPrototype();
+		Feature prototype = new ValuedSlotFeatureLabelParser(defaultSlotPrototypeLabel + " = 0").getFeature();
 		prototype.setPrimary(true);
 		addSlotPrototype(node.getType(), prototype);
 	}
@@ -285,17 +286,17 @@ public class GraphmlImporter {
 		return null;
 	}
 	
-	protected void annihilate(Node node) {
+	protected void annihilate(MuddleElement node) {
 		node.setType(null);
 		for (Slot slot : node.getSlots()) {
-			slot.setPrototype(null);
+			slot.setFeature(null);
 			slot.getValues().clear();
 		}
 	}
 	
-	protected Node findReferenceTarget(Node referenceNode) {
+	protected MuddleElement findReferenceTarget(MuddleElement referenceNode) {
 		
-		for (Node node : referenceNode.getType().getInstances()) {
+		for (MuddleElement node : referenceNode.getType().getInstances()) {
 			if (referenceNodes.contains(node)) continue;
 			if (matches(node, referenceNode)) {
 				return node;
@@ -306,9 +307,9 @@ public class GraphmlImporter {
 		
 	}
 	
-	protected boolean matches(Node node, Node referenceNode) {
+	protected boolean matches(MuddleElement node, MuddleElement referenceNode) {
 		for (Slot referenceSlot : referenceNode.getSlots()) {
-			Slot slot = findSlot(node, referenceSlot.getPrototype());
+			Slot slot = findSlot(node, referenceSlot.getFeature());
 			if (slot == null) return false;
 			for (Object referenceValue : referenceSlot.getValues()) {
 				if (!slot.getValues().contains(referenceValue)) return false;
@@ -317,9 +318,9 @@ public class GraphmlImporter {
 		return true;
 	}
 	
-	protected Slot findSlot(Node node, SlotPrototype slotPrototype) {
+	protected Slot findSlot(MuddleElement node, Feature slotPrototype) {
 		for (Slot slot : node.getSlots()) {
-			if (slot.getPrototype().equals(slotPrototype)) return slot;
+			if (slot.getFeature().equals(slotPrototype)) return slot;
 		}
 		return null;
 	}
@@ -330,13 +331,13 @@ public class GraphmlImporter {
 	 * Also, adjust the type of slot values
 	 */
 	protected void adjustSlotPrototypeMultiplicitiesAndSlotValueTypes() {
-		for (Node node : graph.getNodes()) {
+		for (MuddleElement node : graph.getElements()) {
 			for (Slot slot : node.getSlots()) {
-				if (!slot.getPrototype().isMany() && slot.getValues().size() > 1) {
-					slot.getPrototype().setMany(true);
+				if (!slot.getFeature().isMany() && slot.getValues().size() > 1) {
+					slot.getFeature().setMany(true);
 				}
 				if (slot.getValues().size() > 0) {
-					Type slotType = slot.getPrototype().getType();
+					Type slotType = slot.getFeature().getType();
 					if (slotType instanceof IntegerType || slotType instanceof BooleanType || slotType instanceof RealType) {
 						List<Object> castedValues = new ArrayList<Object>();
 						for (Object value : slot.getValues()) {
@@ -372,27 +373,27 @@ public class GraphmlImporter {
 		else return object;
 	}
 	
-	protected Slot findSuitableSlot(Node source, Node target) {
-		SlotPrototype slotPrototype = findSuitableSlotPrototype(source.getType(), target);
+	protected Slot findSuitableSlot(MuddleElement source, MuddleElement target) {
+		Feature slotPrototype = findSuitableSlotPrototype(source.getType(), target);
 		if (slotPrototype == null) return null;
 		for (Slot slot : source.getSlots()) {
-			if (slot.getPrototype() == slotPrototype) {
+			if (slot.getFeature() == slotPrototype) {
 				return slot;
 			}
 		}
 		
-		Slot slot = GraphmlFactory.eINSTANCE.createSlot();
-		slot.setPrototype(slotPrototype);
+		Slot slot = MuddleFactory.eINSTANCE.createSlot();
+		slot.setFeature(slotPrototype);
 		source.getSlots().add(slot);
 		return slot;
 		
 	}
 	
-	protected SlotPrototype findSuitableSlotPrototype(NodeType type, Node value) {
-		for (SlotPrototype slotPrototype : type.getSlotPrototypes()) {
+	protected Feature findSuitableSlotPrototype(MuddleElementType type, MuddleElement value) {
+		for (Feature slotPrototype : type.getFeatures()) {
 			for (Slot slot : slotPrototype.getSlots()) {
 				for (Object existingValue : slot.getValues()) {
-					if (existingValue instanceof Node && ((Node) existingValue).getType().equals(value.getType())) {
+					if (existingValue instanceof MuddleElement && ((MuddleElement) existingValue).getType().equals(value.getType())) {
 						return slotPrototype;
 					}
 				}
@@ -409,20 +410,20 @@ public class GraphmlImporter {
 		return label.indexOf('=') > -1;
 	}
 	
-	protected Slot addSlot(Node node, SlotPrototype prototype) {
+	protected Slot addSlot(MuddleElement node, Feature prototype) {
 		for (Slot existingSlot : node.getSlots()) {
-			if (existingSlot.getPrototype().getName().equals(prototype.getName())) {
+			if (existingSlot.getFeature().getName().equals(prototype.getName())) {
 				return existingSlot;
 			}
 		}
-		Slot slot = GraphmlFactory.eINSTANCE.createSlot();
-		slot.setPrototype(prototype);
+		Slot slot = MuddleFactory.eINSTANCE.createSlot();
+		slot.setFeature(prototype);
 		node.getSlots().add(slot);
 		return slot;
 	}
 	
-	protected SlotPrototype addSlotPrototype(NodeType nodeType, SlotPrototype prototype) {
-		for (SlotPrototype existingPrototype : nodeType.getSlotPrototypes()) {
+	protected Feature addSlotPrototype(MuddleElementType nodeType, Feature prototype) {
+		for (Feature existingPrototype : nodeType.getFeatures()) {
 			if (existingPrototype.getName().equals(prototype.getName())) {
 				if (existingPrototype.getType() == null) {
 					existingPrototype.setType(prototype.getType());
@@ -436,39 +437,39 @@ public class GraphmlImporter {
 				return existingPrototype;
 			}
 		}
-		nodeType.getSlotPrototypes().add(prototype);
+		nodeType.getFeatures().add(prototype);
 		return prototype;
 	}
 	
-	protected SlotPrototype clone(SlotPrototype prototype) {
-		SlotPrototype clone = GraphmlFactory.eINSTANCE.createSlotPrototype();
+	protected Feature clone(Feature prototype) {
+		Feature clone = MuddleFactory.eINSTANCE.createFeature();
 		clone.setName(prototype.getName());
 		clone.setPrimary(prototype.isPrimary());
 		clone.setMany(prototype.isMany());
 		return clone;
 	}
 	
-	protected Slot getPrimarySlot(Node node) {
-		SlotPrototype primarySlotPrototype = null;
-		for (SlotPrototype prototype : node.getType().getSlotPrototypes()) {
-			if (prototype.isPrimary()) primarySlotPrototype = prototype;
+	protected Slot getPrimarySlot(MuddleElement node) {
+		Feature primaryFeature = null;
+		for (Feature prototype : node.getType().getFeatures()) {
+			if (prototype.isPrimary()) primaryFeature = prototype;
 			break;
 		}
 		
-		if (primarySlotPrototype == null) return null;
+		if (primaryFeature == null) return null;
 		
 		Slot primarySlot = null;
 		for (Slot slot : node.getSlots()) {
-			if (slot.getPrototype().equals(primarySlotPrototype)) {
+			if (slot.getFeature().equals(primaryFeature)) {
 				primarySlot = slot;
 				break;
 			}
 		}
 		
 		if (primarySlot == null) {
-			Slot slot = GraphmlFactory.eINSTANCE.createSlot();
-			slot.setPrototype(primarySlotPrototype);
-			slot.setOwningNode(node);
+			Slot slot = MuddleFactory.eINSTANCE.createSlot();
+			slot.setFeature(primaryFeature);
+			slot.setOwningElement(node);
 			return slot;
 		}
 		else {
@@ -545,15 +546,15 @@ public class GraphmlImporter {
 		return elements;
 	}
 
-	protected EdgeType edgeTypeForName(String name) {
-		return (EdgeType) typeForName(name, true);
+	protected LinkElementType edgeTypeForName(String name) {
+		return (LinkElementType) typeForName(name, true);
 	}
 	
-	protected NodeType nodeTypeForName(String name) {
+	protected MuddleElementType nodeTypeForName(String name) {
 		return typeForName(name, false);
 	}
 	
-	protected NodeType typeForName(String name, boolean edgeType) {
+	protected MuddleElementType typeForName(String name, boolean edgeType) {
 		
 		int gt = name.indexOf(">");
 		
@@ -562,8 +563,8 @@ public class GraphmlImporter {
 			String typeName = name.substring(0, gt).trim();
 			String superTypeName = name.substring(gt+1, name.length()).trim();
 
-			NodeType type = typeForName(typeName, edgeType);
-			NodeType superType = typeForName(superTypeName, edgeType);
+			MuddleElementType type = typeForName(typeName, edgeType);
+			MuddleElementType superType = typeForName(superTypeName, edgeType);
 			if (!type.getSuperTypes().contains(superType)) {
 				type.getSuperTypes().add(superType);
 			}
@@ -571,17 +572,17 @@ public class GraphmlImporter {
 		}
 		
 		for (Type type : graph.getTypes()) {
-			if (type instanceof NodeType && type.getName().equals(name)) {
-				return (NodeType) type;
+			if (type instanceof MuddleElementType && type.getName().equals(name)) {
+				return (MuddleElementType) type;
 			}
 		}
 		
-		NodeType nodeType = null;
+		MuddleElementType nodeType = null;
 		if (edgeType) {
-			nodeType = GraphmlFactory.eINSTANCE.createEdgeType();
+			nodeType = MuddleFactory.eINSTANCE.createLinkElementType();
 		}
 		else {
-			nodeType = GraphmlFactory.eINSTANCE.createNodeType();
+			nodeType = MuddleFactory.eINSTANCE.createMuddleElementType();
 		}
 		nodeType.setName(name);
 		graph.getTypes().add(nodeType);
