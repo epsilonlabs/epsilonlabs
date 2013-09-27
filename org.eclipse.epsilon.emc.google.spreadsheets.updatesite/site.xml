@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.eclipse.epsilon.emc.google.spreadsheet.feature_1.1.0.201309271928.jar" id="org.eclipse.epsilon.emc.google.spreadsheet.feature" version="1.1.0.201309271928">
+   <feature url="features/org.eclipse.epsilon.emc.google.spreadsheet.feature_1.1.0.201309271936.jar" id="org.eclipse.epsilon.emc.google.spreadsheet.feature" version="1.1.0.201309271936">
       <category name="Epsilon Model Connectivity"/>
    </feature>
    <category-def name="Epsilon Model Connectivity" label="Epsilon Model Connectivity"/>
