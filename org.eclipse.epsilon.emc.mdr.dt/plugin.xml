@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="mdr"
+         name="mdr"
+         point="org.eclipse.epsilon.common.dt.modelType">
+      <modelType
+            class="org.eclipse.epsilon.emc.mdr.MdrModel"
+            dialog="org.eclipse.epsilon.emc.mdr.dt.MdrModelConfigurationDialog"
+            icon="icons/mdr.gif"
+            label="MOF 1.4/XMI 1.2 (MDR)"
+            type="MDR"/>
+   </extension>
+   <extension
+         point="org.eclipse.epsilon.common.dt.prettyPrinter">
+      <prettyPrinter class="org.eclipse.epsilon.emc.mdr.MdrPrettyPrinter"/>
+   </extension>
+
+</plugin>

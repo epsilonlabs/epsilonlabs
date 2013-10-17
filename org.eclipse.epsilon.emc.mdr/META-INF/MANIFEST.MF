@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilon MDR Model Support (Incubation)
+Bundle-SymbolicName: org.eclipse.epsilon.emc.mdr
+Bundle-Version: 0.8.0
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.emc.mdr.dependencies;visibility:=reexport
+Export-Package: org.eclipse.epsilon.emc.mdr
+Bundle-Vendor: Eclipse.org
+Bundle-ClassPath: org.eclipse.epsilon.emc.mdr.jar
