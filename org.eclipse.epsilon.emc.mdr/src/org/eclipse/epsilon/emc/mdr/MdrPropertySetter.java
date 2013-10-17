@@ -20,7 +20,6 @@ import org.eclipse.epsilon.eol.exceptions.EolIllegalPropertyException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.introspection.AbstractPropertySetter;
 import org.eclipse.epsilon.eol.execute.introspection.IReflectivePropertySetter;
-import org.eclipse.epsilon.eol.types.EolTypeWrapper;
 
 public class MdrPropertySetter extends AbstractPropertySetter implements IReflectivePropertySetter {
 
@@ -46,7 +45,7 @@ public class MdrPropertySetter extends AbstractPropertySetter implements IReflec
 				}
 			}
 			else { 
-				if (value != null) refObject.refSetValue(property, EolTypeWrapper.getInstance().unwrap(value));
+				if (value != null) refObject.refSetValue(property, value);
 			}
 		}
 		else {

@@ -5,8 +5,6 @@ Bundle-SymbolicName: org.eclipse.epsilon.emc.mdr.dt;singleton:=true
 Bundle-Version: 0.8.0
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.epsilon.common.dt,
- org.eclipse.jface,
- org.eclipse.epsilon.commons,
  org.eclipse.epsilon.emc.mdr
 Bundle-ClassPath: org.eclipse.epsilon.emc.mdr.dt.jar
 Bundle-Vendor: Eclipse.org

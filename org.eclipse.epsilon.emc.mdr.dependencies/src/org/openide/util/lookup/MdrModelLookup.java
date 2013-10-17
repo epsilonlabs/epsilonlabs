@@ -24,7 +24,7 @@ import org.netbeans.lib.jmi.xmi.XmiDtdProducer;
 import org.netbeans.mdr.NBMDRManagerImpl;
 import org.openide.util.Lookup;
 
-public class EolLookup extends Lookup{
+public class MdrModelLookup extends Lookup{
 	private ProxyLookup delegate = new ProxyLookup();
 
 	private boolean inited = false;

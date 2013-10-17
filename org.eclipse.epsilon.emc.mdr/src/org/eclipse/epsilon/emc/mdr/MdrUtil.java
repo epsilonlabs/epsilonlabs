@@ -30,33 +30,9 @@ import javax.jmi.reflect.RefClass;
 import javax.jmi.reflect.RefObject;
 import javax.jmi.reflect.RefPackage;
 
-import org.eclipse.epsilon.commons.util.CollectionUtil;
-import org.eclipse.epsilon.eol.types.EolTypeWrapper;
+import org.eclipse.epsilon.eol.execute.operations.contributors.IterableOperationContributor;
 
 public class MdrUtil {
-
-	public static void main(String args[]){
-		/*
- 		MofBasedModel mbm = new MofBasedModel("UML", Workbench.class.getResource("mdr/models/umltest.xmi"), 
-		 		Workbench.class.getResource("mdr/metamodels/uml1.5.xml"));
-
- 		MofBasedModel mbm1 = new MofBasedModel("UML", Workbench.class.getResource("mdr/models/umltest.xmi"), 
-		 		Workbench.class.getResource("mdr/metamodels/uml1.5.xml"));
- 		
- 		RefPackage refPackage = null;
- 		
- 		try{
- 			refPackage = mbm.getContent();
- 		}
- 		catch (Exception ex){
- 			
- 		}
- 		
- 		//System.out.println(refPackage);
- 		
- 		System.out.println(getClassInstances(refPackage, "Foundation::Core::Class").size());
- 		*/
-	}
 
 	public static Collection getMetaClassInstances(RefPackage refPackage, String className){
 		
@@ -196,7 +172,7 @@ public class MdrUtil {
 	
 	public static void setCollectionValues(Collection source, Collection target){
 		
-		source = CollectionUtil.flatten(source);
+		source = new IterableOperationContributor(source).flatten();
 		
 		Iterator tit = target.iterator();
 		ArrayList removed = new ArrayList();
@@ -221,7 +197,7 @@ public class MdrUtil {
 				try {
 					//target.add(next);
 					//TODO: Go over this quick-fix
-					target.add(EolTypeWrapper.getInstance().unwrap(next));
+					target.add(next);
 				}
 				catch (CompositionViolationException cvex){
 					source.remove(next);

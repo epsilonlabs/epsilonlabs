@@ -26,13 +26,15 @@ import javax.jmi.model.ModelPackage;
 import javax.jmi.model.MofClass;
 import javax.jmi.model.MofPackage;
 import javax.jmi.reflect.RefClass;
+import javax.jmi.reflect.RefEnum;
 import javax.jmi.reflect.RefObject;
 import javax.jmi.reflect.RefPackage;
 
-import org.eclipse.epsilon.commons.util.StringProperties;
+import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
+import org.eclipse.epsilon.eol.exceptions.models.EolNotAnEnumerationValueException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
@@ -68,7 +70,7 @@ public class MdrModel extends Model implements IReflectiveModel {
 		cacheElements = true;
 		
 		System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
-		System.setProperty("org.openide.util.Lookup", "org.openide.util.lookup.EolLookup");
+		System.setProperty("org.openide.util.Lookup", "org.openide.util.lookup.MdrModelLookup");
 		
 		//xmiReader = new XMISaxReaderImpl();
 		//xmiWriter = new XMIWriterImpl();
@@ -177,7 +179,7 @@ public class MdrModel extends Model implements IReflectiveModel {
 		return idManager;
 	}
 
-	// TODO: Fix the package discovery
+	// TODO: Fix package discovery
 	private MofPackage getMofPackage(ModelPackage extent, String extentName) {
 		Iterator it = extent.getMofPackage().refAllOfClass().iterator();
 		while (it.hasNext()) {
@@ -633,6 +635,51 @@ public class MdrModel extends Model implements IReflectiveModel {
 		final MofClass metaclass = (MofClass)metaclassRef.refMetaObject();
 		
 		return MdrUtil.getStructuralFeatures(metaclass);
+	}
+
+	@Override
+	public boolean preventLoadingOfExternalModelElements() {
+		return false;
+	}
+
+	@Override
+	public Object getContainerOf(Object object) {
+		return ((RefObject) object).refImmediateComposite();
+	}
+
+	
+	@Override
+	public boolean isEnumerationValue(Object object) {
+		return object instanceof RefEnum;
+	}
+
+	//FIXME: Not implemented
+	@Override
+	public boolean hasProperty(String type, String property)
+			throws EolModelElementTypeNotFoundException {
+		return false;
+	}
+
+	//FIXME: Not implemented
+	@Override
+	public String getEnumerationTypeOf(Object literal)
+			throws EolNotAnEnumerationValueException {
+		return null;
+	}
+
+	//FIXME: Not implemented
+	@Override
+	public String getEnumerationLabelOf(Object literal)
+			throws EolNotAnEnumerationValueException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//FIXME: Not implemented
+	@Override
+	public boolean hasPackage(String packageName) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
 

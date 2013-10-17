@@ -18,7 +18,6 @@ import javax.jmi.reflect.RefObject;
 import org.eclipse.epsilon.eol.exceptions.EolIllegalPropertyException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.introspection.AbstractPropertyGetter;
-import org.eclipse.epsilon.eol.types.EolTypeWrapper;
 
 public class MdrPropertyGetter extends AbstractPropertyGetter{
 
@@ -40,7 +39,7 @@ public class MdrPropertyGetter extends AbstractPropertyGetter{
 				
 			}
 			else {
-				return EolTypeWrapper.getInstance().wrap(refObject.refGetValue(sf));
+				return refObject.refGetValue(sf);
 			}
 		}
 		else {
