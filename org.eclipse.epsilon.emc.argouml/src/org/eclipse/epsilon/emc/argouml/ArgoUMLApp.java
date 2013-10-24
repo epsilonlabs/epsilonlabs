@@ -4,15 +4,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.swing.AbstractAction;
 import javax.swing.SwingUtilities;
 
 import org.argouml.application.Main;
+import org.argouml.application.SubsystemUtility;
 import org.argouml.application.api.Argo;
 import org.argouml.application.helpers.ApplicationVersion;
 import org.argouml.cognitive.Designer;
+import org.argouml.cognitive.checklist.ui.InitCheckListUI;
+import org.argouml.cognitive.ui.InitCognitiveUI;
 import org.argouml.configuration.Configuration;
 import org.argouml.i18n.Translator;
 import org.argouml.kernel.Command;
@@ -22,6 +26,10 @@ import org.argouml.kernel.ProjectManager;
 import org.argouml.model.InitializeModel;
 import org.argouml.model.XmiReferenceException;
 import org.argouml.model.XmiReferenceRuntimeException;
+import org.argouml.notation.InitNotation;
+import org.argouml.notation.providers.java.InitNotationJava;
+import org.argouml.notation.providers.uml.InitNotationUml;
+import org.argouml.notation.ui.InitNotationUI;
 import org.argouml.persistence.AbstractFilePersister;
 import org.argouml.persistence.OpenException;
 import org.argouml.persistence.PersistenceManager;
@@ -32,13 +40,76 @@ import org.argouml.persistence.XmiFormatException;
 import org.argouml.profile.ProfileFacade;
 import org.argouml.profile.internal.ProfileManagerImpl;
 import org.argouml.taskmgmt.ProgressMonitor;
+import org.argouml.ui.cmd.InitUiCmdSubsystem;
+import org.argouml.uml.diagram.ArgoDiagram;
+import org.argouml.uml.diagram.activity.ui.InitActivityDiagram;
+import org.argouml.uml.diagram.collaboration.ui.InitCollaborationDiagram;
+import org.argouml.uml.diagram.deployment.ui.InitDeploymentDiagram;
+import org.argouml.uml.diagram.state.ui.InitStateDiagram;
+import org.argouml.uml.diagram.static_structure.ui.InitClassDiagram;
+import org.argouml.uml.diagram.ui.InitDiagramAppearanceUI;
+import org.argouml.uml.diagram.use_case.ui.InitUseCaseDiagram;
 import org.argouml.uml.ui.ActionOpenProject;
+import org.argouml.uml.ui.InitUmlUI;
 import org.argouml.util.ThreadUtils;
 import org.omg.uml.modelmanagement.Model;
 
 public class ArgoUMLApp {
 	
+	
 	public static void main(String[] args) throws Exception {
+		
+		File zargo = new File("/Users/dimitrioskolovos/Dropbox/SOAR/assessment/solution/soho2.zargo");
+		File dummy1 = new File("/Users/dimitrioskolovos/Desktop/dummy1.zargo");
+		File dummy2 = new File("/Users/dimitrioskolovos/Desktop/dummy2.zargo");
+		
+		File file = dummy1;
+		File saveAs = dummy2;
+		
+		Configuration.load();
+		Main.initVersion();
+		PersistenceManager pm = PersistenceManager.getInstance();
+		AbstractFilePersister persister = pm.getPersisterFromFileName(file.getAbsolutePath());
+		InitializeModel.initializeDefault();
+        ProfileFacade.setManager(new ProfileManagerImpl());
+        
+        
+     // new InitUiCmdSubsystem().init();
+      //new InitNotationUI().init();
+      //new InitNotation().init();
+      new InitNotationUml().init();
+      //new InitNotationJava().init();
+      //new InitDiagramAppearanceUI().init();
+      //new InitActivityDiagram().init();
+      //new InitCollaborationDiagram().init();
+      //new InitDeploymentDiagram().init();
+      //new InitStateDiagram().init();
+      //new InitClassDiagram().init();
+      //new InitUseCaseDiagram().init();
+      //new InitUmlUI().init();
+     // new InitCheckListUI().init();
+      //new InitCognitiveUI().init();
+               
+		Project project = persister.doLoad(file);
+		
+		
+		Iterator<?> it = project.getModels().iterator();
+		Model model = null;
+		while (it.hasNext()) {
+			model = (Model) it.next();
+		}
+		
+		model.setName("Brand new name");
+		
+		
+		// Look at registerDiagramsInternal
+		System.err.println(project.getDiagramList());
+		project.setActiveDiagram(project.getDiagramList().get(0));
+		
+		persister.save(project, saveAs);
+	}
+	
+	public static void main2(String[] args) throws Exception {
 		
 		File zargo = new File("/Users/dimitrioskolovos/Dropbox/SOAR/assessment/solution/soho2.zargo");
 		File dummy1 = new File("/Users/dimitrioskolovos/Desktop/dummy1.zargo");
@@ -50,7 +121,6 @@ public class ArgoUMLApp {
 		
 		Configuration.load();
 		Main.initVersion();
-		
 		PersistenceManager pm = PersistenceManager.getInstance();
 		AbstractFilePersister persister = pm.getPersisterFromFileName(file.getAbsolutePath());
 		InitializeModel.initializeDefault();
@@ -72,6 +142,7 @@ public class ArgoUMLApp {
         ProfileFacade.setManager(profileManager);
 		Project project = persister.doLoad(file);
 		
+		/*
 		Iterator<?> it = project.getModels().iterator();
 		Model model = null;
 		while (it.hasNext()) {
@@ -79,6 +150,7 @@ public class ArgoUMLApp {
 		}
 		
 		model.setName("Brand new name");
+		*/
 		
 		//System.err.println("** " + project.getVersion());
 		persister.save(project, saveAs);
