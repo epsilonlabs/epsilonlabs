@@ -2,6 +2,7 @@ package org.eclipse.epsilon.emc.argouml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Level;
 
@@ -29,6 +30,7 @@ import org.argouml.persistence.UmlVersionException;
 import org.argouml.persistence.VersionException;
 import org.argouml.persistence.XmiFormatException;
 import org.argouml.profile.ProfileFacade;
+import org.argouml.profile.internal.ProfileManagerImpl;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.ui.ActionOpenProject;
 import org.argouml.util.ThreadUtils;
@@ -41,10 +43,10 @@ public class ArgoUMLApp {
 		File zargo = new File("/Users/dimitrioskolovos/Dropbox/SOAR/assessment/solution/soho2.zargo");
 		File dummy1 = new File("/Users/dimitrioskolovos/Desktop/dummy1.zargo");
 		File dummy2 = new File("/Users/dimitrioskolovos/Desktop/dummy2.zargo");
+		final String[] profilesDirectories = new String[]{"/Users/dimitrioskolovos/Desktop/custom-profiles"};
 		
 		File file = dummy1;
 		File saveAs = dummy2;
-		
 		
 		Configuration.load();
 		Main.initVersion();
@@ -52,11 +54,23 @@ public class ArgoUMLApp {
 		PersistenceManager pm = PersistenceManager.getInstance();
 		AbstractFilePersister persister = pm.getPersisterFromFileName(file.getAbsolutePath());
 		InitializeModel.initializeDefault();
-        ProfileFacade.setManager(new org.argouml.profile.internal.ProfileManagerImpl());
-		Project project = persister.doLoad(file);
 		
-		//ApplicationVersion.init(project.getVersion(), project.getVersion());
-		//System.err.println("--" + );
+		ProfileManagerImpl profileManager = new ProfileManagerImpl() {
+			public void refreshRegisteredProfiles() {
+				
+				for (String profilesDirectory : new ArrayList<String>(getSearchPathDirectories())) {
+					removeSearchPathDirectory(profilesDirectory);
+				}
+				
+				for (String profilesDirectory : profilesDirectories) {
+					addSearchPathDirectory(profilesDirectory);
+				}
+				super.refreshRegisteredProfiles();
+			};
+		};
+		
+        ProfileFacade.setManager(profileManager);
+		Project project = persister.doLoad(file);
 		
 		Iterator<?> it = project.getModels().iterator();
 		Model model = null;
@@ -67,7 +81,7 @@ public class ArgoUMLApp {
 		model.setName("Brand new name");
 		
 		//System.err.println("** " + project.getVersion());
-		//persister.save(project, saveAs);
+		persister.save(project, saveAs);
 		
 		//System.out.println(.getClass().getCanonicalName());
 		
