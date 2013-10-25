@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.epsilon.common.dt.modelType">
+      <modelType
+            class="org.eclipse.epsilon.emc.argouml.ArgoUMLModel"
+            dialog="org.eclipse.epsilon.emc.argouml.dt.ArgoUMLModelConfigurationDialog"
+            icon="images/argouml.png"
+            label="ArgoUML Model"
+            stable="true"
+            type="ArgoUML">
+      </modelType>
+   </extension>
+
+</plugin>

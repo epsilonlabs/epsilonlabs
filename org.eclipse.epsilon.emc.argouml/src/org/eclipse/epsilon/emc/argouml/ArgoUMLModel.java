@@ -24,9 +24,9 @@ import org.omg.uml.modelmanagement.Model;
 
 public class ArgoUMLModel extends AbstractMdrModel {
 
-	public static String MODEL_FILE = "modelFile";
-	public static String OVERRIDE_PROFILE_DIRECTORIES = "overrideProfileDirectories";
-	public static String PROFILE_DIRECTORIES = "profileDirectories";
+	public static String PROPERTY_MODEL_FILE = "modelFile";
+	public static String PROPERTY_OVERRIDE_PROFILE_DIRECTORIES = "overrideProfileDirectories";
+	public static String PROPERTY_PROFILE_DIRECTORIES = "profileDirectories";
 	
 	protected RefPackage refPackage = null;
 	protected String modelFile = null;
@@ -67,12 +67,17 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			throws EolModelLoadingException {
 		super.load(properties, basePath);
 		
+		System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
+		System.setProperty("org.openide.util.Lookup", "org.openide.util.lookup.MdrModelLookup");
+		
+		modelFile = properties.getProperty(PROPERTY_MODEL_FILE, "");
+		
 		if (basePath != null) {
 			modelFile = basePath + modelFile;
 		}
 		
-		overrideProfileDirectories = properties.getBooleanProperty(OVERRIDE_PROFILE_DIRECTORIES, false);
-		String profileDirectoriesString = properties.getProperty(PROFILE_DIRECTORIES, "");
+		overrideProfileDirectories = properties.getBooleanProperty(PROPERTY_OVERRIDE_PROFILE_DIRECTORIES, false);
+		String profileDirectoriesString = properties.getProperty(PROPERTY_PROFILE_DIRECTORIES, "");
 		for (String profileDirectory : profileDirectoriesString.split(";")) {
 			profileDirectories.add(profileDirectory.trim());
 		}
@@ -84,6 +89,9 @@ public class ArgoUMLModel extends AbstractMdrModel {
 	public void load() throws EolModelLoadingException {
 		
 		try {
+			
+			System.err.println("---> " + modelFile);
+			
 			File file = new File(modelFile);
 
 			Configuration.load();
@@ -134,8 +142,7 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			return true;
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
-			return false;
+			throw new RuntimeException("An error occured while saving model " + this.getName() + " under " + location, ex);
 		}
 	}
 
