@@ -18,6 +18,5 @@ Require-Bundle: org.argouml.app,
  org.argouml.state2,
  org.argouml.structure2,
  org.argouml.transformer,
- org.eclipse.epsilon.emc.mdr,
  org.eclipse.epsilon.eol.engine
 Export-Package: org.eclipse.epsilon.emc.argouml

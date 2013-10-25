@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jmi.reflect.RefPackage;
+import javax.xml.transform.TransformerFactory;
 
 import org.argouml.application.Main;
 import org.argouml.configuration.Configuration;
@@ -17,7 +18,6 @@ import org.argouml.profile.ProfileFacade;
 import org.argouml.profile.ProfileManager;
 import org.argouml.profile.internal.ProfileManagerImpl;
 import org.eclipse.epsilon.common.util.StringProperties;
-import org.eclipse.epsilon.emc.mdr.AbstractMdrModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.omg.uml.modelmanagement.Model;
@@ -67,9 +67,6 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			throws EolModelLoadingException {
 		super.load(properties, basePath);
 		
-		System.setProperty("org.netbeans.lib.jmi.Logger.fileName", "mdr.log");
-		System.setProperty("org.openide.util.Lookup", "org.openide.util.lookup.MdrModelLookup");
-		
 		modelFile = properties.getProperty(PROPERTY_MODEL_FILE, "");
 		
 		if (basePath != null) {
@@ -90,7 +87,7 @@ public class ArgoUMLModel extends AbstractMdrModel {
 		
 		try {
 			
-			System.err.println("---> " + modelFile);
+			//System.err.println(" --- " + TransformerFactory.newInstance().getClass().getCanonicalName());
 			
 			File file = new File(modelFile);
 
@@ -128,6 +125,10 @@ public class ArgoUMLModel extends AbstractMdrModel {
 		}
 		catch (Exception ex) {
 			throw new EolModelLoadingException(ex, this);
+		}
+		finally {
+			//System.setProperty("javax.xml.transform.TransformerFactory", "null");
+			System.clearProperty("javax.xml.transform.TransformerFactory");
 		}
 			
 	}
