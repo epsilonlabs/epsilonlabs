@@ -2,9 +2,8 @@ package org.eclipse.epsilon.emc.argouml;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
-import javax.jmi.model.MofClass;
 import javax.jmi.reflect.RefPackage;
 
 import org.argouml.application.Main;
@@ -15,7 +14,9 @@ import org.argouml.notation.providers.uml.InitNotationUml;
 import org.argouml.persistence.AbstractFilePersister;
 import org.argouml.persistence.PersistenceManager;
 import org.argouml.profile.ProfileFacade;
+import org.argouml.profile.ProfileManager;
 import org.argouml.profile.internal.ProfileManagerImpl;
+import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.emc.mdr.AbstractMdrModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
@@ -23,10 +24,16 @@ import org.omg.uml.modelmanagement.Model;
 
 public class ArgoUMLModel extends AbstractMdrModel {
 
+	public static String MODEL_FILE = "modelFile";
+	public static String OVERRIDE_PROFILE_DIRECTORIES = "overrideProfileDirectories";
+	public static String PROFILE_DIRECTORIES = "profileDirectories";
+	
 	protected RefPackage refPackage = null;
 	protected String modelFile = null;
 	protected Project project = null;
 	protected AbstractFilePersister persister = null;
+	protected boolean overrideProfileDirectories;
+	protected List<String> profileDirectories = new ArrayList<String>();
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -56,81 +63,101 @@ public class ArgoUMLModel extends AbstractMdrModel {
 	}
 
 	@Override
+	public void load(StringProperties properties, String basePath)
+			throws EolModelLoadingException {
+		super.load(properties, basePath);
+		
+		if (basePath != null) {
+			modelFile = basePath + modelFile;
+		}
+		
+		overrideProfileDirectories = properties.getBooleanProperty(OVERRIDE_PROFILE_DIRECTORIES, false);
+		String profileDirectoriesString = properties.getProperty(PROFILE_DIRECTORIES, "");
+		for (String profileDirectory : profileDirectoriesString.split(";")) {
+			profileDirectories.add(profileDirectory.trim());
+		}
+		
+		load();
+	}
+	
+	@Override
 	public void load() throws EolModelLoadingException {
 		
 		try {
-
 			File file = new File(modelFile);
 
 			Configuration.load();
 			Main.initVersion();
 			PersistenceManager pm = PersistenceManager.getInstance();
-			persister = pm.getPersisterFromFileName(file
-					.getAbsolutePath());
+			persister = pm.getPersisterFromFileName(file.getAbsolutePath());
 			InitializeModel.initializeDefault();
-			ProfileFacade.setManager(new ProfileManagerImpl());
-
+			
+			ProfileManager profileManager = new ProfileManagerImpl() {
+				
+				public void refreshRegisteredProfiles() {
+					
+					if (overrideProfileDirectories) {
+						for (String profilesDirectory : new ArrayList<String>(getSearchPathDirectories())) {
+							removeSearchPathDirectory(profilesDirectory);
+						}
+					}
+					
+					for (String profilesDirectory : profileDirectories) {
+						addSearchPathDirectory(profilesDirectory);
+					}
+					
+					super.refreshRegisteredProfiles();
+				};
+			};
+			
+			ProfileFacade.setManager(profileManager);
 			new InitNotationUml().init();
 			project = persister.doLoad(file);
 
-			
-			Model model = (Model) new ArrayList<Object>(project.getModels()).get(1);
-			/*
-			Iterator<?> it = project.getModels().iterator();
-			Model model = null;
-			
-			
-			int i = 0;
-			while (it.hasNext()) {
-				i++;
-				if (i == 1) model = (Model) it.next();
-				//System.out.println(((MofClass)model.refMetaObject()).getName());
-			}*/
-			
+			Model model = (Model) project.getUserDefinedModelList().get(0);	
 			refPackage = model.refClass().refOutermostPackage();
 			
-			/*
-			model.setName("Brand new name");
-
-			for (Object o : model.refClass().refOutermostPackage()
-					.refAllPackages()) {
-				System.out.println("P -> " + o);
-			}
-
-			RefPackage p = model.refOutermostPackage();
-			for (Object o : model.refClass().refImmediatePackage()
-					.refAllClasses()) {
-				System.out.println(o);
-			}
-
-			// MofClass mc = (MofClass) model.refMetaObject();
-
-			// System.err.println(mc.refClass().refGetValue("name"));
-			// System.out.println(model.refMetaObject());
-			for (Object o : p.refAllClasses()) {
-				System.out.println(o);
-			}*/
 		}
 		catch (Exception ex) {
 			throw new EolModelLoadingException(ex, this);
 		}
-		/*
-		// Look at registerDiagramsInternal for projects
-		// that don't have diagrams
-		System.err.println(project.getDiagramList());
-		project.setActiveDiagram(project.getDiagramList().get(0));
-		
-		persister.save(project, saveAs);*/		
+			
 	}
 
 	@Override
 	public boolean store(String location) {
-		return false;
+		try {
+			// Look at registerDiagramsInternal for projects
+			// that don't have diagrams
+			project.setActiveDiagram(project.getDiagramList().get(0));
+			persister.save(project, new File(location));
+			return true;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	public boolean store() {
-		return false;
+		return store(modelFile);
+	}
+	
+	public boolean isOverrideProfileDirectories() {
+		return overrideProfileDirectories;
+	}
+	
+	public void setOverrideProfileDirectories(boolean overrideProfileDirectories) {
+		this.overrideProfileDirectories = overrideProfileDirectories;
+	}
+	
+	public List<String> getProfileDirectories() {
+		return profileDirectories;
+	}
+	
+	public void setProfileDirectories(List<String> profileDirectories) {
+		this.profileDirectories = profileDirectories;
 	}
 
 }
