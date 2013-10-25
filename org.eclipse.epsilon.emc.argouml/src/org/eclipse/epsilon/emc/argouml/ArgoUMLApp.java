@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 
+import javax.jmi.model.MofClass;
+import javax.jmi.reflect.RefPackage;
 import javax.swing.AbstractAction;
 import javax.swing.SwingUtilities;
 
@@ -102,11 +104,30 @@ public class ArgoUMLApp {
 		model.setName("Brand new name");
 		
 		
-		// Look at registerDiagramsInternal
+		for (Object o : model.refClass().refOutermostPackage().refAllPackages()) {
+			System.out.println("P -> " + o);
+		}
+		
+		RefPackage p = model.refOutermostPackage();
+		for (Object o : model.refClass().refImmediatePackage().refAllClasses()) {
+			System.out.println(o);
+		}
+		
+		//MofClass mc = (MofClass) model.refMetaObject();
+		
+		//System.err.println(mc.refClass().refGetValue("name"));
+		//System.out.println(model.refMetaObject());
+		for (Object o : p.refAllClasses()) {
+			System.out.println(o);
+		}
+		
+		/*
+		// Look at registerDiagramsInternal for projects
+		// that don't have diagrams
 		System.err.println(project.getDiagramList());
 		project.setActiveDiagram(project.getDiagramList().get(0));
 		
-		persister.save(project, saveAs);
+		persister.save(project, saveAs);*/
 	}
 	
 	public static void main2(String[] args) throws Exception {
