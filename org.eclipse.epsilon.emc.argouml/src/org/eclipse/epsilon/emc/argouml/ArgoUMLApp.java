@@ -25,7 +25,6 @@ import org.argouml.kernel.Command;
 import org.argouml.kernel.NonUndoableCommand;
 import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
-import org.argouml.model.InitializeModel;
 import org.argouml.model.XmiReferenceException;
 import org.argouml.model.XmiReferenceRuntimeException;
 import org.argouml.notation.InitNotation;

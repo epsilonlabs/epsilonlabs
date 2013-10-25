@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerFactory;
 import org.argouml.application.Main;
 import org.argouml.configuration.Configuration;
 import org.argouml.kernel.Project;
-import org.argouml.model.InitializeModel;
 import org.argouml.notation.providers.uml.InitNotationUml;
 import org.argouml.persistence.AbstractFilePersister;
 import org.argouml.persistence.PersistenceManager;
@@ -20,6 +19,7 @@ import org.argouml.profile.internal.ProfileManagerImpl;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
+import org.eclipse.epsilon.eol.models.CachedModel;
 import org.omg.uml.modelmanagement.Model;
 
 public class ArgoUMLModel extends AbstractMdrModel {
@@ -73,6 +73,7 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			modelFile = basePath + modelFile;
 		}
 		
+		cacheElements = properties.getBooleanProperty(CachedModel.PROPERTY_CACHED, true);
 		overrideProfileDirectories = properties.getBooleanProperty(PROPERTY_OVERRIDE_PROFILE_DIRECTORIES, false);
 		String profileDirectoriesString = properties.getProperty(PROPERTY_PROFILE_DIRECTORIES, "");
 		for (String profileDirectory : profileDirectoriesString.split(";")) {

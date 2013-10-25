@@ -442,4 +442,12 @@ public abstract class AbstractMdrModel extends Model implements IReflectiveModel
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public void setCacheElements(boolean cacheElements) {
+		this.cacheElements = cacheElements;
+	}
+	
+	public boolean isCacheElements() {
+		return cacheElements;
+	}
 }
