@@ -31,8 +31,9 @@ import org.omg.uml.modelmanagement.UmlPackage;
 public class ArgoUMLModel extends AbstractMdrModel {
 
 	public static String PROPERTY_MODEL_FILE = "modelFile";
-	public static String PROPERTY_OVERRIDE_PROFILE_DIRECTORIES = "overrideProfileDirectories";
+	public static String PROPERTY_IGNORE_ARGOUML_PROFILE_DIRECTORIES = "overrideProfileDirectories";
 	public static String PROPERTY_PROFILE_DIRECTORIES = "profileDirectories";
+	public static String PROPERTY_PROFILE_WORKSPACE_DIRECTORIES = "profileWorkspaceDirectories";
 	
 	protected RefPackage refPackage = null;
 	protected String modelFile = null;
@@ -120,9 +121,9 @@ public class ArgoUMLModel extends AbstractMdrModel {
 		try {
 			for (Object o : profile.getProfilePackages()) {
 				UmlPackage profilePackage = (UmlPackage) o;
-				for (Object ownedElememnt : profilePackage.getOwnedElement()) {
-					if (ownedElememnt instanceof Stereotype) {
-						Stereotype stereotype = (Stereotype) ownedElememnt;
+				for (Object ownedElement : profilePackage.getOwnedElement()) {
+					if (ownedElement instanceof Stereotype) {
+						Stereotype stereotype = (Stereotype) ownedElement;
 						if (stereotype.getName().equals(stereotypeName)) {
 							return stereotype;
 						}
@@ -148,11 +149,18 @@ public class ArgoUMLModel extends AbstractMdrModel {
 		}
 		
 		cacheElements = properties.getBooleanProperty(CachedModel.PROPERTY_CACHED, true);
-		overrideProfileDirectories = properties.getBooleanProperty(PROPERTY_OVERRIDE_PROFILE_DIRECTORIES, false);
+		overrideProfileDirectories = properties.getBooleanProperty(PROPERTY_IGNORE_ARGOUML_PROFILE_DIRECTORIES, false);
 		String profileDirectoriesString = properties.getProperty(PROPERTY_PROFILE_DIRECTORIES, "");
 		if (profileDirectoriesString.trim().length() > 0) {
 			for (String profileDirectory : profileDirectoriesString.split(";")) {
 				profileDirectories.add(profileDirectory.trim());
+			}
+		}
+		
+		String profileWorkspaceDirectoriesString = properties.getProperty(PROPERTY_PROFILE_WORKSPACE_DIRECTORIES, "");
+		if (basePath != null && profileWorkspaceDirectoriesString.trim().length() > 0) {
+			for (String profileDirectory : profileWorkspaceDirectoriesString.split(";")) {
+				profileDirectories.add(basePath + profileDirectory.trim());
 			}
 		}
 		
