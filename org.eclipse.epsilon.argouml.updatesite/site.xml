@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.epsilon.argouml.feature_1.1.0.201310261249.jar" id="org.eclipse.epsilon.argouml.feature" version="1.1.0.201310261249">
+      <category name="Epsilon ArgoUML Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.epsilon.argouml.dt.feature_1.1.0.201310261249.jar" id="org.eclipse.epsilon.argouml.dt.feature" version="1.1.0.201310261249">
+      <category name="Epsilon ArgoUML Integration"/>
+   </feature>
+   <category-def name="Epsilon ArgoUML Integration" label="Epsilon ArgoUML Integration"/>
+</site>

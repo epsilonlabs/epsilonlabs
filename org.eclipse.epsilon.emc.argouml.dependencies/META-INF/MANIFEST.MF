@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dependencies
 Bundle-SymbolicName: org.eclipse.epsilon.emc.argouml.dependencies
-Bundle-Version: 1.0.0
+Bundle-Version: 1.1.0.qualifier
 Bundle-ClassPath: antlr-2.7.7.jar,
  batik-awt-util-1.7.jar,
  batik-dom-1.7.jar,
