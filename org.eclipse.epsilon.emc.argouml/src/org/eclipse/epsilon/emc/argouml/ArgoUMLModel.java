@@ -10,9 +10,11 @@ import javax.xml.transform.TransformerFactory;
 import org.argouml.application.Main;
 import org.argouml.configuration.Configuration;
 import org.argouml.kernel.Project;
+import org.argouml.kernel.ProjectManager;
 import org.argouml.notation.providers.uml.InitNotationUml;
 import org.argouml.persistence.AbstractFilePersister;
 import org.argouml.persistence.PersistenceManager;
+import org.argouml.profile.Profile;
 import org.argouml.profile.ProfileFacade;
 import org.argouml.profile.ProfileManager;
 import org.argouml.profile.internal.ProfileManagerImpl;
@@ -20,7 +22,11 @@ import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.CachedModel;
+import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.Stereotype;
+import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.Model;
+import org.omg.uml.modelmanagement.UmlPackage;
 
 public class ArgoUMLModel extends AbstractMdrModel {
 
@@ -34,6 +40,8 @@ public class ArgoUMLModel extends AbstractMdrModel {
 	protected AbstractFilePersister persister = null;
 	protected boolean overrideProfileDirectories;
 	protected List<String> profileDirectories = new ArrayList<String>();
+	protected ProfileManager profileManager = null;
+	protected Model model = null;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -61,7 +69,73 @@ public class ArgoUMLModel extends AbstractMdrModel {
 	public RefPackage getRefPackage() {
 		return refPackage;
 	}
+	
+	public Profile applyProfile(String profileName) {
+		Profile profile = null;
+		
+		// Check to see whether the project already has a profile with this name
+		for (Profile p : project.getProfileConfiguration().getProfiles()) {
+			if (p.getProfileIdentifier().equals(profileName)) {
+				return p;
+			}
+		}
+		
+		// Find the profile
+		for (Profile p : profileManager.getRegisteredProfiles()) {
+			if (p.getProfileIdentifier().equals(profileName)) {
+				profile = p;
+				break;
+			}
+		}
+		
+		if (profile == null) throw new RuntimeException("Could not find profile " + profileName);
+		
+		project.getProfileConfiguration().addProfile(profile, model);
+		return profile;
+	}
+	
+	public Stereotype getStereotype(String stereotypeName) {
+		for (Profile p : project.getProfileConfiguration().getProfiles()) {
+			Stereotype stereotype = getStereotype(p.getProfileIdentifier(), stereotypeName);
+			if (stereotype != null) {
+				return stereotype;
+			}
+		}
+		return null;
+	}
+	
+	public Stereotype getStereotype(String profileName, String stereotypeName) {
+		
+		Profile profile = null;
+		
+		for (Profile p : project.getProfileConfiguration().getProfiles()) {
+			if (p.getProfileIdentifier().equals(profileName)) {
+				profile = p;
+				break;
+			}
+		}
+		
+		if (profile == null) return null;
 
+		try {
+			for (Object o : profile.getProfilePackages()) {
+				UmlPackage profilePackage = (UmlPackage) o;
+				for (Object ownedElememnt : profilePackage.getOwnedElement()) {
+					if (ownedElememnt instanceof Stereotype) {
+						Stereotype stereotype = (Stereotype) ownedElememnt;
+						if (stereotype.getName().equals(stereotypeName)) {
+							return stereotype;
+						}
+					}
+				}
+			}
+		}
+		catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+		return null;
+	}
+	
 	@Override
 	public void load(StringProperties properties, String basePath)
 			throws EolModelLoadingException {
@@ -76,8 +150,10 @@ public class ArgoUMLModel extends AbstractMdrModel {
 		cacheElements = properties.getBooleanProperty(CachedModel.PROPERTY_CACHED, true);
 		overrideProfileDirectories = properties.getBooleanProperty(PROPERTY_OVERRIDE_PROFILE_DIRECTORIES, false);
 		String profileDirectoriesString = properties.getProperty(PROPERTY_PROFILE_DIRECTORIES, "");
-		for (String profileDirectory : profileDirectoriesString.split(";")) {
-			profileDirectories.add(profileDirectory.trim());
+		if (profileDirectoriesString.trim().length() > 0) {
+			for (String profileDirectory : profileDirectoriesString.split(";")) {
+				profileDirectories.add(profileDirectory.trim());
+			}
 		}
 		
 		load();
@@ -87,9 +163,6 @@ public class ArgoUMLModel extends AbstractMdrModel {
 	public void load() throws EolModelLoadingException {
 		
 		try {
-			
-			//System.err.println(" --- " + TransformerFactory.newInstance().getClass().getCanonicalName());
-			
 			File file = new File(modelFile);
 
 			Configuration.load();
@@ -98,7 +171,7 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			persister = pm.getPersisterFromFileName(file.getAbsolutePath());
 			InitializeModel.initializeDefault();
 			
-			ProfileManager profileManager = new ProfileManagerImpl() {
+			profileManager = new ProfileManagerImpl() {
 				
 				public void refreshRegisteredProfiles() {
 					
@@ -116,11 +189,22 @@ public class ArgoUMLModel extends AbstractMdrModel {
 				};
 			};
 			
+			
 			ProfileFacade.setManager(profileManager);
 			new InitNotationUml().init();
-			project = persister.doLoad(file);
-
-			Model model = (Model) project.getUserDefinedModelList().get(0);	
+			
+			for (Project oldProject : new ArrayList<Project>(ProjectManager.getManager().getOpenProjects())) {
+				ProjectManager.getManager().removeProject(oldProject);
+			}
+			
+			if (readOnLoad) {
+				project = persister.doLoad(file);
+			}
+			else {
+				project = ProjectManager.getManager().makeEmptyProject(true);
+			}
+			
+			model = (Model) project.getUserDefinedModelList().get(0);	
 			refPackage = model.refClass().refOutermostPackage();
 			
 		}
@@ -128,7 +212,6 @@ public class ArgoUMLModel extends AbstractMdrModel {
 			throw new EolModelLoadingException(ex, this);
 		}
 		finally {
-			//System.setProperty("javax.xml.transform.TransformerFactory", "null");
 			System.clearProperty("javax.xml.transform.TransformerFactory");
 		}
 			
