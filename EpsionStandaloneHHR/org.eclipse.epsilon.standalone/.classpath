@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="C:/Kepler Modeling/plugins/org.eclipse.epsilon.common_1.0.0.201308221733/org.eclipse.epsilon.common.jar"/>
-	<classpathentry kind="lib" path="C:/Kepler Modeling/plugins/org.eclipse.epsilon.eol.engine_1.0.0.201308221733/org.eclipse.epsilon.eol.engine.jar"/>
+	<classpathentry kind="lib" path="epsilon-standalone.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
