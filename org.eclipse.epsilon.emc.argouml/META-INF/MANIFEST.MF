@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Argouml
-Bundle-SymbolicName: org.eclipse.epsilon.emc.argouml
+Bundle-SymbolicName: org.eclipse.epsilon.emc.argouml;singleton:=true
 Bundle-Version: 1.1.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.epsilon.eol.engine,
- org.eclipse.epsilon.emc.argouml.dependencies;bundle-version="1.0.0"
+ org.eclipse.epsilon.emc.argouml.dependencies;bundle-version="1.0.0",
+ org.eclipse.emf.ecore;resolution:=optional
 Export-Package: org.eclipse.epsilon.emc.argouml
