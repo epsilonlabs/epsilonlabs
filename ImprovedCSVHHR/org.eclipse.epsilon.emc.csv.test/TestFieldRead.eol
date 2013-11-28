@@ -1,7 +1,16 @@
 for (row in qiqqa!Row.all()) {
-	row.source.println();
+	row.source.print();
+	" is connected to ".println();
+	for (t in row.target) {
+		t.println();
+	}
+	
 }
 
 for (row in baseball!Row.all()) {
 	row.Tm.println();
+}
+
+for (row in qiqqaNH!Row.all()) {
+	row.field.println();
 }
