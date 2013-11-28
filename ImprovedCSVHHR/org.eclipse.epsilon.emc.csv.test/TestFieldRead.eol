@@ -1,0 +1,7 @@
+for (row in qiqqa!Row.all()) {
+	row.source.println();
+}
+
+for (row in baseball!Row.all()) {
+	row.Tm.println();
+}
