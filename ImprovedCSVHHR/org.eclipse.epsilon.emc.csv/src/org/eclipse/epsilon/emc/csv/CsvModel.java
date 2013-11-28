@@ -12,6 +12,7 @@
 package org.eclipse.epsilon.emc.csv;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -60,7 +61,7 @@ import org.eclipse.epsilon.eol.models.CachedModel;
  * 
  * 
  */
-public class CsvModel extends CachedModel<Map<String, String>> {
+public class CsvModel extends CachedModel<Map<String, Object>> {
 
 	/** The Constant PROPERTY_FILE. */
 	public static final String PROPERTY_FILE = "file";
@@ -88,7 +89,7 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 	
 	/* Objects in this model are Maps */
 	/** The rows. */
-	private Collection<Map<String, String>> rows = new LinkedList<Map<String, String>>();
+	private Collection<Map<String, Object>> rows = new LinkedList<Map<String, Object>>();
 
 	
 	/**
@@ -245,7 +246,7 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 	 * @see org.eclipse.epsilon.eol.models.CachedModel#allContentsFromModel()
 	 */
 	@Override
-	protected Collection<Map<String, String>> allContentsFromModel() {
+	protected Collection<? extends Map<String, Object>> allContentsFromModel() {
 		return rows;
 	}
 
@@ -253,7 +254,7 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 	 * @see org.eclipse.epsilon.eol.models.CachedModel#getAllOfTypeFromModel(java.lang.String)
 	 */
 	@Override
-	protected Collection<Map<String, String>> getAllOfTypeFromModel(String type) throws EolModelElementTypeNotFoundException {
+	protected Collection<? extends Map<String, Object>> getAllOfTypeFromModel(String type) throws EolModelElementTypeNotFoundException {
 		if (!"Row".equals(type)) {
 			throw new EolModelElementTypeNotFoundException(this.name, type);
 		}
@@ -264,7 +265,7 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 	 * @see org.eclipse.epsilon.eol.models.CachedModel#getAllOfKindFromModel(java.lang.String)
 	 */
 	@Override
-	protected Collection<Map<String, String>> getAllOfKindFromModel(String kind) throws EolModelElementTypeNotFoundException {
+	protected Collection<? extends Map<String, Object>> getAllOfKindFromModel(String kind) throws EolModelElementTypeNotFoundException {
 		if (!"Row".equals(kind)) {
 			throw new EolModelElementTypeNotFoundException(this.name, kind);
 		}
@@ -275,12 +276,12 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 	 * @see org.eclipse.epsilon.eol.models.CachedModel#createInstanceInModel(java.lang.String)
 	 */
 	@Override
-	protected LinkedHashMap<String, String> createInstanceInModel(String type) throws EolModelElementTypeNotFoundException, EolNotInstantiableModelElementTypeException {
+	protected Map<String, Object> createInstanceInModel(String type) throws EolModelElementTypeNotFoundException, EolNotInstantiableModelElementTypeException {
 		if (!"Row".equals(type)) {
 			throw new EolModelElementTypeNotFoundException(this.name, type);
 		}
-		LinkedHashMap<String, String> returnVal = new LinkedHashMap<String, String>();
-		for (String key : ((LinkedHashMap<String, String>) ((LinkedList<Map<String, String>>) rows).getFirst()).keySet()) {
+		Map<String, Object> returnVal = new LinkedHashMap<String, Object>();
+		for (String key : ((Map<String, Object>) ((LinkedList<Map<String, Object>>) rows).getFirst()).keySet()) {
 			returnVal.put(key, "");
 		}
 		rows.add(returnVal);
@@ -314,15 +315,15 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 			return true;
 		} else {
 			if (this.varargsHeaders) {
-				if (((LinkedHashMap<String, String>) ((LinkedList<Map<String, String>>) rows).getFirst()).keySet().contains(property)) {
+				if (((LinkedHashMap<String, Object>) ((LinkedList<Map<String, Object>>) rows).getFirst()).keySet().contains(property)) {
 					return true;
 				} else {
 					// It might be the varargs header field
-					String varargsHeader = ((LinkedHashMap<String, String>) ((LinkedList<Map<String, String>>) rows).getFirst()).keySet().iterator().next();
+					String varargsHeader = ((LinkedHashMap<String, Object>) ((LinkedList<Map<String, Object>>) rows).getFirst()).keySet().iterator().next();
 					return varargsHeader.startsWith(property);
 				}
 			} else {
-				return ((LinkedHashMap<String, String>) ((LinkedList<Map<String, String>>) rows).getFirst()).keySet().contains(property);
+				return ((LinkedHashMap<String, Object>) ((LinkedList<Map<String, Object>>) rows).getFirst()).keySet().contains(property);
 			}
 			
 		}
@@ -344,7 +345,7 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 				List<String> keys = Arrays.asList(lines.get(0).split(this.fieldSeparator));
 				List<String> values;
 				for (int i=1; i < lines.size(); i++) {
-					LinkedHashMap<String, String> row = new LinkedHashMap<String, String>();
+					LinkedHashMap<String, Object> row = new LinkedHashMap<String, Object>();
 					values = Arrays.asList(lines.get(i).split(this.fieldSeparator));
 					if (!this.varargsHeaders) {
 						if (keys.size() != values.size()) {
@@ -361,24 +362,21 @@ public class CsvModel extends CachedModel<Map<String, String>> {
 						}
 						int numKeys= keys.size();
 						String varargHeader = keys.get(numKeys-1);
-						for (int f=0; f<values.size(); f++) {
-							if (f < numKeys-1) {
+						for (int f=0; f<numKeys-1; f++) {
 								row.put(keys.get(f), values.get(f));
-							} else {
-								row.put(varargHeader + (f-numKeys+1), values.get(f));
-							}
 						}
+						List<String> varargsField = new ArrayList<String>();
+						for (int v = numKeys-1; v < values.size(); v++) {
+							varargsField.add( values.get(v));
+						}
+						row.put(varargHeader, varargsField);
 					}
 					rows.add(row);
 				}
 			} else {
-				List<String> values;
 				for (int i=0; i < lines.size(); i++) {
-					LinkedHashMap<String, String> row = new LinkedHashMap<String, String>();
-					values = Arrays.asList(lines.get(i).split(this.fieldSeparator));
-					for (int f=0; f<values.size(); f++) {
-						row.put("field" + f, values.get(f));
-					}
+					LinkedHashMap<String, Object> row = new LinkedHashMap<String, Object>();
+					row.put("field", Arrays.asList(lines.get(i).split(this.fieldSeparator)));
 					rows.add(row);
 				}
 			}
