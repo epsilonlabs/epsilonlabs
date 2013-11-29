@@ -2,7 +2,7 @@
 <launchConfiguration type="org.epsilon.eol.eclipse.dt.launching.EolLaunchConfigurationDelegate">
 <booleanAttribute key="fine_grained_profiling" value="false"/>
 <listAttribute key="models">
-<listEntry value="#&#13;&#10;#Fri Nov 29 10:59:54 GMT 2013&#13;&#10;hasKNownHeaders=true&#13;&#10;name=baseball&#13;&#10;readOnLoad=true&#13;&#10;storeOnDisposal=true&#13;&#10;aliases=&#13;&#10;hasVarargsHeaders=false&#13;&#10;cached=true&#13;&#10;file=/org.eclipse.epsilon.emc.csv.test/baseball.csv&#13;&#10;type=CSV&#13;&#10;fieldSeparator=,&#13;&#10;"/>
+<listEntry value="#&#13;&#10;#Fri Nov 29 11:03:38 GMT 2013&#13;&#10;hasKNownHeaders=true&#13;&#10;name=baseball&#13;&#10;readOnLoad=true&#13;&#10;storeOnDisposal=true&#13;&#10;aliases=&#13;&#10;hasVarargsHeaders=false&#13;&#10;cached=true&#13;&#10;file=/org.eclipse.epsilon.emc.csv.test/baseball.csv&#13;&#10;type=CSV&#13;&#10;fieldSeparator=,&#13;&#10;"/>
 </listAttribute>
 <booleanAttribute key="profile_model_loading" value="false"/>
 <booleanAttribute key="profiling_enabled" value="false"/>
