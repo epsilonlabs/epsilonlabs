@@ -4,7 +4,6 @@ for (row in qiqqa!Row.all()) {
 	for (t in row.target) {
 		t.println();
 	}
-	
 }
 
 for (row in baseball!Row.all()) {

@@ -1,0 +1,12 @@
+for (row in baseball!Row.all()) {
+	row.Tm.println();
+	if (row.Tm == "Toronto Blue Jays") {
+		row.Tm = "Toronto Maple Leafs";
+	} else if (row.Tm == "Toronto Maple Leafs") {
+		row.Tm = "Toronto Blue Jays";
+	}
+	
+}
+for (row in baseball!Row.all()) {
+	row.Tm.println();
+}
