@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -231,7 +232,13 @@ public class CsvModel extends CachedModel<Map<String, Object>> {
 	 */
 	@Override
 	public boolean store(String location) {
-		return false;
+		try {
+			FileUtil.setFileContents(concatenateMap(), new File(location));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -239,7 +246,39 @@ public class CsvModel extends CachedModel<Map<String, Object>> {
 	 */
 	@Override
 	public boolean store() {
-		return false;
+		
+		try {
+			FileUtil.setFileContents(concatenateMap(), new File(this.file));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	private String concatenateMap() {
+		StringBuilder output = new StringBuilder();
+		if (this.knownHeaders) {
+			// First line is the headers
+			Iterator<String> keyIt = ((Map<String, Object>) ((LinkedList<Map<String, Object>>) rows).getFirst()).keySet().iterator();
+			output.append(keyIt.next());
+			while (keyIt.hasNext()) {
+				output.append(this.fieldSeparator);
+				output.append(keyIt.next());
+			}
+			output.append(System.getProperty("line.separator"));
+		}
+		for (Map<String, Object>row : rows) {
+			Iterator<Object> fieldIt = row.values().iterator();
+			output.append(fieldIt.next());
+			while (fieldIt.hasNext()) {
+				output.append(this.fieldSeparator);
+				output.append(fieldIt.next());
+			}
+			output.append(System.getProperty("line.separator"));
+			
+		}
+		return output.toString();
 	}
 
 	/* (non-Javadoc)
