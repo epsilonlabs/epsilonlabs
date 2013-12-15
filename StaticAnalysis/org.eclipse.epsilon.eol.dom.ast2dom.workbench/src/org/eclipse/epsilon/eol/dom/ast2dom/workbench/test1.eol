@@ -1,0 +1,11 @@
+var a = eol!IntegerExpression.all.first;
+
+/*
+var i : Any;
+i.isUndefined().println();
+i.println();
+i.isTypeOf(Any).println("x");
+i.isKindOf(Any).println();
+
+var a = new Native("java.lang.Object");
+i.ifUndefined(a).println();*/

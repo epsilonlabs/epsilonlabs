@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.eol.dom.ast2dom
+Bundle-SymbolicName: org.eclipse.epsilon.eol.dom.ast2dom
+Bundle-Version: 0.1.0
+Require-Bundle: org.eclipse.epsilon.eol.dom;visibility:=reexport,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.core.runtime
+Export-Package: org.eclipse.epsilon.eol.dom.ast2dom,
+ org.eclipse.epsilon.eol.dom.ast2dom.util

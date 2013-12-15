@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            id="org.eclipse.epsilon.eol.dom.ast2dom.dt.contribution1">
+         <menu
+               label="Ast2dom"
+               path="additions"
+               id="org.eclipse.epsilon.eol.dom.ast2dom.dt.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Parse EOL File"
+               class="org.eclipse.epsilon.eol.dom.ast2dom.dt.ParseEolFileAction"
+               menubarPath="org.eclipse.epsilon.eol.dom.ast2dom.dt.menu1/group1"
+               enablesFor="1"
+               id="org.eclipse.epsilon.eol.dom.ast2dom.dt.newAction">
+         </action>
+         <action
+               class="org.eclipse.epsilon.eol.dom.ast2dom.dt.ResolveVariableAction"
+               id="org.eclipse.epsilon.eol.dom.ast2dom.dt.resolveVariables"
+               label="Resolve Variables"
+               menubarPath="org.eclipse.epsilon.eol.dom.ast2dom.dt.menu1/group1">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
