@@ -1,0 +1,53 @@
+operation Any isDefined() : Boolean{} //done
+
+operation Any isUndefined() : Boolean{} //done
+
+operation Any ifUndefined(alt: Any) : Any{} //done
+
+operation Any isTypeOf(type: Type) : Boolean{} //done
+
+operation Any isKindOf(type: Type) : Boolean{} //done
+
+operation Any type() : SelfType{} // done
+
+operation Any owningModel() : Model{} //tbd
+
+operation Any hasProperty(name: String) : Boolean{} //not completed
+
+operation Any asString() : String{} //done
+
+operation Any asInteger() : Integer{} //done
+
+operation Any asReal() : Real{} //done
+
+operation Any asBoolean() : Boolean{} //done
+
+operation Any asBag() : Bag{} //done
+
+operation Any asSequence() : Sequence{} //done
+
+operation Any asSet() : Set{} //done
+
+operation Any asOrderedSet() : OrderedSet{} //done
+
+operation Any print() : SelfType{} //done
+
+operation Any print(prefix: String) : SelfType{} //done
+
+operation Any println() : SelfType{} //done
+
+operation Any println(prefix: String) : SelfType{} //done
+
+operation Any err() : SelfType{} //done
+
+operation Any err(prefix: String) : SelfType{} //done
+
+operation Any errln() : SelfType{} //done
+
+operation Any errln(prefix: String) : SelfType{} //done
+
+operation Any format() : String{} //done
+
+operation Any format(pattern: String) : String{} //done
+
+operation Any asType(Type) : Type{} //done

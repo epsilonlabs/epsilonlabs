@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dtx
+Bundle-SymbolicName: org.eclipse.epsilon.eol.dtx;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.eol.dtx.EolxPlugin
+Bundle-Vendor: University of York
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.epsilon.eol.dt,
+ org.eclipse.epsilon.common.dt,
+ org.eclipse.ui.ide,
+ org.eclipse.jface.text,
+ org.eclipse.epsilon.eol.dom.ast2dom,
+ org.eclipse.epsilon.eol.dom.visitor.resolution.type,
+ org.eclipse.epsilon.eol.dom.visitor.resolution.variable
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.epsilon.eol.dtx,
+ org.eclipse.epsilon.eol.dtx.editor,
+ org.eclipse.epsilon.eol.dtx.editor.outline

@@ -1,0 +1,11 @@
+operation _ModelElementType_ allOfType() : Set(_ModelElementTypeInstance_) {} //done
+
+operation _ModelElementType_ allOfKind() : Set(_ModelElementTypeInstance_) {} //done
+
+operation _ModelElementType_ allInstances() : Set {} //done
+
+operation _ModelElementType_ all() : Set {} //done
+
+operation _ModelElementType_ isInstantiable() : Boolean {} //done
+
+operation _ModelElementType_ createInstance() : Any {} //done

@@ -1,0 +1,100 @@
+operation Collection add(item: Any) : Collection {} //done
+
+operation Collection addAll(col: Collection) : Collection{} //done
+
+operation Collection remove(item: Any) : Collection{} //done
+
+operation Collection removeAll(col: Collection) : Collection{} //done
+
+operation Collection clear() : Collection{} //done
+
+operation Collection includes(item: Any) : Boolean{} //done
+
+operation Collection excludes(item: Any) : Boolean{} //done
+
+operation Collection includesAll(col: Collection) : Boolean{} //done
+
+operation Collection excludesAll(col: Collection) : Boolean{} //done
+
+operation Collection including(item: Any) : Collection{} //done
+
+operation Collection excluding(item: Any) : Collection{} //done
+
+operation Collection includingAll(col: Collection) : Collection{} //done
+
+operation Collection excludingAll(col: Collection) : Collection{} //done
+
+operation Collection flatten() : Sequence {} //done
+
+operation Collection count(item: Any) : Integer {} //done
+
+operation Collection size() : Integer {} //simple
+
+operation Collection isEmpty() : Boolean {} //simple
+
+operation Collection random() : Any {} //done
+
+operation Collection clone() : Collection {} //done
+
+operation Collection concat() : String {} //simple
+
+operation Collection concat(separator: String) : String {} //done
+
+-- operations for Sequence and OrderedSet types
+
+operation Sequence first() : Any {} //done
+
+operation OrderedSet first() : Any {} //done
+
+operation Sequence last() : Any {} //done
+
+operation OrderedSet last() : Any {} //done
+
+operation Sequence at(index: Integer) : Any {} //should this cater with context?
+
+operation OrderedSet at(index: Integer) : Any {} //should this cater with context? 
+
+operation Sequence removeAt(index: Integer) : Any {} //should this cater with context?
+
+operation OrderedSet removeAt(index : Integer) : Any {} //should this cater with context?
+
+operation Sequence indexOf(item: Any) : Integer {} //done
+
+operation OrderedSet indexOf(item: Any) : Integer {} //done
+
+operation Sequence invert() : Collection {} //done
+
+operation OrderedSet invert() : Collection {} //done
+
+-- First-order logic operations 
+-- These operations are parameter-condition agnostic for now because these operations cannot be described using EOL
+
+operation Collection select(iterator: Any) : selfType {} //context
+
+operation Collection selectOne(iterator: Any) : selfContentType {}
+
+operation Collection reject(iterator: Any) : selfType {}
+
+operation Collection collect(iterator: Any) : selfType {}
+
+operation Collection closure(iterator: Any) : selfType {}
+
+operation Collection aggregate(iterator: Any) : Map {}
+
+operation Collection one(iterator: Any) : Boolean {}
+
+operation Collection exists(iterator: Any) : Boolean {}
+
+operation Collection forAll(iterator: Any) : Boolean {}
+
+operation Collection sortBy(iterator: Any) : selfType {}
+
+-- operations of type Map
+
+operation Map put(key: Any, value: Any) {}
+
+operation Map get(key: Any) : Any {}
+
+operation Map containsKey(key: Any) : Boolean {}
+
+operation Map keySet(): Set {}

@@ -1,0 +1,46 @@
+var seq : Sequence;
+var a = 1;
+var b = 2;
+var c = 3;
+var d = 4;
+var e = 5;
+a = c + d;
+a = d + e;
+if(a = 5)
+{
+	var d = 0;
+}
+else
+{
+	var e = 0;
+	e = a + d;
+}
+
+while(e < 10)
+{
+	var c = 0;
+	c = c + a;
+	e = e + 1;
+}
+seq = Sequence{a,b,c,d,e};
+seq.println();
+
+$post _result < self
+operation Any hello(param: Integer) : Any
+{
+
+	var x = x::Foo.all.size();
+
+	if(self.isTypeOf(String))
+	{
+		return param;
+	}
+	else
+	{
+		return 2;
+	}
+}
+
+operation Integer foo()
+{
+}
