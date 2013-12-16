@@ -18,20 +18,23 @@ public class SimpleAnnotationCreator extends AnnotationCreator{
 		
 		String astText = ast.getText(); //fetch the ast text
 		String arr[] = astText.split(" "); //split the string
-		String nameString = arr[0]; //the name string should be the first one
-		nameString = nameString.substring(1);  //truncate "@"
-		String valueString = astText.substring(nameString.length()+2); //the value string should be the rest
+		if (arr.length != 0) {
+			String nameString = arr[0]; //the name string should be the first one
+			nameString = nameString.substring(1);  //truncate "@"
+			String valueString = astText.substring(nameString.length()+2); //the value string should be the rest
+			
+			NameExpression name = (NameExpression) context.getEolElementCreatorFactory().createDomElement(ast, annotation, context, NameExpressionCreator.class);
+			name.setName(nameString); //set name to the NameExpression
+			
+			annotation.setName(name); //set name for the annotation
+			
+			StringExpression value = (StringExpression) context.getEolElementCreatorFactory().createDomElement(ast, annotation, context, StringExpressionCreator.class);
+			value.setColumn(ast.getColumn() + nameString.length()); //set column
+			value.setVal(valueString); //set value of the value
+			annotation.getValues().add(value); //set the value of the annotation
+		}
 		
-		NameExpression name = (NameExpression) context.getEolElementCreatorFactory().createDomElement(ast, annotation, context, NameExpressionCreator.class);
-		name.setName(nameString); //set name to the NameExpression
 		
-		annotation.setName(name); //set name for the annotation
-		
-		StringExpression value = (StringExpression) context.getEolElementCreatorFactory().createDomElement(ast, annotation, context, StringExpressionCreator.class);
-		value.setColumn(ast.getColumn() + nameString.length()); //set column
-		value.setVal(valueString); //set value of the value
-		
-		annotation.getValues().add(value); //set the value of the annotation
 		
 		return annotation;
 	}
