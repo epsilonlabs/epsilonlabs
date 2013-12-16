@@ -33,9 +33,6 @@ public class SimpleAnnotationCreator extends AnnotationCreator{
 			value.setVal(valueString); //set value of the value
 			annotation.getValues().add(value); //set the value of the annotation
 		}
-		
-		
-		
 		return annotation;
 	}
 
