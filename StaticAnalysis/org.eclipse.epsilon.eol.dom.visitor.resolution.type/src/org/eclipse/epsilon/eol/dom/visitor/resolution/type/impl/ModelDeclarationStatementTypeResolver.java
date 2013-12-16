@@ -51,5 +51,5 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 		}
 		return result;
 	}
-
+	
 }

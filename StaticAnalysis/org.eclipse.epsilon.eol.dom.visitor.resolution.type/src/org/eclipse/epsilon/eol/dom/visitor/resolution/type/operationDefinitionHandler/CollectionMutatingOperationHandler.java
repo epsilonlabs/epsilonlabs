@@ -47,36 +47,58 @@ public class CollectionMutatingOperationHandler extends CollectionOperationDefin
 		
 		OperationDefinition result = container.getOperation(name, argTypes);
 
-		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
+		Type rawTargetType = featureCallExpression.getTarget().getResolvedType(); 
 
 		if (name.equals("add") || name.equals("remove") || name.equals("including") || name.equals("excluding")) {
-			if (targetType.getContentType() instanceof AnyType) {
-				result.setReturnType(EcoreUtil.copy(targetType));
+			CollectionType targetType = null;
+			if (rawTargetType instanceof AnyType) {
+				((CollectionType)result.getReturnType()).setContentType(EcoreUtil.copy(rawTargetType));
+			}
+			else if (rawTargetType instanceof CollectionType) {
+				targetType = (CollectionType) rawTargetType;
+				if (targetType.getContentType() instanceof AnyType) {
+					result.setReturnType(EcoreUtil.copy(targetType));
+				}
+				else {
+					Type contentType = targetType.getContentType();
+					Type argType = argTypes.get(0);
+					if (!context.getTypeUtil().isEqualOrGeneric(argType, contentType)) {
+						context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Type mismiatch with Collection's content");
+					}
+				}
 			}
 			else {
-				Type contentType = targetType.getContentType();
-				Type argType = argTypes.get(0);
-				if (!context.getTypeUtil().isEqualOrGeneric(argType, contentType)) {
-					context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Type mismiatch with Collection's content");
-				}
+				context.getLogBook().addError(featureCallExpression.getTarget(), "operation " + name + " can only be performed on CollectionTypes or AnyType");
 			}
 		}
 		
 		else if (name.equals("addAll") || name.equals("removeAll") || name.equals("includingAll") || name.equals("excludingAll")) {
-			if (targetType.getContentType() instanceof AnyType) {
-				result.setReturnType(EcoreUtil.copy(targetType));
+			CollectionType targetType = null;
+			
+			if (!(argTypes.get(0) instanceof CollectionType)) {
+				context.getLogBook().addError(featureCallExpression.getTarget(), "operation " + name + " requires a CollectionType to be parameter");
+			}
+			
+			if (rawTargetType instanceof AnyType) {
+				((CollectionType)result.getReturnType()).setContentType(EcoreUtil.copy(rawTargetType));
+			}
+			else if (rawTargetType instanceof CollectionType) {
+				targetType = (CollectionType) rawTargetType;
+				if (targetType.getContentType() instanceof AnyType) {
+					result.setReturnType(EcoreUtil.copy(targetType));
+				}
+				else {
+					Type contentType = targetType.getContentType();
+					CollectionType argType = (CollectionType) argTypes.get(0);
+					Type argContentType = argType.getContentType();
+					if (!context.getTypeUtil().isEqualOrGeneric(argContentType, contentType)) {
+						context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Type mismiatch with Collection's content");
+					}
+				}		
 			}
 			else {
-				Type contentType = targetType.getContentType();
-				CollectionType argType = (CollectionType) argTypes.get(0);
-				Type argContentType = argType.getContentType();
-				if (!context.getTypeUtil().isEqualOrGeneric(argContentType, contentType)) {
-					context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Type mismiatch with Collection's content");
-				}
+				context.getLogBook().addError(featureCallExpression.getTarget(), "operation " + name + " can only be performed on CollectionTypes or AnyType");
 			}
-		}
-		else {
-			result.setReturnType(EcoreUtil.copy(targetType));
 		}
 		return result;
 	}

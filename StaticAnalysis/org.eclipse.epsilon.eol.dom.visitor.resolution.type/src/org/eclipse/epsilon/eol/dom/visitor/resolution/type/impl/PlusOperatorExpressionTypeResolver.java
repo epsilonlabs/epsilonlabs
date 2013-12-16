@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import org.eclipse.epsilon.eol.dom.BooleanType;
+import org.eclipse.epsilon.eol.dom.IntegerType;
 import org.eclipse.epsilon.eol.dom.PlusOperatorExpression;
 import org.eclipse.epsilon.eol.dom.PrimitiveType;
 import org.eclipse.epsilon.eol.dom.RealType;
@@ -16,54 +17,41 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 	public Object visit(PlusOperatorExpression plusOperatorExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		controller.visitContents(plusOperatorExpression, context);
+		controller.visitContents(plusOperatorExpression, context); //visit contents first
 		
-		Type type = context.getEolFactory().createIntegerType();
+		Type type = context.getEolFactory().createStringType();
 		
+		Type lhsType = plusOperatorExpression.getLhs().getResolvedType(); //get the lhs type
+		Type rhsType = plusOperatorExpression.getRhs().getResolvedType(); //get the rhs type
 		
-		
-		if(plusOperatorExpression.getLhs().getResolvedType() == null)
+		if(lhsType == null)
 		{
 			context.getLogBook().addError(plusOperatorExpression.getLhs(), "Cannot resolve type");
 		}
 		
-		if(plusOperatorExpression.getRhs().getResolvedType() == null)
+		if(rhsType == null)
 		{
 			context.getLogBook().addError(plusOperatorExpression.getRhs(), "Cannot resolve type");
 		}
 		
-		if(!(plusOperatorExpression.getLhs().getResolvedType() instanceof PrimitiveType))
-		{
-			context.getLogBook().addError(plusOperatorExpression.getLhs(), "Expression is not of primitive type");
+		if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
+			if (lhsType instanceof StringType || rhsType instanceof StringType) {
+				type = context.getEolFactory().createStringType();
+			}
+			else if (lhsType instanceof BooleanType || rhsType instanceof BooleanType) {
+				type = context.getEolFactory().createStringType(); 
+			}
+			else if (lhsType instanceof RealType || rhsType instanceof RealType) {
+				type = context.getEolFactory().createRealType();
+			}
+			else if (lhsType instanceof IntegerType && rhsType instanceof IntegerType) {
+				type = context.getEolFactory().createIntegerType();
+			}
+			
 		}
-		
-		if(!(plusOperatorExpression.getRhs().getResolvedType() instanceof PrimitiveType))
-		{
-			context.getLogBook().addError(plusOperatorExpression.getRhs(), "Expression is not of primitive type");
+		else {
+			type = context.getEolFactory().createStringType(); 
 		}
-
-		if(plusOperatorExpression.getLhs().getResolvedType() instanceof BooleanType)
-		{
-			context.getLogBook().addError(plusOperatorExpression.getLhs(), "Expression is of type Boolean");
-			//handle lhs boolean
-		}
-		
-		if(plusOperatorExpression.getRhs().getResolvedType() instanceof BooleanType)
-		{
-			context.getLogBook().addError(plusOperatorExpression.getRhs(), "Expression is of type Boolean");
-			//handle rhs boolean
-		}
-		
-		if (plusOperatorExpression.getLhs().getResolvedType() instanceof RealType ||
-				plusOperatorExpression.getRhs().getResolvedType() instanceof RealType) {
-			 type = context.getEolFactory().createRealType();
-		}
-		
-		if(plusOperatorExpression.getLhs().getResolvedType() instanceof StringType ||
-				plusOperatorExpression.getRhs().getResolvedType() instanceof StringType)
-		{
-			 type = context.getEolFactory().createStringType();
-		}		
 		
 		context.setAssets(type, plusOperatorExpression);
 		plusOperatorExpression.setResolvedType(type);
