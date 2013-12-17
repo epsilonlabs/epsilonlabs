@@ -14,8 +14,10 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		context.getStack().push(operationDefinition, false);
 		
-		context.getStack().putVariable(operationDefinition.getSelf()); //put 'self'
-			
+		if (operationDefinition.getSelf() != null) {
+			context.getStack().putVariable(operationDefinition.getSelf()); //put 'self'
+		}
+		
 		for(FormalParameterExpression param: operationDefinition.getParameters())
 		{
 			controller.visit(param, context);
