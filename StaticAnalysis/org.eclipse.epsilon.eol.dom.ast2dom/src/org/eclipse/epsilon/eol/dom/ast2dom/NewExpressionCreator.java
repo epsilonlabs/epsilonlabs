@@ -11,14 +11,13 @@ public class NewExpressionCreator extends ExpressionCreator{
 
 	@Override
 	public boolean appliesTo(AST ast) {
-		return false;
-		/*if(ast.getType() == EolParser.VAR && ast.getText().equals("new"))
+		if(ast.getType() == EolParser.NEW && ast.getFirstChild().getType() == EolParser.TYPE)
 		{
 			return true;
 		}
 		else {
 			return false;
-		}*/
+		}
 	}
 
 	@Override
@@ -26,12 +25,9 @@ public class NewExpressionCreator extends ExpressionCreator{
 			Ast2DomContext context) {
 		
 		NewExpression expression = context.getEolFactory().createNewExpression(); //create a new expression
-		this.setAssets(ast, expression, container); //set assets
+		this.setAssets(ast, expression, container); //set assets		
 		
-		AST nameAst = ast.getChild(0);
-		
-		
-		AST typeAst = ast.getChild(1); //must have a type
+		AST typeAst = ast.getChild(0); //must have a type
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(typeAst, expression, context)); //set resolved type to be the type
 		
 		

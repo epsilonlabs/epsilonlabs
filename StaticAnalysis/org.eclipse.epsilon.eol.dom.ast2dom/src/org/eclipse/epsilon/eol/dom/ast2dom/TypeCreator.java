@@ -9,7 +9,7 @@ public class TypeCreator extends EolElementCreator{
 
 	@Override
 	public boolean appliesTo(AST ast) {
-		return (ast.getType() == EolParser.TYPE && ast.getText().equalsIgnoreCase(getType()));
+		return (ast.getType() == EolParser.TYPE && ast.getText().equals(getType()));
 	}
 	
 	@Override

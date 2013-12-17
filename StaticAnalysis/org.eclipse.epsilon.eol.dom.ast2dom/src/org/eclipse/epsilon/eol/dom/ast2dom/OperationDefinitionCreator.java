@@ -99,14 +99,19 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			operation.setBody((Block)context.getEolElementCreatorFactory().createDomElement(bodyAst, operation, context)); //process body
 		}
 		
-		
-		VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
-		NameExpression selfName = context.getEolFactory().createNameExpression();
-		selfName.setName("self");
-		self.setName(selfName);
-		self.setResolvedType(EcoreUtil.copy(operation.getContextType()));
+		if (contextTypeAst != null) {
+			VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
+			NameExpression selfName = context.getEolFactory().createNameExpression();
+			selfName.setName("self");
+			self.setName(selfName);
+			self.setResolvedType(EcoreUtil.copy(operation.getContextType()));
 
-		operation.setSelf(self);
+			operation.setSelf(self);
+		}
+		else {
+			operation.setSelf(null);
+		}
+		
 		
 		if(returnTypeAst != null){ //this is based on the assumption that a operation definition MUST define a returnType if it returns anything
 			VariableDeclarationExpression _result = context.getEolFactory().createVariableDeclarationExpression();

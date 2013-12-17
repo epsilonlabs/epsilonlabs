@@ -12,18 +12,18 @@ public class ModelElementTypeCreator extends TypeCreator{
 	@Override
 	public boolean appliesTo(AST ast) {
 		return (ast.getType() == EolParser.TYPE && ast.getText().contains("!")) || 
-				(ast.getType() == EolParser.TYPE && !ast.getText().equalsIgnoreCase("Integer")
-				&& !ast.getText().equalsIgnoreCase("Boolean")
-				&& !ast.getText().equalsIgnoreCase("Real")
-				&& !ast.getText().equalsIgnoreCase("String")
-				&& !ast.getText().equalsIgnoreCase("Map")
-				&& !ast.getText().equalsIgnoreCase("Sequence")
-				&& !ast.getText().equalsIgnoreCase("Set")
-				&& !ast.getText().equalsIgnoreCase("OrderedSet")
-				&& !ast.getText().equalsIgnoreCase("Bag")
-				&& !ast.getText().equalsIgnoreCase("Native")
-				&& !ast.getText().equalsIgnoreCase("SelfType")
-				&& !ast.getText().equalsIgnoreCase("SelfContentType"));
+				(ast.getType() == EolParser.TYPE && !ast.getText().equals("Integer")
+				&& !ast.getText().equals("Boolean")
+				&& !ast.getText().equals("Real")
+				&& !ast.getText().equals("String")
+				&& !ast.getText().equals("Map")
+				&& !ast.getText().equals("Sequence")
+				&& !ast.getText().equals("Set")
+				&& !ast.getText().equals("OrderedSet")
+				&& !ast.getText().equals("Bag")
+				&& !ast.getText().equals("Native")
+				&& !ast.getText().equals("SelfType")
+				&& !ast.getText().equals("SelfContentType"));
 	}
 	
 	@Override
