@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.jar.Attributes.Name;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.dom.AnyType;
 import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
@@ -35,7 +36,7 @@ public class ModelElementTypeAllInstancesHandler extends ModelElementTypeHandler
 		
 		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 
-		if (!(featureCallExpression.getTarget().getResolvedType() instanceof ModelElementType)) {
+		if (!(featureCallExpression.getTarget().getResolvedType() instanceof ModelElementType) && (!(featureCallExpression.getTarget().getResolvedType() instanceof AnyType))) {
 			context.getLogBook().addError(featureCallExpression.getTarget(), "operation " + ((MethodCallExpression)featureCallExpression).getMethod().getName() + "() can only be used on ModelElementTypes");
 		}
 		result.setContextType(EcoreUtil.copy(contextType));

@@ -93,6 +93,11 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 				}
 			}
+			else if (targetType instanceof AnyType) {
+				methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+				methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+				methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
+			}
 			else {
 				//handle type incompatible
 				String expectedType = "";
