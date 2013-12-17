@@ -69,15 +69,15 @@ operation OrderedSet invert() : Collection {} //done
 -- First-order logic operations 
 -- These operations are parameter-condition agnostic for now because these operations cannot be described using EOL
 
-operation Collection select(iterator: Any) : selfType {} //context
+operation Collection select(iterator: Any) : SelfType {} //context
 
-operation Collection selectOne(iterator: Any) : selfContentType {}
+operation Collection selectOne(iterator: Any) : SelfContentType {}
 
-operation Collection reject(iterator: Any) : selfType {}
+operation Collection reject(iterator: Any) : SelfType {}
 
-operation Collection collect(iterator: Any) : selfType {}
+operation Collection collect(iterator: Any) : SelfType {}
 
-operation Collection closure(iterator: Any) : selfType {}
+operation Collection closure(iterator: Any) : SelfType {}
 
 operation Collection aggregate(iterator: Any) : Map {}
 
@@ -87,7 +87,7 @@ operation Collection exists(iterator: Any) : Boolean {}
 
 operation Collection forAll(iterator: Any) : Boolean {}
 
-operation Collection sortBy(iterator: Any) : selfType {}
+operation Collection sortBy(iterator: Any) : SelfType {}
 
 -- operations of type Map
 

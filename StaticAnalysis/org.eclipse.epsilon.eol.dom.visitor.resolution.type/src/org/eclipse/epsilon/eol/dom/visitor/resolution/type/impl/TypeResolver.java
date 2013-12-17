@@ -16,6 +16,7 @@ public class TypeResolver {
 		controller.addProgramVisitor(new ProgramTypeResolver());
 		controller.addBlockVisitor(new BlockTypeResolver());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionTypeResolver());
+		controller.addReturnStatementVisitor(new ReturnStatementTypeResolver());
 
 		controller.addAssignmentStatementVisitor(new AssignmentStatementTypeResolver());
 		controller.addIfStatementVisitor(new IfStatementTypeResolver());

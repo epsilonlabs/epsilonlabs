@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 import java.util.ArrayList;
 
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
@@ -19,6 +20,10 @@ public class OperationDefinitionTypeResolver extends OperationDefinitionVisitor<
 		
 		controller.visit(operationDefinition.getContextType(), context); //resolve context type
 		controller.visit(operationDefinition.getReturnType(), context); //resolve return type
+		if (operationDefinition.getSelf() != null) {
+			operationDefinition.getSelf().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));	
+		}
+
 		Type contextType = operationDefinition.getContextType(); //get the contextType
 		ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
 		
@@ -38,6 +43,7 @@ public class OperationDefinitionTypeResolver extends OperationDefinitionVisitor<
 		
 		//controller.visit(operationDefinition.getAnnotationBlock(), context);
 		controller.visit(operationDefinition.getBody(), context);
+		
 		return null;
 	}
 

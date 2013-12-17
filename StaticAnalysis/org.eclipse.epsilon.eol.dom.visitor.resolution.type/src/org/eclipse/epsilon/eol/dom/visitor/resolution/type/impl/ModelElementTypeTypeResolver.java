@@ -59,7 +59,14 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 						
 					}
 					else {
-						context.getLogBook().addError(modelElementType, "MetaElement with name " + elementString + " in Meta Model " + modelString + " cannot be found");
+						if (Character.isUpperCase(elementString.charAt(0))) {
+							context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+
+						}
+						else {
+							context.getLogBook().addError(modelElementType, "MetaElement with name " + elementString + " in Meta Model " + modelString + " cannot be found");							
+						}
+						
 						//handle meta class not found
 					}
 				}
@@ -114,8 +121,13 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 					}
 				}
 				else {
-					context.getLogBook().addError(modelElementType, "MetaElement with name " + elementString + " cannot be found");
-					//handle metaclass not found
+					if (!Character.isUpperCase(elementString.charAt(0))) {
+						context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+
+					}
+					else {
+						context.getLogBook().addError(modelElementType, "MetaElement with name " + elementString + " cannot be found");							
+					}
 				}
 			}
 			else {

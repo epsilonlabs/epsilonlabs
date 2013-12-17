@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.AnyType;
+import org.eclipse.epsilon.eol.dom.BagType;
 import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.OrderedSetType;
 import org.eclipse.epsilon.eol.dom.SequenceType;
+import org.eclipse.epsilon.eol.dom.SetType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
@@ -37,8 +39,8 @@ public class CollectionFirstAndLastOperationHandler extends CollectionOperationD
 
 		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
 		
-		if (!(targetType instanceof SequenceType || targetType instanceof OrderedSetType)) {
-			context.getLogBook().addError(featureCallExpression.getTarget(), "Operation invert() can only be performed on Sequence and OrderedSet types");
+		if (!(targetType instanceof SequenceType || targetType instanceof OrderedSetType || targetType instanceof SetType || targetType instanceof BagType)) {
+			context.getLogBook().addError(featureCallExpression.getTarget(), "Operation invert() can only be performed on collection types");
 		}
 		else {
 			if (!(targetType.getContentType() instanceof AnyType)) { //if content type is not any
