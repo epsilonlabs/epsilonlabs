@@ -35,6 +35,7 @@ public class TypeResolver {
 		
 		controller.addModelElementTypeVisitor(new ModelElementTypeTypeResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionTypeResolver());
+		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionTypeResolver());
 
 	}
 	

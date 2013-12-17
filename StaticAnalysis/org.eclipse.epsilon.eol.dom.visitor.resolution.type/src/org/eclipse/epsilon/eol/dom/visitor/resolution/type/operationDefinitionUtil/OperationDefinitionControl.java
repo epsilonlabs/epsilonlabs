@@ -54,6 +54,9 @@ public class OperationDefinitionControl {
 						if (temp != null) {
 							operation = temp;
 						}
+						else {
+							operation = null;
+						}
 
 					}
 				}
@@ -73,7 +76,10 @@ public class OperationDefinitionControl {
 					if (temp != null) {
 						operation = temp;
 					}
-
+					else
+					{
+						operation = null;
+					}
 				}
 			}
 		}

@@ -2,6 +2,8 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import metamodel.connectivity.EMetaModel;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
@@ -29,25 +31,32 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 					
 					if(em.containsMetaClass(elementString)) //check if metamodel contains meta class
 					{
-						modelElementType.setEcoreType(em.getMetaClass(elementString)); //set ecore type
-						ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
-						for(String s: context.getModelDeclarations().keySet()) //get model declaration names
-						{
-							if (em.getMetaModelName().equals(s)) { //if declaration name is equal to metamodel name, set
-								resolveDeclarationStatement = context.getModelDeclarations().get(s);
-								break;
-							}
-							else {
-								for(String alias: em.getAliases())
-								{
-									if (alias.equals(s)) { //if declaration name is equal to any alias name, set
-										resolveDeclarationStatement = context.getModelDeclarations().get(s);
-										break;
+						//EClass classifier = em.getMetaClass(elementString);
+						//if (!classifier.isAbstract() && !classifier.isInterface()) {
+							modelElementType.setEcoreType(em.getMetaClass(elementString)); //set ecore type
+							ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
+							for(String s: context.getModelDeclarations().keySet()) //get model declaration names
+							{
+								if (em.getMetaModelName().equals(s)) { //if declaration name is equal to metamodel name, set
+									resolveDeclarationStatement = context.getModelDeclarations().get(s);
+									break;
+								}
+								else {
+									for(String alias: em.getAliases())
+									{
+										if (alias.equals(s)) { //if declaration name is equal to any alias name, set
+											resolveDeclarationStatement = context.getModelDeclarations().get(s);
+											break;
+										}
 									}
 								}
 							}
-						}
-						modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);
+							modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);
+						//}
+						//else {
+						//	context.getLogBook().addError(modelElementType, "Meta Class: " + modelString + "!" + elementString + " is not instantiable");
+						//}
+						
 					}
 					else {
 						context.getLogBook().addError(modelElementType, "MetaElement with name " + elementString + " in Meta Model " + modelString + " cannot be found");
@@ -73,24 +82,31 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 						EMetaModel em = context.getMetaModelDefiningMetaClass(elementString);
 						modelElementType.setModelName(em.getMetaModelName());
 						modelElementType.setEcoreType(em.getMetaClass(elementString));
-						ModelDeclarationStatement resolveDeclarationStatement = null;
-						for(String s: context.getModelDeclarations().keySet())
-						{
-							if (em.getMetaModelName().equals(s)) {
-								resolveDeclarationStatement = context.getModelDeclarations().get(s);
-								break;
-							}
-							else {
-								for(String alias: em.getAliases())
-								{
-									if (alias.equals(s)) {
-										resolveDeclarationStatement = context.getModelDeclarations().get(s);
-										break;
+						//EClass classifier = em.getMetaClass(elementString);
+						//if (!classifier.isAbstract() && !classifier.isInterface()) {
+							ModelDeclarationStatement resolveDeclarationStatement = null;
+							for(String s: context.getModelDeclarations().keySet())
+							{
+								if (em.getMetaModelName().equals(s)) {
+									resolveDeclarationStatement = context.getModelDeclarations().get(s);
+									break;
+								}
+								else {
+									for(String alias: em.getAliases())
+									{
+										if (alias.equals(s)) {
+											resolveDeclarationStatement = context.getModelDeclarations().get(s);
+											break;
+										}
 									}
 								}
 							}
-						}
-						modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);
+							modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);
+						//}
+						//else {
+							//context.getLogBook().addError(modelElementType, "Meta Class: " + elementString + " is not instantiable");
+
+						//}
 					}
 					else {
 						context.getLogBook().addWarning(modelElementType, "MetaElement with name " + elementString + " is defined in multiple metamodels");
