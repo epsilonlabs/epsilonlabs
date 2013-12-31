@@ -1,0 +1,9 @@
+operation EClassifier getSQLiteName() {
+	switch (self.name) {
+			case "EInt": return "INTEGER";
+			case "EFloat": return "REAL";
+			case "EIntegerObject": return "INTEGER";
+			case "EDouble": return "REAL";
+			default: return "TEXT";
+		}
+}

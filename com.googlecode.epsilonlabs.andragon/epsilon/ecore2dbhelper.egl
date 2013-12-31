@@ -1,0 +1,119 @@
+[%
+import "javautil.eol";
+import "ecoreutil.eol";
+import "sqliteutil.eol";
+var package = EPackage.all.first();
+%]
+package [%=package.name%];
+
+//import custompackage.*;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
+
+class [%=getConfig("name")%] extends SQLiteOpenHelper {
+	
+	protected final static String databaseName = "[%=getConfig("databaseName")%]";
+	protected final static int databaseVersion = [%=getConfig("databaseVersion")%];
+	
+	public [%=getConfig("name")%](Context context) {
+		super(context, databaseName, null, databaseVersion);		
+	}
+	
+	[%for (c in EClass.all) { %]
+	public static class [%=c.name%] [%=c.getJavaExtends()%]{
+		[*-Constants*]
+		public static final String TABLE_NAME = "[%=c.name%]";
+		[%if (c.eSuperTypes.isEmpty()){%]
+		public static final String COLUMN_NAME_ID = "_id";
+		[%}%]
+		[%for (a in c.eAttributes.select(sf|not sf.isMany)) { %]
+		public static final String COLUMN_NAME_[%=a.name.toUpperCase()%] = "[%=a.name%]";
+		[%}%]
+		[*-Fields*]
+		[%if (c.eSuperTypes.isEmpty()){%]
+		protected long id;
+		protected ContentValues _updates = new ContentValues();
+		[%}%]
+		[%for (a in c.eAttributes.select(sf|not sf.isMany)) { %]
+		protected [%=a.eType.getJavaName()%] [%=a.name%];
+		[%}%]
+		[*-Constructurs*]
+		public [%=c.name%]() {
+		
+		}
+		
+		public [%=c.name%](Cursor cursor) {
+			[%for (a in c.eAttributes.select(sf|not sf.isMany)) { %]
+			this.[%=a.name%] = cursor.get[%=a.eType.getJavaName().firstToUpperCase()%](cursor.getColumnIndex("[%=a.name%]"));
+			[%}%]
+		}
+		
+		[%if (c.eSuperTypes.isEmpty()){%]
+		public long getId() {
+			return id;
+		}
+		
+		public [%=c.name%] setId(long id) {
+			_updates.put("_id", id);
+			this.id = id;
+			return this;
+		}
+		[%}%]
+		[*-Setters and getters*]
+		[%for (a in c.eAttributes.select(sf|not sf.isMany)) { %]
+		public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
+			return this.[%=a.name%];
+		}
+		
+		public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
+			_updates.put("[%=a.name%]", [%=a.name%]);
+			this.[%=a.name%] = [%=a.name%];
+			return this;
+		}
+		
+		[%}%]
+		public [%=c.name%] insert(SQLiteDatabase db) {
+			ContentValues values = new ContentValues();
+			[%for (a in c.eAllAttributes) { %]
+			values.put("[%=a.name%]", [%=a.name%]);
+			[%}%]
+			this.id = db.insert("[%=c.name%]", "null", values);
+			return this;
+		}
+		
+		public boolean update(SQLiteDatabase db) {
+			return db.update("[%=c.name%]", _updates,
+				"_id = ?", new String[]{String.valueOf(id)} ) > 0;
+		}
+		
+		public boolean delete(SQLiteDatabase db) {
+			return db.delete("[%=c.name%]",
+				"_id = ?", new String[]{String.valueOf(id)} ) > 0;
+		}
+		
+	}
+	[%}%]
+	
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+		String[] createTableStatements = new String[]{
+			[%for (c in EClass.all) { 
+				var comma = ""; if (c.getAllSingleValuedAttributes().size() > 0) comma = ", ";
+				%]
+				"create table [%=c.name%] (_id INTEGER PRIMARY KEY[%=comma%][%=c.getAllSingleValuedAttributes().collect(a|a.name + " " + a.eType.getSQLiteName()).concat(", ")%])"[%if (hasMore){%], [%}else{%]};[%}%]
+				
+			[%}%]
+		
+		for (String createTableStatement : createTableStatements) {
+			db.execSQL(createTableStatement);
+		}
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		
+	}
+}

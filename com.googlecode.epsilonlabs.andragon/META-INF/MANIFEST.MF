@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Andragon
+Bundle-SymbolicName: com.googlecode.epsilonlabs.andragon
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: GOOGLECODE
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
