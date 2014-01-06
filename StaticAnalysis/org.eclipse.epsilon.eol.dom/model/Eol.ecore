@@ -43,6 +43,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//DomElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imported" lowerBound="1"
         eType="#//StringExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
+        eType="#//Program" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//DomElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//DomElement">
