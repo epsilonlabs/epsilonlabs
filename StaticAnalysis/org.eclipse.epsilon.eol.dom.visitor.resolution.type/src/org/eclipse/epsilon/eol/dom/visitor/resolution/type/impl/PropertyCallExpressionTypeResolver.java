@@ -1,6 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 
+import java.util.ArrayList;
+
 import metamodel.connectivity.EMetaModel;
 
 import org.eclipse.emf.ecore.EClassifier;
@@ -11,7 +13,10 @@ import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.EType;
 import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
+import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
+import org.eclipse.epsilon.eol.dom.SelfContentType;
+import org.eclipse.epsilon.eol.dom.SelfType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.PropertyCallExpressionVisitor;
@@ -31,7 +36,12 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//if the property is an extended property, then the type of the call should be Any
 		//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
 		//EOL does not guarantee the safe property navigation of type Any -- need to talk to Dimitris for further development on EOL but leave it like this for now
-		if(propertyCallExpression.getExtended().isVal()) //test to see if it is an extended property )  
+		
+		if (isKeyword(propertyCallExpression.getProperty().getName())) {
+			handleKeywords(propertyCallExpression, context);
+		}
+		
+		else if(propertyCallExpression.getExtended().isVal()) //test to see if it is an extended property )  
 		{
 			AnyType anyType = context.getEolFactory().createAnyType(); //create an anyType
 			context.setAssets(anyType, propertyCallExpression); //set assets
@@ -292,6 +302,62 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 
 		
 		return null;
+	}
+	
+	public boolean isKeyword(String s)
+	{
+		if (s.equals("all") ||
+				s.equals("first") ||
+				s.equals("last") ||
+				s.equals("one")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
+	{
+		Type targetType = propertyCallExpression.getTarget().getResolvedType();
+		ArrayList<Type> argTypes = new ArrayList<Type>();
+		
+		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getHandlerFactory().handle(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes);
+		if (operationDefinition != null) {
+			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
+			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
+				
+				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
+					propertyCallExpression.setResolvedType(EcoreUtil.copy(targetType));  //just copy the target type because the target type has been resolved
+					
+				}
+				else if (operationDefinition.getReturnType() instanceof SelfContentType) { //if is selfContentType
+					if (targetType instanceof CollectionType) { //if target type is of collection type
+						Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
+						if (contentType != null) {
+							propertyCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
+						}
+						else {
+							//this should be Any i guess?
+							//handle content type null
+						}
+						
+					}
+					else {
+						//handle this
+					}
+				}
+				else {
+					propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+				}
+			}
+			else if (targetType instanceof AnyType) {
+				propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+			}
+			else {
+				//should not happen
+			}
+		}
 	}
 
 }

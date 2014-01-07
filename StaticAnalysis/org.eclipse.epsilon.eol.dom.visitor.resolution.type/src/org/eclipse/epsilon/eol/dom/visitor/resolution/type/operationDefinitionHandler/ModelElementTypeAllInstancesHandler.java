@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
 import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
+import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
 import org.eclipse.epsilon.eol.dom.SetType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
@@ -39,9 +40,16 @@ public class ModelElementTypeAllInstancesHandler extends ModelElementTypeHandler
 			ArrayList<Type> argTypes) {
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		String featureCallName = ((MethodCallExpression)featureCallExpression).getMethod().getName(); //get method name
+		String featureCallName = "";
+		if (featureCallExpression instanceof MethodCallExpression) {
+			featureCallName = ((MethodCallExpression)featureCallExpression).getMethod().getName(); //get method name
+		}
+		else if (featureCallExpression instanceof PropertyCallExpression) {
+			featureCallName = ((PropertyCallExpression)featureCallExpression).getProperty().getName(); //get method name
+		}
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes); //get operaiton definition
+		
+		OperationDefinition result = container.getOperation(featureCallName, argTypes); //get operaiton definition
 		Expression rawTarget = featureCallExpression.getTarget(); //get targettype
 		if(!(rawTarget instanceof NameExpression)) //if targettype is not a NameExpressioin
 		{

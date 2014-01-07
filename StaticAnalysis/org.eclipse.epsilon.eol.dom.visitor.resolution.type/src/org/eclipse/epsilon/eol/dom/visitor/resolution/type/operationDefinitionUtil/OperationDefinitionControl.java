@@ -27,6 +27,11 @@ public class OperationDefinitionControl {
 		handlerFactory = new OperationDefinitionHandlerFactory(context);
 	}
 	
+	public OperationDefinitionHandlerFactory getHandlerFactory()
+	{
+		return handlerFactory;
+	}
+	
 	public StandardLibraryOperationDefinitionContainer getStandardLibraryOperationDefinitionContainer()
 	{
 		return standardLibraryOperations;
