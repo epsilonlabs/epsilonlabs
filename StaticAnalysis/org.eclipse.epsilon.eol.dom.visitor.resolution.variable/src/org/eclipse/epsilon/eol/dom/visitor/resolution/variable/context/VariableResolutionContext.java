@@ -13,7 +13,7 @@ public class VariableResolutionContext {
 	protected FrameStack stack = new FrameStack(); //the frameStack
 	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
-	protected Program mainProgram = null; //main program, which is the EOL program in questions
+	protected Program mainProgram = null; //main program, which is the EOL program in question
 	protected Ast2DomUtil ast2DomUtil = new Ast2DomUtil();
 
 	public FrameStack getStack()
