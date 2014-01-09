@@ -3,9 +3,10 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import java.util.LinkedList;
 
-
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.dom.Statement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class EolElementCreatorFactory {
@@ -13,11 +14,20 @@ public class EolElementCreatorFactory {
 	
 	LinkedList<DomElement> createdDomElements;
 	LinkedList<EolElementCreator> domElementCreators;
+	String directoryPathString = null;
 
 	public EolElementCreatorFactory()
 	{
 		createdDomElements = new LinkedList<DomElement>();
 		domElementCreators = new LinkedList<EolElementCreator>();
+		initialiseDomElementCreators();
+	}
+	
+	public EolElementCreatorFactory(String directoryPath)
+	{
+		createdDomElements = new LinkedList<DomElement>();
+		domElementCreators = new LinkedList<EolElementCreator>();
+		directoryPathString = directoryPath;
 		initialiseDomElementCreators();
 	}
 	
@@ -357,6 +367,11 @@ public class EolElementCreatorFactory {
 	{
 		LinkedList<Integer> pool = getStatementKeywords();
 		return pool.contains(ast.getType());
+	}
+	
+	public String getDirectoryPathString()
+	{
+		return directoryPathString;
 	}
 	
 

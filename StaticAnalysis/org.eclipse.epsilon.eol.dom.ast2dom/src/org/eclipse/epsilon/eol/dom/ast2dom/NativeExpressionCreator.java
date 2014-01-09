@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.NativeExpression;
-import org.eclipse.epsilon.eol.dom.NativeType;
 import org.eclipse.epsilon.eol.dom.StringExpression;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.parse.EolParser;

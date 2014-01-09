@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class NameExpressionCreator extends ExpressionCreator{

@@ -7,8 +7,6 @@ import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.parse.EolParser;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
 public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 

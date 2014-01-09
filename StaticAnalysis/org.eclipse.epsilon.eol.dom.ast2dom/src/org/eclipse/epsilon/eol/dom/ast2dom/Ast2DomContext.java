@@ -16,6 +16,12 @@ public class Ast2DomContext {
 		//metaModels = new LinkedList<MetaModel>();
 	}
 	
+	public Ast2DomContext(EolElementCreatorFactory eolElementCreatorFactory)
+	{
+		this.eolElementCreatorFactory = eolElementCreatorFactory;
+		eolFactory = new EolFactoryImpl();
+	}
+	
 	public EolFactory getEolFactory()
 	{
 		return eolFactory;
