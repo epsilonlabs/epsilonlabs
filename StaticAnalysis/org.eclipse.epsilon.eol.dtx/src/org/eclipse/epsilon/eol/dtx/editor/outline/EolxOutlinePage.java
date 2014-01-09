@@ -1,6 +1,8 @@
 package org.eclipse.epsilon.eol.dtx.editor.outline;
 
 import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +12,16 @@ import org.eclipse.epsilon.common.dt.editor.outline.EditorSelection;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
+import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
+import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -37,7 +42,17 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 	
 	@Override
 	public Object getOutlineRoot(IModule module) {
-		DomElement dom = new EolElementCreatorFactory().createDomElement(module.getAst(), null, new Ast2DomContext());
+		
+		String path = module.getSourceUri().getPath();
+		//System.err.println("=============" + path);
+		int lastIndexOf = path.lastIndexOf("/");
+		//System.out.println("--------------------" + lastIndexOf);
+		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
+		String directoryPathString = path.substring(0, lastIndexOf+1);		
+		
+		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
+		Ast2DomContext context = new Ast2DomContext(factory);
+		DomElement dom = factory.createDomElement(module.getAst(), null, context);
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
 		
@@ -57,6 +72,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 			
 			DomElement selected = ((DomOutlineElement) ((IStructuredSelection) event
 					.getSelection()).getFirstElement()).getDomElement();
+		
 			
 			IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
 			TextRegion region = selected.getRegion();
