@@ -37,13 +37,24 @@ public class DummyModuleValidator implements IModuleValidator {
 				markers.add(new ModuleMarker(null, ast.getRegion(), "If statements are out of question", Severity.Error));				
 			}
 		}*/
+				
+		String path = module.getSourceUri().getPath();
+		//System.err.println("=============" + path);
+		int lastIndexOf = path.lastIndexOf("/");
+		//System.out.println("--------------------" + lastIndexOf);
+		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
+		String directoryPathString = path.substring(0, lastIndexOf+1);
 		
-		DomElement dom = new EolElementCreatorFactory().createDomElement(module.getAst(), null, new Ast2DomContext());
+
+		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
+		Ast2DomContext context = new Ast2DomContext(factory);
+		DomElement dom = factory.createDomElement(module.getAst(), null, context);
+		
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
 		
 		for(log.Error error: vr.getVariableResolutionContext().getLogBook().getErrors())
-		{
+		{  
 			TextRegion textRegion = error.getDomElement().getRegion();
 			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
 			ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
