@@ -237,8 +237,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				context.getLogBook().addError(methodCallExpression, "OperationDefinition: " + name + "("+ argString +")" + "cannot be found");
 			}
 		}
-		
-		
 		return null;
 	}
 
