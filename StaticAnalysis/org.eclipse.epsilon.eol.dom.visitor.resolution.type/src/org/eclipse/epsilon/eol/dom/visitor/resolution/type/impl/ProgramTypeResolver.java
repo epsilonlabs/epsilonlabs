@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
+import org.eclipse.epsilon.eol.dom.Import;
 import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.Program;
@@ -12,6 +13,11 @@ public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, O
 	@Override
 	public Object visit(Program program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		for(Import import1: program.getImports())
+		{
+			controller.visit(import1, context);
+		}
 		
 		for(ModelDeclarationStatement mds: program.getModelDeclarations()) //process each model declaration statement
 		{
