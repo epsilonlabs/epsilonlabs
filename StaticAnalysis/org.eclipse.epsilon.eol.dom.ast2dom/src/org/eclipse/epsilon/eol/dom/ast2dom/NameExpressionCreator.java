@@ -35,7 +35,7 @@ public class NameExpressionCreator extends ExpressionCreator{
 		String name = ast.getText();
 			
 		if (ast.getFirstChild()!=null) {
-			if(!ast.getFirstChild().getText().equals("PARAMETERS") && !ast.getFirstChild().getText().equals("PARAMLIST"))
+			if(!ast.getFirstChild().getText().equals("PARAMETERS") && !ast.getFirstChild().getText().equals("PARAMLIST") && !name.contains("!"))
 			{
 				while(ast.getFirstChild()!=null)
 				{
