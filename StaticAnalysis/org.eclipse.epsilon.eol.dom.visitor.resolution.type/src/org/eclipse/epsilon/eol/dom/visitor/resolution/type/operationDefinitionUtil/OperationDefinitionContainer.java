@@ -24,7 +24,7 @@ public class OperationDefinitionContainer {
 		for(OperationDefinition op: operations) //for each operation in the operations
 		{
 			if (op.getName().getName().equals(name)) { //if name equals
-				if (typeUtil.isTypeEqual(op.getContextType(), contextType)) { //if context type equals
+ 				if (typeUtil.isTypeEqual(op.getContextType(), contextType)) { //if context type equals
 					if (op.getParameters().size() == argTypes.size()) { //if number of arguments equals
 						if (op.getParameters().size() == 0) { //if size is 0 should return true
 							result = true;

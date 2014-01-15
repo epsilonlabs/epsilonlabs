@@ -60,7 +60,7 @@ public class OperationDefinitionControl {
 							operation = temp;
 						}
 						else {
-							operation = null;
+							//operation = null;
 						}
 
 					}

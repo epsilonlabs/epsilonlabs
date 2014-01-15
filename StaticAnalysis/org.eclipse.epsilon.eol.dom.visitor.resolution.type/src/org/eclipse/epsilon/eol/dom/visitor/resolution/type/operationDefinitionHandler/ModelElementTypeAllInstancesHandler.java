@@ -58,7 +58,11 @@ public class ModelElementTypeAllInstancesHandler extends ModelElementTypeHandler
 		}
 		else { //else
 			NameExpression target = (NameExpression) rawTarget; //cast the target to NameExpression
-			if (context.numberOfMetamodelsDefine(target.getName()) > 0) { //if the NameExpression is a keyword in the metamodels
+			String targetname = target.getName();
+			if (targetname.contains("!")) {
+				targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
+			}
+			if (context.numberOfMetamodelsDefine(targetname) > 0) { //if the NameExpression is a keyword in the metamodels
 				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
 				
 				if (!(rawTargetType instanceof ModelElementType)) {

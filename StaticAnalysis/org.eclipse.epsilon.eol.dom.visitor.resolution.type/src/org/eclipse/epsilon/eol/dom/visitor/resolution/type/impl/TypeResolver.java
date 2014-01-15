@@ -12,6 +12,7 @@ public class TypeResolver {
 	
 	public TypeResolver()
 	{
+		controller.addImportVisitor(new ImportTypeResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
 		controller.addProgramVisitor(new ProgramTypeResolver());
 		controller.addBlockVisitor(new BlockTypeResolver());
@@ -37,6 +38,7 @@ public class TypeResolver {
 		controller.addModelElementTypeVisitor(new ModelElementTypeTypeResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionTypeResolver());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionTypeResolver());
+		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionTypeResolver());
 
 	}
 	

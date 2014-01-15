@@ -27,7 +27,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 			e.printStackTrace();
 		} //load the metamodel with the name or NSURI
 		
-		System.out.println(metaModel.getMetaModelName());
+		//System.out.println(metaModel.getMetaModelName());
 		metaModel.setName(modelDeclarationStatement.getName().getName()); //add given name
 		for(NameExpression name: modelDeclarationStatement.getAlias()) //add aliases
 		{

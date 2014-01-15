@@ -1,12 +1,7 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import java.util.ArrayList;
-
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.OperationDefinitionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
@@ -18,7 +13,7 @@ public class OperationDefinitionTypeResolver extends OperationDefinitionVisitor<
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		controller.visit(operationDefinition.getContextType(), context); //resolve context type
+		/*controller.visit(operationDefinition.getContextType(), context); //resolve context type
 		controller.visit(operationDefinition.getReturnType(), context); //resolve return type
 		if (operationDefinition.getSelf() != null) {
 			operationDefinition.getSelf().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));	
@@ -39,10 +34,13 @@ public class OperationDefinitionTypeResolver extends OperationDefinitionVisitor<
 		else {
 			context.getLogBook().addError(operationDefinition, "OperationDefinition with same signature already defined");
 			///handle signature existence
-		}
+		}*/
 		
 		//controller.visit(operationDefinition.getAnnotationBlock(), context);
+		
+		//controller.visit(operationDefinition.get_result(), context);
 		controller.visit(operationDefinition.getBody(), context);
+		
 		
 		return null;
 	}

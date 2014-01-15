@@ -72,9 +72,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					}
 				}
 				
-				context.setAssets(typeCopy, nameExpression); //set assets of the type
-				nameExpression.setResolvedType(typeCopy); //assign the var type to the name type
-
+				if (typeCopy != null) {
+					context.setAssets(typeCopy, nameExpression); //set assets of the type
+					nameExpression.setResolvedType(typeCopy); //assign the var type to the name type
+				}
+				
 				
 				/*
 				VariableDeclarationExpression content = (VariableDeclarationExpression) nameExpression.getResolvedContent(); //get the var

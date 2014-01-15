@@ -26,6 +26,7 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
 		controller.visit(fOLMethodCallExpression.getTarget(), context);  //visit target first
+		
 		Type targetType = fOLMethodCallExpression.getTarget().getResolvedType(); //get target type
 		Type contentType = null; //prepare content type
 		String name = fOLMethodCallExpression.getMethod().getName();  //get method name
@@ -48,7 +49,7 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 		for(FormalParameterExpression iterator: fOLMethodCallExpression.getIterators()) //visit iterators
 		{
 			controller.visit(iterator, context);
-			if (iterator.getResolvedType() == null) {
+			if (iterator.getResolvedType() == null || iterator.getResolvedType() instanceof AnyType) {
 				iterator.setResolvedType(EcoreUtil.copy(contentType));
 			}
 		}

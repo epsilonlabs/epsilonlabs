@@ -37,7 +37,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 							ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
 							for(String s: context.getModelDeclarations().keySet()) //get model declaration names
 							{
-								if (em.getMetaModelName().equals(s)) { //if declaration name is equal to metamodel name, set
+								if (em.getName().equals(s)) { //if declaration name is equal to metamodel name, set
 									resolveDeclarationStatement = context.getModelDeclarations().get(s);
 									break;
 								}

@@ -18,6 +18,7 @@ import org.eclipse.epsilon.eol.dom.OrOperatorExpression;
 import org.eclipse.epsilon.eol.dom.PrimitiveExpression;
 import org.eclipse.epsilon.eol.dom.PrimitiveType;
 import org.eclipse.epsilon.eol.dom.RealType;
+import org.eclipse.epsilon.eol.dom.StringType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.XorOperatorExpression;
 import org.eclipse.epsilon.eol.dom.ast2dom.AnyTypeCreator;
@@ -72,9 +73,18 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			Type lhsType = lhs.getResolvedType();
 			Type rhsType = rhs.getResolvedType();
 			
-			if (lhsType instanceof IntegerType || lhsType instanceof AnyType || lhsType instanceof RealType)
+			if (lhsType instanceof BooleanType) {
+				if (rhsType instanceof BooleanType) {
+					
+				}
+				else {
+					context.getLogBook().addError(rhsType, "Expected boolean type, actual type is: " + rhsType.getClass().getSimpleName());
+				}
+			}
+			
+			else if (lhsType instanceof IntegerType || lhsType instanceof AnyType || lhsType instanceof RealType || lhsType instanceof StringType)
 			{
-				if (rhsType instanceof IntegerType || rhsType instanceof RealType) {
+				if (rhsType instanceof IntegerType || rhsType instanceof RealType || rhsType instanceof StringType) {
 					
 				}
 				else {
@@ -94,7 +104,23 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			Type rhsType = rhs.getResolvedType();
 			
 			if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
-				if (lhsType instanceof IntegerType || lhsType instanceof AnyType || lhsType instanceof RealType)
+				if (lhsType instanceof BooleanType) {
+					if (rhsType instanceof BooleanType) {
+						
+					}
+					else {
+						context.getLogBook().addError(rhsType, "Expected boolean type, actual type is: " + rhsType.getClass().getSimpleName());
+					}
+				}
+				else if (lhsType instanceof StringType) {
+					if (rhsType instanceof StringType) {
+						
+					}
+					else {
+						context.getLogBook().addError(rhsType, "Expected String type, actual type is: " + rhsType.getClass().getSimpleName());
+					}
+				}
+				else if (lhsType instanceof IntegerType || lhsType instanceof AnyType || lhsType instanceof RealType)
 				{
 					if (rhsType instanceof IntegerType || rhsType instanceof RealType) {
 						
