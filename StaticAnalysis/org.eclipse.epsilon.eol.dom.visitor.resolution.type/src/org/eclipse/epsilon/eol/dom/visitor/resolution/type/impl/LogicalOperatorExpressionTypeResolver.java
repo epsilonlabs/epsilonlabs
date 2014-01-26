@@ -12,16 +12,13 @@ import org.eclipse.epsilon.eol.dom.ImpliesOperatorExpression;
 import org.eclipse.epsilon.eol.dom.IntegerType;
 import org.eclipse.epsilon.eol.dom.LessThanOperatorExpression;
 import org.eclipse.epsilon.eol.dom.LessThanOrEqualToOperatorExpression;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
 import org.eclipse.epsilon.eol.dom.NotEqualsOperatorExpression;
 import org.eclipse.epsilon.eol.dom.OrOperatorExpression;
-import org.eclipse.epsilon.eol.dom.PrimitiveExpression;
 import org.eclipse.epsilon.eol.dom.PrimitiveType;
 import org.eclipse.epsilon.eol.dom.RealType;
 import org.eclipse.epsilon.eol.dom.StringType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.XorOperatorExpression;
-import org.eclipse.epsilon.eol.dom.ast2dom.AnyTypeCreator;
 import org.eclipse.epsilon.eol.dom.visitor.BinaryOperatorExpressionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
@@ -47,9 +44,11 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 	public Object visit(BinaryOperatorExpression binaryOperatorExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		controller.visitContents(binaryOperatorExpression, context);
+		controller.visit(binaryOperatorExpression.getLhs(), context);
+		controller.visit(binaryOperatorExpression.getRhs(), context);
 		
 		BooleanType type = context.getEolFactory().createBooleanType(); //set type first, this allows minor-error in expressions n statements
+		binaryOperatorExpression.setResolvedType(type);
 		
 		if (isLogicalOperator(binaryOperatorExpression)) {
 			if(binaryOperatorExpression.getLhs().getResolvedType() instanceof BooleanType)
@@ -62,6 +61,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 				}
 			}
 			else {
+				System.err.println(binaryOperatorExpression.getLhs().getResolvedType());
 				context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression is not of type Boolean");
 				//handle lhs not boolean 
 			}
@@ -133,11 +133,15 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					context.getLogBook().addError(lhs, "Expression should be of either type Integer or type Real");
 				}
 			}
+			else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) {
+				context.getLogBook().addError(rhs, "type incompatibility: trying to compare " + rhsType.getClass().getSimpleName() + " to " + lhsType.getClass().getSimpleName());
+			}
+			/*
 			else if (lhsType.getClass().getSimpleName().equals(rhsType.getClass().getSimpleName()) && (!(rhsType instanceof AnyType))) {
 				if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) {
 					context.getLogBook().addError(rhs, "type incompatibility: assigning " + rhsType.getClass().getSimpleName() + " to " + lhsType.getClass().getSimpleName());
 				}
-			}			
+			}*/			
 		}
 		
 		context.setAssets(type, binaryOperatorExpression);

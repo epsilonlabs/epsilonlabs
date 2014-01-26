@@ -81,8 +81,6 @@ public class ModelElementTypeAllInstancesHandler extends ModelElementTypeHandler
 				return null;
 			}
 		}
-
-		
 		
 		return result;
 	}

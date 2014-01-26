@@ -32,6 +32,26 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		Expression expression = propertyCallExpression.getTarget(); //get the target
 		controller.visit(expression, context); //visit the target first
 		
+		if (propertyCallExpression.getTarget().getResolvedType() instanceof AnyType) {// or the target is of type Any
+			AnyType tempAnyType = (AnyType) propertyCallExpression.getTarget().getResolvedType();
+			Type tempType = null;
+			AnyType anyType = context.getEolFactory().createAnyType(); //create an anyType
+
+			if (tempAnyType.getTempType() != null) {
+				tempType = tempAnyType.getTempType();
+				propertyCallExpression.setResolvedType(EcoreUtil.copy(tempType));
+				//context.setAssets(anyType, propertyCallExpression); //set assets
+			}
+			else {
+				propertyCallExpression.setResolvedType(anyType); //assign type
+				context.setAssets(anyType, propertyCallExpression); //set assets
+			}
+			
+
+			//context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target type is Any, expression type is set to Any");
+		}
+
+		
 		
 		//if the property is an extended property, then the type of the call should be Any
 		//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
@@ -49,13 +69,6 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			
 			//can throw an warning for these types of property call, but we will see
 			context.getLogBook().addWarning(propertyCallExpression.getProperty(), "property is an Extended property, expression type is set to Any");
-		}
-		else if (propertyCallExpression.getTarget().getResolvedType() instanceof AnyType) {// or the target is of type Any
-			AnyType anyType = context.getEolFactory().createAnyType(); //create an anyType
-			context.setAssets(anyType, propertyCallExpression); //set assets
-			propertyCallExpression.setResolvedType(anyType); //assign type
-
-			context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target type is Any, expression type is set to Any");
 		}
 		else { //if the property is not an extended property and the target type is not of type Any
 			if(propertyCallExpression.getTarget().getResolvedType() instanceof ModelElementType) //if the target type is ModelElementType

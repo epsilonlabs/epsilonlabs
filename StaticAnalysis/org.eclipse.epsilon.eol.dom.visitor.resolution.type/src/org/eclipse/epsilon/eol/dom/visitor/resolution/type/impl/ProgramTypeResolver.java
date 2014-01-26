@@ -35,6 +35,7 @@ public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, O
 			controller.visit(od.getReturnType(), context); //resolve return type
 			if (od.getSelf() != null) {
 				od.getSelf().setResolvedType(EcoreUtil.copy(od.getContextType()));	
+				od.getSelf().getName().setResolvedType(EcoreUtil.copy(od.getContextType()));
 			}
 			Type contextType = od.getContextType(); //get the contextType
 			ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
@@ -59,10 +60,10 @@ public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, O
 		}
 		
 		controller.visitContents(program.getBlock(), context); //process statement block
-		for(OperationDefinition op: context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer().getOperations())
+		/*for(OperationDefinition op: context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer().getOperations())
 		{
 			System.out.println(op.getName().getName());
-		}
+		}*/
 		return null;
 	}
 
