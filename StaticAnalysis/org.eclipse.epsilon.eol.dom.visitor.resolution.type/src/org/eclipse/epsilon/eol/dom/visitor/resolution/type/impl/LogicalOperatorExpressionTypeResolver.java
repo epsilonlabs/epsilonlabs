@@ -133,9 +133,9 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					context.getLogBook().addError(lhs, "Expression should be of either type Integer or type Real");
 				}
 			}
-			else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) {
-				context.getLogBook().addError(rhs, "type incompatibility: trying to compare " + rhsType.getClass().getSimpleName() + " to " + lhsType.getClass().getSimpleName());
-			}
+			//else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) {
+			//	context.getLogBook().addError(rhs, "type incompatibility: trying to compare " + rhsType.getClass().getSimpleName() + " to " + lhsType.getClass().getSimpleName());
+			//}
 			/*
 			else if (lhsType.getClass().getSimpleName().equals(rhsType.getClass().getSimpleName()) && (!(rhsType instanceof AnyType))) {
 				if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) {
