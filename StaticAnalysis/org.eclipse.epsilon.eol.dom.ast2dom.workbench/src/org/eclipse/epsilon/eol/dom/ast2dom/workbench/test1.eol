@@ -1,5 +1,4 @@
-var a = eol!IntegerExpression.all.first;
-
+var i : new Any;
 /*
 var i : Any;
 i.isUndefined().println();

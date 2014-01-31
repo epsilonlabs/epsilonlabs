@@ -4203,7 +4203,7 @@
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_3XMvEHbSEeOkv4IggnDhGw" type="3002" source="_0SONyCwgEeK7YdpDjc97Ew" target="_0SNmsywgEeK7YdpDjc97Ew">
     <children xmi:type="notation:Node" xmi:id="_3XPLUHbSEeOkv4IggnDhGw" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_3XPLUXbSEeOkv4IggnDhGw" x="-10" y="-10"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_3XPLUXbSEeOkv4IggnDhGw" x="-27" y="-4"/>
     </children>
     <children xmi:type="notation:Node" xmi:id="_3XPyYHbSEeOkv4IggnDhGw" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_3XPyYXbSEeOkv4IggnDhGw" x="10" y="10"/>
@@ -4212,5 +4212,19 @@
     <styles xmi:type="notation:FontStyle" xmi:id="_3XMvEnbSEeOkv4IggnDhGw" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="Eol.ecore#//Import/importedProgram"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_3XMvE3bSEeOkv4IggnDhGw" points="[15, -20, -135, 165]$[100, -179, -50, 6]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_smaYoIbOEeOB_bt1l8fjKg" type="3002" source="_0SONyCwgEeK7YdpDjc97Ew" target="_0SNmsywgEeK7YdpDjc97Ew">
+    <children xmi:type="notation:Node" xmi:id="_smaYpIbOEeOB_bt1l8fjKg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_smaYpYbOEeOB_bt1l8fjKg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_sma_sIbOEeOB_bt1l8fjKg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_sma_sYbOEeOB_bt1l8fjKg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_smaYoYbOEeOB_bt1l8fjKg" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_smaYoobOEeOB_bt1l8fjKg" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//Import/program"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_smaYo4bOEeOB_bt1l8fjKg" points="[0, -43, -103, 148]$[0, -191, -103, 0]$[100, -191, -3, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yNKlwIbOEeOB_bt1l8fjKg" id="(0.5,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yNKlwYbOEeOB_bt1l8fjKg" id="(0.0392156862745098,0.8666666666666667)"/>
   </edges>
 </notation:Diagram>

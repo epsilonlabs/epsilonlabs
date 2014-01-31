@@ -28,7 +28,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Program" eSuperTypes="#//DomElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="#//Import" containment="true"/>
+        eType="#//Import" containment="true" eOpposite="#//Import/program"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
         eType="#//Program" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
@@ -45,6 +45,8 @@
         eType="#//StringExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
         eType="#//Program" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="program" eType="#//Program"
+        eOpposite="#//Program/imports"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//DomElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//DomElement">

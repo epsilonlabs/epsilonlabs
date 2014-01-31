@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.dom.visitor.optimisation.impl.Optimiser;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.epsilon.eol.parse.EolParser;
@@ -88,6 +89,25 @@ public class DummyModuleValidator implements IModuleValidator {
 			markers.add(marker);
 		}
 		
+		Optimiser o = new Optimiser();
+		o.run(dom);
+		
+		for(log.Error error: o.getOptimisationContext().getLogBook().getErrors())
+		{
+			TextRegion textRegion = error.getDomElement().getRegion();
+			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+			ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+			markers.add(marker);
+		}
+		
+		for(log.Warning warning: o.getOptimisationContext().getLogBook().getWarnings())
+		{
+			TextRegion textRegion = warning.getDomElement().getRegion();
+			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+
+			ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+			markers.add(marker);
+		}
 		return markers;
 	}
 

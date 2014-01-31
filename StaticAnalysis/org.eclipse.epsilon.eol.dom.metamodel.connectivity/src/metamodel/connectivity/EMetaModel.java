@@ -1,6 +1,7 @@
 package metamodel.connectivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -136,6 +137,17 @@ public class EMetaModel implements EModel{
 			return false;
 		}
 	}
+	
+	public List<EStructuralFeature> getEStructuralFeatures(String metaClassName)
+	{
+		EClass eClass = getMetaClass(metaClassName);
+		if (eClass != null) {
+			return eClass.getEAllStructuralFeatures();
+		}
+		else {
+			return null;
+		}
+	}
 		
 	public boolean containsEReference(String metaClassName, String eReferenceName)
 	{
@@ -196,7 +208,7 @@ public class EMetaModel implements EModel{
 	public EReference getEReference(EClass object, String referenceName)
 	{
 		EStructuralFeature feature = object.getEStructuralFeature(referenceName);
-		if (feature instanceof EAttribute) {
+		if (feature instanceof EReference) {
 			return (EReference) feature;
 		}
 		else {
