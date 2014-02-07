@@ -287,7 +287,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="BagType" eSuperTypes="#//CollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SequenceType" eSuperTypes="#//CollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="OrderedSetType" eSuperTypes="#//CollectionType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MapType" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MapType" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" lowerBound="1"
+        eType="#//Type" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="keyType" lowerBound="1"
+        eType="#//Type" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation" abstract="true" eSuperTypes="#//DomElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>

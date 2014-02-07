@@ -4227,4 +4227,28 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yNKlwIbOEeOB_bt1l8fjKg" id="(0.5,1.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yNKlwYbOEeOB_bt1l8fjKg" id="(0.0392156862745098,0.8666666666666667)"/>
   </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_al1PsI_wEeOSrepYYQSe7Q" type="3002" source="_0S2f6ywgEeK7YdpDjc97Ew" target="_KH9QUCw0EeK7YdpDjc97Ew">
+    <children xmi:type="notation:Node" xmi:id="_al12wI_wEeOSrepYYQSe7Q" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_al12wY_wEeOSrepYYQSe7Q" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_al12wo_wEeOSrepYYQSe7Q" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_al12w4_wEeOSrepYYQSe7Q" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_al1PsY_wEeOSrepYYQSe7Q" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_al1Pso_wEeOSrepYYQSe7Q" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//MapType/valueType"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_al1Ps4_wEeOSrepYYQSe7Q" points="[50, 3, -505, 178]$[308, 21, -247, 196]$[529, -155, -26, 20]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_c_EX8I_wEeOSrepYYQSe7Q" type="3002" source="_0S2f6ywgEeK7YdpDjc97Ew" target="_KH9QUCw0EeK7YdpDjc97Ew">
+    <children xmi:type="notation:Node" xmi:id="_c_EX9I_wEeOSrepYYQSe7Q" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_c_EX9Y_wEeOSrepYYQSe7Q" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_c_EX9o_wEeOSrepYYQSe7Q" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_c_EX94_wEeOSrepYYQSe7Q" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_c_EX8Y_wEeOSrepYYQSe7Q" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_c_EX8o_wEeOSrepYYQSe7Q" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//MapType/keyType"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_c_EX84_wEeOSrepYYQSe7Q" points="[8, -20, -547, 155]$[101, -240, -454, -65]$[505, -183, -50, -8]"/>
+  </edges>
 </notation:Diagram>
