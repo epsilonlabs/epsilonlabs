@@ -1,0 +1,328 @@
+/**
+ */
+package org.eclipse.epsilon.eol.dom.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import org.eclipse.epsilon.eol.dom.EolPackage;
+import org.eclipse.epsilon.eol.dom.Import;
+import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.dom.StringExpression;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Import</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.eclipse.epsilon.eol.dom.impl.ImportImpl#getImported <em>Imported</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.dom.impl.ImportImpl#getImportedProgram <em>Imported Program</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.dom.impl.ImportImpl#getProgram <em>Program</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public class ImportImpl extends DomElementImpl implements Import {
+	/**
+	 * The cached value of the '{@link #getImported() <em>Imported</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImported()
+	 * @generated
+	 * @ordered
+	 */
+	protected StringExpression imported;
+
+	/**
+	 * The cached value of the '{@link #getImportedProgram() <em>Imported Program</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImportedProgram()
+	 * @generated
+	 * @ordered
+	 */
+	protected Program importedProgram;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ImportImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return EolPackage.Literals.IMPORT;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StringExpression getImported() {
+		return imported;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetImported(StringExpression newImported, NotificationChain msgs) {
+		StringExpression oldImported = imported;
+		imported = newImported;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.IMPORT__IMPORTED, oldImported, newImported);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImported(StringExpression newImported) {
+		if (newImported != imported) {
+			NotificationChain msgs = null;
+			if (imported != null)
+				msgs = ((InternalEObject)imported).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.IMPORT__IMPORTED, null, msgs);
+			if (newImported != null)
+				msgs = ((InternalEObject)newImported).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.IMPORT__IMPORTED, null, msgs);
+			msgs = basicSetImported(newImported, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.IMPORT__IMPORTED, newImported, newImported));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Program getImportedProgram() {
+		return importedProgram;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetImportedProgram(Program newImportedProgram, NotificationChain msgs) {
+		Program oldImportedProgram = importedProgram;
+		importedProgram = newImportedProgram;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.IMPORT__IMPORTED_PROGRAM, oldImportedProgram, newImportedProgram);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImportedProgram(Program newImportedProgram) {
+		if (newImportedProgram != importedProgram) {
+			NotificationChain msgs = null;
+			if (importedProgram != null)
+				msgs = ((InternalEObject)importedProgram).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.IMPORT__IMPORTED_PROGRAM, null, msgs);
+			if (newImportedProgram != null)
+				msgs = ((InternalEObject)newImportedProgram).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.IMPORT__IMPORTED_PROGRAM, null, msgs);
+			msgs = basicSetImportedProgram(newImportedProgram, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.IMPORT__IMPORTED_PROGRAM, newImportedProgram, newImportedProgram));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Program getProgram() {
+		if (eContainerFeatureID() != EolPackage.IMPORT__PROGRAM) return null;
+		return (Program)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetProgram(Program newProgram, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newProgram, EolPackage.IMPORT__PROGRAM, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProgram(Program newProgram) {
+		if (newProgram != eInternalContainer() || (eContainerFeatureID() != EolPackage.IMPORT__PROGRAM && newProgram != null)) {
+			if (EcoreUtil.isAncestor(this, newProgram))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newProgram != null)
+				msgs = ((InternalEObject)newProgram).eInverseAdd(this, EolPackage.PROGRAM__IMPORTS, Program.class, msgs);
+			msgs = basicSetProgram(newProgram, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.IMPORT__PROGRAM, newProgram, newProgram));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.IMPORT__PROGRAM:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetProgram((Program)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.IMPORT__IMPORTED:
+				return basicSetImported(null, msgs);
+			case EolPackage.IMPORT__IMPORTED_PROGRAM:
+				return basicSetImportedProgram(null, msgs);
+			case EolPackage.IMPORT__PROGRAM:
+				return basicSetProgram(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case EolPackage.IMPORT__PROGRAM:
+				return eInternalContainer().eInverseRemove(this, EolPackage.PROGRAM__IMPORTS, Program.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case EolPackage.IMPORT__IMPORTED:
+				return getImported();
+			case EolPackage.IMPORT__IMPORTED_PROGRAM:
+				return getImportedProgram();
+			case EolPackage.IMPORT__PROGRAM:
+				return getProgram();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case EolPackage.IMPORT__IMPORTED:
+				setImported((StringExpression)newValue);
+				return;
+			case EolPackage.IMPORT__IMPORTED_PROGRAM:
+				setImportedProgram((Program)newValue);
+				return;
+			case EolPackage.IMPORT__PROGRAM:
+				setProgram((Program)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case EolPackage.IMPORT__IMPORTED:
+				setImported((StringExpression)null);
+				return;
+			case EolPackage.IMPORT__IMPORTED_PROGRAM:
+				setImportedProgram((Program)null);
+				return;
+			case EolPackage.IMPORT__PROGRAM:
+				setProgram((Program)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case EolPackage.IMPORT__IMPORTED:
+				return imported != null;
+			case EolPackage.IMPORT__IMPORTED_PROGRAM:
+				return importedProgram != null;
+			case EolPackage.IMPORT__PROGRAM:
+				return getProgram() != null;
+		}
+		return super.eIsSet(featureID);
+	}
+
+} //ImportImpl
