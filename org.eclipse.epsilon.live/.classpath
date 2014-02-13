@@ -6,6 +6,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.ecore_2.4.0.v200806091234.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.ecore.xmi_2.4.0.v200806091234.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.eclipse.emf.common_2.4.0.v200806091234.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/epsilon-standalone.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/epsilon-1.1_SR1-emf.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER/GWT (1)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
