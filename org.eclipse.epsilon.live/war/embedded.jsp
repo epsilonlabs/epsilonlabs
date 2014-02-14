@@ -5,11 +5,18 @@ boolean compact = false;
 String metamodel = null;
 String model = null;
 String source = "";
+String editorHeight = "526";
+String consoleHeight = "150";
 
 if (request.getParameter("source") != null) {
 	source = request.getParameter("source") + "";
 }
-
+if (request.getParameter("editorHeight") != null) {
+	editorHeight = request.getParameter("editorHeight") + "";
+}
+if (request.getParameter("consoleHeight") != null) {
+	consoleHeight = request.getParameter("consoleHeight") + "";
+}
 if (request.getParameter("button") != null) {
 	button = request.getParameter("button") + "";
 }
@@ -98,8 +105,10 @@ if (request.getParameter("model") != null) {
   			var editors = document.getElementsByClassName("codeMirror-scroll");
   			<%if (compact){%>
   			editors[0].style.height="150px";
+  			<%} else {%>
+  			editors[0].style.height="<%=editorHeight%>px";
   			<%}%>
-  			editors[1].style.height="150px";
+  			editors[1].style.height="<%=consoleHeight%>px";
   			editors[1].refresh();
 		</script>
 

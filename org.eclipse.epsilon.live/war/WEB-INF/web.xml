@@ -6,7 +6,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
 	<servlet>
 		<servlet-name>evaluate</servlet-name>
-		<servlet-class>org.eclipse.epsilon.live.EolEvaluatorServlet</servlet-class>
+		<servlet-class>org.eclipse.epsilon.live.EpsilonEvaluatorServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>evaluate</servlet-name>

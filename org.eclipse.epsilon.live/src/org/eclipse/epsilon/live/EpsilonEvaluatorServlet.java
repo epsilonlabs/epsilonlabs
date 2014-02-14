@@ -18,11 +18,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.problem.ParseProblem;
+import org.eclipse.epsilon.egl.EglTemplateFactory;
+import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
 import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.IEolExecutableModule;
 
 @SuppressWarnings("serial")
-public class EolEvaluatorServlet extends HttpServlet {
+public class EpsilonEvaluatorServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -33,7 +36,12 @@ public class EolEvaluatorServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
 		
-		EolModule module = new EolModule();
+		String language = "eol";
+		if (req.getParameter("language") != null) {
+			language = req.getParameter("language");
+		}
+		
+		IEolExecutableModule module = createModule(language);
 		StringOutputStream output = new StringOutputStream();
 		
 		ResourceSet rs = new ResourceSetImpl();
@@ -74,7 +82,12 @@ public class EolEvaluatorServlet extends HttpServlet {
 			module.getContext().getPrettyPrinterManager().addPrettyPrinter(new SecretiveEmfPrettyPrinter());
 			module.getContext().setOutputStream(new PrintStream(output));
 			module.getContext().setErrorStream(new PrintStream(output));
-			module.execute();
+			Object result = module.execute();
+			
+			if (module instanceof EglTemplateFactoryModuleAdapter) {
+				module.getContext().getOutputStream().println(result);
+			}
+			
 		} catch (Exception e) {
 			resp.getWriter().println(e.getMessage());
 			return;
@@ -85,6 +98,13 @@ public class EolEvaluatorServlet extends HttpServlet {
 		module.getContext().getModelRepository().dispose();
 		module.getContext().dispose();
 		
+	}
+	
+	protected IEolExecutableModule createModule(String language) {
+		if ("egl".equalsIgnoreCase(language)) {
+			return new EglTemplateFactoryModuleAdapter(new EglTemplateFactory());
+		}
+		else return new EolModule();
 	}
 	
 	public class StringOutputStream extends OutputStream {
