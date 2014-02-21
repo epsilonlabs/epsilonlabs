@@ -1,0 +1,85 @@
+package util;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.orientechnologies.orient.core.record.impl.ODocument;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
+
+/**
+ * 
+ * @author kb
+ *
+ */
+public class IsOf {
+
+	/**
+	 * 
+	 * @param modelElement
+	 * @return the class (typeOf) of the modelElement as a String
+	 */
+	@SuppressWarnings("unchecked")
+	public String isOfClass(ODocument modelElement){
+		
+		String s = "";
+		ArrayList<String> ar = new ArrayList<String>();
+		
+		Collection<ODocument> a = modelElement.getDatabase().command(
+				new OCommandSQL(
+						"select rid from index:metacdictionary"))
+				.execute();
+		
+		for(ODocument oo:a){
+			ODocument o = modelElement.getDatabase().load(new util.ToORID().toORID(oo.toString()));
+//			System.out.println("----------------------");
+//			System.out.println(o.field("class").toString());
+//			System.out.println(n.getIdentity());
+//			System.out.println("----------------------");
+			for(ODocument orid:((Collection<ODocument>)o.field("class"))){
+				if(orid.equals(modelElement.getIdentity()))
+				ar.add(o.field("id")+"");
+				}
+		}
+		
+		for(String ss:ar)s+=ss+"\n\t\t\t";
+		
+		return s.trim();
+			
+	}
+	
+	/**
+	 * 
+	 * @param modelElement
+	 * @return the superclass(es) (kindOf) of the modelElement as a String
+	 */
+	@SuppressWarnings("unchecked")
+	public String isOfSuperClass(ODocument modelElement){
+		
+		String s = "";
+		ArrayList<String> ar = new ArrayList<String>();
+		
+		Collection<ODocument> a = modelElement.getDatabase().command(
+				new OCommandSQL(
+						"select rid from index:metacdictionary"))
+				.execute();
+		
+		for(ODocument oo:a){
+			ODocument o = modelElement.getDatabase().load(new util.ToORID().toORID(oo.toString()));
+//			System.out.println("----------------------");
+//			System.out.println(o.field("superclass").toString());
+//			System.out.println(n.getIdentity());
+//			System.out.println("----------------------");
+			for(ODocument orid:((Collection<ODocument>)o.field("superclass"))){
+				if(orid.equals(modelElement.getIdentity()))
+				ar.add(o.field("id")+"");
+				}
+		}
+		
+		for(String ss:ar)s+=ss+"\n\t\t\t";
+		
+		return s.trim();
+			
+	}
+	
+	
+}
