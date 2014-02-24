@@ -4,6 +4,7 @@ import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.dom.BooleanExpression;
 import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.Expression;
+import org.eclipse.epsilon.eol.dom.MapType;
 import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
@@ -15,6 +16,7 @@ public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 	public DomElement create(AST ast, DomElement container,
 			Ast2DomContext context) {
 	
+
 		VariableDeclarationExpression declaration = context.getEolFactory().createVariableDeclarationExpression(); //create a VariableDeclarationExpression
 		this.setAssets(ast, declaration, container); //set assets: line, column, container
 		
