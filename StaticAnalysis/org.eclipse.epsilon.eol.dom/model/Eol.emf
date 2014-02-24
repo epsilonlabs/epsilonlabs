@@ -21,7 +21,7 @@ class TextPosition {
 }
 
 class Program extends DomElement {
-  val Import[*]#program imports;
+  val Import[*] imports;
   val Program[*] importedModules;
   val OperationDefinition[*] operations;
   val Block block;
@@ -32,7 +32,6 @@ class Program extends DomElement {
 class Import extends DomElement {
   val StringExpression[1] imported;
   val Program[1] importedProgram;
-  ref Program#imports program;
 }
 
 abstract class Statement extends DomElement {
@@ -297,16 +296,16 @@ class RealType extends PrimitiveType {
 class StringType extends PrimitiveType {
 }
 
-class SetType extends CollectionType {
+class SetType extends UniqueCollectionType {
 }
 
 class BagType extends CollectionType {
 }
 
-class SequenceType extends CollectionType {
+class SequenceType extends OrderedCollectionType {
 }
 
-class OrderedSetType extends CollectionType {
+class OrderedSetType extends OrderedCollectionType, UniqueCollectionType {
 }
 
 class MapType extends Type {
@@ -416,5 +415,14 @@ class SelfType extends PseudoType {
 }
 
 class SelfContentType extends PseudoType {
+}
+
+class OrderedCollectionType extends CollectionType {
+}
+
+class UniqueCollectionType extends CollectionType {
+}
+
+class SelfInnermostType extends PseudoType {
 }
 

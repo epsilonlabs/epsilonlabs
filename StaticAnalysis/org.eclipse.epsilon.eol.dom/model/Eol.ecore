@@ -28,7 +28,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Program" eSuperTypes="#//DomElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="#//Import" containment="true" eOpposite="#//Import/program"/>
+        eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
         eType="#//Program" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
@@ -45,8 +45,6 @@
         eType="#//StringExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
         eType="#//Program" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="program" eType="#//Program"
-        eOpposite="#//Program/imports"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//DomElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//DomElement">
@@ -283,10 +281,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="IntegerType" eSuperTypes="#//PrimitiveType"/>
   <eClassifiers xsi:type="ecore:EClass" name="RealType" eSuperTypes="#//PrimitiveType"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringType" eSuperTypes="#//PrimitiveType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SetType" eSuperTypes="#//CollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SetType" eSuperTypes="#//UniqueCollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="BagType" eSuperTypes="#//CollectionType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SequenceType" eSuperTypes="#//CollectionType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OrderedSetType" eSuperTypes="#//CollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SequenceType" eSuperTypes="#//OrderedCollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedSetType" eSuperTypes="#//OrderedCollectionType #//UniqueCollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="MapType" eSuperTypes="#//Type">
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" lowerBound="1"
         eType="#//Type" containment="true"/>
@@ -385,4 +383,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PseudoType" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfContentType" eSuperTypes="#//PseudoType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedCollectionType" eSuperTypes="#//CollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UniqueCollectionType" eSuperTypes="#//CollectionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SelfInnermostType" eSuperTypes="#//PseudoType"/>
 </ecore:EPackage>
