@@ -32,7 +32,7 @@ operation Collection size() : Integer {} //simple
 
 operation Collection isEmpty() : Boolean {} //simple
 
-operation Collection random() : Any {} //done
+operation Collection random() : SelfContentType {} //done
 
 operation Collection clone() : Collection {} //done
 
@@ -75,6 +75,7 @@ operation Collection selectOne(iterator: Any) : SelfContentType {}
 
 operation Collection reject(iterator: Any) : SelfType {}
 
+@needHandle
 operation Collection collect(iterator: Any) : SelfType {}
 
 operation Collection closure(iterator: Any) : SelfType {}

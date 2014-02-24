@@ -146,6 +146,10 @@ public class TypeUtil {
 			b = (Type) t2;
 		}
 		
+		if (t1.eClass().equals(t2.eClass())) {
+			return true;
+		}
+		
 		if (b instanceof AnyType) {
 			return true;
 		}

@@ -10,6 +10,7 @@ import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.OrderedSetType;
+import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
 import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.SetType;
 import org.eclipse.epsilon.eol.dom.Type;
@@ -35,12 +36,22 @@ public class CollectionFirstAndLastOperationHandler extends CollectionOperationD
 			ArrayList<Type> argTypes) {
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
+		String name= "";
+		if(featureCallExpression instanceof MethodCallExpression)
+		{
+			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+			name = ((MethodCallExpression) featureCallExpression).getMethod().getName();
+		}
+		if (featureCallExpression instanceof PropertyCallExpression) {
+			result = container.getOperation(((PropertyCallExpression) featureCallExpression).getProperty().getName(), argTypes);
+			name = ((PropertyCallExpression) featureCallExpression).getProperty().getName();
+		}
 
 		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
 		
 		if (!(targetType instanceof SequenceType || targetType instanceof OrderedSetType || targetType instanceof SetType || targetType instanceof BagType)) {
-			context.getLogBook().addError(featureCallExpression.getTarget(), "Operation invert() can only be performed on collection types");
+			context.getLogBook().addError(featureCallExpression.getTarget(), "Operation " + name + " can only be performed on collection types");
 		}
 		else {
 			if (!(targetType.getContentType() instanceof AnyType)) { //if content type is not any

@@ -21,8 +21,8 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			CollectionType iteratedType = (CollectionType) forStatement.getIterated().getResolvedType();
 			Type contentType = null;
 			if (iteratedType.getContentType() != null) {
-				contentType = iteratedType.getContentType();
-				forStatement.getIterated().setResolvedType(EcoreUtil.copy(contentType));
+				contentType = EcoreUtil.copy(iteratedType.getContentType());
+				forStatement.getIterator().setResolvedType(EcoreUtil.copy(contentType));
 			}	
 		}
 		

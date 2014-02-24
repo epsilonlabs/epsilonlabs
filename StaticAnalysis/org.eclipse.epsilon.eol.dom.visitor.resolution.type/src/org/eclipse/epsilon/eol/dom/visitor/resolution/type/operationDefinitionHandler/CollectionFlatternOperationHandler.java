@@ -47,5 +47,12 @@ public class CollectionFlatternOperationHandler extends CollectionOperationDefin
 		}
 		return result;
 	}
+	
+	public Type getInnermostContentType(CollectionType type)
+	{
+		Type result = null;
+		
+		return null;
+	}
 
 }

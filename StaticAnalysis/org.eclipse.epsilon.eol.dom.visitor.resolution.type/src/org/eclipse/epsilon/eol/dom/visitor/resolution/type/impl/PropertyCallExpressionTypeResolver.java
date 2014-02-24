@@ -122,16 +122,16 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								callType = context.getEolFactory().createBagType(); //this should be a bag
 							}
 							
-							callType.setContentType(contentType);
-							context.setAssets(contentType, callType); //set assets for contentType
+							callType.setContentType(EcoreUtil.copy(contentType));
+							//context.setAssets(contentType, callType); //set assets for contentType
 							
 							Type typeCopy = EcoreUtil.copy(callType);
 							propertyCallExpression.getProperty().setResolvedType(typeCopy);
 							context.setAssets(typeCopy, propertyCallExpression.getProperty());
 							
 							
-							propertyCallExpression.setResolvedType(callType);
-							context.setAssets(callType, propertyCallExpression); //set assets for callType
+							propertyCallExpression.setResolvedType(typeCopy);
+							context.setAssets(typeCopy, propertyCallExpression); //set assets for callType
 							
 						}
 						else { //if the feature is single value aggregation
@@ -320,6 +320,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 	public boolean isKeyword(String s)
 	{
 		if (s.equals("all") ||
+				s.equals("allInstances") ||
 				s.equals("first") ||
 				s.equals("last") ||
 				s.equals("one")) {
@@ -328,6 +329,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		else {
 			return false;
 		}
+		
 	}
 	
 	public void handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
@@ -338,7 +340,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getHandlerFactory().handle(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes);
 		if (operationDefinition != null) {
 			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
-			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
+			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType) || targetType instanceof CollectionType && contextType instanceof CollectionType) { //if target type and context type is generic
 				
 				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
 					propertyCallExpression.setResolvedType(EcoreUtil.copy(targetType));  //just copy the target type because the target type has been resolved
