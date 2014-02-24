@@ -2,29 +2,47 @@
 <eol:Program xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" line="1">
   <region>
     <start line="1"/>
-    <end line="1" column="16"/>
+    <end line="1" column="32"/>
   </region>
   <block container="/" line="1">
     <region>
       <start line="1"/>
-      <end line="1" column="16"/>
+      <end line="1" column="32"/>
     </region>
     <statements xsi:type="eol:ExpressionStatement" container="//@block" line="1">
       <region>
         <start line="1"/>
-        <end line="1" column="16"/>
+        <end line="1" column="32"/>
       </region>
-      <expression xsi:type="eol:NewExpression" container="//@block/@statements.0" line="1">
+      <expression xsi:type="eol:VariableDeclarationExpression" container="//@block/@statements.0" line="1">
         <region>
           <start line="1"/>
-          <end line="1" column="16"/>
+          <end line="1" column="32"/>
         </region>
-        <resolvedType xsi:type="eol:AnyType" container="//@block/@statements.0/@expression" line="1" column="12">
+        <resolvedType xsi:type="eol:MapType" container="//@block/@statements.0/@expression" line="1" column="12">
           <region>
             <start line="1" column="12"/>
             <end line="1" column="15"/>
           </region>
         </resolvedType>
+        <name container="//@block/@statements.0/@expression" line="1" column="4" name="i">
+          <region>
+            <start line="1" column="4"/>
+            <end line="1" column="5"/>
+          </region>
+        </name>
+        <create container="//@block/@statements.0/@expression" line="1" val="true">
+          <region>
+            <start line="1"/>
+            <end line="1" column="32"/>
+          </region>
+          <resolvedType xsi:type="eol:BooleanType" container="//@block/@statements.0/@expression/@create" line="1">
+            <region>
+              <start line="1"/>
+              <end line="1" column="32"/>
+            </region>
+          </resolvedType>
+        </create>
       </expression>
     </statements>
   </block>

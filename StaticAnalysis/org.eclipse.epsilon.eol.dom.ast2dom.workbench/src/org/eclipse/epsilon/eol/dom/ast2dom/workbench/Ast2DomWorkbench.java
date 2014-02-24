@@ -36,7 +36,8 @@ public class Ast2DomWorkbench {
 		AST ast = eolModule.getAst();
 		System.out.println(ast.toStringTree());
 		
-		System.out.println(ast.getChild(0).getChild(0).getType());
+		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
+		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 		
 		Ast2DomContext context = new Ast2DomContext();
 		DomElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
