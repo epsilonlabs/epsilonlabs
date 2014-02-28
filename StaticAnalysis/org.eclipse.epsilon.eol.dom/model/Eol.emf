@@ -426,3 +426,6 @@ class UniqueCollectionType extends CollectionType {
 class SelfInnermostType extends PseudoType {
 }
 
+class OperationArgType extends PseudoType {
+}
+

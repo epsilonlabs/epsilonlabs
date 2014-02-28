@@ -386,4 +386,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="OrderedCollectionType" eSuperTypes="#//CollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="UniqueCollectionType" eSuperTypes="#//CollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfInnermostType" eSuperTypes="#//PseudoType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationArgType" eSuperTypes="#//PseudoType"/>
 </ecore:EPackage>

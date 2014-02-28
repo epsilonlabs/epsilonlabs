@@ -276,5 +276,6 @@
     <genClasses ecoreClass="Eol.ecore#//OrderedCollectionType"/>
     <genClasses ecoreClass="Eol.ecore#//UniqueCollectionType"/>
     <genClasses ecoreClass="Eol.ecore#//SelfInnermostType"/>
+    <genClasses ecoreClass="Eol.ecore#//OperationArgType"/>
   </genPackages>
 </genmodel:GenModel>
