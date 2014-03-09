@@ -44,4 +44,12 @@ public class GraphmlModel extends MuddleModel {
 			muddle = MuddleFactory.eINSTANCE.createMuddle();
 		}
 	}
+	
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	public File getFile() {
+		return file;
+	}
 }
