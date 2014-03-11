@@ -15,6 +15,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//MuddleElement/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference muddle.ecore#//MuddleElement/slots"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference muddle.ecore#//MuddleElement/type"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference muddle.ecore#//MuddleElement/muddle"/>
     </genClasses>
     <genClasses ecoreClass="muddle.ecore#//Slot">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//Slot/values"/>
@@ -28,6 +29,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//Feature/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//Feature/many"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//Feature/primary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute muddle.ecore#//Feature/runtime"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference muddle.ecore#//Feature/type"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference muddle.ecore#//Feature/owningType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference muddle.ecore#//Feature/slots"/>

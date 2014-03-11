@@ -43,6 +43,7 @@ public interface Muddle extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.emc.muddle.MuddleElement}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle <em>Muddle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Elements</em>' containment reference list isn't clear,
@@ -51,7 +52,8 @@ public interface Muddle extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Elements</em>' containment reference list.
 	 * @see org.eclipse.epsilon.emc.muddle.MuddlePackage#getMuddle_Elements()
-	 * @model containment="true"
+	 * @see org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle
+	 * @model opposite="muddle" containment="true"
 	 * @generated
 	 */
 	EList<MuddleElement> getElements();

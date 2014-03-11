@@ -16,8 +16,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.epsilon.emc.muddle.Muddle;
 import org.eclipse.epsilon.emc.muddle.MuddleElement;
 import org.eclipse.epsilon.emc.muddle.MuddleElementType;
 import org.eclipse.epsilon.emc.muddle.MuddlePackage;
@@ -33,6 +35,7 @@ import org.eclipse.epsilon.emc.muddle.Slot;
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.MuddleElementImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.MuddleElementImpl#getSlots <em>Slots</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.MuddleElementImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.MuddleElementImpl#getMuddle <em>Muddle</em>}</li>
  * </ul>
  * </p>
  *
@@ -196,6 +199,47 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Muddle getMuddle() {
+		if (eContainerFeatureID() != MuddlePackage.MUDDLE_ELEMENT__MUDDLE) return null;
+		return (Muddle)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMuddle(Muddle newMuddle, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newMuddle, MuddlePackage.MUDDLE_ELEMENT__MUDDLE, msgs);
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMuddle(Muddle newMuddle) {
+		if (newMuddle != eInternalContainer() || (eContainerFeatureID() != MuddlePackage.MUDDLE_ELEMENT__MUDDLE && newMuddle != null)) {
+			if (EcoreUtil.isAncestor(this, newMuddle))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newMuddle != null)
+				msgs = ((InternalEObject)newMuddle).eInverseAdd(this, MuddlePackage.MUDDLE__ELEMENTS, Muddle.class, msgs);
+			msgs = basicSetMuddle(newMuddle, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MuddlePackage.MUDDLE_ELEMENT__MUDDLE, newMuddle, newMuddle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -206,6 +250,10 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 				if (type != null)
 					msgs = ((InternalEObject)type).eInverseRemove(this, MuddlePackage.MUDDLE_ELEMENT_TYPE__INSTANCES, MuddleElementType.class, msgs);
 				return basicSetType((MuddleElementType)otherEnd, msgs);
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetMuddle((Muddle)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -222,8 +270,24 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 				return ((InternalEList<?>)getSlots()).basicRemove(otherEnd, msgs);
 			case MuddlePackage.MUDDLE_ELEMENT__TYPE:
 				return basicSetType(null, msgs);
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				return basicSetMuddle(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				return eInternalContainer().eInverseRemove(this, MuddlePackage.MUDDLE__ELEMENTS, Muddle.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -241,6 +305,8 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 			case MuddlePackage.MUDDLE_ELEMENT__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				return getMuddle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -264,6 +330,9 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 			case MuddlePackage.MUDDLE_ELEMENT__TYPE:
 				setType((MuddleElementType)newValue);
 				return;
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				setMuddle((Muddle)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -285,6 +354,9 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 			case MuddlePackage.MUDDLE_ELEMENT__TYPE:
 				setType((MuddleElementType)null);
 				return;
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				setMuddle((Muddle)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -303,6 +375,8 @@ public class MuddleElementImpl extends MinimalEObjectImpl.Container implements M
 				return slots != null && !slots.isEmpty();
 			case MuddlePackage.MUDDLE_ELEMENT__TYPE:
 				return type != null;
+			case MuddlePackage.MUDDLE_ELEMENT__MUDDLE:
+				return getMuddle() != null;
 		}
 		return super.eIsSet(featureID);
 	}

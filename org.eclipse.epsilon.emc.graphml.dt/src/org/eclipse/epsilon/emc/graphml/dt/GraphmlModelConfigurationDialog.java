@@ -25,7 +25,7 @@ public class GraphmlModelConfigurationDialog extends AbstractCachedModelConfigur
 
 	
 	protected String getModelName() {
-		return "GraphML model";
+		return "GraphML Muddle";
 	}
 
 	

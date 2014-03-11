@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#isMany <em>Many</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#isPrimary <em>Primary</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#isRuntime <em>Runtime</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#getOwningType <em>Owning Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.Feature#getSlots <em>Slots</em>}</li>
@@ -107,6 +108,33 @@ public interface Feature extends EObject {
 	 * @generated
 	 */
 	void setPrimary(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Runtime</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Runtime</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Runtime</em>' attribute.
+	 * @see #setRuntime(boolean)
+	 * @see org.eclipse.epsilon.emc.muddle.MuddlePackage#getFeature_Runtime()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isRuntime();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.emc.muddle.Feature#isRuntime <em>Runtime</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Runtime</em>' attribute.
+	 * @see #isRuntime()
+	 * @generated
+	 */
+	void setRuntime(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.

@@ -9,7 +9,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
         eType="#//Type" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
-        eType="#//MuddleElement" containment="true"/>
+        eType="#//MuddleElement" containment="true" eOpposite="#//MuddleElement/muddle"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MuddleElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -17,6 +17,8 @@
         eType="#//Slot" containment="true" eOpposite="#//Slot/owningElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//MuddleElementType"
         eOpposite="#//MuddleElementType/instances"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="muddle" eType="#//Muddle"
+        eOpposite="#//Muddle/elements"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Slot">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" upperBound="-1"
@@ -34,6 +36,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="many" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primary" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="runtime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owningType" eType="#//MuddleElementType"

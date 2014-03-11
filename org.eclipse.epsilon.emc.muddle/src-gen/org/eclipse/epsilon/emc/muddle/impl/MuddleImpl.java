@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.emc.muddle.Muddle;
@@ -94,9 +95,24 @@ public class MuddleImpl extends MinimalEObjectImpl.Container implements Muddle {
 	 */
 	public EList<MuddleElement> getElements() {
 		if (elements == null) {
-			elements = new EObjectContainmentEList<MuddleElement>(MuddleElement.class, this, MuddlePackage.MUDDLE__ELEMENTS);
+			elements = new EObjectContainmentWithInverseEList<MuddleElement>(MuddleElement.class, this, MuddlePackage.MUDDLE__ELEMENTS, MuddlePackage.MUDDLE_ELEMENT__MUDDLE);
 		}
 		return elements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case MuddlePackage.MUDDLE__ELEMENTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getElements()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

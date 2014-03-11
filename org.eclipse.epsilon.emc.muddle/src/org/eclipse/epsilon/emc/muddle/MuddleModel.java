@@ -3,24 +3,84 @@ package org.eclipse.epsilon.emc.muddle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.exceptions.models.EolEnumerationValueNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementTypeException;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
+import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.Model;
 
 public class MuddleModel extends Model {
 
+	
+	public static void main(String[] args) throws Exception {
+		
+		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+		ePackage.setName("m2");
+		ePackage.setNsURI(ePackage.getName());
+		ePackage.setNsPrefix(ePackage.getName());
+		EClass eClass = EcoreFactory.eINSTANCE.createEClass();
+		eClass.setName("C1");
+		EAttribute eAttribute = EcoreFactory.eINSTANCE.createEAttribute();
+		eAttribute.setName("a1");
+		eAttribute.setEType(EcorePackage.eINSTANCE.getEClassifier("EString"));
+		eClass.getEStructuralFeatures().add(eAttribute);
+		ePackage.getEClassifiers().add(eClass);
+		
+		
+		/*
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.createResource(URI.createURI("foo"));
+		*/
+		
+		EObject object = ePackage.getEFactoryInstance().create(eClass);
+		//object.eSet(eClass.getEStructuralFeature("a1"), "v1");
+		System.out.println(object.eGet(eClass.getEStructuralFeature("a1")));
+		
+		EAttribute eAttribute2 = EcoreFactory.eINSTANCE.createEAttribute();
+		eAttribute2.setName("a2");
+		eAttribute2.setEType(EcorePackage.eINSTANCE.getEClassifier("EString"));
+		eClass.getEStructuralFeatures().add(eAttribute2);		
+		
+		object.eSet(eClass.getEStructuralFeature("a2"), "v2");
+		
+		
+	}
+	
 	protected Muddle muddle;
+	protected Set<Feature> unusedFeatures;
+	
 	@Override
 	public Collection<?> allContents() {
 		return muddle.getElements();
 	}
-
+	
+	public Set<Feature> getUnusedFeatures() {
+		if (unusedFeatures == null && muddle != null) {
+			unusedFeatures = new HashSet<Feature>();
+			for (Type type : muddle.getTypes()) {
+	               if (type instanceof MuddleElementType) {
+	            	   unusedFeatures.addAll(((MuddleElementType) type).getFeatures());
+	               }
+	          }
+		}
+		return unusedFeatures;
+	}
+	
 	@Override
 	public Object createInstance(String t)
 			throws EolModelElementTypeNotFoundException,
@@ -141,17 +201,27 @@ public class MuddleModel extends Model {
 		return null;
 	}
 	
-	public void setGraph(Muddle muddle) {
+	public void setMuddle(Muddle muddle) {
 		this.muddle = muddle;
 	}
 	
-	protected MuddleModelPropertyGetter propertyGetter = new MuddleModelPropertyGetter();
+	public Muddle getMuddle() {
+		return muddle;
+	}
+	
+	protected MuddleModelPropertyGetter propertyGetter = new MuddleModelPropertyGetter(this);
+	protected MuddleModelPropertySetter propertySetter = new MuddleModelPropertySetter(this);
 	
 	@Override
 	public IPropertyGetter getPropertyGetter() {
 		return propertyGetter;
 	}
 
+	@Override
+	public IPropertySetter getPropertySetter() {
+		return propertySetter;
+	}
+	
 	@Override
 	public void load() throws EolModelLoadingException {
 		

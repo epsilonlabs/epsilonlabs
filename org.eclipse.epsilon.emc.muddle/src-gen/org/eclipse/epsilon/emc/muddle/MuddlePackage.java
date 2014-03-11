@@ -141,13 +141,22 @@ public interface MuddlePackage extends EPackage {
 	int MUDDLE_ELEMENT__TYPE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Muddle</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUDDLE_ELEMENT__MUDDLE = 3;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MUDDLE_ELEMENT_FEATURE_COUNT = 3;
+	int MUDDLE_ELEMENT_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -288,13 +297,22 @@ public interface MuddlePackage extends EPackage {
 	int FEATURE__PRIMARY = 2;
 
 	/**
+	 * The feature id for the '<em><b>Runtime</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__RUNTIME = 3;
+
+	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__TYPE = 3;
+	int FEATURE__TYPE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Owning Type</b></em>' container reference.
@@ -303,7 +321,7 @@ public interface MuddlePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__OWNING_TYPE = 4;
+	int FEATURE__OWNING_TYPE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Slots</b></em>' reference list.
@@ -312,7 +330,7 @@ public interface MuddlePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE__SLOTS = 5;
+	int FEATURE__SLOTS = 6;
 
 	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
@@ -321,7 +339,7 @@ public interface MuddlePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = 6;
+	int FEATURE_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Feature</em>' class.
@@ -776,6 +794,17 @@ public interface MuddlePackage extends EPackage {
 	EReference getMuddleElement_Type();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle <em>Muddle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Muddle</em>'.
+	 * @see org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle()
+	 * @see #getMuddleElement()
+	 * @generated
+	 */
+	EReference getMuddleElement_Muddle();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.muddle.Slot <em>Slot</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -881,6 +910,17 @@ public interface MuddlePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFeature_Primary();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.muddle.Feature#isRuntime <em>Runtime</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Runtime</em>'.
+	 * @see org.eclipse.epsilon.emc.muddle.Feature#isRuntime()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EAttribute getFeature_Runtime();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.emc.muddle.Feature#getType <em>Type</em>}'.
@@ -1157,6 +1197,14 @@ public interface MuddlePackage extends EPackage {
 		EReference MUDDLE_ELEMENT__TYPE = eINSTANCE.getMuddleElement_Type();
 
 		/**
+		 * The meta object literal for the '<em><b>Muddle</b></em>' container reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MUDDLE_ELEMENT__MUDDLE = eINSTANCE.getMuddleElement_Muddle();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.muddle.impl.SlotImpl <em>Slot</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1241,6 +1289,14 @@ public interface MuddlePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FEATURE__PRIMARY = eINSTANCE.getFeature_Primary();
+
+		/**
+		 * The meta object literal for the '<em><b>Runtime</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE__RUNTIME = eINSTANCE.getFeature_Runtime();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.

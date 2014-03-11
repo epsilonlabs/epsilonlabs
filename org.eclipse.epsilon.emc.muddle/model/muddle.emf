@@ -4,13 +4,14 @@ package muddle;
 
 class Muddle {
 	val Type[*] types;
-	val MuddleElement[*] elements;
+	val MuddleElement[*]#muddle elements;
 }
 
 class MuddleElement {
 	attr String ~id;
 	val Slot[*]#owningElement slots;
 	ref MuddleElementType#instances type;
+	ref Muddle#elements muddle;
 }
 
 class Slot {
@@ -27,6 +28,7 @@ class Feature {
 	attr String name;
 	attr boolean many = false;
 	attr boolean primary = false;
+	attr boolean runtime = false;
 	ref Type type;
 	ref MuddleElementType#features owningType;
 	ref Slot[*]#feature slots;

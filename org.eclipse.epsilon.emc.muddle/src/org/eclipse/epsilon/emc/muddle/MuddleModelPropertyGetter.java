@@ -1,26 +1,24 @@
 package org.eclipse.epsilon.emc.muddle;
 
-import org.eclipse.epsilon.emc.muddle.BooleanType;
-import org.eclipse.epsilon.emc.muddle.Feature;
-import org.eclipse.epsilon.emc.muddle.IntegerType;
-import org.eclipse.epsilon.emc.muddle.MuddleElement;
-import org.eclipse.epsilon.emc.muddle.MuddleFactory;
-import org.eclipse.epsilon.emc.muddle.RealType;
-import org.eclipse.epsilon.emc.muddle.Slot;
-import org.eclipse.epsilon.emc.muddle.StringType;
-import org.eclipse.epsilon.eol.exceptions.EolIllegalPropertyException;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
-import org.eclipse.epsilon.eol.execute.introspection.AbstractPropertyGetter;
+import org.eclipse.epsilon.eol.execute.introspection.java.JavaPropertyGetter;
 
-public class MuddleModelPropertyGetter extends AbstractPropertyGetter {
-
+public class MuddleModelPropertyGetter extends JavaPropertyGetter {
+	
+	protected MuddleModel model;
+	
+	public MuddleModelPropertyGetter(MuddleModel model) {
+		this.model = model;
+	}
+	
 	@Override
 	public Object invoke(Object o, String property) throws EolRuntimeException {
 		
 		MuddleElement element = (MuddleElement) o;
 		
 		Feature feature = getFeature(element, property);
-		if (feature == null) throw new EolIllegalPropertyException(element, property, ast, context);
+		if (feature == null) return super.invoke(o, property);
+		else model.getUnusedFeatures().remove(feature);
 		
 		Slot slot = getSlot(element, feature);
 		if (slot == null) {

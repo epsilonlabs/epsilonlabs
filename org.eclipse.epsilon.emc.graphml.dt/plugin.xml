@@ -6,8 +6,8 @@
       <modelType
             class="org.eclipse.epsilon.emc.graphml.GraphmlModel"
             dialog="org.eclipse.epsilon.emc.graphml.dt.GraphmlModelConfigurationDialog"
-            icon="images/graphml.gif"
-            label="GraphML model"
+            icon="images/graphml.png"
+            label="GraphML Muddle"
             stable="true"
             type="GraphML">
       </modelType>

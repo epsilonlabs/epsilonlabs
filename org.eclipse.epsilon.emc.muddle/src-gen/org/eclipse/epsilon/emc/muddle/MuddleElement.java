@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getSlots <em>Slots</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getType <em>Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle <em>Muddle</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,5 +97,33 @@ public interface MuddleElement extends EObject {
 	 * @generated
 	 */
 	void setType(MuddleElementType value);
+
+	/**
+	 * Returns the value of the '<em><b>Muddle</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.muddle.Muddle#getElements <em>Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Muddle</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Muddle</em>' container reference.
+	 * @see #setMuddle(Muddle)
+	 * @see org.eclipse.epsilon.emc.muddle.MuddlePackage#getMuddleElement_Muddle()
+	 * @see org.eclipse.epsilon.emc.muddle.Muddle#getElements
+	 * @model opposite="elements" transient="false"
+	 * @generated
+	 */
+	Muddle getMuddle();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.emc.muddle.MuddleElement#getMuddle <em>Muddle</em>}' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Muddle</em>' container reference.
+	 * @see #getMuddle()
+	 * @generated
+	 */
+	void setMuddle(Muddle value);
 
 } // MuddleElement

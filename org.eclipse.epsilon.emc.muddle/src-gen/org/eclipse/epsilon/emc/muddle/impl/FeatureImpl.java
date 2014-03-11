@@ -35,6 +35,7 @@ import org.eclipse.epsilon.emc.muddle.Type;
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#isMany <em>Many</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#isPrimary <em>Primary</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#isRuntime <em>Runtime</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#getOwningType <em>Owning Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.muddle.impl.FeatureImpl#getSlots <em>Slots</em>}</li>
@@ -103,6 +104,26 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * @ordered
 	 */
 	protected boolean primary = PRIMARY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isRuntime() <em>Runtime</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRuntime()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean RUNTIME_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isRuntime() <em>Runtime</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isRuntime()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean runtime = RUNTIME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' reference.
@@ -204,6 +225,27 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		primary = newPrimary;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, MuddlePackage.FEATURE__PRIMARY, oldPrimary, primary));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isRuntime() {
+		return runtime;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRuntime(boolean newRuntime) {
+		boolean oldRuntime = runtime;
+		runtime = newRuntime;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, MuddlePackage.FEATURE__RUNTIME, oldRuntime, runtime));
 	}
 
 	/**
@@ -360,6 +402,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return isMany();
 			case MuddlePackage.FEATURE__PRIMARY:
 				return isPrimary();
+			case MuddlePackage.FEATURE__RUNTIME:
+				return isRuntime();
 			case MuddlePackage.FEATURE__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
@@ -388,6 +432,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return;
 			case MuddlePackage.FEATURE__PRIMARY:
 				setPrimary((Boolean)newValue);
+				return;
+			case MuddlePackage.FEATURE__RUNTIME:
+				setRuntime((Boolean)newValue);
 				return;
 			case MuddlePackage.FEATURE__TYPE:
 				setType((Type)newValue);
@@ -420,6 +467,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			case MuddlePackage.FEATURE__PRIMARY:
 				setPrimary(PRIMARY_EDEFAULT);
 				return;
+			case MuddlePackage.FEATURE__RUNTIME:
+				setRuntime(RUNTIME_EDEFAULT);
+				return;
 			case MuddlePackage.FEATURE__TYPE:
 				setType((Type)null);
 				return;
@@ -447,6 +497,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return many != MANY_EDEFAULT;
 			case MuddlePackage.FEATURE__PRIMARY:
 				return primary != PRIMARY_EDEFAULT;
+			case MuddlePackage.FEATURE__RUNTIME:
+				return runtime != RUNTIME_EDEFAULT;
 			case MuddlePackage.FEATURE__TYPE:
 				return type != null;
 			case MuddlePackage.FEATURE__OWNING_TYPE:
@@ -473,6 +525,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		result.append(many);
 		result.append(", primary: ");
 		result.append(primary);
+		result.append(", runtime: ");
+		result.append(runtime);
 		result.append(')');
 		return result.toString();
 	}

@@ -244,6 +244,15 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMuddleElement_Muddle() {
+		return (EReference)muddleElementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSlot() {
 		return slotEClass;
 	}
@@ -334,8 +343,8 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeature_Type() {
-		return (EReference)featureEClass.getEStructuralFeatures().get(3);
+	public EAttribute getFeature_Runtime() {
+		return (EAttribute)featureEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -343,7 +352,7 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeature_OwningType() {
+	public EReference getFeature_Type() {
 		return (EReference)featureEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -352,8 +361,17 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFeature_Slots() {
+	public EReference getFeature_OwningType() {
 		return (EReference)featureEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeature_Slots() {
+		return (EReference)featureEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -527,6 +545,7 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 		createEAttribute(muddleElementEClass, MUDDLE_ELEMENT__ID);
 		createEReference(muddleElementEClass, MUDDLE_ELEMENT__SLOTS);
 		createEReference(muddleElementEClass, MUDDLE_ELEMENT__TYPE);
+		createEReference(muddleElementEClass, MUDDLE_ELEMENT__MUDDLE);
 
 		slotEClass = createEClass(SLOT);
 		createEAttribute(slotEClass, SLOT__VALUES);
@@ -540,6 +559,7 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 		createEAttribute(featureEClass, FEATURE__NAME);
 		createEAttribute(featureEClass, FEATURE__MANY);
 		createEAttribute(featureEClass, FEATURE__PRIMARY);
+		createEAttribute(featureEClass, FEATURE__RUNTIME);
 		createEReference(featureEClass, FEATURE__TYPE);
 		createEReference(featureEClass, FEATURE__OWNING_TYPE);
 		createEReference(featureEClass, FEATURE__SLOTS);
@@ -606,12 +626,13 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(muddleEClass, Muddle.class, "Muddle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMuddle_Types(), this.getType(), null, "types", null, 0, -1, Muddle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMuddle_Elements(), this.getMuddleElement(), null, "elements", null, 0, -1, Muddle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMuddle_Elements(), this.getMuddleElement(), this.getMuddleElement_Muddle(), "elements", null, 0, -1, Muddle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(muddleElementEClass, MuddleElement.class, "MuddleElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMuddleElement_Id(), ecorePackage.getEString(), "id", null, 0, 1, MuddleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMuddleElement_Slots(), this.getSlot(), this.getSlot_OwningElement(), "slots", null, 0, -1, MuddleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMuddleElement_Type(), this.getMuddleElementType(), this.getMuddleElementType_Instances(), "type", null, 0, 1, MuddleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMuddleElement_Muddle(), this.getMuddle(), this.getMuddle_Elements(), "muddle", null, 0, 1, MuddleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(slotEClass, Slot.class, "Slot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSlot_Values(), ecorePackage.getEJavaObject(), "values", null, 0, -1, Slot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -625,6 +646,7 @@ public class MuddlePackageImpl extends EPackageImpl implements MuddlePackage {
 		initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_Many(), ecorePackage.getEBoolean(), "many", "false", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_Primary(), ecorePackage.getEBoolean(), "primary", "false", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeature_Runtime(), ecorePackage.getEBoolean(), "runtime", "false", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Type(), this.getType(), null, "type", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_OwningType(), this.getMuddleElementType(), this.getMuddleElementType_Features(), "owningType", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Slots(), this.getSlot(), this.getSlot_Feature(), "slots", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
