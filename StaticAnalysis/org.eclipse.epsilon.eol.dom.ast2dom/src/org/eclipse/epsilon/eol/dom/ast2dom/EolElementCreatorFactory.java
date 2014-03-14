@@ -54,6 +54,7 @@ public class EolElementCreatorFactory {
 			throw new RuntimeException("Cannot create dom element for " + ast.getText() + "->" + ast.getType() + ": " + ast.getLine() + "-" + ast.getColumn());
 		}
 		else {
+			context.getTrace().put(result, ast);
 			this.addCreatedDomElements(result);
 			return result;
 		}
@@ -129,6 +130,8 @@ public class EolElementCreatorFactory {
 		
 		result.add(new SelfTypeCreator());
 		result.add(new SelfContentTypeCreator());
+		result.add(new OperationArgTypeCreator());
+		result.add(new SelfInnerMostTypeCreator());
 		
 		return result;
 	}

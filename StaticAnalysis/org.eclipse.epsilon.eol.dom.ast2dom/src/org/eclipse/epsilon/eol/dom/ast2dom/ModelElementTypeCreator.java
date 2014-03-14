@@ -22,7 +22,8 @@ public class ModelElementTypeCreator extends TypeCreator{
 				&& !ast.getText().equals("Bag")
 				&& !ast.getText().equals("Native")
 				&& !ast.getText().equals("SelfType")
-				&& !ast.getText().equals("SelfContentType"));
+				&& !ast.getText().equals("SelfContentType")
+				&& !ast.getText().equals("OperationArgType"));
 	}
 	
 	@Override
