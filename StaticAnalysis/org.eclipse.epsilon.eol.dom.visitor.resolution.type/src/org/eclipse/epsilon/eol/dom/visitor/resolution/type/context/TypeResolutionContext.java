@@ -88,6 +88,11 @@ public class TypeResolutionContext {
 		return container.getMetaModel(name);
 	}
 	
+	public EMetaModel getMetaModelWithNSURI(String nsURI)
+	{
+		return container.getMetaModelWithURI(nsURI);
+	}
+	
 	public ArrayList<EMetaModel> getMetaModelsWithAlias(String alias)
 	{
 		return container.getMetaModelsWithAlias(alias);

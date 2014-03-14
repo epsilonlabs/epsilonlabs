@@ -2,9 +2,9 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
-public abstract class CollectionOperationDefinitionHandler extends OperationDefinitionHandler{
+public abstract class _deprecated_ModelElementTypeHandler extends OperationDefinitionHandler{
 
-	public CollectionOperationDefinitionHandler(TypeResolutionContext context) {
+	public _deprecated_ModelElementTypeHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}

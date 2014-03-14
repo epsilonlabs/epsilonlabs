@@ -2,23 +2,20 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
-
-import org.eclipse.epsilon.eol.dom.BooleanExpression;
-import org.eclipse.epsilon.eol.dom.Expression;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.dom.AnyType;
+import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
+import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class IsTypeOfHandler extends AnyOperationDefinitionHandler{
+public class _deprecated_CollectionCloneOperationHandler extends _deprecated_CollectionOperationDefinitionHandler {
 
-	public IsTypeOfHandler(TypeResolutionContext context) {
+	public _deprecated_CollectionCloneOperationHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +23,7 @@ public class IsTypeOfHandler extends AnyOperationDefinitionHandler{
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		// TODO Auto-generated method stub
-		return (name.equals("isTypeOf") || name.equals("isKindOf")) && argTypes.size() == 1;
+		return name.equals("clone") && argTypes.size() == 0;
 	}
 
 	@Override
@@ -37,14 +34,10 @@ public class IsTypeOfHandler extends AnyOperationDefinitionHandler{
 		
 		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 
-		NameExpression param = (NameExpression) ((MethodCallExpression) featureCallExpression).getArguments().get(0);
-		if (context.getTypeUtil().isKeyWord(param.getName())) {
-			return result;
-		}
-		else {
-			String message = "argument \"" + param.getName() + "\" is not a defined type or a model element type";
-			context.getLogBook().addError(param, message);
-		}
+		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
+		
+		result.setReturnType(EcoreUtil.copy(targetType));
+		
 		return result;
 	}
 

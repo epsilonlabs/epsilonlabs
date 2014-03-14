@@ -16,9 +16,9 @@ import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class ModelElementTypeCreateInstanceHandler extends ModelElementTypeHandler{
+public class _deprecated_ModelElementTypeCreateInstanceHandler extends _deprecated_ModelElementTypeHandler{
 
-	public ModelElementTypeCreateInstanceHandler(TypeResolutionContext context) {
+	public _deprecated_ModelElementTypeCreateInstanceHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}

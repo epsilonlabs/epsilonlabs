@@ -13,9 +13,9 @@ import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
-public class PrintlnHandler extends AnyOperationDefinitionHandler{
+public class _deprecated_PrintlnHandler extends AnyOperationDefinitionHandler{
 
-	public PrintlnHandler(TypeResolutionContext context) {
+	public _deprecated_PrintlnHandler(TypeResolutionContext context) {
 		super(context);
 	}
 

@@ -22,28 +22,28 @@ public class OperationDefinitionHandlerFactory {
 	public void initTypeHandlers()
 	{
 		handlers.add(new IfUndefinedHandler(context));
-		handlers.add(new IsTypeOfHandler(context));
-		handlers.add(new AsTypeHandler(context));
+		//handlers.add(new IsTypeOfHandler(context));
+		//handlers.add(new AsTypeHandler(context));
 		//handlers.add(new AbstractPrintHanlder(context));
-		handlers.add(new AbstractToCollectionHandler(context));
+		//handlers.add(new _deprecated_AbstractToCollectionHandler(context));
 		
-		handlers.add(new CollectionMutatingOperationHandler(context));
-		handlers.add(new CollectionQueryingOperationHandler(context));
-		handlers.add(new CollectionRandomOperationHandler(context));
-		handlers.add(new CollectionFlatternOperationHandler(context));
-		handlers.add(new CollectionCountOperationHandler(context));
-		handlers.add(new CollectionCloneOperationHandler(context));
-		handlers.add(new CollectionConcatOperationHandler(context));
+		//handlers.add(new _deprecated_CollectionMutatingOperationHandler(context));
+		//handlers.add(new CollectionQueryingOperationHandler(context));
+		//handlers.add(new CollectionRandomOperationHandler(context));
+		//handlers.add(new CollectionFlatternOperationHandler(context));
+		//handlers.add(new CollectionCountOperationHandler(context));
+		//handlers.add(new CollectionCloneOperationHandler(context));
+		//handlers.add(new CollectionConcatOperationHandler(context));
 		
 
-		handlers.add(new CollectionFirstAndLastOperationHandler(context));
-		handlers.add(new CollectionIndexOfOperationHandler(context));
-		handlers.add(new CollectionInvertOperationHandler(context));
+		//handlers.add(new CollectionFirstAndLastOperationHandler(context));
+		//handlers.add(new CollectionIndexOfOperationHandler(context));
+		//handlers.add(new CollectionInvertOperationHandler(context));
 		
-		handlers.add(new ModelElementTypeAllOfTypeHandler(context));
-		handlers.add(new ModelElementTypeAllInstancesHandler(context));
-		handlers.add(new ModelElementTypeIsInstantiableHandler(context));
-		handlers.add(new ModelElementTypeCreateInstanceHandler(context));
+		//handlers.add(new ModelElementTypeAllOfTypeHandler(context));
+		//handlers.add(new ModelElementTypeAllInstancesHandler(context));
+		//handlers.add(new ModelElementTypeIsInstantiableHandler(context));
+		//handlers.add(new ModelElementTypeCreateInstanceHandler(context));
 	}
 	
 	public OperationDefinition handle(FeatureCallExpression featureCallExpression, String name, Type contextType, ArrayList<Type> argTypes)

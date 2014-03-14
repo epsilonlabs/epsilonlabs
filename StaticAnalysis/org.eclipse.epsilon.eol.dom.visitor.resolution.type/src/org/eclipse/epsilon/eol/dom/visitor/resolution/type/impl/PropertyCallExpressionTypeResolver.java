@@ -8,15 +8,21 @@ import metamodel.connectivity.EMetaModel;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.dom.AnnotationBlock;
 import org.eclipse.epsilon.eol.dom.AnyType;
 import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.EType;
 import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
+import org.eclipse.epsilon.eol.dom.NameExpression;
+import org.eclipse.epsilon.eol.dom.OperationArgType;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
 import org.eclipse.epsilon.eol.dom.SelfContentType;
+import org.eclipse.epsilon.eol.dom.SelfInnermostType;
 import org.eclipse.epsilon.eol.dom.SelfType;
+import org.eclipse.epsilon.eol.dom.SimpleAnnotation;
+import org.eclipse.epsilon.eol.dom.StringExpression;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.PropertyCallExpressionVisitor;
@@ -39,7 +45,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 
 			if (tempAnyType.getTempType() != null) {
 				tempType = tempAnyType.getTempType();
-				propertyCallExpression.setResolvedType(EcoreUtil.copy(tempType));
+				propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
 				//context.setAssets(anyType, propertyCallExpression); //set assets
 			}
 			else {
@@ -56,7 +62,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//if the property is an extended property, then the type of the call should be Any
 		//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
 		//EOL does not guarantee the safe property navigation of type Any -- need to talk to Dimitris for further development on EOL but leave it like this for now
-		
+		//System.err.println(propertyCallExpression.getProperty().getName());
 		if (isKeyword(propertyCallExpression.getProperty().getName())) {
 			handleKeywords(propertyCallExpression, context);
 		}
@@ -75,11 +81,26 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			{
 				ModelElementType targetType = (ModelElementType) propertyCallExpression.getTarget().getResolvedType(); //get the type
 				EMetaModel mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
+				String metaClassString = targetType.getElementName(); //get metaclass string
+				String propertyString = propertyCallExpression.getProperty().getName(); //get property string
+				
+				if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
+				{
+					
+				}
+				else {
+					if (targetType.getEcoreType()!=null) {
+						mm = context.getMetaModelWithNSURI(targetType.getEcoreType().getEPackage().getNsURI());
+					}
+				}
+
+				
+				//System.out.println(targetType.getEcoreType().getEPackage().getNsURI());
 
 				if(mm != null) //if meta model exists
 				{
-					String metaClassString = targetType.getElementName(); //get metaclass string
-					String propertyString = propertyCallExpression.getProperty().getName(); //get property string
+//					String metaClassString = targetType.getElementName(); //get metaclass string
+//					String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 					
 					if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
 					{
@@ -173,8 +194,10 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						}
 					}
 					else {
+
 						context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyCallExpression.getProperty().getName()
 								+ " is not found" );
+						propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
 						
 						//handle property not found
 						//this might support for operations like a.all.first; 
@@ -304,7 +327,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							else {
 								context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyString
 										+ " is not found" );
-
+								propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
 							}
 						}
 					}
@@ -332,25 +355,88 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		
 	}
 	
-	public void handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
+	public Object handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
 	{
 		Type targetType = propertyCallExpression.getTarget().getResolvedType();
 		ArrayList<Type> argTypes = new ArrayList<Type>();
 		
-		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getHandlerFactory().handle(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes);
+		//OperationDefinition operationDefinition = context.getOperationDefinitionControl().getHandlerFactory().handle(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes);
+		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false); //fetch operation definition using name, context type and arg types
+
 		if (operationDefinition != null) {
 			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
-			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType) || targetType instanceof CollectionType && contextType instanceof CollectionType) { //if target type and context type is generic
-				
+			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
+				if (operationDefinition.getAnnotationBlock() != null) {
+					AnnotationBlock annotationBlock = operationDefinition.getAnnotationBlock();
+
+					if(annotationContains(annotationBlock, "returnInnermostType"))
+					{
+						setInnermostType(operationDefinition, getInnermostType(targetType));
+						
+						propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
+						//propertyCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the resolved type of the method
+						//propertyCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+						return null;
+					}
+					if(annotationContains(annotationBlock, "checkCollectionArgSingle"))
+					{
+						//shoudl not happen and should be an error
+					}
+					if(annotationContains(annotationBlock, "checkCollectionArgCollection"))
+					{
+						//shoudl not happen and should be an error
+					}
+					if (annotationContains(annotationBlock, "modelOp")) {						
+						String methodcallName = propertyCallExpression.getProperty().getName();
+												
+						Expression rawTarget = propertyCallExpression.getTarget(); //get targettype
+						if(!(rawTarget instanceof NameExpression)) //if targettype is not a NameExpressioin
+						{
+							context.getLogBook().addError(rawTarget, "operation " + methodcallName + " can only be used on ModelElementTypes");
+							return null;
+						}
+						else { //else
+							NameExpression target = (NameExpression) rawTarget; //cast the target to NameExpression
+							String targetname = target.getName();
+							if (targetname.contains("!")) {
+								targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
+							}
+							if (context.numberOfMetamodelsDefine(targetname) > 0) { //if the NameExpression is a keyword in the metamodels
+								Type rawTargetType = rawTarget.getResolvedType();
+								
+								if (!(rawTargetType instanceof ModelElementType)) {
+									context.getLogBook().addError(rawTarget, "operation " + methodcallName + " can only be used on ModelElementTypes");
+									return null;
+								}
+								else if (rawTargetType instanceof ModelElementType) {
+									
+									operationDefinition.setContextType(EcoreUtil.copy(contextType));
+									//CollectionType returnType = (CollectionType) result.getReturnType();
+									//returnType.setContentType(EcoreUtil.copy(rawTargetType));
+								}
+							}
+							else {
+								context.getLogBook().addError(rawTarget, "Model Element Type " + target.getName() + " does not exist");
+								return null;
+							}
+						}
+					}
+
+				}
+				else {
+				}
 				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
 					propertyCallExpression.setResolvedType(EcoreUtil.copy(targetType));  //just copy the target type because the target type has been resolved
-					
+					//methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetType)); //set the resolved type of the method
+					//methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 				}
 				else if (operationDefinition.getReturnType() instanceof SelfContentType) { //if is selfContentType
 					if (targetType instanceof CollectionType) { //if target type is of collection type
 						Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
 						if (contentType != null) {
 							propertyCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
+//							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(contentType)); //set method type
+//							methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 						}
 						else {
 							//this should be Any i guess?
@@ -362,17 +448,172 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						//handle this
 					}
 				}
+				else if (operationDefinition.getReturnType() instanceof CollectionType && 
+						(((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfType || 
+						((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfContentType)) { //if the return type is collection type and its content type is either SelfType or SelfContentType ============================
+					CollectionType returnType = (CollectionType) operationDefinition.getReturnType();
+					Type collectionContentType = returnType.getContentType();
+					if (collectionContentType instanceof SelfType) {
+						CollectionType resultType = EcoreUtil.copy(returnType);
+						resultType.setContentType(EcoreUtil.copy(targetType));
+						propertyCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set the type of the method call
+//						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
+//						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+					}
+					if (collectionContentType instanceof SelfContentType) {
+						if (targetType instanceof CollectionType) { //if target type is of collection type
+							Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
+							if (contentType != null) {
+								CollectionType resultType = EcoreUtil.copy(returnType);
+								resultType.setContentType(EcoreUtil.copy(contentType));
+								propertyCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
+//								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set method type
+//								methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+							}
+							else {
+								//this should be Any i guess?
+								//handle content type null
+							}
+						}
+						else {
+							context.getLogBook().addError(operationDefinition.getReturnType(), "The target should be of type Collection");
+						}
+					}
+				}
+				
 				else {
 					propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+//					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 				}
 			}
 			else if (targetType instanceof AnyType) {
 				propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//				methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+//				methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
 			}
+			else {
+				//handle type incompatible
+				String expectedType = "";
+				String actualType = "";
+				if (contextType instanceof ModelElementType) {
+					expectedType = ((ModelElementType)contextType).getModelName() + "!" + ((ModelElementType)contextType).getElementName();
+				}
+				
+				else {
+					expectedType = contextType.getClass().toString();
+				}
+				if (targetType instanceof ModelElementType) {
+					actualType = ((ModelElementType)targetType).getModelName() + "!" + ((ModelElementType)targetType).getElementName();
+				}
+				else {
+					actualType = targetType.getClass().toString();
+				}
+				context.getLogBook().addError(propertyCallExpression.getTarget(), "Type mismatch for Operation: " + 
+				operationDefinition.getName().getName() + "()" + "; Expected type: " + expectedType + 
+				" , actual type: " + actualType);
+				
+			}
+		}
+//			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
+//			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType) || targetType instanceof CollectionType && contextType instanceof CollectionType) { //if target type and context type is generic
+//				
+//				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
+//					propertyCallExpression.setResolvedType(EcoreUtil.copy(targetType));  //just copy the target type because the target type has been resolved
+//					
+//				}
+//				else if (operationDefinition.getReturnType() instanceof SelfContentType) { //if is selfContentType
+//					if (targetType instanceof CollectionType) { //if target type is of collection type
+//						Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
+//						if (contentType != null) {
+//							propertyCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
+//						}
+//						else {
+//							//this should be Any i guess?
+//							//handle content type null
+//						}
+//						
+//					}
+//					else {
+//						//handle this
+//					}
+//				}
+//				else {
+//					propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//				}
+//			}
+//			else if (targetType instanceof AnyType) {
+//				propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//			}
 			else {
 				//should not happen
 			}
+		return null;
+	}
+	
+	public boolean annotationContains(AnnotationBlock block, String s)
+	{
+		boolean result = false;
+		for(SimpleAnnotation annot: block.getSimpleAnnotations())
+		{
+			if (annot.getName().getName().equals("_sysParam")) {
+				for(StringExpression str : annot.getValues())
+				{
+					if (str.getVal().equals(s)) {
+						result = true;
+						return result;
+					}
+				}
+				
+			}
+		}
+		return result;
+	}
+	
+	public Type getInnermostType(Type t)
+	{
+		if (t instanceof CollectionType) {
+			CollectionType collectionType = (CollectionType) t;
+			Type contentType = collectionType.getContentType();
+			while(contentType instanceof CollectionType)
+			{
+				contentType = ((CollectionType)contentType).getContentType();
+			}
+			return EcoreUtil.copy(contentType);
+		}
+		else {
+			return EcoreUtil.copy(t);
 		}
 	}
+	
+	public void setInnermostType(OperationDefinition op, Type innermost)
+	{
+		Type returnType = op.getReturnType();
+		if (returnType instanceof CollectionType) {
+			Type contentType = ((CollectionType)returnType).getContentType();
+			if (contentType instanceof CollectionType) {
+				while(contentType instanceof CollectionType)
+				{
+					if (((CollectionType)contentType).getContentType() instanceof CollectionType) {
+						contentType = ((CollectionType)contentType).getContentType();
+					}
+					else {
+						break;
+					}
+				}
+				((CollectionType)contentType).setContentType(EcoreUtil.copy(innermost));
+			}
+			else {
+				((CollectionType) returnType).setContentType(EcoreUtil.copy(innermost));
+			}
+		}
+		else
+		{
+			op.setReturnType(EcoreUtil.copy(innermost));
+		}
+	}
+
+
+
 
 }

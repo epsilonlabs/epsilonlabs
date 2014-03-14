@@ -95,6 +95,17 @@ public class MetamodelContainer {
 		return null;
 	}
 	
+	public EMetaModel getMetaModelWithURI(String nsURI)
+	{
+		for(EMetaModel m: metaModels)
+		{
+			if (m.getMetaModelNsURI().equals(nsURI)) {
+				return m;
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<EMetaModel> getMetaModelsWithAlias(String alias)
 	{
 		return aliasLookUp.get(alias);

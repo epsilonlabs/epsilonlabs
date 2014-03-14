@@ -2,21 +2,20 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
+import org.eclipse.epsilon.eol.dom.ModelElementType;
 import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class AsTypeHandler extends AnyOperationDefinitionHandler{
+public class _deprecated_ModelElementTypeIsInstantiableHandler extends _deprecated_ModelElementTypeHandler{
 
-	public AsTypeHandler(TypeResolutionContext context) {
+	public _deprecated_ModelElementTypeIsInstantiableHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -24,7 +23,7 @@ public class AsTypeHandler extends AnyOperationDefinitionHandler{
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		// TODO Auto-generated method stub
-		return name.equals("asType") && argTypes.size() == 1;
+		return name.equals("isInstantiable") && argTypes.size() == 0;
 	}
 
 	@Override
@@ -34,17 +33,33 @@ public class AsTypeHandler extends AnyOperationDefinitionHandler{
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
 		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
-
-		NameExpression param = (NameExpression) ((MethodCallExpression) featureCallExpression).getArguments().get(0);
-		if (context.getTypeUtil().isKeyWord(param.getName()))
+		Expression rawTarget = featureCallExpression.getTarget();
+		if(!(rawTarget instanceof NameExpression))
 		{
-			result.setReturnType(EcoreUtil.copy(argTypes.get(0)));
-			return result;
+			context.getLogBook().addError(featureCallExpression.getTarget(), "operation isInstantiable() can only be used on ModelElementTypes");
+			return null;
 		}
 		else {
-			String message = "argument \"" + param.getName() + "\" is not a defined type or a model element type";
-			context.getLogBook().addError(param, message);
+			NameExpression target = (NameExpression) rawTarget;
+			if (context.numberOfMetamodelsDefine(target.getName()) > 0) {
+				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
+				
+				if (!(rawTargetType instanceof ModelElementType)) {
+					context.getLogBook().addError(featureCallExpression.getTarget(), "operation isInstantiable() can only be used on ModelElementTypes");
+					return null;
+				}
+				else if (rawTargetType instanceof ModelElementType) {
+					result.setContextType(EcoreUtil.copy(contextType));
+				}
+				
+			}
+			else {
+				context.getLogBook().addError(featureCallExpression.getTarget(), "Model Element Type " + target.getName() + " does not exist");
+				return null;
+			}
+			
 		}
 		return result;
 	}
+
 }

@@ -14,7 +14,7 @@ import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class AbstractPrintHanlder  {
+public class _deprecated_AbstractPrintHanlder  {
 /*
 	public AbstractPrintHanlder(TypeResolutionContext context) {
 		super(context);

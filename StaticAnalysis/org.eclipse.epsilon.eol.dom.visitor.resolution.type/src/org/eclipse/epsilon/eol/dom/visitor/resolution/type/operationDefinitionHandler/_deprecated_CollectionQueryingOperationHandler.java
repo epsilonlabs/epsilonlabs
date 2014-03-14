@@ -12,9 +12,9 @@ import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class CollectionQueryingOperationHandler extends CollectionOperationDefinitionHandler{
+public class _deprecated_CollectionQueryingOperationHandler extends _deprecated_CollectionOperationDefinitionHandler{
 
-	public CollectionQueryingOperationHandler(TypeResolutionContext context) {
+	public _deprecated_CollectionQueryingOperationHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}

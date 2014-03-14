@@ -13,9 +13,9 @@ import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutio
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeUtil;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class CollectionMutatingOperationHandler extends CollectionOperationDefinitionHandler{
+public class _deprecated_CollectionMutatingOperationHandler extends _deprecated_CollectionOperationDefinitionHandler{
 
-	public CollectionMutatingOperationHandler(TypeResolutionContext context) {
+	public _deprecated_CollectionMutatingOperationHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}

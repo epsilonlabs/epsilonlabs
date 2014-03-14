@@ -2,19 +2,17 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
+import org.eclipse.epsilon.eol.dom.StringType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class CollectionRandomOperationHandler extends CollectionOperationDefinitionHandler{
+public class _deprecated_CollectionConcatOperationHandler extends _deprecated_CollectionOperationDefinitionHandler{
 
-	public CollectionRandomOperationHandler(TypeResolutionContext context) {
+	public _deprecated_CollectionConcatOperationHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -22,27 +20,24 @@ public class CollectionRandomOperationHandler extends CollectionOperationDefinit
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		// TODO Auto-generated method stub
-		return name.equals("random") && argTypes.size() == 0;
+		return name.equals("concat") && argTypes.size() == 1;
 	}
 
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
-
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), contextType, argTypes);
 
-		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
+		Type argtyType = argTypes.get(0);
 		
-		if (targetType.getContentType() instanceof AnyType) {
+		if (!(argtyType instanceof StringType)) {
+			context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Argument must be of type String");
 		}
-		else {
-			Type contentType = targetType.getContentType();
-			result.setReturnType(EcoreUtil.copy(contentType));
-		}
-
+		
+		
 		return result;
 	}
 

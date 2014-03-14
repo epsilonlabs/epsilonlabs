@@ -2,20 +2,23 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
+import metamodel.connectivity.EMetaModel;
+
+import org.eclipse.epsilon.eol.dom.BooleanExpression;
+import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
+import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
+import org.eclipse.epsilon.eol.dom.ModelElementType;
+import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class CollectionFlatternOperationHandler extends CollectionOperationDefinitionHandler{
+public class _deprecated_IsTypeOfHandler extends AnyOperationDefinitionHandler{
 
-	public CollectionFlatternOperationHandler(TypeResolutionContext context) {
+	public _deprecated_IsTypeOfHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -23,36 +26,26 @@ public class CollectionFlatternOperationHandler extends CollectionOperationDefin
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		// TODO Auto-generated method stub
-		return name.equals("flatten") && argTypes.size() == 0;
+		return (name.equals("isTypeOf") || name.equals("isKindOf")) && argTypes.size() == 1;
 	}
 
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
-
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
 		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 
-		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
-		
-		SequenceType returnType = (SequenceType) result.getReturnType();
-		
-		if (targetType.getContentType() instanceof AnyType) {
+		NameExpression param = (NameExpression) ((MethodCallExpression) featureCallExpression).getArguments().get(0);
+		if (context.getTypeUtil().isKeyWord(param.getName())) {
+			return result;
 		}
 		else {
-			Type contentType = targetType.getContentType();
-			returnType.setContentType(EcoreUtil.copy(contentType));
+			String message = "argument \"" + param.getName() + "\" is not a defined type or a model element type";
+			context.getLogBook().addError(param, message);
 		}
 		return result;
-	}
-	
-	public Type getInnermostContentType(CollectionType type)
-	{
-		Type result = null;
-		
-		return null;
 	}
 
 }

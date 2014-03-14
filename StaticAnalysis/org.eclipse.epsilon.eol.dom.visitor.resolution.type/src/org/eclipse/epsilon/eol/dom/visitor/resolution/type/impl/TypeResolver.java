@@ -26,6 +26,7 @@ public class TypeResolver {
 		controller.addSwitchStatementVisitor(new SwitchStatementTypeResolver());
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementTypeResolver());
 
+		controller.addEnumerationLiteralExpressionVisitor(new EnumerationLiteralExpressionTypeResolver());
 		controller.addNameExpressionVisitor(new NameExpressionTypeResolver());
 		controller.addPropertyCallExpressionVisitor(new PropertyCallExpressionTypeResolver());
 		controller.addMethodCallExpressionVisitor(new MethodCallExpressionTypeResolver());

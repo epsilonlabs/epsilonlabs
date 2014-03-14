@@ -16,9 +16,9 @@ import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class AbstractToCollectionHandler extends AnyOperationDefinitionHandler{
+public class _deprecated_AbstractToCollectionHandler extends AnyOperationDefinitionHandler{
 
-	public AbstractToCollectionHandler(TypeResolutionContext context) {
+	public _deprecated_AbstractToCollectionHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -36,17 +36,17 @@ public class AbstractToCollectionHandler extends AnyOperationDefinitionHandler{
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {		
-		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
+		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer(); //get container
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes); //get operation
 
-		CollectionType returnType = (CollectionType) result.getReturnType();
+		CollectionType returnType = (CollectionType) result.getReturnType(); //get return type
 		
-		Type targetType = featureCallExpression.getTarget().getResolvedType();
-		if (targetType instanceof AnyType) {
-			AnyType temp = (AnyType) targetType;
-			if (temp.getTempType() != null) {
-				returnType.setContentType(EcoreUtil.copy(temp.getTempType()));
+		Type targetType = featureCallExpression.getTarget().getResolvedType(); //get target type
+		if (targetType instanceof AnyType) { //if target type is of any
+			AnyType temp = (AnyType) targetType; 
+			if (temp.getTempType() != null) { //if there is a temp type
+				returnType.setContentType(EcoreUtil.copy(temp.getTempType())); //set temp type
 				//result.setReturnType(EcoreUtil.copy(temp.getTempType()));
 			}
 			else {

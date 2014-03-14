@@ -18,38 +18,66 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		controller.visit(returnStatement.getReturned(), context);
-		DomElement rawContainer = returnStatement.getContainer(); 
-		while(!(rawContainer instanceof OperationDefinition))
+		DomElement rawContainer = returnStatement.getContainer(); //get the container
+		while(!(rawContainer instanceof OperationDefinition)) //get all the way to OperationDefinition
 		{
 			rawContainer = rawContainer.getContainer();
 		}
 		
-		if (rawContainer instanceof OperationDefinition) {
-			OperationDefinition container = (OperationDefinition) rawContainer;
-			Type returnType = container.getReturnType();
+		if (rawContainer instanceof OperationDefinition) { //check again if the container is an operationdefinition
+			OperationDefinition container = (OperationDefinition) rawContainer; //cast 
+			Type returnType = container.getReturnType(); //get return type of the operation
 			
-			Type returnedType = returnStatement.getReturned().getResolvedType();
-			AnyType rawReturnType;
-			if (returnedType instanceof AnyType) {
-				rawReturnType = (AnyType) returnedType;
-				if (rawReturnType.getTempType()!=null) {
-					returnedType = rawReturnType.getTempType();
-				}
-				container.setReturnType(EcoreUtil.copy(returnedType));
+			if (returnType == null) {
+				
 			}
-			
-			if (!context.getTypeUtil().isEqualOrGeneric(returnedType, returnType)) {
-				if (returnType instanceof VoidType || returnedType instanceof AnyType) {
-					
+			else {
+				Type returnedType = returnStatement.getReturned().getResolvedType(); //get the returned type of the operation
+				if (returnedType == null) {
+					if (returnType instanceof VoidType) {
+						
+					}
+					else {
+						context.getLogBook().addError(returnStatement, "expecting return type" + returnType.eClass().getName());
+					}
 				}
 				else {
-					context.getLogBook().addError(returnStatement, "OperationDefinition " + container.getName().getName() + " requires return type: " + returnType.getClass().getSimpleName());
+					if (returnedType instanceof AnyType) {
+						returnedType = getDynamicType((AnyType) returnedType);
+						//container.setReturnType(returnedType); //==============attention
+//						rawReturnType = (AnyType) returnedType;
+//						if (rawReturnType.getTempType()!=null) {
+//							returnedType = rawReturnType.getTempType();
+//						}
+//						container.setReturnType(EcoreUtil.copy(returnedType));
+					}
+					else if (!context.getTypeUtil().isEqualOrGeneric(returnedType, returnType)) {
+						if (returnType instanceof VoidType || returnedType instanceof AnyType) {
+							
+						}
+						else {
+							context.getLogBook().addError(returnStatement, "OperationDefinition " + container.getName().getName() + " requires return type: " + returnType.getClass().getSimpleName());
+						}					
+					}
 				}
-				
 			}
 		}
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public Type getDynamicType(AnyType anyType)
+	{
+		while(anyType.getTempType() != null)
+		{
+			if (anyType.getTempType() instanceof AnyType) {
+				anyType = (AnyType) anyType.getTempType();
+			}
+			else {
+				return anyType.getTempType();
+			}
+		}
+		return anyType;
 	}
 
 }

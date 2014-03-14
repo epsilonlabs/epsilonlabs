@@ -2,17 +2,20 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
 import org.eclipse.epsilon.eol.dom.MethodCallExpression;
 import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.StringType;
+import org.eclipse.epsilon.eol.dom.OrderedSetType;
+import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
-public class CollectionConcatOperationHandler extends CollectionOperationDefinitionHandler{
+public class _deprecated_CollectionInvertOperationHandler extends _deprecated_CollectionOperationDefinitionHandler{
 
-	public CollectionConcatOperationHandler(TypeResolutionContext context) {
+	public _deprecated_CollectionInvertOperationHandler(TypeResolutionContext context) {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
@@ -20,7 +23,7 @@ public class CollectionConcatOperationHandler extends CollectionOperationDefinit
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		// TODO Auto-generated method stub
-		return name.equals("concat") && argTypes.size() == 1;
+		return name.equals("invert") && argTypes.size() == 0;
 	}
 
 	@Override
@@ -29,15 +32,17 @@ public class CollectionConcatOperationHandler extends CollectionOperationDefinit
 			ArrayList<Type> argTypes) {
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), contextType, argTypes);
+		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 
-		Type argtyType = argTypes.get(0);
+		CollectionType targetType = (CollectionType) featureCallExpression.getTarget().getResolvedType();
 		
-		if (!(argtyType instanceof StringType)) {
-			context.getLogBook().addError(((MethodCallExpression) featureCallExpression).getArguments().get(0), "Argument must be of type String");
+		if (!(targetType instanceof SequenceType || targetType instanceof OrderedSetType)) {
+			context.getLogBook().addError(featureCallExpression.getTarget(), "Operation invert() can only be performed on Sequence and OrderedSet types");
 		}
-		
-		
+		else {
+			result.setContextType(EcoreUtil.copy(targetType));
+			result.setReturnType(EcoreUtil.copy(targetType));
+		}
 		return result;
 	}
 

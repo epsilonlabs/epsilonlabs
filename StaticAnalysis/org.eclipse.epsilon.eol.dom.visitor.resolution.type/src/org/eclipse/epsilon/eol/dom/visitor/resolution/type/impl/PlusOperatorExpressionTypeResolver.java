@@ -1,10 +1,15 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
+import javax.sound.midi.Sequence;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.BooleanType;
+import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.IntegerType;
 import org.eclipse.epsilon.eol.dom.PlusOperatorExpression;
 import org.eclipse.epsilon.eol.dom.PrimitiveType;
 import org.eclipse.epsilon.eol.dom.RealType;
+import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.StringType;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
@@ -49,6 +54,11 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 			}
 			
 		}
+		else if (lhsType instanceof CollectionType && rhsType instanceof CollectionType) {
+			if (context.getTypeUtil().isEqualOrGeneric(lhsType, rhsType)) {
+				type = EcoreUtil.copy(lhsType);
+			}
+		}
 		else {
 			type = context.getEolFactory().createStringType(); 
 		}
@@ -58,6 +68,7 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 
 		return null;
 	}
+	
 	
 
 

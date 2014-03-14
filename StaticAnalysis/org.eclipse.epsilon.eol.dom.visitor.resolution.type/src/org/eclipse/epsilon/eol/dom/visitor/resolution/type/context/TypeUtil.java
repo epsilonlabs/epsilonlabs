@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.dom.CollectionType;
 import org.eclipse.epsilon.eol.dom.EolFactory;
 import org.eclipse.epsilon.eol.dom.IntegerType;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
+import org.eclipse.epsilon.eol.dom.OrderedCollectionType;
 import org.eclipse.epsilon.eol.dom.OrderedSetType;
 import org.eclipse.epsilon.eol.dom.PrimitiveType;
 import org.eclipse.epsilon.eol.dom.RealType;
@@ -128,6 +129,9 @@ public class TypeUtil {
 	{
 		Type a = null;
 		Type b = null;
+		if (t1 == null || t2 == null) {
+			return false;
+		}
 		if (isEDataType(t1)) {
 			if (isNormalisable(t1)) {
 				a = normalise(t1);
@@ -146,48 +150,57 @@ public class TypeUtil {
 			b = (Type) t2;
 		}
 		
-		if (t1.eClass().equals(t2.eClass())) {
+		if (t1.eClass().equals(t2.eClass())) { //if the eclasses are the same return tru
 			return true;
 		}
 		
-		if (b instanceof AnyType) {
+		if (b instanceof AnyType) { //if b is any type, return true
 			return true;
 		}
 		else if(a instanceof PrimitiveType && b instanceof PrimitiveType)
 		{
 			PrimitiveType type1 = (PrimitiveType) a;
 			PrimitiveType type2 = (PrimitiveType) b;
-			if (type1.eClass().equals(type2.eClass())) {
+			if (type1.eClass().equals(type2.eClass())) { //if primitive types are equal to each other, return true
 				return true;
 			}
 			else if ((a instanceof IntegerType && b instanceof RealType) ||
 					(a instanceof IntegerType && b instanceof StringType) ||
 					(a instanceof RealType && b instanceof StringType) ||
-					(a instanceof BooleanType && b instanceof StringType)){
+					(a instanceof BooleanType && b instanceof StringType)){ //these deals for type casting
 				return true;
 			}
 			else {
 				return false;
 			}
 		}
-		else if(a instanceof CollectionType && b instanceof CollectionType)
+		else if(a instanceof CollectionType && b instanceof CollectionType) //if both of the types are collection type
 		{
 			CollectionType type1 = (CollectionType) a;
 			CollectionType type2 = (CollectionType) b;
 		
-			if (type1.eClass().equals(type2.eClass())) {
-				if (isEqualOrGeneric(type1.getContentType(), type2.getContentType())) {
+			if (type1.eClass().equals(type2.eClass())) { //if the class are equal
+				if (isEqualOrGeneric(type1.getContentType(), type2.getContentType())) { //check for content type (this should be recursive for contained collection type, too)
 					return true;
 				}
 				else {
 					return false;
 				}
 			}
-			else if (b.getClass().getSimpleName().equals("CollectionTypeImpl")) {
+			else if(type1 instanceof OrderedCollectionType && type2 instanceof OrderedCollectionType)
+			{
+				if (isEqualOrGeneric(type1.getContentType(), type2.getContentType())) { //check for content type (this should be recursive for contained collection type, too)
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			else if (b.getClass().getSimpleName().equals("CollectionTypeImpl")) { //theoretically this should not happen
 				return true;
 			}
 		}
-		else if(a instanceof ModelElementType && b instanceof ModelElementType)
+		else if(a instanceof ModelElementType && b instanceof ModelElementType) //when both of the types are ModelElementTypes
 		{
 			ModelElementType type1 = (ModelElementType) a;
 			ModelElementType type2 = (ModelElementType) b;
@@ -297,7 +310,6 @@ public class TypeUtil {
 						}
 					}
 				}
-				
 				result = visited.size();
 				
 			}
@@ -579,6 +591,53 @@ public class TypeUtil {
 			return result;
 		}
 		return result;
+	}
+	
+	public boolean isGeneric(Type subClass, Type superClass)
+	{
+		if (subClass.eClass().equals(superClass.eClass())) {
+			return true;
+		}
+		if (superClass.eClass().getName().equals("Type")) {
+			if(subClass instanceof Type)
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		if (superClass.eClass().getName().equals("CollectionType")) {
+			if (subClass instanceof CollectionType) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		if (subClass.eClass().getName().equals("PrimitiveType")) {
+			if(subClass instanceof PrimitiveType)
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		if(subClass instanceof ModelElementType && superClass instanceof ModelElementType) //when both of the types are ModelElementTypes
+		{
+			ModelElementType type1 = (ModelElementType) subClass;
+			ModelElementType type2 = (ModelElementType) superClass;
+			
+			if(shortestDistanceBetweenClass((EClass)type1.getEcoreType(), (EClass)type2.getEcoreType()) != -1)
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		return false;
 	}
 	
 }

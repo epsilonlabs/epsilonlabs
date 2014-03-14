@@ -142,7 +142,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			}
 		}
 		else { //if name does not have a resolved content
-			if (nameString.contains("!")) { //if name is formed like A!B
+			if (nameString.equals("null")) {
+				AnyType anyType = context.getEolFactory().createAnyType();
+				nameExpression.setResolvedType(EcoreUtil.copy(anyType));
+			}
+			else if (nameString.contains("!")) { //if name is formed like A!B
 				String[] arr = nameString.split("!");
 				String model = arr[0];
 				String element = arr[1];

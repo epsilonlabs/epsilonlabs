@@ -8,9 +8,11 @@ import org.eclipse.epsilon.eol.dom.NameExpression;
 import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
 import org.eclipse.epsilon.eol.dom.Type;
 import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.dom.VoidType;
 import org.eclipse.epsilon.eol.dom.visitor.AssignmentStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
+import org.omg.CORBA.Any;
 
 public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<TypeResolutionContext, Object>{
 
@@ -27,13 +29,36 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			if (lhs.getResolvedType() instanceof AnyType) { //if lhs is of type Any
 				AnyType lhsType = (AnyType) lhs.getResolvedType(); //get the type
 				Type typeCopy = EcoreUtil.copy(rhs.getResolvedType());
+				if (typeCopy instanceof AnyType) {
+					
+				}
+				else {
+					lhsType.setTempType(typeCopy);
+				}
 				//context.setAssets(typeCopy, lhs);
-				lhsType.setTempType(typeCopy);
 			}
 			else {
 				Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs
 				Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
-				if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
+				if (rhsType instanceof AnyType) {
+					context.getLogBook().addWarning(rhs, "potential type mismatch");
+					AnyType temp = (AnyType) rhsType;
+					if (temp.getTempType() != null) {
+						//rhsType = temp.getTempType();
+						rhsType = getDynamicType(temp);
+					}
+					
+					if (rhsType instanceof AnyType || rhsType instanceof VoidType) {
+						
+					}
+					else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
+						context.getLogBook().addError(rhs, "Type mismatch");
+					}
+				}
+				else if (rhsType instanceof VoidType) {
+					context.getLogBook().addWarning(rhs, "potential type mismatch");
+				}
+				else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
 					context.getLogBook().addError(rhs, "Type mismatch");
 				}
 			}
@@ -43,6 +68,20 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			context.getLogBook().addError(lhs, "can only assign values to variables and features");
 		}
 		return null;
+	}
+	
+	public Type getDynamicType(AnyType anyType)
+	{
+		while(anyType.getTempType() != null)
+		{
+			if (anyType.getTempType() instanceof AnyType) {
+				anyType = (AnyType) anyType.getTempType();
+			}
+			else {
+				return anyType.getTempType();
+			}
+		}
+		return anyType;
 	}
 
 }

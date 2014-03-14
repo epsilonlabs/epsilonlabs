@@ -31,7 +31,9 @@ public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, O
 		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			controller.visit(od.getContextType(), context); //resolve context type
+			if (od.getContextType() != null) {
+				controller.visit(od.getContextType(), context); //resolve context type	
+			}
 			controller.visit(od.getReturnType(), context); //resolve return type
 			if (od.getSelf() != null) {
 				od.getSelf().setResolvedType(EcoreUtil.copy(od.getContextType()));	

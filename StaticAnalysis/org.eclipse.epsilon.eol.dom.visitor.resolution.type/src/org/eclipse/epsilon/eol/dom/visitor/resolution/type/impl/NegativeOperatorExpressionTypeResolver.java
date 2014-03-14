@@ -1,7 +1,9 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.BooleanType;
 import org.eclipse.epsilon.eol.dom.Expression;
+import org.eclipse.epsilon.eol.dom.IntegerType;
 import org.eclipse.epsilon.eol.dom.NegativeOperatorExpression;
 import org.eclipse.epsilon.eol.dom.RealType;
 import org.eclipse.epsilon.eol.dom.StringType;
@@ -16,25 +18,27 @@ public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpr
 	public Object visit(NegativeOperatorExpression negativeOperatorExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		controller.visitContents(negativeOperatorExpression, context); //visit content first
-		
-		Type type = context.getEolFactory().createIntegerType(); //set type first, this allows minor-error in expressions n statements
+		controller.visit(negativeOperatorExpression.getExpr(), context);
+			
 		Expression expression = negativeOperatorExpression.getExpr(); //get the expression
+		Type exprType = expression.getResolvedType();
 		
-		if (expression.getResolvedType() instanceof BooleanType) { //if expression is of type boolean
+		if (exprType instanceof BooleanType) { //if expression is of type boolean
 			context.getLogBook().addError(expression, "Expression cannot be Boolean");
 		}
 		
-		if (expression.getResolvedType() instanceof StringType) { //if expression is of type string
+		if (exprType instanceof StringType) { //if expression is of type string
 			//handle string
 			context.getLogBook().addError(expression, "Expression cannot be String");
 		}
 		
-		if (expression.getResolvedType() instanceof RealType) { //if expression is of type real
-			 type = context.getEolFactory().createRealType();
+		if (exprType instanceof RealType) { //if expression is of type real
+			negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
 		}	
+		if (exprType instanceof IntegerType) {
+			negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+		}
 		
-		context.setAssets(type, negativeOperatorExpression);
 		return null;
 	}
 }

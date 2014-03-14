@@ -92,10 +92,19 @@ public class OperationDefinitionContainer {
 			int depth = 999;
 			for (int i = 0; i < list.size(); i++) {
 				OperationDefinition op = list.get(i);
-				int distance = typeUtil.shortestDistanceBetweenObject(contextType, op.getContextType());
-				if (distance < depth) {
-					depth = distance;
-					index = i;
+				if (op.getContextType() == null) {
+					int distance = typeUtil.shortestDistanceBetweenObject(contextType, typeUtil.createType("Any"));
+					if (distance < depth) {
+						depth = distance;
+						index = i;
+					}
+				}
+				else {
+					int distance = typeUtil.shortestDistanceBetweenObject(contextType, op.getContextType());
+					if (distance < depth) {
+						depth = distance;
+						index = i;
+					}
 				}
 			}
 
