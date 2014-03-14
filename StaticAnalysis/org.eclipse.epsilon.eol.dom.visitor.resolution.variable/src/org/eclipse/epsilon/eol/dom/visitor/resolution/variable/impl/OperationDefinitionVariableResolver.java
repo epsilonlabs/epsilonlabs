@@ -12,7 +12,7 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 	public Object visit(OperationDefinition operationDefinition,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		context.getStack().push(operationDefinition, false);
+		context.getStack().push(operationDefinition, true);
 		
 		if (operationDefinition.getSelf() != null) {
 			context.getStack().putVariable(operationDefinition.getSelf()); //put 'self'

@@ -23,6 +23,9 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 				nameExpression.setResolvedContent(r);
 			}
 		}
+		if (nameExpression.getName().equals("null")) {
+			nameExpression.setResolvedContent(null);
+		}
 		else
 		{
 			if(context.getStack().getVariable(nameExpression.getName()) != null)

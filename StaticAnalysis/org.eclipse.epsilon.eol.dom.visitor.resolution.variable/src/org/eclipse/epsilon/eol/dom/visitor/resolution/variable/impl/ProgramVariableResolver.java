@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
 
 import org.eclipse.epsilon.eol.dom.Import;
+import org.eclipse.epsilon.eol.dom.OperationDefinition;
 import org.eclipse.epsilon.eol.dom.Program;
 import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.ProgramVisitor;
@@ -19,7 +20,11 @@ public class ProgramVariableResolver extends ProgramVisitor<VariableResolutionCo
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs
 			}
-			controller.visitContents(program, context); //visit the contents of the program in question
+			controller.visit(program.getBlock(), context); //visit the contents of the program in question
+			for(OperationDefinition op: program.getOperations())
+			{
+				controller.visit(op, context);
+			}
 		}
 		else { //if the program is the program that is imported
 			for(Import imported : program.getImports()) 
