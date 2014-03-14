@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -102,7 +103,7 @@ public class EMetaModel implements EModel{
 		boolean result = false;
 		EClassifier enumClass = ePackage.getEClassifier(enumName); //get classifier from the package
 		if (enumClass != null) { //if there's an EClassifier with the name
-			if(enumClass.getClass().equals(ePack.getEEnum())) //check if the classifier is of type EENum
+			if(enumClass instanceof EEnum) //check if the classifier is of type EENum
 			{
 				result = true; 
 			}
@@ -114,7 +115,7 @@ public class EMetaModel implements EModel{
 	{
 		EClassifier enumClass = ePackage.getEClassifier(enumName); //get EClassifier form the package
 		if (enumClass != null) { //if package contains EClassifier
-			if (enumClass.getClass().equals(ePack.getEEnum())) { //if EClassifier is of type EEnum
+			if (enumClass instanceof EEnum) { //if EClassifier is of type EEnum
 				return (EEnum) enumClass;
 			}
 			else {
