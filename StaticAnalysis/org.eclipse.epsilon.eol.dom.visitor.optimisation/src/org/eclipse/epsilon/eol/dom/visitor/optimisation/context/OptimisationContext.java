@@ -94,13 +94,12 @@ public class OptimisationContext {
 		public void putModelDeclarationStatement(String name, ModelDeclarationStatement modelDeclaration)
 		{
 			if (modelDeclarations.containsKey(name)) {
-				try {
-					throw new Exception("model declaration name already in use");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				System.err.println("model declaration name already in use");
 			}
-			modelDeclarations.put(name, modelDeclaration);
+			else
+			{
+				modelDeclarations.put(name, modelDeclaration);	
+			}
 		}
 		
 		public ModelDeclarationStatement getModelDeclarationStatement(String name)

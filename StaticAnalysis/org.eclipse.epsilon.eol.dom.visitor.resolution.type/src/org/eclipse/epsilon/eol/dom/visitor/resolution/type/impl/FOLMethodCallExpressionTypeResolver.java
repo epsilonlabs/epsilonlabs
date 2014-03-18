@@ -40,9 +40,11 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 				contentType = context.getEolFactory().createAnyType();
 			}
 			if (contentType instanceof AnyType) {
-				if (((AnyType) contentType).getTempType() != null) {
-					contentType = ((AnyType) contentType).getTempType();
-				}
+				contentType = context.getEolFactory().createAnyType();
+
+//				if (((AnyType) contentType).getTempType() != null) {
+//					contentType = ((AnyType) contentType).getTempType();
+//				}
 			}
 		}
 

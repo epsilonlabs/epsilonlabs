@@ -13,10 +13,12 @@ import org.eclipse.epsilon.eol.dom.DomElement;
 import org.eclipse.epsilon.eol.dom.TextRegion;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.dom.metamodel.coverage.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.dom.visitor.optimisation.impl.Optimiser;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.epsilon.eol.parse.EolParser;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.logicalExpression_return;
 
 public class DummyModuleValidator implements IModuleValidator {
 
@@ -108,6 +110,18 @@ public class DummyModuleValidator implements IModuleValidator {
 			ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
 			markers.add(marker);
 		}
+		
+		CoverageAnalyser ca = new CoverageAnalyser();
+		ca.run(dom);
+		ca.print();
+		for(log.Error error: ca.getCoverageAnalysisContext().getLogBook().getErrors())
+		{
+			TextRegion textRegion = error.getDomElement().getRegion();
+			Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+			ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+			markers.add(marker);
+		}
+		
 		return markers;
 	}
 

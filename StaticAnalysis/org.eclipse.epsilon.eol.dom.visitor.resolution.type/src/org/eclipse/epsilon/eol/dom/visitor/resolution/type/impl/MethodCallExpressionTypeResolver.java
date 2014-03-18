@@ -90,9 +90,9 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			}
 			
 			if (targetType instanceof AnyType) { //if target type is of type any
-				if (((AnyType) targetType).getTempType() != null) { //if target type has a temp type
-					targetType = ((AnyType) targetType).getTempType();
-				}
+//				if (((AnyType) targetType).getTempType() != null) { //if target type has a temp type
+//					targetType = ((AnyType) targetType).getTempType();
+//				}
 			}
 
 			arrow = methodCallExpression.getIsArrow().isVal();
