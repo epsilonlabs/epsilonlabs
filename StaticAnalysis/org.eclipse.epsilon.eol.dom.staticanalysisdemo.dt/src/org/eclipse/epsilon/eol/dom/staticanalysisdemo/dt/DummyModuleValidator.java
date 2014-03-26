@@ -55,7 +55,7 @@ public class DummyModuleValidator implements IModuleValidator {
 		
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
-		
+		int warnings = 0;
 		for(log.Error error: vr.getVariableResolutionContext().getLogBook().getErrors())
 		{  
 			TextRegion textRegion = error.getDomElement().getRegion();
@@ -70,6 +70,7 @@ public class DummyModuleValidator implements IModuleValidator {
 
 			ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
 			markers.add(marker);
+			warnings++;
 		}
 		
 		TypeResolver tr = new TypeResolver();
@@ -89,6 +90,7 @@ public class DummyModuleValidator implements IModuleValidator {
 
 			ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
 			markers.add(marker);
+			warnings++;
 		}
 		
 		Optimiser o = new Optimiser();
@@ -121,7 +123,7 @@ public class DummyModuleValidator implements IModuleValidator {
 			ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
 			markers.add(marker);
 		}
-		
+		System.err.println("warnings are : " + warnings);
 		return markers;
 	}
 
