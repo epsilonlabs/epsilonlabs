@@ -67,4 +67,26 @@ public class MetaModelContainer {
 		}
 		return container;
 	}
+	
+	public int getNumberOfMetaClassUsed()
+	{
+		int result = 0;
+		for(MetaClassContainer mcc: metaClassContainers)
+		{
+			if (mcc.getCount()>0) {
+				result++;
+			}
+		}
+		return result;
+	}
+	
+	public int getNumberOfMetaClasses()
+	{
+		return metaClassContainers.size();
+	}
+	
+	public float getUsageRatio()
+	{
+		return (float)getNumberOfMetaClassUsed()/(float)getNumberOfMetaClasses();
+	}
 }

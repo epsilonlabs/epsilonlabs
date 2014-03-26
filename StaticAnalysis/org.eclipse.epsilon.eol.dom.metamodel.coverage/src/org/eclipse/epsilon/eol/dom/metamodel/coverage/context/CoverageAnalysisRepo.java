@@ -74,12 +74,16 @@ public class CoverageAnalysisRepo {
 		String result = "";
 		for(MetaModelContainer mmc: metaModelContainers)
 		{
-			result += "model name: " + mmc.getName() + ", nsURI: " + mmc.getNSURI() + "\n";
+			result += "Model name: " + mmc.getName() + ", nsURI: " + mmc.getNSURI() + "\n";
+			result += "Total number of classes: " + mmc.getNumberOfMetaClasses() + ", Class coverage: " + mmc.getNumberOfMetaClassUsed();
+			result += ", Coverage ratio: " + mmc.getNumberOfMetaClassUsed() + "/" + mmc.getNumberOfMetaClasses() + "\n";
 			for(MetaClassContainer mcc: mmc.getMetaClassContainers())
 			{
-				result += "meta class: " + mcc.getClassifier() + ", coverage: " + mcc.getCount() + "\n";
+				if (mcc.getCount() > 0) {
+					result += "Model Element: " + mcc.getClassifier().getName() + ", Usage: " + mcc.getCount() + "\n";
+				}
 			}
-			result += "===================================\n";
+			result += "======================================================================\n";
 		}
 		return result;
 	}
