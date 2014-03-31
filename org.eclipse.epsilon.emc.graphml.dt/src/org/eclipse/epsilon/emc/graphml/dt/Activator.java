@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.epsilon.emc.plainxml.dt";
+	public static final String PLUGIN_ID = "org.eclipse.epsilon.emc.graphml.dt";
 
 	// The shared instance
 	private static Activator plugin;
