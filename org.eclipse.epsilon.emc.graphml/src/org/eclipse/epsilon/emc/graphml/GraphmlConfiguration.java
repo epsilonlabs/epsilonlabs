@@ -6,6 +6,7 @@ public class GraphmlConfiguration {
 	
 	protected String nodeTypeKey;
 	protected String nodePropertiesKey;
+	protected String nodeContentsKey;
 	protected String nodePrimarySlotPrototypeNameKey;
 	
 	protected String edgeTypeKey;
@@ -24,6 +25,7 @@ public class GraphmlConfiguration {
 		nodeTypeKey = getKeyId("Type", "node");
 		nodePropertiesKey = getKeyId("Properties", "node");
 		nodePrimarySlotPrototypeNameKey = getKeyId("Default", "node");
+		nodeContentsKey = getKeyId("Contents", "node");
 		
 		edgeTypeKey = getKeyId("Type", "edge");
 		edgePropertiesKey = getKeyId("Properties", "edge");
@@ -45,6 +47,10 @@ public class GraphmlConfiguration {
 	
 	public String getNodePropertiesKey() {
 		return nodePropertiesKey;
+	}
+	
+	public String getNodeContentsKey() {
+		return nodeContentsKey;
 	}
 	
 	public String getEdgePropertiesKey() {

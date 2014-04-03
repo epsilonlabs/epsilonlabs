@@ -36,9 +36,21 @@ public class GraphmlImporter {
 	protected GraphmlConfiguration configuration;
 	protected List<MuddleElement> referenceNodes;
 	
-	/*
+	
+	
 	public static void main(String[] args) throws Exception {
 		
+		GraphmlModel model = new GraphmlModel();
+		model.setFile(new File("/Users/dimitrioskolovos/Downloads/eclipse-epsilon-kepler/workspace/org.eclipse.epsilon.emc.graphml/samples/template.graphml"));
+		model.setName("X");
+		model.load();
+		
+		EolModule module = new EolModule();
+		module.parse("Page.all.first().children.name.println();");
+		module.getContext().getModelRepository().addModel(model);
+		module.execute();
+		
+		/*
 		GraphmlImporter importer = new GraphmlImporter();
 		Muddle graph = importer.importGraph(new File("/Users/dimitrioskolovos/Desktop/sample.graphml"));
 		
@@ -54,8 +66,8 @@ public class GraphmlImporter {
 		//module.parse("Entity.all.second().admin.collect(a|a.language).println();");
 		//module.parse("Foo.all.size().println();");
 		module.getContext().getModelRepository().addModel(model);
-		module.execute();
-	}*/
+		module.execute();*/
+	}
 	
 	public Muddle importGraph(File file) throws Exception {
 		
@@ -220,6 +232,59 @@ public class GraphmlImporter {
 			
 		}
 		
+		// Populate contents
+		for (MuddleElement muddleElement : graph.getElements()) {
+			
+			if (muddleElement.getType() == null) continue;
+			Element element = nodeElementMap.get(muddleElement);
+			String contentsFeatureName = getElementData(element, configuration.getNodeContentsKey());
+			if (contentsFeatureName == null) continue;
+			
+			Feature contentsFeature = getOrCreateFeature(muddleElement.getType(), contentsFeatureName);
+			contentsFeature.setMany(true);
+			
+			Slot contentsSlot = findSlot(muddleElement, contentsFeature);
+			if (contentsSlot == null) {
+				contentsSlot = MuddleFactory.eINSTANCE.createSlot();
+				contentsSlot.setFeature(contentsFeature);
+				contentsSlot.setOwningElement(muddleElement);
+			}
+			
+			for (Object child : element.getChildren()) {
+				if (child instanceof Element) {
+					Element childElement = (Element) child;
+					
+					for (Object grandChild : childElement.getChildren()) {
+						if (grandChild instanceof Element) {
+							Element grandChildElement = (Element) grandChild;
+							MuddleElement contentsElement = nodeMap.get(grandChildElement.getAttributeValue("id"));
+							
+							if (contentsElement != null) {
+								contentsSlot.getValues().add(contentsElement);
+							}
+						}
+					}
+				}
+			}
+			
+		}
+	}
+	
+	protected Feature getOrCreateFeature(MuddleElementType type, String featureName) {
+		Feature feature = null;
+		for (Feature candidateFeature : type.getFeatures()) {
+			if (candidateFeature.getName().equals(featureName)) {
+				feature = candidateFeature;
+			}
+		}
+		
+		if (feature == null) {
+			feature = MuddleFactory.eINSTANCE.createFeature();
+			feature.setName(featureName);
+			feature.setOwningType(type);
+		}
+		
+		return feature;
 	}
 	
 	protected Feature createEdgeTypeSlotPrototype(MuddleElement edgeNode, String key) {
