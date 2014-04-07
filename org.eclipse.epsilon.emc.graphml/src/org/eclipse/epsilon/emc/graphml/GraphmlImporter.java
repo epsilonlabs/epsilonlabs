@@ -232,8 +232,6 @@ public class GraphmlImporter {
 			
 		}
 		
-		if ("".length() == 0) return;
-		
 		// Populate contents
 		for (MuddleElement muddleElement : graph.getElements()) {
 			
