@@ -46,7 +46,7 @@ public class GraphmlImporter {
 		model.load();
 		
 		EolModule module = new EolModule();
-		module.parse("Page.all.first().children.name.println();");
+		module.parse("Element.all.title.println();");
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 		
@@ -231,6 +231,8 @@ public class GraphmlImporter {
 			}
 			
 		}
+		
+		if ("".length() == 0) return;
 		
 		// Populate contents
 		for (MuddleElement muddleElement : graph.getElements()) {
@@ -560,15 +562,31 @@ public class GraphmlImporter {
 		}
 		List<String> labels = new ArrayList<String>();
 		for (Element labelElement : getDescendants(e, labelTag)) {
-			labels.addAll(getLabels(labelElement.getText()));
+			if (getFirstAncestor(labelElement, e.getName()) == e) {
+				labels.addAll(getLabels(labelElement.getText()));
+			}
 		}
 		
 		for (Element descriptionElement : getDescendants(e, "data")) {
+			if (descriptionElement.getParentElement() != e) continue;
 			if (descriptionElement.getAttributeValue("key","").equals(propertiesKey)) {
 				labels.addAll(getLabels(descriptionElement.getText()));
 			}
 		}
 		return labels;
+	}
+	
+	protected Element getFirstAncestor(Element element, String name) {
+		Element parentElement = element.getParentElement();
+		while (parentElement != null) {
+			if (parentElement.getName().equals(name)) {
+				return parentElement;
+			}
+			else {
+				parentElement = parentElement.getParentElement();
+			}
+		}
+		return null;
 	}
 	
 	protected List<String> getLabels(String s) {
