@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.workbench;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.workbench;
 
 
 import java.io.File;
