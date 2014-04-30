@@ -9,6 +9,6 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.static.analysis.problem.log,
  org.eclipse.epsilon.eol.ast2eol,
  org.eclipse.epsilon.eol.metamodel.visitor
-Export-Package: org.eclipse.epsilon.eol.dom.visitor.resolution.type.context,
- org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl,
- org.eclipse.epsilon.eol.dom.visitor.resolution.type.standard.library.collection.handlers.old
+Export-Package: org.eclipse.epsilon.eol.visitor.resolution.type.context,
+ org.eclipse.epsilon.eol.visitor.resolution.type.impl,
+ org.eclipse.epsilon.eol.visitor.resolution.type.standard.library.collection.handlers.old
