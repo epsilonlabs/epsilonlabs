@@ -5,7 +5,7 @@
     complianceLevel="6.0" copyrightFields="false">
   <foreignModel>Eol.ecore</foreignModel>
   <genPackages prefix="Eol" basePackage="org.eclipse.epsilon" disposableProviderFactory="true"
-      interfacePackageSuffix="eol" metaDataPackageSuffix="eol" classPackageSuffix="metamodel.impl"
+      interfacePackageSuffix="metamodel" metaDataPackageSuffix="eol" classPackageSuffix="metamodel.impl"
       utilityPackageSuffix="metamodel.util" ecorePackage="Eol.ecore#/">
     <genClasses image="false" ecoreClass="Eol.ecore#//EolElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eol.ecore#//EolElement/container"/>
