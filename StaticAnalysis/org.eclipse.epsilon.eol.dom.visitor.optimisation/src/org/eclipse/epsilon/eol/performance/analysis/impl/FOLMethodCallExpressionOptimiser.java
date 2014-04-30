@@ -1,27 +1,13 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
+package org.eclipse.epsilon.eol.performance.analysis.impl;
 
 import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EqualsOperatorExpression;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.FOLMethodCallExpression;
-import org.eclipse.epsilon.eol.dom.ForStatement;
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.PrimitiveExpression;
-import org.eclipse.epsilon.eol.dom.PrimitiveType;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.dom.WhileStatement;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.FOLMethodCallExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OptimisationContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
+import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
 
 public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVisitor<OptimisationContext, Object>{
 
@@ -132,9 +118,9 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 		}
 	}
 	
-	public boolean inLoop(DomElement dom)
+	public boolean inLoop(EolElement dom)
 	{
-		DomElement container = dom.getContainer();
+		EolElement container = dom.getContainer();
 		while(!(container instanceof Program))
 		{
 			if (container instanceof ForStatement || container instanceof WhileStatement) {
@@ -160,9 +146,9 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 		return false;
 	}
 	
-	public boolean isContainedBy(DomElement dom, DomElement container)
+	public boolean isContainedBy(EolElement dom, EolElement container)
 	{
-		DomElement domContainer = dom;
+		EolElement domContainer = dom;
 		while(!(domContainer instanceof Program))
 		{
 			if (domContainer.equals(container)) {
@@ -173,9 +159,9 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 		return false;
 	}
 	
-	public boolean inOperationDefinition(DomElement dom)
+	public boolean inOperationDefinition(EolElement dom)
 	{
-		DomElement container = dom.getContainer();
+		EolElement container = dom.getContainer();
 		while(!(container instanceof Program))
 		{
 			if (container instanceof OperationDefinition) {
@@ -186,9 +172,9 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 		return false;
 	}
 	
-	public OperationDefinition getOperationDefinition(DomElement dom)
+	public OperationDefinition getOperationDefinition(EolElement dom)
 	{
-		DomElement container = dom.getContainer();
+		EolElement container = dom.getContainer();
 		while(!(container instanceof Program))
 		{
 			if (container instanceof OperationDefinition) {

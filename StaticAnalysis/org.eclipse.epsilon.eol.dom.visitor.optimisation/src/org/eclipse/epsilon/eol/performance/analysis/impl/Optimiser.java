@@ -1,9 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
+package org.eclipse.epsilon.eol.performance.analysis.impl;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.visitor.EolDefaultVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OptimisationContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
 
 public class Optimiser {
 
@@ -23,7 +23,7 @@ public class Optimiser {
 	}
 	
 	
-	public void run(DomElement dom)
+	public void run(EolElement dom)
 	{
 		controller.visit(dom, context);
 	}

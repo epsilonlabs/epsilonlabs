@@ -1,7 +1,6 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.context;
+package org.eclipse.epsilon.eol.performance.analysis.context;
 
-import org.eclipse.epsilon.eol.dom.FOLMethodCallExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class OperationDefinitionReference {
 

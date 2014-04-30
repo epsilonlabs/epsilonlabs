@@ -1,14 +1,10 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
+package org.eclipse.epsilon.eol.performance.analysis.impl;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ForStatement;
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.WhileStatement;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.MethodCallExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OperationDefinitionReference;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OptimisationContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
+import org.eclipse.epsilon.eol.performance.analysis.context.OperationDefinitionReference;
+import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
 
 public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<OptimisationContext, Object>{
 
@@ -31,9 +27,9 @@ public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<O
 		return null;
 	}
 	
-	public boolean inLoop(DomElement dom)
+	public boolean inLoop(EolElement dom)
 	{
-		DomElement container = dom.getContainer();
+		EolElement container = dom.getContainer();
 		while(!(container instanceof Program))
 		{
 			if (container instanceof ForStatement || container instanceof WhileStatement) {
@@ -59,9 +55,9 @@ public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<O
 		return false;
 	}
 	
-	public boolean isContainedBy(DomElement dom, DomElement container)
+	public boolean isContainedBy(EolElement dom, EolElement container)
 	{
-		DomElement domContainer = dom;
+		EolElement domContainer = dom;
 		while(!(domContainer instanceof Program))
 		{
 			if (domContainer.equals(container)) {

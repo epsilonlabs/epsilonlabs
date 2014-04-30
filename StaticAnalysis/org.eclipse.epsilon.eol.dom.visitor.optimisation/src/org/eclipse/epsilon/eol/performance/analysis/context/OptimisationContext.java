@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.context;
+package org.eclipse.epsilon.eol.performance.analysis.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,13 +8,9 @@ import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.FOLMethodCallExpression;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.impl.EolFactoryImpl;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.MetamodelContainer;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
+import org.eclipse.epsilon.eol.visitor.resolution.type.context.MetamodelContainer;
 
 public class OptimisationContext {
 
@@ -115,7 +111,7 @@ public class OptimisationContext {
 			return modelDeclarations.get(name);
 		}
 		
-		public void setAssets(DomElement obj, DomElement container)
+		public void setAssets(EolElement obj, EolElement container)
 		{
 			obj.setLine(container.getLine());
 			obj.setColumn(container.getColumn());

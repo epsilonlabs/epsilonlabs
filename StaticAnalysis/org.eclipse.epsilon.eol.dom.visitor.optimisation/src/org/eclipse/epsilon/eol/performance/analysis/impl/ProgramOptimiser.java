@@ -1,10 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
+package org.eclipse.epsilon.eol.performance.analysis.impl;
 
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ProgramVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OptimisationContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
+import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
 
 public class ProgramOptimiser extends ProgramVisitor<OptimisationContext, Object>{
 

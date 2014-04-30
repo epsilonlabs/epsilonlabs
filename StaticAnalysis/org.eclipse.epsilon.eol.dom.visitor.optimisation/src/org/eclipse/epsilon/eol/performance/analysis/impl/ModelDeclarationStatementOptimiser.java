@@ -1,14 +1,12 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
+package org.eclipse.epsilon.eol.performance.analysis.impl;
 
 import metamodel.connectivity.emf.EMetaModel;
 import metamodel.connectivity.plainxml.PlainXMLModel;
 
-import org.eclipse.epsilon.eol.dom.ModelDeclarationParameter;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ModelDeclarationStatementVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.context.OptimisationContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
+import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
 
 public class ModelDeclarationStatementOptimiser extends ModelDeclarationStatementVisitor<OptimisationContext, Object>{
 

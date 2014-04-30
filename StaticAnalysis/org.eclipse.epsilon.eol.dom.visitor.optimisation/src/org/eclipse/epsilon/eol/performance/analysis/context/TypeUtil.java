@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.context;
+package org.eclipse.epsilon.eol.performance.analysis.context;
 
 import java.util.ArrayList;
 
@@ -8,20 +8,7 @@ import metamodel.connectivity.emf.MetaClassNode;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.BagType;
-import org.eclipse.epsilon.eol.dom.BooleanType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.IntegerType;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.OrderedSetType;
-import org.eclipse.epsilon.eol.dom.PrimitiveType;
-import org.eclipse.epsilon.eol.dom.RealType;
-import org.eclipse.epsilon.eol.dom.SequenceType;
-import org.eclipse.epsilon.eol.dom.SetType;
-import org.eclipse.epsilon.eol.dom.StringType;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class TypeUtil {
 

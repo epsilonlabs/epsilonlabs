@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.visitor.optimisation.context;
+package org.eclipse.epsilon.eol.performance.analysis.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
