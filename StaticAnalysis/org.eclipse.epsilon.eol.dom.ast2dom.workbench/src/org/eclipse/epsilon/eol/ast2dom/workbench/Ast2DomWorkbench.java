@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.ast2dom.workbench;
+package org.eclipse.epsilon.eol.ast2dom.workbench;
 
 
 import java.io.File;
