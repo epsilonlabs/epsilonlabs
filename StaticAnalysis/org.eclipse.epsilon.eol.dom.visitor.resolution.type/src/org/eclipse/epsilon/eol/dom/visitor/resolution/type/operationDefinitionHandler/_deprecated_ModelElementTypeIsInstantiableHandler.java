@@ -41,7 +41,7 @@ public class _deprecated_ModelElementTypeIsInstantiableHandler extends _deprecat
 		}
 		else {
 			NameExpression target = (NameExpression) rawTarget;
-			if (context.numberOfMetamodelsDefine(target.getName()) > 0) {
+			if (context.numberOfMetamodelsDefine(target.getName(), true) > 0) {
 				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
 				
 				if (!(rawTargetType instanceof ModelElementType)) {

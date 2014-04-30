@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.dom.ModelElementType;
@@ -23,14 +23,26 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			if (newExpression) {
 				Type rawType = variableDeclarationExpression.getResolvedType();
 				if (rawType instanceof ModelElementType) {
+					
+					
 					ModelElementType modelElementType = (ModelElementType) rawType;
-					String modelName = modelElementType.getModelName();
-					String elementName = modelElementType.getElementName();
-					EMetaModel em = context.getMetaModel(modelName); //get metamodel
-					EClass eClass = em.getMetaClass(elementName);
-					if (eClass.isAbstract() || eClass.isInterface()) {
-						context.getLogBook().addError(modelElementType, "Model Element Type: " + modelName + "!" + elementName + " is not instantiable");
+					if (modelElementType.getEcoreType() instanceof EClass) {
+						EClass eClass = (EClass) modelElementType.getEcoreType();
+						if (eClass.isAbstract() || eClass.isInterface()) {
+							context.getLogBook().addError(modelElementType, "Model element type is not instantiable");
+						}
 					}
+//					String modelName = modelElementType.getModelName();
+//					String elementName = modelElementType.getElementName();
+//					if (modelName != null) {
+//						EMetaModel em = context.getMetaModel(modelName); //get metamodel
+//						EClass eClass = em.getMetaClass(elementName);
+//					}
+//					else {
+//						if (context.numberOfMetamodelsDefine(elementName, false) == 1) {
+//							
+//						}
+//					}
 				}
 			}
 		}

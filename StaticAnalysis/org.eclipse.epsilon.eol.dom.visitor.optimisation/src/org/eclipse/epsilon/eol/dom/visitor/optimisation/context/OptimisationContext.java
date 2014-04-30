@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import log.LogBook;
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -38,6 +38,7 @@ public class OptimisationContext {
 		//namespace for metamodel
 		protected ArrayList<String> metaModelNameSpace = new ArrayList<String>();
 
+		protected String directoryPathString;
 		//return the logbook
 		
 		public void registerOperationWithPerformancePotential(OperationDefinition op, FOLMethodCallExpression folMethodCallExpression)
@@ -50,6 +51,13 @@ public class OptimisationContext {
 			return operationsWithPerformancePotential;
 		}
 		
+		public String getDirectoryPathString() {
+			return directoryPathString;
+		}
+		
+		public void setDirectoryPathString(String directoryPathString) {
+			this.directoryPathString = directoryPathString;
+		}
 		
 		public LogBook getLogBook()
 		{

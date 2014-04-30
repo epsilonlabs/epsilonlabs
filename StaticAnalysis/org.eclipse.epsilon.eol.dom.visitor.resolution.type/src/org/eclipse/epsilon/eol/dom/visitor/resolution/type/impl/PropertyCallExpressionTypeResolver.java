@@ -3,9 +3,14 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
+import javax.sound.midi.Sequence;
 
+import metamodel.connectivity.emf.EMetaModel;
+
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.AnnotationBlock;
@@ -21,6 +26,7 @@ import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
 import org.eclipse.epsilon.eol.dom.SelfContentType;
 import org.eclipse.epsilon.eol.dom.SelfInnermostType;
 import org.eclipse.epsilon.eol.dom.SelfType;
+import org.eclipse.epsilon.eol.dom.SequenceType;
 import org.eclipse.epsilon.eol.dom.SimpleAnnotation;
 import org.eclipse.epsilon.eol.dom.StringExpression;
 import org.eclipse.epsilon.eol.dom.Type;
@@ -83,7 +89,14 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 					String metaClassString = targetType.getElementName(); //get metaclass string
 					String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 					
-					if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
+					if (context.getTypeUtil().isXMLSyntax(propertyString)) {
+						if (propertyString.startsWith("t_")) {
+							context.getLogBook().addError(propertyCallExpression.getProperty(), "The syntax t_ cannot be used on property calls");
+							return null;
+						}
+					}
+					
+					if(mm != null && mm.contains(metaClassString, propertyString)) //if metamode class contains the property
 					{
 						
 					}
@@ -105,6 +118,17 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						{
 							EStructuralFeature feature = mm.getEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the property 
 							propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
+							if (feature.getEAnnotations() != null && feature.getEAnnotations().size() != 0) {
+								for(EAnnotation anno: feature.getEAnnotations())
+								{
+									if (anno.getDetails().get("warning") != null) {
+										context.getLogBook().addWarning(propertyCallExpression.getProperty(), anno.getDetails().get("warning"));	
+									}
+									if (anno.getDetails().get("error") != null) {
+										context.getLogBook().addError(propertyCallExpression.getProperty(), anno.getDetails().get("error"));	
+									}
+								}
+							}
 							
 							if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
 								Type contentType = null; //each collection type needs a content type
@@ -409,7 +433,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							if (targetname.contains("!")) {
 								targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
 							}
-							if (context.numberOfMetamodelsDefine(targetname) > 0) { //if the NameExpression is a keyword in the metamodels
+							if (context.numberOfMetamodelsDefine(targetname, true) > 0) { //if the NameExpression is a keyword in the metamodels
 								Type rawTargetType = rawTarget.getResolvedType();
 								
 								if (!(rawTargetType instanceof ModelElementType)) {
@@ -620,8 +644,6 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			op.setReturnType(EcoreUtil.copy(innermost));
 		}
 	}
-
-
 
 
 }

@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.epsilon.eol.dom.EType;

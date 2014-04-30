@@ -1,7 +1,9 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.AnyType;
 import org.eclipse.epsilon.eol.dom.AssignmentStatement;
@@ -162,10 +164,13 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						nameExpression.setIsType(isType); //set isType for the nameExpression
 						nameExpression.setResolvedContent(em.getMetaClass(element)); //setResolvedContent for nameExpression
 						
+						EClass ecoreType = em.getMetaClass(element);
+						context.checkAndDisplayAnnotation(ecoreType, nameExpression);
+						
 						ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
 						type.setModelName(em.getMetaModelName()); //set model name
 						type.setElementName(element); //set element name
-						type.setEcoreType(em.getMetaClass(element));
+						type.setEcoreType(ecoreType);
 						context.setAssets(type, nameExpression); //set assets
 						type.setResolvedModelDeclaration(context.getModelDeclarationStatement(model)); //set resolved model declaration statement
 						nameExpression.setResolvedType(type);
@@ -182,9 +187,9 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			}
 				
 			
-			else if(context.numberOfMetamodelsDefine(nameString) > 0) //if name is a modelElementName
+			else if(context.numberOfMetamodelsDefine(nameString, true) > 0) //if name is a modelElementName
 			{
-				if(context.numberOfMetamodelsDefine(nameString) == 1)
+				if(context.numberOfMetamodelsDefine(nameString, true) == 1)
 				{
 					EMetaModel em = context.getMetaModelDefiningMetaClass(nameString);
 					
@@ -203,7 +208,9 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					nameExpression.setResolvedType(type);
 				}
 				else {
-					//handle metaclasses defined in multiple metamodels
+					if (context.getTypeUtil().isXMLSyntax(nameString)) {
+						context.getLogBook().addError(nameExpression, "Multiple XML models detected, please specify one");
+					}
 				}
 			}
 			

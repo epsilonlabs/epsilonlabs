@@ -41,6 +41,7 @@ public class TypeResolver {
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionTypeResolver());
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionTypeResolver());
 
+		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
 	}
 	
 	public void run(DomElement dom)

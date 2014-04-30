@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.ecoreUtil;
+import metamodel.connectivity.emf.ecoreUtil;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.dom.AnnotationBlock;
@@ -218,7 +218,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 							if (targetname.contains("!")) {
 								targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
 							}
-							if (context.numberOfMetamodelsDefine(targetname) > 0) { //if the NameExpression is a keyword in the metamodels
+							if (context.numberOfMetamodelsDefine(targetname, true) > 0) { //if the NameExpression is a keyword in the metamodels
 								Type rawTargetType = rawTarget.getResolvedType();
 								
 								if (!(rawTargetType instanceof ModelElementType)) {

@@ -3,7 +3,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 import java.util.ArrayList;
 import java.util.jar.Attributes.Name;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -62,7 +62,7 @@ public class _deprecated_ModelElementTypeAllInstancesHandler extends _deprecated
 			if (targetname.contains("!")) {
 				targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
 			}
-			if (context.numberOfMetamodelsDefine(targetname) > 0) { //if the NameExpression is a keyword in the metamodels
+			if (context.numberOfMetamodelsDefine(targetname, false) > 0) { //if the NameExpression is a keyword in the metamodels
 				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
 				
 				if (!(rawTargetType instanceof ModelElementType)) {

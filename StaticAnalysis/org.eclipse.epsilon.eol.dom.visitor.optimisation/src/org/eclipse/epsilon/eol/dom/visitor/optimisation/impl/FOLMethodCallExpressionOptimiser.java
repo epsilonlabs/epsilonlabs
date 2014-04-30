@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.dom.visitor.optimisation.impl;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;

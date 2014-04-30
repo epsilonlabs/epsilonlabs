@@ -3,7 +3,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 public class MetamodelContainer {
 

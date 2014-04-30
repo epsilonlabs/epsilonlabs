@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -45,7 +45,7 @@ public class _deprecated_ModelElementTypeCreateInstanceHandler extends _deprecat
 		}
 		else {
 			NameExpression target = (NameExpression) rawTarget;
-			if (context.numberOfMetamodelsDefine(target.getName()) > 0) {
+			if (context.numberOfMetamodelsDefine(target.getName(), true) > 0) {
 				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
 				
 				if (!(rawTargetType instanceof ModelElementType)) {

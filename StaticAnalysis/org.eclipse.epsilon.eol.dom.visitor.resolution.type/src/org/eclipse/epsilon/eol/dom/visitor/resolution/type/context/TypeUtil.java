@@ -2,8 +2,8 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.context;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
-import metamodel.connectivity.MetaClassNode;
+import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.MetaClassNode;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -504,7 +504,7 @@ public class TypeUtil {
 				return false;
 			}
 		}
-		else if (context.numberOfMetamodelsDefine(s) > 0) {
+		else if (context.numberOfMetamodelsDefine(s, false) > 0) {
 			return true;
 		}
 		else {
@@ -638,6 +638,21 @@ public class TypeUtil {
 			}
 		}
 		return false;
+	}
+	
+	public boolean isXMLSyntax(String fullName)
+	{
+		if (fullName.startsWith("a_") || fullName.startsWith("b_") ||
+				fullName.startsWith("i_") || fullName.startsWith("f_") || 
+				fullName.startsWith("d_") || fullName.startsWith("s_") ||
+				fullName.startsWith("t_") || fullName.startsWith("c_") ||
+				fullName.startsWith("e_") || fullName.startsWith("x_"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 }

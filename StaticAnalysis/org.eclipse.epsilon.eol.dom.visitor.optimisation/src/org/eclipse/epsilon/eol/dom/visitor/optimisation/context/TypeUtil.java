@@ -2,8 +2,8 @@ package org.eclipse.epsilon.eol.dom.visitor.optimisation.context;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.EMetaModel;
-import metamodel.connectivity.MetaClassNode;
+import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.MetaClassNode;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;

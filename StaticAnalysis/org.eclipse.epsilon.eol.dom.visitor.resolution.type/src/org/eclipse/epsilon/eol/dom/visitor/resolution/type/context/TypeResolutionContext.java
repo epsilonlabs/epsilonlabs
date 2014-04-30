@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import log.LogBook;
-import metamodel.connectivity.EMetaModel;
+import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.plainxml.PlainXMLModel;
 
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.eol.dom.DomElement;
@@ -41,12 +44,22 @@ public class TypeResolutionContext {
 	//operation definition container used to store user defined operations
 	protected OperationDefinitionControl operationDefinitionControl = new OperationDefinitionControl(this);
 	
+	protected String directoryPathString;
+	
 	public static void main(String[] args) {
 		TypeResolutionContext context = new TypeResolutionContext();
 		Type type1 = context.getEolFactory().createType();
 		Type type2 = context.getEolFactory().createIntegerType();
 		
 		System.out.println(context.getTypeUtil().isEqualOrGeneric(type2, type1));	
+	}
+	
+	public void setDirectoryPathString(String directoryPathString) {
+		this.directoryPathString = directoryPathString;
+	}
+	
+	public String getDirectoryPathString() {
+		return directoryPathString;
 	}
 	
 	//return the logbook
@@ -150,7 +163,7 @@ public class TypeResolutionContext {
 	{
 		for(EMetaModel em: container.getMetaModels())
 		{
-			if (em.containsMetaClass(metaClass)) {
+			if ((!(em instanceof PlainXMLModel)) && em.containsMetaClass(metaClass)) {
 				return em;
 			}
 		}
@@ -162,14 +175,21 @@ public class TypeResolutionContext {
 		return metaModelNameSpace.contains(metaModel);
 	}
 	
-	public int numberOfMetamodelsDefine(String metaClass)
+	public int numberOfMetamodelsDefine(String metaClass, boolean includeXMLModels)
 	{
 		int result = 0;
 		for(EMetaModel em: container.getMetaModels())
 		{
-			if(em.containsMetaClass(metaClass))
-			{
-				result ++;
+			if (includeXMLModels) {
+				if (em.containsMetaClass(metaClass)) {
+					result++;
+				}
+			}
+			else {
+				if((!(em instanceof PlainXMLModel)) && em.containsMetaClass(metaClass))
+				{
+					result ++;
+				}
 			}
 		}
 		return result;
@@ -182,8 +202,47 @@ public class TypeResolutionContext {
 		operationDefinitionControl.putOperationDefinition(operation);
 	}
 	
-
+	public MetamodelContainer getContainer() {
+		return container;
+	}
 	
+	public int getNumberofPlainXMLModels()
+	{
+		int result = 0;
+		for(EMetaModel em: container.getMetaModels())
+		{
+			if (em instanceof PlainXMLModel) {
+				result++;
+			}
+		}
+		return result;
+	}
+	
+	public PlainXMLModel getOneXMLModel()
+	{
+		for(EMetaModel em: container.getMetaModels())
+		{
+			if (em instanceof PlainXMLModel) {
+				return (PlainXMLModel) em;
+			}
+		}
+		return null;
+	}
+
+	public void checkAndDisplayAnnotation(EModelElement element, DomElement dom)
+	{
+		if (element.getEAnnotations() != null && element.getEAnnotations().size() != 0) {
+			for(EAnnotation anno: element.getEAnnotations())
+			{
+				if (anno.getDetails().get("warning") != null) {
+					getLogBook().addWarning(dom, anno.getDetails().get("warning"));	
+				}
+				if (anno.getDetails().get("error") != null) {
+					getLogBook().addError(dom, anno.getDetails().get("error"));	
+				}
+			}
+		}
+	}
 
 	
 }

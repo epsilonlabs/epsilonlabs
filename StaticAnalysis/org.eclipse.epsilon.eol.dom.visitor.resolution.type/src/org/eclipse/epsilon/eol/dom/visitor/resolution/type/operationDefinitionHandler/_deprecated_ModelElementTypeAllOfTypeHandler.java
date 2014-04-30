@@ -45,7 +45,7 @@ public class _deprecated_ModelElementTypeAllOfTypeHandler extends _deprecated_Mo
 		}
 		else { //else
 			NameExpression target = (NameExpression) rawTarget; //cast the target to NameExpression
-			if (context.numberOfMetamodelsDefine(target.getName()) > 0) { //if the NameExpression is a keyword in the metamodels
+			if (context.numberOfMetamodelsDefine(target.getName(), true) > 0) { //if the NameExpression is a keyword in the metamodels
 				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
 				
 				if (!(rawTargetType instanceof ModelElementType)) {
