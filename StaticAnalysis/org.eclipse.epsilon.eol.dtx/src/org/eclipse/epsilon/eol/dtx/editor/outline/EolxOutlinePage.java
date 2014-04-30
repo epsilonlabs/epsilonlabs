@@ -57,6 +57,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 		vr.run(dom);
 		
 		TypeResolver tr = new TypeResolver();
+		tr.getTypeResolutionContext().setDirectoryPathString(directoryPathString);
 		tr.run(dom);
 		
 		
