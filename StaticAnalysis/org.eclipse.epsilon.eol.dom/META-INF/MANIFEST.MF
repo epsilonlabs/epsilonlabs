@@ -7,11 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipse.epsilon.eol.eol.metamodel,
- org.eclipse.epsilon.eol.eol.metamodel.impl,
- org.eclipse.epsilon.eol.eol.metamodel.util,
- org.eclipse.epsilon.eol.eol,
- org.eclipse.epsilon.eol.metamodel,
+Export-Package: org.eclipse.epsilon.eol.metamodel,
  org.eclipse.epsilon.eol.metamodel.impl,
  org.eclipse.epsilon.eol.metamodel.util
 Require-Bundle: org.eclipse.core.runtime,
