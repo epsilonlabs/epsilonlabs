@@ -1,19 +1,18 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ExecutableAnnotation;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ExecutableAnnotationPrinter extends AnnotationPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		ExecutableAnnotation annotation = (ExecutableAnnotation) e;
-		String result = "$" + f.print((DomElement) annotation.getName()) + " " + f.print((DomElement) annotation.getExpression());
+		String result = "$" + f.print((EolElement) annotation.getName()) + " " + f.print((EolElement) annotation.getExpression());
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof ExecutableAnnotation;
 	}

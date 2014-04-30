@@ -1,26 +1,26 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
 public class OperationDefinitionPrinter extends EolElementPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		OperationDefinition operation = (OperationDefinition) e;
 		String result = "";
 		if(operation.getAnnotationBlock() != null)
 		{
-			result += f.print((DomElement) operation.getAnnotationBlock());
+			result += f.print((EolElement) operation.getAnnotationBlock());
 		}
 		
 		result += "operation ";
 		if(operation.getContextType() != null)
 		{
-			result += f.print((DomElement) operation.getContextType()) + " ";
+			result += f.print((EolElement) operation.getContextType()) + " ";
 		}
-		result += f.print((DomElement) operation.getName()) + "(";
+		result += f.print((EolElement) operation.getName()) + "(";
 		if(operation.getParameters().size() != 0)
 		{
 			result += f.print(operation.getParameters(), ", ") + ")";
@@ -30,9 +30,9 @@ public class OperationDefinitionPrinter extends EolElementPrinter{
 		}
 		if(operation.getReturnType() != null)
 		{
-			result += " : " + f.print((DomElement) operation.getReturnType()) + " ";
+			result += " : " + f.print((EolElement) operation.getReturnType()) + " ";
 		}
-		result += " {" + f.newline() + f.indent() + f.print((DomElement) operation.getBody()) + f.outdent() + f.newline() + f.whitespace() + "}";
+		result += " {" + f.newline() + f.indent() + f.print((EolElement) operation.getBody()) + f.outdent() + f.newline() + f.whitespace() + "}";
 		
 		
 		
@@ -41,7 +41,7 @@ public class OperationDefinitionPrinter extends EolElementPrinter{
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof OperationDefinition;
 	}

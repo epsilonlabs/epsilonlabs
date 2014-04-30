@@ -1,12 +1,11 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.AnnotationBlock;
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class AnnotationBlockPrinter extends EolElementPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		AnnotationBlock block = (AnnotationBlock) e;
 		String result = "";
 		result += f.print(block.getSimpleAnnotations());
@@ -17,7 +16,7 @@ public class AnnotationBlockPrinter extends EolElementPrinter{
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof AnnotationBlock;
 	}

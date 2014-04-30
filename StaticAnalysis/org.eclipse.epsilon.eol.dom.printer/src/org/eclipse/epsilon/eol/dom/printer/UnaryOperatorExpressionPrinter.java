@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
@@ -8,15 +8,15 @@ public abstract class UnaryOperatorExpressionPrinter extends OperatorExpressionP
 
 	protected boolean prefixed;
 	
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		UnaryOperatorExpression exp = (UnaryOperatorExpression) e;
 		if(prefixed)
 		{
-			return getOperatorSymbol() + f.print((DomElement) exp.getExpr()) ;
+			return getOperatorSymbol() + f.print((EolElement) exp.getExpr()) ;
 		}
 		else
 		{
-			return f.print((DomElement) exp.getExpr()) + getOperatorSymbol();
+			return f.print((EolElement) exp.getExpr()) + getOperatorSymbol();
 		}
 	}
 	

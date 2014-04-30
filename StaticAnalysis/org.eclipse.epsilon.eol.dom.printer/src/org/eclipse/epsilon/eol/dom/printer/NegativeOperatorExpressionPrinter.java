@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.NegativeOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class NegativeOperatorExpressionPrinter extends UnaryOperatorExpressionPrinter{
 
@@ -16,7 +15,7 @@ public class NegativeOperatorExpressionPrinter extends UnaryOperatorExpressionPr
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof NegativeOperatorExpression;
 	}

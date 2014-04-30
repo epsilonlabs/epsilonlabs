@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import org.eclipse.epsilon.eol.dom.*;
-import org.eclipse.epsilon.eol.dom.impl.*;
-
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.*;
 
 
 
@@ -23,7 +22,7 @@ public class EolElementPrinterFactory {
 		initialiseEolElementPrinters();
 	}
 	
-	public String print(DomElement e) {
+	public String print(EolElement e) {
 		
 		EolElementPrinter printer = null;
 		
@@ -226,7 +225,7 @@ public class EolElementPrinterFactory {
 		Iterator it = c.iterator();
 		String str = "";
 		while (it.hasNext()) {
-			str = str + print((DomElement) it.next());
+			str = str + print((EolElement) it.next());
 			if (it.hasNext()) {
 				str = str + delimiter;
 			}

@@ -1,12 +1,11 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ModelElementTypePrinter extends TypePrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		ModelElementType type = (ModelElementType) e;
 		String result = "";
 		if(type.getModelName() != null)
@@ -20,7 +19,7 @@ public class ModelElementTypePrinter extends TypePrinter{
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof ModelElementType;
 	}

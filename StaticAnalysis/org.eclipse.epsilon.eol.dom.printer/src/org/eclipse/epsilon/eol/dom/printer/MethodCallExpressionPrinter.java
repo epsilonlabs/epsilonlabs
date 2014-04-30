@@ -1,21 +1,21 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
 public class MethodCallExpressionPrinter extends FeatureCallExpressionPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		MethodCallExpression expression = (MethodCallExpression) e;
 		String result = "";
 		if(expression.getTarget() != null)
 		{
-			result += f.print((DomElement) expression.getTarget());
+			result += f.print((EolElement) expression.getTarget());
 			result += expression.getIsArrow().isVal() ? "->" : ".";;
 		}
 		
-		result += f.print((DomElement) expression.getMethod()) + "(";
+		result += f.print((EolElement) expression.getMethod()) + "(";
 		if(expression.getArguments().size() != 0)
 		{
 			result += f.print(expression.getArguments(), ",") + ")";
@@ -28,7 +28,7 @@ public class MethodCallExpressionPrinter extends FeatureCallExpressionPrinter {
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof MethodCallExpression;
 	}

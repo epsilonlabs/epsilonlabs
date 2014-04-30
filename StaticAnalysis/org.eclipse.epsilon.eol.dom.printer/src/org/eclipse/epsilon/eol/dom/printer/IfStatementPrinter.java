@@ -1,14 +1,14 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
 public class IfStatementPrinter extends StatementPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		IfStatement s = (IfStatement) e;
-		String r = "if (" + f.print((DomElement) s.getCondition()) + ") {" + f.newline()
+		String r = "if (" + f.print((EolElement) s.getCondition()) + ") {" + f.newline()
 			+ f.indent() + f.print(s.getIfBody()) + f.outdent() + f.newline() + 
 			f.whitespace() + "}";
 		if (s.getElseBody() != null) {
@@ -19,7 +19,7 @@ public class IfStatementPrinter extends StatementPrinter {
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof IfStatement;
 	}

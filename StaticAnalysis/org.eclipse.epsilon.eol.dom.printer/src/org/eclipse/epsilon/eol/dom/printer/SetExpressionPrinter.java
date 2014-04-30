@@ -1,19 +1,18 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.SetExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class SetExpressionPrinter extends CollectionExpressionPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		SetExpression set = (SetExpression)e;
-		String result = "Set{" + f.print((DomElement)set.getParameterList()) + "}";
+		String result = "Set{" + f.print((EolElement)set.getParameterList()) + "}";
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof SetExpression;
 	}

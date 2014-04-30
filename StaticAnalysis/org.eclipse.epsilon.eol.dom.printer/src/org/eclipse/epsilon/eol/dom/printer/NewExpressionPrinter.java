@@ -1,15 +1,14 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.NewExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class NewExpressionPrinter extends ExpressionPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		NewExpression expression = (NewExpression) e;
 		String result = "";
-		result += "new " + f.print((DomElement) expression.getResolvedType());
+		result += "new " + f.print((EolElement) expression.getResolvedType());
 		if(expression.getParameters().size() != 0)
 		{
 			result += "(" + f.print(expression.getParameters(), ", ") + ")";
@@ -18,7 +17,7 @@ public class NewExpressionPrinter extends ExpressionPrinter{
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof NewExpression;
 	}

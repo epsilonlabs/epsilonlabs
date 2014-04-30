@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.NotOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class NotOperatorExpressionPrinter extends UnaryOperatorExpressionPrinter {
@@ -16,7 +15,7 @@ public class NotOperatorExpressionPrinter extends UnaryOperatorExpressionPrinter
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof NotOperatorExpression;
 	}

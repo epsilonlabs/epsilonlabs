@@ -1,21 +1,21 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
 public class SwitchStatementPrinter extends StatementPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		SwitchStatement statement = (SwitchStatement) e;
-		String result = "switch (" + f.print((DomElement) statement.getExpression()) + ") {" + f.newline() + f.indent();
+		String result = "switch (" + f.print((EolElement) statement.getExpression()) + ") {" + f.newline() + f.indent();
 		if (statement.getCases() != null) {
 			result += f.print(statement.getCases());
 			result += f.newline();
 		}
 		
 		if (statement.getDefault() != null) {
-			result += f.print((DomElement) statement.getDefault());
+			result += f.print((EolElement) statement.getDefault());
 			result += f.newline();
 		}
 		result += f.outdent() + f.whitespace() + "}";
@@ -26,7 +26,7 @@ public class SwitchStatementPrinter extends StatementPrinter {
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof SwitchStatement;
 	}

@@ -1,20 +1,19 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.KeyValue;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class KeyValuePrinter extends EolElementPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		KeyValue keyValue = (KeyValue) e;
 		String result = "";
-		result += f.print((DomElement) keyValue.getKey()) + " = " + f.print((DomElement) keyValue.getValue());
+		result += f.print((EolElement) keyValue.getKey()) + " = " + f.print((EolElement) keyValue.getValue());
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof KeyValue;
 	}

@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.PlusOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class PlusOperatorExpressionPrinter extends BinaryOperatorExpressionPrinter {
 
@@ -11,7 +10,7 @@ public class PlusOperatorExpressionPrinter extends BinaryOperatorExpressionPrint
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof PlusOperatorExpression;
 	}

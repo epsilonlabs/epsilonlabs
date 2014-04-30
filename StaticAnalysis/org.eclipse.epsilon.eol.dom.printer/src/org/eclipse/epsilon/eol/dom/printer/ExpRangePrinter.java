@@ -1,20 +1,19 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ExpRange;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ExpRangePrinter extends CollectionInitValuePrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		ExpRange expRange = (ExpRange) e;
 		String result = "";
-		result += f.print((DomElement) expRange.getStart()) + ".." + f.print((DomElement) expRange.getEnd());
+		result += f.print((EolElement) expRange.getStart()) + ".." + f.print((EolElement) expRange.getEnd());
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof ExpRange;
 	}

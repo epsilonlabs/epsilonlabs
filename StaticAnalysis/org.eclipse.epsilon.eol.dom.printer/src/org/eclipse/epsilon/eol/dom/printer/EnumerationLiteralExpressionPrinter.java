@@ -1,22 +1,22 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class EnumerationLiteralExpressionPrinter extends ExpressionPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		EnumerationLiteralExpression exp = (EnumerationLiteralExpression) e;
 		String s = "";
 		if (exp.getModel() != null) {
-			s += f.print((DomElement) exp.getModel()) + "!";
+			s += f.print((EolElement) exp.getModel()) + "!";
 		}
-		s += f.print((DomElement) exp.getEnumeration()) + "#" + f.print((DomElement) exp.getLiteral());
+		s += f.print((EolElement) exp.getEnumeration()) + "#" + f.print((EolElement) exp.getLiteral());
 		return s;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof EnumerationLiteralExpression;
 	}

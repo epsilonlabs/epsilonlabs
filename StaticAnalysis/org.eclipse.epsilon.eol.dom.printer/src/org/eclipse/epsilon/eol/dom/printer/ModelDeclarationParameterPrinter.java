@@ -1,19 +1,18 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationParameter;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ModelDeclarationParameterPrinter extends EolElementPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		ModelDeclarationParameter parameter = (ModelDeclarationParameter) e;
-		String result = f.print((DomElement) parameter.getName()) + " = " + f.print((DomElement) parameter.getValue());
+		String result = f.print((EolElement) parameter.getName()) + " = " + f.print((EolElement) parameter.getValue());
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof ModelDeclarationParameter;
 	}

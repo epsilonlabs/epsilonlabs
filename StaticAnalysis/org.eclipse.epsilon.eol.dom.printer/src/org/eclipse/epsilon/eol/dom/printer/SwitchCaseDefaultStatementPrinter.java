@@ -1,12 +1,11 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.SwitchCaseDefaultStatement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class SwitchCaseDefaultStatementPrinter extends SwitchCaseStatementPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		SwitchCaseDefaultStatement statement = (SwitchCaseDefaultStatement) e;
 		String result = "default :";
 		result += f.newline() + f.indent() + f.print(statement.getBody()) + f.outdent();
@@ -14,7 +13,7 @@ public class SwitchCaseDefaultStatementPrinter extends SwitchCaseStatementPrinte
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof SwitchCaseDefaultStatement;
 	}

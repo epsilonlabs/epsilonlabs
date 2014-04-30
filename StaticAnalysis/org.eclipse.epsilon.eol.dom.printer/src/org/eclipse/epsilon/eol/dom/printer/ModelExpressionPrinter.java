@@ -1,12 +1,11 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ModelExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ModelExpressionPrinter extends NameExpressionPrinter{
 
 	@Override
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		ModelExpression expression = (ModelExpression) e;
 		return expression.getName();
 	}

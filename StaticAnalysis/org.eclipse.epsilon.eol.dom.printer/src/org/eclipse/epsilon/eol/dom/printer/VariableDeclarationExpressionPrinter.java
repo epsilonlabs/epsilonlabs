@@ -1,14 +1,14 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class VariableDeclarationExpressionPrinter extends ExpressionPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		VariableDeclarationExpression expression = (VariableDeclarationExpression) e;
 		String result = "var";
-		result += " " + f.print((DomElement) expression.getName());
+		result += " " + f.print((EolElement) expression.getName());
 		if(expression.getResolvedType() != null)
 		{
 			result += " : ";
@@ -17,13 +17,13 @@ public class VariableDeclarationExpressionPrinter extends ExpressionPrinter {
 				result += "new ";
 			}
 			
-			result += f.print((DomElement) expression.getResolvedType());
+			result += f.print((EolElement) expression.getResolvedType());
 		}		
 		return result;
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof VariableDeclarationExpression;
 	}

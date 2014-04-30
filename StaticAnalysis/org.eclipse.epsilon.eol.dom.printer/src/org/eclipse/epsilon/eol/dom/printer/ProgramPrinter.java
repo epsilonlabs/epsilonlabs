@@ -1,13 +1,13 @@
 package org.eclipse.epsilon.eol.dom.printer;
 
-import org.eclipse.epsilon.eol.dom.*;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 
 
 public class ProgramPrinter extends EolElementPrinter {
 
-	public String print(DomElement e, EolElementPrinterFactory f) {
+	public String print(EolElement e, EolElementPrinterFactory f) {
 		Program program = (Program) e;
 		return f.print(program.getModelDeclarations()) + f.newline() +
 				f.print(program.getImports()) + f.newline() + 
@@ -16,7 +16,7 @@ public class ProgramPrinter extends EolElementPrinter {
 	}
 
 	@Override
-	public boolean appliesTo(DomElement dom) {
+	public boolean appliesTo(EolElement dom) {
 		// TODO Auto-generated method stub
 		return dom instanceof Program;
 	}
