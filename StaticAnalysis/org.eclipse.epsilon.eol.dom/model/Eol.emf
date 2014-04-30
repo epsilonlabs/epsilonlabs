@@ -1,9 +1,9 @@
-@emf.gen(classPackageSuffix="dom.impl", utilityPackageSuffix="dom.util", metaDataPackageSuffix="dom", interfacePackageSuffix="dom", basePackage="org.eclipse.epsilon")
+@emf.gen(classPackageSuffix="eol.metamodel.impl", utilityPackageSuffix="eol.metamodel.util", metaDataPackageSuffix="eol.metamodel", interfacePackageSuffix="eol.metamodel", basePackage="org.eclipse.epsilon")
 @namespace(uri="http://www.eclipse.org/epsilon/eol", prefix="eol")
 package eol;
 
-abstract class DomElement {
-  ref DomElement container;
+abstract class EolElement {
+  ref EolElement container;
   attr int line;
   attr int column;
   attr String uri;
@@ -20,7 +20,7 @@ class TextPosition {
   attr int column;
 }
 
-class Program extends DomElement {
+class Program extends EolElement {
   val Import[*] imports;
   val Program[*] importedModules;
   val OperationDefinition[*] operations;
@@ -29,19 +29,19 @@ class Program extends DomElement {
   val ModelDeclarationStatement[*] modelDeclarations;
 }
 
-class Import extends DomElement {
+class Import extends EolElement {
   val StringExpression[1] imported;
   val Program[1] importedProgram;
 }
 
-abstract class Statement extends DomElement {
+abstract class Statement extends EolElement {
 }
 
-abstract class Expression extends DomElement {
+abstract class Expression extends EolElement {
   val Type resolvedType;
 }
 
-class Block extends DomElement {
+class Block extends EolElement {
   val Statement[*] statements;
 }
 
@@ -159,7 +159,7 @@ class VariableDeclarationExpression extends Expression {
 class XorOperatorExpression extends BinaryOperatorExpression {
 }
 
-class OperationDefinition extends DomElement {
+class OperationDefinition extends EolElement {
   val Type contextType;
   val Type returnType;
   val AnnotationBlock annotationBlock;
@@ -270,11 +270,11 @@ class MapExpression extends LiteralExpression {
   val KeyValue[*] keyValues;
 }
 
-class Type extends DomElement {
+class Type extends EolElement {
 }
 
 class AnyType extends Type {
-  val Type tempType;
+  val Type dynamicType;
 }
 
 class CollectionType extends Type {
@@ -313,7 +313,7 @@ class MapType extends Type {
   val Type[1] keyType;
 }
 
-abstract class Annotation extends DomElement {
+abstract class Annotation extends EolElement {
   val NameExpression[1] name;
 }
 
@@ -325,7 +325,7 @@ class SimpleAnnotation extends Annotation {
   val StringExpression[*] values;
 }
 
-class KeyValue extends DomElement {
+class KeyValue extends EolElement {
   val Expression[1] key;
   val Expression[1] value;
 }
@@ -347,12 +347,12 @@ class NativeType extends Type {
 class ModelExpression extends NameExpression {
 }
 
-class AnnotationBlock extends DomElement {
+class AnnotationBlock extends EolElement {
   val SimpleAnnotation[*] simpleAnnotations;
   val ExecutableAnnotation[*] executableAnnotations;
 }
 
-class ModelDeclarationParameter extends DomElement {
+class ModelDeclarationParameter extends EolElement {
   val NameExpression[1] name;
   val StringExpression[1] value;
 }
@@ -372,7 +372,7 @@ class TransactionStatement extends Statement {
 class FormalParameterExpression extends VariableDeclarationExpression {
 }
 
-abstract class CollectionInitValue extends DomElement {
+abstract class CollectionInitValue extends EolElement {
 }
 
 class ExprList extends CollectionInitValue {

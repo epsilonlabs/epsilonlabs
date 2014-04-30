@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.epsilon.eol.dom;singleton:=true
+Bundle-SymbolicName: org.eclipse.epsilon.eol.metamodel;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipse.epsilon.eol.dom,
- org.eclipse.epsilon.eol.dom.impl,
- org.eclipse.epsilon.eol.dom.util
+Export-Package: org.eclipse.epsilon.eol.eol.metamodel,
+ org.eclipse.epsilon.eol.eol.metamodel.impl,
+ org.eclipse.epsilon.eol.eol.metamodel.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

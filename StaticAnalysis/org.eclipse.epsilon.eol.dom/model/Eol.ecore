@@ -2,10 +2,10 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="eol" nsURI="http://www.eclipse.org/epsilon/eol" nsPrefix="eol">
   <eAnnotations source="emf.gen">
-    <details key="classPackageSuffix" value="dom.impl"/>
-    <details key="utilityPackageSuffix" value="dom.util"/>
-    <details key="metaDataPackageSuffix" value="dom"/>
-    <details key="interfacePackageSuffix" value="dom"/>
+    <details key="classPackageSuffix" value="metamodel.impl"/>
+    <details key="utilityPackageSuffix" value="metamodel.util"/>
+    <details key="metaDataPackageSuffix" value="eol"/>
+    <details key="interfacePackageSuffix" value="eol"/>
     <details key="basePackage" value="org.eclipse.epsilon"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="EolElement" abstract="true">
