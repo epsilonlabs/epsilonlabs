@@ -21,7 +21,7 @@
       <!-- @generated Eol -->
       <package
             uri="http://www.eclipse.org/epsilon/eol"
-            class="org.eclipse.epsilon.eol.eol.EolPackage"
+            class="org.eclipse.epsilon.eol.metamodel.EolPackage"
             genModel="model/Eol.genmodel"/>
    </extension>
 
