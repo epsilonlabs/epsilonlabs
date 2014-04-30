@@ -6,5 +6,5 @@ Bundle-Version: 0.1.0
 Require-Bundle: org.eclipse.epsilon.eol.metamodel;visibility:=reexport,
  org.eclipse.epsilon.eol.engine,
  org.eclipse.core.runtime
-Export-Package: org.eclipse.epsilon.eol.dom.ast2dom,
- org.eclipse.epsilon.eol.dom.ast2dom.util
+Export-Package: org.eclipse.epsilon.eol.ast2dom,
+ org.eclipse.epsilon.eol.ast2dom.util
