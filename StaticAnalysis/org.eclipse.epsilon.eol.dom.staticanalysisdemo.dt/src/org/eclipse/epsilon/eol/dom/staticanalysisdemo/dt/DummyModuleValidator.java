@@ -74,6 +74,7 @@ public class DummyModuleValidator implements IModuleValidator {
 		}
 		
 		TypeResolver tr = new TypeResolver();
+		tr.getTypeResolutionContext().setDirectoryPathString(directoryPathString);
 		tr.run(dom);
 		
 		for(log.Error error: tr.getTypeResolutionContext().getLogBook().getErrors())
@@ -94,6 +95,7 @@ public class DummyModuleValidator implements IModuleValidator {
 		}
 		
 		Optimiser o = new Optimiser();
+		o.getOptimisationContext().setDirectoryPathString(directoryPathString);
 		o.run(dom);
 		
 		for(log.Error error: o.getOptimisationContext().getLogBook().getErrors())
