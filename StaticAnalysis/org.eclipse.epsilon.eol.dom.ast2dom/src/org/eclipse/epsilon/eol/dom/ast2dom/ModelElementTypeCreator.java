@@ -23,7 +23,8 @@ public class ModelElementTypeCreator extends TypeCreator{
 				&& !ast.getText().equals("Native")
 				&& !ast.getText().equals("SelfType")
 				&& !ast.getText().equals("SelfContentType")
-				&& !ast.getText().equals("OperationArgType"));
+				&& !ast.getText().equals("OperationArgType") ||
+				(ast.getType() == EolParser.TYPE && ast.getText().substring(2).equals("t_")));
 	}
 	
 	@Override
