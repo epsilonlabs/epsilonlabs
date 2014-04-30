@@ -12,9 +12,9 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
 public class Ast2DomWorkbench {
 
@@ -40,7 +40,7 @@ public class Ast2DomWorkbench {
 		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 		
 		Ast2DomContext context = new Ast2DomContext();
-		DomElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
+		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
 		
 		System.err.println(context.getEolElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");
 		

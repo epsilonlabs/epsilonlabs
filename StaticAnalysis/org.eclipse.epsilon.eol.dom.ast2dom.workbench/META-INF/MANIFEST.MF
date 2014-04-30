@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.epsilon.eol.dom.ast2dom.workbench
-Bundle-SymbolicName: org.eclipse.epsilon.eol.dom.ast2dom.workbench; singleton:=true
+Bundle-SymbolicName: org.eclipse.epsilon.eol.ast2dom.workbench;singleton:=true
 Bundle-Version: 0.1.0
 Require-Bundle: org.eclipse.epsilon.eol.engine,
- org.eclipse.epsilon.eol.dom.ast2dom,
+ org.eclipse.epsilon.eol.ast2eol,
  org.eclipse.emf.ecore.xmi,
- org.eclipse.epsilon.eol.dom.visitor.resolution.variable
+ org.eclipse.epsilon.eol.visitor.resolution.variable
