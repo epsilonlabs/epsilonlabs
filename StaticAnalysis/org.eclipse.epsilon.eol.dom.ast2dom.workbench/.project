@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.eclipse.epsilon.eol.ast2dom.workbench</name>
+	<name>org.eclipse.epsilon.eol.ast2eol.workbench</name>
 	<comment></comment>
 	<projects>
 	</projects>
