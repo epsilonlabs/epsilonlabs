@@ -10,9 +10,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.epsilon.common.dt,
  org.eclipse.ui.ide,
  org.eclipse.jface.text,
- org.eclipse.epsilon.eol.dom.ast2dom,
- org.eclipse.epsilon.eol.dom.visitor.resolution.type,
- org.eclipse.epsilon.eol.dom.visitor.resolution.variable
+ org.eclipse.epsilon.eol.ast2eol,
+ org.eclipse.epsilon.eol.visitor.resolution.type,
+ org.eclipse.epsilon.eol.visitor.resolution.variable
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.epsilon.eol.dtx,

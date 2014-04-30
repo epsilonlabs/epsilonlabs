@@ -15,13 +15,12 @@ import org.eclipse.epsilon.common.module.IModule;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.TextRegion;
-import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
-import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
+import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -52,7 +51,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 		
 		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
 		Ast2DomContext context = new Ast2DomContext(factory);
-		DomElement dom = factory.createDomElement(module.getAst(), null, context);
+		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
 		
@@ -71,7 +70,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 		
 		try {
 			
-			DomElement selected = ((DomOutlineElement) ((IStructuredSelection) event
+			EolElement selected = ((DomOutlineElement) ((IStructuredSelection) event
 					.getSelection()).getFirstElement()).getDomElement();
 		
 			
@@ -127,8 +126,8 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 				List<EObject> contents = ((DomOutlineElement) parentElement).getDomElement().eContents();
 				List<DomOutlineElement> children = new ArrayList<DomOutlineElement>();
 				for (EObject content : contents) {
-					if (content instanceof DomElement) {
-						children.add(new DomOutlineElement((DomElement) content));
+					if (content instanceof EolElement) {
+						children.add(new DomOutlineElement((EolElement) content));
 					}
 				}
 				return children.toArray();

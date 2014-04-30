@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -19,13 +19,13 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public class DomOutlineElement implements IPropertySource{
 	
-	protected DomElement domElement = null;
+	protected EolElement domElement = null;
 	
-	public DomOutlineElement(DomElement domElement) {
+	public DomOutlineElement(EolElement domElement) {
 		this.domElement = domElement;
 	}
 	
-	public DomElement getDomElement() {
+	public EolElement getDomElement() {
 		return domElement;
 	}
 
@@ -85,8 +85,8 @@ public class DomOutlineElement implements IPropertySource{
 	}
 	
 	protected String getLabel(Object o) {
-		if (o instanceof DomElement) {
-			DomElement domElement = (DomElement) o;
+		if (o instanceof EolElement) {
+			EolElement domElement = (EolElement) o;
 			return domElement.eClass().getName() /*+ " (" + domElement.getLine() + "," + domElement.getColumn() + ")"*/;
 		}
 		else {
