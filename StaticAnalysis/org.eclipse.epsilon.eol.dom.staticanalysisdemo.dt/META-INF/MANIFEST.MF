@@ -1,17 +1,17 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dt
-Bundle-SymbolicName: org.eclipse.epsilon.eol.dom.staticanalysisdemo.dt;singleton:=true
+Bundle-SymbolicName: org.eclipse.epsilon.eol.staticanalysisdemo.dt;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.epsilon.eol.dom.staticanalysisdemo.dt.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.epsilon.common.dt,
- org.eclipse.epsilon.eol.dom.visitor.resolution.variable,
- org.eclipse.epsilon.eol.dom.visitor.resolution.type,
- org.eclipse.epsilon.eol.dom,
- org.eclipse.epsilon.eol.dom.ast2dom,
+ org.eclipse.epsilon.eol.visitor.resolution.variable,
+ org.eclipse.epsilon.eol.visitor.resolution.type,
+ org.eclipse.epsilon.eol.metamodel,
+ org.eclipse.epsilon.eol.ast2eol,
  org.eclipse.epsilon.static.analysis.problem.log,
- org.eclipse.epsilon.eol.dom.visitor.optimisation,
- org.eclipse.epsilon.eol.dom.metamodel.coverage
+ org.eclipse.epsilon.eol.performance.analysis,
+ org.eclipse.epsilon.eol.coverage.analysis
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

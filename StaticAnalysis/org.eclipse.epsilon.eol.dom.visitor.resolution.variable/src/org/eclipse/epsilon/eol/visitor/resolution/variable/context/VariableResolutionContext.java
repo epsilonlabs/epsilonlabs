@@ -4,7 +4,7 @@ import log.LogBook;
 
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
-import org.eclipse.epsilon.eol.dom.ast2dom.util.Ast2DomUtil;
+import org.eclipse.epsilon.eol.ast2dom.util.Ast2DomUtil;
 
 
 public class VariableResolutionContext {

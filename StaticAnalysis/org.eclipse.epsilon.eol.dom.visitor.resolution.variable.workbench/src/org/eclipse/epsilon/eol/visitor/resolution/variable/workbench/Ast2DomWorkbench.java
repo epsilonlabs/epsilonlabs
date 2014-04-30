@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
 public class Ast2DomWorkbench {

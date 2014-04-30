@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
-import org.eclipse.epsilon.eol.dom.ast2dom.util.Ast2DomUtil;
+import org.eclipse.epsilon.eol.ast2dom.util.Ast2DomUtil;
 
 public class StandardLibraryOperationDefinitionContainer extends OperationDefinitionContainer{
 

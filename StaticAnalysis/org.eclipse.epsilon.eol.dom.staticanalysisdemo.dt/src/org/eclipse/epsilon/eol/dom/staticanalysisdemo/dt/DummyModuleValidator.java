@@ -9,16 +9,15 @@ import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.TextRegion;
-import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
-import org.eclipse.epsilon.eol.dom.ast2dom.EolElementCreatorFactory;
-import org.eclipse.epsilon.eol.dom.metamodel.coverage.impl.CoverageAnalyser;
-import org.eclipse.epsilon.eol.dom.visitor.optimisation.impl.Optimiser;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl.TypeResolver;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.parse.EolParser;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.logicalExpression_return;
+import org.eclipse.epsilon.eol.performance.analysis.impl.Optimiser;
+import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
 public class DummyModuleValidator implements IModuleValidator {
 
@@ -51,7 +50,7 @@ public class DummyModuleValidator implements IModuleValidator {
 
 		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
 		Ast2DomContext context = new Ast2DomContext(factory);
-		DomElement dom = factory.createDomElement(module.getAst(), null, context);
+		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
