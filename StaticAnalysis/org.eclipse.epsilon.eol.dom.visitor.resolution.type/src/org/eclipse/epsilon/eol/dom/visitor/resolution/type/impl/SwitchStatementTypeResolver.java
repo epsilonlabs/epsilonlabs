@@ -1,9 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.dom.SwitchCaseExpressionStatement;
-import org.eclipse.epsilon.eol.dom.SwitchStatement;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.SwitchStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.SwitchStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class SwitchStatementTypeResolver extends SwitchStatementVisitor<TypeResolutionContext, Object>{

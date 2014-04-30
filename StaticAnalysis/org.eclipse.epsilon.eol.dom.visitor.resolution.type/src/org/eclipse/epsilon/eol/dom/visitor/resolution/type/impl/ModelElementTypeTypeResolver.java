@@ -5,10 +5,9 @@ import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ModelElementTypeVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeResolutionContext, Object>{

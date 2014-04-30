@@ -1,14 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.ReturnStatement;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.VoidType;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ReturnStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ReturnStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeResolutionContext, Object>{
@@ -18,7 +12,7 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		controller.visit(returnStatement.getReturned(), context);
-		DomElement rawContainer = returnStatement.getContainer(); //get the container
+		EolElement rawContainer = returnStatement.getContainer(); //get the container
 		while(!(rawContainer instanceof OperationDefinition)) //get all the way to OperationDefinition
 		{
 			rawContainer = rawContainer.getContainer();
@@ -68,13 +62,13 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 	
 	public Type getDynamicType(AnyType anyType)
 	{
-		while(anyType.getTempType() != null)
+		while(anyType.getDynamicType() != null)
 		{
-			if (anyType.getTempType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getTempType();
+			if (anyType.getDynamicType() instanceof AnyType) {
+				anyType = (AnyType) anyType.getDynamicType();
 			}
 			else {
-				return anyType.getTempType();
+				return anyType.getDynamicType();
 			}
 		}
 		return anyType;

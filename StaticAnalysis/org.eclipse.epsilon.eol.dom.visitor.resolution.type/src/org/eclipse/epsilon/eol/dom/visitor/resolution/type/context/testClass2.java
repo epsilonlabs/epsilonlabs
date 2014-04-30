@@ -2,10 +2,8 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.context;
 
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.PrimitiveType;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.impl.EolFactoryImpl;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 
 public class testClass2 {
 

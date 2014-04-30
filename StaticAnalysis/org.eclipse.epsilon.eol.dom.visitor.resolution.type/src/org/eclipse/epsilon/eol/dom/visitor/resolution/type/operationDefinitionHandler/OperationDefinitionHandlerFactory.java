@@ -2,9 +2,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class OperationDefinitionHandlerFactory {

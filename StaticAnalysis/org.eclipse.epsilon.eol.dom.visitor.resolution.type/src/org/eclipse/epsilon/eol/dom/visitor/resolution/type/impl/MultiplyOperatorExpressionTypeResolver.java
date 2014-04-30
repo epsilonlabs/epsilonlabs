@@ -1,14 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.dom.BinaryOperatorExpression;
-import org.eclipse.epsilon.eol.dom.BooleanType;
-import org.eclipse.epsilon.eol.dom.DivideOperatorExpression;
-import org.eclipse.epsilon.eol.dom.MultiplyOperatorExpression;
-import org.eclipse.epsilon.eol.dom.RealType;
-import org.eclipse.epsilon.eol.dom.StringType;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.visitor.BinaryOperatorExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.BinaryOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class MultiplyOperatorExpressionTypeResolver extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{

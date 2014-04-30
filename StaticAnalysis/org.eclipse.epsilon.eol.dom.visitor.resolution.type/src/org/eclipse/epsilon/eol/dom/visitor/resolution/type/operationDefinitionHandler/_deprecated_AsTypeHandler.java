@@ -5,12 +5,7 @@ import java.util.ArrayList;
 import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 

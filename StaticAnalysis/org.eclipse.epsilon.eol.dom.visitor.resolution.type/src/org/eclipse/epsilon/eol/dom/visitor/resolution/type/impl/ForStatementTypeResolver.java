@@ -1,11 +1,9 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.ForStatement;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ForStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ForStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolutionContext, Object>{

@@ -1,8 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.dom.WhileStatement;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.WhileStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.WhileStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class WhileStatementTypeResolver extends WhileStatementVisitor<TypeResolutionContext, Object>{

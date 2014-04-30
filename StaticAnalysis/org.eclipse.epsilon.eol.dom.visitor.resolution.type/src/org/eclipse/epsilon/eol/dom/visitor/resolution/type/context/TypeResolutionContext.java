@@ -11,12 +11,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.impl.EolFactoryImpl;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.UserDefinedOperationDefinitionContainer;
 
@@ -130,7 +126,7 @@ public class TypeResolutionContext {
 		return modelDeclarations.get(name);
 	}
 	
-	public void setAssets(DomElement obj, DomElement container)
+	public void setAssets(EolElement obj, EolElement container)
 	{
 		obj.setLine(container.getLine());
 		obj.setColumn(container.getColumn());
@@ -229,7 +225,7 @@ public class TypeResolutionContext {
 		return null;
 	}
 
-	public void checkAndDisplayAnnotation(EModelElement element, DomElement dom)
+	public void checkAndDisplayAnnotation(EModelElement element, EolElement dom)
 	{
 		if (element.getEAnnotations() != null && element.getEAnnotations().size() != 0) {
 			for(EAnnotation anno: element.getEAnnotations())

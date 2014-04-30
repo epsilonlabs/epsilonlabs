@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.standard.library.col
 
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeUtil;
 
 public class LibraryOperationContainer {

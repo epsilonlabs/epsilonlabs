@@ -1,18 +1,9 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.BooleanType;
-import org.eclipse.epsilon.eol.dom.CollectionExpression;
-import org.eclipse.epsilon.eol.dom.CollectionInitValue;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.ExpRange;
-import org.eclipse.epsilon.eol.dom.ExprList;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.IntegerType;
-import org.eclipse.epsilon.eol.dom.RealType;
-import org.eclipse.epsilon.eol.dom.StringType;
-import org.eclipse.epsilon.eol.dom.visitor.CollectionExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.CollectionExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class CollectionExpressionTypeResolver extends CollectionExpressionVisitor<TypeResolutionContext, Object>{

@@ -2,11 +2,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionU
 
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.SelfContentType;
-import org.eclipse.epsilon.eol.dom.SelfType;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 

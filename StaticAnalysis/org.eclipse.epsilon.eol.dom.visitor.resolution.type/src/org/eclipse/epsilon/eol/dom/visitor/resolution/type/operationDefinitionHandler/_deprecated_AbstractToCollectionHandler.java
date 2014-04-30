@@ -3,16 +3,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.TextPosition;
-import org.eclipse.epsilon.eol.dom.TextRegion;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
@@ -45,8 +36,8 @@ public class _deprecated_AbstractToCollectionHandler extends AnyOperationDefinit
 		Type targetType = featureCallExpression.getTarget().getResolvedType(); //get target type
 		if (targetType instanceof AnyType) { //if target type is of any
 			AnyType temp = (AnyType) targetType; 
-			if (temp.getTempType() != null) { //if there is a temp type
-				returnType.setContentType(EcoreUtil.copy(temp.getTempType())); //set temp type
+			if (temp.getDynamicType() != null) { //if there is a temp type
+				returnType.setContentType(EcoreUtil.copy(temp.getDynamicType())); //set temp type
 				//result.setReturnType(EcoreUtil.copy(temp.getTempType()));
 			}
 			else {

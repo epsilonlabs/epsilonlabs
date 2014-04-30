@@ -3,14 +3,9 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.Import;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ProgramVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, Object>{

@@ -5,25 +5,9 @@ import java.util.ArrayList;
 import metamodel.connectivity.emf.ecoreUtil;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnnotationBlock;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationArgType;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
-import org.eclipse.epsilon.eol.dom.SelfContentType;
-import org.eclipse.epsilon.eol.dom.SelfInnermostType;
-import org.eclipse.epsilon.eol.dom.SelfType;
-import org.eclipse.epsilon.eol.dom.SimpleAnnotation;
-import org.eclipse.epsilon.eol.dom.StringExpression;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.MethodCallExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeUtil;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
@@ -49,8 +33,8 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				controller.visit(argument, context); //resolve the type of the argument first
 				if (argument.getResolvedType() instanceof AnyType) { //if is anytype
 					AnyType argType = (AnyType) argument.getResolvedType(); //get the argument type
-					if (argType.getTempType() != null) { //if type has a temp type
-						argTypes.add(EcoreUtil.copy(argType.getTempType())); //if there's a temp type, set the type to be the temp type
+					if (argType.getDynamicType() != null) { //if type has a temp type
+						argTypes.add(EcoreUtil.copy(argType.getDynamicType())); //if there's a temp type, set the type to be the temp type
 					}
 					else {
 						argTypes.add(EcoreUtil.copy(argType));
@@ -71,8 +55,8 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				controller.visit(argument, context); //resolve the type of the argument first
 				if (argument.getResolvedType() instanceof AnyType) { //if is anytype
 					AnyType argumentType = (AnyType) argument.getResolvedType(); //get the argument type
-					if (argumentType.getTempType() != null) { //if there is a temp type
-						argTypes.add(argumentType.getTempType()); //if there's a temp type, set the type to be the temp type
+					if (argumentType.getDynamicType() != null) { //if there is a temp type
+						argTypes.add(argumentType.getDynamicType()); //if there's a temp type, set the type to be the temp type
 					}
 					else {
 						argTypes.add(argumentType);
@@ -459,13 +443,13 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 	
 	public Type getDynamicType(AnyType anyType)
 	{
-		while(anyType.getTempType() != null)
+		while(anyType.getDynamicType() != null)
 		{
-			if (anyType.getTempType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getTempType();
+			if (anyType.getDynamicType() instanceof AnyType) {
+				anyType = (AnyType) anyType.getDynamicType();
 			}
 			else {
-				return anyType.getTempType();
+				return anyType.getDynamicType();
 			}
 		}
 		return anyType;

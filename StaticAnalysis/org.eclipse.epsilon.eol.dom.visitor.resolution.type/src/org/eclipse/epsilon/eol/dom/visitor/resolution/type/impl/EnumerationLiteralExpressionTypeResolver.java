@@ -3,10 +3,9 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.epsilon.eol.dom.EType;
-import org.eclipse.epsilon.eol.dom.EnumerationLiteralExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EnumerationLiteralExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EnumerationLiteralExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class EnumerationLiteralExpressionTypeResolver extends EnumerationLiteralExpressionVisitor<TypeResolutionContext, Object>{

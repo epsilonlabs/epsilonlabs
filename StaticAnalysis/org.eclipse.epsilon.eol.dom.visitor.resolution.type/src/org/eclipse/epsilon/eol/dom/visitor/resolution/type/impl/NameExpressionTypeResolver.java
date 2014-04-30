@@ -3,20 +3,10 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.AssignmentStatement;
-import org.eclipse.epsilon.eol.dom.BooleanExpression;
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperatorExpression;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.NameExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolutionContext, Object>{
@@ -67,8 +57,8 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					}
 					else {
 						if (nameExpression.getContainer() instanceof OperatorExpression){
-							if (((AnyType) typeCopy).getTempType() != null) {
-								typeCopy = EcoreUtil.copy(((AnyType) typeCopy).getTempType());
+							if (((AnyType) typeCopy).getDynamicType() != null) {
+								typeCopy = EcoreUtil.copy(((AnyType) typeCopy).getDynamicType());
 							}
 						}
 					}

@@ -1,18 +1,10 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.AssignmentStatement;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.dom.VoidType;
-import org.eclipse.epsilon.eol.dom.visitor.AssignmentStatementVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.AssignmentStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
-import org.omg.CORBA.Any;
 
 public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<TypeResolutionContext, Object>{
 
@@ -33,7 +25,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 					
 				}
 				else {
-					lhsType.setTempType(typeCopy);
+					lhsType.setDynamicType(typeCopy);
 				}
 				//context.setAssets(typeCopy, lhs);
 			}
@@ -43,7 +35,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 				if (rhsType instanceof AnyType) {
 					context.getLogBook().addWarning(rhs, "potential type mismatch");
 					AnyType temp = (AnyType) rhsType;
-					if (temp.getTempType() != null) {
+					if (temp.getDynamicType() != null) {
 						//rhsType = temp.getTempType();
 						rhsType = getDynamicType(temp);
 					}
@@ -72,13 +64,13 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 	
 	public Type getDynamicType(AnyType anyType)
 	{
-		while(anyType.getTempType() != null)
+		while(anyType.getDynamicType() != null)
 		{
-			if (anyType.getTempType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getTempType();
+			if (anyType.getDynamicType() instanceof AnyType) {
+				anyType = (AnyType) anyType.getDynamicType();
 			}
 			else {
-				return anyType.getTempType();
+				return anyType.getDynamicType();
 			}
 		}
 		return anyType;

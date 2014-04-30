@@ -1,8 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.visitor.EolDefaultVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class TypeResolver {
@@ -44,7 +44,7 @@ public class TypeResolver {
 		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
 	}
 	
-	public void run(DomElement dom)
+	public void run(EolElement dom)
 	{
 		controller.visit(dom, context);
 	}

@@ -1,7 +1,7 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.standard.library.collection.handlers.old;
 
 
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 

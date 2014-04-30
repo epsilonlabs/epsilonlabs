@@ -3,8 +3,6 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
-import javax.sound.midi.Sequence;
-
 import metamodel.connectivity.emf.EMetaModel;
 
 import org.eclipse.emf.ecore.EAnnotation;
@@ -13,25 +11,9 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnnotationBlock;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.EType;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationArgType;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.PropertyCallExpression;
-import org.eclipse.epsilon.eol.dom.SelfContentType;
-import org.eclipse.epsilon.eol.dom.SelfInnermostType;
-import org.eclipse.epsilon.eol.dom.SelfType;
-import org.eclipse.epsilon.eol.dom.SequenceType;
-import org.eclipse.epsilon.eol.dom.SimpleAnnotation;
-import org.eclipse.epsilon.eol.dom.StringExpression;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.PropertyCallExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{
@@ -60,8 +42,8 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			Type tempType = null;
 			AnyType anyType = context.getEolFactory().createAnyType(); //create an anyType
 
-			if (tempAnyType.getTempType() != null) {
-				tempType = tempAnyType.getTempType();
+			if (tempAnyType.getDynamicType() != null) {
+				tempType = tempAnyType.getDynamicType();
 				propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
 			}
 			else {

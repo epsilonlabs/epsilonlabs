@@ -1,19 +1,9 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import javax.sound.midi.Sequence;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.BooleanType;
-import org.eclipse.epsilon.eol.dom.CollectionType;
-import org.eclipse.epsilon.eol.dom.IntegerType;
-import org.eclipse.epsilon.eol.dom.PlusOperatorExpression;
-import org.eclipse.epsilon.eol.dom.PrimitiveType;
-import org.eclipse.epsilon.eol.dom.RealType;
-import org.eclipse.epsilon.eol.dom.SequenceType;
-import org.eclipse.epsilon.eol.dom.StringType;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.PlusOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.PlusOperatorExpressionVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVisitor<TypeResolutionContext, Object>{

@@ -3,14 +3,7 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.operationDefinitionH
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.FeatureCallExpression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.TextPosition;
-import org.eclipse.epsilon.eol.dom.TextRegion;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class _deprecated_PrintlnHandler extends AnyOperationDefinitionHandler{
@@ -57,8 +50,8 @@ public class _deprecated_PrintlnHandler extends AnyOperationDefinitionHandler{
 		Type targetType = featureCallExpression.getTarget().getResolvedType();
 		if (targetType instanceof AnyType) {
 			AnyType temp = (AnyType) targetType;
-			if (temp.getTempType() != null) {
-				result.setReturnType(EcoreUtil.copy(temp.getTempType()));
+			if (temp.getDynamicType() != null) {
+				result.setReturnType(EcoreUtil.copy(temp.getDynamicType()));
 			}
 			else {
 				result.setReturnType(EcoreUtil.copy(featureCallExpression.getTarget().getResolvedType()));

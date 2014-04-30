@@ -3,11 +3,9 @@ package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 import metamodel.connectivity.emf.EMetaModel;
 import metamodel.connectivity.plainxml.PlainXMLModel;
 
-import org.eclipse.epsilon.eol.dom.ModelDeclarationParameter;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ModelDeclarationStatementVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ModelDeclarationStatementTypeResolver extends ModelDeclarationStatementVisitor<TypeResolutionContext, Object>{

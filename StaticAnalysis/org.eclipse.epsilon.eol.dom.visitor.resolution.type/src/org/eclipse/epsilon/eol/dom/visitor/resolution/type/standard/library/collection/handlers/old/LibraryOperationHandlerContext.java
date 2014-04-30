@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.standard.library.collection.handlers.old;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeUtil;
 
 public class LibraryOperationHandlerContext {
@@ -30,7 +29,7 @@ public class LibraryOperationHandlerContext {
 		return typeUtil;
 	}
 	
-	public void setAssets(DomElement obj, DomElement container)
+	public void setAssets(EolElement obj, EolElement container)
 	{
 		obj.setLine(container.getLine());
 		obj.setColumn(container.getColumn());

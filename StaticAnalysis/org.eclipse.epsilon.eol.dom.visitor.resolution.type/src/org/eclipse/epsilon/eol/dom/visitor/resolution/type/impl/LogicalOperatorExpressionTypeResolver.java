@@ -1,26 +1,8 @@
 package org.eclipse.epsilon.eol.dom.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.dom.AndOperatorExpression;
-import org.eclipse.epsilon.eol.dom.AnyType;
-import org.eclipse.epsilon.eol.dom.BinaryOperatorExpression;
-import org.eclipse.epsilon.eol.dom.BooleanType;
-import org.eclipse.epsilon.eol.dom.EqualsOperatorExpression;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.GreaterThanOperatorExpression;
-import org.eclipse.epsilon.eol.dom.GreaterThanOrEqualToOperatorExpression;
-import org.eclipse.epsilon.eol.dom.ImpliesOperatorExpression;
-import org.eclipse.epsilon.eol.dom.IntegerType;
-import org.eclipse.epsilon.eol.dom.LessThanOperatorExpression;
-import org.eclipse.epsilon.eol.dom.LessThanOrEqualToOperatorExpression;
-import org.eclipse.epsilon.eol.dom.NotEqualsOperatorExpression;
-import org.eclipse.epsilon.eol.dom.OrOperatorExpression;
-import org.eclipse.epsilon.eol.dom.PrimitiveType;
-import org.eclipse.epsilon.eol.dom.RealType;
-import org.eclipse.epsilon.eol.dom.StringType;
-import org.eclipse.epsilon.eol.dom.Type;
-import org.eclipse.epsilon.eol.dom.XorOperatorExpression;
-import org.eclipse.epsilon.eol.dom.visitor.BinaryOperatorExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.BinaryOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.dom.visitor.resolution.type.context.TypeResolutionContext;
 
 public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
