@@ -1,9 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.Block;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.SwitchCaseDefaultStatement;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
@@ -20,7 +18,7 @@ public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 
 		SwitchCaseDefaultStatement statement = (SwitchCaseDefaultStatement) context.getEolFactory().createSwitchCaseDefaultStatement(); //create a SwitchCaseDefaultStatment

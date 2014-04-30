@@ -1,11 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.BooleanExpression;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.MethodCallExpression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
@@ -35,7 +31,7 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		if(ast.getType() == EolParser.ARROW || ast.getType() == EolParser.POINT)

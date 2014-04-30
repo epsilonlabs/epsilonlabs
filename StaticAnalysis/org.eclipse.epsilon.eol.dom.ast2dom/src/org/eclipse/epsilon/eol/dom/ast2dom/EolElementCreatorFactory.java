@@ -4,28 +4,26 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 import java.util.LinkedList;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.Statement;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class EolElementCreatorFactory {
 	
 	
-	LinkedList<DomElement> createdDomElements;
+	LinkedList<EolElement> createdDomElements;
 	LinkedList<EolElementCreator> domElementCreators;
 	String directoryPathString = null;
 
 	public EolElementCreatorFactory()
 	{
-		createdDomElements = new LinkedList<DomElement>();
+		createdDomElements = new LinkedList<EolElement>();
 		domElementCreators = new LinkedList<EolElementCreator>();
 		initialiseDomElementCreators();
 	}
 	
 	public EolElementCreatorFactory(String directoryPath)
 	{
-		createdDomElements = new LinkedList<DomElement>();
+		createdDomElements = new LinkedList<EolElement>();
 		domElementCreators = new LinkedList<EolElementCreator>();
 		directoryPathString = directoryPath;
 		initialiseDomElementCreators();
@@ -36,9 +34,9 @@ public class EolElementCreatorFactory {
 		 domElementCreators.addAll(this.initiateDomElementPool());
 	}
 	
-	public DomElement createDomElement(AST ast, DomElement container, Ast2DomContext context)
+	public EolElement createDomElement(AST ast, EolElement container, Ast2DomContext context)
 	{
-		DomElement result = null;
+		EolElement result = null;
 		for(EolElementCreator dec: domElementCreators)
 		{
 			if(dec.appliesTo(ast))
@@ -60,9 +58,9 @@ public class EolElementCreatorFactory {
 		}
 	}
 	
-	public DomElement createDomElement(AST ast, DomElement container, Ast2DomContext context, Class<? extends EolElementCreator> ofCreatorClass)
+	public EolElement createDomElement(AST ast, EolElement container, Ast2DomContext context, Class<? extends EolElementCreator> ofCreatorClass)
 	{
-		DomElement result = null;
+		EolElement result = null;
 		for(EolElementCreator dec: domElementCreators)
 		{
 			if(ofCreatorClass == dec.getClass())
@@ -81,7 +79,7 @@ public class EolElementCreatorFactory {
 		}
 	}
 	
-	protected Statement createStatement(AST ast, DomElement container, Ast2DomContext context) {
+	protected Statement createStatement(AST ast, EolElement container, Ast2DomContext context) {
 		Statement statement = null;
 		
 		if(ast.getText().equals("="))
@@ -300,7 +298,7 @@ public class EolElementCreatorFactory {
 	
 	
 	
-	public void addCreatedDomElements(DomElement e)
+	public void addCreatedDomElements(EolElement e)
 	{
 		this.createdDomElements.add(e);
 	}
@@ -308,9 +306,9 @@ public class EolElementCreatorFactory {
 	public boolean isProperlyContained()
 	{
 		boolean result = false;
-		for(DomElement de: createdDomElements)
+		for(EolElement de: createdDomElements)
 		{
-			DomElement trace = de;
+			EolElement trace = de;
 			while(!(de instanceof Program) && trace.getContainer() != null)
 			{
 				trace = trace.getContainer();
@@ -332,7 +330,7 @@ public class EolElementCreatorFactory {
 	public Program fetchProgram()
 	{
 		Program result = null;
-		for(DomElement de: createdDomElements)
+		for(EolElement de: createdDomElements)
 		{
 			if (de instanceof Program) {
 				result = (Program) de;

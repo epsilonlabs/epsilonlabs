@@ -1,16 +1,13 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.AnnotationBlock;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ExecutableAnnotation;
-import org.eclipse.epsilon.eol.dom.SimpleAnnotation;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class AnnotationBlockCreator extends EolElementCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		AnnotationBlock block = context.getEolFactory().createAnnotationBlock(); //create a AnnotationBlock
 		this.setAssets(ast, block, container);

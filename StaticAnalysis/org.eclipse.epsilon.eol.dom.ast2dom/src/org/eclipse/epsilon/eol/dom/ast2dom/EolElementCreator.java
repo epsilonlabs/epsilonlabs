@@ -2,10 +2,7 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Position;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.TextPosition;
-import org.eclipse.epsilon.eol.dom.TextRegion;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public abstract class EolElementCreator {
@@ -17,7 +14,7 @@ public abstract class EolElementCreator {
 	}*/
 	public abstract boolean appliesTo(AST ast);
 	
-	public void setAssets(AST ast, DomElement dom, DomElement container)
+	public void setAssets(AST ast, EolElement dom, EolElement container)
 	{
 		dom.setLine(ast.getLine());
 		dom.setColumn(ast.getColumn());
@@ -47,5 +44,5 @@ public abstract class EolElementCreator {
 		return textPosition;
 	}
 	
-	public abstract DomElement create(AST ast, DomElement container, Ast2DomContext context);
+	public abstract EolElement create(AST ast, EolElement container, Ast2DomContext context);
 }

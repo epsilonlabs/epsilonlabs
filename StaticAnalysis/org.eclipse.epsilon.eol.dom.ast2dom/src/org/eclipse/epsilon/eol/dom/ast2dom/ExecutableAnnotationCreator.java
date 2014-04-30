@@ -1,16 +1,13 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ExecutableAnnotation;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class ExecutableAnnotationCreator extends AnnotationCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 
 		ExecutableAnnotation annotation = context.getEolFactory().createExecutableAnnotation(); //create an ExecutableAnnotation

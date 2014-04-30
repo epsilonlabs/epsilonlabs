@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class OrderedSetTypeCreator extends CollectionTypeCreator{
 

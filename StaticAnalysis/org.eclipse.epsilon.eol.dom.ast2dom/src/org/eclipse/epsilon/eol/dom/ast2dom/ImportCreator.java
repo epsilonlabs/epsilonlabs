@@ -4,17 +4,14 @@ import java.io.File;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Import;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 
 public class ImportCreator extends EolElementCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 
 		Import imp = context.getEolFactory().createImport(); //create an Import

@@ -1,9 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.BinaryOperatorExpression;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Expression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public abstract class BinaryOperatorExpressionCreator extends OperatorExpressionCreator{
@@ -14,14 +12,14 @@ public abstract class BinaryOperatorExpressionCreator extends OperatorExpression
 	}
 	
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		BinaryOperatorExpression expression = create(context);
 		this.buildExpression(ast, expression, container, context);
 		return expression;
 	}
 	
-	public void buildExpression(AST ast, BinaryOperatorExpression expression, DomElement container, Ast2DomContext context)
+	public void buildExpression(AST ast, BinaryOperatorExpression expression, EolElement container, Ast2DomContext context)
 	{
 		this.setAssets(ast, expression, container);
 		

@@ -1,8 +1,8 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.AbortStatement;
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.AbortStatement;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class AbortStatementCreator extends StatementCreator{
@@ -19,7 +19,7 @@ public class AbortStatementCreator extends StatementCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		AbortStatement statement = context.getEolFactory().createAbortStatement();

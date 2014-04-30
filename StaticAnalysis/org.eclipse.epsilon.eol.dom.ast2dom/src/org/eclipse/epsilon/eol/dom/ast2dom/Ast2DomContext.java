@@ -3,16 +3,15 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 import java.util.HashMap;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.impl.EolFactoryImpl;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 
 public class Ast2DomContext {
 
 	EolElementCreatorFactory eolElementCreatorFactory;
 	EolFactory eolFactory;
 	//LinkedList<MetaModel> metaModels;
-	HashMap<DomElement, AST> trace = new HashMap<DomElement, AST>();
+	HashMap<EolElement, AST> trace = new HashMap<EolElement, AST>();
 	
 	public Ast2DomContext()
 	{
@@ -37,7 +36,7 @@ public class Ast2DomContext {
 		return eolElementCreatorFactory;
 	}
 	
-	public HashMap<DomElement, AST> getTrace() {
+	public HashMap<EolElement, AST> getTrace() {
 		return trace;
 	}
 	

@@ -1,15 +1,13 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.RealExpression;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class RealExpressionCreator extends PrimitiveExpressionCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		RealExpression expression = (RealExpression) context.getEolFactory().createRealExpression(); //create a RealExpression

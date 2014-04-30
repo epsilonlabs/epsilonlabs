@@ -1,9 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.UnaryOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public abstract class UnaryOperatorExpressionCreator extends OperatorExpressionCreator{
@@ -14,14 +12,14 @@ public abstract class UnaryOperatorExpressionCreator extends OperatorExpressionC
 		return (ast.getNumberOfChildren() == 1 && ast.getType() == EolParser.OPERATOR && ast.getText().equalsIgnoreCase(getOperator()));
 	}
 	
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		UnaryOperatorExpression expression = create(context);
 		this.buildExpression(ast, expression, container, context);
 		return expression;
 	}
 	
-	public void buildExpression(AST ast, UnaryOperatorExpression expression, DomElement container, Ast2DomContext context)
+	public void buildExpression(AST ast, UnaryOperatorExpression expression, EolElement container, Ast2DomContext context)
 	{
 		this.setAssets(ast, expression, container);
 		

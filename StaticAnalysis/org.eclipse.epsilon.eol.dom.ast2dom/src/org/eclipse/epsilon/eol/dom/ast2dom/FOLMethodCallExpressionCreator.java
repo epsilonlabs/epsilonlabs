@@ -1,12 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.BooleanExpression;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.FOLMethodCallExpression;
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class FOLMethodCallExpressionCreator extends FeatureCallExpressionCreator{
@@ -26,7 +21,7 @@ public class FOLMethodCallExpressionCreator extends FeatureCallExpressionCreator
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		FOLMethodCallExpression expression = (FOLMethodCallExpression) context.getEolFactory().createFOLMethodCallExpression(); //create a FOLMethodCallExpression

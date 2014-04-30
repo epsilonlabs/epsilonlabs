@@ -2,18 +2,13 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import java.util.LinkedList;
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.Block;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Import;
-import org.eclipse.epsilon.eol.dom.ModelDeclarationStatement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class ProgramCreator extends EolElementCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		Program program = context.getEolFactory().createProgram(); //create a program 

@@ -3,10 +3,7 @@ package org.eclipse.epsilon.eol.dom.ast2dom;
 import java.util.LinkedList;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.Block;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.TransactionStatement;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class TransactionStatementCreator extends StatementCreator{
@@ -23,7 +20,7 @@ public class TransactionStatementCreator extends StatementCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		TransactionStatement statement = context.getEolFactory().createTransactionStatement();

@@ -1,9 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.Expression;
-import org.eclipse.epsilon.eol.dom.ExpressionStatement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ExpressionStatementCreator extends StatementCreator{
 
@@ -13,7 +11,7 @@ public class ExpressionStatementCreator extends StatementCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		ExpressionStatement statement = context.getEolFactory().createExpressionStatement();

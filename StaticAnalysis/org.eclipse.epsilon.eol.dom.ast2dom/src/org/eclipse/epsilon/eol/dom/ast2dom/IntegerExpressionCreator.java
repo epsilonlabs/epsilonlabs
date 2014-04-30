@@ -1,15 +1,13 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.IntegerExpression;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class IntegerExpressionCreator extends PrimitiveExpressionCreator{
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		
 		IntegerExpression expression = (IntegerExpression) context.getEolFactory().createIntegerExpression(); //create an IntegerExpression

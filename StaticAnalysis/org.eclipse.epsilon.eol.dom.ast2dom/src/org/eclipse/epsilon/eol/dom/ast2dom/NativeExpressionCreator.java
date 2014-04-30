@@ -1,10 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.NativeExpression;
-import org.eclipse.epsilon.eol.dom.StringExpression;
-import org.eclipse.epsilon.eol.dom.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class NativeExpressionCreator extends LiteralExpressionCreator{
@@ -23,7 +20,7 @@ public class NativeExpressionCreator extends LiteralExpressionCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		NativeExpression expr = context.getEolFactory().createNativeExpression(); //create expression
 		this.setAssets(ast, expr, container); //set assets

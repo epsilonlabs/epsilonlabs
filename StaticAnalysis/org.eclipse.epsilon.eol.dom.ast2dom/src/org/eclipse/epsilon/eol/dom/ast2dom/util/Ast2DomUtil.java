@@ -7,7 +7,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 
 

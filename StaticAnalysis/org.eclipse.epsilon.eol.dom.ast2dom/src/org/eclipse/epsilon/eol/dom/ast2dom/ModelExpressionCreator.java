@@ -1,8 +1,7 @@
 package org.eclipse.epsilon.eol.dom.ast2dom;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.ModelExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class ModelExpressionCreator extends NameExpressionCreator{
 
@@ -12,7 +11,7 @@ public class ModelExpressionCreator extends NameExpressionCreator{
 	}
 
 	@Override
-	public DomElement create(AST ast, DomElement container,
+	public EolElement create(AST ast, EolElement container,
 			Ast2DomContext context) {
 		ModelExpression expression = context.getEolFactory().createModelExpression();
 		this.setAssets(ast, expression, container);
