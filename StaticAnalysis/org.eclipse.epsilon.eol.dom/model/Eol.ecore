@@ -5,7 +5,7 @@
     <details key="classPackageSuffix" value="metamodel.impl"/>
     <details key="utilityPackageSuffix" value="metamodel.util"/>
     <details key="metaDataPackageSuffix" value="eol"/>
-    <details key="interfacePackageSuffix" value="eol"/>
+    <details key="interfacePackageSuffix" value="metamodel"/>
     <details key="basePackage" value="org.eclipse.epsilon"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="EolElement" abstract="true">
