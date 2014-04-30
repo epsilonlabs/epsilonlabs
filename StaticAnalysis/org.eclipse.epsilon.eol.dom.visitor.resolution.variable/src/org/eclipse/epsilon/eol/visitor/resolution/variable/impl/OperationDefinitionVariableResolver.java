@@ -1,10 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.OperationDefinitionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.OperationDefinitionVisitor;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class OperationDefinitionVariableResolver extends OperationDefinitionVisitor<VariableResolutionContext, Object>{
 

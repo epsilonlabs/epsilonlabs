@@ -1,9 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.dom.SwitchCaseDefaultStatement;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.SwitchCaseDefaultStatementVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.SwitchCaseDefaultStatementVisitor;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class SwitchCaseDefaultStatementVariableResolver extends SwitchCaseDefaultStatementVisitor<VariableResolutionContext, Object>{
 

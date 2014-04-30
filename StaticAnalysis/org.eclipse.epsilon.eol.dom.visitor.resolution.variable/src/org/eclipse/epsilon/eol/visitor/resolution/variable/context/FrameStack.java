@@ -1,10 +1,8 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
 import java.util.LinkedList;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class FrameStack {
 
@@ -21,7 +19,7 @@ public class FrameStack {
 		frames.removeLast();
 	}
 	
-	public void push(DomElement entryPoint, boolean isUnprotected)
+	public void push(EolElement entryPoint, boolean isUnprotected)
 	{
 		frames.addLast(new Frame(entryPoint, isUnprotected));
 	}

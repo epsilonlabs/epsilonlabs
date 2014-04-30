@@ -1,17 +1,17 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
 import java.util.HashMap;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class Frame {
 
 	protected HashMap<String, Variable> storage;
 	protected FrameType type;
-	protected DomElement entryPoint;
+	protected EolElement entryPoint;
 	
-	public Frame(DomElement entryPoint, boolean isUnprotected)
+	public Frame(EolElement entryPoint, boolean isUnprotected)
 	{
 		storage = new HashMap<String, Variable>();
 		if(isUnprotected)
@@ -25,12 +25,12 @@ public class Frame {
 		this.entryPoint = entryPoint;
 	}
 	
-	public void setEntryPoint(DomElement entry)
+	public void setEntryPoint(EolElement entry)
 	{
 		this.entryPoint = entry;
 	}
 	
-	public DomElement getEntryPoint()
+	public EolElement getEntryPoint()
 	{
 		return entryPoint;
 	}

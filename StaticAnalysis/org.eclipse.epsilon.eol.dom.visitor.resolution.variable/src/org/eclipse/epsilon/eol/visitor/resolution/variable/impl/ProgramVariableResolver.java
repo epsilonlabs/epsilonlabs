@@ -1,12 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.dom.Import;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Program;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ProgramVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context.VariableResolutionContext;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class ProgramVariableResolver extends ProgramVisitor<VariableResolutionContext, Object>{
 

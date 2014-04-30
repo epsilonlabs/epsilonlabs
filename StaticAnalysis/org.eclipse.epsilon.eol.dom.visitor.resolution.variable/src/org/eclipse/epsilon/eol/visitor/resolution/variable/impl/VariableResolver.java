@@ -1,9 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.visitor.EolDefaultVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class VariableResolver {
 
@@ -29,7 +29,7 @@ public class VariableResolver {
 		
 	}
 	
-	public void run(DomElement dom)
+	public void run(EolElement dom)
 	{
 		controller.visit(dom, context);
 	}

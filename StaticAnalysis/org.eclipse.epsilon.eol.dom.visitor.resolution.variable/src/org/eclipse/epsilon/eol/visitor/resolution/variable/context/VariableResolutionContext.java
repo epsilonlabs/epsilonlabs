@@ -1,12 +1,10 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
 import log.LogBook;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.EolFactory;
-import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.dom.ast2dom.util.Ast2DomUtil;
-import org.eclipse.epsilon.eol.dom.impl.EolFactoryImpl;
 
 
 public class VariableResolutionContext {
@@ -46,7 +44,7 @@ public class VariableResolutionContext {
 		return ast2DomUtil;
 	}
 	
-	public void setAssets(DomElement obj, DomElement container)
+	public void setAssets(EolElement obj, EolElement container)
 	{
 		obj.setLine(container.getLine());
 		obj.setColumn(container.getColumn());

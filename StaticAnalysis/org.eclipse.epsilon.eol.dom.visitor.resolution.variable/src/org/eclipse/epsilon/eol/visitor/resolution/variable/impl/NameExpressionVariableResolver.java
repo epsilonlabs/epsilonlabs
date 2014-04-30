@@ -1,12 +1,9 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.impl;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.dom.AssignmentStatement;
-import org.eclipse.epsilon.eol.dom.NameExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.NameExpressionVisitor;
-import org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class NameExpressionVariableResolver extends NameExpressionVisitor<VariableResolutionContext, Object>{
 

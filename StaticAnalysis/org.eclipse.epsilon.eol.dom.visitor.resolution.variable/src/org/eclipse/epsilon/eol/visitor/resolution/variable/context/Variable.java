@@ -1,7 +1,6 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dom.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class Variable {
 
@@ -29,7 +28,7 @@ public class Variable {
 		name = null;
 	}
 	
-	public DomElement getVariable()
+	public EolElement getVariable()
 	{
 		return value;
 	}

@@ -1,11 +1,11 @@
-package org.eclipse.epsilon.eol.dom.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
 import java.io.File;
 import java.net.URL;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.dom.ast2dom.Ast2DomContext;
 
 public class ResolutionHelper {
