@@ -1,4 +1,4 @@
-package metamodel.connectivity;
+package metamodel.connectivity.emf;
 
 
 import java.io.File;

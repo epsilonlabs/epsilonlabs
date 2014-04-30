@@ -1,4 +1,4 @@
-package metamodel.connectivity;
+package metamodel.connectivity.emf;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

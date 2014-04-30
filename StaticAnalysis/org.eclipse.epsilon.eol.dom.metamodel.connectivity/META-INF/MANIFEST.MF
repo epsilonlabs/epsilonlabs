@@ -5,4 +5,5 @@ Bundle-SymbolicName: org.eclipse.epsilon.eol.dom.metamodel.connectivity; singlet
 Bundle-Version: 0.1.0
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi
-Export-Package: metamodel.connectivity
+Export-Package: metamodel.connectivity.emf,
+ metamodel.connectivity.plainxml
