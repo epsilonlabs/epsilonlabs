@@ -8,8 +8,8 @@
     <details key="interfacePackageSuffix" value="dom"/>
     <details key="basePackage" value="org.eclipse.epsilon"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="DomElement" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//DomElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//EolElement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uri" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -26,7 +26,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Program" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Program" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
@@ -40,18 +40,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
         eType="#//ModelDeclarationStatement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imported" lowerBound="1"
         eType="#//StringExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
         eType="#//Program" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//DomElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//EolElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedType" eType="#//Type"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Block" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement" containment="true"/>
   </eClassifiers>
@@ -148,7 +148,7 @@
         transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XorOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextType" eType="#//Type"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//Type"
@@ -267,9 +267,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyValues" upperBound="-1"
         eType="#//KeyValue" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//DomElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//EolElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AnyType" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tempType" eType="#//Type"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dynamicType" eType="#//Type"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionType" eSuperTypes="#//Type">
@@ -291,7 +291,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyType" lowerBound="1"
         eType="#//Type" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Annotation" abstract="true" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Annotation" abstract="true" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
@@ -303,7 +303,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//StringExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="KeyValue" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="KeyValue" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//Expression"
@@ -322,13 +322,13 @@
         eType="#//StringExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelExpression" eSuperTypes="#//NameExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AnnotationBlock" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AnnotationBlock" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="simpleAnnotations" upperBound="-1"
         eType="#//SimpleAnnotation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="executableAnnotations"
         upperBound="-1" eType="#//ExecutableAnnotation" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationParameter" eSuperTypes="#//DomElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationParameter" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//StringExpression"
@@ -347,7 +347,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParameterExpression" eSuperTypes="#//VariableDeclarationExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionInitValue" abstract="true"
-      eSuperTypes="#//DomElement"/>
+      eSuperTypes="#//EolElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExprList" eSuperTypes="#//CollectionInitValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" lowerBound="1"
         upperBound="-1" eType="#//Expression" containment="true"/>

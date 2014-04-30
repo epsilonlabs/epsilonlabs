@@ -4,11 +4,11 @@
     <children xmi:type="notation:Node" xmi:id="_0SLxgCwgEeK7YdpDjc97Ew" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_0SMYkCwgEeK7YdpDjc97Ew" type="5001">
       <children xmi:type="notation:Node" xmi:id="_0SM_oCwgEeK7YdpDjc97Ew" type="2001">
-        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//DomElement/line"/>
+        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//EolElement/line"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_0SNmsCwgEeK7YdpDjc97Ew"/>
       </children>
       <children xmi:type="notation:Node" xmi:id="_0SNmsSwgEeK7YdpDjc97Ew" type="2001">
-        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//DomElement/column"/>
+        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//EolElement/column"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_0SNmsiwgEeK7YdpDjc97Ew"/>
       </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_0SMYkSwgEeK7YdpDjc97Ew"/>
@@ -21,7 +21,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_0SMYlywgEeK7YdpDjc97Ew"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_0SJVQSwgEeK7YdpDjc97Ew" fontColor="4210752" fontName="微软雅黑" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="Eol.ecore#//DomElement"/>
+    <element xmi:type="ecore:EClass" href="Eol.ecore#//EolElement"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0SJVQiwgEeK7YdpDjc97Ew" x="165" y="-240"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_0SNmsywgEeK7YdpDjc97Ew" type="1001">
@@ -2376,7 +2376,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_0S-bsSwgEeK7YdpDjc97Ew" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_0S-bsiwgEeK7YdpDjc97Ew" fontColor="4210752" fontName="微软雅黑" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//DomElement/container"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//EolElement/container"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0S-bsywgEeK7YdpDjc97Ew" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_0S_p0iwgEeK7YdpDjc97Ew" type="3002" source="_0SNmsywgEeK7YdpDjc97Ew" target="_0SONyCwgEeK7YdpDjc97Ew">
@@ -4202,7 +4202,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_GxoF4f6nEeKy3qzlvS4lCg" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_GxoF4v6nEeKy3qzlvS4lCg" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//AnyType/tempType"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//AnyType/dynamicType"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GxoF4_6nEeKy3qzlvS4lCg" points="[50, -13, -670, 162]$[713, -195, -7, -20]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_FpS8sErWEeOrgodHRmgRxg" type="3003" source="_CQcxkErWEeOrgodHRmgRxg" target="_KH9QUCw0EeK7YdpDjc97Ew">
