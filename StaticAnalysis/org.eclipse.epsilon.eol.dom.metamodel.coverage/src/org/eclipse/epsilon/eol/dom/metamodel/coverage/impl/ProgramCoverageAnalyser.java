@@ -1,10 +1,9 @@
 package org.eclipse.epsilon.eol.dom.metamodel.coverage.impl;
 
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
-import org.eclipse.epsilon.eol.dom.Program;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
 import org.eclipse.epsilon.eol.dom.metamodel.coverage.context.CoverageAnalysisContext;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ProgramVisitor;
 
 public class ProgramCoverageAnalyser extends ProgramVisitor<CoverageAnalysisContext, Object> {
 

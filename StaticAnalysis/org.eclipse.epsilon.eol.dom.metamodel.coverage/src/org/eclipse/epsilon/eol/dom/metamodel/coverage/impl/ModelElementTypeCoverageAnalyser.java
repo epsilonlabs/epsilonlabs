@@ -1,11 +1,10 @@
 package org.eclipse.epsilon.eol.dom.metamodel.coverage.impl;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.dom.ModelElementType;
 import org.eclipse.epsilon.eol.dom.metamodel.coverage.context.CoverageAnalysisContext;
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.ModelElementTypeVisitor;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
 
 public class ModelElementTypeCoverageAnalyser extends ModelElementTypeVisitor<CoverageAnalysisContext, Object>{
 

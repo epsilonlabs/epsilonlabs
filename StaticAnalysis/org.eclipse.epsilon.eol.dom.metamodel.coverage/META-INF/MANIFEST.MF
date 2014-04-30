@@ -5,8 +5,8 @@ Bundle-SymbolicName: org.eclipse.epsilon.eol.dom.metamodel.coverage; singleton:=
 Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- org.eclipse.epsilon.eol.dom.visitor,
  org.eclipse.epsilon.eol.dom.metamodel.connectivity,
- org.eclipse.epsilon.static.analysis.problem.log
+ org.eclipse.epsilon.static.analysis.problem.log,
+ org.eclipse.epsilon.eol.metamodel.visitor;bundle-version="1.0.0"
 Export-Package: org.eclipse.epsilon.eol.dom.metamodel.coverage.context,
  org.eclipse.epsilon.eol.dom.metamodel.coverage.impl

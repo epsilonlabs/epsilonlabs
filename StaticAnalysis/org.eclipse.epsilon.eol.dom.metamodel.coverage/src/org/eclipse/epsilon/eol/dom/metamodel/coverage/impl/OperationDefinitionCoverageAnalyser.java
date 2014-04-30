@@ -1,11 +1,10 @@
 package org.eclipse.epsilon.eol.dom.metamodel.coverage.impl;
 
-import org.eclipse.epsilon.eol.dom.FormalParameterExpression;
-import org.eclipse.epsilon.eol.dom.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.OperationDefinitionVisitor;
 import org.eclipse.epsilon.eol.dom.metamodel.coverage.context.CoverageAnalysisContext;
 
-import org.eclipse.epsilon.eol.dom.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.dom.visitor.OperationDefinitionVisitor;
 
 public class OperationDefinitionCoverageAnalyser extends OperationDefinitionVisitor<CoverageAnalysisContext, Object>{
 
