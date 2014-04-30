@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.metamodel.coverage.context;
+package org.eclipse.epsilon.eol.coverage.analysis.context;
 
 import org.eclipse.emf.ecore.EClassifier;
 
