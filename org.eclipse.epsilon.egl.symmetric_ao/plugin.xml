@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ant.core.antTasks">
+      <antTask
+            class="org.eclipse.epsilon.egl.symmetric_ao.tasks.AORegisterTask"
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.tasks.jar"
+            name="epsilon.eglRegister">
+      </antTask>
+      <antTask
+            class="org.eclipse.epsilon.egl.symmetric_ao.tasks.AOMergeTask"
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.tasks.jar"
+            name="epsilon.eglMerge">
+      </antTask>      
+      <antTask
+            class="org.eclipse.epsilon.egl.symmetric_ao.tasks.AODirectRegisterTask"
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.tasks.jar"
+            name="epsilon.eglRegisterFile">
+      </antTask>
+   </extension>
+   <extension
+         point="org.eclipse.ant.core.extraClasspathEntries">
+      <extraClasspathEntry
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.tasks.jar">
+      </extraClasspathEntry>
+   </extension>
+
+</plugin>

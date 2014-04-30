@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><antlib><taskdef name="epsilon.eglRegister" classname="org.eclipse.epsilon.egl.symmetric_ao.tasks.AORegisterTask"/><taskdef name="epsilon.eglMerge" classname="org.eclipse.epsilon.egl.symmetric_ao.tasks.AOMergeTask"/><taskdef name="epsilon.eglRegisterFile" classname="org.eclipse.epsilon.egl.symmetric_ao.tasks.AODirectRegisterTask"/></antlib>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.epsilon.egl.symmetric_ao.feature_1.0.0.201404252255.jar" id="org.eclipse.epsilon.egl.symmetric_ao.feature" version="1.0.0.201404252255">
+      <category name="org.eclipse.epsilon.symmetric_ao"/>
+   </feature>
+   <feature url="features/org.eclipse.epsilon.egl.symmetric_ao.feature_1.0.2.201404301448.jar" id="org.eclipse.epsilon.egl.symmetric_ao.feature" version="1.0.2.201404301448">
+      <category name="org.eclipse.epsilon.symmetric_ao"/>
+   </feature>
+   <category-def name="org.eclipse.epsilon.symmetric_ao" label="Epsilon Symmetric AO Code Generator"/>
+</site>

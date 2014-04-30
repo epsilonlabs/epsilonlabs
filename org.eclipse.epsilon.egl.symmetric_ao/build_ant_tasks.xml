@@ -1,0 +1,9 @@
+<project default="default">
+	<target name="default">
+		<xslt style="pluginxml2tasksxml.xslt" in="plugin.xml" out="ant/org/eclipse/epsilon/egl/symmetric_ao/tasks/tasks.xml"/>
+				
+		<echo>Building ANT jar</echo>
+		<jar destfile="lib/org.eclipse.epsilon.egl.symmetric_ao.tasks.jar" basedir="bin">
+		</jar>
+	</target>
+</project> 

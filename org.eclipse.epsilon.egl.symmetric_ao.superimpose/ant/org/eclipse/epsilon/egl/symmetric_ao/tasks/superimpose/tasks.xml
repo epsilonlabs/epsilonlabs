@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><antlib><taskdef name="epsilon.egl.superImpose.registerRules" classname="org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose.RegisterCompositionRules"/><taskdef name="epsilon.egl.superImpose.registerArtifacts" classname="org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose.RegisterArtifactHandlers"/></antlib>

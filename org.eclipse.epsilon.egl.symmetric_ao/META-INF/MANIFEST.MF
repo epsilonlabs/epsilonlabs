@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Symmetric AO Code Generation for EGL
+Bundle-SymbolicName: org.eclipse.epsilon.egl.symmetric_ao;singleton:=true
+Bundle-Version: 1.0.2.qualifier
+Bundle-Activator: org.eclipse.epsilon.egl.symmetric_ao.Activator
+Bundle-Vendor: Steffen Zschaler
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.100",
+ org.apache.ant;bundle-version="1.8.4",
+ org.eclipse.epsilon.egl.engine,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.workflow,
+ org.eclipse.epsilon.eol.dt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.eclipse.epsilon.egl.symmetric_ao,
+ org.eclipse.epsilon.egl.symmetric_ao.tasks

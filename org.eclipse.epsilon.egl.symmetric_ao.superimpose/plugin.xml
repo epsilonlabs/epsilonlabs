@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ant.core.antTasks">
+      <antTask
+            class="org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose.RegisterCompositionRules"
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.superimpose.tasks.jar"
+            name="epsilon.egl.superImpose.registerRules">
+      </antTask>
+      <antTask
+            class="org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose.RegisterArtifactHandlers"
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.superimpose.tasks.jar"
+            name="epsilon.egl.superImpose.registerArtifacts">
+      </antTask>
+   </extension>
+   <extension
+         point="org.eclipse.ant.core.extraClasspathEntries">
+      <extraClasspathEntry
+            eclipseRuntime="false"
+            library="lib/org.eclipse.epsilon.egl.symmetric_ao.superimpose.tasks.jar">
+      </extraClasspathEntry>
+      <extraClasspathEntry
+            eclipseRuntime="false"
+            library="lib/FeatureHouse-2010-02-27.jar">
+      </extraClasspathEntry>
+   </extension>
+
+</plugin>
