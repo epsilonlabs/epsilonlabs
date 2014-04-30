@@ -1,11 +1,11 @@
 package log;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public abstract class Problem {
 
 	protected String message;
-	protected DomElement domElement;
+	protected EolElement eolElement;
 	
 	public String getMessage()
 	{
@@ -17,8 +17,8 @@ public abstract class Problem {
 		this.message = message;
 	}
 	
-	public DomElement getDomElement()
+	public EolElement getDomElement()
 	{
-		return domElement;
+		return eolElement;
 	}
 }

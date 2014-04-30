@@ -2,7 +2,7 @@ package log;
 
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class LogBook {
@@ -26,12 +26,12 @@ public class LogBook {
 		return warnings;
 	}
 		
-	public void addError(DomElement dom, String s)
+	public void addError(EolElement dom, String s)
 	{
 		errors.add(new Error(dom, s));
 	}
 	
-	public void addWarning(DomElement dom, String s)
+	public void addWarning(EolElement dom, String s)
 	{
 		warnings.add(new Warning(dom, s));
 	}

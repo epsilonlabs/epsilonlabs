@@ -1,13 +1,13 @@
 package log;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class Warning extends Problem{
 	
-	public Warning(DomElement dom, String msg)
+	public Warning(EolElement dom, String msg)
 	{
-		this.domElement = dom;
+		this.eolElement = dom;
 		this.message = msg;
 	}
 }

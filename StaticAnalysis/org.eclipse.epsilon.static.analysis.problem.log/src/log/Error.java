@@ -1,12 +1,12 @@
 package log;
 
-import org.eclipse.epsilon.eol.dom.DomElement;
+import org.eclipse.epsilon.eol.metamodel.*;
 
 public class Error extends Problem{
 
-	public Error(DomElement dom, String msg)
+	public Error(EolElement dom, String msg)
 	{
-		this.domElement = dom;
+		this.eolElement = dom;
 		this.message = msg;
 	}
 }
