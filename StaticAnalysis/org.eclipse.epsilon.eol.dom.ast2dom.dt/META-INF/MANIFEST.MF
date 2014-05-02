@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Dt
 Bundle-SymbolicName: org.eclipse.epsilon.eol.ast2eol.dt;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.eclipse.epsilon.eol.dom.ast2dom.dt.Activator
+Bundle-Activator: org.eclipse.epsilon.eol.ast2eol.dt.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,

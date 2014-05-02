@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.ast2dom.dt;
+package org.eclipse.epsilon.eol.ast2eol.dt;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
-import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -57,7 +57,7 @@ public class ParseEolFileAction implements IObjectActionDelegate {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Ast2DomContext context = new Ast2DomContext();
+		Ast2EolContext context = new Ast2EolContext();
 		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
 		
 		System.err.println(context.getEolElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");

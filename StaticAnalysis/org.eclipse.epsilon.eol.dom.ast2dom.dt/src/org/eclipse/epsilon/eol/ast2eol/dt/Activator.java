@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.dom.ast2dom.dt;
+package org.eclipse.epsilon.eol.ast2eol.dt;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

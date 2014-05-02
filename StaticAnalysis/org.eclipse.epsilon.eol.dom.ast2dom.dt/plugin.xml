@@ -17,13 +17,13 @@
          </menu>
          <action
                label="Parse EOL File"
-               class="org.eclipse.epsilon.eol.dom.ast2dom.dt.ParseEolFileAction"
+               class="org.eclipse.epsilon.eol.ast2eol.dt.ParseEolFileAction"
                menubarPath="org.eclipse.epsilon.eol.dom.ast2dom.dt.menu1/group1"
                enablesFor="1"
                id="org.eclipse.epsilon.eol.dom.ast2dom.dt.newAction">
          </action>
          <action
-               class="org.eclipse.epsilon.eol.dom.ast2dom.dt.ResolveVariableAction"
+               class="org.eclipse.epsilon.eol.ast2eol.dt.ResolveVariableAction"
                id="org.eclipse.epsilon.eol.dom.ast2dom.dt.resolveVariables"
                label="Resolve Variables"
                menubarPath="org.eclipse.epsilon.eol.dom.ast2dom.dt.menu1/group1">
