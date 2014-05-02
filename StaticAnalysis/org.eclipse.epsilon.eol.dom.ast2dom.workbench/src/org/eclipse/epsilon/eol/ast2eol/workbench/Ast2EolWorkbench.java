@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.ast2dom.workbench;
+package org.eclipse.epsilon.eol.ast2eol.workbench;
 
 
 import java.io.File;
@@ -12,14 +12,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
+import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
-public class Ast2DomWorkbench {
+public class Ast2EolWorkbench {
 
 	public static void main(String[] args) throws Exception {
-		new Ast2DomWorkbench().run();
+		new Ast2EolWorkbench().run();
 	}
 	
 	public void run() throws Exception {
@@ -39,7 +39,7 @@ public class Ast2DomWorkbench {
 		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
 		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 		
-		Ast2DomContext context = new Ast2DomContext();
+		Ast2EolContext context = new Ast2EolContext();
 		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
 		
 		System.err.println(context.getEolElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");
