@@ -15,8 +15,8 @@ import org.eclipse.epsilon.common.module.IModule;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.ast2dom.Ast2DomContext;
-import org.eclipse.epsilon.eol.ast2dom.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
+import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
@@ -50,7 +50,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
 		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
-		Ast2DomContext context = new Ast2DomContext(factory);
+		Ast2EolContext context = new Ast2EolContext(factory);
 		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
