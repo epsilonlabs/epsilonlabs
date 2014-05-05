@@ -1,0 +1,26 @@
+var i = new Map(String, String);
+/*
+var i : Any;
+i.isUndefined().println();
+i.println();
+i.isTypeOf(Any).println("x");
+i.isKindOf(Any).println();
+
+var a = new Native("java.lang.Object");
+i.ifUndefined(a).println();*/
+
+var index: Map;
+
+for(book in Book.all)
+{
+	if(index.get(book.name).isUndefined())
+	{
+		var bookSet : Set;
+		set.add(book);
+		index.put(book.name, bookSet);
+	}
+	else
+	{
+		index.get(book.name).add(book);
+	}
+}
