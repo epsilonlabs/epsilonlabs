@@ -1,0 +1,431 @@
+@emf.gen(classPackageSuffix="eol.metamodel.impl", utilityPackageSuffix="eol.metamodel.util", metaDataPackageSuffix="eol.metamodel", interfacePackageSuffix="eol.metamodel", basePackage="org.eclipse.epsilon")
+@namespace(uri="http://www.eclipse.org/epsilon/eol", prefix="eol")
+package eol;
+
+abstract class EolElement {
+  ref EolElement container;
+  attr int line;
+  attr int column;
+  attr String uri;
+  val TextRegion region;
+}
+
+class TextRegion {
+  val TextPosition start;
+  val TextPosition end;
+}
+
+class TextPosition {
+  attr int line;
+  attr int column;
+}
+
+class Program extends EolElement {
+  val Import[*] imports;
+  val Program[*] importedModules;
+  val OperationDefinition[*] operations;
+  val Block block;
+  val NameExpression[1] name;
+  val ModelDeclarationStatement[*] modelDeclarations;
+}
+
+class Import extends EolElement {
+  val StringExpression[1] imported;
+  val Program[1] importedProgram;
+}
+
+abstract class Statement extends EolElement {
+}
+
+abstract class Expression extends EolElement {
+  val Type resolvedType;
+}
+
+class Block extends EolElement {
+  val Statement[*] statements;
+}
+
+abstract class OperatorExpression extends Expression {
+}
+
+abstract class BinaryOperatorExpression extends OperatorExpression {
+  val Expression[1] lhs;
+  val Expression[1] rhs;
+}
+
+class AndOperatorExpression extends BinaryOperatorExpression {
+}
+
+abstract class LiteralExpression extends Expression {
+}
+
+class BooleanExpression extends PrimitiveExpression {
+  attr boolean ~val;
+}
+
+class DivideOperatorExpression extends BinaryOperatorExpression {
+}
+
+class EnumerationLiteralExpression extends Expression {
+  val NameExpression[1] enumeration;
+  val NameExpression[1] literal;
+  val ModelExpression[1] model;
+}
+
+class EqualsOperatorExpression extends BinaryOperatorExpression {
+}
+
+abstract class FeatureCallExpression extends Expression {
+  val Expression target;
+  val BooleanExpression isArrow;
+}
+
+class GreaterThanOperatorExpression extends BinaryOperatorExpression {
+}
+
+class GreaterThanOrEqualToOperatorExpression extends BinaryOperatorExpression {
+}
+
+class ImpliesOperatorExpression extends BinaryOperatorExpression {
+}
+
+class IntegerExpression extends PrimitiveExpression {
+  attr int ~val;
+}
+
+class LessThanOperatorExpression extends BinaryOperatorExpression {
+}
+
+class LessThanOrEqualToOperatorExpression extends BinaryOperatorExpression {
+}
+
+class MethodCallExpression extends FeatureCallExpression {
+  val Expression[*] arguments;
+  val NameExpression[1] method;
+  ref EObject[*] resolvedMethods;
+}
+
+class MinusOperatorExpression extends BinaryOperatorExpression {
+}
+
+class MultiplyOperatorExpression extends BinaryOperatorExpression {
+}
+
+class NameExpression extends Expression {
+  attr String name;
+  val BooleanExpression[1] isType;
+  transient attr EJavaObject[1] resolvedContent;
+}
+
+abstract class UnaryOperatorExpression extends OperatorExpression {
+  val Expression[1] expr;
+}
+
+class NegativeOperatorExpression extends UnaryOperatorExpression {
+}
+
+class NotEqualsOperatorExpression extends BinaryOperatorExpression {
+}
+
+class NotOperatorExpression extends UnaryOperatorExpression {
+}
+
+class OrOperatorExpression extends BinaryOperatorExpression {
+}
+
+class PlusOperatorExpression extends BinaryOperatorExpression {
+}
+
+class PropertyCallExpression extends FeatureCallExpression {
+  val NameExpression[1] property;
+  val BooleanExpression[1] extended;
+}
+
+class RealExpression extends PrimitiveExpression {
+  attr double ~val;
+}
+
+class StringExpression extends PrimitiveExpression {
+  attr String ~val;
+}
+
+class VariableDeclarationExpression extends Expression {
+  val NameExpression[1] name;
+  val BooleanExpression create;
+  val Expression[*] parameters;
+  transient attr EJavaObject[1] lastDefinitionPoint;
+}
+
+class XorOperatorExpression extends BinaryOperatorExpression {
+}
+
+class OperationDefinition extends EolElement {
+  val Type contextType;
+  val Type returnType;
+  val AnnotationBlock annotationBlock;
+  val Block body;
+  val NameExpression[1] name;
+  val FormalParameterExpression[*] parameters;
+  val VariableDeclarationExpression[1] self;
+  val VariableDeclarationExpression _result;
+}
+
+class AssignmentStatement extends Statement {
+  val Expression[1] lhs;
+  val Expression[1] rhs;
+}
+
+class BreakStatement extends Statement {
+}
+
+class BreakAllStatement extends Statement {
+}
+
+class ContinueStatement extends Statement {
+}
+
+class DeleteStatement extends Statement {
+  val Expression deleted;
+}
+
+class ForStatement extends Statement {
+  val FormalParameterExpression[1] iterator;
+  val Expression[1] iterated;
+  val Block[1] body;
+}
+
+class IfStatement extends Statement {
+  val Expression[1] condition;
+  val Block[1] ifBody;
+  val Block elseBody;
+}
+
+class ReturnStatement extends Statement {
+  val Expression returned;
+}
+
+class SwitchStatement extends Statement {
+  val Expression[1] expression;
+  val SwitchCaseExpressionStatement[*] cases;
+  val SwitchCaseDefaultStatement default;
+}
+
+abstract class SwitchCaseStatement extends Statement {
+  val Block[1] body;
+}
+
+class WhileStatement extends Statement {
+  val Expression[1] condition;
+  val Block[1] body;
+}
+
+class ModelDeclarationStatement extends Statement {
+  val ecore.EPackage[*] packages;
+  val NameExpression[1] name;
+  val NameExpression[*] alias;
+  val NameExpression[1] driver;
+  val ModelDeclarationParameter[*] parameters;
+  ref ModelDeclarationStatement EReference0;
+}
+
+class FOLMethodCallExpression extends FeatureCallExpression {
+  val FormalParameterExpression[+] iterators;
+  val Expression[+] conditions;
+  val NameExpression[1] method;
+}
+
+class ExpressionStatement extends Statement {
+  val Expression[1] expression;
+}
+
+class SwitchCaseDefaultStatement extends SwitchCaseStatement {
+}
+
+class SwitchCaseExpressionStatement extends SwitchCaseStatement {
+  val Expression[1] expression;
+}
+
+abstract class PrimitiveExpression extends LiteralExpression {
+}
+
+abstract class CollectionExpression extends LiteralExpression {
+  val CollectionInitValue parameterList;
+  val Type[1] contentType;
+  val LiteralExpression[*] contents;
+}
+
+class SetExpression extends CollectionExpression {
+}
+
+class BagExpression extends CollectionExpression {
+}
+
+class SequenceExpression extends CollectionExpression {
+}
+
+class OrderedSetExpression extends CollectionExpression {
+}
+
+class MapExpression extends LiteralExpression {
+  val KeyValue[*] keyValues;
+}
+
+class Type extends EolElement {
+}
+
+class AnyType extends Type {
+  val Type dynamicType;
+}
+
+class CollectionType extends Type {
+  val Type contentType;
+}
+
+abstract class PrimitiveType extends Type {
+}
+
+class BooleanType extends PrimitiveType {
+}
+
+class IntegerType extends PrimitiveType {
+}
+
+class RealType extends PrimitiveType {
+}
+
+class StringType extends PrimitiveType {
+}
+
+class SetType extends UniqueCollectionType {
+}
+
+class BagType extends CollectionType {
+}
+
+class SequenceType extends OrderedCollectionType {
+}
+
+class OrderedSetType extends OrderedCollectionType, UniqueCollectionType {
+}
+
+class MapType extends Type {
+  val Type[1] valueType;
+  val Type[1] keyType;
+}
+
+abstract class Annotation extends EolElement {
+  val NameExpression[1] name;
+}
+
+class ExecutableAnnotation extends Annotation {
+  val Expression[1] expression;
+}
+
+class SimpleAnnotation extends Annotation {
+  val StringExpression[*] values;
+}
+
+class KeyValue extends EolElement {
+  val Expression[1] key;
+  val Expression[1] value;
+}
+
+class SpecialNameExpression extends NameExpression {
+}
+
+class ModelElementType extends Type {
+  ref ecore.EClassifier ecoreType;
+  ref ModelDeclarationStatement resolvedModelDeclaration;
+  attr String modelName;
+  attr String elementName;
+}
+
+class NativeType extends Type {
+  val StringExpression[1] nativeExpression;
+}
+
+class ModelExpression extends NameExpression {
+}
+
+class AnnotationBlock extends EolElement {
+  val SimpleAnnotation[*] simpleAnnotations;
+  val ExecutableAnnotation[*] executableAnnotations;
+}
+
+class ModelDeclarationParameter extends EolElement {
+  val NameExpression[1] name;
+  val StringExpression[1] value;
+}
+
+class ThrowStatement extends Statement {
+  val Expression thrown;
+}
+
+class AbortStatement extends Statement {
+}
+
+class TransactionStatement extends Statement {
+  val Block[1] body;
+  val NameExpression[*] names;
+}
+
+class FormalParameterExpression extends VariableDeclarationExpression {
+}
+
+abstract class CollectionInitValue extends EolElement {
+}
+
+class ExprList extends CollectionInitValue {
+  val Expression[+] expressions;
+}
+
+class ExpRange extends CollectionInitValue {
+  val Expression[1] start;
+  val Expression[1] end;
+}
+
+class NewExpression extends Expression {
+  val Expression[*] parameters;
+}
+
+class SpecialAssignmentStatement extends AssignmentStatement {
+}
+
+class ModelType extends Type {
+  val NameExpression[1] modelName;
+  ref ModelDeclarationStatement[+] model;
+}
+
+class NativeExpression extends LiteralExpression {
+  val StringExpression nativeExpr;
+  val BooleanExpression[1] isType;
+}
+
+class EType extends Type {
+  ref ecore.EClassifier[1] ecoreType;
+}
+
+class VoidType extends Type {
+}
+
+class PseudoType extends Type {
+}
+
+class SelfType extends PseudoType {
+}
+
+class SelfContentType extends PseudoType {
+}
+
+class OrderedCollectionType extends CollectionType {
+}
+
+class UniqueCollectionType extends CollectionType {
+}
+
+class SelfInnermostType extends PseudoType {
+}
+
+class OperationArgType extends PseudoType {
+}
+
