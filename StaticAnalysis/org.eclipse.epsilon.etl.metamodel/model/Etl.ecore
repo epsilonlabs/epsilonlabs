@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="etl" nsURI="http://www.eclipse.org/epsilon/etl" nsPrefix="etl">
+  <eAnnotations source="emf.gen">
+    <details key="classPackageSuffix" value="metamodel.impl"/>
+    <details key="utilityPackageSuffix" value="metamodel.util"/>
+    <details key="metaDataPackageSuffix" value="metamodel"/>
+    <details key="interfacePackageSuffix" value="metamodel"/>
+    <details key="basePackage" value="org.eclipse.epsilon"/>
+  </eAnnotations>
+  <eAnnotations source="emf.gen.usedGenPackage">
+    <details key="name" value="eol"/>
+    <details key="genModel" value="platform:/resource/org.eclipse.epsilon.eol.metamodel/model/Eol.genmodel"/>
+  </eAnnotations>
+  <eAnnotations source="emf.gen.annotation">
+    <details key="source" value="emf.gen"/>
+    <details key="key" value="extends"/>
+    <details key="value" value="eol"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlElement" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedBlock" abstract="true" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreBlock" eSuperTypes="#//NamedBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PostBlock" eSuperTypes="#//NamedBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Import"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//OperationDefinition"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ModelDeclarationStatement"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationRules" upperBound="-1"
+        eType="#//TransformationRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"
+        eType="#//PreBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postBlocks" upperBound="-1"
+        eType="#//PostBlock" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationRule" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//FormalParameterExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targets" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//FormalParameterExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Block"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotationBlock" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//AnnotationBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" upperBound="-1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedParentRules" upperBound="-1"
+        eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//Guard"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

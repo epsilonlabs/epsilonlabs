@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="etl" nsURI="http://www.eclipse.org/epsilon/etl" nsPrefix="etl">
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationRule" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NativeExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//FormalParameterExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targets" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//FormalParameterExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Block"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" upperBound="-1"
+        eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="abstract" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//BooleanExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="lazy" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//BooleanExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primary" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//BooleanExpression"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="greedy" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//BooleanExpression"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Program #//EtlElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Statement #//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConditionBlock" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Block"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreCondition" eSuperTypes="#//ConditionBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PostCondition" eSuperTypes="#//ConditionBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlElement" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
+</ecore:EPackage>
