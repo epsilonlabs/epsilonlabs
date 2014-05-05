@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.ast2eol;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -26,7 +26,7 @@ public class TransactionStatementCreator extends StatementCreator{
 		TransactionStatement statement = context.getEolFactory().createTransactionStatement();
 		this.setAssets(ast, statement, container);
 		
-		LinkedList<AST> childrenAsts = AstUtilities.getChildren(ast);
+		ArrayList<AST> childrenAsts = AstUtilities.getChildren(ast);
 		int temp = 0;
 		while(temp < childrenAsts.size() - 1)
 		{
@@ -35,7 +35,7 @@ public class TransactionStatementCreator extends StatementCreator{
 			temp++;
 		}
 		
-		AST bodyAst = childrenAsts.getLast();
+		AST bodyAst = childrenAsts.get(childrenAsts.size()-1);
 		if(bodyAst.getType() == EolParser.BLOCK)
 		{
 			statement.setBody((Block) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context));

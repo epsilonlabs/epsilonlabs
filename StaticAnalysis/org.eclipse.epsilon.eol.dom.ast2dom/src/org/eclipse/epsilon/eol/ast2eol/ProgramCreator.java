@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.ast2eol;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
@@ -14,7 +14,7 @@ public class ProgramCreator extends EolElementCreator{
 		Program program = context.getEolFactory().createProgram(); //create a program 
 		this.setAssets(ast, program, null);
 		
-		LinkedList<AST> importAsts = AstUtilities.getChildren(ast, EolParser.IMPORT); //get Import ASTs
+		ArrayList<AST> importAsts = AstUtilities.getChildren(ast, EolParser.IMPORT); //get Import ASTs
 		if(importAsts != null)
 		{
 			for (AST importAst : importAsts) {
@@ -22,7 +22,7 @@ public class ProgramCreator extends EolElementCreator{
 			}
 		}
 		
-		LinkedList<AST> modelDeclAsts = AstUtilities.getChildren(ast, EolParser.MODELDECLARATION);
+		ArrayList<AST> modelDeclAsts = AstUtilities.getChildren(ast, EolParser.MODELDECLARATION);
 		if (modelDeclAsts != null) {
 			for(AST modelDecl: modelDeclAsts)
 			{
@@ -36,7 +36,7 @@ public class ProgramCreator extends EolElementCreator{
 			program.setBlock((Block)context.getEolElementCreatorFactory().createDomElement(blockAst, program, context)); //process block AST
 		}
 						
-		LinkedList<AST> operations = AstUtilities.getChildren(ast, EolParser.HELPERMETHOD); //obtain ASTs for operation defintions
+		ArrayList<AST> operations = AstUtilities.getChildren(ast, EolParser.HELPERMETHOD); //obtain ASTs for operation defintions
 		if(operations != null)
 		{
 			for (AST operation : operations) {

@@ -1,7 +1,8 @@
 package org.eclipse.epsilon.eol.ast2eol;
 
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.ArrayList;
 
 import org.eclipse.epsilon.common.parse.AST;
 
@@ -48,12 +49,12 @@ public class AstUtilities {
 		return null;
 	}
 	
-	public static LinkedList<AST> getChildren(AST parent){
+	public static ArrayList<AST> getChildren(AST parent){
 		return getChildren(parent, -1);
 	}
 	
-	public static LinkedList<AST> getChildrenBut(AST parent, int type){
-		LinkedList<AST> children = new LinkedList<AST>();
+	public static ArrayList<AST> getChildrenBut(AST parent, int type){
+		ArrayList<AST> children = new ArrayList<AST>();
 		AST child = parent.getFirstChild();
 		while (child != null){
 			if (!(child.getType() == type)){
@@ -63,8 +64,8 @@ public class AstUtilities {
 		}
 		return children;
 	}
-	public static LinkedList<AST> getChildren(AST parent, int... type){
-		LinkedList<AST> children = new LinkedList<AST>();
+	public static ArrayList<AST> getChildren(AST parent, int... type){
+		ArrayList<AST> children = new ArrayList<AST>();
 		
 		if (parent != null) {
 			AST child = parent.getFirstChild();
