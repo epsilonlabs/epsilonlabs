@@ -1,0 +1,69 @@
+operation Any isDefined() : Boolean{} //done no helper ---------------------------
+
+operation Any isUndefined() : Boolean{} //done no helper ---------------------------
+
+operation Any ifUndefined(alt: Any) : Any{} //done HANDLER
+
+operation Any isTypeOf(type: Type) : Boolean{} //done ---------------------------
+
+operation Any isKindOf(type: Type) : Boolean{} //done ---------------------------
+
+operation Any type() : SelfType{} // done ---------------------------
+
+operation Any owningModel() : Model{} //tbd
+
+operation Any hasProperty(name: String) : Boolean{} //do we need a check for the target to be a modelelement????????
+
+operation Any asString() : String{} //done ---------------------------
+
+operation Any asInteger() : Integer{} //done ---------------------------
+
+operation Any asReal() : Real{} //done ---------------------------
+
+operation Any asBoolean() : Boolean{} //done ---------------------------
+
+operation Any asBag() : Bag(SelfType){} //done ---------------------------
+
+operation Collection asBag() : Bag(SelfContentType){} // ---------------------------
+
+operation Any asSequence() : Sequence(SelfType){} //done ---------------------------
+
+operation Collection asSequence() : Sequence(SelfContentType){} //done ---------------------------
+
+operation Any asSet() : Set(SelfType){} //done ---------------------------
+
+operation Collection asSet() : Set(SelfContentType){} //done ---------------------------
+
+operation Any asOrderedSet() : OrderedSet(SelfType){} //done ---------------------------
+
+operation Collection asOrderedSet() : OrderedSet(SelfContentType){} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any print() : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any print(prefix: String) : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any println() : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any println(prefix: String) : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any err() : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any err(prefix: String) : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any errln() : SelfType{} //done ---------------------------
+
+@_sysParam allowNoTarget
+operation Any errln(prefix: String) : SelfType{} //done ---------------------------
+
+operation Any format() : String{} //done ---------------------------
+
+operation Any format(pattern: String) : String{} //done ---------------------------
+
+operation Any asType(Type) : OperationArgType {} //done ---------------------------

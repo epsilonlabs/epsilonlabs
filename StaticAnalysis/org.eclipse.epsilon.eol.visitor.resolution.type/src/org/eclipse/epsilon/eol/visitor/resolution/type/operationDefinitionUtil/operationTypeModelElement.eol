@@ -1,0 +1,17 @@
+@_sysParam modelOp
+operation _ModelElementType_ allOfType() : OrderedSet(SelfType) {} //done
+
+@_sysParam modelOp
+operation _ModelElementType_ allOfKind() : OrderedSet(SelfType) {} //done
+
+@_sysParam modelOp
+operation _ModelElementType_ allInstances() : OrderedSet(SelfType) {} //done
+
+@_sysParam modelOp
+operation _ModelElementType_ all() : OrderedSet(SelfType) {} //done
+
+@_sysParam modelOp
+operation _ModelElementType_ isInstantiable() : Boolean {} //done
+
+@_sysParam modelOp
+operation _ModelElementType_ createInstance() : SelfType {} //done
