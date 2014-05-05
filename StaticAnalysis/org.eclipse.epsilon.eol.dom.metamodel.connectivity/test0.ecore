@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bookstore" nsURI="http://bookstore/1.0" nsPrefix="bookstore">
+  <eClassifiers xsi:type="ecore:EClass" name="book">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="category">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="title" eType="//title"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="//author"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="year" eType="//year"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="price" eType="//price"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cover">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="title">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="author"/>
+  <eClassifiers xsi:type="ecore:EClass" name="year"/>
+  <eClassifiers xsi:type="ecore:EClass" name="price"/>
+</ecore:EPackage>
