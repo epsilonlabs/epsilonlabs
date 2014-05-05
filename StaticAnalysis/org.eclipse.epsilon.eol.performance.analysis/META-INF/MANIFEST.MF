@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.eol.dom.visitor.optimisation
+Bundle-SymbolicName: org.eclipse.epsilon.eol.performance.analysis;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.epsilon.eol.visitor.resolution.type,
+ org.eclipse.epsilon.eol.metamodel,
+ org.eclipse.epsilon.static.analysis.problem.log,
+ org.eclipse.epsilon.eol.dom.metamodel.connectivity,
+ org.eclipse.epsilon.eol.metamodel.visitor
+Export-Package: org.eclipse.epsilon.eol.performance.analysis.context,
+ org.eclipse.epsilon.eol.performance.analysis.impl
