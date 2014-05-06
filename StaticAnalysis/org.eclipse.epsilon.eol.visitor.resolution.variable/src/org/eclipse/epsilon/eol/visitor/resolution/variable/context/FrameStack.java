@@ -66,6 +66,17 @@ public class FrameStack {
 		return result;
 	}
 	
+	public boolean variableExistsInCurrentScope(String name)
+	{
+		boolean result = false;
+		Frame frame = frames.getLast();
+		if(frame.contains(name))
+		{
+			result = true;
+		}
+		return result;
+	}
+	
 	public Variable getVariable(String name)
 	{
 		Variable result = null;
