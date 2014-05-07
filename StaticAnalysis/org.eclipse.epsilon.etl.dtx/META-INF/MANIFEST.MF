@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: et.dtx
+Bundle-SymbolicName: org.eclipse.epsilon.etl.dtx;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.epsilon.etl.dtx.EtlxPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.epsilon.etl.dt,
+ org.eclipse.epsilon.common,
+ org.eclipse.epsilon.common.dt,
+ org.eclipse.epsilon.etl.ast2etl,
+ org.eclipse.epsilon.etl.metamodel,
+ org.eclipse.epsilon.etl.metamodel.visitor,
+ org.eclipse.epsilon.etl.visitor.resolution.variable,
+ org.eclipse.epsilon.eol.dt,
+ org.eclipse.jface.text,
+ org.eclipse.epsilon.eol.dtx,
+ org.eclipse.ui.views,
+ org.eclipse.ui.ide
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: University of York
+Import-Package: org.eclipse.epsilon.eol.dtx

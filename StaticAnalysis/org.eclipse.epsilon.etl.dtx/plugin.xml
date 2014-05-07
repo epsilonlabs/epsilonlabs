@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.epsilon.etl.dtx.editor.EtlxEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="false"
+            extensions="etl"
+            icon="icons/eol.gif"
+            id="org.eclipse.epsilon.etl.dtx.editor.EtlEditor"
+            name="Epsilon Transformation Language Editor X">
+      </editor>
+   </extension>
+
+</plugin>
