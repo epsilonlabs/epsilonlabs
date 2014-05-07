@@ -5,7 +5,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResol
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
 import org.eclipse.epsilon.etl.metamodel.visitor.TransformationRuleVisitor;
-import org.eclipse.epsilon.etl.visitor.resolution.variable.context.EtlVariableResolutionContext;
 
 public class TransformationRuleVariableResolver extends TransformationRuleVisitor<VariableResolutionContext, Object>{
 

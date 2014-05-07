@@ -4,7 +4,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResol
 import org.eclipse.epsilon.etl.metamodel.PreBlock;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
 import org.eclipse.epsilon.etl.metamodel.visitor.PreBlockVisitor;
-import org.eclipse.epsilon.etl.visitor.resolution.variable.context.EtlVariableResolutionContext;
 
 public class PreBlockVariableResolver extends PreBlockVisitor<VariableResolutionContext, Object>{
 

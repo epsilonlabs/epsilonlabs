@@ -4,7 +4,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResol
 import org.eclipse.epsilon.etl.metamodel.PostBlock;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
 import org.eclipse.epsilon.etl.metamodel.visitor.PostBlockVisitor;
-import org.eclipse.epsilon.etl.visitor.resolution.variable.context.EtlVariableResolutionContext;
 
 public class PostBlockVariableResolver extends PostBlockVisitor<VariableResolutionContext, Object>{
 
