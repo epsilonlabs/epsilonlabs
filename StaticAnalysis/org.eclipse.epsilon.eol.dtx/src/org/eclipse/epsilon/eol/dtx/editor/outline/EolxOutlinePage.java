@@ -12,13 +12,18 @@ import org.eclipse.epsilon.common.dt.editor.outline.EditorSelection;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
+import org.eclipse.epsilon.common.module.IModuleValidator;
+import org.eclipse.epsilon.common.module.ModuleMarker;
+import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
+import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
+import org.eclipse.epsilon.eol.performance.analysis.impl.Optimiser;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.jface.text.IDocument;
@@ -32,11 +37,17 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-public class EolxOutlinePage extends ModuleContentOutlinePage {
+public class EolxOutlinePage extends ModuleContentOutlinePage{
 
 	public EolxOutlinePage(IDocumentProvider documentProvider,
 			ITextEditor editor, ILabelProvider labelProvider) {
 		super(documentProvider, editor, labelProvider);
+	}
+	
+	@Override
+	public IModule getModule() {
+		// TODO Auto-generated method stub
+		return super.getModule();
 	}
 	
 	@Override
@@ -134,5 +145,6 @@ public class EolxOutlinePage extends ModuleContentOutlinePage {
 			}
 		};
 	}
+
 	
 }

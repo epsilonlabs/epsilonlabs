@@ -12,5 +12,11 @@
             id="org.eclipse.epsilon.eol.dtx.editor.EolEditor"
             name="Epsilon Object Language Editor X"/>
    </extension>
+   <extension
+         point="org.eclipse.epsilon.common.dt.moduleValidator">
+      <moduleValidator
+            class="org.eclipse.epsilon.eol.dtx.validator.EolxModuleValidator">
+      </moduleValidator>
+   </extension>
 
 </plugin>

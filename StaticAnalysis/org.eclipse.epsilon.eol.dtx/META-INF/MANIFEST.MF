@@ -12,7 +12,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jface.text,
  org.eclipse.epsilon.eol.ast2eol,
  org.eclipse.epsilon.eol.visitor.resolution.type,
- org.eclipse.epsilon.eol.visitor.resolution.variable
+ org.eclipse.epsilon.eol.visitor.resolution.variable,
+ org.eclipse.epsilon.static.analysis.problem.log,
+ org.eclipse.epsilon.eol.coverage.analysis,
+ org.eclipse.epsilon.eol.performance.analysis
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.epsilon.eol.dtx,
