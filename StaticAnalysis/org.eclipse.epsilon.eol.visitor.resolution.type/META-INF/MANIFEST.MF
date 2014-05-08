@@ -11,4 +11,6 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.eol.metamodel.visitor
 Export-Package: org.eclipse.epsilon.eol.visitor.resolution.type.context,
  org.eclipse.epsilon.eol.visitor.resolution.type.impl,
+ org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler,
+ org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil,
  org.eclipse.epsilon.eol.visitor.resolution.type.standard.library.collection.handlers.old
