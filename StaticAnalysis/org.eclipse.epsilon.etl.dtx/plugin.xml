@@ -13,5 +13,11 @@
             name="Epsilon Transformation Language Editor X">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.epsilon.common.dt.moduleValidator">
+      <moduleValidator
+            class="org.eclipse.epsilon.etl.dtx.validator.EtlxModuleValidator">
+      </moduleValidator>
+   </extension>
 
 </plugin>
