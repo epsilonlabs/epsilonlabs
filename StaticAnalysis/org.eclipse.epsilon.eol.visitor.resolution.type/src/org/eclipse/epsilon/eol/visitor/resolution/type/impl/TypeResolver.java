@@ -36,6 +36,8 @@ public class TypeResolver {
 		controller.addNotOperatorExpressionVisitor(new NotOperatorExpressionTypeResolver());
 		controller.addNegativeOperatorExpressionVisitor(new NegativeOperatorExpressionTypeResolver());
 		
+		controller.addSimpleAnnotationVisitor(new SimpleAnnotationTypeResolver());
+		
 		controller.addModelElementTypeVisitor(new ModelElementTypeTypeResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionTypeResolver());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionTypeResolver());
