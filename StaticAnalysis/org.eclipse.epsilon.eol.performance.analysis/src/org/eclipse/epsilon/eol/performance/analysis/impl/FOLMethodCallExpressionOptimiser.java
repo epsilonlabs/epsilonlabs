@@ -7,21 +7,21 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
-import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
+import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVisitor<OptimisationContext, Object>{
+public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
 
 	@Override
 	public Object visit(FOLMethodCallExpression fOLMethodCallExpression,
-			OptimisationContext context,
-			EolVisitorController<OptimisationContext, Object> controller) {
+			PerformanceAnalysisContext context,
+			EolVisitorController<PerformanceAnalysisContext, Object> controller) {
 		// TODO Auto-generated method stub
 		matchSelectPattern(fOLMethodCallExpression, context);
 		matchPotentialIndexablePattern(fOLMethodCallExpression, context);
 		return null;
 	}
 
-	public void matchSelectPattern(FOLMethodCallExpression folMethodCallExpression, OptimisationContext context)
+	public void matchSelectPattern(FOLMethodCallExpression folMethodCallExpression, PerformanceAnalysisContext context)
 	{
 		if (folMethodCallExpression.getTarget() instanceof PropertyCallExpression) {
 			PropertyCallExpression target = (PropertyCallExpression) folMethodCallExpression.getTarget();
@@ -82,7 +82,7 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 		}
 	}
 
-	public void matchPotentialIndexablePattern(FOLMethodCallExpression folMethodCallExpression, OptimisationContext context)
+	public void matchPotentialIndexablePattern(FOLMethodCallExpression folMethodCallExpression, PerformanceAnalysisContext context)
 	{
 		if (folMethodCallExpression.getTarget() instanceof PropertyCallExpression) {
 			PropertyCallExpression target = (PropertyCallExpression) folMethodCallExpression.getTarget();

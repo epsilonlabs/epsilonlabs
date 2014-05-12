@@ -6,14 +6,14 @@ import metamodel.connectivity.plainxml.PlainXMLModel;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
-import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
+import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class ModelDeclarationStatementOptimiser extends ModelDeclarationStatementVisitor<OptimisationContext, Object>{
+public class ModelDeclarationStatementOptimiser extends ModelDeclarationStatementVisitor<PerformanceAnalysisContext, Object>{
 
 	@Override
 	public Object visit(ModelDeclarationStatement modelDeclarationStatement,
-			OptimisationContext context,
-			EolVisitorController<OptimisationContext, Object> controller) {
+			PerformanceAnalysisContext context,
+			EolVisitorController<PerformanceAnalysisContext, Object> controller) {
 		ModelDeclarationParameter sourceParameter = fetchSourceParameter(modelDeclarationStatement); //fetch the sourceParameter which specifies the metamodel information
 		String sourceString = sourceParameter.getValue().getVal(); //fetch the metamodel name or NSURI
 		

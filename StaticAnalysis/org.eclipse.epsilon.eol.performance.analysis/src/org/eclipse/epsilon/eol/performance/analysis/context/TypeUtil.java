@@ -13,10 +13,10 @@ import org.eclipse.epsilon.eol.metamodel.*;
 public class TypeUtil {
 
 	EolFactory eolFactory;
-	OptimisationContext context;
+	PerformanceAnalysisContext context;
 	
 	
-	public TypeUtil(OptimisationContext context)
+	public TypeUtil(PerformanceAnalysisContext context)
 	{
 		this.context = context;
 		this.eolFactory = context.getEolFactory();

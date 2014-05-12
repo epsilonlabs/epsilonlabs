@@ -3,17 +3,17 @@ package org.eclipse.epsilon.eol.performance.analysis.impl;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
+import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class Optimiser {
+public class PerformanceAnalyser {
 
-	EolVisitorController<OptimisationContext, Object> controller = new EolVisitorController<OptimisationContext, Object>();
-	OptimisationContext context = new OptimisationContext();
+	EolVisitorController<PerformanceAnalysisContext, Object> controller = new EolVisitorController<PerformanceAnalysisContext, Object>();
+	PerformanceAnalysisContext context = new PerformanceAnalysisContext();
 	
-	public Optimiser()
+	public PerformanceAnalyser()
 	{
 		System.out.println("Inside Optimiser");
-		controller.addDefaultVisitor(new EolDefaultVisitor<OptimisationContext, Object>());
+		controller.addDefaultVisitor(new EolDefaultVisitor<PerformanceAnalysisContext, Object>());
 		
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementOptimiser());
 		controller.addProgramVisitor(new ProgramOptimiser());
@@ -28,7 +28,7 @@ public class Optimiser {
 		controller.visit(dom, context);
 	}
 	
-	public OptimisationContext getOptimisationContext()
+	public PerformanceAnalysisContext getOptimisationContext()
 	{
 		return context;
 	}

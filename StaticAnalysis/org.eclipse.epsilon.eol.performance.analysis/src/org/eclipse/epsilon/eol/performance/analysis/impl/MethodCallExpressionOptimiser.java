@@ -4,14 +4,14 @@ import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.performance.analysis.context.OperationDefinitionReference;
-import org.eclipse.epsilon.eol.performance.analysis.context.OptimisationContext;
+import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<OptimisationContext, Object>{
+public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
 
 	@Override
 	public Object visit(MethodCallExpression methodCallExpression,
-			OptimisationContext context,
-			EolVisitorController<OptimisationContext, Object> controller) {
+			PerformanceAnalysisContext context,
+			EolVisitorController<PerformanceAnalysisContext, Object> controller) {
 		// TODO Auto-generated method stub
 		if (methodCallExpression.getMethod().getResolvedContent() != null) {
 			for(OperationDefinitionReference odr: context.getOperationWithPerformancePotential())

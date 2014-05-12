@@ -12,7 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.MetamodelContainer;
 
-public class OptimisationContext {
+public class PerformanceAnalysisContext {
 
 		//logbook is used to store errors/warnings
 		protected LogBook logBook = new LogBook();
