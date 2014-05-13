@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilon Bibtex Model Support Development Tools
+Bundle-SymbolicName: org.eclipse.epsilon.emc.bibtex.javacc.dt;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.epsilon.emc.bibtex.javacc,
+ org.eclipse.epsilon.common.dt
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: Eclipse.org
+Export-Package: org.eclipse.epsilon.emc.bibtex.dt

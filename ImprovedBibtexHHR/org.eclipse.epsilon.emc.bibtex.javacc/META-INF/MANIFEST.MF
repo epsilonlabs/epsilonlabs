@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilon Bibtex Model Support
+Bundle-SymbolicName: org.eclipse.epsilon.emc.bibtex.javacc;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.epsilon.eol.engine,
+ org.eclipse.emf.common,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.epsilon.emc.emf
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.eclipse.epsilon.emc.bibtex,
+ org.eclipse.epsilon.emc.bibtex.impl,
+ org.eclipse.epsilon.emc.bibtex.util
