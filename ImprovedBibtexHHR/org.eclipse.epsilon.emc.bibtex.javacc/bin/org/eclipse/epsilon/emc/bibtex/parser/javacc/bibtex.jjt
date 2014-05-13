@@ -1,311 +1,0 @@
-/**
- * JavaCC template file created by SF JavaCC plugin 1.5.17+ wizard for JavaCC 1.5.0+
- */
-
-/*******************************
-***** SECTION 1 - OPTIONS *****
-*******************************/options{  JDK_VERSION = "1.5";  STATIC = false;
-  IGNORE_CASE = true;
-  BUILD_NODE_FILES  = false;
-  MULTI = true;
-  NODE_FACTORY = "BibtexNodeFactory";
-  NODE_PREFIX = "Bibtex";}
-/*********************************
-***** SECTION 2 - USER CODE *****
-*********************************/PARSER_BEGIN(Bibtex)package org.eclipse.epsilon.emc.bibtex.parser.javacc;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import org.eclipse.epsilon.emc.bibtex.Content;
-import org.eclipse.epsilon.emc.bibtex.Entry;
-import org.eclipse.epsilon.emc.bibtex.impl.*;
-
-public class Bibtex{
-  
-  public static void main(String args []) throws ParseException  {    Bibtex parser = null;
-    try {
-        parser = new Bibtex(new FileInputStream(args[0]));
-    } catch (FileNotFoundException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-    } finally {
-        if (parser != null) {
-            try {
-                BibtexBibliography root = parser.bibliography();
-            } catch (Exception e) {
-                System.out.println("NOK.");
-                System.out.println(e.getMessage());
-            } catch (Error e) {
-                System.out.println("Oops.");
-                System.out.println(e.getMessage());
-            } finally {                System.out.println("OK.");
-            }
-              
-        }
-    }  }}PARSER_END(Bibtex)
-/*****************************************
-***** SECTION 3 - TOKEN DEFINITIONS *****
-*****************************************/
-
-TOKEN_MGR_DECLS : {
-    int contentBraceDepth;
-}
-<DEFAULT, IN_ENTRY, IN_ENTRY_TYPE> SKIP :{  " "| "\r"| "\t"| "\n"}
-
-/* ENTRY */
-
-<DEFAULT> SPECIAL_TOKEN :
-{
-  < COMMENT : (~["@"])*"@" > : IN_ENTRY_TYPE
-}
-
-/* COMMENT ENTRY */
-<IN_ENTRY_TYPE> TOKEN :
-{
-    < COMMENT_START : "comment" > : IN_COMMENT_ENTRY
-}
-
-/* PREAMBLE ENTRY */
-<IN_ENTRY_TYPE> TOKEN :
-{
-    < PREAMBLE_START : "preamble" > : IN_ENTRY_TYPE
-}
-
-/* STRING ENTRY */
-<IN_ENTRY_TYPE> TOKEN :
-{
-    < STRING_START : "string" > : IN_ENTRY_TYPE
-}
-
-
-<IN_COMMENT_ENTRY> TOKEN : {
-< COMMENT_ENTRY: "\n"|"\r"|"\r\n" > : DEFAULT }
-
-
-<IN_COMMENT_ENTRY> MORE :
-{
-    < ~[] >
-}
-
-/* OTHER ENTRIES */
-<IN_ENTRY_TYPE> TOKEN :
-{
-  < OPEN_ENTRY : "{" > : IN_ENTRY
-}
-
-<IN_ENTRY, IN_PREAMBLE> TOKEN :
-{
-  < CLOSE_ENTRY : "}" > : DEFAULT
-}
-
-<IN_ENTRY_TYPE> MORE :
-{
- < ~[] > 
-}
-
-/* TAG */
-
-/* Content */
-
-/* Braced Content */<IN_ENTRY> TOKEN :{  < START_B_CONTENT : "{" > { contentBraceDepth = 1 ; } : IN_BRACED_CONTENT}
-
-<IN_BRACED_CONTENT> TOKEN :
-{
-  < CLOSE_B_CONTENT : "}" > {
-    contentBraceDepth -= 1;
-    SwitchTo( contentBraceDepth==0 ? IN_ENTRY : IN_BRACED_CONTENT ) ; }
-}
-
-<IN_BRACED_CONTENT> MORE :
-{
-  "{" { contentBraceDepth += 1 ; } : IN_BRACED_NESTED_CONTENT
-}
-
-<IN_BRACED_NESTED_CONTENT> MORE :
-{
-  "}" {
-    contentBraceDepth -= 1;
-    SwitchTo( contentBraceDepth==1 ? IN_BRACED_CONTENT : IN_BRACED_NESTED_CONTENT ) ; }
-}
-
-
-/* Quoted Content */
-<IN_ENTRY> TOKEN :
-{
-  < START_Q_CONTENT : "\"" > : IN_QUOTED_CONTENT
-}
-
-<IN_QUOTED_CONTENT> TOKEN :
-{
-  < CLOSE_Q_CONTENT : "\"" > : IN_ENTRY 
-}
-
-/*
-<IN_QUOTED_CONTENT> MORE :
-{
-  "{" { contentBraceDepth += 1 ; } : IN_QUOTED_CONTENT_IN_BRACED_CONTENT
-
-}
-*/
-<IN_BRACED_CONTENT, IN_BRACED_NESTED_CONTENT, IN_QUOTED_CONTENT> TOKEN :
-{
- < CONTENT_TEXT : ~[] > 
-}
-
-<IN_ENTRY, IN_ENTRY_TYPE> TOKEN : { <ID : (["a"-"z"]|"_") (["a"-"z"]|"_"|"-"|["0"-"9"]|".")* > }
-<IN_ENTRY> TOKEN : { < SEPARATOR : ","> }
-
-<IN_ENTRY> TOKEN : { < EQUALS : "="> }
-
-<IN_ENTRY> TOKEN : { < NUMBER : (["0"-"9"])+ > }
-
-
-/***************************
-* SECTION 4 - THE GRAMMAR *
-***************************/
-
-BibtexBibliography bibliography() #Bibliography:
-{
-  Entry e;
-  Content c;}
-{    (c =comment() {
-          jjtThis.getContents().add(c);}
-     | c = preamble() {
-          jjtThis.getContents().add(c);}     | e = stringEntry(){
-          jjtThis.getEntries().add(e);}
-     | e =publicationEntry(){
-          jjtThis.getEntries().add(e);}
-     )*
-    <EOF>
-    {return jjtThis;}}
-
-Content comment() #Comment:
-{
-  Token t;}{
-  <COMMENT_START> t = <COMMENT_ENTRY>
-  {
-    jjtThis.setContent(t.image);    return jjtThis;
-  } }
-
-Content preamble() #Preamble:
-{
-  String c;}
-{
-  <PREAMBLE_START> <OPEN_ENTRY> c = content() <CLOSE_ENTRY>
-  {
-    jjtThis.setContent(c);
-    return jjtThis;
-  } 
-}
-
-Entry stringEntry() #StringEntry:
-{
-  BibtexTag tag;
-}{ 
-  <STRING_START> <OPEN_ENTRY> tag=tag()
-  {
-      jjtThis.getTags().add(tag);} <CLOSE_ENTRY>
-      {
-        return jjtThis;      }}
-
-Entry publicationEntry() #PublicationEntry:
-{
-  String type;
-  String key;
-  BibtexTag tag;}{
-  type=Id() <OPEN_ENTRY>
-    key=Id() <SEPARATOR> (tag=tag()(<SEPARATOR>)?    {      jjtThis.getTags().add(tag);    }    )*
-  <CLOSE_ENTRY>
-  {    jjtThis.setCitationKey(key);
-    jjtThis.setType(type);
-    return jjtThis;  }}
-
-BibtexTag tag() #Tag:
-{
-  String name;
-  String content;}
-{   name = Id() <EQUALS> (content = content() | content = numericalContent())
-   {
-    jjtThis.setName(name);
-    jjtThis.setValue(content);
-    return jjtThis;
-  }
-}
-
-String Id() #void:
-{
-  Token t;
-  }
-{
-   (     t=<ID>)
-   {
-     return t.image;
-   }     
-}
-
-String content() #void :
-{
-  String c;
-}
-{
-  (c = bracedContent() | c = concatContent())
-  {
-    return c;
-  }}
-
-String numericalContent() #void:
-{
-  Token value;
-  }
-{
-  value = <NUMBER>
-  {    return value.image;  }  
-}
-
-String bracedContent() #void:
-{
-  Token start;
-  String t;
-  Token close;}
-{    start = <START_B_CONTENT> t = contentText() close = <CLOSE_B_CONTENT>    {      return start.image + t + close.image;
-    } 
-}
-
-String quotedContent() #void:
-{
-  Token start;
-  String t;
-  Token close;}
-{
-    start = <START_Q_CONTENT> ( t=bracedContent() | t=contentText() ) close = <CLOSE_Q_CONTENT>
-    {
-      return start.image + t + close.image;
-    }
-}
-
-String concatContent() #void:
-{
-  String t;
-  String part;}
-{
-    (t = concatPart()) ("#" part=concatPart()    {      t += part;    }    )*
-    {      return t;    }}
-
-String concatPart() #void:
-{
-  String p;}{
-  (    p = quotedContent() | p = Id())
-  {    return p;  }}
-
-String contentText() #void:
-{
-    Token t;
-    String text = "";
-}
-{
-   (t=<CONTENT_TEXT>
-   {
-      text +=t.image;})*        
-    {return text;}   }
-

@@ -2,7 +2,7 @@
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.epsilon.emc.bibtex.javacc/src-gen"
     modelPluginID="org.eclipse.epsilon.emc.bibtex.javacc" redirection="" modelName="Bibtex"
-    rootExtendsClass="org.eclipse.epsilon.emc.bibtex.parser.javacc.BibtexNode" rootImplementsInterface=""
+    rootExtendsClass="org.eclipse.epsilon.emc.bibtex.impl.AbstractBibtexNode" rootImplementsInterface=""
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
     publicConstructors="true" classNamePattern="Bibtex{0}" operationReflection="true"
     importOrganizing="true">
@@ -23,7 +23,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Bibtex.ecore#//Entry/bibliography"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Bibtex.ecore#//Entry/tags"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="Bibtex.ecore#//Node"/>
     <genClasses ecoreClass="Bibtex.ecore#//Preamble"/>
     <genClasses ecoreClass="Bibtex.ecore#//PublicationEntry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Bibtex.ecore#//PublicationEntry/type"/>
@@ -35,5 +34,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Bibtex.ecore#//Tag/owner"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute Bibtex.ecore#//Tag/value"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="Bibtex.ecore#//Node"/>
   </genPackages>
 </genmodel:GenModel>

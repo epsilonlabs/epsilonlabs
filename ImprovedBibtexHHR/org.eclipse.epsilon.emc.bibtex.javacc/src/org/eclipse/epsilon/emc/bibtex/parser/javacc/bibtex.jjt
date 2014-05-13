@@ -12,7 +12,7 @@
   NODE_PREFIX = "Bibtex";}
 /*********************************
 ***** SECTION 2 - USER CODE *****
-*********************************/PARSER_BEGIN(Bibtex)package org.eclipse.epsilon.emc.bibtex.parser.javacc;
+*********************************/PARSER_BEGIN(BibtexParser)package org.eclipse.epsilon.emc.bibtex.parser.javacc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,29 +21,8 @@ import org.eclipse.epsilon.emc.bibtex.Content;
 import org.eclipse.epsilon.emc.bibtex.Entry;
 import org.eclipse.epsilon.emc.bibtex.impl.*;
 
-public class Bibtex{
-  
-  public static void main(String args []) throws ParseException  {    Bibtex parser = null;
-    try {
-        parser = new Bibtex(new FileInputStream(args[0]));
-    } catch (FileNotFoundException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-    } finally {
-        if (parser != null) {
-            try {
-                BibtexBibliography root = parser.bibliography();
-            } catch (Exception e) {
-                System.out.println("NOK.");
-                System.out.println(e.getMessage());
-            } catch (Error e) {
-                System.out.println("Oops.");
-                System.out.println(e.getMessage());
-            } finally {                System.out.println("OK.");
-            }
-              
-        }
-    }  }}PARSER_END(Bibtex)
+public class BibtexParser{
+  }PARSER_END(BibtexParser)
 /*****************************************
 ***** SECTION 3 - TOKEN DEFINITIONS *****
 *****************************************/

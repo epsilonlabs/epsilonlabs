@@ -3,7 +3,7 @@ package org.eclipse.epsilon.emc.bibtex.parser.javacc;
 import org.eclipse.epsilon.emc.bibtex.BibtexFactory;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexFactory;
 
-public class BibtexNodeFactory implements BibtexTreeConstants {
+public class BibtexNodeFactory implements BibtexParserTreeConstants {
 	
 	
 	public static Node jjtCreate(int id) {

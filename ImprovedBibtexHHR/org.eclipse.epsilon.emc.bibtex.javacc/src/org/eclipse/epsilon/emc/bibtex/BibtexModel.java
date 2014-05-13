@@ -14,7 +14,7 @@ import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.common.util.StringUtil;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibliography;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage;
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Bibtex;
+import org.eclipse.epsilon.emc.bibtex.parser.javacc.BibtexParser;
 import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IReflectiveModel;
@@ -23,7 +23,7 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 	
 	public static final String PROPERTY_MODEL_URI = EmfModel.PROPERTY_MODEL_URI;
 	
-	protected Bibtex bibtex;
+	protected BibtexParser bibtex;
 	
 	@Override
 	public void load(StringProperties properties, String basePath) throws EolModelLoadingException {
@@ -31,7 +31,7 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 		this.modelUri = URI.createURI(StringUtil.toString(basePath) + properties.getProperty(PROPERTY_MODEL_URI));
 		try {
 			String path = this.modelUri.toString();
-			this.bibtex = new Bibtex(new FileInputStream(path));
+			this.bibtex = new BibtexParser(new FileInputStream(path));
 		} catch (Exception e) {
 			throw new EolModelLoadingException(e, this);
 		}
@@ -44,24 +44,25 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 	@Override
 	public void loadModelFromUri() throws EolModelLoadingException {
 		
-        // Check if global package registry contains the EcorePackage
-		if (EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI) == null) {
-			EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		ResourceSet resourceSet = createResourceSet();
+		determinePackagesFrom(resourceSet);
+		// Note that AbstractEmfModel#getPackageRegistry() is not usable yet, as modelImpl is not set
+		for (EPackage ep : packages) {
+			String nsUri = ep.getNsURI();
+			if (nsUri == null || nsUri.trim().length() == 0) {
+				nsUri = ep.getName();
+			}
+			resourceSet.getPackageRegistry().put(nsUri, ep);
 		}
+		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, BibtexBibtexPackage.eINSTANCE);
 		
-		BibtexBibtexPackage.eINSTANCE.eClass();
-		ResourceSet rs = new ResourceSetImpl();
-		
-		Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
-	    reg.getExtensionToFactoryMap().put("bib", new XMIResourceFactoryImpl());
-		
-		rs.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-		modelImpl = rs.createResource(URI.createFileURI(""));
-		
+		Resource model = resourceSet.createResource(modelUri);
+		//modelImpl = rs.createResource(URI.createFileURI(""));
 		if (this.readOnLoad) {
 			try {
 				BibtexBibliography b = bibtex.bibliography();
-				modelImpl.getContents().add(b);
+				model.getContents().add(b);
 			} catch (Exception e) {
 				throw new EolModelLoadingException(e, this);
 			} catch (Error e) {
@@ -69,6 +70,7 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 				throw new EolModelLoadingException(ex, this);
             } 
 		}
+		modelImpl = model;
 	}
 	
 
