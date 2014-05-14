@@ -81,7 +81,11 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 			FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
 			IFile file = fileInputEditor.getFile();
 			
-			EclipseUtil.openEditorAt(new File(file.getLocation().toOSString()), region.getStart().getLine(), 
+			
+//			EclipseUtil.openEditorAt(new File(file.getLocation().toOSString()), region.getStart().getLine(), 
+//					region.getStart().getColumn(), false);
+
+			EclipseUtil.openEditorAt(file, region.getStart().getLine(), 
 					region.getStart().getColumn(), endOffset - startOffset, false);
 
 		}
