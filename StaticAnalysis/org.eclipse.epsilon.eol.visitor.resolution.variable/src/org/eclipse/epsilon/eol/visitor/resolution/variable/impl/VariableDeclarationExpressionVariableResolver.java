@@ -17,7 +17,7 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 		}
 		else {
 			context.getStack().putVariable(variableDeclarationExpression);
-			variableDeclarationExpression.setLastDefinitionPoint(variableDeclarationExpression);
+			//variableDeclarationExpression.setLastDefinitionPoint(variableDeclarationExpression);
 				
 		}
 		return null;
