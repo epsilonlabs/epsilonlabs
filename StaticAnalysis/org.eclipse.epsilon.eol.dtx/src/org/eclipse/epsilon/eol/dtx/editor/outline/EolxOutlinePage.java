@@ -23,7 +23,7 @@ import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
-import org.eclipse.epsilon.eol.performance.analysis.impl.Optimiser;
+import org.eclipse.epsilon.eol.performance.analysis.impl.PerformanceAnalyser;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.jface.text.IDocument;
@@ -94,7 +94,8 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 			FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
 			IFile file = fileInputEditor.getFile();
 			
-			EclipseUtil.openEditorAt(new File(file.getLocation().toOSString()), region.getStart().getLine(), 
+
+			EclipseUtil.openEditorAt(file, region.getStart().getLine(), 
 					region.getStart().getColumn(), endOffset - startOffset, false);
 
 		}
