@@ -9,6 +9,10 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.static.analysis.problem.log,
  org.eclipse.epsilon.eol.dom.metamodel.connectivity,
  org.eclipse.epsilon.eol.metamodel.visitor,
- org.eclipse.epsilon.emc.emf
+ org.eclipse.epsilon.emc.emf,
+ org.eclipse.epsilon.epl.engine,
+ org.eclipse.epsilon.erl.engine,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.eol.printer
 Export-Package: org.eclipse.epsilon.eol.performance.analysis.context,
  org.eclipse.epsilon.eol.performance.analysis.impl

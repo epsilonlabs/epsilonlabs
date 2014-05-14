@@ -51,7 +51,7 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 															EClass eClass = mm.getMetaClass(elementName);
 															EReference eReference = mm.getEReference(eClass, lhs.getProperty().getName());
 															if (eReference != null) {
-																if(!eReference.isMany())
+																if(!eReference.isMany()) 
 																{
 																	if (eReference.getEOpposite() != null) {
 																		ModelElementType rhsType = (ModelElementType) rhs.getResolvedType();
