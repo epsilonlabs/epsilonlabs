@@ -1,0 +1,18 @@
+pattern PatterOne
+	folcall : FOLMethodCallExpression
+	guard: folcall.method.name = 'select' and folcall.conditions.size() = 1,
+	
+	propertyCall : PropertyCallExpression 
+		from: folcall.target
+	guard: propertyCall.property.name = 'all',
+	
+	equalsOperator : EqualsOperatorExpression
+		from: folcall.conditions,
+	lhs : PropertyCallExpression
+		from: equalsOperator.lhs
+		guard: lhs.target.resolvedContent = folcall.iterators.at(0)
+	
+		
+	
+	
+	
