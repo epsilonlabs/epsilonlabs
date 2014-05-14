@@ -74,7 +74,7 @@ public class MetamodelContainer {
 			metaModelNameSpace.add(s);
 		}
 		else {
-			throw new Exception("Metamodel Identifier: " + s + " already exists");
+			//throw new Exception("Metamodel Identifier: " + s + " already exists");
 		}
 	}
 	
