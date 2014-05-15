@@ -1,4 +1,13 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex;
 
@@ -20,6 +29,15 @@ public interface BibtexFactory extends EFactory {
 	 * @generated
 	 */
 	BibtexFactory eINSTANCE = org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexFactory.init();
+
+	/**
+	 * Returns a new object of class '<em>Author Tag</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Author Tag</em>'.
+	 * @generated
+	 */
+	AuthorTag createAuthorTag();
 
 	/**
 	 * Returns a new object of class '<em>Bibliography</em>'.

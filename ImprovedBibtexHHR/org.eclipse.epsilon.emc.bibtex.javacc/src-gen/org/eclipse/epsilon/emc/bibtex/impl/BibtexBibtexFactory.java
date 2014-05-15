@@ -1,4 +1,13 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex.impl;
 
@@ -56,6 +65,7 @@ public class BibtexBibtexFactory extends EFactoryImpl implements BibtexFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case BibtexPackage.AUTHOR_TAG: return createAuthorTag();
 			case BibtexPackage.BIBLIOGRAPHY: return createBibliography();
 			case BibtexPackage.COMMENT: return createComment();
 			case BibtexPackage.PREAMBLE: return createPreamble();
@@ -65,6 +75,16 @@ public class BibtexBibtexFactory extends EFactoryImpl implements BibtexFactory {
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AuthorTag createAuthorTag() {
+		BibtexAuthorTag authorTag = new BibtexAuthorTag();
+		return authorTag;
 	}
 
 	/**

@@ -1,7 +1,19 @@
-package org.eclipse.epsilon.emc.bibtex.parser.javacc;
+/*******************************************************************************
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ ******************************************************************************/
+package org.eclipse.epsilon.emc.bibtex.impl;
 
 import org.eclipse.epsilon.emc.bibtex.BibtexFactory;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexFactory;
+import org.eclipse.epsilon.emc.bibtex.parser.BibtexParserTreeConstants;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 public class BibtexNodeFactory implements BibtexParserTreeConstants {
 	
@@ -28,6 +40,9 @@ public class BibtexNodeFactory implements BibtexParserTreeConstants {
 			break;
 		case JJTTAG:
 			node = factory.createTag();
+			break;
+		case JJTAUTHORTAG:
+			node = factory.createAuthorTag();
 			break;
 		case JJTVOID:
 			break;

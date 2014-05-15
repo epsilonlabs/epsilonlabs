@@ -16,7 +16,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.BibtexParser;
+import org.eclipse.epsilon.emc.bibtex.parser.BibtexParser;
 
 public class BibtexResourceImpl extends ResourceImpl {
 	

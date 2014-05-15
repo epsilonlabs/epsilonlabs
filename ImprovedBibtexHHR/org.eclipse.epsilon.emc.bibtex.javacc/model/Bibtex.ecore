@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="bibtex" nsURI="https://www.eclipse.org/epsilon/0.1/bibtex" nsPrefix="bibtex">
+  <eClassifiers xsi:type="ecore:EClass" name="AuthorTag" eSuperTypes="#//Tag"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bibliography" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
         eType="#//Entry" containment="true" eOpposite="#//Entry/bibliography"/>
@@ -10,15 +11,27 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Comment" eSuperTypes="#//Content"/>
   <eClassifiers xsi:type="ecore:EClass" name="Content" abstract="true" eSuperTypes="#//Node">
+    <eOperations name="jjtSetParent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="setBibliography((Bibliography) n);"/>
+      </eAnnotations>
+      <eParameters name="n" eType="#//Node"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="content" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bibliography" lowerBound="1"
         eType="#//Bibliography" eOpposite="#//Bibliography/contents"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Entry" abstract="true" eSuperTypes="#//Node">
+    <eOperations name="jjtSetParent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="setBibliography((Bibliography) n);"/>
+      </eAnnotations>
+      <eParameters name="n" eType="#//Node"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bibliography" lowerBound="1"
         eType="#//Bibliography" eOpposite="#//Bibliography/entries"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tags" upperBound="-1" eType="#//Tag"
-        containment="true" eOpposite="#//Tag/owner"/>
+        containment="true" eOpposite="#//Tag/entry"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Preamble" eSuperTypes="#//Content"/>
   <eClassifiers xsi:type="ecore:EClass" name="PublicationEntry" eSuperTypes="#//Entry">
@@ -28,12 +41,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StringEntry" eSuperTypes="#//Entry"/>
   <eClassifiers xsi:type="ecore:EClass" name="Tag" eSuperTypes="#//Node">
+    <eOperations name="jjtSetParent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="setEntry((Entry) n);"/>
+      </eAnnotations>
+      <eParameters name="n" eType="#//Node"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//Entry"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entry" lowerBound="1" eType="#//Entry"
         eOpposite="#//Entry/tags"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="&quot;&quot;"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Node" instanceClassName="org.eclipse.epsilon.emc.bibtex.parser.javacc.Node"
+  <eClassifiers xsi:type="ecore:EClass" name="Node" instanceClassName="org.eclipse.epsilon.emc.bibtex.parser.Node"
       abstract="true" interface="true"/>
 </ecore:EPackage>

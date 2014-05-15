@@ -1,9 +1,19 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -57,14 +67,14 @@ public interface BibtexPackage extends EPackage {
 	BibtexPackage eINSTANCE = org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage.init();
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.parser.javacc.Node <em>Node</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.parser.Node <em>Node</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.emc.bibtex.parser.javacc.Node
+	 * @see org.eclipse.epsilon.emc.bibtex.parser.Node
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getNode()
 	 * @generated
 	 */
-	int NODE = 8;
+	int NODE = 9;
 
 	/**
 	 * The number of structural features of the '<em>Node</em>' class.
@@ -85,6 +95,134 @@ public interface BibtexPackage extends EPackage {
 	int NODE_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag <em>Tag</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexTag
+	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getTag()
+	 * @generated
+	 */
+	int TAG = 8;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__NAME = NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Entry</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__ENTRY = NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG__VALUE = NODE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Tag</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_FEATURE_COUNT = NODE_FEATURE_COUNT + 3;
+
+	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG___JJT_SET_PARENT__NODE = NODE_OPERATION_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Tag</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TAG_OPERATION_COUNT = NODE_OPERATION_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexAuthorTag <em>Author Tag</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexAuthorTag
+	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getAuthorTag()
+	 * @generated
+	 */
+	int AUTHOR_TAG = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG__NAME = TAG__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Entry</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG__ENTRY = TAG__ENTRY;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG__VALUE = TAG__VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Author Tag</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG_FEATURE_COUNT = TAG_FEATURE_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG___JJT_SET_PARENT__NODE = TAG___JJT_SET_PARENT__NODE;
+
+	/**
+	 * The number of operations of the '<em>Author Tag</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUTHOR_TAG_OPERATION_COUNT = TAG_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexBibliography <em>Bibliography</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -92,7 +230,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getBibliography()
 	 * @generated
 	 */
-	int BIBLIOGRAPHY = 0;
+	int BIBLIOGRAPHY = 1;
 
 	/**
 	 * The feature id for the '<em><b>Entries</b></em>' containment reference list.
@@ -147,7 +285,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getContent()
 	 * @generated
 	 */
-	int CONTENT = 2;
+	int CONTENT = 3;
 
 	/**
 	 * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -177,13 +315,22 @@ public interface BibtexPackage extends EPackage {
 	int CONTENT_FEATURE_COUNT = NODE_FEATURE_COUNT + 2;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTENT___JJT_SET_PARENT__NODE = NODE_OPERATION_COUNT + 0;
+
+	/**
 	 * The number of operations of the '<em>Content</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTENT_OPERATION_COUNT = NODE_OPERATION_COUNT + 0;
+	int CONTENT_OPERATION_COUNT = NODE_OPERATION_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexComment <em>Comment</em>}' class.
@@ -193,7 +340,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getComment()
 	 * @generated
 	 */
-	int COMMENT = 1;
+	int COMMENT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -223,6 +370,15 @@ public interface BibtexPackage extends EPackage {
 	int COMMENT_FEATURE_COUNT = CONTENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMMENT___JJT_SET_PARENT__NODE = CONTENT___JJT_SET_PARENT__NODE;
+
+	/**
 	 * The number of operations of the '<em>Comment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -239,7 +395,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getEntry()
 	 * @generated
 	 */
-	int ENTRY = 3;
+	int ENTRY = 4;
 
 	/**
 	 * The feature id for the '<em><b>Bibliography</b></em>' container reference.
@@ -269,13 +425,22 @@ public interface BibtexPackage extends EPackage {
 	int ENTRY_FEATURE_COUNT = NODE_FEATURE_COUNT + 2;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY___JJT_SET_PARENT__NODE = NODE_OPERATION_COUNT + 0;
+
+	/**
 	 * The number of operations of the '<em>Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_OPERATION_COUNT = NODE_OPERATION_COUNT + 0;
+	int ENTRY_OPERATION_COUNT = NODE_OPERATION_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexPreamble <em>Preamble</em>}' class.
@@ -285,7 +450,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getPreamble()
 	 * @generated
 	 */
-	int PREAMBLE = 4;
+	int PREAMBLE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Content</b></em>' attribute.
@@ -315,6 +480,15 @@ public interface BibtexPackage extends EPackage {
 	int PREAMBLE_FEATURE_COUNT = CONTENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PREAMBLE___JJT_SET_PARENT__NODE = CONTENT___JJT_SET_PARENT__NODE;
+
+	/**
 	 * The number of operations of the '<em>Preamble</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -331,7 +505,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getPublicationEntry()
 	 * @generated
 	 */
-	int PUBLICATION_ENTRY = 5;
+	int PUBLICATION_ENTRY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Bibliography</b></em>' container reference.
@@ -379,6 +553,15 @@ public interface BibtexPackage extends EPackage {
 	int PUBLICATION_ENTRY_FEATURE_COUNT = ENTRY_FEATURE_COUNT + 2;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PUBLICATION_ENTRY___JJT_SET_PARENT__NODE = ENTRY___JJT_SET_PARENT__NODE;
+
+	/**
 	 * The number of operations of the '<em>Publication Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -395,7 +578,7 @@ public interface BibtexPackage extends EPackage {
 	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getStringEntry()
 	 * @generated
 	 */
-	int STRING_ENTRY = 6;
+	int STRING_ENTRY = 7;
 
 	/**
 	 * The feature id for the '<em><b>Bibliography</b></em>' container reference.
@@ -425,6 +608,15 @@ public interface BibtexPackage extends EPackage {
 	int STRING_ENTRY_FEATURE_COUNT = ENTRY_FEATURE_COUNT + 0;
 
 	/**
+	 * The operation id for the '<em>Jjt Set Parent</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_ENTRY___JJT_SET_PARENT__NODE = ENTRY___JJT_SET_PARENT__NODE;
+
+	/**
 	 * The number of operations of the '<em>String Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -433,61 +625,16 @@ public interface BibtexPackage extends EPackage {
 	 */
 	int STRING_ENTRY_OPERATION_COUNT = ENTRY_OPERATION_COUNT + 0;
 
-	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag <em>Tag</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexTag
-	 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getTag()
-	 * @generated
-	 */
-	int TAG = 7;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.AuthorTag <em>Author Tag</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Author Tag</em>'.
+	 * @see org.eclipse.epsilon.emc.bibtex.AuthorTag
 	 * @generated
-	 * @ordered
 	 */
-	int TAG__NAME = NODE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owner</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG__OWNER = NODE_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG__VALUE = NODE_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG_FEATURE_COUNT = NODE_FEATURE_COUNT + 3;
-
-	/**
-	 * The number of operations of the '<em>Tag</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TAG_OPERATION_COUNT = NODE_OPERATION_COUNT + 0;
-
+	EClass getAuthorTag();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.Bibliography <em>Bibliography</em>}'.
@@ -575,6 +722,16 @@ public interface BibtexPackage extends EPackage {
 	EReference getContent_Bibliography();
 
 	/**
+	 * Returns the meta object for the '{@link org.eclipse.epsilon.emc.bibtex.Content#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node) <em>Jjt Set Parent</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Jjt Set Parent</em>' operation.
+	 * @see org.eclipse.epsilon.emc.bibtex.Content#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node)
+	 * @generated
+	 */
+	EOperation getContent__JjtSetParent__Node();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.Entry <em>Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -605,6 +762,16 @@ public interface BibtexPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEntry_Tags();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipse.epsilon.emc.bibtex.Entry#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node) <em>Jjt Set Parent</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Jjt Set Parent</em>' operation.
+	 * @see org.eclipse.epsilon.emc.bibtex.Entry#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node)
+	 * @generated
+	 */
+	EOperation getEntry__JjtSetParent__Node();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.Preamble <em>Preamble</em>}'.
@@ -680,15 +847,15 @@ public interface BibtexPackage extends EPackage {
 	EAttribute getTag_Name();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.epsilon.emc.bibtex.Tag#getOwner <em>Owner</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.epsilon.emc.bibtex.Tag#getEntry <em>Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Owner</em>'.
-	 * @see org.eclipse.epsilon.emc.bibtex.Tag#getOwner()
+	 * @return the meta object for the container reference '<em>Entry</em>'.
+	 * @see org.eclipse.epsilon.emc.bibtex.Tag#getEntry()
 	 * @see #getTag()
 	 * @generated
 	 */
-	EReference getTag_Owner();
+	EReference getTag_Entry();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.emc.bibtex.Tag#getValue <em>Value</em>}'.
@@ -702,12 +869,22 @@ public interface BibtexPackage extends EPackage {
 	EAttribute getTag_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.parser.javacc.Node <em>Node</em>}'.
+	 * Returns the meta object for the '{@link org.eclipse.epsilon.emc.bibtex.Tag#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node) <em>Jjt Set Parent</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Jjt Set Parent</em>' operation.
+	 * @see org.eclipse.epsilon.emc.bibtex.Tag#jjtSetParent(org.eclipse.epsilon.emc.bibtex.parser.Node)
+	 * @generated
+	 */
+	EOperation getTag__JjtSetParent__Node();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.epsilon.emc.bibtex.parser.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Node</em>'.
-	 * @see org.eclipse.epsilon.emc.bibtex.parser.javacc.Node
-	 * @model instanceClass="org.eclipse.epsilon.emc.bibtex.parser.javacc.Node"
+	 * @see org.eclipse.epsilon.emc.bibtex.parser.Node
+	 * @model instanceClass="org.eclipse.epsilon.emc.bibtex.parser.Node"
 	 * @generated
 	 */
 	EClass getNode();
@@ -735,6 +912,16 @@ public interface BibtexPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexAuthorTag <em>Author Tag</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexAuthorTag
+		 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getAuthorTag()
+		 * @generated
+		 */
+		EClass AUTHOR_TAG = eINSTANCE.getAuthorTag();
+
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexBibliography <em>Bibliography</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -806,6 +993,14 @@ public interface BibtexPackage extends EPackage {
 		EReference CONTENT__BIBLIOGRAPHY = eINSTANCE.getContent_Bibliography();
 
 		/**
+		 * The meta object literal for the '<em><b>Jjt Set Parent</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation CONTENT___JJT_SET_PARENT__NODE = eINSTANCE.getContent__JjtSetParent__Node();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexEntry <em>Entry</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -830,6 +1025,14 @@ public interface BibtexPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ENTRY__TAGS = eINSTANCE.getEntry_Tags();
+
+		/**
+		 * The meta object literal for the '<em><b>Jjt Set Parent</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation ENTRY___JJT_SET_PARENT__NODE = eINSTANCE.getEntry__JjtSetParent__Node();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexPreamble <em>Preamble</em>}' class.
@@ -896,12 +1099,12 @@ public interface BibtexPackage extends EPackage {
 		EAttribute TAG__NAME = eINSTANCE.getTag_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Owner</b></em>' container reference feature.
+		 * The meta object literal for the '<em><b>Entry</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TAG__OWNER = eINSTANCE.getTag_Owner();
+		EReference TAG__ENTRY = eINSTANCE.getTag_Entry();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
@@ -912,10 +1115,18 @@ public interface BibtexPackage extends EPackage {
 		EAttribute TAG__VALUE = eINSTANCE.getTag_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.parser.javacc.Node <em>Node</em>}' class.
+		 * The meta object literal for the '<em><b>Jjt Set Parent</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.emc.bibtex.parser.javacc.Node
+		 * @generated
+		 */
+		EOperation TAG___JJT_SET_PARENT__NODE = eINSTANCE.getTag__JjtSetParent__Node();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.epsilon.emc.bibtex.parser.Node <em>Node</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.epsilon.emc.bibtex.parser.Node
 		 * @see org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage#getNode()
 		 * @generated
 		 */

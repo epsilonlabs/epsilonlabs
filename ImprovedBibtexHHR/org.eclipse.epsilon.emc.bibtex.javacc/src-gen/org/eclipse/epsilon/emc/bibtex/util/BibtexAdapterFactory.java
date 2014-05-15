@@ -4,14 +4,10 @@ package org.eclipse.epsilon.emc.bibtex.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.epsilon.emc.bibtex.*;
-
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,6 +66,10 @@ public class BibtexAdapterFactory extends AdapterFactoryImpl {
 	protected BibtexSwitch<Adapter> modelSwitch =
 		new BibtexSwitch<Adapter>() {
 			@Override
+			public Adapter caseAuthorTag(AuthorTag object) {
+				return createAuthorTagAdapter();
+			}
+			@Override
 			public Adapter caseBibliography(Bibliography object) {
 				return createBibliographyAdapter();
 			}
@@ -124,6 +124,20 @@ public class BibtexAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.bibtex.AuthorTag <em>Author Tag</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.epsilon.emc.bibtex.AuthorTag
+	 * @generated
+	 */
+	public Adapter createAuthorTagAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.bibtex.Bibliography <em>Bibliography</em>}'.
@@ -238,13 +252,13 @@ public class BibtexAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.bibtex.parser.javacc.Node <em>Node</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.emc.bibtex.parser.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.emc.bibtex.parser.javacc.Node
+	 * @see org.eclipse.epsilon.emc.bibtex.parser.Node
 	 * @generated
 	 */
 	public Adapter createNodeAdapter() {

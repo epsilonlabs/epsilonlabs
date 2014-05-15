@@ -1,4 +1,13 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex;
 
@@ -6,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,7 +66,7 @@ public interface Entry extends EObject, Node {
 	/**
 	 * Returns the value of the '<em><b>Tags</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.emc.bibtex.Tag}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.bibtex.Tag#getOwner <em>Owner</em>}'.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.epsilon.emc.bibtex.Tag#getEntry <em>Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Tags</em>' containment reference list isn't clear,
@@ -66,10 +75,19 @@ public interface Entry extends EObject, Node {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tags</em>' containment reference list.
 	 * @see org.eclipse.epsilon.emc.bibtex.BibtexPackage#getEntry_Tags()
-	 * @see org.eclipse.epsilon.emc.bibtex.Tag#getOwner
-	 * @model opposite="owner" containment="true"
+	 * @see org.eclipse.epsilon.emc.bibtex.Tag#getEntry
+	 * @model opposite="entry" containment="true"
 	 * @generated
 	 */
 	EList<Tag> getTags();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model nType="org.eclipse.epsilon.emc.bibtex.Node"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='setBibliography((Bibliography) n);'"
+	 * @generated
+	 */
+	void jjtSetParent(Node n);
 
 } // Entry

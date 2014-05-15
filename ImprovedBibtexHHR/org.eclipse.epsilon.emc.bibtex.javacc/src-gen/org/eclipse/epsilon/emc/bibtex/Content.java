@@ -1,10 +1,19 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,5 +86,14 @@ public interface Content extends EObject, Node {
 	 * @generated
 	 */
 	void setBibliography(Bibliography value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model nType="org.eclipse.epsilon.emc.bibtex.Node"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='setBibliography((Bibliography) n);'"
+	 * @generated
+	 */
+	void jjtSetParent(Node n);
 
 } // Content

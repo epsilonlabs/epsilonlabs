@@ -4,12 +4,9 @@ package org.eclipse.epsilon.emc.bibtex.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.eclipse.epsilon.emc.bibtex.*;
-
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,6 +65,14 @@ public class BibtexSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case BibtexPackage.AUTHOR_TAG: {
+				AuthorTag authorTag = (AuthorTag)theEObject;
+				T result = caseAuthorTag(authorTag);
+				if (result == null) result = caseTag(authorTag);
+				if (result == null) result = caseNode(authorTag);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case BibtexPackage.BIBLIOGRAPHY: {
 				Bibliography bibliography = (Bibliography)theEObject;
 				T result = caseBibliography(bibliography);
@@ -136,6 +141,21 @@ public class BibtexSwitch<T> extends Switch<T> {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Author Tag</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Author Tag</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAuthorTag(AuthorTag object) {
+		return null;
 	}
 
 	/**

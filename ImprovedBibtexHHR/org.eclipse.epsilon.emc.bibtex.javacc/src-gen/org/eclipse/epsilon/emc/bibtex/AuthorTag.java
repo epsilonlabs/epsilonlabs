@@ -12,15 +12,16 @@
 package org.eclipse.epsilon.emc.bibtex;
 
 
+
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Comment</b></em>'.
+ * A representation of the model object '<em><b>Author Tag</b></em>'.
  * <!-- end-user-doc -->
  *
  *
- * @see org.eclipse.epsilon.emc.bibtex.BibtexPackage#getComment()
+ * @see org.eclipse.epsilon.emc.bibtex.BibtexPackage#getAuthorTag()
  * @model
  * @generated
  */
-public interface Comment extends Content {
-} // Comment
+public interface AuthorTag extends Tag {
+} // AuthorTag

@@ -1,30 +1,46 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ ******************************************************************************/
 package org.eclipse.epsilon.emc.bibtex;
 
 import java.io.FileInputStream;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.util.StringProperties;
 import org.eclipse.epsilon.common.util.StringUtil;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibliography;
 import org.eclipse.epsilon.emc.bibtex.impl.BibtexBibtexPackage;
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.BibtexParser;
+import org.eclipse.epsilon.emc.bibtex.parser.BibtexParser;
 import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.eclipse.epsilon.eol.models.IReflectiveModel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BibtexModel.
+ */
 public class BibtexModel extends EmfModel implements IReflectiveModel {
 	
+	/** The Constant PROPERTY_MODEL_URI. */
 	public static final String PROPERTY_MODEL_URI = EmfModel.PROPERTY_MODEL_URI;
 	
+	/** The bibtex. */
 	protected BibtexParser bibtex;
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.emc.emf.EmfModel#load(org.eclipse.epsilon.common.util.StringProperties, java.lang.String)
+	 */
 	@Override
 	public void load(StringProperties properties, String basePath) throws EolModelLoadingException {
 		
@@ -36,11 +52,11 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 			throw new EolModelLoadingException(e, this);
 		}
 		super.load(properties, basePath);
-		this.expand = false;
-		this.isMetamodelFileBased = false;
-		this.metamodelUris.add(URI.createURI(BibtexBibtexPackage.eNS_URI));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.emc.emf.EmfModel#loadModelFromUri()
+	 */
 	@Override
 	public void loadModelFromUri() throws EolModelLoadingException {
 		
@@ -74,6 +90,9 @@ public class BibtexModel extends EmfModel implements IReflectiveModel {
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.epsilon.emc.emf.EmfModel#store()
+	 */
 	@Override
 	public boolean store() {
 		// TODO Auto-generated method stub

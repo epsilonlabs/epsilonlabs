@@ -12,26 +12,25 @@
 package org.eclipse.epsilon.emc.bibtex.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.epsilon.emc.bibtex.AuthorTag;
 import org.eclipse.epsilon.emc.bibtex.BibtexPackage;
-import org.eclipse.epsilon.emc.bibtex.Comment;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Comment</b></em>'.
+ * An implementation of the model object '<em><b>Author Tag</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class BibtexComment extends BibtexContent implements Comment {
+public class BibtexAuthorTag extends BibtexTag implements AuthorTag {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BibtexComment() {
+	public BibtexAuthorTag() {
 		super();
 	}
 
@@ -42,7 +41,7 @@ public class BibtexComment extends BibtexContent implements Comment {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BibtexPackage.Literals.COMMENT;
+		return BibtexPackage.Literals.AUTHOR_TAG;
 	}
 
-} //BibtexComment
+} //BibtexAuthorTag

@@ -1,14 +1,25 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.epsilon.emc.bibtex.AuthorTag;
 import org.eclipse.epsilon.emc.bibtex.Bibliography;
 import org.eclipse.epsilon.emc.bibtex.BibtexFactory;
 import org.eclipse.epsilon.emc.bibtex.BibtexPackage;
@@ -20,7 +31,7 @@ import org.eclipse.epsilon.emc.bibtex.PublicationEntry;
 import org.eclipse.epsilon.emc.bibtex.StringEntry;
 import org.eclipse.epsilon.emc.bibtex.Tag;
 
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +40,13 @@ import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
  * @generated
  */
 public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass authorTagEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -158,6 +176,15 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAuthorTag() {
+		return authorTagEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getBibliography() {
 		return bibliographyEClass;
 	}
@@ -230,6 +257,15 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getContent__JjtSetParent__Node() {
+		return contentEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEntry() {
 		return entryEClass;
 	}
@@ -250,6 +286,15 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 	 */
 	public EReference getEntry_Tags() {
 		return (EReference)entryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getEntry__JjtSetParent__Node() {
+		return entryEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -320,7 +365,7 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTag_Owner() {
+	public EReference getTag_Entry() {
 		return (EReference)tagEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -331,6 +376,15 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 	 */
 	public EAttribute getTag_Value() {
 		return (EAttribute)tagEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getTag__JjtSetParent__Node() {
+		return tagEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -370,6 +424,8 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		authorTagEClass = createEClass(AUTHOR_TAG);
+
 		bibliographyEClass = createEClass(BIBLIOGRAPHY);
 		createEReference(bibliographyEClass, BIBLIOGRAPHY__ENTRIES);
 		createEReference(bibliographyEClass, BIBLIOGRAPHY__CONTENTS);
@@ -380,10 +436,12 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 		contentEClass = createEClass(CONTENT);
 		createEAttribute(contentEClass, CONTENT__CONTENT);
 		createEReference(contentEClass, CONTENT__BIBLIOGRAPHY);
+		createEOperation(contentEClass, CONTENT___JJT_SET_PARENT__NODE);
 
 		entryEClass = createEClass(ENTRY);
 		createEReference(entryEClass, ENTRY__BIBLIOGRAPHY);
 		createEReference(entryEClass, ENTRY__TAGS);
+		createEOperation(entryEClass, ENTRY___JJT_SET_PARENT__NODE);
 
 		preambleEClass = createEClass(PREAMBLE);
 
@@ -395,8 +453,9 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 
 		tagEClass = createEClass(TAG);
 		createEAttribute(tagEClass, TAG__NAME);
-		createEReference(tagEClass, TAG__OWNER);
+		createEReference(tagEClass, TAG__ENTRY);
 		createEAttribute(tagEClass, TAG__VALUE);
+		createEOperation(tagEClass, TAG___JJT_SET_PARENT__NODE);
 
 		nodeEClass = createEClass(NODE);
 	}
@@ -429,6 +488,7 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		authorTagEClass.getESuperTypes().add(this.getTag());
 		bibliographyEClass.getESuperTypes().add(this.getNode());
 		commentEClass.getESuperTypes().add(this.getContent());
 		contentEClass.getESuperTypes().add(this.getNode());
@@ -439,6 +499,8 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 		tagEClass.getESuperTypes().add(this.getNode());
 
 		// Initialize classes, features, and operations; add parameters
+		initEClass(authorTagEClass, AuthorTag.class, "AuthorTag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(bibliographyEClass, Bibliography.class, "Bibliography", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBibliography_Entries(), this.getEntry(), this.getEntry_Bibliography(), "entries", null, 0, -1, Bibliography.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBibliography_Contents(), this.getContent(), this.getContent_Bibliography(), "contents", null, 0, -1, Bibliography.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -450,9 +512,15 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 		initEAttribute(getContent_Content(), ecorePackage.getEString(), "content", null, 0, 1, Content.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getContent_Bibliography(), this.getBibliography(), this.getBibliography_Contents(), "bibliography", null, 1, 1, Content.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		EOperation op = initEOperation(getContent__JjtSetParent__Node(), null, "jjtSetParent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getNode(), "n", 0, 1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(entryEClass, Entry.class, "Entry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEntry_Bibliography(), this.getBibliography(), this.getBibliography_Entries(), "bibliography", null, 1, 1, Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEntry_Tags(), this.getTag(), this.getTag_Owner(), "tags", null, 0, -1, Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEntry_Tags(), this.getTag(), this.getTag_Entry(), "tags", null, 0, -1, Entry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = initEOperation(getEntry__JjtSetParent__Node(), null, "jjtSetParent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getNode(), "n", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(preambleEClass, Preamble.class, "Preamble", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -464,8 +532,11 @@ public class BibtexBibtexPackage extends EPackageImpl implements BibtexPackage {
 
 		initEClass(tagEClass, Tag.class, "Tag", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTag_Name(), ecorePackage.getEString(), "name", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTag_Owner(), this.getEntry(), this.getEntry_Tags(), "owner", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTag_Entry(), this.getEntry(), this.getEntry_Tags(), "entry", null, 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTag_Value(), ecorePackage.getEString(), "value", "\"\"", 1, 1, Tag.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = initEOperation(getTag__JjtSetParent__Node(), null, "jjtSetParent", 0, 1, IS_UNIQUE, IS_ORDERED);
+		addEParameter(op, this.getNode(), "n", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, IS_INTERFACE, !IS_GENERATED_INSTANCE_CLASS);
 

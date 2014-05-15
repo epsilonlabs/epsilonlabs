@@ -1,6 +1,17 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex.impl;
+
+import java.lang.reflect.InvocationTargetException;
 
 import java.util.Collection;
 
@@ -18,10 +29,13 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.epsilon.emc.bibtex.AbstractBibtexNode;
 import org.eclipse.epsilon.emc.bibtex.Bibliography;
 import org.eclipse.epsilon.emc.bibtex.BibtexPackage;
 import org.eclipse.epsilon.emc.bibtex.Entry;
 import org.eclipse.epsilon.emc.bibtex.Tag;
+
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -115,9 +129,18 @@ public abstract class BibtexEntry extends AbstractBibtexNode implements Entry {
 	 */
 	public EList<Tag> getTags() {
 		if (tags == null) {
-			tags = new EObjectContainmentWithInverseEList<Tag>(Tag.class, this, BibtexPackage.ENTRY__TAGS, BibtexPackage.TAG__OWNER);
+			tags = new EObjectContainmentWithInverseEList<Tag>(Tag.class, this, BibtexPackage.ENTRY__TAGS, BibtexPackage.TAG__ENTRY);
 		}
 		return tags;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void jjtSetParent(final Node n) {
+		setBibliography((Bibliography) n);
 	}
 
 	/**
@@ -237,6 +260,21 @@ public abstract class BibtexEntry extends AbstractBibtexNode implements Entry {
 				return tags != null && !tags.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case BibtexPackage.ENTRY___JJT_SET_PARENT__NODE:
+				jjtSetParent((Node)arguments.get(0));
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //BibtexEntry

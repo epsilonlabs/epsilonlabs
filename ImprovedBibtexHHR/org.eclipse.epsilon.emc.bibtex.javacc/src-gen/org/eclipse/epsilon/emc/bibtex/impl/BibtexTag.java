@@ -1,9 +1,22 @@
 /**
+ * Copyright (c) 2013 Horacio Hoyos.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Horacio Hoyos - initial implementation
+ * 
  */
 package org.eclipse.epsilon.emc.bibtex.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -12,9 +25,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import org.eclipse.epsilon.emc.bibtex.AbstractBibtexNode;
 import org.eclipse.epsilon.emc.bibtex.BibtexPackage;
 import org.eclipse.epsilon.emc.bibtex.Entry;
 import org.eclipse.epsilon.emc.bibtex.Tag;
+
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +40,7 @@ import org.eclipse.epsilon.emc.bibtex.Tag;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag#getOwner <em>Owner</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag#getEntry <em>Entry</em>}</li>
  *   <li>{@link org.eclipse.epsilon.emc.bibtex.impl.BibtexTag#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -117,8 +133,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Entry getOwner() {
-		if (eContainerFeatureID() != BibtexPackage.TAG__OWNER) return null;
+	public Entry getEntry() {
+		if (eContainerFeatureID() != BibtexPackage.TAG__ENTRY) return null;
 		return (Entry)eInternalContainer();
 	}
 
@@ -127,8 +143,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwner(Entry newOwner, NotificationChain msgs) {
-		msgs = eBasicSetContainer((InternalEObject)newOwner, BibtexPackage.TAG__OWNER, msgs);
+	public NotificationChain basicSetEntry(Entry newEntry, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newEntry, BibtexPackage.TAG__ENTRY, msgs);
 		return msgs;
 	}
 
@@ -137,20 +153,20 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOwner(Entry newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID() != BibtexPackage.TAG__OWNER && newOwner != null)) {
-			if (EcoreUtil.isAncestor(this, newOwner))
+	public void setEntry(Entry newEntry) {
+		if (newEntry != eInternalContainer() || (eContainerFeatureID() != BibtexPackage.TAG__ENTRY && newEntry != null)) {
+			if (EcoreUtil.isAncestor(this, newEntry))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
-			if (newOwner != null)
-				msgs = ((InternalEObject)newOwner).eInverseAdd(this, BibtexPackage.ENTRY__TAGS, Entry.class, msgs);
-			msgs = basicSetOwner(newOwner, msgs);
+			if (newEntry != null)
+				msgs = ((InternalEObject)newEntry).eInverseAdd(this, BibtexPackage.ENTRY__TAGS, Entry.class, msgs);
+			msgs = basicSetEntry(newEntry, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BibtexPackage.TAG__OWNER, newOwner, newOwner));
+			eNotify(new ENotificationImpl(this, Notification.SET, BibtexPackage.TAG__ENTRY, newEntry, newEntry));
 	}
 
 	/**
@@ -179,13 +195,22 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public void jjtSetParent(final Node n) {
+		setEntry((Entry) n);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BibtexPackage.TAG__OWNER:
+			case BibtexPackage.TAG__ENTRY:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOwner((Entry)otherEnd, msgs);
+				return basicSetEntry((Entry)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -198,8 +223,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BibtexPackage.TAG__OWNER:
-				return basicSetOwner(null, msgs);
+			case BibtexPackage.TAG__ENTRY:
+				return basicSetEntry(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -212,7 +237,7 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case BibtexPackage.TAG__OWNER:
+			case BibtexPackage.TAG__ENTRY:
 				return eInternalContainer().eInverseRemove(this, BibtexPackage.ENTRY__TAGS, Entry.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
@@ -228,8 +253,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 		switch (featureID) {
 			case BibtexPackage.TAG__NAME:
 				return getName();
-			case BibtexPackage.TAG__OWNER:
-				return getOwner();
+			case BibtexPackage.TAG__ENTRY:
+				return getEntry();
 			case BibtexPackage.TAG__VALUE:
 				return getValue();
 		}
@@ -247,8 +272,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 			case BibtexPackage.TAG__NAME:
 				setName((String)newValue);
 				return;
-			case BibtexPackage.TAG__OWNER:
-				setOwner((Entry)newValue);
+			case BibtexPackage.TAG__ENTRY:
+				setEntry((Entry)newValue);
 				return;
 			case BibtexPackage.TAG__VALUE:
 				setValue((String)newValue);
@@ -268,8 +293,8 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 			case BibtexPackage.TAG__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case BibtexPackage.TAG__OWNER:
-				setOwner((Entry)null);
+			case BibtexPackage.TAG__ENTRY:
+				setEntry((Entry)null);
 				return;
 			case BibtexPackage.TAG__VALUE:
 				setValue(VALUE_EDEFAULT);
@@ -288,12 +313,27 @@ public class BibtexTag extends AbstractBibtexNode implements Tag {
 		switch (featureID) {
 			case BibtexPackage.TAG__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case BibtexPackage.TAG__OWNER:
-				return getOwner() != null;
+			case BibtexPackage.TAG__ENTRY:
+				return getEntry() != null;
 			case BibtexPackage.TAG__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case BibtexPackage.TAG___JJT_SET_PARENT__NODE:
+				jjtSetParent((Node)arguments.get(0));
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**

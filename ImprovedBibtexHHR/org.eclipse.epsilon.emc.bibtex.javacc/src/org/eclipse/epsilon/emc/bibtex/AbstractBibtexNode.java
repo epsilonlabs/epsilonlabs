@@ -8,10 +8,10 @@
  * Contributors:
  *     Horacio Hoyos - initial implementation
  ******************************************************************************/
-package org.eclipse.epsilon.emc.bibtex.impl;
+package org.eclipse.epsilon.emc.bibtex;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.epsilon.emc.bibtex.parser.javacc.Node;
+import org.eclipse.epsilon.emc.bibtex.parser.Node;
 
 // TODO: Auto-generated Javadoc
 /**

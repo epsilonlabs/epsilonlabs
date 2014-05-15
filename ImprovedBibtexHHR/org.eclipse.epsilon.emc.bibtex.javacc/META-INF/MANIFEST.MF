@@ -10,9 +10,11 @@ Require-Bundle: org.eclipse.epsilon.eol.engine,
  org.eclipse.emf.common,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
- org.eclipse.epsilon.emc.emf
+ org.eclipse.epsilon.emc.emf,
+ org.junit
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.epsilon.emc.bibtex,
  org.eclipse.epsilon.emc.bibtex.impl,
+ org.eclipse.epsilon.emc.bibtex.parser,
  org.eclipse.epsilon.emc.bibtex.util
