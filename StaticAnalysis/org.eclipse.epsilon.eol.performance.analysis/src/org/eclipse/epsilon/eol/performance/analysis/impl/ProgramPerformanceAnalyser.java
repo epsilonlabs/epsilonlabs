@@ -114,7 +114,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 			FOLMethodCallExpression targetfol = (FOLMethodCallExpression) pm.getRoleBinding("targetFOLCall");
 			EolElementPrinterFactory factory = new EolElementPrinterFactory();
 			
-			context.getLogBook().addWarning(fol, "Expression should be read as: "+ factory.print(targetfol.getTarget()) + ".select("+ targetfol.getIterators().get(0).getName().getName() + "|" +  factory.print(targetfol.getConditions()) + "and" + factory.print(fol.getConditions()) + ")");
+			context.getLogBook().addWarning(fol, "Sub-optimal expression, consider rewriting as: "+ factory.print(targetfol.getTarget()) + ".select("+ targetfol.getIterators().get(0).getName().getName() + "|" +  factory.print(targetfol.getConditions()) + "and" + factory.print(fol.getConditions()) + ")");
 		}
 		System.out.println(patternMatchModel.getAllOfKind("PatternTwo").size());
 	}
