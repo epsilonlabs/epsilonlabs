@@ -277,5 +277,9 @@
     <genClasses ecoreClass="Eol.ecore#//UniqueCollectionType"/>
     <genClasses ecoreClass="Eol.ecore#//SelfInnermostType"/>
     <genClasses ecoreClass="Eol.ecore#//OperationArgType"/>
+    <genClasses ecoreClass="Eol.ecore#//ExpressionOrStatementBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/block"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/expression"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

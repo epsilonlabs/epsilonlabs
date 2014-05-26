@@ -1,4 +1,4 @@
-@emf.gen(classPackageSuffix="eol.metamodel.impl", utilityPackageSuffix="eol.metamodel.util", metaDataPackageSuffix="eol.metamodel", interfacePackageSuffix="eol.metamodel", basePackage="org.eclipse.epsilon")
+@emf.gen(classPackageSuffix="metamodel.impl", utilityPackageSuffix="metamodel.util", metaDataPackageSuffix="metamodel", interfacePackageSuffix="metamodel", basePackage="org.eclipse.epsilon")
 @namespace(uri="http://www.eclipse.org/epsilon/eol", prefix="eol")
 package eol;
 
@@ -427,5 +427,10 @@ class SelfInnermostType extends PseudoType {
 }
 
 class OperationArgType extends PseudoType {
+}
+
+class ExpressionOrStatementBlock extends EolElement {
+  val Block block;
+  val Expression expression;
 }
 
