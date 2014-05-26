@@ -30,14 +30,15 @@ public class GuardCreator extends EtlElementCreator{
 		if (childAst!=null) {
 			ExpressionOrStatementBlock condition = _context.getEolFactory().createExpressionOrStatementBlock();
 			if (childAst.getType() == EtlParser.BLOCK) {
-				condition.setBlock((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+				condition.setBlock((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, condition, _context));
 				//guard.setCondition((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
 			}
 			else {
-				condition.setExpression((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+				condition.setExpression((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, condition, _context));
 //				guard.setCondition((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
 			}
 			guard.setCondition(condition);
+			condition.setContainer(guard);
 		}
 
 		return guard;

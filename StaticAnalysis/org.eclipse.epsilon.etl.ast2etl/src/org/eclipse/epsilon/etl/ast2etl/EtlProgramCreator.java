@@ -10,6 +10,7 @@ import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
+import org.eclipse.epsilon.etl.metamodel.PostBlock;
 import org.eclipse.epsilon.etl.metamodel.PreBlock;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.parse.EtlParser;
@@ -62,11 +63,11 @@ public class EtlProgramCreator extends EtlElementCreator{
 			}
 		}
 		
-		ArrayList<AST> postAsts = AstUtilities.getChildren(ast, EtlParser.PRE); //get Post AST
+		ArrayList<AST> postAsts = AstUtilities.getChildren(ast, EtlParser.POST); //get Post AST
 		if (postAsts != null) {
 			for(AST postBlockAst: postAsts)
 			{
-				program.getPreBlocks().add((PreBlock) _context.getEtlElementCreatorFactory().createDomElement(postBlockAst, program, _context));
+				program.getPostBlocks().add((PostBlock) _context.getEtlElementCreatorFactory().createDomElement(postBlockAst, program, _context));
 			}
 		}
 		
