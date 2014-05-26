@@ -18,5 +18,4 @@ public class PostBlockTypeResolver extends PostBlockVisitor<TypeResolutionContex
 		}
 		return null;
 	}
-
 }
