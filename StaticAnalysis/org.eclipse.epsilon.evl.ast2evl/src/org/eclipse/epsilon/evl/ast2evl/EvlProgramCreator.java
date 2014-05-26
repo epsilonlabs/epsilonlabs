@@ -1,0 +1,69 @@
+package org.eclipse.epsilon.evl.ast2evl;
+
+import java.util.ArrayList;
+
+import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
+import org.eclipse.epsilon.eol.ast2eol.AstUtilities;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.Import;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
+import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.evl.metamodel.Context;
+import org.eclipse.epsilon.evl.metamodel.EvlProgram;
+import org.eclipse.epsilon.evl.parse.EvlParser;
+
+public class EvlProgramCreator extends EvlElementCreator{
+
+	@Override
+	public boolean appliesTo(AST ast) {
+		// TODO Auto-generated method stub
+		return ast.getType() == EvlParser.EVLMODULE;
+	}
+
+	@Override
+	public EolElement create(AST ast, EolElement container,
+			Ast2EolContext context) {
+		Ast2EvlContext _context = (Ast2EvlContext) context;
+		
+		EvlProgram program = _context.getEvlFactory().createEvlProgram();
+		this.setAssets(ast, program, null);
+		
+		
+		ArrayList<AST> importAsts = AstUtilities.getChildren(ast, EvlParser.IMPORT); //get Import ASTs
+		if(importAsts != null)
+		{
+			for (AST importAst : importAsts) {
+				program.getImports().add((Import)_context.getEvlElementCreatorFactory().createDomElement(importAst, program, _context)); //process import ASTs
+			}
+		}
+		
+		ArrayList<AST> modelDeclAsts = AstUtilities.getChildren(ast, EvlParser.MODELDECLARATION);
+		if (modelDeclAsts != null) {
+			for(AST modelDecl: modelDeclAsts)
+			{
+				program.getModelDeclarations().add((ModelDeclarationStatement) _context.getEvlElementCreatorFactory().createDomElement(modelDecl, program, _context));
+			}
+		}
+				
+		ArrayList<AST> contextAsts = AstUtilities.getChildren(ast, EvlParser.CONTEXT); //get Pre AST
+		if (contextAsts != null) {
+			for(AST contextAst: contextAsts)
+			{
+				program.getContexts().add((Context) _context.getEvlElementCreatorFactory().createDomElement(contextAst, program, _context));
+			}
+		}
+				
+		ArrayList<AST> operations = AstUtilities.getChildren(ast, EvlParser.HELPERMETHOD); //obtain ASTs for operation defintions
+		if(operations != null)
+		{
+			for (AST operation : operations) {
+				program.getOperations().add((OperationDefinition)_context.getEvlElementCreatorFactory().createDomElement(operation, program, _context)); //process operation ASTs
+			}
+		}
+					
+		return program;
+
+	}
+
+}
