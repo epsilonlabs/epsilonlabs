@@ -44,7 +44,7 @@ public class ImportCreator extends EolElementCreator{
 	protected AST getAstForFile(String s, Ast2EolContext context) throws Exception
 	{
 		String directoryPath = context.getEolElementCreatorFactory().getDirectoryPathString();
-		if (directoryPath != null) {
+		if (directoryPath != null && s.endsWith(".eol")) {
 			/*String fullPath = directoryPath + s;
 			File file = new File(fullPath);
 			ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(file));
