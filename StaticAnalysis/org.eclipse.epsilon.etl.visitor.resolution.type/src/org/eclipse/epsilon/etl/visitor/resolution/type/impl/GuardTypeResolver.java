@@ -3,6 +3,7 @@ package org.eclipse.epsilon.etl.visitor.resolution.type.impl;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.etl.metamodel.Guard;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
@@ -15,14 +16,15 @@ public class GuardTypeResolver extends GuardVisitor<TypeResolutionContext, Objec
 			EtlVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
 		
-		EolElement condition = guard.getCondition();
+		ExpressionOrStatementBlock condition = guard.getCondition();
 		if (condition != null) {
-			if (condition instanceof Expression || condition instanceof Block) {
-				controller.visit(condition, context);
+			Block block = condition.getBlock();
+			Expression expr = condition.getExpression();
+			if (block != null) {
+				controller.visit(block, context);
 			}
-			else {
-				//context.getLogBook().addError(condition, "");
-				//this should not happen
+			else if (expr != null) {
+				controller.visit(expr, context);
 			}
 		}
 		
