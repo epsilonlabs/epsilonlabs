@@ -26,6 +26,7 @@ class Context extends GuardedElement {
 	val eol.ModelElementType[1] type;
 	val PreBlock[*] preBlocks;
 	val PostBlock[*] postBlocks;
+	val Invariant[*] invariants;
 }
 
 class Fix extends EvlElement {

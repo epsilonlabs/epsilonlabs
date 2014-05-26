@@ -44,6 +44,8 @@
         eType="#//PreBlock" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="postBlocks" upperBound="-1"
         eType="#//PostBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invariants" upperBound="-1"
+        eType="#//Invariant" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Fix" eSuperTypes="#//EvlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="title" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
