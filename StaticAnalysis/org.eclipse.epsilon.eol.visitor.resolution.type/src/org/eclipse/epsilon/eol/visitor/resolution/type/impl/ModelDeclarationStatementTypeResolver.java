@@ -65,7 +65,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 		ModelDeclarationParameter result = null; //declare result
 		for(ModelDeclarationParameter parameter: statement.getParameters()) //loop through ModelDeclarationParameters
 		{
-			if (parameter.getName().getName().equals("resource")) { //if parameter 'metamodel' is found
+			if (parameter.getName().getName().equals("nsuri")) { //if parameter 'metamodel' is found
 				result = parameter; //set result and break
 				break;
 			}
