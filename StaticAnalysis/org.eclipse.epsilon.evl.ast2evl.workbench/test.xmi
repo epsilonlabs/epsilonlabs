@@ -1,0 +1,1927 @@
+<?xml version="1.0" encoding="ASCII"?>
+<evl:EvlProgram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" xmlns:evl="http://www.eclipse.org/epsilon/evl" line="1">
+  <region>
+    <start line="1"/>
+    <end line="90" column="1"/>
+  </region>
+  <operations container="/" line="82">
+    <region>
+      <start line="82"/>
+      <end line="90" column="1"/>
+    </region>
+    <contextType xsi:type="eol:ModelElementType" container="//@operations.0" line="82" column="10" elementName="Class">
+      <region>
+        <start line="82" column="10"/>
+        <end line="82" column="15"/>
+      </region>
+    </contextType>
+    <returnType xsi:type="eol:BooleanType" container="//@operations.0" line="82" column="38">
+      <region>
+        <start line="82" column="38"/>
+        <end line="82" column="45"/>
+      </region>
+    </returnType>
+    <body container="//@operations.0" line="84" column="2">
+      <region>
+        <start line="82" column="46"/>
+        <end line="90" column="1"/>
+      </region>
+      <statements xsi:type="eol:IfStatement" container="//@operations.0/@body" line="84" column="2">
+        <region>
+          <start line="84" column="2"/>
+          <end line="89" column="3"/>
+        </region>
+        <condition xsi:type="eol:MethodCallExpression" container="//@operations.0/@body/@statements.0" line="84" column="20">
+          <region>
+            <start line="84" column="6"/>
+            <end line="84" column="32"/>
+          </region>
+          <target xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@condition" line="84" column="10">
+            <region>
+              <start line="84" column="6"/>
+              <end line="84" column="20"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@condition/@target" line="84" column="6" name="self">
+              <region>
+                <start line="84" column="6"/>
+                <end line="84" column="10"/>
+              </region>
+            </target>
+            <isArrow container="//@operations.0/@body/@statements.0/@condition/@target" line="84" column="10">
+              <region>
+                <start line="84" column="6"/>
+                <end line="84" column="20"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@condition/@target/@isArrow" line="84" column="10">
+                <region>
+                  <start line="84" column="6"/>
+                  <end line="84" column="20"/>
+                </region>
+              </resolvedType>
+            </isArrow>
+            <property container="//@operations.0/@body/@statements.0/@condition/@target" line="84" column="11" name="extends">
+              <region>
+                <start line="84" column="11"/>
+                <end line="84" column="20"/>
+              </region>
+            </property>
+            <extended container="//@operations.0/@body/@statements.0/@condition/@target" line="84" column="11">
+              <region>
+                <start line="84" column="11"/>
+                <end line="84" column="20"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@condition/@target/@extended" line="84" column="11">
+                <region>
+                  <start line="84" column="11"/>
+                  <end line="84" column="20"/>
+                </region>
+              </resolvedType>
+            </extended>
+          </target>
+          <isArrow container="//@operations.0/@body/@statements.0/@condition" line="84" column="20">
+            <region>
+              <start line="84" column="6"/>
+              <end line="84" column="32"/>
+            </region>
+          </isArrow>
+          <method container="//@operations.0/@body/@statements.0/@condition" line="84" column="21" name="isDefined">
+            <region>
+              <start line="84" column="21"/>
+              <end line="84" column="32"/>
+            </region>
+          </method>
+        </condition>
+        <ifBody container="//@operations.0/@body/@statements.0" line="85" column="4">
+          <region>
+            <start line="84" column="34"/>
+            <end line="86" column="3"/>
+          </region>
+          <statements xsi:type="eol:ReturnStatement" container="//@operations.0/@body/@statements.0/@ifBody" line="85" column="4">
+            <region>
+              <start line="85" column="4"/>
+              <end line="85" column="60"/>
+            </region>
+            <returned xsi:type="eol:OrOperatorExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0" line="85" column="30">
+              <region>
+                <start line="85" column="11"/>
+                <end line="85" column="59"/>
+              </region>
+              <lhs xsi:type="eol:EqualsOperatorExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned" line="85" column="26">
+                <region>
+                  <start line="85" column="11"/>
+                  <end line="85" column="29"/>
+                </region>
+                <lhs xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs" line="85" column="15">
+                  <region>
+                    <start line="85" column="11"/>
+                    <end line="85" column="25"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs" line="85" column="11" name="self">
+                    <region>
+                      <start line="85" column="11"/>
+                      <end line="85" column="15"/>
+                    </region>
+                  </target>
+                  <isArrow container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs" line="85" column="15">
+                    <region>
+                      <start line="85" column="11"/>
+                      <end line="85" column="25"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs/@isArrow" line="85" column="15">
+                      <region>
+                        <start line="85" column="11"/>
+                        <end line="85" column="25"/>
+                      </region>
+                    </resolvedType>
+                  </isArrow>
+                  <property container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs" line="85" column="16" name="extends">
+                    <region>
+                      <start line="85" column="16"/>
+                      <end line="85" column="25"/>
+                    </region>
+                  </property>
+                  <extended container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs" line="85" column="16">
+                    <region>
+                      <start line="85" column="16"/>
+                      <end line="85" column="25"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs/@lhs/@extended" line="85" column="16">
+                      <region>
+                        <start line="85" column="16"/>
+                        <end line="85" column="25"/>
+                      </region>
+                    </resolvedType>
+                  </extended>
+                </lhs>
+                <rhs xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@lhs" line="85" column="28" name="c">
+                  <region>
+                    <start line="85" column="28"/>
+                    <end line="85" column="29"/>
+                  </region>
+                </rhs>
+              </lhs>
+              <rhs xsi:type="eol:MethodCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned" line="85" column="47">
+                <region>
+                  <start line="85" column="33"/>
+                  <end line="85" column="59"/>
+                </region>
+                <target xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs" line="85" column="37">
+                  <region>
+                    <start line="85" column="33"/>
+                    <end line="85" column="47"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target" line="85" column="33" name="self">
+                    <region>
+                      <start line="85" column="33"/>
+                      <end line="85" column="37"/>
+                    </region>
+                  </target>
+                  <isArrow container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target" line="85" column="37">
+                    <region>
+                      <start line="85" column="33"/>
+                      <end line="85" column="47"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target/@isArrow" line="85" column="37">
+                      <region>
+                        <start line="85" column="33"/>
+                        <end line="85" column="47"/>
+                      </region>
+                    </resolvedType>
+                  </isArrow>
+                  <property container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target" line="85" column="38" name="extends">
+                    <region>
+                      <start line="85" column="38"/>
+                      <end line="85" column="47"/>
+                    </region>
+                  </property>
+                  <extended container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target" line="85" column="38">
+                    <region>
+                      <start line="85" column="38"/>
+                      <end line="85" column="47"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs/@target/@extended" line="85" column="38">
+                      <region>
+                        <start line="85" column="38"/>
+                        <end line="85" column="47"/>
+                      </region>
+                    </resolvedType>
+                  </extended>
+                </target>
+                <isArrow container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs" line="85" column="47">
+                  <region>
+                    <start line="85" column="33"/>
+                    <end line="85" column="59"/>
+                  </region>
+                </isArrow>
+                <arguments xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs" line="85" column="57" name="c">
+                  <region>
+                    <start line="85" column="57"/>
+                    <end line="85" column="58"/>
+                  </region>
+                </arguments>
+                <method container="//@operations.0/@body/@statements.0/@ifBody/@statements.0/@returned/@rhs" line="85" column="48" name="inherits">
+                  <region>
+                    <start line="85" column="48"/>
+                    <end line="85" column="59"/>
+                  </region>
+                </method>
+              </rhs>
+            </returned>
+          </statements>
+        </ifBody>
+        <elseBody container="//@operations.0/@body/@statements.0" line="88" column="4">
+          <region>
+            <start line="87" column="2"/>
+            <end line="89" column="3"/>
+          </region>
+          <statements xsi:type="eol:ReturnStatement" container="//@operations.0/@body/@statements.0/@elseBody" line="88" column="4">
+            <region>
+              <start line="88" column="4"/>
+              <end line="88" column="17"/>
+            </region>
+            <returned xsi:type="eol:BooleanExpression" container="//@operations.0/@body/@statements.0/@elseBody/@statements.0" line="88" column="11">
+              <region>
+                <start line="88" column="11"/>
+                <end line="88" column="16"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@elseBody/@statements.0/@returned" line="88" column="11">
+                <region>
+                  <start line="88" column="11"/>
+                  <end line="88" column="16"/>
+                </region>
+              </resolvedType>
+            </returned>
+          </statements>
+        </elseBody>
+      </statements>
+    </body>
+    <name container="//@operations.0" line="82" column="16" name="inherits">
+      <region>
+        <start line="82" column="16"/>
+        <end line="82" column="24"/>
+      </region>
+    </name>
+    <parameters container="//@operations.0" line="82" column="25">
+      <region>
+        <start line="82" column="25"/>
+        <end line="82" column="34"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0/@parameters.0" line="82" column="29" elementName="Class">
+        <region>
+          <start line="82" column="29"/>
+          <end line="82" column="34"/>
+        </region>
+      </resolvedType>
+      <name container="//@operations.0/@parameters.0" line="82" column="25" name="c">
+        <region>
+          <start line="82" column="25"/>
+          <end line="82" column="26"/>
+        </region>
+      </name>
+    </parameters>
+    <self>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0" line="82" column="10" elementName="Class">
+        <region>
+          <start line="82" column="10"/>
+          <end line="82" column="15"/>
+        </region>
+      </resolvedType>
+      <name name="self"/>
+    </self>
+    <_result>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0" line="82" column="10" elementName="Class">
+        <region>
+          <start line="82" column="10"/>
+          <end line="82" column="15"/>
+        </region>
+      </resolvedType>
+      <name name="_result"/>
+    </_result>
+  </operations>
+  <contexts container="/" line="1">
+    <region>
+      <start line="1"/>
+      <end line="11" column="1"/>
+    </region>
+    <type container="//@contexts.0" line="1" column="11" modelName="OO" elementName="NamedElement">
+      <region>
+        <start line="1" column="8"/>
+        <end line="1" column="23"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Constraint" container="//@contexts.0" line="4" column="13">
+      <region>
+        <start line="4" column="2"/>
+        <end line="10" column="3"/>
+      </region>
+      <name container="//@contexts.0" line="4" column="13">
+        <region>
+          <start line="4" column="2"/>
+          <end line="10" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.0/@invariants.0" line="6" column="4">
+        <region>
+          <start line="6" column="4"/>
+          <end line="6" column="27"/>
+        </region>
+        <expression xsi:type="eol:NotEqualsOperatorExpression" container="//@contexts.0/@invariants.0/@check" line="6" column="22">
+          <region>
+            <start line="6" column="12"/>
+            <end line="6" column="27"/>
+          </region>
+          <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.0/@invariants.0/@check/@expression" line="6" column="16">
+            <region>
+              <start line="6" column="12"/>
+              <end line="6" column="21"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.0/@invariants.0/@check/@expression/@lhs" line="6" column="12" name="self">
+              <region>
+                <start line="6" column="12"/>
+                <end line="6" column="16"/>
+              </region>
+            </target>
+            <isArrow container="//@contexts.0/@invariants.0/@check/@expression/@lhs" line="6" column="16">
+              <region>
+                <start line="6" column="12"/>
+                <end line="6" column="21"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@isArrow" line="6" column="16">
+                <region>
+                  <start line="6" column="12"/>
+                  <end line="6" column="21"/>
+                </region>
+              </resolvedType>
+            </isArrow>
+            <property container="//@contexts.0/@invariants.0/@check/@expression/@lhs" line="6" column="17" name="name">
+              <region>
+                <start line="6" column="17"/>
+                <end line="6" column="21"/>
+              </region>
+            </property>
+            <extended container="//@contexts.0/@invariants.0/@check/@expression/@lhs" line="6" column="17">
+              <region>
+                <start line="6" column="17"/>
+                <end line="6" column="21"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@extended" line="6" column="17">
+                <region>
+                  <start line="6" column="17"/>
+                  <end line="6" column="21"/>
+                </region>
+              </resolvedType>
+            </extended>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@check/@expression" line="6" column="25" val="">
+            <region>
+              <start line="6" column="25"/>
+              <end line="6" column="27"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@check/@expression/@rhs" line="6" column="25">
+              <region>
+                <start line="6" column="25"/>
+                <end line="6" column="27"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.0/@invariants.0" line="8" column="4">
+        <region>
+          <start line="8" column="4"/>
+          <end line="8" column="55"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.0/@invariants.0/@message" line="8" column="32">
+          <region>
+            <start line="8" column="14"/>
+            <end line="8" column="55"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.0/@invariants.0/@message/@expression" line="8" column="25">
+            <region>
+              <start line="8" column="14"/>
+              <end line="8" column="31"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@message/@expression/@lhs" line="8" column="14" val="Element ">
+              <region>
+                <start line="8" column="14"/>
+                <end line="8" column="24"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs" line="8" column="14">
+                <region>
+                  <start line="8" column="14"/>
+                  <end line="8" column="24"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:NameExpression" container="//@contexts.0/@invariants.0/@message/@expression/@lhs" line="8" column="27" name="self">
+              <region>
+                <start line="8" column="27"/>
+                <end line="8" column="31"/>
+              </region>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@message/@expression" line="8" column="34" val=" must define a name">
+            <region>
+              <start line="8" column="34"/>
+              <end line="8" column="55"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@message/@expression/@rhs" line="8" column="34">
+              <region>
+                <start line="8" column="34"/>
+                <end line="8" column="55"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+  </contexts>
+  <contexts container="/" line="13">
+    <region>
+      <start line="13"/>
+      <end line="25" column="1"/>
+    </region>
+    <type container="//@contexts.1" line="13" column="11" modelName="OO" elementName="Feature">
+      <region>
+        <start line="13" column="8"/>
+        <end line="13" column="18"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Critique" container="//@contexts.1" line="17" column="11">
+      <region>
+        <start line="17" column="2"/>
+        <end line="24" column="3"/>
+      </region>
+      <guard container="//@contexts.1/@invariants.0" line="19" column="4">
+        <region>
+          <start line="19" column="4"/>
+          <end line="19" column="37"/>
+        </region>
+        <expression xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@guard" line="19" column="16">
+          <region>
+            <start line="19" column="12"/>
+            <end line="19" column="37"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@guard/@expression" line="19" column="12" name="self">
+            <region>
+              <start line="19" column="12"/>
+              <end line="19" column="16"/>
+            </region>
+          </target>
+          <isArrow container="//@contexts.1/@invariants.0/@guard/@expression" line="19" column="16">
+            <region>
+              <start line="19" column="12"/>
+              <end line="19" column="37"/>
+            </region>
+          </isArrow>
+          <arguments xsi:type="eol:StringExpression" container="//@contexts.1/@invariants.0/@guard/@expression" line="19" column="27" val="HasName">
+            <region>
+              <start line="19" column="27"/>
+              <end line="19" column="36"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0" line="19" column="27">
+              <region>
+                <start line="19" column="27"/>
+                <end line="19" column="36"/>
+              </region>
+            </resolvedType>
+          </arguments>
+          <method container="//@contexts.1/@invariants.0/@guard/@expression" line="19" column="17" name="satisfies">
+            <region>
+              <start line="19" column="17"/>
+              <end line="19" column="37"/>
+            </region>
+          </method>
+        </expression>
+      </guard>
+      <name container="//@contexts.1" line="17" column="11">
+        <region>
+          <start line="17" column="2"/>
+          <end line="24" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.1/@invariants.0" line="21" column="4">
+        <region>
+          <start line="21" column="4"/>
+          <end line="22" column="44"/>
+        </region>
+        <expression xsi:type="eol:EqualsOperatorExpression" container="//@contexts.1/@invariants.0/@check" line="21" column="37">
+          <region>
+            <start line="21" column="12"/>
+            <end line="22" column="44"/>
+          </region>
+          <lhs xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression" line="21" column="21">
+            <region>
+              <start line="21" column="12"/>
+              <end line="21" column="36"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs" line="21" column="16">
+              <region>
+                <start line="21" column="12"/>
+                <end line="21" column="21"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" line="21" column="12" name="self">
+                <region>
+                  <start line="21" column="12"/>
+                  <end line="21" column="16"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" line="21" column="16">
+                <region>
+                  <start line="21" column="12"/>
+                  <end line="21" column="21"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@isArrow" line="21" column="16">
+                  <region>
+                    <start line="21" column="12"/>
+                    <end line="21" column="21"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" line="21" column="17" name="name">
+                <region>
+                  <start line="21" column="17"/>
+                  <end line="21" column="21"/>
+                </region>
+              </property>
+              <extended container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" line="21" column="17">
+                <region>
+                  <start line="21" column="17"/>
+                  <end line="21" column="21"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@extended" line="21" column="17">
+                  <region>
+                    <start line="21" column="17"/>
+                    <end line="21" column="21"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </target>
+            <isArrow container="//@contexts.1/@invariants.0/@check/@expression/@lhs" line="21" column="21">
+              <region>
+                <start line="21" column="12"/>
+                <end line="21" column="36"/>
+              </region>
+            </isArrow>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs" line="21" column="32">
+              <region>
+                <start line="21" column="32"/>
+                <end line="21" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0" line="21" column="32">
+                <region>
+                  <start line="21" column="32"/>
+                  <end line="21" column="33"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs" line="21" column="34" val="1">
+              <region>
+                <start line="21" column="34"/>
+                <end line="21" column="35"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1" line="21" column="34">
+                <region>
+                  <start line="21" column="34"/>
+                  <end line="21" column="35"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <method container="//@contexts.1/@invariants.0/@check/@expression/@lhs" line="21" column="22" name="substring">
+              <region>
+                <start line="21" column="22"/>
+                <end line="21" column="36"/>
+              </region>
+            </method>
+          </lhs>
+          <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression" line="22" column="30">
+            <region>
+              <start line="22" column="6"/>
+              <end line="22" column="44"/>
+            </region>
+            <target xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs" line="22" column="15">
+              <region>
+                <start line="22" column="6"/>
+                <end line="22" column="30"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" line="22" column="10">
+                <region>
+                  <start line="22" column="6"/>
+                  <end line="22" column="15"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" line="22" column="6" name="self">
+                  <region>
+                    <start line="22" column="6"/>
+                    <end line="22" column="10"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" line="22" column="10">
+                  <region>
+                    <start line="22" column="6"/>
+                    <end line="22" column="15"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@isArrow" line="22" column="10">
+                    <region>
+                      <start line="22" column="6"/>
+                      <end line="22" column="15"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" line="22" column="11" name="name">
+                  <region>
+                    <start line="22" column="11"/>
+                    <end line="22" column="15"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" line="22" column="11">
+                  <region>
+                    <start line="22" column="11"/>
+                    <end line="22" column="15"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@extended" line="22" column="11">
+                    <region>
+                      <start line="22" column="11"/>
+                      <end line="22" column="15"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </target>
+              <isArrow container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" line="22" column="15">
+                <region>
+                  <start line="22" column="6"/>
+                  <end line="22" column="30"/>
+                </region>
+              </isArrow>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" line="22" column="26">
+                <region>
+                  <start line="22" column="26"/>
+                  <end line="22" column="27"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0" line="22" column="26">
+                  <region>
+                    <start line="22" column="26"/>
+                    <end line="22" column="27"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" line="22" column="28" val="1">
+                <region>
+                  <start line="22" column="28"/>
+                  <end line="22" column="29"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1" line="22" column="28">
+                  <region>
+                    <start line="22" column="28"/>
+                    <end line="22" column="29"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <method container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" line="22" column="16" name="substring">
+                <region>
+                  <start line="22" column="16"/>
+                  <end line="22" column="30"/>
+                </region>
+              </method>
+            </target>
+            <isArrow container="//@contexts.1/@invariants.0/@check/@expression/@rhs" line="22" column="30">
+              <region>
+                <start line="22" column="6"/>
+                <end line="22" column="44"/>
+              </region>
+            </isArrow>
+            <method container="//@contexts.1/@invariants.0/@check/@expression/@rhs" line="22" column="31" name="toLowerCase">
+              <region>
+                <start line="22" column="31"/>
+                <end line="22" column="44"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+    </invariants>
+  </contexts>
+  <contexts container="/" line="27">
+    <region>
+      <start line="27"/>
+      <end line="78" column="1"/>
+    </region>
+    <type container="//@contexts.2" line="27" column="11" modelName="OO" elementName="Class">
+      <region>
+        <start line="27" column="8"/>
+        <end line="27" column="16"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Constraint" container="//@contexts.2" line="52" column="13">
+      <region>
+        <start line="52" column="2"/>
+        <end line="58" column="3"/>
+      </region>
+      <name container="//@contexts.2" line="52" column="13">
+        <region>
+          <start line="52" column="2"/>
+          <end line="58" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.2/@invariants.0" line="54" column="4">
+        <region>
+          <start line="54" column="4"/>
+          <end line="54" column="35"/>
+        </region>
+        <expression xsi:type="eol:NotOperatorExpression" container="//@contexts.2/@invariants.0/@check" line="54" column="12">
+          <region>
+            <start line="54" column="12"/>
+            <end line="54" column="35"/>
+          </region>
+          <expr xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.0/@check/@expression" line="54" column="20">
+            <region>
+              <start line="54" column="16"/>
+              <end line="54" column="35"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@check/@expression/@expr" line="54" column="16" name="self">
+              <region>
+                <start line="54" column="16"/>
+                <end line="54" column="20"/>
+              </region>
+            </target>
+            <isArrow container="//@contexts.2/@invariants.0/@check/@expression/@expr" line="54" column="20">
+              <region>
+                <start line="54" column="16"/>
+                <end line="54" column="35"/>
+              </region>
+            </isArrow>
+            <arguments xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@check/@expression/@expr" line="54" column="30" name="self">
+              <region>
+                <start line="54" column="30"/>
+                <end line="54" column="34"/>
+              </region>
+            </arguments>
+            <method container="//@contexts.2/@invariants.0/@check/@expression/@expr" line="54" column="21" name="inherits">
+              <region>
+                <start line="54" column="21"/>
+                <end line="54" column="35"/>
+              </region>
+            </method>
+          </expr>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.0" line="56" column="4">
+        <region>
+          <start line="56" column="4"/>
+          <end line="56" column="55"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.0/@message" line="56" column="35">
+          <region>
+            <start line="56" column="14"/>
+            <end line="56" column="55"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.0/@message/@expression" line="56" column="23">
+            <region>
+              <start line="56" column="14"/>
+              <end line="56" column="34"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs" line="56" column="14" val="Class ">
+              <region>
+                <start line="56" column="14"/>
+                <end line="56" column="22"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs" line="56" column="14">
+                <region>
+                  <start line="56" column="14"/>
+                  <end line="56" column="22"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs" line="56" column="29">
+              <region>
+                <start line="56" column="25"/>
+                <end line="56" column="34"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" line="56" column="25" name="self">
+                <region>
+                  <start line="56" column="25"/>
+                  <end line="56" column="29"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" line="56" column="29">
+                <region>
+                  <start line="56" column="25"/>
+                  <end line="56" column="34"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@isArrow" line="56" column="29">
+                  <region>
+                    <start line="56" column="25"/>
+                    <end line="56" column="34"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" line="56" column="30" name="name">
+                <region>
+                  <start line="56" column="30"/>
+                  <end line="56" column="34"/>
+                </region>
+              </property>
+              <extended container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" line="56" column="30">
+                <region>
+                  <start line="56" column="30"/>
+                  <end line="56" column="34"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@extended" line="56" column="30">
+                  <region>
+                    <start line="56" column="30"/>
+                    <end line="56" column="34"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.0/@message/@expression" line="56" column="37" val=" inherits itself">
+            <region>
+              <start line="56" column="37"/>
+              <end line="56" column="55"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.0/@message/@expression/@rhs" line="56" column="37">
+              <region>
+                <start line="56" column="37"/>
+                <end line="56" column="55"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <invariants xsi:type="evl:Critique" container="//@contexts.2" line="31" column="11">
+      <region>
+        <start line="31" column="2"/>
+        <end line="48" column="3"/>
+      </region>
+      <guard container="//@contexts.2/@invariants.1" line="33" column="4">
+        <region>
+          <start line="33" column="4"/>
+          <end line="33" column="37"/>
+        </region>
+        <expression xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@guard" line="33" column="16">
+          <region>
+            <start line="33" column="12"/>
+            <end line="33" column="37"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@guard/@expression" line="33" column="12" name="self">
+            <region>
+              <start line="33" column="12"/>
+              <end line="33" column="16"/>
+            </region>
+          </target>
+          <isArrow container="//@contexts.2/@invariants.1/@guard/@expression" line="33" column="16">
+            <region>
+              <start line="33" column="12"/>
+              <end line="33" column="37"/>
+            </region>
+          </isArrow>
+          <arguments xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@guard/@expression" line="33" column="27" val="HasName">
+            <region>
+              <start line="33" column="27"/>
+              <end line="33" column="36"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0" line="33" column="27">
+              <region>
+                <start line="33" column="27"/>
+                <end line="33" column="36"/>
+              </region>
+            </resolvedType>
+          </arguments>
+          <method container="//@contexts.2/@invariants.1/@guard/@expression" line="33" column="17" name="satisfies">
+            <region>
+              <start line="33" column="17"/>
+              <end line="33" column="37"/>
+            </region>
+          </method>
+        </expression>
+      </guard>
+      <name container="//@contexts.2" line="31" column="11">
+        <region>
+          <start line="31" column="2"/>
+          <end line="48" column="3"/>
+        </region>
+      </name>
+      <fixes container="//@contexts.2/@invariants.1" line="41" column="4">
+        <region>
+          <start line="41" column="4"/>
+          <end line="47" column="5"/>
+        </region>
+        <title container="//@contexts.2/@invariants.1/@fixes.0" line="42" column="51">
+          <region>
+            <start line="42" column="14"/>
+            <end line="43" column="36"/>
+          </region>
+          <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title" line="42" column="51">
+            <region>
+              <start line="42" column="14"/>
+              <end line="43" column="36"/>
+            </region>
+            <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression" line="42" column="42">
+              <region>
+                <start line="42" column="14"/>
+                <end line="42" column="50"/>
+              </region>
+              <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs" line="42" column="30">
+                <region>
+                  <start line="42" column="14"/>
+                  <end line="42" column="41"/>
+                </region>
+                <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs" line="42" column="14" val="Rename class ">
+                  <region>
+                    <start line="42" column="14"/>
+                    <end line="42" column="29"/>
+                  </region>
+                  <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs" line="42" column="14">
+                    <region>
+                      <start line="42" column="14"/>
+                      <end line="42" column="29"/>
+                    </region>
+                  </resolvedType>
+                </lhs>
+                <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs" line="42" column="36">
+                  <region>
+                    <start line="42" column="32"/>
+                    <end line="42" column="41"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" line="42" column="32" name="self">
+                    <region>
+                      <start line="42" column="32"/>
+                      <end line="42" column="36"/>
+                    </region>
+                  </target>
+                  <isArrow container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" line="42" column="36">
+                    <region>
+                      <start line="42" column="32"/>
+                      <end line="42" column="41"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@isArrow" line="42" column="36">
+                      <region>
+                        <start line="42" column="32"/>
+                        <end line="42" column="41"/>
+                      </region>
+                    </resolvedType>
+                  </isArrow>
+                  <property container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" line="42" column="37" name="name">
+                    <region>
+                      <start line="42" column="37"/>
+                      <end line="42" column="41"/>
+                    </region>
+                  </property>
+                  <extended container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" line="42" column="37">
+                    <region>
+                      <start line="42" column="37"/>
+                      <end line="42" column="41"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@extended" line="42" column="37">
+                      <region>
+                        <start line="42" column="37"/>
+                        <end line="42" column="41"/>
+                      </region>
+                    </resolvedType>
+                  </extended>
+                </rhs>
+              </lhs>
+              <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs" line="42" column="44" val=" to ">
+                <region>
+                  <start line="42" column="44"/>
+                  <end line="42" column="50"/>
+                </region>
+                <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs" line="42" column="44">
+                  <region>
+                    <start line="42" column="44"/>
+                    <end line="42" column="50"/>
+                  </region>
+                </resolvedType>
+              </rhs>
+            </lhs>
+            <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression" line="43" column="17">
+              <region>
+                <start line="43" column="8"/>
+                <end line="43" column="36"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs" line="43" column="12">
+                <region>
+                  <start line="43" column="8"/>
+                  <end line="43" column="17"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" line="43" column="8" name="self">
+                  <region>
+                    <start line="43" column="8"/>
+                    <end line="43" column="12"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" line="43" column="12">
+                  <region>
+                    <start line="43" column="8"/>
+                    <end line="43" column="17"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@isArrow" line="43" column="12">
+                    <region>
+                      <start line="43" column="8"/>
+                      <end line="43" column="17"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" line="43" column="13" name="name">
+                  <region>
+                    <start line="43" column="13"/>
+                    <end line="43" column="17"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" line="43" column="13">
+                  <region>
+                    <start line="43" column="13"/>
+                    <end line="43" column="17"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@extended" line="43" column="13">
+                    <region>
+                      <start line="43" column="13"/>
+                      <end line="43" column="17"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs" line="43" column="17">
+                <region>
+                  <start line="43" column="8"/>
+                  <end line="43" column="36"/>
+                </region>
+              </isArrow>
+              <method container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs" line="43" column="18" name="firstToUpperCase">
+                <region>
+                  <start line="43" column="18"/>
+                  <end line="43" column="36"/>
+                </region>
+              </method>
+            </rhs>
+          </expression>
+        </title>
+      </fixes>
+      <check container="//@contexts.2/@invariants.1" line="35" column="4">
+        <region>
+          <start line="35" column="4"/>
+          <end line="36" column="44"/>
+        </region>
+        <expression xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.1/@check" line="35" column="37">
+          <region>
+            <start line="35" column="12"/>
+            <end line="36" column="44"/>
+          </region>
+          <lhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression" line="35" column="21">
+            <region>
+              <start line="35" column="12"/>
+              <end line="35" column="36"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs" line="35" column="16">
+              <region>
+                <start line="35" column="12"/>
+                <end line="35" column="21"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" line="35" column="12" name="self">
+                <region>
+                  <start line="35" column="12"/>
+                  <end line="35" column="16"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" line="35" column="16">
+                <region>
+                  <start line="35" column="12"/>
+                  <end line="35" column="21"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@isArrow" line="35" column="16">
+                  <region>
+                    <start line="35" column="12"/>
+                    <end line="35" column="21"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" line="35" column="17" name="name">
+                <region>
+                  <start line="35" column="17"/>
+                  <end line="35" column="21"/>
+                </region>
+              </property>
+              <extended container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" line="35" column="17">
+                <region>
+                  <start line="35" column="17"/>
+                  <end line="35" column="21"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@extended" line="35" column="17">
+                  <region>
+                    <start line="35" column="17"/>
+                    <end line="35" column="21"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </target>
+            <isArrow container="//@contexts.2/@invariants.1/@check/@expression/@lhs" line="35" column="21">
+              <region>
+                <start line="35" column="12"/>
+                <end line="35" column="36"/>
+              </region>
+            </isArrow>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs" line="35" column="32">
+              <region>
+                <start line="35" column="32"/>
+                <end line="35" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0" line="35" column="32">
+                <region>
+                  <start line="35" column="32"/>
+                  <end line="35" column="33"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs" line="35" column="34" val="1">
+              <region>
+                <start line="35" column="34"/>
+                <end line="35" column="35"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1" line="35" column="34">
+                <region>
+                  <start line="35" column="34"/>
+                  <end line="35" column="35"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <method container="//@contexts.2/@invariants.1/@check/@expression/@lhs" line="35" column="22" name="substring">
+              <region>
+                <start line="35" column="22"/>
+                <end line="35" column="36"/>
+              </region>
+            </method>
+          </lhs>
+          <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression" line="36" column="30">
+            <region>
+              <start line="36" column="6"/>
+              <end line="36" column="44"/>
+            </region>
+            <target xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs" line="36" column="15">
+              <region>
+                <start line="36" column="6"/>
+                <end line="36" column="30"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" line="36" column="10">
+                <region>
+                  <start line="36" column="6"/>
+                  <end line="36" column="15"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" line="36" column="6" name="self">
+                  <region>
+                    <start line="36" column="6"/>
+                    <end line="36" column="10"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" line="36" column="10">
+                  <region>
+                    <start line="36" column="6"/>
+                    <end line="36" column="15"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@isArrow" line="36" column="10">
+                    <region>
+                      <start line="36" column="6"/>
+                      <end line="36" column="15"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" line="36" column="11" name="name">
+                  <region>
+                    <start line="36" column="11"/>
+                    <end line="36" column="15"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" line="36" column="11">
+                  <region>
+                    <start line="36" column="11"/>
+                    <end line="36" column="15"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@extended" line="36" column="11">
+                    <region>
+                      <start line="36" column="11"/>
+                      <end line="36" column="15"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" line="36" column="15">
+                <region>
+                  <start line="36" column="6"/>
+                  <end line="36" column="30"/>
+                </region>
+              </isArrow>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" line="36" column="26">
+                <region>
+                  <start line="36" column="26"/>
+                  <end line="36" column="27"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0" line="36" column="26">
+                  <region>
+                    <start line="36" column="26"/>
+                    <end line="36" column="27"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" line="36" column="28" val="1">
+                <region>
+                  <start line="36" column="28"/>
+                  <end line="36" column="29"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1" line="36" column="28">
+                  <region>
+                    <start line="36" column="28"/>
+                    <end line="36" column="29"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <method container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" line="36" column="16" name="substring">
+                <region>
+                  <start line="36" column="16"/>
+                  <end line="36" column="30"/>
+                </region>
+              </method>
+            </target>
+            <isArrow container="//@contexts.2/@invariants.1/@check/@expression/@rhs" line="36" column="30">
+              <region>
+                <start line="36" column="6"/>
+                <end line="36" column="44"/>
+              </region>
+            </isArrow>
+            <method container="//@contexts.2/@invariants.1/@check/@expression/@rhs" line="36" column="31" name="toUpperCase">
+              <region>
+                <start line="36" column="31"/>
+                <end line="36" column="44"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.1" line="38" column="4">
+        <region>
+          <start line="38" column="4"/>
+          <end line="39" column="47"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@message" line="38" column="47">
+          <region>
+            <start line="38" column="14"/>
+            <end line="39" column="47"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@message/@expression" line="38" column="35">
+            <region>
+              <start line="38" column="14"/>
+              <end line="38" column="46"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs" line="38" column="14" val="The name of class ">
+              <region>
+                <start line="38" column="14"/>
+                <end line="38" column="34"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs" line="38" column="14">
+                <region>
+                  <start line="38" column="14"/>
+                  <end line="38" column="34"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs" line="38" column="41">
+              <region>
+                <start line="38" column="37"/>
+                <end line="38" column="46"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" line="38" column="37" name="self">
+                <region>
+                  <start line="38" column="37"/>
+                  <end line="38" column="41"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" line="38" column="41">
+                <region>
+                  <start line="38" column="37"/>
+                  <end line="38" column="46"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@isArrow" line="38" column="41">
+                  <region>
+                    <start line="38" column="37"/>
+                    <end line="38" column="46"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" line="38" column="42" name="name">
+                <region>
+                  <start line="38" column="42"/>
+                  <end line="38" column="46"/>
+                </region>
+              </property>
+              <extended container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" line="38" column="42">
+                <region>
+                  <start line="38" column="42"/>
+                  <end line="38" column="46"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@extended" line="38" column="42">
+                  <region>
+                    <start line="38" column="42"/>
+                    <end line="38" column="46"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@message/@expression" line="39" column="6" val=" should start with an upper-case letter">
+            <region>
+              <start line="39" column="6"/>
+              <end line="39" column="47"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@message/@expression/@rhs" line="39" column="6">
+              <region>
+                <start line="39" column="6"/>
+                <end line="39" column="47"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <invariants xsi:type="evl:Critique" container="//@contexts.2" line="62" column="11">
+      <region>
+        <start line="62" column="2"/>
+        <end line="77" column="3"/>
+      </region>
+      <name container="//@contexts.2" line="62" column="11">
+        <region>
+          <start line="62" column="2"/>
+          <end line="77" column="3"/>
+        </region>
+      </name>
+      <fixes container="//@contexts.2/@invariants.2" line="70" column="4">
+        <region>
+          <start line="70" column="4"/>
+          <end line="76" column="5"/>
+        </region>
+        <title container="//@contexts.2/@invariants.2/@fixes.0" line="71" column="30">
+          <region>
+            <start line="71" column="14"/>
+            <end line="71" column="41"/>
+          </region>
+          <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title" line="71" column="30">
+            <region>
+              <start line="71" column="14"/>
+              <end line="71" column="41"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression" line="71" column="14" val="Delete class ">
+              <region>
+                <start line="71" column="14"/>
+                <end line="71" column="29"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs" line="71" column="14">
+                <region>
+                  <start line="71" column="14"/>
+                  <end line="71" column="29"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression" line="71" column="36">
+              <region>
+                <start line="71" column="32"/>
+                <end line="71" column="41"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" line="71" column="32" name="self">
+                <region>
+                  <start line="71" column="32"/>
+                  <end line="71" column="36"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" line="71" column="36">
+                <region>
+                  <start line="71" column="32"/>
+                  <end line="71" column="41"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@isArrow" line="71" column="36">
+                  <region>
+                    <start line="71" column="32"/>
+                    <end line="71" column="41"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" line="71" column="37" name="name">
+                <region>
+                  <start line="71" column="37"/>
+                  <end line="71" column="41"/>
+                </region>
+              </property>
+              <extended container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" line="71" column="37">
+                <region>
+                  <start line="71" column="37"/>
+                  <end line="71" column="41"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@extended" line="71" column="37">
+                  <region>
+                    <start line="71" column="37"/>
+                    <end line="71" column="41"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </rhs>
+          </expression>
+        </title>
+      </fixes>
+      <check container="//@contexts.2/@invariants.2" line="64" column="4">
+        <region>
+          <start line="64" column="4"/>
+          <end line="66" column="53"/>
+        </region>
+        <expression xsi:type="eol:OrOperatorExpression" container="//@contexts.2/@invariants.2/@check" line="65" column="51">
+          <region>
+            <start line="64" column="12"/>
+            <end line="66" column="53"/>
+          </region>
+          <lhs xsi:type="eol:OrOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression" line="64" column="59">
+            <region>
+              <start line="64" column="12"/>
+              <end line="65" column="50"/>
+            </region>
+            <lhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs" line="64" column="34">
+              <region>
+                <start line="64" column="12"/>
+                <end line="64" column="58"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" line="64" column="21">
+                <region>
+                  <start line="64" column="12"/>
+                  <end line="64" column="34"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" line="64" column="12" name="Parameter">
+                  <region>
+                    <start line="64" column="12"/>
+                    <end line="64" column="21"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" line="64" column="21">
+                  <region>
+                    <start line="64" column="12"/>
+                    <end line="64" column="34"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@isArrow" line="64" column="21">
+                    <region>
+                      <start line="64" column="12"/>
+                      <end line="64" column="34"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" line="64" column="22" name="allInstances">
+                  <region>
+                    <start line="64" column="22"/>
+                    <end line="64" column="34"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" line="64" column="22">
+                  <region>
+                    <start line="64" column="22"/>
+                    <end line="64" column="34"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@extended" line="64" column="22">
+                    <region>
+                      <start line="64" column="22"/>
+                      <end line="64" column="34"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" line="64" column="34">
+                <region>
+                  <start line="64" column="12"/>
+                  <end line="64" column="58"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@isArrow" line="64" column="34">
+                  <region>
+                    <start line="64" column="12"/>
+                    <end line="64" column="58"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <iterators container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" line="64" column="42">
+                <region>
+                  <start line="64" column="42"/>
+                  <end line="64" column="43"/>
+                </region>
+                <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterators.0" line="64" column="42">
+                  <region>
+                    <start line="64" column="42"/>
+                    <end line="64" column="43"/>
+                  </region>
+                </resolvedType>
+                <name container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterators.0" line="64" column="42" name="p">
+                  <region>
+                    <start line="64" column="42"/>
+                    <end line="64" column="43"/>
+                  </region>
+                </name>
+              </iterators>
+              <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" line="64" column="51">
+                <region>
+                  <start line="64" column="44"/>
+                  <end line="64" column="57"/>
+                </region>
+                <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0" line="64" column="45">
+                  <region>
+                    <start line="64" column="44"/>
+                    <end line="64" column="50"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" line="64" column="44" name="p">
+                    <region>
+                      <start line="64" column="44"/>
+                      <end line="64" column="45"/>
+                    </region>
+                  </target>
+                  <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" line="64" column="45">
+                    <region>
+                      <start line="64" column="44"/>
+                      <end line="64" column="50"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@isArrow" line="64" column="45">
+                      <region>
+                        <start line="64" column="44"/>
+                        <end line="64" column="50"/>
+                      </region>
+                    </resolvedType>
+                  </isArrow>
+                  <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" line="64" column="46" name="type">
+                    <region>
+                      <start line="64" column="46"/>
+                      <end line="64" column="50"/>
+                    </region>
+                  </property>
+                  <extended container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" line="64" column="46">
+                    <region>
+                      <start line="64" column="46"/>
+                      <end line="64" column="50"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@extended" line="64" column="46">
+                      <region>
+                        <start line="64" column="46"/>
+                        <end line="64" column="50"/>
+                      </region>
+                    </resolvedType>
+                  </extended>
+                </lhs>
+                <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0" line="64" column="53" name="self">
+                  <region>
+                    <start line="64" column="53"/>
+                    <end line="64" column="57"/>
+                  </region>
+                </rhs>
+              </conditions>
+              <method container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" line="64" column="35" name="exists">
+                <region>
+                  <start line="64" column="35"/>
+                  <end line="64" column="58"/>
+                </region>
+              </method>
+            </lhs>
+            <rhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs" line="65" column="26">
+              <region>
+                <start line="65" column="6"/>
+                <end line="65" column="50"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" line="65" column="13">
+                <region>
+                  <start line="65" column="6"/>
+                  <end line="65" column="26"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" line="65" column="6" name="Feature">
+                  <region>
+                    <start line="65" column="6"/>
+                    <end line="65" column="13"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" line="65" column="13">
+                  <region>
+                    <start line="65" column="6"/>
+                    <end line="65" column="26"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@isArrow" line="65" column="13">
+                    <region>
+                      <start line="65" column="6"/>
+                      <end line="65" column="26"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" line="65" column="14" name="allInstances">
+                  <region>
+                    <start line="65" column="14"/>
+                    <end line="65" column="26"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" line="65" column="14">
+                  <region>
+                    <start line="65" column="14"/>
+                    <end line="65" column="26"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@extended" line="65" column="14">
+                    <region>
+                      <start line="65" column="14"/>
+                      <end line="65" column="26"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" line="65" column="26">
+                <region>
+                  <start line="65" column="6"/>
+                  <end line="65" column="50"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@isArrow" line="65" column="26">
+                  <region>
+                    <start line="65" column="6"/>
+                    <end line="65" column="50"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <iterators container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" line="65" column="34">
+                <region>
+                  <start line="65" column="34"/>
+                  <end line="65" column="35"/>
+                </region>
+                <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterators.0" line="65" column="34">
+                  <region>
+                    <start line="65" column="34"/>
+                    <end line="65" column="35"/>
+                  </region>
+                </resolvedType>
+                <name container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterators.0" line="65" column="34" name="f">
+                  <region>
+                    <start line="65" column="34"/>
+                    <end line="65" column="35"/>
+                  </region>
+                </name>
+              </iterators>
+              <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" line="65" column="43">
+                <region>
+                  <start line="65" column="36"/>
+                  <end line="65" column="49"/>
+                </region>
+                <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0" line="65" column="37">
+                  <region>
+                    <start line="65" column="36"/>
+                    <end line="65" column="42"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" line="65" column="36" name="f">
+                    <region>
+                      <start line="65" column="36"/>
+                      <end line="65" column="37"/>
+                    </region>
+                  </target>
+                  <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" line="65" column="37">
+                    <region>
+                      <start line="65" column="36"/>
+                      <end line="65" column="42"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@isArrow" line="65" column="37">
+                      <region>
+                        <start line="65" column="36"/>
+                        <end line="65" column="42"/>
+                      </region>
+                    </resolvedType>
+                  </isArrow>
+                  <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" line="65" column="38" name="type">
+                    <region>
+                      <start line="65" column="38"/>
+                      <end line="65" column="42"/>
+                    </region>
+                  </property>
+                  <extended container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" line="65" column="38">
+                    <region>
+                      <start line="65" column="38"/>
+                      <end line="65" column="42"/>
+                    </region>
+                    <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@extended" line="65" column="38">
+                      <region>
+                        <start line="65" column="38"/>
+                        <end line="65" column="42"/>
+                      </region>
+                    </resolvedType>
+                  </extended>
+                </lhs>
+                <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0" line="65" column="45" name="self">
+                  <region>
+                    <start line="65" column="45"/>
+                    <end line="65" column="49"/>
+                  </region>
+                </rhs>
+              </conditions>
+              <method container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" line="65" column="27" name="exists">
+                <region>
+                  <start line="65" column="27"/>
+                  <end line="65" column="50"/>
+                </region>
+              </method>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression" line="66" column="24">
+            <region>
+              <start line="66" column="6"/>
+              <end line="66" column="53"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs" line="66" column="11">
+              <region>
+                <start line="66" column="6"/>
+                <end line="66" column="24"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" line="66" column="6" name="Class">
+                <region>
+                  <start line="66" column="6"/>
+                  <end line="66" column="11"/>
+                </region>
+              </target>
+              <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" line="66" column="11">
+                <region>
+                  <start line="66" column="6"/>
+                  <end line="66" column="24"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@isArrow" line="66" column="11">
+                  <region>
+                    <start line="66" column="6"/>
+                    <end line="66" column="24"/>
+                  </region>
+                </resolvedType>
+              </isArrow>
+              <property container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" line="66" column="12" name="allInstances">
+                <region>
+                  <start line="66" column="12"/>
+                  <end line="66" column="24"/>
+                </region>
+              </property>
+              <extended container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" line="66" column="12">
+                <region>
+                  <start line="66" column="12"/>
+                  <end line="66" column="24"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@extended" line="66" column="12">
+                  <region>
+                    <start line="66" column="12"/>
+                    <end line="66" column="24"/>
+                  </region>
+                </resolvedType>
+              </extended>
+            </target>
+            <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@rhs" line="66" column="24">
+              <region>
+                <start line="66" column="6"/>
+                <end line="66" column="53"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@isArrow" line="66" column="24">
+                <region>
+                  <start line="66" column="6"/>
+                  <end line="66" column="53"/>
+                </region>
+              </resolvedType>
+            </isArrow>
+            <iterators container="//@contexts.2/@invariants.2/@check/@expression/@rhs" line="66" column="32">
+              <region>
+                <start line="66" column="32"/>
+                <end line="66" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterators.0" line="66" column="32">
+                <region>
+                  <start line="66" column="32"/>
+                  <end line="66" column="33"/>
+                </region>
+              </resolvedType>
+              <name container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterators.0" line="66" column="32" name="c">
+                <region>
+                  <start line="66" column="32"/>
+                  <end line="66" column="33"/>
+                </region>
+              </name>
+            </iterators>
+            <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs" line="66" column="46">
+              <region>
+                <start line="66" column="34"/>
+                <end line="66" column="52"/>
+              </region>
+              <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0" line="66" column="35">
+                <region>
+                  <start line="66" column="34"/>
+                  <end line="66" column="45"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" line="66" column="34" name="c">
+                  <region>
+                    <start line="66" column="34"/>
+                    <end line="66" column="35"/>
+                  </region>
+                </target>
+                <isArrow container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" line="66" column="35">
+                  <region>
+                    <start line="66" column="34"/>
+                    <end line="66" column="45"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@isArrow" line="66" column="35">
+                    <region>
+                      <start line="66" column="34"/>
+                      <end line="66" column="45"/>
+                    </region>
+                  </resolvedType>
+                </isArrow>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" line="66" column="36" name="extends">
+                  <region>
+                    <start line="66" column="36"/>
+                    <end line="66" column="45"/>
+                  </region>
+                </property>
+                <extended container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" line="66" column="36">
+                  <region>
+                    <start line="66" column="36"/>
+                    <end line="66" column="45"/>
+                  </region>
+                  <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@extended" line="66" column="36">
+                    <region>
+                      <start line="66" column="36"/>
+                      <end line="66" column="45"/>
+                    </region>
+                  </resolvedType>
+                </extended>
+              </lhs>
+              <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0" line="66" column="48" name="self">
+                <region>
+                  <start line="66" column="48"/>
+                  <end line="66" column="52"/>
+                </region>
+              </rhs>
+            </conditions>
+            <method container="//@contexts.2/@invariants.2/@check/@expression/@rhs" line="66" column="25" name="exists">
+              <region>
+                <start line="66" column="25"/>
+                <end line="66" column="53"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.2" line="68" column="4">
+        <region>
+          <start line="68" column="4"/>
+          <end line="68" column="41"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.2/@message" line="68" column="30">
+          <region>
+            <start line="68" column="14"/>
+            <end line="68" column="41"/>
+          </region>
+          <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.2/@message/@expression" line="68" column="14" val="Unused class ">
+            <region>
+              <start line="68" column="14"/>
+              <end line="68" column="29"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.2/@message/@expression/@lhs" line="68" column="14">
+              <region>
+                <start line="68" column="14"/>
+                <end line="68" column="29"/>
+              </region>
+            </resolvedType>
+          </lhs>
+          <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@message/@expression" line="68" column="36">
+            <region>
+              <start line="68" column="32"/>
+              <end line="68" column="41"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@message/@expression/@rhs" line="68" column="32" name="self">
+              <region>
+                <start line="68" column="32"/>
+                <end line="68" column="36"/>
+              </region>
+            </target>
+            <isArrow container="//@contexts.2/@invariants.2/@message/@expression/@rhs" line="68" column="36">
+              <region>
+                <start line="68" column="32"/>
+                <end line="68" column="41"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@isArrow" line="68" column="36">
+                <region>
+                  <start line="68" column="32"/>
+                  <end line="68" column="41"/>
+                </region>
+              </resolvedType>
+            </isArrow>
+            <property container="//@contexts.2/@invariants.2/@message/@expression/@rhs" line="68" column="37" name="name">
+              <region>
+                <start line="68" column="37"/>
+                <end line="68" column="41"/>
+              </region>
+            </property>
+            <extended container="//@contexts.2/@invariants.2/@message/@expression/@rhs" line="68" column="37">
+              <region>
+                <start line="68" column="37"/>
+                <end line="68" column="41"/>
+              </region>
+              <resolvedType xsi:type="eol:BooleanType" container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@extended" line="68" column="37">
+                <region>
+                  <start line="68" column="37"/>
+                  <end line="68" column="41"/>
+                </region>
+              </resolvedType>
+            </extended>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+  </contexts>
+</evl:EvlProgram>
