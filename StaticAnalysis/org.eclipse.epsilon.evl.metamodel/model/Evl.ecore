@@ -17,7 +17,7 @@
     <details key="key" value="extends"/>
     <details key="value" value="eol"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="EvlElement" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EvlElement" abstract="true" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="EvlProgram" eSuperTypes="#//EvlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Import"
