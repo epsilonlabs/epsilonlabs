@@ -40,10 +40,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="Context" eSuperTypes="#//GuardedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ModelElementType"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pre" upperBound="-1" eType="#//PreBlock"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="post" upperBound="-1" eType="#//PostBlock"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"
+        eType="#//PreBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postBlocks" upperBound="-1"
+        eType="#//PostBlock" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Fix" eSuperTypes="#//EvlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="title" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
@@ -54,8 +54,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Invariant" abstract="true" eSuperTypes="#//GuardedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="fix" upperBound="-1" eType="#//Fix"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixes" upperBound="-1"
+        eType="#//Fix" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="check" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="message" lowerBound="1"

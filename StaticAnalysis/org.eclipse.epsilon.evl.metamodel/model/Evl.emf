@@ -24,8 +24,8 @@ abstract class GuardedElement extends EvlElement {
 
 class Context extends GuardedElement {
 	val eol.ModelElementType[1] type;
-	val PreBlock[*] pre;
-	val PostBlock[*] post;
+	val PreBlock[*] preBlocks;
+	val PostBlock[*] postBlocks;
 }
 
 class Fix extends EvlElement {
@@ -36,7 +36,7 @@ class Fix extends EvlElement {
 
 abstract class Invariant extends GuardedElement {
 	val eol.NameExpression[1] name;	
-	val Fix[*] fix;
+	val Fix[*] fixes;
 	val eol.ExpressionOrStatementBlock[1] check;
 	val eol.ExpressionOrStatementBlock[1] message;
 }

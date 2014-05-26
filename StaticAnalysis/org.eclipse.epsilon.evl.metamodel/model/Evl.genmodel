@@ -23,8 +23,8 @@
     </genClasses>
     <genClasses ecoreClass="Evl.ecore#//Context">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Context/type"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Context/pre"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Context/post"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Context/preBlocks"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Context/postBlocks"/>
     </genClasses>
     <genClasses ecoreClass="Evl.ecore#//Fix">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Fix/title"/>
@@ -32,7 +32,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="Evl.ecore#//Invariant">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/fix"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/fixes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/check"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/message"/>
     </genClasses>
