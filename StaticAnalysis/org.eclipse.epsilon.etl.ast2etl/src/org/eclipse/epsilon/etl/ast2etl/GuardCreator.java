@@ -5,6 +5,7 @@ import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.etl.metamodel.Guard;
 import org.eclipse.epsilon.etl.parse.EtlParser;
 
@@ -27,12 +28,16 @@ public class GuardCreator extends EtlElementCreator{
 		
 		AST childAst = ast.getFirstChild();
 		if (childAst!=null) {
+			ExpressionOrStatementBlock condition = _context.getEolFactory().createExpressionOrStatementBlock();
 			if (childAst.getType() == EtlParser.BLOCK) {
-				guard.setCondition((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+				condition.setBlock((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+				//guard.setCondition((Block)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
 			}
 			else {
-				guard.setCondition((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+				condition.setExpression((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
+//				guard.setCondition((Expression)_context.getEtlElementCreatorFactory().createDomElement(childAst, guard, _context));
 			}
+			guard.setCondition(condition);
 		}
 
 		return guard;
