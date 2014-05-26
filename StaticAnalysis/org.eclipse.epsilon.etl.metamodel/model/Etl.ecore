@@ -28,7 +28,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PostBlock" eSuperTypes="#//NamedBlock"/>
   <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//EtlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"
+        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="#//EtlElement">

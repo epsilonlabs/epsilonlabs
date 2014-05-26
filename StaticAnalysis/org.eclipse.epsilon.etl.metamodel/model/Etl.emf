@@ -21,7 +21,7 @@ class PostBlock extends NamedBlock {
 }
 
 class Guard extends EtlElement {
-  val eol.EolElement[1] condition;
+  val eol.ExpressionOrStatementBlock[1] condition;
 }
 
 class EtlProgram extends EtlElement {
