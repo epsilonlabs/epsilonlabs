@@ -1,14 +1,14 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
-public class ProgramVariableResolver extends ProgramVisitor<VariableResolutionContext, Object>{
+public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutionContext, Object>{
 
 	@Override
-	public Object visit(Program program, VariableResolutionContext context,
+	public Object visit(EolProgram program, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		if (context.getMainProgram() == null) { //if the program is the EOL in question (the main program)
 			context.getStack().push(program, true); //insert a stack

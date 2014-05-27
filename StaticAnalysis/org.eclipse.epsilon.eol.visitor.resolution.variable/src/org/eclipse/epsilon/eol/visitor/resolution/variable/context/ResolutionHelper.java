@@ -26,11 +26,11 @@ public class ResolutionHelper {
 		return ast;
 	}
 	
-	public Program generateProgram(AST ast)
+	public EolProgram generateProgram(AST ast)
 	{
-		Program result = null;
+		EolProgram result = null;
 		Ast2EolContext context = new Ast2EolContext();
-		result = (Program) context.getEolElementCreatorFactory().createDomElement(ast, null, context);
+		result = (EolProgram) context.getEolElementCreatorFactory().createDomElement(ast, null, context);
 		return result;
 	}
 }
