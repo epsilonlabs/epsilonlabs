@@ -41,7 +41,7 @@ public class EtlTypeResolver{
 	{
 		controller.addImportVisitor(new ImportTypeResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
-		controller.addProgramVisitor(new ProgramTypeResolver());
+		controller.addEolProgramVisitor(new ProgramTypeResolver());
 		controller.addBlockVisitor(new BlockTypeResolver());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionTypeResolver());
 		controller.addReturnStatementVisitor(new ReturnStatementTypeResolver());
