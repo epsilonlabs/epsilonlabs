@@ -32,6 +32,7 @@ public class ConstraintCreator extends InvariantCreator{
 		this.setAssets(ast, constraint, container);
 		
 		NameExpression name = (NameExpression) _context.getEolFactory().createNameExpression(); //create a NameExpression
+		name.setName(ast.getText());
 		this.setAssets(ast, name, container);
 		constraint.setName(name);
 		

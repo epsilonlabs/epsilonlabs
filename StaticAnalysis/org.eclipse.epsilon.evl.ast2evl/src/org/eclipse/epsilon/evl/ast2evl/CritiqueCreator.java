@@ -31,6 +31,7 @@ public class CritiqueCreator extends InvariantCreator{
 		this.setAssets(ast, critique, container);
 		
 		NameExpression name = (NameExpression) _context.getEolFactory().createNameExpression(); //create a NameExpression
+		name.setName(ast.getText());
 		this.setAssets(ast, name, container);
 		critique.setName(name);
 		
