@@ -52,7 +52,7 @@ public class EolElementPrinterFactory {
 		map.put(ModelDeclarationParameterImpl.class.getName(), new ModelDeclarationParameterPrinter());
 		map.put(KeyValueImpl.class.getName(), new KeyValuePrinter());
 		map.put(OperationDefinitionImpl.class.getName(), new OperationDefinitionPrinter());
-		map.put(ProgramImpl.class.getName(), new ProgramPrinter());
+		map.put(EolProgramImpl.class.getName(), new ProgramPrinter());
 		initialiseStatementPrinters();
 		initialiseTypePrinters();
 	}
