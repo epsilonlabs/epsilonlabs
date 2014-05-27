@@ -430,7 +430,7 @@ class ExpressionOrStatementBlock extends EolElement {
   val Expression expression;
 }
 
-class EolLibraryModule {
+class EolLibraryModule extends EolElement {
   val ModelDeclarationStatement[*] modelDeclarations;
   val Import[*] imports;
   val OperationDefinition[*] operations;
