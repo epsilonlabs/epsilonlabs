@@ -30,7 +30,7 @@ public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<P
 	public boolean inLoop(EolElement dom)
 	{
 		EolElement container = dom.getContainer();
-		while(!(container instanceof Program))
+		while(!(container instanceof EolProgram))
 		{
 			if (container instanceof ForStatement || container instanceof WhileStatement) {
 				if (container instanceof ForStatement) {
@@ -58,7 +58,7 @@ public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<P
 	public boolean isContainedBy(EolElement dom, EolElement container)
 	{
 		EolElement domContainer = dom;
-		while(!(domContainer instanceof Program))
+		while(!(domContainer instanceof EolProgram))
 		{
 			if (domContainer.equals(container)) {
 				return true;

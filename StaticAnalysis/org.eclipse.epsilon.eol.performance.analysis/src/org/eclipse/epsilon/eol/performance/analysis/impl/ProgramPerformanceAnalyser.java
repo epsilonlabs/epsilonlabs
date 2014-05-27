@@ -18,25 +18,25 @@ import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
-import org.eclipse.epsilon.eol.metamodel.Program;
+import org.eclipse.epsilon.eol.metamodel.EolProgram;
 import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
 import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 import org.eclipse.epsilon.eol.printer.EolElementPrinterFactory;
 import org.eclipse.epsilon.epl.EplModule;
 import org.eclipse.epsilon.epl.PatternMatch;
 import org.eclipse.epsilon.epl.PatternMatchModel;
 
-public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalysisContext, Object>{
+public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAnalysisContext, Object>{
 
 	InMemoryEmfModel model;
 	
 	
 	
 	@Override
-	public Object visit(Program program, PerformanceAnalysisContext context,
+	public Object visit(EolProgram program, PerformanceAnalysisContext context,
 			EolVisitorController<PerformanceAnalysisContext, Object> controller) {
 		// TODO Auto-generated method stub
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -58,7 +58,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 		return null;
 	}
 	
-	public void matchSelectPatterOne(Program program, PerformanceAnalysisContext context) throws Exception
+	public void matchSelectPatterOne(EolProgram program, PerformanceAnalysisContext context) throws Exception
 	{
 		EplModule module = new EplModule();
 		
@@ -94,7 +94,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 		System.out.println(patternMatchModel.getAllOfKind("PatternOne").size());
 	}
 	
-	public void matchSelectPatterTwo(Program program, PerformanceAnalysisContext context) throws Exception
+	public void matchSelectPatterTwo(EolProgram program, PerformanceAnalysisContext context) throws Exception
 	{
 		EplModule module = new EplModule();
 		
@@ -119,7 +119,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 		System.out.println(patternMatchModel.getAllOfKind("PatternTwo").size());
 	}
 	
-	public void matchSelectPatterThree(Program program, PerformanceAnalysisContext context) throws Exception
+	public void matchSelectPatterThree(EolProgram program, PerformanceAnalysisContext context) throws Exception
 	{
 		EplModule module = new EplModule();
 		
@@ -143,7 +143,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 		System.out.println(patternMatchModel.getAllOfKind("PatternThree").size());
 	}
 	
-	public void matchSelectPatterFour(Program program, PerformanceAnalysisContext context) throws Exception
+	public void matchSelectPatterFour(EolProgram program, PerformanceAnalysisContext context) throws Exception
 	{
 		EplModule module = new EplModule();
 		
@@ -167,7 +167,7 @@ public class ProgramPerformanceAnalyser extends ProgramVisitor<PerformanceAnalys
 		System.out.println(patternMatchModel.getAllOfKind("PatternFour").size());
 	}
 	
-	public void matchSelectPatterFive(Program program, PerformanceAnalysisContext context) throws Exception
+	public void matchSelectPatterFive(EolProgram program, PerformanceAnalysisContext context) throws Exception
 	{
 		EplModule module = new EplModule();
 		

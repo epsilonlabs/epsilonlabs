@@ -63,6 +63,7 @@ public class EolVisitorController<T, R> {
 	protected List<UniqueCollectionTypeVisitor<T, R>> uniqueCollectionTypeVisitors = new ArrayList<UniqueCollectionTypeVisitor<T, R>>();
 	protected List<SelfInnermostTypeVisitor<T, R>> selfInnermostTypeVisitors = new ArrayList<SelfInnermostTypeVisitor<T, R>>();
 	protected List<OperationArgTypeVisitor<T, R>> operationArgTypeVisitors = new ArrayList<OperationArgTypeVisitor<T, R>>();
+	protected List<EolProgramVisitor<T, R>> eolProgramVisitors = new ArrayList<EolProgramVisitor<T, R>>();
 	protected List<OperatorExpressionVisitor<T, R>> operatorExpressionVisitors = new ArrayList<OperatorExpressionVisitor<T, R>>();
 	protected List<LiteralExpressionVisitor<T, R>> literalExpressionVisitors = new ArrayList<LiteralExpressionVisitor<T, R>>();
 	protected List<EnumerationLiteralExpressionVisitor<T, R>> enumerationLiteralExpressionVisitors = new ArrayList<EnumerationLiteralExpressionVisitor<T, R>>();
@@ -100,7 +101,6 @@ public class EolVisitorController<T, R> {
 	protected List<ETypeVisitor<T, R>> eTypeVisitors = new ArrayList<ETypeVisitor<T, R>>();
 	protected List<VoidTypeVisitor<T, R>> voidTypeVisitors = new ArrayList<VoidTypeVisitor<T, R>>();
 	protected List<PseudoTypeVisitor<T, R>> pseudoTypeVisitors = new ArrayList<PseudoTypeVisitor<T, R>>();
-	protected List<ProgramVisitor<T, R>> programVisitors = new ArrayList<ProgramVisitor<T, R>>();
 	protected List<ImportVisitor<T, R>> importVisitors = new ArrayList<ImportVisitor<T, R>>();
 	protected List<StatementVisitor<T, R>> statementVisitors = new ArrayList<StatementVisitor<T, R>>();
 	protected List<ExpressionVisitor<T, R>> expressionVisitors = new ArrayList<ExpressionVisitor<T, R>>();
@@ -112,6 +112,8 @@ public class EolVisitorController<T, R> {
 	protected List<AnnotationBlockVisitor<T, R>> annotationBlockVisitors = new ArrayList<AnnotationBlockVisitor<T, R>>();
 	protected List<ModelDeclarationParameterVisitor<T, R>> modelDeclarationParameterVisitors = new ArrayList<ModelDeclarationParameterVisitor<T, R>>();
 	protected List<CollectionInitValueVisitor<T, R>> collectionInitValueVisitors = new ArrayList<CollectionInitValueVisitor<T, R>>();
+	protected List<ExpressionOrStatementBlockVisitor<T, R>> expressionOrStatementBlockVisitors = new ArrayList<ExpressionOrStatementBlockVisitor<T, R>>();
+	protected List<EolLibraryModuleVisitor<T, R>> eolLibraryModuleVisitors = new ArrayList<EolLibraryModuleVisitor<T, R>>();
 	protected List<EolElementVisitor<T, R>> eolElementVisitors = new ArrayList<EolElementVisitor<T, R>>();
 	protected List<TextRegionVisitor<T, R>> textRegionVisitors = new ArrayList<TextRegionVisitor<T, R>>();
 	protected List<TextPositionVisitor<T, R>> textPositionVisitors = new ArrayList<TextPositionVisitor<T, R>>();
@@ -489,6 +491,13 @@ public class EolVisitorController<T, R> {
 				}
 			}
 		}
+		if (o instanceof EolProgram && !eolProgramVisitors.isEmpty()) {
+			for (EolProgramVisitor<T, R> visitor : eolProgramVisitors) {
+				if (visitor.appliesTo((EolProgram) o, context)) {
+					return visitor.visit((EolProgram) o, context, this);
+				}
+			}
+		}
 		if (o instanceof OperatorExpression && !operatorExpressionVisitors.isEmpty()) {
 			for (OperatorExpressionVisitor<T, R> visitor : operatorExpressionVisitors) {
 				if (visitor.appliesTo((OperatorExpression) o, context)) {
@@ -748,13 +757,6 @@ public class EolVisitorController<T, R> {
 				}
 			}
 		}
-		if (o instanceof Program && !programVisitors.isEmpty()) {
-			for (ProgramVisitor<T, R> visitor : programVisitors) {
-				if (visitor.appliesTo((Program) o, context)) {
-					return visitor.visit((Program) o, context, this);
-				}
-			}
-		}
 		if (o instanceof Import && !importVisitors.isEmpty()) {
 			for (ImportVisitor<T, R> visitor : importVisitors) {
 				if (visitor.appliesTo((Import) o, context)) {
@@ -829,6 +831,20 @@ public class EolVisitorController<T, R> {
 			for (CollectionInitValueVisitor<T, R> visitor : collectionInitValueVisitors) {
 				if (visitor.appliesTo((CollectionInitValue) o, context)) {
 					return visitor.visit((CollectionInitValue) o, context, this);
+				}
+			}
+		}
+		if (o instanceof ExpressionOrStatementBlock && !expressionOrStatementBlockVisitors.isEmpty()) {
+			for (ExpressionOrStatementBlockVisitor<T, R> visitor : expressionOrStatementBlockVisitors) {
+				if (visitor.appliesTo((ExpressionOrStatementBlock) o, context)) {
+					return visitor.visit((ExpressionOrStatementBlock) o, context, this);
+				}
+			}
+		}
+		if (o instanceof EolLibraryModule && !eolLibraryModuleVisitors.isEmpty()) {
+			for (EolLibraryModuleVisitor<T, R> visitor : eolLibraryModuleVisitors) {
+				if (visitor.appliesTo((EolLibraryModule) o, context)) {
+					return visitor.visit((EolLibraryModule) o, context, this);
 				}
 			}
 		}
@@ -1399,6 +1415,16 @@ public class EolVisitorController<T, R> {
 		}
 		return null;
 	}
+	public R visitAsEolProgram(EolProgram eolProgram, T context) {
+		if (!eolProgramVisitors.isEmpty()) {
+			for (EolProgramVisitor<T, R> visitor : eolProgramVisitors) {
+				if (visitor.appliesTo((EolProgram) eolProgram, context)) {
+					return visitor.visit((EolProgram) eolProgram, context, this);
+				}
+			}
+		}
+		return null;
+	}
 	public R visitAsOperatorExpression(OperatorExpression operatorExpression, T context) {
 		if (!operatorExpressionVisitors.isEmpty()) {
 			for (OperatorExpressionVisitor<T, R> visitor : operatorExpressionVisitors) {
@@ -1769,16 +1795,6 @@ public class EolVisitorController<T, R> {
 		}
 		return null;
 	}
-	public R visitAsProgram(Program program, T context) {
-		if (!programVisitors.isEmpty()) {
-			for (ProgramVisitor<T, R> visitor : programVisitors) {
-				if (visitor.appliesTo((Program) program, context)) {
-					return visitor.visit((Program) program, context, this);
-				}
-			}
-		}
-		return null;
-	}
 	public R visitAsImport(Import _import, T context) {
 		if (!importVisitors.isEmpty()) {
 			for (ImportVisitor<T, R> visitor : importVisitors) {
@@ -1884,6 +1900,26 @@ public class EolVisitorController<T, R> {
 			for (CollectionInitValueVisitor<T, R> visitor : collectionInitValueVisitors) {
 				if (visitor.appliesTo((CollectionInitValue) collectionInitValue, context)) {
 					return visitor.visit((CollectionInitValue) collectionInitValue, context, this);
+				}
+			}
+		}
+		return null;
+	}
+	public R visitAsExpressionOrStatementBlock(ExpressionOrStatementBlock expressionOrStatementBlock, T context) {
+		if (!expressionOrStatementBlockVisitors.isEmpty()) {
+			for (ExpressionOrStatementBlockVisitor<T, R> visitor : expressionOrStatementBlockVisitors) {
+				if (visitor.appliesTo((ExpressionOrStatementBlock) expressionOrStatementBlock, context)) {
+					return visitor.visit((ExpressionOrStatementBlock) expressionOrStatementBlock, context, this);
+				}
+			}
+		}
+		return null;
+	}
+	public R visitAsEolLibraryModule(EolLibraryModule eolLibraryModule, T context) {
+		if (!eolLibraryModuleVisitors.isEmpty()) {
+			for (EolLibraryModuleVisitor<T, R> visitor : eolLibraryModuleVisitors) {
+				if (visitor.appliesTo((EolLibraryModule) eolLibraryModule, context)) {
+					return visitor.visit((EolLibraryModule) eolLibraryModule, context, this);
 				}
 			}
 		}
@@ -2132,6 +2168,10 @@ public class EolVisitorController<T, R> {
 		return this.operationArgTypeVisitors.add(operationArgTypeVisitor);
 	}
 	
+	public boolean addEolProgramVisitor(EolProgramVisitor<T, R> eolProgramVisitor) {
+		return this.eolProgramVisitors.add(eolProgramVisitor);
+	}
+	
 	public boolean addOperatorExpressionVisitor(OperatorExpressionVisitor<T, R> operatorExpressionVisitor) {
 		return this.operatorExpressionVisitors.add(operatorExpressionVisitor);
 	}
@@ -2280,10 +2320,6 @@ public class EolVisitorController<T, R> {
 		return this.pseudoTypeVisitors.add(pseudoTypeVisitor);
 	}
 	
-	public boolean addProgramVisitor(ProgramVisitor<T, R> programVisitor) {
-		return this.programVisitors.add(programVisitor);
-	}
-	
 	public boolean addImportVisitor(ImportVisitor<T, R> importVisitor) {
 		return this.importVisitors.add(importVisitor);
 	}
@@ -2326,6 +2362,14 @@ public class EolVisitorController<T, R> {
 	
 	public boolean addCollectionInitValueVisitor(CollectionInitValueVisitor<T, R> collectionInitValueVisitor) {
 		return this.collectionInitValueVisitors.add(collectionInitValueVisitor);
+	}
+	
+	public boolean addExpressionOrStatementBlockVisitor(ExpressionOrStatementBlockVisitor<T, R> expressionOrStatementBlockVisitor) {
+		return this.expressionOrStatementBlockVisitors.add(expressionOrStatementBlockVisitor);
+	}
+	
+	public boolean addEolLibraryModuleVisitor(EolLibraryModuleVisitor<T, R> eolLibraryModuleVisitor) {
+		return this.eolLibraryModuleVisitors.add(eolLibraryModuleVisitor);
 	}
 	
 	public boolean addEolElementVisitor(EolElementVisitor<T, R> eolElementVisitor) {
@@ -2553,6 +2597,10 @@ public class EolVisitorController<T, R> {
 		return this.operationArgTypeVisitors.remove(operationArgTypeVisitor);
 	}
 	
+	public boolean removeEolProgramVisitor(EolProgramVisitor<T, R> eolProgramVisitor) {
+		return this.eolProgramVisitors.remove(eolProgramVisitor);
+	}
+	
 	public boolean removeOperatorExpressionVisitor(OperatorExpressionVisitor<T, R> operatorExpressionVisitor) {
 		return this.operatorExpressionVisitors.remove(operatorExpressionVisitor);
 	}
@@ -2701,10 +2749,6 @@ public class EolVisitorController<T, R> {
 		return this.pseudoTypeVisitors.remove(pseudoTypeVisitor);
 	}
 	
-	public boolean removeProgramVisitor(ProgramVisitor<T, R> programVisitor) {
-		return this.programVisitors.remove(programVisitor);
-	}
-	
 	public boolean removeImportVisitor(ImportVisitor<T, R> importVisitor) {
 		return this.importVisitors.remove(importVisitor);
 	}
@@ -2747,6 +2791,14 @@ public class EolVisitorController<T, R> {
 	
 	public boolean removeCollectionInitValueVisitor(CollectionInitValueVisitor<T, R> collectionInitValueVisitor) {
 		return this.collectionInitValueVisitors.remove(collectionInitValueVisitor);
+	}
+	
+	public boolean removeExpressionOrStatementBlockVisitor(ExpressionOrStatementBlockVisitor<T, R> expressionOrStatementBlockVisitor) {
+		return this.expressionOrStatementBlockVisitors.remove(expressionOrStatementBlockVisitor);
+	}
+	
+	public boolean removeEolLibraryModuleVisitor(EolLibraryModuleVisitor<T, R> eolLibraryModuleVisitor) {
+		return this.eolLibraryModuleVisitors.remove(eolLibraryModuleVisitor);
 	}
 	
 	public boolean removeEolElementVisitor(EolElementVisitor<T, R> eolElementVisitor) {

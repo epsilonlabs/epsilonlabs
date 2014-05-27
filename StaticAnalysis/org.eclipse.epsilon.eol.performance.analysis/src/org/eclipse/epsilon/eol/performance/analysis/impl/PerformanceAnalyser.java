@@ -17,7 +17,7 @@ public class PerformanceAnalyser {
 		
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementOptimiser());
 		//controller.addProgramVisitor(new ProgramOptimiser());
-		controller.addProgramVisitor(new ProgramPerformanceAnalyser());
+		controller.addEolProgramVisitor(new ProgramPerformanceAnalyser());
 		controller.addBlockVisitor(new BlockOptimiser());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionOptimiser());
 		controller.addMethodCallExpressionVisitor(new MethodCallExpressionOptimiser());
