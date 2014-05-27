@@ -26,7 +26,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EolProgram" eSuperTypes="#//EolElement #//EolLibraryModule">
+  <eClassifiers xsi:type="ecore:EClass" name="EolProgram" eSuperTypes="#//EolLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
         eType="#//EolProgram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"

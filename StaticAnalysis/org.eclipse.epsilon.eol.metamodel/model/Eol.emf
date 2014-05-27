@@ -20,7 +20,7 @@ class TextPosition {
   attr int column;
 }
 
-class EolProgram extends EolElement, EolLibraryModule {
+class EolProgram extends EolLibraryModule {
   val EolProgram[*] importedModules;
   val Block block;
 }
