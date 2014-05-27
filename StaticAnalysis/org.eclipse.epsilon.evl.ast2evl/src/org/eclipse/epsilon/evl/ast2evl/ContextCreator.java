@@ -10,6 +10,8 @@ import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.evl.metamodel.Context;
 import org.eclipse.epsilon.evl.metamodel.Invariant;
 import org.eclipse.epsilon.evl.parse.EvlParser;
@@ -67,6 +69,14 @@ public class ContextCreator extends EvlElementCreator{
 				_theContext.getInvariants().add((Invariant) _context.getEvlElementCreatorFactory().createDomElement(critiqueAST, _theContext, _context));
 			}
 		}
+		
+		VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
+		NameExpression selfName = context.getEolFactory().createNameExpression();
+		selfName.setName("self");
+		self.setName(selfName);
+		self.setResolvedType(_theContext.getType());
+		
+		_theContext.setSelf(self);
 		
 		return _theContext;
 
