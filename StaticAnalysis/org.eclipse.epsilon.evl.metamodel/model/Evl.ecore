@@ -33,8 +33,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Context" eSuperTypes="#//GuardedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ModelElementType"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"
-        eType="#//PreBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invariants" upperBound="-1"
+        eType="#//Invariant" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Fix" eSuperTypes="#//EvlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="title" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
