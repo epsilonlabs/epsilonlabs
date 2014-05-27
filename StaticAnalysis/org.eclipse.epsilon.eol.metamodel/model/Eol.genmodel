@@ -22,13 +22,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//TextPosition/line"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//TextPosition/column"/>
     </genClasses>
-    <genClasses ecoreClass="Eol.ecore#//Program">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/importedModules"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/operations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/block"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/name"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Program/modelDeclarations"/>
+    <genClasses ecoreClass="Eol.ecore#//EolProgram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolProgram/importedModules"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolProgram/block"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//Import">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//Import/imported"/>
@@ -280,6 +276,12 @@
     <genClasses ecoreClass="Eol.ecore#//ExpressionOrStatementBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/block"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="Eol.ecore#//EOLLibraryModule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/modelDeclarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

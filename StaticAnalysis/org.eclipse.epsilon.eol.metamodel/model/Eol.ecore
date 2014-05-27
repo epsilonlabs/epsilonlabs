@@ -26,25 +26,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Program" eSuperTypes="#//EolElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="#//Import" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EolProgram" eSuperTypes="#//EolElement #//EOLLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
-        eType="#//Program" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
-        eType="#//OperationDefinition" containment="true"/>
+        eType="#//EolProgram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
-        eType="#//ModelDeclarationStatement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imported" lowerBound="1"
         eType="#//StringExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
-        eType="#//EolElement" containment="true"/>
+        eType="#//EOLLibraryModule" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//EolElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//EolElement">
@@ -391,6 +383,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EOLLibraryModule">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
+        eType="#//ModelDeclarationStatement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="#//Import" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//OperationDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>
