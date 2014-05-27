@@ -17,21 +17,14 @@
     <details key="key" value="extends"/>
     <details key="value" value="eol"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="EvlElement" abstract="true" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EvlProgram" eSuperTypes="#//EvlElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Import"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//OperationDefinition"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ModelDeclarationStatement"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EvlElement" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EvlProgram" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contexts" upperBound="-1"
         eType="#//Context" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"
+        eType="#//PreBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postBlocks" upperBound="-1"
+        eType="#//PostBlock" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GuardedElement" abstract="true" eSuperTypes="#//EvlElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="guard" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"

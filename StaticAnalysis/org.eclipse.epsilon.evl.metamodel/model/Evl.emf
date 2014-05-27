@@ -9,12 +9,10 @@ import "platform:/resource/org.eclipse.epsilon.eol.metamodel/model/Eol.ecore";
 class EvlElement extends eol.EolElement {
 }
 
-class EvlProgram extends EvlElement {
-	val eol.Import[*] imports;
- 	val eol.OperationDefinition[*] operations;
-  	val eol.NameExpression[1] name;
-  	val eol.ModelDeclarationStatement[*] modelDeclarations;
+class EvlProgram extends eol.EolLibraryModule {
   	val Context[*] contexts;
+  	val PreBlock[*] preBlocks;
+  	val PostBlock[*] postBlocks;
 }
 
 
@@ -47,8 +45,6 @@ class Constraint extends Invariant {
 
 class Critique extends Invariant {
 }
-
-
 
 
 abstract class NamedBlock extends EvlElement {
