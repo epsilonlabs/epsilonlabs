@@ -15,7 +15,7 @@ public class CoverageAnalyser {
 		controller.addDefaultVisitor(new EolDefaultVisitor<CoverageAnalysisContext, Object>());
 		controller.addModelElementTypeVisitor(new ModelElementTypeCoverageAnalyser());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionCoverageAnalyser());
-		controller.addProgramVisitor(new ProgramCoverageAnalyser());
+		controller.addEolProgramVisitor(new ProgramCoverageAnalyser());
 	}
 	
 	public void run(EolElement dom)
