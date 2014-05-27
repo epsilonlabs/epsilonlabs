@@ -277,11 +277,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/block"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ExpressionOrStatementBlock/expression"/>
     </genClasses>
-    <genClasses ecoreClass="Eol.ecore#//EOLLibraryModule">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/modelDeclarations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/operations"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EOLLibraryModule/name"/>
+    <genClasses ecoreClass="Eol.ecore#//EolLibraryModule">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/modelDeclarations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/operations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

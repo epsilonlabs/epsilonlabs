@@ -26,7 +26,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="line" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EolProgram" eSuperTypes="#//EolElement #//EOLLibraryModule">
+  <eClassifiers xsi:type="ecore:EClass" name="EolProgram" eSuperTypes="#//EolElement #//EolLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedModules" upperBound="-1"
         eType="#//EolProgram" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
@@ -36,7 +36,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="imported" lowerBound="1"
         eType="#//StringExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedProgram" lowerBound="1"
-        eType="#//EOLLibraryModule" containment="true"/>
+        eType="#//EolLibraryModule" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//EolElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true" eSuperTypes="#//EolElement">
@@ -385,7 +385,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EOLLibraryModule">
+  <eClassifiers xsi:type="ecore:EClass" name="EolLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
         eType="#//ModelDeclarationStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"

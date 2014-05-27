@@ -20,14 +20,14 @@ class TextPosition {
   attr int column;
 }
 
-class EolProgram extends EolElement, EOLLibraryModule {
+class EolProgram extends EolElement, EolLibraryModule {
   val EolProgram[*] importedModules;
   val Block block;
 }
 
 class Import extends EolElement {
   val StringExpression[1] imported;
-  val EOLLibraryModule[1] importedProgram;
+  val EolLibraryModule[1] importedProgram;
 }
 
 abstract class Statement extends EolElement {
@@ -430,7 +430,7 @@ class ExpressionOrStatementBlock extends EolElement {
   val Expression expression;
 }
 
-class EOLLibraryModule {
+class EolLibraryModule {
   val ModelDeclarationStatement[*] modelDeclarations;
   val Import[*] imports;
   val OperationDefinition[*] operations;
