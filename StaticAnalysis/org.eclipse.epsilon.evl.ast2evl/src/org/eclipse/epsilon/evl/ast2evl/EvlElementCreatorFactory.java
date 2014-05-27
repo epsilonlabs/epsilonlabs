@@ -93,7 +93,7 @@ import org.eclipse.epsilon.eol.ast2eol.VariableDeclarationExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.WhileStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.XorOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
-import org.eclipse.epsilon.eol.metamodel.Program;
+import org.eclipse.epsilon.eol.metamodel.EolProgram;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.evl.metamodel.EvlProgram;
 import org.eclipse.epsilon.evl.parse.EvlParser;
@@ -426,13 +426,13 @@ public class EvlElementCreatorFactory {
 		return result;
 	}
 	
-	public Program fetchProgram()
+	public EolProgram fetchProgram()
 	{
-		Program result = null;
+		EolProgram result = null;
 		for(EolElement de: createdEolElements)
 		{
-			if (de instanceof Program) {
-				result = (Program) de;
+			if (de instanceof EolProgram) {
+				result = (EolProgram) de;
 			}
 		}
 		return result;

@@ -11,6 +11,8 @@ import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.evl.metamodel.Context;
 import org.eclipse.epsilon.evl.metamodel.EvlProgram;
+import org.eclipse.epsilon.evl.metamodel.PostBlock;
+import org.eclipse.epsilon.evl.metamodel.PreBlock;
 import org.eclipse.epsilon.evl.parse.EvlParser;
 
 public class EvlProgramCreator extends EvlElementCreator{
@@ -61,6 +63,23 @@ public class EvlProgramCreator extends EvlElementCreator{
 				program.getOperations().add((OperationDefinition)_context.getEvlElementCreatorFactory().createDomElement(operation, program, _context)); //process operation ASTs
 			}
 		}
+		
+		ArrayList<AST> preAsts = AstUtilities.getChildren(ast, EvlParser.PRE); //get Pre AST
+		if (preAsts != null) {
+			for(AST preBlockAst: preAsts)
+			{
+				program.getPreBlocks().add( (PreBlock) _context.getEvlElementCreatorFactory().createDomElement(preBlockAst, program, _context));
+			}
+		}
+		
+		ArrayList<AST> postAsts = AstUtilities.getChildren(ast, EvlParser.POST); //get Post AST
+		if (postAsts != null) {
+			for(AST postBlockAst: postAsts)
+			{
+				program.getPostBlocks().add( (PostBlock) _context.getEvlElementCreatorFactory().createDomElement(postBlockAst, program, _context));
+			}
+		}
+
 					
 		return program;
 

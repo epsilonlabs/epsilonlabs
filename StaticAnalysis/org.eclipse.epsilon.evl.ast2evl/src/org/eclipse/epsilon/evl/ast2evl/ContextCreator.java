@@ -12,8 +12,6 @@ import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.evl.metamodel.Context;
 import org.eclipse.epsilon.evl.metamodel.Invariant;
-import org.eclipse.epsilon.evl.metamodel.PostBlock;
-import org.eclipse.epsilon.evl.metamodel.PreBlock;
 import org.eclipse.epsilon.evl.parse.EvlParser;
 
 public class ContextCreator extends EvlElementCreator{
@@ -53,21 +51,6 @@ public class ContextCreator extends EvlElementCreator{
 			_theContext.setGuard(guard);
 		}
 		
-		ArrayList<AST> preAsts = AstUtilities.getChildren(ast, EvlParser.PRE); //get Pre AST
-		if (preAsts != null) {
-			for(AST preBlockAst: preAsts)
-			{
-				_theContext.getPreBlocks().add( (PreBlock) _context.getEvlElementCreatorFactory().createDomElement(preBlockAst, _theContext, _context));
-			}
-		}
-		
-		ArrayList<AST> postAsts = AstUtilities.getChildren(ast, EvlParser.POST); //get Post AST
-		if (postAsts != null) {
-			for(AST postBlockAst: postAsts)
-			{
-				_theContext.getPostBlocks().add( (PostBlock) _context.getEvlElementCreatorFactory().createDomElement(postBlockAst, _theContext, _context));
-			}
-		}
 		
 		ArrayList<AST> constrainASTs = AstUtilities.getChildren(ast, EvlParser.CONSTRAINT);
 		if (constrainASTs != null) {
