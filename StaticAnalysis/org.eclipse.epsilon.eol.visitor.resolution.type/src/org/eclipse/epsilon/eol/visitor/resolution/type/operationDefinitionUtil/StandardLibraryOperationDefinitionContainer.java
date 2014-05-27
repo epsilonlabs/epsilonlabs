@@ -18,7 +18,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeAny()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeAny.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeAny.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -37,7 +37,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeInteger()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeInteger.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeInteger.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -57,7 +57,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeReal()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeReal.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeReal.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -77,7 +77,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeString()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeString.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeString.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -97,7 +97,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeCollection()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeCollection.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeCollection.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -117,7 +117,7 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void putOperationTypeModeElement()
 	{
-		Program program = ast2DomUtil.generate(getClass(), "operationTypeModelElement.eol");
+		EolProgram program = ast2DomUtil.generate(getClass(), "operationTypeModelElement.eol");
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType

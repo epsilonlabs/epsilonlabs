@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.ProgramVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
-public class ProgramTypeResolver extends ProgramVisitor<TypeResolutionContext, Object>{
+public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext, Object>{
 
 	@Override
-	public Object visit(Program program, TypeResolutionContext context,
+	public Object visit(EolProgram program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
 		for(Import import1: program.getImports())
