@@ -309,7 +309,7 @@ public class EolElementCreatorFactory {
 		for(EolElement de: createdDomElements)
 		{
 			EolElement trace = de;
-			while(!(de instanceof Program) && trace.getContainer() != null)
+			while(!(de instanceof EolProgram) && trace.getContainer() != null)
 			{
 				trace = trace.getContainer();
 			}
@@ -327,13 +327,13 @@ public class EolElementCreatorFactory {
 		return result;
 	}
 	
-	public Program fetchProgram()
+	public EolProgram fetchProgram()
 	{
-		Program result = null;
+		EolProgram result = null;
 		for(EolElement de: createdDomElements)
 		{
-			if (de instanceof Program) {
-				result = (Program) de;
+			if (de instanceof EolProgram) {
+				result = (EolProgram) de;
 			}
 		}
 		return result;

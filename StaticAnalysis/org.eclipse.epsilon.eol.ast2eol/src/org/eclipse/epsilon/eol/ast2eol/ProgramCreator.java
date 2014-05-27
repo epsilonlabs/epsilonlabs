@@ -11,7 +11,7 @@ public class ProgramCreator extends EolElementCreator{
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
-		Program program = context.getEolFactory().createProgram(); //create a program 
+		EolProgram program = context.getEolFactory().createEolProgram(); //create a program 
 		this.setAssets(ast, program, null);
 		
 		ArrayList<AST> importAsts = AstUtilities.getChildren(ast, EolParser.IMPORT); //get Import ASTs

@@ -32,7 +32,7 @@ public class ImportCreator extends EolElementCreator{
 			
 			if (importedAst!=null) {
 				if (importedAst.getType() == EolParser.EOLMODULE) {
-					imp.setImportedProgram(context.getEolElementCreatorFactory().createDomElement(importedAst, imp, context));	
+					imp.setImportedProgram((EOLLibraryModule) context.getEolElementCreatorFactory().createDomElement(importedAst, imp, context));	
 				}
 			}
 			imp.setImported((StringExpression)context.getEolElementCreatorFactory().createDomElement(importedStringAST, imp, context)); //create an StringExpression for the imported string
