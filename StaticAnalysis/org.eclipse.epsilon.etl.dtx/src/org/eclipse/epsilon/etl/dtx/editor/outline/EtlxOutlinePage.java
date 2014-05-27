@@ -1,25 +1,16 @@
 package org.eclipse.epsilon.etl.dtx.editor.outline;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.epsilon.common.dt.editor.outline.EditorSelection;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
-import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.common.parse.Region;
-import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
-import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.dtx.editor.outline.DomOutlineElement;
-import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
 import org.eclipse.epsilon.etl.visitor.resolution.variable.impl.EtlVariableResolver;
