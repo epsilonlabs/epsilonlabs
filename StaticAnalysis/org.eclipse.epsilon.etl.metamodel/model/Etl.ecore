@@ -31,18 +31,7 @@
         eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="#//EtlElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//Import"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//OperationDefinition"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
-        eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//ModelDeclarationStatement"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="transformationRules" upperBound="-1"
         eType="#//TransformationRule" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"

@@ -24,11 +24,7 @@ class Guard extends EtlElement {
   val eol.ExpressionOrStatementBlock[1] condition;
 }
 
-class EtlProgram extends EtlElement {
-  val eol.Import[*] imports;
-  val eol.OperationDefinition[*] operations;
-  val eol.NameExpression[1] name;
-  val eol.ModelDeclarationStatement[*] modelDeclarations;
+class EtlProgram extends eol.EolLibraryModule {
   val TransformationRule[*] transformationRules;
   val PreBlock[*] preBlocks;
   val PostBlock[*] postBlocks;
