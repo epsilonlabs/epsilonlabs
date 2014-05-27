@@ -23,6 +23,7 @@ abstract class GuardedElement extends EvlElement {
 class Context extends GuardedElement {
 	val eol.ModelElementType[1] type;
 	val Invariant[*] invariants;
+	val eol.VariableDeclarationExpression[1] self;
 }
 
 class Fix extends EvlElement {
