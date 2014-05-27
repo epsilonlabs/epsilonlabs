@@ -6,6 +6,7 @@ import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EolLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.etl.parse.EtlParser;
@@ -32,7 +33,7 @@ public class ImportCreator extends org.eclipse.epsilon.eol.ast2eol.ImportCreator
 			}
 			
 			if (importedAst!=null) {
-				imp.setImportedProgram(context.getEolElementCreatorFactory().createDomElement(importedAst, imp, context));
+				imp.setImportedProgram((EolLibraryModule) context.getEolElementCreatorFactory().createDomElement(importedAst, imp, context));
 			}
 			imp.setImported((StringExpression)context.getEolElementCreatorFactory().createDomElement(importedStringAST, imp, context)); //create an StringExpression for the imported string
 		}

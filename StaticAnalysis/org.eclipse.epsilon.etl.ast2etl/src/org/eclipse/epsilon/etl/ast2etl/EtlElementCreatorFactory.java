@@ -420,13 +420,13 @@ public class EtlElementCreatorFactory {
 		return result;
 	}
 	
-	public Program fetchProgram()
+	public EolProgram fetchProgram()
 	{
-		Program result = null;
+		EolProgram result = null;
 		for(EolElement de: createdEolElements)
 		{
-			if (de instanceof Program) {
-				result = (Program) de;
+			if (de instanceof EolProgram) {
+				result = (EolProgram) de;
 			}
 		}
 		return result;
