@@ -1,0 +1,5 @@
+var XtUML : new Native("org.eclipse.epsilon.emc.xtuml.XtUML");
+
+for (s in XtUML.getSystemModels()) {
+	s.name.println();
+}
