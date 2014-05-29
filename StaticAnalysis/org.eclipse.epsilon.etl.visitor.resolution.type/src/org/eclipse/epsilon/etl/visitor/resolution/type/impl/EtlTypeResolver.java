@@ -7,6 +7,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.impl.AssignmentStatementT
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.BlockTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.CollectionExpressionTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.EnumerationLiteralExpressionTypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.impl.ExpressionOrStatementBlockTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.FOLMethodCallExpressionTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.ForStatementTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.FormalParameterExpressionTypeResolver;
@@ -71,6 +72,7 @@ public class EtlTypeResolver{
 		controller.addSimpleAnnotationVisitor(new SimpleAnnotationTypeResolver());
 		
 		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockTypeResolver());
 		
 		
 		controller.addEtlProgramVisitor(new EtlProgramTypeResolver());

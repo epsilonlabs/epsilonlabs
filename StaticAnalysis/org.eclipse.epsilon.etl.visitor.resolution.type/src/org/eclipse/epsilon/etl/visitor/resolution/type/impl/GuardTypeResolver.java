@@ -18,14 +18,7 @@ public class GuardTypeResolver extends GuardVisitor<TypeResolutionContext, Objec
 		
 		ExpressionOrStatementBlock condition = guard.getCondition();
 		if (condition != null) {
-			Block block = condition.getBlock();
-			Expression expr = condition.getExpression();
-			if (block != null) {
-				controller.visit(block, context);
-			}
-			else if (expr != null) {
-				controller.visit(expr, context);
-			}
+			controller.visit(condition, context);
 		}
 		
 		return null;
