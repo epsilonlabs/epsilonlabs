@@ -2,7 +2,10 @@ package org.eclipse.epsilon.evl.visitor.resolution.impl;
 
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.ExpressionOrStatementBlockVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ExpressionOrStatementBlockVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FOLMethodCallExpressionVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ForStatementVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FormalParameterExpressionVariableResolver;
@@ -40,7 +43,7 @@ public class EvlVariableResolver {
 		controller.addWhileStatementVisitor(new WhileStatementVariableResolver());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionVariableResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionVariableResolver());
-		
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
 		
 		controller.addConstraintVisitor(new ConstraintVariableResolver());
 		controller.addContextVisitor(new ContextVariableResolver());
