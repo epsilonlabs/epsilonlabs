@@ -1,8 +1,5 @@
 package org.eclipse.epsilon.etl.visitor.resolution.type.impl;
 
-import org.eclipse.epsilon.eol.metamodel.Block;
-import org.eclipse.epsilon.eol.metamodel.EolElement;
-import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.etl.metamodel.Guard;
