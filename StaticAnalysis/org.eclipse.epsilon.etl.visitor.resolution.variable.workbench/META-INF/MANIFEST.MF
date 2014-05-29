@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.etl.visitor.resolution.variable.workbench
+Bundle-SymbolicName: org.eclipse.epsilon.etl.visitor.resolution.variable.workbench; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.epsilon.common,
+ org.eclipse.epsilon.etl.metamodel,
+ org.eclipse.epsilon.etl.engine,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.erl.engine,
+ org.eclipse.epsilon.etl.ast2etl,
+ org.eclipse.epsilon.etl.visitor.resolution.variable
