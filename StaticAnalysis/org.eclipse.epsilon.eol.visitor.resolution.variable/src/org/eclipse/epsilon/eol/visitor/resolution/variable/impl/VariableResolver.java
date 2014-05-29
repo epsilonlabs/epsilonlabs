@@ -27,6 +27,8 @@ public class VariableResolver {
 		controller.addOperationDefinitionVisitor(new OperationDefinitionVariableResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionVariableResolver());
 		
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
+		
 	}
 	
 	public void run(EolElement dom)
