@@ -14,15 +14,8 @@ public class GuardVariableResolver extends GuardVisitor<VariableResolutionContex
 		context.getStack().push(guard, true);
 		
 		ExpressionOrStatementBlock condition = guard.getCondition();
-		
-		if (condition.getBlock() != null) {
-			controller.visit(condition.getBlock(), context);
-		}
-		else if (condition.getExpression() != null) {
-			controller.visit(condition.getExpression(), context);
-		}
-		else {
-			context.getLogBook().addError(condition, "guard should have either a single expression or a block of statements");
+		if (condition != null) {
+			controller.visit(condition, context);
 		}
 		
 		context.getStack().pop();

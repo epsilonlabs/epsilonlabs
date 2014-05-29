@@ -3,6 +3,7 @@ package org.eclipse.epsilon.etl.visitor.resolution.variable.impl;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ExpressionOrStatementBlockVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FOLMethodCallExpressionVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ForStatementVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FormalParameterExpressionVariableResolver;
@@ -17,7 +18,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableDeclarat
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.WhileStatementVariableResolver;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
 
-public class EtlVariableResolver {
+public class EtlVariableResolver{
 	
 	protected EtlVisitorController<VariableResolutionContext, Object> controller = new EtlVisitorController<VariableResolutionContext, Object>();
 	protected VariableResolutionContext context = new VariableResolutionContext();
@@ -40,7 +41,7 @@ public class EtlVariableResolver {
 		controller.addWhileStatementVisitor(new WhileStatementVariableResolver());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionVariableResolver());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionVariableResolver());
-
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
 		
 		controller.addEtlProgramVisitor(new EtlProgramVariableResolver());
 		controller.addGuardVisitor(new GuardVariableResolver());
