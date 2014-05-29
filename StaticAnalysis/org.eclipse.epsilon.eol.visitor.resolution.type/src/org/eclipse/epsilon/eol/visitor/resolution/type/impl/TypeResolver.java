@@ -44,6 +44,7 @@ public class TypeResolver {
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionTypeResolver());
 
 		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockTypeResolver());
 	}
 	
 	public void run(EolElement dom)
