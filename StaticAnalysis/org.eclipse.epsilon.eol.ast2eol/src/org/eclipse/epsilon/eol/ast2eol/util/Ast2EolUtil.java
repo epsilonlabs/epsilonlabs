@@ -12,7 +12,7 @@ import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 
 
 
-public class Ast2DomUtil {
+public class Ast2EolUtil {
 
 	public AST generateAst(Class<?> clazz, String s)
 	{
