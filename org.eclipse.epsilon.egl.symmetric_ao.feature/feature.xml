@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.epsilon.egl.symmetric_ao.feature"
       label="Symmetric Aspects for EGL Code Generation"
-      version="1.0.3.qualifier"
+      version="1.0.4.qualifier"
       provider-name="Lancaster University">
 
    <description>

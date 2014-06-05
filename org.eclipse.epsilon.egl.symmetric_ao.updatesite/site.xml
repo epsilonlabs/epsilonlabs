@@ -9,5 +9,8 @@
    <feature url="features/org.eclipse.epsilon.egl.symmetric_ao.feature_1.0.3.201406052116.jar" id="org.eclipse.epsilon.egl.symmetric_ao.feature" version="1.0.3.201406052116">
       <category name="org.eclipse.epsilon.symmetric_ao"/>
    </feature>
+   <feature url="features/org.eclipse.epsilon.egl.symmetric_ao.feature_1.0.4.201406052320.jar" id="org.eclipse.epsilon.egl.symmetric_ao.feature" version="1.0.4.201406052320">
+      <category name="org.eclipse.epsilon.symmetric_ao"/>
+   </feature>
    <category-def name="org.eclipse.epsilon.symmetric_ao" label="Epsilon Symmetric AO Code Generator"/>
 </site>

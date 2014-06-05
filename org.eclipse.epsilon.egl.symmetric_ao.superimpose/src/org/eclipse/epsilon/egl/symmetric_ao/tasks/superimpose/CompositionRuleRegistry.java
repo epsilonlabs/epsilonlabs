@@ -66,6 +66,8 @@ public class CompositionRuleRegistry {
 		return crrTentative;
 	}
 
+	private boolean fLogRegistration = false;
+
 	private CompositionRuleRegistry() {
 		super();
 
@@ -88,6 +90,8 @@ public class CompositionRuleRegistry {
 				new ExpansionOverridingRule());
 		registerRule(CompositionError.COMPOSITION_RULE_NAME,
 				new CompositionErrorRule());
+
+		fLogRegistration = true;
 	}
 
 	private Map<String, FSTTerminalCompositionRule> mpRules = new HashMap<String, FSTTerminalCompositionRule>();
@@ -97,6 +101,15 @@ public class CompositionRuleRegistry {
 	}
 
 	public void registerRule(String sRuleID, FSTTerminalCompositionRule rule) {
-		mpRules.put(sRuleID, rule);
+		FSTTerminalCompositionRule old = mpRules.put(sRuleID, rule);
+		if (fLogRegistration) {
+			System.out.println("Registered new composition rule for rule ID \""
+					+ sRuleID + "\".\n\tClass of new rule is <"
+					+ rule.getClass().getCanonicalName() + ">.");
+			if (old != null) {
+				System.out.println("\tRule ID was originally associated with <"
+						+ old.getClass().getCanonicalName() + ">.");
+			}
+		}
 	}
 }

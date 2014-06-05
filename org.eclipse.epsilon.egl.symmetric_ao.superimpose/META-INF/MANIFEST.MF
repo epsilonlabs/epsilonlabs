@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Featurehouse Plug-in for EGL Symmetric AO CG
 Bundle-SymbolicName: org.eclipse.epsilon.egl.symmetric_ao.superimpose;singleton:=true
-Bundle-Version: 1.0.3.qualifier
+Bundle-Version: 1.0.4.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose,
  org.eclipse.epsilon.egl.symmetric_ao.tasks.superimpose.rules
