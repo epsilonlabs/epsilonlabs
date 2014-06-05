@@ -224,10 +224,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//ModelDeclarationStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FOLMethodCallExpression" eSuperTypes="#//FeatureCallExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="iterators" lowerBound="1"
-        upperBound="-1" eType="#//FormalParameterExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" lowerBound="1"
-        upperBound="-1" eType="#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iterator" lowerBound="1"
+        eType="#//FormalParameterExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
   </eClassifiers>

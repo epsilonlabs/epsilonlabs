@@ -157,8 +157,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eol.ecore#//ModelDeclarationStatement/EReference0"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//FOLMethodCallExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//FOLMethodCallExpression/iterators"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//FOLMethodCallExpression/conditions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//FOLMethodCallExpression/iterator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//FOLMethodCallExpression/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//FOLMethodCallExpression/method"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//ExpressionStatement">

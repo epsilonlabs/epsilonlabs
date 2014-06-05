@@ -3379,7 +3379,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_0TYrZSwgEeK7YdpDjc97Ew" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_0TYrZiwgEeK7YdpDjc97Ew" fontColor="4210752" fontName="微软雅黑" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//FOLMethodCallExpression/iterators"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//FOLMethodCallExpression/iterator"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0TYrZywgEeK7YdpDjc97Ew" points="[0, 0, 19, 362]$[-19, -362, 0, 0]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_0TYrbCwgEeK7YdpDjc97Ew" type="3002" source="_0SpEgiwgEeK7YdpDjc97Ew" target="_xgRZ0Cw8EeK7YdpDjc97Ew">
@@ -3391,7 +3391,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_0TYrbSwgEeK7YdpDjc97Ew" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_0TYrbiwgEeK7YdpDjc97Ew" fontColor="4210752" fontName="微软雅黑" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//FOLMethodCallExpression/conditions"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//FOLMethodCallExpression/condition"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0TYrbywgEeK7YdpDjc97Ew" points="[0, 0, -1492, 502]$[1492, -502, 0, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0ZsHsCwgEeK7YdpDjc97Ew" id="(0.5136612021857924,0.0)"/>
   </edges>

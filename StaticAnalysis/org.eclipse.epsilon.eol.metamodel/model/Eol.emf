@@ -225,8 +225,8 @@ class ModelDeclarationStatement extends Statement {
 }
 
 class FOLMethodCallExpression extends FeatureCallExpression {
-  val FormalParameterExpression[+] iterators;
-  val Expression[+] conditions;
+  val FormalParameterExpression[1] iterator;
+  val Expression[1] condition;
   val NameExpression[1] method;
 }
 
