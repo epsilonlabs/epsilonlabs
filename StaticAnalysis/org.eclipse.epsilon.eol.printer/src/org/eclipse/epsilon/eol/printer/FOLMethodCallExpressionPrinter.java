@@ -14,7 +14,7 @@ public class FOLMethodCallExpressionPrinter extends FeatureCallExpressionPrinter
 			result += expression.getIsArrow().isVal() ? "->" : ".";
 		}
 		result += f.print((EolElement) expression.getMethod());
-		result += "(" + f.print(expression.getIterators(), ",") + " | " + f.print(expression.getConditions(), ",") + ")";
+		result += "(" + f.print(expression.getIterator()) + " | " + f.print(expression.getCondition()) + ")";
 		
 		return result;
 	}
