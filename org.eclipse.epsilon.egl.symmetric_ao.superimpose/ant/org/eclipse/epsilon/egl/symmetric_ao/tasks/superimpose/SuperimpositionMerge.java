@@ -68,7 +68,8 @@ public class SuperimpositionMerge implements MergeStrategy {
 				lFeatures.add(fstfn);
 			} catch (ParseException e) {
 				throw new BuildException(
-						"Generated contents was not of the type indicated:" + e.getMessage(), e);
+						"Generated contents was not of the type indicated:"
+								+ e.getMessage(), e);
 			}
 		}
 
@@ -175,8 +176,12 @@ public class SuperimpositionMerge implements MergeStrategy {
 						.getInstance(project).getRule(
 								terminalA.getCompositionMechanism());
 				if (compRule != null) {
-					compRule.compose(terminalA, terminalB, terminalComp,
-							nonterminalParent);
+					// Only compose if the two nodes are actually different to avoid producing redundant code
+					if (!compRule.areEqual(terminalA, terminalB)) {
+						compRule.compose(terminalA, terminalB, terminalComp,
+								nonterminalParent);
+					}
+					// No need for else: terminalComp is already a shallow clone of terminalA
 				} else {
 					System.err
 							.println("Error: don't know how to compose terminals: "

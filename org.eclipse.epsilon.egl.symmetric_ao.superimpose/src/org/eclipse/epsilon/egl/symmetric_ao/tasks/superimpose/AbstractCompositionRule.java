@@ -32,6 +32,13 @@ public abstract class AbstractCompositionRule implements
 		FSTTerminalCompositionRule {
 
 	@Override
+	public boolean areEqual(FSTTerminal terminalA, FSTTerminal terminalB) {
+		// TODO: Use a cleverer check independent of exact syntactical identity,
+		// but normalising for spaces etc.
+		return terminalA.getBody().equals(terminalB.getBody());
+	}
+
+	@Override
 	public void postProcess(FSTTerminal terminalNode) {
 	}
 }

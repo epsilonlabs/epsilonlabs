@@ -31,6 +31,19 @@ import de.ovgu.cide.fstgen.ast.FSTTerminal;
 public interface FSTTerminalCompositionRule {
 
 	/**
+	 * Return true if the two nodes should be considered equal.
+	 * {@link #compose(FSTTerminal, FSTTerminal, FSTTerminal, FSTNonTerminal)}
+	 * will only be invoked for terminals for which this method returns
+	 * <code>false</code>. Otherwise, the composition result will be taken to be
+	 * a copy of <code>terminalA</code>.
+	 * 
+	 * @param terminalA
+	 * @param terminalB
+	 * @return
+	 */
+	public boolean areEqual(FSTTerminal terminalA, FSTTerminal terminalB);
+
+	/**
 	 * Compose terminalA and terminalB and place the result in terminalComp,
 	 * which resides under nonterminalParent.
 	 * 
