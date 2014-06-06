@@ -92,6 +92,7 @@ public class OperationDefinitionContainer {
 			for (int i = 0; i < list.size(); i++) {
 				OperationDefinition op = list.get(i);
 				if (op.getContextType() == null) {
+					System.err.println("context type is null for operation : " + name );
 					int distance = typeUtil.shortestDistanceBetweenObject(contextType, typeUtil.createType("Any"));
 					if (distance < depth) {
 						depth = distance;

@@ -8,8 +8,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandle
 
 public class OperationDefinitionControl {
 
-	protected UserDefinedOperationDefinitionContainer userDefinedOperations;
-	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations;
+	protected UserDefinedOperationDefinitionContainer userDefinedOperations; //used to store user defined oeprations
+	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations; //used to store standard library operations
 	protected TypeResolutionContext context;
 	protected OperationDefinitionHandlerFactory handlerFactory;
 	
@@ -40,9 +40,9 @@ public class OperationDefinitionControl {
 	
 	public OperationDefinition getOperation(FeatureCallExpression methodCallExpression, String name, Type contextType, ArrayList<Type> argTypes, boolean priority)
 	{
-		OperationDefinition operation = null;
-		if (!priority) {
-			operation = userDefinedOperations.getOperation(name, contextType, argTypes);
+		OperationDefinition operation = null; //prepare the result
+		if (!priority) { //if priority is given to the userdefined operations
+			operation = userDefinedOperations.getOperation(name, contextType, argTypes); //get operation from the user defined opeartions
 			if (operation == null) {
 				operation = standardLibraryOperations.getOperation(name, contextType, argTypes);
 				if (operation != null) {

@@ -2,6 +2,8 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.context;
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 
@@ -23,12 +25,15 @@ public class testClass2 {
 		}
 		
 		Type t1 = types.get(0);
-		Type t2 = types.get(3);
+		Type t2 = types.get(4);
 		
-		System.out.println(t1.getClass() == t1.getClass());
+		System.out.println(t1.getClass().equals(t2.getClass()));
 		
 		
 		System.out.println(factory.createIntegerType() instanceof PrimitiveType);
+		
+		EDataType dt = EcorePackage.eINSTANCE.getEInt();
+		System.out.println(dt.getInstanceClassName());
 	}
 	
 	

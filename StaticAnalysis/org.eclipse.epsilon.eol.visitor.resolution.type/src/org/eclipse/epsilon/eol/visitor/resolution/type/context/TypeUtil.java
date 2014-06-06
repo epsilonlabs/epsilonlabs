@@ -22,6 +22,13 @@ public class TypeUtil {
 		this.eolFactory = context.getEolFactory();
 	}
 	
+	public static void main(String[] args) {
+		TypeUtil util = new TypeUtil(new TypeResolutionContext());
+		
+		IntegerType type1 = util.context.eolFactory.createIntegerType();
+		
+	}
+	
 	//returns true if the EObject is a EDataType
 	public boolean isEDataType(EObject obj)
 	{
@@ -211,12 +218,17 @@ public class TypeUtil {
 	public int shortestDistanceBetweenObject(EObject subObj, EObject superObj)
 	{
 		int result = 998;
-		EClass subClass = subObj.eClass();
-		EClass superClass = superObj.eClass();
-		if (subClass.getEPackage().equals(superClass.getEPackage())) {
-			if (subObj instanceof ModelElementType && superObj instanceof ModelElementType) {
-				subClass = (EClass) ((ModelElementType)subObj).getEcoreType();
-				superClass = (EClass) ((ModelElementType)superObj).getEcoreType();
+		EClass subClass = subObj.eClass(); //get the eclass of subObj
+		EClass superClass = superObj.eClass(); //get the eclass of superObj 
+
+		if (subClass.getEPackage().equals(superClass.getEPackage())) { //if these two classes are in the same epackage
+			if (subObj instanceof ModelElementType && superObj instanceof ModelElementType) { //if both of the parameters are model element types
+				subClass = (EClass) ((ModelElementType)subObj).getEcoreType(); //get the ecoretype
+				
+				superClass = (EClass) ((ModelElementType)superObj).getEcoreType(); //get the ecore type
+				if (subClass == null || superClass == null) { //if ecore type is null, return null
+					return -1;
+				}
 			}
 			
 			if(subClass.getEAllSuperTypes().contains(superClass))
@@ -601,7 +613,7 @@ public class TypeUtil {
 				return false;
 			}
 		}
-		if (subClass.eClass().getName().equals("PrimitiveType")) {
+		if (superClass.eClass().getName().equals("PrimitiveType")) {
 			if(subClass instanceof PrimitiveType)
 			{
 				return true;

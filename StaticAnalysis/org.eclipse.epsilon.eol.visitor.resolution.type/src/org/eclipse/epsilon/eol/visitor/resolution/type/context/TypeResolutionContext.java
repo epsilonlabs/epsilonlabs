@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
-import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.UserDefinedOperationDefinitionContainer;
 
 
 public class TypeResolutionContext {

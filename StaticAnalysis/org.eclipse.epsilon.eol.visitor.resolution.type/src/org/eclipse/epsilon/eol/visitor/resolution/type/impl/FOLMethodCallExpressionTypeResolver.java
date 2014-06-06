@@ -37,20 +37,26 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 //				}
 			}
 		}
+		
+		FormalParameterExpression iterator = fOLMethodCallExpression.getIterator();
+		controller.visit(iterator, context);
+		if (iterator.getResolvedType() == null || iterator.getResolvedType() instanceof AnyType) {
+			iterator.setResolvedType(EcoreUtil.copy(contentType));
+		}
 
-		for(FormalParameterExpression iterator: fOLMethodCallExpression.getIterators()) //visit iterators
-		{
-			controller.visit(iterator, context);
-			if (iterator.getResolvedType() == null || iterator.getResolvedType() instanceof AnyType) {
-				iterator.setResolvedType(EcoreUtil.copy(contentType));
-			}
-		}
+//		for(FormalParameterExpression iterator: fOLMethodCallExpression.getIterators()) //visit iterators
+//		{
+//			controller.visit(iterator, context);
+//			if (iterator.getResolvedType() == null || iterator.getResolvedType() instanceof AnyType) {
+//				iterator.setResolvedType(EcoreUtil.copy(contentType));
+//			}
+//		}
 		
-		for(Expression condition: fOLMethodCallExpression.getConditions()) //visit conditions
-		{
-			controller.visit(condition, context);
-		}
-		
+//		for(Expression condition: fOLMethodCallExpression.getConditions()) //visit conditions
+//		{
+//			controller.visit(condition, context);
+//		}
+		controller.visit(fOLMethodCallExpression.getCondition(), context);
 		
 		
 		ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
