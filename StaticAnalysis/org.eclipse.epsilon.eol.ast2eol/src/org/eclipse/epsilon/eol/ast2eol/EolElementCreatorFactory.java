@@ -42,7 +42,6 @@ public class EolElementCreatorFactory {
 			if(dec.appliesTo(ast))
 			{
 				result = dec.create(ast, container, context);
-				//System.out.println(dec.getClass());
 				break;
 			}
 		}

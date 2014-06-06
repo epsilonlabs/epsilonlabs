@@ -2,7 +2,6 @@ package org.eclipse.epsilon.eol.ast2eol;
 
 
 import java.util.ArrayList;
-import java.util.ArrayList;
 
 import org.eclipse.epsilon.common.parse.AST;
 

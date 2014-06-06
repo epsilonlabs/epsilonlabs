@@ -19,7 +19,7 @@ public class AssignmentStatementCreator extends StatementCreator{
 
 		return statement;
 	}
-
+ 
 	@Override
 	public boolean appliesTo(AST ast) { 
 		if(ast.getType() == EolParser.ASSIGNMENT)

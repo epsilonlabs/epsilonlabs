@@ -9,7 +9,7 @@ public class BooleanTypeCreator extends PrimitiveTypeCreator{
 	public Type create(Ast2EolContext context) {
 		return context.getEolFactory().createBooleanType();
 	}
-
+ 
 	@Override
 	public String getType() {
 		return "Boolean";

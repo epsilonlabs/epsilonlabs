@@ -7,6 +7,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class StringExpressionCreator extends PrimitiveExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.STRING)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -22,15 +33,5 @@ public class StringExpressionCreator extends PrimitiveExpressionCreator{
 		return expression;
 	}
 
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.STRING)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 }

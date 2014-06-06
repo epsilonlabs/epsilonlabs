@@ -14,5 +14,5 @@ public class LessThanOperatorExpressionCreator extends BinaryOperatorExpressionC
 	public String getOperator() {
 		return "<";
 	}
-
+ 
 }

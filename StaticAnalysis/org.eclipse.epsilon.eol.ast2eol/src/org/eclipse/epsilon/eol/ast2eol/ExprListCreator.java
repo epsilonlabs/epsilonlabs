@@ -22,7 +22,7 @@ public class ExprListCreator extends CollectionInitValueCreator{
 		
 		ExprList list = context.getEolFactory().createExprList();
 		this.setAssets(ast, list, container);
-		
+	
 		for(AST child: ast.getChildren()) //ast MUST have at least one children
 		{
 			list.getExpressions().add((Expression) context.getEolElementCreatorFactory().createDomElement(child, list, context));

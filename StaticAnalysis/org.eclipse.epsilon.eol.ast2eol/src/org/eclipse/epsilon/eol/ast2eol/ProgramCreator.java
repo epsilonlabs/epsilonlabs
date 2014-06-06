@@ -8,6 +8,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class ProgramCreator extends EolElementCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.EOLMODULE)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -45,18 +57,6 @@ public class ProgramCreator extends EolElementCreator{
 		}
 			
 		return program;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.EOLMODULE)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 
 }

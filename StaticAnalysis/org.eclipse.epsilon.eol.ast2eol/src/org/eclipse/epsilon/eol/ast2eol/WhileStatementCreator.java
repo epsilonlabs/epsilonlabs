@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class WhileStatementCreator extends StatementCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.WHILE)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -28,17 +40,4 @@ public class WhileStatementCreator extends StatementCreator{
 		
 		return statement;
 	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.WHILE)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 }

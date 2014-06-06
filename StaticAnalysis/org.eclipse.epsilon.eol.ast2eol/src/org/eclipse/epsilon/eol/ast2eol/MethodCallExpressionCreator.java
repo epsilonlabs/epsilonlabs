@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.ast2eol;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
 
 public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 
@@ -86,6 +87,11 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 		}
 	}
 	
+	public static void main(String[] args) {
+		MethodCallExpressionCreator creator = new MethodCallExpressionCreator();
+		System.out.println(creator.isKeyWord("Bag(Sequence(Sequence(Map)))"));
+	}
+	
 	public boolean isKeyWord(String s)
 	{
 		if (s.equals("Any") ||
@@ -101,23 +107,23 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			return true;
 		}
 		else if (s.contains("Bag(")) {
-			String temp = s.replaceFirst("Bag(", "");
-			temp = temp.replace(")", "");
+			String temp = s.replaceFirst("Bag\\(", "");
+			temp = temp.replaceFirst("\\)", "");
 			return isKeyWord(temp);
 		}
 		else if (s.contains("Set(")) {
-			String temp = s.replaceFirst("Set(", "");
-			temp = temp.replace(")", "");
+			String temp = s.replaceFirst("Set\\(", "");
+			temp = temp.replaceFirst("\\)", "");
 			return isKeyWord(temp);
 		}
 		else if (s.contains("OrderedSet(")) {
-			String temp = s.replaceFirst("OrderedSet(", "");
-			temp = temp.replace(")", "");
+			String temp = s.replaceFirst("OrderedSet\\(", "");
+			temp = temp.replaceFirst("\\)", "");
 			return isKeyWord(temp);
 		}
 		else if (s.contains("Sequence(")) {
-			String temp = s.replaceFirst("Sequence(", "");
-			temp = temp.replace(")", "");
+			String temp = s.replaceFirst("Sequence\\(", "");
+			temp = temp.replaceFirst("\\)", "");
 			return isKeyWord(temp);
 		}
 		else

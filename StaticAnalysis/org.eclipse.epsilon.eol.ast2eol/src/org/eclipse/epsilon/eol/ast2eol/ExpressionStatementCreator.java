@@ -20,6 +20,5 @@ public class ExpressionStatementCreator extends StatementCreator{
 		statement.setExpression((Expression) context.getEolElementCreatorFactory().createDomElement(ast, statement, context)); //set expression
 		
 		return statement;
-		
 	}
 }

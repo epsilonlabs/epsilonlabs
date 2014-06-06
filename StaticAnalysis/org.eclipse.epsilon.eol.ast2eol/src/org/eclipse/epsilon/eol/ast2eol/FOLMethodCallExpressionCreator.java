@@ -28,24 +28,32 @@ public class FOLMethodCallExpressionCreator extends FeatureCallExpressionCreator
 		this.setAssets(ast, expression, container);
 		
 		AST targetAst = ast.getFirstChild(); //get the targetAst
-		AST featureAst = targetAst.getNextSibling(); //get the featureAst
-		AST parametersAst = featureAst.getFirstChild(); //get the parameterAst
+		AST methodAst = targetAst.getNextSibling(); //get the featureAst
+		AST parametersAst = methodAst.getFirstChild(); //get the parameterAst
 		
 		expression.setTarget((Expression) context.getEolElementCreatorFactory().createDomElement(targetAst, expression, context));
 		
-		expression.setMethod((NameExpression) context.getEolElementCreatorFactory().createDomElement(featureAst, expression, context, NameExpressionCreator.class));
+		expression.setMethod((NameExpression) context.getEolElementCreatorFactory().createDomElement(methodAst, expression, context, NameExpressionCreator.class));
 		
-		for(AST formalAst: parametersAst.getChildren()) //process the iterator(s)
-		{
-			expression.getIterators().add((FormalParameterExpression) context.getEolElementCreatorFactory().createDomElement(formalAst, expression, context));
+		AST iteratorAST = parametersAst.getFirstChild();
+		if (iteratorAST != null) {
+			expression.setIterator((FormalParameterExpression) context.getEolElementCreatorFactory().createDomElement(iteratorAST, expression, context));
 		}
+		
+//		for(AST formalAst: parametersAst.getChildren()) //process the iterator(s)
+//		{
+//			expression.getIterators().add((FormalParameterExpression) context.getEolElementCreatorFactory().createDomElement(formalAst, expression, context));
+//		}
 		
 		AST conditionAst = parametersAst.getNextSibling();
-		while(conditionAst != null) //process the condition(s)
-		{
-			expression.getConditions().add((Expression) context.getEolElementCreatorFactory().createDomElement(conditionAst, expression, context));
-			conditionAst = conditionAst.getNextSibling();
+		if (conditionAst != null) {
+			expression.setCondition((Expression) context.getEolElementCreatorFactory().createDomElement(conditionAst, expression, context));
 		}
+//		while(conditionAst != null) //process the condition(s)
+//		{
+//			expression.getConditions().add((Expression) context.getEolElementCreatorFactory().createDomElement(conditionAst, expression, context));
+//			conditionAst = conditionAst.getNextSibling();
+//		}
 		
 		BooleanExpression isArrow = (BooleanExpression) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, BooleanExpressionCreator.class);
 		isArrow.setVal((ast.getType() == EolParser.ARROW) ? true : false);

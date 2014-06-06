@@ -14,5 +14,5 @@ public class ImpliesOperatorExpressionCreator extends BinaryOperatorExpressionCr
 	public String getOperator() {
 		return "implies";
 	}
-
+ 
 }

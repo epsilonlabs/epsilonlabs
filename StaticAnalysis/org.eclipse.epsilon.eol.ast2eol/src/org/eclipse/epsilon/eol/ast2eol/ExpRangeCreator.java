@@ -31,6 +31,5 @@ public class ExpRangeCreator extends CollectionInitValueCreator{
 		list.setEnd((Expression) context.getEolElementCreatorFactory().createDomElement(endAst, list, context));
 		
 		return list;
-	}
-
+	} 
 }

@@ -52,26 +52,8 @@ public class ModelDeclarationStatementCreator extends StatementCreator{
 			}
 		}
 		
-		//ModelDeclarationParameter sourceParameter = fetchSourceParameter(statement);
-		//String sourceString = sourceParameter.getValue().getVal();
-		//MetaModel metaModel = context.createMetaModel();
-		//metaModel.loadModel(sourceString);
-	//	context.getMetaModels().add(metaModel);
-		
 		return statement;
 	}
 	
-	public ModelDeclarationParameter fetchSourceParameter(ModelDeclarationStatement statement)
-	{
-		ModelDeclarationParameter result = null;
-		for(ModelDeclarationParameter parameter: statement.getParameters())
-		{
-			if (parameter.getName().getName().equals("metamodel")) {
-				result = parameter;
-				break;
-			}
-		}
-		return result;
-	}
 
 }

@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class SimpleAnnotationCreator extends AnnotationCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.Annotation)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 
@@ -30,24 +42,7 @@ public class SimpleAnnotationCreator extends AnnotationCreator{
 			name.setName(nameString); //set name to the NameExpression
 			
 			annotation.setName(name); //set name for the annotation
-			
-			
 		}
 		return annotation;
 	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.Annotation)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	
-
 }

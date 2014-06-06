@@ -48,6 +48,6 @@ public class PropertyCallExpressionCreator extends FeatureCallExpressionCreator{
 		expression.setIsArrow(isArrow);
 		
 		return expression;
-	}
+	} 
 
 }

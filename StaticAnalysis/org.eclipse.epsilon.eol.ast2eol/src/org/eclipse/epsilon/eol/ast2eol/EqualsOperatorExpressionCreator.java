@@ -29,5 +29,4 @@ public class EqualsOperatorExpressionCreator extends BinaryOperatorExpressionCre
 	}
 
 
-
 }

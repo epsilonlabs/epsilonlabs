@@ -7,6 +7,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class RealExpressionCreator extends PrimitiveExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.FLOAT)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -20,17 +31,6 @@ public class RealExpressionCreator extends PrimitiveExpressionCreator{
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, RealTypeCreator.class));
 		
 		return expression;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.FLOAT)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class ExecutableAnnotationCreator extends AnnotationCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.EXECUTABLEANNOTATION)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 
@@ -25,16 +37,5 @@ public class ExecutableAnnotationCreator extends AnnotationCreator{
 		return annotation;
 	}
 
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.EXECUTABLEANNOTATION)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
 
 }

@@ -10,7 +10,7 @@ public class AndOperatorExpressionCreator extends BinaryOperatorExpressionCreato
 	public BinaryOperatorExpression create(Ast2EolContext context) {
 		return context.getEolFactory().createAndOperatorExpression();
 	}
-
+ 
 	@Override
 	public String getOperator() {
 		return "and";

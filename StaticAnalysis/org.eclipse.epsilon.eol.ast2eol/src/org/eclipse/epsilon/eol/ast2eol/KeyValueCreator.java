@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class KeyValueCreator extends EolElementCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		boolean condition = ast.getType() == EolParser.KEYVAL;
+		if(condition)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -20,18 +32,6 @@ public class KeyValueCreator extends EolElementCreator{
 		keyValue.setValue((Expression) context.getEolElementCreatorFactory().createDomElement(valueAst, keyValue, context)); //set value
 		
 		return keyValue;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		boolean condition = ast.getType() == EolParser.KEYVAL;
-		if(condition)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

@@ -15,5 +15,5 @@ public abstract class CollectionExpressionCreator extends LiteralExpressionCreat
 		{
 			collection.setParameterList((CollectionInitValue) context.getEolElementCreatorFactory().createDomElement(parameterAst, collection, context));
 		}
-	}
+	} 
 }

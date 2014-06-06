@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class IfStatementCreator extends StatementCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.IF)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -51,17 +63,4 @@ public class IfStatementCreator extends StatementCreator{
 		
 		return statement;
 	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.IF)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 }

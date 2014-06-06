@@ -43,7 +43,6 @@ public class NameExpressionCreator extends ExpressionCreator{
 				}
 			}
 		}
-
 		
 		expression.setName(name);
 		//expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context));

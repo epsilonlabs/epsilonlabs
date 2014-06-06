@@ -12,5 +12,5 @@ public class RealTypeCreator extends PrimitiveTypeCreator{
 	public String getType() {
 		return "Real";
 	}
-
+ 
 }

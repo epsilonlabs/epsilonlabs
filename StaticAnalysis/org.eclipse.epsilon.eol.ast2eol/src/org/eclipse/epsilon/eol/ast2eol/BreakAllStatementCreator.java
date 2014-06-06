@@ -7,16 +7,6 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class BreakAllStatementCreator extends StatementCreator{
 
 	@Override
-	public EolElement create(AST ast, EolElement container,
-			Ast2EolContext context) {
-		
-		BreakAllStatement statement = context.getEolFactory().createBreakAllStatement(); //create a BreakAllStatement
-		this.setAssets(ast, statement, container);
-		
-		return statement;
-	}
-
-	@Override
 	public boolean appliesTo(AST ast) {
 		if(ast.getType() == EolParser.BREAKALL)
 		{
@@ -26,5 +16,16 @@ public class BreakAllStatementCreator extends StatementCreator{
 			return false;
 		}
 	}
+
+	@Override
+	public EolElement create(AST ast, EolElement container,
+			Ast2EolContext context) {
+		
+		BreakAllStatement statement = context.getEolFactory().createBreakAllStatement(); //create a BreakAllStatement
+		this.setAssets(ast, statement, container);
+		
+		return statement;
+	}
+
 
 }

@@ -14,11 +14,11 @@ public abstract class EolElementCreator {
 	}*/
 	public abstract boolean appliesTo(AST ast);
 	
-	public void setAssets(AST ast, EolElement dom, EolElement container)
+	public void setAssets(AST ast, EolElement eolElement, EolElement container)
 	{
-		dom.setLine(ast.getLine());
-		dom.setColumn(ast.getColumn());
-		dom.setContainer(container);
+		eolElement.setLine(ast.getLine());
+		eolElement.setColumn(ast.getColumn());
+		eolElement.setContainer(container);
 		
 		if (ast.getRegion() != null) {
 			TextRegion region = EolFactory.eINSTANCE.createTextRegion();
@@ -32,7 +32,7 @@ public abstract class EolElementCreator {
 			//region.setStart(toTextPosition(ast.getRegion().getStart()));
 			//region.setEnd(toTextPosition(ast.getRegion().getEnd()));
 			//region.setContainer(dom);
-			dom.setRegion(region);
+			eolElement.setRegion(region);
 		}
 		
 	}

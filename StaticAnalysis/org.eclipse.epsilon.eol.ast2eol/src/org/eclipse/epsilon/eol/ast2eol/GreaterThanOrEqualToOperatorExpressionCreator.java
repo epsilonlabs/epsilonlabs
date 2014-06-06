@@ -14,5 +14,5 @@ public class GreaterThanOrEqualToOperatorExpressionCreator extends BinaryOperato
 	public String getOperator() {
 		return ">=";
 	}
-
+ 
 }

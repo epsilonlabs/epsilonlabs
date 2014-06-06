@@ -15,7 +15,7 @@ public abstract class BinaryOperatorExpressionCreator extends OperatorExpression
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		BinaryOperatorExpression expression = create(context);
-		this.buildExpression(ast, expression, container, context);
+		buildExpression(ast, expression, container, context);
 		return expression;
 	}
 	

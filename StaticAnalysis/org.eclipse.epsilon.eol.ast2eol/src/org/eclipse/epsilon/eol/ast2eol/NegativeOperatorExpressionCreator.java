@@ -13,5 +13,5 @@ public class NegativeOperatorExpressionCreator extends UnaryOperatorExpressionCr
 	public String getOperator() {
 		return "-";
 	}
-
+ 
 }

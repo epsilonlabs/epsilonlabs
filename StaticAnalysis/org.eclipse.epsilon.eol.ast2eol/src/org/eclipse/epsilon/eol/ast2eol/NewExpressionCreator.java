@@ -38,5 +38,4 @@ public class NewExpressionCreator extends ExpressionCreator{
 		}	
 		return expression;
 	}
-
 }

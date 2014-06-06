@@ -8,6 +8,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class OrderedSetExpressionCreator extends CollectionExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.COLLECTION && ast.getText().equals("OrderedSet"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 
@@ -17,17 +28,6 @@ public class OrderedSetExpressionCreator extends CollectionExpressionCreator{
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, OrderedSetTypeCreator.class));
 		
 		return expression;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.COLLECTION && ast.getText().equals("OrderedSet"))
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

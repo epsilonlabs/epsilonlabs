@@ -13,7 +13,7 @@ public class IntegerTypeCreator extends PrimitiveTypeCreator{
 	@Override
 	public String getType() {
 		return "Integer";
-	}
+	} 
 
 
 }

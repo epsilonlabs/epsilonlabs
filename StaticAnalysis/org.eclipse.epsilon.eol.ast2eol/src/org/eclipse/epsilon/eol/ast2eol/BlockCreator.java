@@ -7,6 +7,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class BlockCreator extends EolElementCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.BLOCK)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -18,17 +29,6 @@ public class BlockCreator extends EolElementCreator{
 		}
 		
 		return block;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.BLOCK)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

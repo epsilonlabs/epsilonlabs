@@ -7,6 +7,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.VAR)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 	
@@ -51,15 +62,5 @@ public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 		return declaration;
 	}
 
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.VAR)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
 }

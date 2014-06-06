@@ -7,6 +7,17 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class SetExpressionCreator extends CollectionExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.COLLECTION && ast.getText().equals("Set"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 
@@ -16,17 +27,6 @@ public class SetExpressionCreator extends CollectionExpressionCreator{
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, SetTypeCreator.class));
 		
 		return expression;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.COLLECTION && ast.getText().equals("Set"))
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

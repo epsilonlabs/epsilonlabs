@@ -4,7 +4,7 @@ import org.eclipse.epsilon.eol.metamodel.*;
 
 
 public class BagTypeCreator extends CollectionTypeCreator{
-
+ 
 	@Override
 	public Type create(Ast2EolContext context) {
 		return context.getEolFactory().createBagType();

@@ -34,7 +34,7 @@ public class MapExpressionCreator extends LiteralExpressionCreator{
 		}
 		
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, MapTypeCreator.class)); //set resolved type
-		
+		 
 		return expression; //return
 	}
 

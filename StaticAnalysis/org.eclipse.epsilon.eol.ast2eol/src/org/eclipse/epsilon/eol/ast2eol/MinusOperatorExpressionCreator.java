@@ -14,5 +14,5 @@ public class MinusOperatorExpressionCreator extends BinaryOperatorExpressionCrea
 	public String getOperator() {
 		return "-";
 	}
-
+ 
 }

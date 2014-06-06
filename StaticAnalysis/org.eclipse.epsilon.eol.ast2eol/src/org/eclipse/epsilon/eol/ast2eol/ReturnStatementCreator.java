@@ -5,6 +5,17 @@ import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class ReturnStatementCreator extends StatementCreator{
+	
+	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.RETURN)
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
 	@Override
 	public EolElement create(AST ast, EolElement container,
@@ -17,17 +28,6 @@ public class ReturnStatementCreator extends StatementCreator{
 			statement.setReturned((Expression) context.getEolElementCreatorFactory().createDomElement(ast.getFirstChild(), statement, context)); //process returned
 		}
 		return statement;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.RETURN)
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 }

@@ -32,5 +32,4 @@ public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
 		
 		return statement;
 	}
-
 }

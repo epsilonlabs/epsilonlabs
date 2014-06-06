@@ -14,7 +14,7 @@ public class SwitchCaseExpressionCreator extends SwitchStatementCaseCreator{
 		}
 		else {
 			return false;
-		}
+		} 
 	}
 
 	@Override

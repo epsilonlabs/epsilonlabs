@@ -15,7 +15,7 @@ public class ModelDeclarationParameterCreator extends EolElementCreator{
 		else {
 			return false;
 		}
-	}
+	} 
 
 	@Override
 	public EolElement create(AST ast, EolElement container,

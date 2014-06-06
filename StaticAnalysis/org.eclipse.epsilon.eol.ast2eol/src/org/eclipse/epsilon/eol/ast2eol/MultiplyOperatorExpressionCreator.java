@@ -14,5 +14,5 @@ public class MultiplyOperatorExpressionCreator extends BinaryOperatorExpressionC
 	public String getOperator() {
 		return "*";
 	}
-
+ 
 }

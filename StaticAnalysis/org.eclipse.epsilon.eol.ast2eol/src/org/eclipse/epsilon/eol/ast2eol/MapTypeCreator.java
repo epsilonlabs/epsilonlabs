@@ -16,5 +16,5 @@ public class MapTypeCreator extends TypeCreator{
 	public String getType() {
 		return "Map";
 	}
-
+ 
 }

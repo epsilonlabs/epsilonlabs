@@ -13,5 +13,5 @@ public class NotOperatorExpressionCreator extends UnaryOperatorExpressionCreator
 	public String getOperator() {
 		return "not";
 	}
-
+ 
 }

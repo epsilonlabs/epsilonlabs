@@ -13,5 +13,5 @@ public class StringTypeCreator extends PrimitiveTypeCreator{
 	public String getType() {
 		return "String";
 	}
-
+ 
 }

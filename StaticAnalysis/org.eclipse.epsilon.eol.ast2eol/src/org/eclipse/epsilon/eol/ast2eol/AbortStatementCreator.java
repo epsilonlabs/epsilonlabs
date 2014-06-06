@@ -17,7 +17,7 @@ public class AbortStatementCreator extends StatementCreator{
 			return false;
 		}
 	}
-
+ 
 	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {

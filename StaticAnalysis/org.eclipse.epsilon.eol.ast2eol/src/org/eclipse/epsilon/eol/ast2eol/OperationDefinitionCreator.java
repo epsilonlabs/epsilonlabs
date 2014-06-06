@@ -34,9 +34,9 @@ public class OperationDefinitionCreator extends EolElementCreator{
 		else { //if there is no contextType specified
 			nameAst = ast.getFirstChild(); //assign nameAst
 
-			//Type contextType = context.getEolFactory().createAnyType(); //if there's no context type, it should be any
-			//setAssets(nameAst, contextType, operation);
-			//operation.setContextType(contextType);
+			Type contextType = context.getEolFactory().createAnyType(); //if there's no context type, it should be any
+			setAssets(nameAst, contextType, operation);
+			operation.setContextType(contextType);
 
 		}
 		
@@ -92,7 +92,7 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			operation.setBody((Block)context.getEolElementCreatorFactory().createDomElement(bodyAst, operation, context)); //process body
 		}
 		
-		if (contextTypeAst != null) {
+//		if (contextTypeAst != null) {
 			VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
 			NameExpression selfName = context.getEolFactory().createNameExpression();
 			selfName.setName("self");
@@ -100,10 +100,10 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			self.setResolvedType(EcoreUtil.copy(operation.getContextType()));
 
 			operation.setSelf(self);
-		}
-		else {
-			operation.setSelf(null);
-		}
+//		}
+//		else {
+//			operation.setSelf(null);
+//		}
 		
 		
 		if(returnTypeAst != null){ //this is based on the assumption that a operation definition MUST define a returnType if it returns anything

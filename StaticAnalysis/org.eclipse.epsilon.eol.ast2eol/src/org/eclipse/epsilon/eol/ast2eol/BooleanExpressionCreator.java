@@ -7,6 +7,18 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class BooleanExpressionCreator extends PrimitiveExpressionCreator{
 
 	@Override
+	public boolean appliesTo(AST ast) {
+		if(ast.getType() == EolParser.BOOLEAN)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	@Override
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
@@ -24,23 +36,10 @@ public class BooleanExpressionCreator extends PrimitiveExpressionCreator{
 			val = false;
 		}
 		
-		//System.err.println("value is " + val + " " +ast.getLine() + "-" + ast.getColumn());
 		expression.setVal(val);
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, expression, context, BooleanTypeCreator.class));
 		
 		return expression;
-	}
-
-	@Override
-	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.BOOLEAN)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
 	}
 
 }

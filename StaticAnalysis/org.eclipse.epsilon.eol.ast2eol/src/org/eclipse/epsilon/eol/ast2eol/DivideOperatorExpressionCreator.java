@@ -8,7 +8,7 @@ public class DivideOperatorExpressionCreator extends BinaryOperatorExpressionCre
 	@Override
 	public BinaryOperatorExpression create(Ast2EolContext context) {
 		return context.getEolFactory().createDivideOperatorExpression(); //create a DivideOperatorExpression
-	}
+	} 
 
 	@Override
 	public String getOperator() {

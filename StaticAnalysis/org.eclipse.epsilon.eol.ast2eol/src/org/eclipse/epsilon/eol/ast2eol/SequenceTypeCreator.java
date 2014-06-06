@@ -13,5 +13,5 @@ public class SequenceTypeCreator extends CollectionTypeCreator{
 	public String getType() {
 		return "Sequence";
 	}
-
+ 
 }

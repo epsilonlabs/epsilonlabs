@@ -9,7 +9,8 @@ public class ModelElementTypeCreator extends TypeCreator{
 	@Override
 	public boolean appliesTo(AST ast) {
 		return (ast.getType() == EolParser.TYPE && ast.getText().contains("!")) || 
-				(ast.getType() == EolParser.TYPE && !ast.getText().equals("Integer")
+				(ast.getType() == EolParser.TYPE 
+				&& !ast.getText().equals("Integer")
 				&& !ast.getText().equals("Boolean")
 				&& !ast.getText().equals("Real")
 				&& !ast.getText().equals("String")
@@ -39,7 +40,6 @@ public class ModelElementTypeCreator extends TypeCreator{
 			this.setAssets(ast, type, container);
 			type.setModelName(modelString);
 			type.setElementName(elementString);
-			
 		}
 		else {
 			this.setAssets(ast, type, container);
@@ -51,13 +51,11 @@ public class ModelElementTypeCreator extends TypeCreator{
 
 	@Override
 	public Type create(Ast2EolContext context) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return "N/A";
 	}
 

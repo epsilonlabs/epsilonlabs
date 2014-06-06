@@ -13,5 +13,5 @@ public class NotEqualsOperatorExpressionCreator extends BinaryOperatorExpression
 	public String getOperator() {
 		return "<>";
 	}
-
+ 
 }

@@ -14,5 +14,5 @@ public class AnyTypeCreator extends TypeCreator{
 	public String getType() {
 		return "Any";
 	}
-
+ 
 }
