@@ -8,7 +8,7 @@ import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 
-public class ResolutionHelper {
+public class deprecated_ResolutionHelper {
 
 	public AST generateAst(String s)
 	{

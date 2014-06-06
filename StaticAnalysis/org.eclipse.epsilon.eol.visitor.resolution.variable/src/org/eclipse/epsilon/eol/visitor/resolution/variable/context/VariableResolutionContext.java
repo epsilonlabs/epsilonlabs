@@ -4,7 +4,7 @@ import log.LogBook;
 
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
-import org.eclipse.epsilon.eol.ast2eol.util.Ast2DomUtil;
+import org.eclipse.epsilon.eol.ast2eol.util.Ast2EolUtil;
 
 
 public class VariableResolutionContext {
@@ -12,7 +12,7 @@ public class VariableResolutionContext {
 	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
 	protected EolLibraryModule mainProgram = null; //main program, which is the EOL program in question
-	protected Ast2DomUtil ast2DomUtil = new Ast2DomUtil();
+	protected Ast2EolUtil ast2DomUtil = new Ast2EolUtil();
 
 	public FrameStack getStack()
 	{
@@ -39,7 +39,7 @@ public class VariableResolutionContext {
 		return mainProgram;
 	}
 	
-	public Ast2DomUtil getAst2DomUtil()
+	public Ast2EolUtil getAst2DomUtil()
 	{
 		return ast2DomUtil;
 	}

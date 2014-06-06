@@ -26,6 +26,7 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 		{
 			controller.visit(operationDefinition.getAnnotationBlock(), context);
 		}
+		
 		controller.visit(operationDefinition.getBody(), context);
 		context.getStack().pop();
 		return null;

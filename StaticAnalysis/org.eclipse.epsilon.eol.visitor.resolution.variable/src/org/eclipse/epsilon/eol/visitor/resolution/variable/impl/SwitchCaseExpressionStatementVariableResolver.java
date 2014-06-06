@@ -12,10 +12,12 @@ public class SwitchCaseExpressionStatementVariableResolver extends SwitchCaseExp
 			SwitchCaseExpressionStatement switchCaseExpressionStatement,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		
 		context.getStack().push(switchCaseExpressionStatement, true);
 		controller.visit(switchCaseExpressionStatement.getExpression(), context);
 		controller.visit(switchCaseExpressionStatement.getBody(), context);
 		context.getStack().pop();
+		
 		return null;
 	}
 

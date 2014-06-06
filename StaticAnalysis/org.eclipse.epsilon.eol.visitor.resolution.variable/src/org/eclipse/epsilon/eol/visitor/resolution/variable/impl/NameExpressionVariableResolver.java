@@ -30,6 +30,7 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 				nameExpression.setResolvedContent((VariableDeclarationExpression)context.getStack().getVariable(nameExpression.getName()).getVariable());
 			}
 			else {
+				//this should not happen
 				//context.getLogBook().addError(nameExpression, "Variable named " + nameExpression.getName() + " cannot be found");
 				//do something else
 			}

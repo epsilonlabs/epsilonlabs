@@ -28,6 +28,7 @@ public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutio
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs
 			}
+			
 			controller.visitContents(program, context); //visit the contents of the program
 		}
 		 return null;

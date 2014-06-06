@@ -11,10 +11,11 @@ public class SwitchCaseDefaultStatementVariableResolver extends SwitchCaseDefaul
 	public Object visit(SwitchCaseDefaultStatement switchCaseDefaultStatement,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		
 		context.getStack().push(switchCaseDefaultStatement, true);
 		controller.visit(switchCaseDefaultStatement.getBody(), context);
 		context.getStack().pop();
+		
 		return null;
 	}
-
 }

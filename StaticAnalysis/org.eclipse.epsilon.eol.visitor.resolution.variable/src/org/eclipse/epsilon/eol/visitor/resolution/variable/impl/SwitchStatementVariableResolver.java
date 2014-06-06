@@ -11,13 +11,17 @@ public class SwitchStatementVariableResolver extends SwitchStatementVisitor<Vari
 	public Object visit(SwitchStatement switchStatement,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		
 		context.getStack().push(switchStatement, true); //push a new frame
 		controller.visit(switchStatement.getExpression(), context);
+		
 		for(SwitchCaseStatement switchCase : switchStatement.getCases())
 		{
 			controller.visit(switchCase, context);
 		}
+		
 		controller.visit(switchStatement.getDefault(), context);
+		
 		context.getStack().pop(); //pop frame
 		return null;
 	}

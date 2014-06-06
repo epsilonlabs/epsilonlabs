@@ -10,7 +10,6 @@ public class ImportVariableResolver extends ImportVisitor<VariableResolutionCont
 	@Override
 	public Object visit(Import _import, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		// TODO Auto-generated method stub
 		controller.visit(_import.getImportedProgram(), context);
 		
 		/*

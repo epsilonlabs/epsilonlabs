@@ -28,6 +28,7 @@ public class VariableResolver {
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionVariableResolver());
 		
 		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
+		controller.addTransactionStatementVisitor(new TransactionStatementVariableResolver());
 		
 	}
 	
