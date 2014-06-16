@@ -263,6 +263,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AnyType" eSuperTypes="#//Type">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dynamicType" eType="#//Type"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="declared" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionType" eSuperTypes="#//Type">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentType" eType="#//Type"

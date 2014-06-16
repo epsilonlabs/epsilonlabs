@@ -184,6 +184,7 @@
     <genClasses ecoreClass="Eol.ecore#//Type"/>
     <genClasses ecoreClass="Eol.ecore#//AnyType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//AnyType/dynamicType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//AnyType/declared"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//CollectionType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//CollectionType/contentType"/>
