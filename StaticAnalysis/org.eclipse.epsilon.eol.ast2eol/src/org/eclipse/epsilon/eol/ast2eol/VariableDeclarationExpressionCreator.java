@@ -53,6 +53,7 @@ public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 		else //if there is no type defined, for the current implementation, AnyType is assigned to the variable declaration BUT THIS SHOULD NOT BE ALLOWED
 		{
 			declaration.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(ast, declaration, context, AnyTypeCreator.class));
+			((AnyType)declaration.getResolvedType()).setDeclared(false); //this is to say that there is no declaration of type in the actual code
 		}
 		
 		BooleanExpression isCreate = (BooleanExpression) context.getEolElementCreatorFactory().createDomElement(ast, declaration, context, BooleanExpressionCreator.class);

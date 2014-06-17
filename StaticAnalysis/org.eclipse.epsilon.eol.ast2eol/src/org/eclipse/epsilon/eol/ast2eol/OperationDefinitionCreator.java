@@ -34,7 +34,8 @@ public class OperationDefinitionCreator extends EolElementCreator{
 		else { //if there is no contextType specified
 			nameAst = ast.getFirstChild(); //assign nameAst
 
-			Type contextType = context.getEolFactory().createAnyType(); //if there's no context type, it should be any
+			AnyType contextType = context.getEolFactory().createAnyType(); //if there's no context type, it should be any
+			contextType.setDeclared(false);
 			setAssets(nameAst, contextType, operation);
 			operation.setContextType(contextType);
 

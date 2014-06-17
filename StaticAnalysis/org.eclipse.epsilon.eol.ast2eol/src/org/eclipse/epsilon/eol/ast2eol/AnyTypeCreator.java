@@ -7,7 +7,9 @@ public class AnyTypeCreator extends TypeCreator{
 
 	@Override
 	public Type create(Ast2EolContext context) {
-		return context.getEolFactory().createAnyType();
+		AnyType anyType = context.getEolFactory().createAnyType();
+		anyType.setDeclared(true);
+		return anyType;
 	}
 
 	@Override

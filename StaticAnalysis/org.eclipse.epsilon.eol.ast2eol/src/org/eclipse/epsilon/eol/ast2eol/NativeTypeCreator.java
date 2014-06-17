@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.ast2eol;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class NativeTypeCreator extends TypeCreator{
 
@@ -23,7 +24,7 @@ public class NativeTypeCreator extends TypeCreator{
 
 	@Override
 	public String getType() {
-		return "native";
+		return "Native";
 	}
 
 	@Override
@@ -31,5 +32,4 @@ public class NativeTypeCreator extends TypeCreator{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
