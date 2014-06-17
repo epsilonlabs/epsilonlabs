@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.ast2eol;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
 
 public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 
@@ -35,7 +34,7 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 	public EolElement create(AST ast, EolElement container,
 			Ast2EolContext context) {
 		
-		if(ast.getType() == EolParser.ARROW || ast.getType() == EolParser.POINT)
+		if(ast.getType() == EolParser.ARROW || ast.getType() == EolParser.POINT) //if there is a target
 		{
 			MethodCallExpression expression = (MethodCallExpression) context.getEolFactory().createMethodCallExpression(); //create a method call
 			this.setAssets(ast, expression, container);
@@ -49,13 +48,12 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			expression.setMethod((NameExpression) context.getEolElementCreatorFactory().createDomElement(featureAst, expression, context, NameExpressionCreator.class));
 					
 			for (AST parameterAst : parametersAst.getChildren()) {
-					if (isKeyWord(parameterAst.getText())) {
-						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context, NameExpressionCreator.class)); //process arguments
-					}
-					else {
-						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context)); //process arguments
-					}
-					
+				if (isKeyWord(parameterAst.getText())) {
+					expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context, NameExpressionCreator.class));  //process arguments which is an actual type
+				}
+				else {
+					expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context)); //process arguments
+				}
 			}
 			
 			BooleanExpression isArrow = context.getEolFactory().createBooleanExpression(); //process isArrow
@@ -63,10 +61,9 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			isArrow.setVal((ast.getType() == EolParser.ARROW) ? true : false);
 			expression.setIsArrow(isArrow);
 			
-			
 			return expression;
 		}
-		else {
+		else { //when there is no target
 			MethodCallExpression expression = (MethodCallExpression)context.getEolFactory().createMethodCallExpression(); //create a NaturalMethodCallExpression
 			this.setAssets(ast, expression, container);
 			
@@ -79,10 +76,14 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			{
 				for(AST argumentAst: argumentListAst.getChildren()) //process argument
 				{
-					expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(argumentAst, expression, context));
+					if (isKeyWord(argumentAst.getText())) {
+						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(argumentAst, expression, context, NameExpressionCreator.class));  //process arguments which is an actual type
+					}
+					else {
+						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createDomElement(argumentAst, expression, context)); //process arguments
+					}
 				}
 			}
-
 			return expression;
 		}
 	}

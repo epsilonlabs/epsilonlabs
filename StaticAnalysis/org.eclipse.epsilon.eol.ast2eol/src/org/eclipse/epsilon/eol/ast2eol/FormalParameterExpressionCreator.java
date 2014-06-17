@@ -34,6 +34,7 @@ public class FormalParameterExpressionCreator extends ExpressionCreator{
 		}
 		else {
 			expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(nameAst, expression, context, AnyTypeCreator.class));
+			((AnyType)expression.getResolvedType()).setDeclared(false);
 		}
 		
 		return expression;

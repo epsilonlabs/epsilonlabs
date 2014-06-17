@@ -144,7 +144,7 @@ public class EolElementCreatorFactory {
 		result.add(new ImportCreator());
 		result.add(new KeyValueCreator());
 		result.add(new ModelDeclarationParameterCreator());
-		result.add(new ProgramCreator());
+		result.add(new EolProgramCreator());
 		result.add(new OperationDefinitionCreator());
 		result.addAll(this.initiateStatementPool());
 		result.addAll(this.initiateTypePool());

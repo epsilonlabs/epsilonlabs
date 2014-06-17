@@ -5,7 +5,7 @@ import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
-public class ProgramCreator extends EolElementCreator{
+public class EolProgramCreator extends EolElementCreator{
 
 	@Override
 	public boolean appliesTo(AST ast) {
