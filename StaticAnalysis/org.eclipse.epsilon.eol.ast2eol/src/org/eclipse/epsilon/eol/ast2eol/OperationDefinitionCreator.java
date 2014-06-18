@@ -83,7 +83,9 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			operation.setReturnType(returnType); //assign the return type to the operation
 		}
 		else {
-			Type returnType = context.getEolFactory().createVoidType(); //if there's no return type, it should be void
+			//Type returnType = context.getEolFactory().createVoidType(); //if there's no return type, it should be void
+			AnyType returnType = context.getEolFactory().createAnyType();
+			returnType.setDeclared(false);
 			setAssets(nameAst, returnType, operation);
 			operation.setReturnType(returnType);
 		}
@@ -93,29 +95,25 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			operation.setBody((Block)context.getEolElementCreatorFactory().createDomElement(bodyAst, operation, context)); //process body
 		}
 		
-//		if (contextTypeAst != null) {
-			VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
-			NameExpression selfName = context.getEolFactory().createNameExpression();
-			selfName.setName("self");
-			self.setName(selfName);
-			self.setResolvedType(EcoreUtil.copy(operation.getContextType()));
+		VariableDeclarationExpression self = context.getEolFactory().createVariableDeclarationExpression();
+		NameExpression selfName = context.getEolFactory().createNameExpression();
+		selfName.setName("self");
+		self.setName(selfName);
+		self.setResolvedType(EcoreUtil.copy(operation.getContextType()));
+		selfName.setResolvedType(EcoreUtil.copy(operation.getContextType()));
+		operation.setSelf(self);
 
-			operation.setSelf(self);
-//		}
-//		else {
-//			operation.setSelf(null);
-//		}
+		VariableDeclarationExpression _result = context.getEolFactory().createVariableDeclarationExpression();
+		NameExpression resultName = context.getEolFactory().createNameExpression();
+		resultName.setName("_result");
+		_result.setName(resultName);
+		_result.setResolvedType(EcoreUtil.copy(operation.getReturnType()));
+		resultName.setResolvedType(EcoreUtil.copy(operation.getReturnType()));
+		operation.set_result(_result);
+
 		
-		
-		if(returnTypeAst != null){ //this is based on the assumption that a operation definition MUST define a returnType if it returns anything
-			VariableDeclarationExpression _result = context.getEolFactory().createVariableDeclarationExpression();
-			NameExpression resultName = context.getEolFactory().createNameExpression();
-			resultName.setName("_result");
-			_result.setName(resultName);
-			_result.setResolvedType(EcoreUtil.copy(operation.getContextType()));
-			
-			operation.set_result(_result);
-		}
+//		if(returnTypeAst != null){ //this is based on the assumption that a operation definition MUST define a returnType if it returns anything
+//		}
 		
 		return operation;
 	}
