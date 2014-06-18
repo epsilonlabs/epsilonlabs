@@ -50,6 +50,5 @@ public class VariableResolutionContext {
 		obj.setColumn(container.getColumn());
 		obj.setContainer(container);
 	}
-
 	
 }
