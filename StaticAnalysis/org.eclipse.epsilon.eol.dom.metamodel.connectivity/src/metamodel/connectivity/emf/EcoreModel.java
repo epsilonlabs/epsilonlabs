@@ -1,5 +1,9 @@
 package metamodel.connectivity.emf;
 
+import metamodel.connectivity.abstractmodel.EModel;
+import metamodel.connectivity.util.EcoreFileLoader;
+import metamodel.connectivity.util.EcoreRegistryLoader;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -37,7 +41,8 @@ public class EcoreModel implements EModel{
 
 	@Override
 	public String getMetaModelName() {
-		return ePackage.getName();	}
+		return ePackage.getName();	
+	}
 
 	@Override
 	public String getMetaModelNsURI() {

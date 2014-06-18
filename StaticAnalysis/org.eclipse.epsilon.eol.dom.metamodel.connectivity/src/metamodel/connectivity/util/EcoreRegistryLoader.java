@@ -1,4 +1,4 @@
-package metamodel.connectivity.emf;
+package metamodel.connectivity.util;
 
 
 import org.eclipse.emf.ecore.EPackage;
@@ -18,7 +18,7 @@ public class EcoreRegistryLoader {
 		else {
 			System.out.println("loaded");
 		}
-		EcoreRegistryLoader.loadEPackageFromRetistry("http://dom/1.0");
+		//EcoreRegistryLoader.loadEPackageFromRetistry("http://dom/1.0");
 		//EcoreRegistryLoader.loadEPackageFromRetistry("http://www.eclipse.org/ocl/1.1.0/Ecore");
 		for(Object obj: EPackage.Registry.INSTANCE.values())
 		{
