@@ -17,14 +17,18 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 			context.getStack().putVariable(operationDefinition.getSelf()); //put 'self'
 		}
 		
-		for(FormalParameterExpression param: operationDefinition.getParameters())
-		{
-			controller.visit(param, context);
+		if (operationDefinition.get_result() != null) {
+			context.getStack().putVariable(operationDefinition.get_result()); //put "_result"
 		}
 		
 		if(operationDefinition.getAnnotationBlock()!= null)
 		{
 			controller.visit(operationDefinition.getAnnotationBlock(), context);
+		}
+		
+		for(FormalParameterExpression param: operationDefinition.getParameters())
+		{
+			controller.visit(param, context);
 		}
 		
 		controller.visit(operationDefinition.getBody(), context);

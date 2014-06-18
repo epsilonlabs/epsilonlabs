@@ -14,14 +14,6 @@ public class FOLMethodCallExpressionVariableResolver extends FOLMethodCallExpres
 		controller.visit(fOLMethodCallExpression.getTarget(), context);
 		context.getStack().push(fOLMethodCallExpression, true);
 		controller.visit(fOLMethodCallExpression.getIterator(), context);
-//		for(FormalParameterExpression iterator: fOLMethodCallExpression.getIterators())
-//		{
-//			controller.visit(iterator, context);
-//		}
-//		for(Expression expr: fOLMethodCallExpression.getConditions())
-//		{
-//			controller.visit(expr, context);
-//		}
 		controller.visit(fOLMethodCallExpression.getCondition(), context);
 		context.getStack().pop();
 		return null;

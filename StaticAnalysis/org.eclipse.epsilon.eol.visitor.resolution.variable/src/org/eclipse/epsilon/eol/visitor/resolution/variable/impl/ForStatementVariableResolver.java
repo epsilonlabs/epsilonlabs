@@ -15,9 +15,9 @@ public class ForStatementVariableResolver extends ForStatementVisitor<VariableRe
 		context.getStack().push(forStatement, true);
 		controller.visit(forStatement.getIterator(), context);
 		controller.visit(forStatement.getIterated(), context);
-		context.getStack().push(forStatement.getBody(), true);
+//		context.getStack().push(forStatement.getBody(), true);
 		controller.visit(forStatement.getBody(), context);
-		context.getStack().pop();
+//		context.getStack().pop();
 		context.getStack().pop();
 		return null;
 	}

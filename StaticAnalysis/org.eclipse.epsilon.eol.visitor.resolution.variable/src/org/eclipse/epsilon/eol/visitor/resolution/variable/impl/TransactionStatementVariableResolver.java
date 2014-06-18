@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.TransactionStatement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.TransactionStatementVisitor;
@@ -12,6 +13,10 @@ public class TransactionStatementVariableResolver extends TransactionStatementVi
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		
+		for(NameExpression ne: transactionStatement.getNames())
+		{
+			controller.visit(ne, context);
+		}
 		context.getStack().push(transactionStatement, true);
 		controller.visit(transactionStatement.getBody(), context);
 		context.getStack().pop();

@@ -11,15 +11,6 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 	public Object visit(NameExpression nameExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		if(nameExpression.getName().equals("_result") && context.getStack().getTop().getEntryPoint() instanceof OperationDefinition)
-		{
-			OperationDefinition operation = (OperationDefinition) context.getStack().getTop().getEntryPoint();
-			if(operation.get_result() != null)
-			{
-				VariableDeclarationExpression r = operation.get_result();
-				nameExpression.setResolvedContent(r);
-			}
-		}
 		if (nameExpression.getName().equals("null")) {
 			nameExpression.setResolvedContent(null);
 		}
