@@ -217,9 +217,9 @@ class WhileStatement extends Statement {
 
 class ModelDeclarationStatement extends Statement {
   val ecore.EPackage[*] packages;
-  val NameExpression[1] name;
-  val NameExpression[*] alias;
-  val NameExpression[1] driver;
+  val VariableDeclarationExpression[1] name;
+  val VariableDeclarationExpression[*] alias;
+  val VariableDeclarationExpression[1] driver;
   val ModelDeclarationParameter[*] parameters;
   ref ModelDeclarationStatement EReference0;
 }

@@ -213,12 +213,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="packages" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//VariableDeclarationExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="alias" upperBound="-1"
-        eType="#//NameExpression" containment="true"/>
+        eType="#//VariableDeclarationExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="driver" lowerBound="1"
-        eType="#//NameExpression" containment="true"/>
+        eType="#//VariableDeclarationExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ModelDeclarationParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="EReference0" eType="#//ModelDeclarationStatement"/>
