@@ -43,12 +43,44 @@ public class VariableResolutionContext {
 	{
 		return ast2DomUtil;
 	}
-	
-	public void setAssets(EolElement obj, EolElement container)
+		
+	public boolean isKeyWordSimple(String s)
 	{
-		obj.setLine(container.getLine());
-		obj.setColumn(container.getColumn());
-		obj.setContainer(container);
+		if (s.equals("Any") ||
+				s.equals("Integer") ||
+				s.equals("Boolean") ||
+				s.equals("Real") ||
+				s.equals("String") ||
+				s.equals("Bag") ||
+				s.equals("Set") ||
+				s.equals("OrderedSet") ||
+				s.equals("Sequence") ||
+				s.equals("Map") ||
+				s.equals("_ModelElementType_")) {
+			return true;
+		}
+		else if (s.contains("Bag(")) {
+			String temp = s.replaceFirst("Bag\\(", "");
+			temp = temp.replaceFirst("\\)", "");
+			return isKeyWordSimple(temp);
+		}
+		else if (s.contains("Set\\(")) {
+			String temp = s.replaceFirst("Set\\(", "");
+			temp = temp.replaceFirst("\\)", "");
+			return isKeyWordSimple(temp);
+		}
+		else if (s.contains("OrderedSet(")) {
+			String temp = s.replaceFirst("OrderedSet\\(", "");
+			temp = temp.replaceFirst("\\)", "");
+			return isKeyWordSimple(temp);
+		}
+		else if (s.contains("Sequence(")) {
+			String temp = s.replaceFirst("Sequence\\(", "");
+			temp = temp.replaceFirst("\\)", "");
+			return isKeyWordSimple(temp);
+		}
+		else {
+			return false;
+		}
 	}
-	
 }

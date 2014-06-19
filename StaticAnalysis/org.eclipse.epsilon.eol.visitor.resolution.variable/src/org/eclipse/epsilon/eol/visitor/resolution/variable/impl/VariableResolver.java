@@ -29,6 +29,7 @@ public class VariableResolver {
 		
 		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
 		controller.addTransactionStatementVisitor(new TransactionStatementVariableResolver());
+		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementVariableResolver());
 		
 	}
 	

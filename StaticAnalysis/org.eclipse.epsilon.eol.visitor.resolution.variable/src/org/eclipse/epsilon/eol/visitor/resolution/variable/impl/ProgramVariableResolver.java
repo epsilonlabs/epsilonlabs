@@ -13,6 +13,10 @@ public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutio
 		if (context.getMainProgram() == null) { //if the program is the EOL in question (the main program)
 			context.getStack().push(program, true); //insert a stack
 			context.setMainProgram(program); //set the main program to be this one
+			for(ModelDeclarationStatement mds: program.getModelDeclarations())
+			{
+				controller.visit(mds, context);
+			}
 			for(Import imported : program.getImports())
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs

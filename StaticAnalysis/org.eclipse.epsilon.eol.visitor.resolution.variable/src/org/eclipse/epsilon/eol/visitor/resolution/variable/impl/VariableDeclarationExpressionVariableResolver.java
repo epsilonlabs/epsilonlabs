@@ -16,7 +16,12 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 			context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists");
 		}
 		else {
-			context.getStack().putVariable(variableDeclarationExpression);
+			if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
+				context.getLogBook().addError(variableDeclarationExpression.getName(), "cannot create an variable with reserved keyword");
+			}
+			else {
+				context.getStack().putVariable(variableDeclarationExpression);
+			}
 		}
 		return null;
 	}
