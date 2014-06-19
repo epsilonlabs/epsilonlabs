@@ -3,7 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -67,7 +67,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 				if(propertyCallExpression.getTarget().getResolvedType() instanceof ModelElementType) //if the target type is ModelElementType
 				{
 					ModelElementType targetType = (ModelElementType) propertyCallExpression.getTarget().getResolvedType(); //get the type
-					EMetaModel mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
+					EMFMetamodelDriver mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
 					String metaClassString = targetType.getElementName(); //get metaclass string
 					String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 					
@@ -116,7 +116,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								Type contentType = null; //each collection type needs a content type
 								CollectionType callType = null; //prepare the callType
 								
-								EClassifier propertyType = mm.getTypeForProperty(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
+								EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
 								if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
 									if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
 										contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
@@ -129,7 +129,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								else { //if type is not EDatatype
 									contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
 									((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-									((ModelElementType) contentType).setModelName(mm.getMetaModelName()); //model name
+									((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
 									((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
 								}
 
@@ -162,7 +162,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							}
 							else { //if the feature is single value aggregation
 								
-								EClassifier propertyType = mm.getTypeForProperty(mm.getMetaClass(metaClassString), propertyString); //get property
+								EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
 								if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
 									if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
 										Type type = context.getTypeUtil().normalise(propertyType);
@@ -187,7 +187,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								else { //if the property is not data type, then it should be model element type
 									ModelElementType callType = context.getEolFactory().createModelElementType();
 									callType.setEcoreType(propertyType);
-									callType.setModelName(mm.getMetaModelName());
+									callType.setModelName(mm.getMetamodelName());
 									callType.setElementName(propertyType.getName());
 									propertyCallExpression.getProperty().setResolvedType(callType);
 									context.setAssets(callType, propertyCallExpression.getProperty());
@@ -221,7 +221,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						if (getInnermostType(rawCollectionType) instanceof ModelElementType) 
 						{ //if contentType is ModelElementType
 							ModelElementType resultContentType = (ModelElementType) getInnermostType(rawCollectionType); //prepare result content type
-							EMetaModel mm = context.getMetaModel(resultContentType.getModelName()); //get the metamodel
+							EMFMetamodelDriver mm = context.getMetaModel(resultContentType.getModelName()); //get the metamodel
 							if(mm != null) //if meta model exists
 							{
 								String metaClassString = resultContentType.getElementName(); //get metaclass string
@@ -236,7 +236,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 										Type contentType = null; //each collection type needs a content type
 										CollectionType callType = null; //prepare the callType
 										
-										EClassifier propertyType = mm.getTypeForProperty(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
+										EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
 										if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
 											if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
 												contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
@@ -249,7 +249,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 										else { //if type is not EDatatype
 											contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
 											((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-											((ModelElementType) contentType).setModelName(mm.getMetaModelName()); //model name
+											((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
 											((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
 										}
 
@@ -284,7 +284,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 									}
 									else { //if the feature is single value aggregation
 										
-										EClassifier propertyType = mm.getTypeForProperty(mm.getMetaClass(metaClassString), propertyString); //get property
+										EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
 										if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
 											if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
 												Type type = context.getTypeUtil().normalise(propertyType);
@@ -315,7 +315,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 										else { //if the property is not data type, then it should be model element type
 											ModelElementType callType = context.getEolFactory().createModelElementType();
 											callType.setEcoreType(propertyType);
-											callType.setModelName(mm.getMetaModelName());
+											callType.setModelName(mm.getMetamodelName());
 											callType.setElementName(propertyType.getName());
 											propertyCallExpression.getProperty().setResolvedType(callType);
 											context.setAssets(callType, propertyCallExpression.getProperty());

@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -22,10 +22,10 @@ public class EnumerationLiteralExpressionTypeResolver extends EnumerationLiteral
 		enumerationLiteralExpression.setResolvedType(context.getEolFactory().createIntegerType());
 
 		
-		EMetaModel mm = context.getMetaModel(modelName); //get metamodel
+		EMFMetamodelDriver mm = context.getMetaModel(modelName); //get metamodel
 		if (mm != null) { //if metamodel is not null
 			if (mm.containsEnum(enumName)) { //if metamodel caontains enumeration
-				if (mm.enumContainsLiteral(enumName, literalName)) { //if enumeration contains literal
+				if (mm.containsEnumLiteral(enumName, literalName)) { //if enumeration contains literal
 					
 					EType type = context.getEolFactory().createEType(); //create eType
 					type.setEcoreType((EClassifier) mm.getEnum(enumName)); //set ecoreType

@@ -2,15 +2,11 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.emf.ecoreUtil;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
-import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
 public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisitor<TypeResolutionContext, Object>{
 

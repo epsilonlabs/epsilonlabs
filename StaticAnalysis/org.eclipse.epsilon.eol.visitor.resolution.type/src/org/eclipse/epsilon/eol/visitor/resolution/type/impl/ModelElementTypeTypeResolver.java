@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.emf.ecore.EClass;
@@ -43,7 +43,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 							context.getLogBook().addError(modelElementType, "model element type cannot be denoted with prefix: " + elementString.substring(0, 2));
 						}
 						else {
-							EMetaModel em = context.getMetaModel(modelString); //get metamodel
+							EMFMetamodelDriver em = context.getMetaModel(modelString); //get metamodel
 							
 							if(em.containsMetaClass(elementString)) //check if metamodel contains meta class
 							{
@@ -55,7 +55,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 									ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
 									for(String s: context.getModelDeclarations().keySet()) //get model declaration names
 									{
-										if (em.getName().equals(s)) { //if declaration name is equal to metamodel name, set
+										if (em.getMetamodelName().equals(s)) { //if declaration name is equal to metamodel name, set
 											resolveDeclarationStatement = context.getModelDeclarations().get(s);
 											break;
 										}
@@ -138,15 +138,15 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 						{
 							if(context.numberOfMetamodelsDefine(elementString, false) == 1)
 							{
-								EMetaModel em = context.getMetaModelDefiningMetaClass(elementString);
-								modelElementType.setModelName(em.getMetaModelName());
+								EMFMetamodelDriver em = context.getMetaModelDefiningMetaClass(elementString);
+								modelElementType.setModelName(em.getMetamodelName());
 								modelElementType.setEcoreType(em.getMetaClass(elementString));
 								//EClass classifier = em.getMetaClass(elementString);
 								//if (!classifier.isAbstract() && !classifier.isInterface()) {
 									ModelDeclarationStatement resolveDeclarationStatement = null;
 									for(String s: context.getModelDeclarations().keySet())
 									{
-										if (em.getMetaModelName().equals(s)) {
+										if (em.getMetamodelName().equals(s)) {
 											resolveDeclarationStatement = context.getModelDeclarations().get(s);
 											break;
 										}

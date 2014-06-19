@@ -14,7 +14,9 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			VariableDeclarationExpression variableDeclarationExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
 		controller.visitContents(variableDeclarationExpression, context);
+		
 		if (variableDeclarationExpression.getCreate() != null) {
 			boolean newExpression = variableDeclarationExpression.getCreate().isVal();
 			if (newExpression) {

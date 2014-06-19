@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandl
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;

@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -21,7 +21,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 
 		if(modelDeclarationStatement.getDriver().getName().equals("EMF"))
 		{
-			EMetaModel metaModel = new EMetaModel(); //create a new MetaModel
+			EMFMetamodelDriver metaModel = new EMFMetamodelDriver(); //create a new MetaModel
 			try {
 				metaModel.loadModel(sourceString);
 			} catch (Exception e) {

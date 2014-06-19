@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandl
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -49,7 +49,7 @@ public class _deprecated_ModelElementTypeCreateInstanceHandler extends _deprecat
 					ModelElementType targetType = (ModelElementType) rawTargetType;
 					String modelName = targetType.getModelName();
 					String elementName = targetType.getElementName();
-					EMetaModel em = context.getMetaModel(modelName); //get metamodel
+					EMFMetamodelDriver em = context.getMetaModel(modelName); //get metamodel
 					EClass eClass = em.getMetaClass(elementName);
 					
 					if (eClass.isAbstract() || eClass.isInterface()) {

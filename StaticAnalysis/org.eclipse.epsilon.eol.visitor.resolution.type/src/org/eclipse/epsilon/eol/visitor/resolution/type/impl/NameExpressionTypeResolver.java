@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -15,7 +15,6 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 	public Object visit(NameExpression nameExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		
 		
 		String nameString = nameExpression.getName();
 		nameExpression.setResolvedType(EcoreUtil.copy(context.getEolFactory().createAnyType()));
@@ -145,7 +144,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				
 				if(context.containsMetaModel(model)) //check if metamodel exists
 				{
-					EMetaModel em = context.getMetaModel(model); //fetch the metamodel
+					EMFMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
 					if(em.containsMetaClass(element)) //if metaclass exists
 					{
 						BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
@@ -158,7 +157,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						context.checkAndDisplayAnnotation(ecoreType, nameExpression);
 						
 						ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-						type.setModelName(em.getMetaModelName()); //set model name
+						type.setModelName(em.getMetamodelName()); //set model name
 						type.setElementName(element); //set element name
 						type.setEcoreType(ecoreType);
 						context.setAssets(type, nameExpression); //set assets
@@ -181,7 +180,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			{
 				if(context.numberOfMetamodelsDefine(nameString, true) == 1)
 				{
-					EMetaModel em = context.getMetaModelDefiningMetaClass(nameString);
+					EMFMetamodelDriver em = context.getMetaModelDefiningMetaClass(nameString);
 					
 					BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
 					isType.setVal(true); //isType should be true
@@ -190,11 +189,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					nameExpression.setResolvedContent(em.getMetaClass(nameString)); //setResolvedContent for nameExpression
 					
 					ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-					type.setModelName(em.getMetaModelName()); //set model name
+					type.setModelName(em.getMetamodelName()); //set model name
 					type.setElementName(nameString); //set element name
 					type.setEcoreType(em.getMetaClass(nameString));
 					context.setAssets(type, nameExpression); //set assets
-					type.setResolvedModelDeclaration(context.getModelDeclarationStatement(em.getMetaModelName())); //set resolved model declaration statement
+					type.setResolvedModelDeclaration(context.getModelDeclarationStatement(em.getMetamodelName())); //set resolved model declaration statement
 					nameExpression.setResolvedType(type);
 				}
 				else {

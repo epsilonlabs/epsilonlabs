@@ -42,14 +42,15 @@ public class TypeResolver {
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionTypeResolver());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionTypeResolver());
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionTypeResolver());
+		controller.addTransactionStatementVisitor(new TransactionStatementTypeResolver());
 
 		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
 		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockTypeResolver());
 	}
 	
-	public void run(EolElement dom)
+	public void run(EolElement eolElement)
 	{
-		controller.visit(dom, context);
+		controller.visit(eolElement, context);
 	}
 	
 	public TypeResolutionContext getTypeResolutionContext()
