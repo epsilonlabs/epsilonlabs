@@ -26,21 +26,30 @@ public class ModelDeclarationStatementCreator extends StatementCreator{
 		this.setAssets(ast, statement, container);
 		
 		AST nameAst = ast.getChild(0);
-		statement.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(nameAst, statement, context, NameExpressionCreator.class));
+		VariableDeclarationExpression model_name = context.getEolFactory().createVariableDeclarationExpression();
+		setAssets(nameAst, model_name, statement);
+		model_name.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(nameAst, statement, context, NameExpressionCreator.class));
+		statement.setName(model_name);
 		
 		AST aliasAst = AstUtilities.getChild(ast, EolParser.ALIAS);
 		if(aliasAst != null)
 		{
 			for(AST alias: aliasAst.getChildren())
-			{			
-				statement.getAlias().add((NameExpression) context.getEolElementCreatorFactory().createDomElement(alias, statement, context, NameExpressionCreator.class));
+			{	
+				VariableDeclarationExpression a = context.getEolFactory().createVariableDeclarationExpression();
+				setAssets(alias, a, statement);
+				a.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(alias, statement, context, NameExpressionCreator.class));
+				statement.getAlias().add(a);
 			}
 		}
 		
 		AST driverAst = AstUtilities.getChild(ast, EolParser.DRIVER);
 		if(driverAst != null)
 		{	
-			statement.setDriver((NameExpression) context.getEolElementCreatorFactory().createDomElement(driverAst.getChild(0), statement, context, NameExpressionCreator.class));
+			VariableDeclarationExpression driver = context.getEolFactory().createVariableDeclarationExpression();
+			setAssets(driverAst, driver, statement);
+			driver.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(driverAst.getChild(0), statement, context, NameExpressionCreator.class));
+			statement.setDriver(driver);
 		}
 		
 		AST parameterListAst = AstUtilities.getChild(ast, EolParser.MODELDECLARATIONPARAMETERS);
