@@ -75,7 +75,7 @@ public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAna
 		{
 			String frn = pm.getPattern().getRoles().get(0).getNames().get(0);
 			FOLMethodCallExpression fol = (FOLMethodCallExpression) pm.getRoleBinding(frn);
-			NameExpression rhs = (NameExpression) ((EqualsOperatorExpression)fol.getConditions().get(0)).getRhs();
+			NameExpression rhs = (NameExpression) ((EqualsOperatorExpression)fol.getCondition()).getRhs();
 			PropertyCallExpression lhs = (PropertyCallExpression) pm.getRoleBinding("lhs");
 			String propertyName = lhs.getProperty().getName();
 			EClass lhsType = (EClass) ((ModelElementType)lhs.getTarget().getResolvedType()).getEcoreType();
@@ -114,7 +114,7 @@ public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAna
 			FOLMethodCallExpression targetfol = (FOLMethodCallExpression) pm.getRoleBinding("targetFOLCall");
 			EolElementPrinterFactory factory = new EolElementPrinterFactory();
 			
-			context.getLogBook().addWarning(fol, "Sub-optimal expression, consider rewriting as: "+ factory.print(targetfol.getTarget()) + ".select("+ targetfol.getIterators().get(0).getName().getName() + "|" +  factory.print(targetfol.getConditions()) + "and" + factory.print(fol.getConditions()) + ")");
+			context.getLogBook().addWarning(fol, "Sub-optimal expression, consider rewriting as: "+ factory.print(targetfol.getTarget()) + ".select("+ targetfol.getIterator().getName().getName() + "|" +  factory.print(targetfol.getCondition()) + "and" + factory.print(fol.getCondition()) + ")");
 		}
 		System.out.println(patternMatchModel.getAllOfKind("PatternTwo").size());
 	}
@@ -138,7 +138,7 @@ public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAna
 			FOLMethodCallExpression fol = (FOLMethodCallExpression) pm.getRoleBinding("folcall");
 			EolElementPrinterFactory factory = new EolElementPrinterFactory();
 			
-			context.getLogBook().addWarning(fol, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".selectOne("+ fol.getIterators().get(0).getName().getName() + "|" + factory.print(fol.getConditions()) + ")");
+			context.getLogBook().addWarning(fol, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".selectOne("+ fol.getIterator().getName().getName() + "|" + factory.print(fol.getCondition()) + ")");
 		}
 		System.out.println(patternMatchModel.getAllOfKind("PatternThree").size());
 	}
@@ -162,7 +162,7 @@ public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAna
 			BinaryOperatorExpression binaryOperatorExpression = (BinaryOperatorExpression) pm.getRoleBinding("binaryOperatorExpression");
 			EolElementPrinterFactory factory = new EolElementPrinterFactory();
 			
-			context.getLogBook().addWarning(binaryOperatorExpression, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".exists("+ fol.getIterators().get(0).getName().getName() + "|" + factory.print(fol.getConditions()) + ")");
+			context.getLogBook().addWarning(binaryOperatorExpression, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".exists("+ fol.getIterator().getName().getName() + "|" + factory.print(fol.getCondition()) + ")");
 		}
 		System.out.println(patternMatchModel.getAllOfKind("PatternFour").size());
 	}
@@ -186,7 +186,7 @@ public class ProgramPerformanceAnalyser extends EolProgramVisitor<PerformanceAna
 			MethodCallExpression methodCallExpression = (MethodCallExpression) pm.getRoleBinding("methodCall");
 			EolElementPrinterFactory factory = new EolElementPrinterFactory();
 			
-			context.getLogBook().addWarning(methodCallExpression, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".selectOne("+ fol.getIterators().get(0).getName().getName() + "|" + factory.print(fol.getConditions()) + ")");
+			context.getLogBook().addWarning(methodCallExpression, "Expression should be read as: "+ factory.print(fol.getTarget()) + ".selectOne("+ fol.getIterator().getName().getName() + "|" + factory.print(fol.getCondition()) + ")");
 		}
 		System.out.println(patternMatchModel.getAllOfKind("PatternFive").size());
 	}

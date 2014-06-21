@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import log.LogBook;
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -76,19 +76,19 @@ public class PerformanceAnalysisContext {
 		}
 		
 		//put metamode in the metamode container
-		public void inputMetaModel(EMetaModel metaModel)
+		public void inputMetaModel(EMFMetamodelDriver metaModel)
 		{
-			metaModelNameSpace.add(metaModel.getMetaModelName());
-			metaModelNameSpace.add(metaModel.getName());
+			metaModelNameSpace.add(metaModel.getMetamodelName());
+			metaModelNameSpace.add(metaModel.getMetamodelName());
 			container.inputMetaModel(metaModel);
 		}
 				
-		public EMetaModel getMetaModel(String name)
+		public EMFMetamodelDriver getMetaModel(String name)
 		{
 			return container.getMetaModel(name);
 		}
 		
-		public ArrayList<EMetaModel> getMetaModelsWithAlias(String alias)
+		public ArrayList<EMFMetamodelDriver> getMetaModelsWithAlias(String alias)
 		{
 			return container.getMetaModelsWithAlias(alias);
 		}
@@ -130,7 +130,7 @@ public class PerformanceAnalysisContext {
 		
 		public boolean containsMetaClass(String metaClass)
 		{
-			for(EMetaModel em: container.getMetaModels())
+			for(EMFMetamodelDriver em: container.getMetaModels())
 			{
 				if(em.containsMetaClass(metaClass))
 				{
@@ -140,9 +140,9 @@ public class PerformanceAnalysisContext {
 			return false;
 		}
 			
-		public EMetaModel getMetaModelDefiningMetaClass(String metaClass)
+		public EMFMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
 		{
-			for(EMetaModel em: container.getMetaModels())
+			for(EMFMetamodelDriver em: container.getMetaModels())
 			{
 				if (em.containsMetaClass(metaClass)) {
 					return em;
@@ -159,7 +159,7 @@ public class PerformanceAnalysisContext {
 		public int numberOfMetamodelsDefine(String metaClass)
 		{
 			int result = 0;
-			for(EMetaModel em: container.getMetaModels())
+			for(EMFMetamodelDriver em: container.getMetaModels())
 			{
 				if(em.containsMetaClass(metaClass))
 				{
