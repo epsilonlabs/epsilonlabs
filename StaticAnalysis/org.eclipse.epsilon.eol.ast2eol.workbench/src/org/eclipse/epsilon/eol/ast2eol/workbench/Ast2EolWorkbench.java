@@ -24,7 +24,7 @@ public class Ast2EolWorkbench {
 	
 	public void run() throws Exception {
 		
-		URL url = getClass().getResource("test1.eol");
+		URL url = getClass().getResource("testMethodCall.eol");
 		System.out.println(url.toString());
 		EolModule eolModule = new EolModule();
 		try {
@@ -36,8 +36,8 @@ public class Ast2EolWorkbench {
 		AST ast = eolModule.getAst();
 		System.out.println(ast.toStringTree());
 		
-		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
-		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
+//		System.out.println(ast.getChild(0).getChild(0).getType());
+//		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 		
 		Ast2EolContext context = new Ast2EolContext();
 		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);

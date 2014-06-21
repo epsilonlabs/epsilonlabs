@@ -1,49 +1,163 @@
 <?xml version="1.0" encoding="ASCII"?>
-<eol:Program xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" line="1">
+<eol:EolProgram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" line="1">
   <region>
     <start line="1"/>
-    <end line="1" column="32"/>
+    <end line="5" column="6"/>
   </region>
-  <block container="/" line="1">
+  <modelDeclarations container="/" line="1">
     <region>
       <start line="1"/>
-      <end line="1" column="32"/>
+      <end line="1" column="68"/>
     </region>
-    <statements xsi:type="eol:ExpressionStatement" container="//@block" line="1">
+    <name container="//@modelDeclarations.0" line="1" column="6">
       <region>
-        <start line="1"/>
-        <end line="1" column="32"/>
+        <start line="1" column="6"/>
+        <end line="1" column="11"/>
       </region>
-      <expression xsi:type="eol:VariableDeclarationExpression" container="//@block/@statements.0" line="1">
+      <name container="//@modelDeclarations.0" line="1" column="6" name="ecore">
         <region>
-          <start line="1"/>
-          <end line="1" column="32"/>
+          <start line="1" column="6"/>
+          <end line="1" column="11"/>
         </region>
-        <resolvedType xsi:type="eol:MapType" container="//@block/@statements.0/@expression" line="1" column="12">
+      </name>
+    </name>
+    <alias container="//@modelDeclarations.0" line="1" column="18">
+      <region>
+        <start line="1" column="18"/>
+        <end line="1" column="19"/>
+      </region>
+      <name container="//@modelDeclarations.0" line="1" column="18" name="a">
+        <region>
+          <start line="1" column="18"/>
+          <end line="1" column="19"/>
+        </region>
+      </name>
+    </alias>
+    <alias container="//@modelDeclarations.0" line="1" column="21">
+      <region>
+        <start line="1" column="21"/>
+        <end line="1" column="22"/>
+      </region>
+      <name container="//@modelDeclarations.0" line="1" column="21" name="b">
+        <region>
+          <start line="1" column="21"/>
+          <end line="1" column="22"/>
+        </region>
+      </name>
+    </alias>
+    <driver container="//@modelDeclarations.0" line="1" column="23">
+      <region>
+        <start line="1" column="23"/>
+        <end line="1" column="33"/>
+      </region>
+      <name container="//@modelDeclarations.0" line="1" column="30" name="EMF">
+        <region>
+          <start line="1" column="30"/>
+          <end line="1" column="33"/>
+        </region>
+      </name>
+    </driver>
+    <parameters container="//@modelDeclarations.0" line="1" column="41">
+      <region>
+        <start line="1" column="35"/>
+        <end line="1" column="66"/>
+      </region>
+      <name container="//@modelDeclarations.0/@parameters.0" line="1" column="35" name="nsuri">
+        <region>
+          <start line="1" column="35"/>
+          <end line="1" column="40"/>
+        </region>
+      </name>
+      <value container="//@modelDeclarations.0/@parameters.0" line="1" column="43" val="http://this.is.a.test">
+        <region>
+          <start line="1" column="43"/>
+          <end line="1" column="66"/>
+        </region>
+        <resolvedType xsi:type="eol:StringType" container="//@modelDeclarations.0/@parameters.0/@value" line="1" column="43">
           <region>
-            <start line="1" column="12"/>
-            <end line="1" column="15"/>
+            <start line="1" column="43"/>
+            <end line="1" column="66"/>
           </region>
         </resolvedType>
-        <name container="//@block/@statements.0/@expression" line="1" column="4" name="i">
+      </value>
+    </parameters>
+  </modelDeclarations>
+  <block container="/" line="3">
+    <region>
+      <start line="3"/>
+      <end line="5" column="6"/>
+    </region>
+    <statements xsi:type="eol:ExpressionStatement" container="//@block" line="3">
+      <region>
+        <start line="3"/>
+        <end line="3" column="15"/>
+      </region>
+      <expression xsi:type="eol:VariableDeclarationExpression" container="//@block/@statements.0" line="3">
+        <region>
+          <start line="3"/>
+          <end line="3" column="15"/>
+        </region>
+        <resolvedType xsi:type="eol:StringType" container="//@block/@statements.0/@expression" line="3" column="8">
           <region>
-            <start line="1" column="4"/>
-            <end line="1" column="5"/>
+            <start line="3" column="8"/>
+            <end line="3" column="14"/>
+          </region>
+        </resolvedType>
+        <name container="//@block/@statements.0/@expression" line="3" column="4" name="a">
+          <region>
+            <start line="3" column="4"/>
+            <end line="3" column="5"/>
           </region>
         </name>
-        <create container="//@block/@statements.0/@expression" line="1" val="true">
+        <create container="//@block/@statements.0/@expression" line="3">
           <region>
-            <start line="1"/>
-            <end line="1" column="32"/>
+            <start line="3"/>
+            <end line="3" column="15"/>
           </region>
-          <resolvedType xsi:type="eol:BooleanType" container="//@block/@statements.0/@expression/@create" line="1">
+          <resolvedType xsi:type="eol:BooleanType" container="//@block/@statements.0/@expression/@create" line="3">
             <region>
-              <start line="1"/>
-              <end line="1" column="32"/>
+              <start line="3"/>
+              <end line="3" column="15"/>
+            </region>
+          </resolvedType>
+        </create>
+      </expression>
+    </statements>
+    <statements xsi:type="eol:ExpressionStatement" container="//@block" line="5">
+      <region>
+        <start line="5"/>
+        <end line="5" column="6"/>
+      </region>
+      <expression xsi:type="eol:VariableDeclarationExpression" container="//@block/@statements.1" line="5">
+        <region>
+          <start line="5"/>
+          <end line="5" column="6"/>
+        </region>
+        <resolvedType xsi:type="eol:AnyType" container="//@block/@statements.1/@expression" line="5">
+          <region>
+            <start line="5"/>
+            <end line="5" column="6"/>
+          </region>
+        </resolvedType>
+        <name container="//@block/@statements.1/@expression" line="5" column="4" name="b">
+          <region>
+            <start line="5" column="4"/>
+            <end line="5" column="5"/>
+          </region>
+        </name>
+        <create container="//@block/@statements.1/@expression" line="5">
+          <region>
+            <start line="5"/>
+            <end line="5" column="6"/>
+          </region>
+          <resolvedType xsi:type="eol:BooleanType" container="//@block/@statements.1/@expression/@create" line="5">
+            <region>
+              <start line="5"/>
+              <end line="5" column="6"/>
             </region>
           </resolvedType>
         </create>
       </expression>
     </statements>
   </block>
-</eol:Program>
+</eol:EolProgram>

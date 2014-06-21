@@ -1,0 +1,5 @@
+model ecore alias a, b driver EMF {nsuri = "http://this.is.a.test"};
+
+var a : String;
+
+var b;
