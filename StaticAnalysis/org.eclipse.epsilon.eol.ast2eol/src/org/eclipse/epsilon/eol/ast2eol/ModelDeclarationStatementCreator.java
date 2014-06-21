@@ -31,6 +31,9 @@ public class ModelDeclarationStatementCreator extends StatementCreator{
 		model_name.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(nameAst, statement, context, NameExpressionCreator.class));
 		statement.setName(model_name);
 		
+//		ModelType modelType = context.getEolFactory().createModelType();
+//		modelType.setModelName(model_name.getName());
+		
 		AST aliasAst = AstUtilities.getChild(ast, EolParser.ALIAS);
 		if(aliasAst != null)
 		{
@@ -40,6 +43,7 @@ public class ModelDeclarationStatementCreator extends StatementCreator{
 				setAssets(alias, a, statement);
 				a.setName((NameExpression) context.getEolElementCreatorFactory().createDomElement(alias, statement, context, NameExpressionCreator.class));
 				statement.getAlias().add(a);
+				
 			}
 		}
 		
