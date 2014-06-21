@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
@@ -19,10 +20,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		String nameString = nameExpression.getName();
 		nameExpression.setResolvedType(EcoreUtil.copy(context.getEolFactory().createAnyType()));
 		
-		if (context.getTypeUtil().isKeyWordSimple(nameString)) {
+		if (context.getTypeUtil().isKeyWordSimple(nameString)) { //if name expression is keyword then resolve type immediately
 			nameExpression.setResolvedType(context.getTypeUtil().createType(nameString));
 			return null;
 		}
+		
 		
 		if(nameExpression.getResolvedContent() != null) //if name has a resolved content, this should be a var
 		{
@@ -133,7 +135,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			}
 		}
 		else { //if name does not have a resolved content
-			if (nameString.equals("null")) {
+			if (nameString.equals("null")) { //if name is null then it is the keyword
 				AnyType anyType = context.getEolFactory().createAnyType();
 				nameExpression.setResolvedType(EcoreUtil.copy(anyType));
 			}
@@ -203,9 +205,6 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				}
 			}
 			
-			else if (nameExpression.getContainer() instanceof ModelDeclarationStatement) {
-				
-			}
 			else if (nameExpression.getContainer() instanceof VariableDeclarationExpression) {
 				
 			}
@@ -216,6 +215,36 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		}
 
 		return null;
+	}
+	
+	public boolean definedInModelDeclarationStatement(EolElement eolElement)
+	{
+		EolElement container = eolElement;
+		while(container!=null)
+		{
+			if (container instanceof ModelDeclarationStatement) {
+				return true;
+			}
+			else {
+				container = container.getContainer();	
+			}
+		}
+		return false;
+	}
+	
+	public boolean definedInEolElement(EolElement eolElement, EClass eClass)
+	{
+		EolElement container = eolElement;
+		while(container != null)
+		{
+			if (container.eClass().equals(eClass)) {
+				return true;
+			}
+			else {
+				container = container.getContainer();
+			}
+		}
+		return false;
 	}
 
 }

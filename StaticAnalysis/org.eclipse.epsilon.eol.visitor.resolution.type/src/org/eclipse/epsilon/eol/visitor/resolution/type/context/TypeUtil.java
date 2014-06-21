@@ -425,22 +425,22 @@ public class TypeUtil {
 		else if (s.contains("Bag(")) {
 			String temp = s.replaceFirst("Bag\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isKeyWordSimple(temp);
 		}
 		else if (s.contains("Set\\(")) {
 			String temp = s.replaceFirst("Set\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isKeyWordSimple(temp);
 		}
 		else if (s.contains("OrderedSet(")) {
 			String temp = s.replaceFirst("OrderedSet\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isKeyWordSimple(temp);
 		}
 		else if (s.contains("Sequence(")) {
 			String temp = s.replaceFirst("Sequence\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isKeyWordSimple(temp);
 		}
 		else {
 			return false;

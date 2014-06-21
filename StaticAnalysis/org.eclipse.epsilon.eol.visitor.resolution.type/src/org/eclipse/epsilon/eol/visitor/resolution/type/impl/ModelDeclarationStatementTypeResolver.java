@@ -6,6 +6,7 @@ import metamodel.connectivity.plainxml.PlainXMLModel;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ModelDeclarationStatementTypeResolver extends ModelDeclarationStatementVisitor<TypeResolutionContext, Object>{
@@ -19,45 +20,46 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 		ModelDeclarationParameter sourceParameter = fetchSourceParameter(modelDeclarationStatement); //fetch the sourceParameter which specifies the metamodel information
 		String sourceString = sourceParameter.getValue().getVal(); //fetch the metamodel name or NSURI
 
-		if(modelDeclarationStatement.getDriver().getName().equals("EMF"))
-		{
-			EMFMetamodelDriver metaModel = new EMFMetamodelDriver(); //create a new MetaModel
-			try {
-				metaModel.loadModel(sourceString);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} //load the metamodel with the name or NSURI
-			
-			//System.out.println(metaModel.getMetaModelName());
-			metaModel.setName(modelDeclarationStatement.getName().getName()); //add given name
-			for(NameExpression name: modelDeclarationStatement.getAlias()) //add aliases
-			{
-				metaModel.addAlias(name.getName());
-			}
-			context.inputMetaModel(metaModel); //put the metamodel in the context
-			context.putModelDeclarationStatement(modelDeclarationStatement.getName().getName(), modelDeclarationStatement); //put the ModelDeclarationStatement in the context
-			
-		}
-		else if (modelDeclarationStatement.getDriver().getName().equals("XML")) {
-			PlainXMLModel metaModel = new PlainXMLModel();
-			String directoryPath = context.getDirectoryPathString();
-			try {
-				metaModel.loadModel(directoryPath + sourceString);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			metaModel.setName(modelDeclarationStatement.getName().getName()); //add given name
-			for(NameExpression name: modelDeclarationStatement.getAlias()) //add aliases
-			{
-				metaModel.addAlias(name.getName());
-			}
-			context.inputMetaModel(metaModel); //put the metamodel in the context
-			context.putModelDeclarationStatement(modelDeclarationStatement.getName().getName(), modelDeclarationStatement); //put the ModelDeclarationStatement in the context
-		}
+//		if(modelDeclarationStatement.getDriver().getName().equals("EMF"))
+//		{
+//			EMFMetamodelDriver metaModel = new EMFMetamodelDriver(); //create a new MetaModel
+//			try {
+//				metaModel.loadModel(sourceString);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} //load the metamodel with the name or NSURI
+//			
+//			//System.out.println(metaModel.getMetaModelName());
+//			metaModel.setName(modelDeclarationStatement.getName().getName()); //add given name
+//			for(NameExpression name: modelDeclarationStatement.getAlias()) //add aliases
+//			{
+//				metaModel.addAlias(name.getName());
+//			}
+//			context.inputMetaModel(metaModel); //put the metamodel in the context
+//			context.putModelDeclarationStatement(modelDeclarationStatement.getName().getName(), modelDeclarationStatement); //put the ModelDeclarationStatement in the context
+//			
+//		}
+//		else if (modelDeclarationStatement.getDriver().getName().equals("XML")) {
+//			PlainXMLModel metaModel = new PlainXMLModel();
+//			String directoryPath = context.getDirectoryPathString();
+//			try {
+//				metaModel.loadModel(directoryPath + sourceString);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			metaModel.setName(modelDeclarationStatement.getName().getName()); //add given name
+//			for(NameExpression name: modelDeclarationStatement.getAlias()) //add aliases
+//			{
+//				metaModel.addAlias(name.getName());
+//			}
+//			context.inputMetaModel(metaModel); //put the metamodel in the context
+//			context.putModelDeclarationStatement(modelDeclarationStatement.getName().getName(), modelDeclarationStatement); //put the ModelDeclarationStatement in the context
+//		}
+//		return null;
+//		
 		return null;
-		
 	}
 	
 	private ModelDeclarationParameter fetchSourceParameter(ModelDeclarationStatement statement)
