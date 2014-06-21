@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 import java.util.LinkedList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 
 public class FrameStack {
 
@@ -34,11 +35,25 @@ public class FrameStack {
 		return frames.getLast();
 	}
 	
-	public void putVariable(VariableDeclarationExpression var)
+	public void putVariable(VariableDeclarationExpression var, boolean plural)
 	{
 		String name = var.getName().getName();
-		Variable variable = new Variable(name, var);
-		getTop().put(variable);
+		if (plural) {
+			PluralVariable variable = (PluralVariable) getTop().get(name);
+			if (variable == null) {
+				variable = new PluralVariable(name, var);
+				getTop().put(variable);
+			}
+			else
+			{
+				variable.addValue(var);	
+			}
+		}
+		else {
+			Variable variable = new SimpleVariable(name, var);
+			getTop().put(variable);	
+		}
+		
 	}
 	
 	public boolean variableExists(String name)

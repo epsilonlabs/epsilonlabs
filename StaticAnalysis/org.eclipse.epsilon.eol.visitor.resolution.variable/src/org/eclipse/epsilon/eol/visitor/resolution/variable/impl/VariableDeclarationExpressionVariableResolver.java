@@ -20,7 +20,7 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 				context.getLogBook().addError(variableDeclarationExpression.getName(), "cannot create an variable with reserved keyword");
 			}
 			else {
-				context.getStack().putVariable(variableDeclarationExpression);
+				context.getStack().putVariable(variableDeclarationExpression, false);
 			}
 		}
 		return null;

@@ -14,7 +14,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		VariableDeclarationExpression name = modelDeclarationStatement.getName();
 		if (name != null) {
-			context.getStack().putVariable(name);	
+			context.getStack().putVariable(name, false);	
 		}
 		else {
 			context.getLogBook().addError(modelDeclarationStatement, "model declaration needs to define a name");
@@ -22,12 +22,12 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 		
 		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
 		{
-			context.getStack().putVariable(alias);
+			context.getStack().putVariable(alias, true);
 		}
 		
 		VariableDeclarationExpression driver = modelDeclarationStatement.getDriver();
 		if (driver != null) {
-			context.getStack().putVariable(driver);
+			context.getStack().putVariable(driver, false);
 		}
 		else {
 			context.getLogBook().addError(modelDeclarationStatement, "model loading driver needs to be specified");

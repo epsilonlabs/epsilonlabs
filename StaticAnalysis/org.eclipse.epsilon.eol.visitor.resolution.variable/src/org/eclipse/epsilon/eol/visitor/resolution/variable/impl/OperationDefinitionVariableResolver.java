@@ -14,11 +14,11 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 		context.getStack().push(operationDefinition, true);
 		
 		if (operationDefinition.getSelf() != null) {
-			context.getStack().putVariable(operationDefinition.getSelf()); //put 'self'
+			context.getStack().putVariable(operationDefinition.getSelf(), false); //put 'self'
 		}
 		
 		if (operationDefinition.get_result() != null) {
-			context.getStack().putVariable(operationDefinition.get_result()); //put "_result"
+			context.getStack().putVariable(operationDefinition.get_result(), false); //put "_result"
 		}
 		
 		if(operationDefinition.getAnnotationBlock()!= null)

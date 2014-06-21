@@ -11,7 +11,7 @@ public class FormalParameterExpressionVariableResolver extends FormalParameterEx
 	public Object visit(FormalParameterExpression formalParameterExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		context.getStack().putVariable(formalParameterExpression);
+		context.getStack().putVariable(formalParameterExpression, false);
 		return null;
 	}
  
