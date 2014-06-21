@@ -8,13 +8,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-public interface EModel {
+public interface EMetamodelDriver {
 
 	public abstract void loadModel(String modelString) throws Exception; 
 	
-	public abstract String getMetaModelName();
-	public abstract String getMetaModelNsURI();
-	public abstract String getMetaModelNsPrefix();
+	public abstract String getMetamodelName();
+	public abstract String getMetamodelNsURI();
+	public abstract String getMetamodelNsPrefix();
 	
 	public abstract boolean containsMetaClass(String className);
 	public abstract EClassifier getMetaClass(String className);
@@ -22,17 +22,26 @@ public interface EModel {
 	public abstract boolean containsEnum(String enumName);
 	public abstract EEnum getEnum(String enumName);
 	
-	public abstract boolean enumContainsLiteral(String enumName, String literalName);
+	public abstract boolean containsEnumLiteral(String enumName, String literalName);
 	
 	public abstract boolean containsEAttribute(String className, String attributeName);
 	public abstract boolean containsEReference(String className, String referenceName);
 	public abstract boolean contains(String className, String propertyName);
 	
+	public abstract EAttribute getEAttribute(String className, String attributeName);
+	public abstract EReference getEReference(String className, String referenceName);
+	public abstract EStructuralFeature getEStructuralFeature(String className, String featureName);
+	
 	public abstract EAttribute getEAttribute(EClass metaClass, String attributeName);
 	public abstract EReference getEReference(EClass metaClass, String referenceName);
 	public abstract EStructuralFeature getEStructuralFeature(EClass metaClass, String featureName);
+			
+	public abstract EClassifier getTypeForEAttribute(EClass eClass, String attributeName);
+	public abstract EClassifier getTypeForEReference(EClass eClass, String referenceName);
+	public abstract EClassifier getTypeForEStructuralFeature(EClass eClass, String propertyName);
 	
-	public abstract EClassifier getTypeForEAttribute(EObject eClass, String attributeName);
-	public abstract EClassifier getTypeForEReference(EObject eClass, String referenceName);
-	public abstract EClassifier getTypeForProperty(EObject eClass, String propertyName);
+	public abstract EClassifier getTypeForEAttribute(String className, String attributeName);
+	public abstract EClassifier getTypeForEReference(String className, String referenceName);
+	public abstract EClassifier getTypeForEStructuralFeature(String className, String propertyName);
+
 }

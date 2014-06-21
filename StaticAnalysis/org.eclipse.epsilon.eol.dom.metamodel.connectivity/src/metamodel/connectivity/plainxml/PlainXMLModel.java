@@ -2,7 +2,7 @@ package metamodel.connectivity.plainxml;
 
 import java.util.List;
 
-import metamodel.connectivity.emf.EMetaModel;
+import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EAttribute;
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
-public class PlainXMLModel extends EMetaModel{
+public class PlainXMLModel extends EMFMetamodelDriver{
 
 	protected XML2Ecore xml2EcoreParser = new XML2Ecore();
 		
@@ -50,17 +50,17 @@ public class PlainXMLModel extends EMetaModel{
 		}
 	}
 	
-	public String getMetaModelName()
+	public String getMetamodelName()
 	{
 		return ePackage.getName();
 	}
 	
-	public String getMetaModelNsURI()
+	public String getMetamodelNsURI()
 	{
 		return ePackage.getNsURI();
 	}
 	
-	public String getMetaModelNsPrefix()
+	public String getMetamodelNsPrefix()
 	{
 		return ePackage.getNsPrefix();
 	}
@@ -127,9 +127,9 @@ public class PlainXMLModel extends EMetaModel{
 		}
 	}
 	
-	public boolean enumContainsLiteral(String enumName, String literlName)
+	public boolean containsEnumLiteral(String enumName, String literlName)
 	{
-		return super.enumContainsLiteral(removeTag(enumName), literlName);
+		return super.containsEnumLiteral(removeTag(enumName), literlName);
 	}
 	
 	public List<EStructuralFeature> getEStructuralFeatures(String metaClassName)
@@ -205,7 +205,7 @@ public class PlainXMLModel extends EMetaModel{
 					
 					eAttribute.setUpperBound(1);
 					eAttribute.setLowerBound(0);
-					eAttribute.setEType(ePack.getEString());
+					eAttribute.setEType(ecorePackage.getEString());
 					
 					object.getEStructuralFeatures().add(eAttribute);
 					
@@ -237,7 +237,7 @@ public class PlainXMLModel extends EMetaModel{
 					
 					eAttribute.setUpperBound(1);
 					eAttribute.setLowerBound(0);
-					eAttribute.setEType(ePack.getEString());
+					eAttribute.setEType(ecorePackage.getEString());
 					if (object != null) {
 						object.getEStructuralFeatures().add(eAttribute);
 
@@ -409,10 +409,10 @@ public class PlainXMLModel extends EMetaModel{
 	public EClassifier getTypeForEAttribute(EObject object, String attributeName)
 	{
 		if (attributeName.equals("text")) {
-			return ePack.getEString();
+			return ecorePackage.getEString();
 		}
 		if (attributeName.equals("tagName")) {
-			return ePack.getEString();
+			return ecorePackage.getEString();
 		}
 		if (attributeName.equals("parentNode") || attributeName.equals("children")) {
 			return null;
@@ -434,7 +434,7 @@ public class PlainXMLModel extends EMetaModel{
 		return super.getTypeForEReference(object, removeTag(referenceName));
 	}
 	
-	public EClassifier getTypeForProperty(EObject object, String propertyName)
+	public EClassifier getTypeForEStructuralFeature(EObject object, String propertyName)
 	{
 		if (propertyName.startsWith("e_") || propertyName.startsWith("c_")) {
 			return getTypeForEReference(object, propertyName) == null ? getTypeForEAttribute(object, propertyName) : getTypeForEReference(object, propertyName);

@@ -3,7 +3,7 @@ package metamodel.connectivity.emf;
 import java.util.ArrayList;
 import java.util.List;
 
-import metamodel.connectivity.abstractmodel.EModel;
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.util.EcoreFileLoader;
 import metamodel.connectivity.util.EcoreRegistryLoader;
 
@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 
-public class EMetaModel implements EModel{
+public class EMFMetamodelDriver implements EMetamodelDriver{
 	
-	protected EPackage ePackage;
-	protected EcorePackage ePack = EcorePackage.eINSTANCE;
 	protected String name;
 	protected ArrayList<String> aliases;
+
+	protected EPackage ePackage;
 	
-	public EMetaModel()
+	public EMFMetamodelDriver()
 	{
 		aliases = new ArrayList<String>();
 		ePackage = null;
@@ -32,12 +32,12 @@ public class EMetaModel implements EModel{
 	
 	public static void main(String[] args) throws Exception
 	{
-		EMetaModel model = new EMetaModel();
+		EMFMetamodelDriver model = new EMFMetamodelDriver();
 		
 		model.loadModel("Dom.ecore");
 		model.printClasses();
 		
-		EObject obj = model.getTypeForProperty(model.getMetaClass("StringExpression"), "val");
+		EObject obj = model.getTypeForEStructuralFeature(model.getMetaClass("StringExpression"), "val");
 		EcorePackage pack = EcorePackage.eINSTANCE;
 		EObject obj2 = pack.getEString();
 		System.out.println(obj.equals(obj2));
@@ -71,17 +71,17 @@ public class EMetaModel implements EModel{
 		}
 	}
 	
-	public String getMetaModelName()
+	public String getMetamodelName()
 	{
 		return ePackage.getName();
 	}
 	
-	public String getMetaModelNsURI()
+	public String getMetamodelNsURI()
 	{
 		return ePackage.getNsURI();
 	}
 	
-	public String getMetaModelNsPrefix()
+	public String getMetamodelNsPrefix()
 	{
 		return ePackage.getNsPrefix();
 	}
@@ -131,7 +131,7 @@ public class EMetaModel implements EModel{
 		
 	}
 	
-	public boolean enumContainsLiteral(String enumName, String literlName)
+	public boolean containsEnumLiteral(String enumName, String literlName)
 	{
 		EEnum enumeration = getEnum(enumName);
 		if (enumeration != null) {
@@ -225,10 +225,9 @@ public class EMetaModel implements EModel{
 		return object.getEStructuralFeature(featureName);
 	}
 	
-	public EClassifier getTypeForEAttribute(EObject object, String attributeName)
+	public EClassifier getTypeForEAttribute(EClass eClass, String attributeName)
 	{
 		EClassifier result = null;
-		EClass eClass = (EClass) object;
 		for(EAttribute attr: eClass.getEAllAttributes())
 		{
 			if(attr.getName().equals(attributeName))
@@ -239,10 +238,9 @@ public class EMetaModel implements EModel{
 		return result;
 	}
 	
-	public EClassifier getTypeForEReference(EObject object, String referenceName)
+	public EClassifier getTypeForEReference(EClass eClass, String referenceName)
 	{
 		EClassifier result = null;
-		EClass eClass = (EClass) object;
 		for(EReference ref: eClass.getEAllReferences())
 		{
 			if (ref.getName().equals(referenceName)) {
@@ -252,9 +250,9 @@ public class EMetaModel implements EModel{
 		return result;
 	}
 	
-	public EClassifier getTypeForProperty(EObject object, String propertyName)
+	public EClassifier getTypeForEStructuralFeature(EClass eClass, String propertyName)
 	{
-		return getTypeForEAttribute(object, propertyName) == null ? getTypeForEReference(object, propertyName) : getTypeForEAttribute(object, propertyName);
+		return getTypeForEAttribute(eClass, propertyName) == null ? getTypeForEReference(eClass, propertyName) : getTypeForEAttribute(eClass, propertyName);
 	}
 	
 
@@ -296,33 +294,33 @@ public class EMetaModel implements EModel{
 		return result;
 	}
 	
-	public int distanceBetween(EClass lower, EClass higher)
-	{
-		int result = -1;
-		if (lower.getEAllSuperTypes().contains(higher)) {
-			result = 0;
-			EClass temp = lower;
-			while(!temp.equals(higher))
-			{
-				for(EClass cls: temp.getESuperTypes())
-				{
-					if (cls.getEAllSuperTypes().contains(higher)) {
-						temp = cls;
-						result++;
-						break;
-					}
-					else if (cls.equals(higher)) {
-						temp = cls;
-						break;
-					}
-				}
-			}
-		}
-		else if (lower.equals(higher)) {
-			result = 0;
-		}
-		return result;
-	}
+//	public int distanceBetween(EClass lower, EClass higher)
+//	{
+//		int result = -1;
+//		if (lower.getEAllSuperTypes().contains(higher)) {
+//			result = 0;
+//			EClass temp = lower;
+//			while(!temp.equals(higher))
+//			{
+//				for(EClass cls: temp.getESuperTypes())
+//				{
+//					if (cls.getEAllSuperTypes().contains(higher)) {
+//						temp = cls;
+//						result++;
+//						break;
+//					}
+//					else if (cls.equals(higher)) {
+//						temp = cls;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		else if (lower.equals(higher)) {
+//			result = 0;
+//		}
+//		return result;
+//	}
 	
 	
 	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
@@ -368,6 +366,69 @@ public class EMetaModel implements EModel{
 		}
 		
 		
+		return result;
+	}
+
+	@Override
+	public EAttribute getEAttribute(String className, String attributeName) {
+		EClass eClass = getMetaClass(className);
+		if (eClass != null) {
+			return getEAttribute(eClass, attributeName);
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public EReference getEReference(String className, String referenceName) {
+		EClass eClass = getMetaClass(className);
+		if (eClass != null) {
+			return getEReference(eClass, referenceName);
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public EStructuralFeature getEStructuralFeature(String className,
+			String featureName) {
+		return getEAttribute(className, featureName) == null ? getEReference(className, featureName) : getEAttribute(className, featureName);
+	}
+
+	@Override
+	public EClassifier getTypeForEAttribute(String className,
+			String attributeName) {
+		EClass eClass = getMetaClass(className);
+		if (eClass != null) {
+			return getTypeForEAttribute(eClass, attributeName);
+		}
+		else {
+			return null;	
+		}
+	}
+
+	@Override
+	public EClassifier getTypeForEReference(String className,
+			String referenceName) {
+		EClass eClass = getMetaClass(className);
+		if (eClass != null) {
+			return getTypeForEReference(eClass, referenceName);
+		}
+		else {
+			return null;	
+		}
+	}
+
+	@Override
+	public EClassifier getTypeForEStructuralFeature(String className,
+			String propertyName) {
+		
+		EClassifier result = getTypeForEAttribute(className, propertyName);
+		if (result == null) {
+			result = getTypeForEReference(className, propertyName);
+		}
 		return result;
 	}
 

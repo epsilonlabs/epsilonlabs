@@ -208,81 +208,81 @@ public class XML2Ecore {
 	}
 	
 
-	public void testParse() throws ParserConfigurationException, SAXException, IOException
-	{
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-
-		URL url = getClass().getResource("library.xml");
-		File file = new File(url.getPath());
-		
-		document = documentBuilder.parse(file);
-		String packageName = getRoot().getNodeName();
-		String prefix = packageName.toLowerCase();
-		String nsURI = "http://" + packageName + "/1.0";
-		ePackage.setName(packageName);
-		ePackage.setNsPrefix(prefix);
-		ePackage.setNsURI(nsURI);
-		NodeList childNodes = getRoot().getChildNodes();
-		for (int i=0; i<childNodes.getLength(); i++) {
-			Object o = childNodes.item(i);
-			if (o instanceof Element) {
-				createEClass((Element) o);
-			}
-		}
-		
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-		Resource resource = resourceSet.createResource(URI.createFileURI(new File("library.ecore").getAbsolutePath()));
-		resource.getContents().add(ePackage);
-		System.out.println(resourceSet.getPackageRegistry().toString());
-		System.out.println(EPackage.Registry.INSTANCE.toString());
-		resource.save(null);	
-	}
+//	public void testParse() throws ParserConfigurationException, SAXException, IOException
+//	{
+//		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+//		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+//
+//		URL url = getClass().getResource("library.xml");
+//		File file = new File(url.getPath());
+//		
+//		document = documentBuilder.parse(file);
+//		String packageName = getRoot().getNodeName();
+//		String prefix = packageName.toLowerCase();
+//		String nsURI = "http://" + packageName + "/1.0";
+//		ePackage.setName(packageName);
+//		ePackage.setNsPrefix(prefix);
+//		ePackage.setNsURI(nsURI);
+//		NodeList childNodes = getRoot().getChildNodes();
+//		for (int i=0; i<childNodes.getLength(); i++) {
+//			Object o = childNodes.item(i);
+//			if (o instanceof Element) {
+//				createEClass((Element) o);
+//			}
+//		}
+//		
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+//		Resource resource = resourceSet.createResource(URI.createFileURI(new File("library.ecore").getAbsolutePath()));
+//		resource.getContents().add(ePackage);
+//		System.out.println(resourceSet.getPackageRegistry().toString());
+//		System.out.println(EPackage.Registry.INSTANCE.toString());
+//		resource.save(null);	
+//	}
 	
-	public static void main(String[] args) throws IOException {
-		new XML2Ecore().test();
-	}
-	
-	public void test() throws IOException {
-		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
-		ePackage.setName("MyEPackage");
-		ePackage.setNsPrefix("myep");
-		ePackage.setNsURI("http://myEPackage/1");
-		
-		EClass class1 = EcoreFactory.eINSTANCE.createEClass();
-		class1.setName("Class1");
-		ePackage.getEClassifiers().add(class1);
-		
-		EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
-		attribute.setName("myAttr");
-		attribute.setEType(EcorePackage.eINSTANCE.getEString());
-		
-		class1.getEStructuralFeatures().add(attribute);
-		
-		EClass class2 = EcoreFactory.eINSTANCE.createEClass();
-		class2.setName("Class2");
-		
-		EReference ref = EcoreFactory.eINSTANCE.createEReference();
-		ref.setName("classtwos");
-		ref.setLowerBound(0);
-		ref.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
-		ref.setEType(class2);
-		
-		//ePackage.getEClassifiers().add(class1);
-		ePackage.getEClassifiers().add(class2);
-		
-		class1.getEStructuralFeatures().add(ref);
-		
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
-		Resource resource = resourceSet.createResource(URI.createFileURI(new File("test.ecore").getAbsolutePath()));
-		resource.getContents().add(ePackage);
-		System.out.println(resourceSet.getPackageRegistry().toString());
-		System.out.println(EPackage.Registry.INSTANCE.toString());
-		resource.save(null);	
-
-	}
+//	public static void main(String[] args) throws IOException {
+//		new XML2Ecore().test();
+//	}
+//	
+//	public void test() throws IOException {
+//		EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+//		ePackage.setName("MyEPackage");
+//		ePackage.setNsPrefix("myep");
+//		ePackage.setNsURI("http://myEPackage/1");
+//		
+//		EClass class1 = EcoreFactory.eINSTANCE.createEClass();
+//		class1.setName("Class1");
+//		ePackage.getEClassifiers().add(class1);
+//		
+//		EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
+//		attribute.setName("myAttr");
+//		attribute.setEType(EcorePackage.eINSTANCE.getEString());
+//		
+//		class1.getEStructuralFeatures().add(attribute);
+//		
+//		EClass class2 = EcoreFactory.eINSTANCE.createEClass();
+//		class2.setName("Class2");
+//		
+//		EReference ref = EcoreFactory.eINSTANCE.createEReference();
+//		ref.setName("classtwos");
+//		ref.setLowerBound(0);
+//		ref.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+//		ref.setEType(class2);
+//		
+//		//ePackage.getEClassifiers().add(class1);
+//		ePackage.getEClassifiers().add(class2);
+//		
+//		class1.getEStructuralFeatures().add(ref);
+//		
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+//		Resource resource = resourceSet.createResource(URI.createFileURI(new File("test.ecore").getAbsolutePath()));
+//		resource.getContents().add(ePackage);
+//		System.out.println(resourceSet.getPackageRegistry().toString());
+//		System.out.println(EPackage.Registry.INSTANCE.toString());
+//		resource.save(null);	
+//
+//	}
 
 
 }
