@@ -32,17 +32,14 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 					ArrayList<VariableDeclarationExpression> content = new ArrayList<VariableDeclarationExpression>();
 
 					for(VariableDeclarationExpression vde: ((PluralVariable)v).getValues())
-					{
+					{	
 						content.add(vde);
 					}
 					nameExpression.setResolvedContent(content);
 				}
-				
 			}
 			else {
 				//this should not happen
-				//context.getLogBook().addError(nameExpression, "Variable named " + nameExpression.getName() + " cannot be found");
-				//do something else
 			}
 		}
 		return null;
