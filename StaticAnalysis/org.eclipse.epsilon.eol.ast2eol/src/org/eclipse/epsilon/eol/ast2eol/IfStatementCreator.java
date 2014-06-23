@@ -32,17 +32,16 @@ public class IfStatementCreator extends StatementCreator{
 		statement.setCondition((Expression) context.getEolElementCreatorFactory().createDomElement(conditionAst, statement, context)); //process condition
 		
 		if (ifBodyAst != null) {
-			ExpressionOrStatementBlock ifBody = context.getEolFactory().createExpressionOrStatementBlock();
+			if(ifBodyAst.getType() == EolParser.BLOCK)
+			{
+				statement.setIfBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(ifBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+			}		
+			
+			if (elseBodyAst != null) { //if there is a else-body
+				statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+			}
 		}
 		
-		if(ifBodyAst.getType() == EolParser.BLOCK)
-		{
-			statement.setIfBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(ifBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
-		}		
-		
-		if (elseBodyAst != null) { //if there is a else-body
-			statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
-		}
 		
 		return statement;
 	}
