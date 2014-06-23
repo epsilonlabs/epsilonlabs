@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.variableDeclarationExpression_return;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.PluralVariable;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.SimpleVariable;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.Variable;

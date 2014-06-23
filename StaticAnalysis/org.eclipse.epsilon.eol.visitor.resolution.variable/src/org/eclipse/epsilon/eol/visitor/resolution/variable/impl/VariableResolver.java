@@ -12,7 +12,6 @@ public class VariableResolver {
 	
 	public VariableResolver()
 	{
-		controller.addImportVisitor(new ImportVariableResolver());
 		controller.addEolProgramVisitor(new ProgramVariableResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<VariableResolutionContext, Object>());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionVariableResolver());

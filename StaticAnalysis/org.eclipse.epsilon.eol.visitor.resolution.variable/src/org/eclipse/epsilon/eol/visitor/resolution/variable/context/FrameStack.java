@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 import java.util.LinkedList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 
 public class FrameStack {
 
