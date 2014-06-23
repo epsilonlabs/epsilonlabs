@@ -30,35 +30,18 @@ public class IfStatementCreator extends StatementCreator{
 		AST elseBodyAst = ifBodyAst.getNextSibling(); //fetch the else body ast
 		
 		statement.setCondition((Expression) context.getEolElementCreatorFactory().createDomElement(conditionAst, statement, context)); //process condition
+		
+		if (ifBodyAst != null) {
+			ExpressionOrStatementBlock ifBody = context.getEolFactory().createExpressionOrStatementBlock();
+		}
+		
 		if(ifBodyAst.getType() == EolParser.BLOCK)
 		{
-			statement.setIfBody((Block) context.getEolElementCreatorFactory().createDomElement(ifBodyAst, statement, context)); //process if body
-		}
-		else {
-			Block ifBlock = context.getEolFactory().createBlock();
-			ifBlock.setLine(ifBodyAst.getLine());
-			ifBlock.setColumn(ifBodyAst.getColumn());
-			ifBlock.setContainer(statement);
-			
-			ifBlock.getStatements().add(context.getEolElementCreatorFactory().createStatement(ifBodyAst, ifBlock, context));
-			statement.setIfBody(ifBlock);
-		}
-		
+			statement.setIfBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(ifBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+		}		
 		
 		if (elseBodyAst != null) { //if there is a else-body
-			if(elseBodyAst.getType() == EolParser.BLOCK)
-			{
-				statement.setElseBody((Block) context.getEolElementCreatorFactory().createDomElement(elseBodyAst, statement, context)); //process else body
-			}
-			else {				
-				Block elseBlock = context.getEolFactory().createBlock();
-				elseBlock.setLine(elseBodyAst.getLine());
-				elseBlock.setColumn(elseBodyAst.getColumn());
-				elseBlock.setContainer(statement);
-				
-				elseBlock.getStatements().add(context.getEolElementCreatorFactory().createStatement(elseBodyAst, elseBlock, context));
-				statement.setElseBody(elseBlock);
-			}
+			statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
 		}
 		
 		return statement;

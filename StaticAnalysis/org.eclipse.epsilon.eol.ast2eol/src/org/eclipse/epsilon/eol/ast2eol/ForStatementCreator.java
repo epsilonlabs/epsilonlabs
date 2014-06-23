@@ -30,16 +30,9 @@ public class ForStatementCreator extends StatementCreator{
 		statement.setIterated((Expression) context.getEolElementCreatorFactory().createDomElement(iteratedAst, statement, context)); //process the iterated
 		
 		AST bodyAst = ast.getChild(2);
-		if(bodyAst.getType() == EolParser.BLOCK)
-		{
-			statement.setBody((Block)context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context)); //process the body
-		}
-		else {
-			Block block = (Block) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context, BlockCreator.class);
-			block.getStatements().add(context.getEolElementCreatorFactory().createStatement(bodyAst, block, context));
-			statement.setBody(block);
-		}
-		
+		if (bodyAst != null) {
+			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+		}		
 		return statement;
 	}
 

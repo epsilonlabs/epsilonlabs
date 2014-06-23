@@ -36,16 +36,9 @@ public class TransactionStatementCreator extends StatementCreator{
 		}
 		
 		AST bodyAst = childrenAsts.get(childrenAsts.size()-1);
-		if(bodyAst.getType() == EolParser.BLOCK)
-		{
-			statement.setBody((Block) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context));
+		if (bodyAst != null) {
+			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
 		}
-		else {
-			Block bodyBlock = (Block) context.getEolElementCreatorFactory().createDomElement(bodyAst, statement, context, BlockCreator.class);
-			bodyBlock.getStatements().add(context.getEolElementCreatorFactory().createStatement(bodyAst, bodyBlock, context));
-			statement.setBody(bodyBlock);
-		}
-		
 		return statement;
 	}
 

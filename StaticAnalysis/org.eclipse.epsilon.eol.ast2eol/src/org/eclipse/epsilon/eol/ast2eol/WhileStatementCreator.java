@@ -28,16 +28,9 @@ public class WhileStatementCreator extends StatementCreator{
 		statement.setCondition((Expression) context.getEolElementCreatorFactory().createDomElement(ast.getFirstChild(), statement, context)); //set the condition
 		
 		AST bodyAST = ast.getChild(1); //fetch the body ast
-		if(bodyAST.getType() == EolParser.BLOCK)
-		{
-			statement.setBody((Block) context.getEolElementCreatorFactory().createDomElement(bodyAST, statement, context)); //process the block ast
+		if (bodyAST != null) {
+			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(bodyAST, statement, context, ExpressionOrStatementBlockCreator.class));
 		}
-		else {	
-			Block block = (Block) context.getEolElementCreatorFactory().createDomElement(bodyAST, statement, context, BlockCreator.class);
-			block.getStatements().add(context.getEolElementCreatorFactory().createStatement(bodyAST, block, context));
-			statement.setBody(block);
-		}
-		
 		return statement;
 	}
 }

@@ -27,7 +27,8 @@ public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
 		AST blockAST = AstUtilities.getChild(ast, EolParser.BLOCK); //fetch the body AST for the switch case, there is always a block
 		if(blockAST != null)
 		{
-			statement.setBody((Block)context.getEolElementCreatorFactory().createDomElement(blockAST, statement, context)); //set the body of the switch case
+			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(blockAST, statement, context, ExpressionOrStatementBlockCreator.class));
+			//set the body of the switch case
 		}
 		
 		return statement;
