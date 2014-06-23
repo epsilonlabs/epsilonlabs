@@ -239,8 +239,8 @@
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//AbortStatement"/>
     <genClasses ecoreClass="Eol.ecore#//TransactionStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//TransactionStatement/body"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//TransactionStatement/names"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//TransactionStatement/body"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//FormalParameterExpression"/>
     <genClasses image="false" ecoreClass="Eol.ecore#//CollectionInitValue"/>

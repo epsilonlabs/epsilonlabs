@@ -187,13 +187,13 @@ class DeleteStatement extends Statement {
 class ForStatement extends Statement {
   val FormalParameterExpression[1] iterator;
   val Expression[1] iterated;
-  val Block[1] body;
+  val ExpressionOrStatementBlock body;
 }
 
 class IfStatement extends Statement {
   val Expression[1] condition;
-  val Block[1] ifBody;
-  val Block elseBody;
+  val ExpressionOrStatementBlock ifBody;
+  val ExpressionOrStatementBlock elseBody;
 }
 
 class ReturnStatement extends Statement {
@@ -207,12 +207,12 @@ class SwitchStatement extends Statement {
 }
 
 abstract class SwitchCaseStatement extends Statement {
-  val Block[1] body;
+  val ExpressionOrStatementBlock body;
 }
 
 class WhileStatement extends Statement {
   val Expression[1] condition;
-  val Block[1] body;
+  val ExpressionOrStatementBlock body;
 }
 
 class ModelDeclarationStatement extends Statement {
@@ -362,8 +362,8 @@ class AbortStatement extends Statement {
 }
 
 class TransactionStatement extends Statement {
-  val Block[1] body;
   val NameExpression[*] names;
+  val ExpressionOrStatementBlock body;
 }
 
 class FormalParameterExpression extends VariableDeclarationExpression {

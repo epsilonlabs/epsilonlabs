@@ -176,15 +176,15 @@
         eType="#//FormalParameterExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iterated" lowerBound="1"
         eType="#//Expression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Block"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
         eType="#//Expression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ifBody" lowerBound="1"
-        eType="#//Block" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" eType="#//Block"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ifBody" eType="#//ExpressionOrStatementBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" eType="#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ReturnStatement" eSuperTypes="#//Statement">
@@ -201,13 +201,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SwitchCaseStatement" abstract="true"
       eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Block"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WhileStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
         eType="#//Expression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Block"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationStatement" eSuperTypes="#//Statement">
@@ -333,10 +333,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbortStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="TransactionStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Block"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="names" upperBound="-1"
         eType="#//NameExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//ExpressionOrStatementBlock"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParameterExpression" eSuperTypes="#//VariableDeclarationExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionInitValue" abstract="true"
