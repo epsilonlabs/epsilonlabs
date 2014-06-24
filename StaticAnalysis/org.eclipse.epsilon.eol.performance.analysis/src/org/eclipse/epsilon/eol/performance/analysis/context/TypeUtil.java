@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.performance.analysis.context;
 import java.util.ArrayList;
 
 import metamodel.connectivity.emf.EMFMetamodelDriver;
-import metamodel.connectivity.emf.MetaClassNode;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
