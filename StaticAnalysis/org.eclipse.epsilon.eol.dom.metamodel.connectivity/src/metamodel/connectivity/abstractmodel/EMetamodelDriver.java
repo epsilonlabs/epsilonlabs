@@ -17,7 +17,7 @@ public interface EMetamodelDriver {
 	public abstract String getMetamodelNsPrefix();
 	
 	public abstract boolean containsMetaClass(String className);
-	public abstract EClassifier getMetaClass(String className);
+	public abstract EClass getMetaClass(String className);
 	
 	public abstract boolean containsEnum(String enumName);
 	public abstract EEnum getEnum(String enumName);

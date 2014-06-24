@@ -2,29 +2,19 @@ package metamodel.connectivity.plainxml;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -33,6 +23,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XML2Ecore {
+	//this class should work fine!!! NOW!!!
+	
+	
 	
 	protected Document document;
 	protected EcoreFactory factory = EcoreFactory.eINSTANCE;
@@ -59,46 +52,45 @@ public class XML2Ecore {
 	{
 		String className = element.getNodeName();
 		
-		EClass cls = getEClass(className);
-		ePackage.getEClassifiers().add(cls);
-		NamedNodeMap attrs = element.getAttributes();
-		HashMap<String, EAttribute> attributeMap = new HashMap<String, EAttribute>();
-		for(int i = 0; i < attrs.getLength(); i++)
+		EClass cls = getEClass(className);//get class, if exist, retrieve from epackage, if not, create one and put into epackage
+		NamedNodeMap attrs = element.getAttributes(); //get the attributes of the node
+		HashMap<String, EAttribute> attributeMap = new HashMap<String, EAttribute>(); //initialise attribute map
+		for(int i = 0; i < attrs.getLength(); i++) //for each attribute
 		{
-			String attrName = attrs.item(i).getNodeName();
-			EAttribute attr = getEAttribute(className, attrName);
-			if (attributeMap.containsKey(attrName)) {
+			String attrName = attrs.item(i).getNodeName(); //get the attr name
+			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one
+			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
 				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
 			}
 			else {
-				attributeMap.put(attrName, attr);
+				attributeMap.put(attrName, attr); 
 			}
 		}
-		HashMap<String, EReference> referenceMap = new HashMap<String, EReference>();
-		NodeList children = element.getChildNodes();
-		for (int i=0; i<children.getLength(); i++) {
-			Object o = children.item(i);
-			if (o instanceof Element) {
-				if (isComplexElement((Element) o)) {
-					EClass referenceNode = createEClass((Element) o);
-					EReference reference = getEReference(className, referenceNode);
-					if (attributeMap.containsKey(reference.getName())) {
+		HashMap<String, EReference> referenceMap = new HashMap<String, EReference>(); //initialise reference map
+		NodeList children = element.getChildNodes(); //get the child nodes of the node
+		for (int i=0; i<children.getLength(); i++) { //for each node
+			Object o = children.item(i); //get object
+			if (o instanceof Element) { //if object is an element
+				if (isComplexElement((Element) o)) { //if is complex element
+					EClass referenceNode = createEClass((Element) o); // create reference node
+					EReference reference = getEReference(className, referenceNode); //get eRef if exist, if not create one
+					if (referenceMap.containsKey(reference.getName())) { // if reference map contains key
 						if (reference.getUpperBound() == EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
 							
 						}
 						else {
-							reference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	
+							reference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	 //set upperbound to be multiple
 						}
 					}
 					else {
-						referenceMap.put(reference.getName(), reference);
+						referenceMap.put(reference.getName(), reference); //put reference in the map
 					}
 				}
-				else {
-					String attrName = ((Element)o).getNodeName();
-					EAttribute attr = getEAttribute(className, attrName);
-					if (attributeMap.containsKey(attrName)) {
-						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+				else { //if is not complex element
+					String attrName = ((Element)o).getNodeName(); //get attr name
+					EAttribute attr = getEAttribute(className, attrName); //get attr if exists, if not create one
+					if (attributeMap.containsKey(attrName)) { 
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY); //if exists set upperbound to be multiple
 
 					}
 					else {
@@ -114,12 +106,14 @@ public class XML2Ecore {
 	{
 		EClass result = null;
 		if (metaClassMap.containsKey(name)) {
-			result = metaClassMap.get(name);
+			//result = metaClassMap.get(name);
+			result = (EClass) ePackage.getEClassifier(name);
 		}
 		else {
 			result = factory.createEClass();
 			result.setName(name);
 			metaClassMap.put(name, result);
+			ePackage.getEClassifiers().add(result);
 		}
 		return result;
 	}
@@ -187,8 +181,6 @@ public class XML2Ecore {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-//		URL url = getClass().getResource(filePath);
-//		File file = new File(url.getPath());
 		File file = new File(filePath);
 		
 		document = documentBuilder.parse(file);

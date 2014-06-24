@@ -113,7 +113,6 @@ public class PlainXMLModel extends EMFMetamodelDriver{
 	public boolean containsEnum(String enumName)
 	{
 		return true;
-		//return super.containsEnum(removeTag(enumName));
 	}
 	
 	public EEnum getEnum(String enumName)
@@ -476,10 +475,6 @@ public class PlainXMLModel extends EMFMetamodelDriver{
 		EAnnotation annot = xml2EcoreParser.factory.createEAnnotation();
 		annot.getDetails().put("error", s);
 		return annot;
-	}
-	
-	public static void main(String[] args) {
-		
 	}
 
 }
