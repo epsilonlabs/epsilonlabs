@@ -42,9 +42,9 @@ public class EMFMetamodelDriver implements EMetamodelDriver{
 		EObject obj2 = pack.getEString();
 		System.out.println(obj.equals(obj2));
 		
-		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("IntegerExpression"), model.getMetaClass("Expression")));
-		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("DomElement"), model.getMetaClass("DomElement")));
-		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("BooleanExpression"), model.getMetaClass("DomElement")));
+//		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("IntegerExpression"), model.getMetaClass("Expression")));
+//		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("DomElement"), model.getMetaClass("DomElement")));
+//		System.out.println(model.shortestDistanceBetweenClass(model.getMetaClass("Statement"), model.getMetaClass("DomElement")));
 	}
 	
 	public void setName(String name)
@@ -293,81 +293,52 @@ public class EMFMetamodelDriver implements EMetamodelDriver{
 		
 		return result;
 	}
-	
-//	public int distanceBetween(EClass lower, EClass higher)
+			
+//	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
 //	{
 //		int result = -1;
-//		if (lower.getEAllSuperTypes().contains(higher)) {
+//		if(subClass.getEAllSuperTypes().contains(superClass))
+//		{
+//			ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>();
+//			ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>();
 //			result = 0;
-//			EClass temp = lower;
-//			while(!temp.equals(higher))
+//			for(EClass cls: subClass.getEAllSuperTypes())
 //			{
-//				for(EClass cls: temp.getESuperTypes())
+//				MetaClassNode node = new MetaClassNode(cls);
+//				node.setWeight(100000);
+//				unvisited.add(node);
+//			}
+//			MetaClassNode current = new MetaClassNode(subClass);
+//			current.setWeight(0);
+//			unvisited.add(current);
+//			
+//			while(unvisited.size() != 0)
+//			{
+//				MetaClassNode min = current.extractMin(unvisited);
+//				if (min.getEClass().equals(superClass)) {
+//					break;
+//				}
+//				visited.add(min);
+//				for(MetaClassNode n: current.getNeighbours(min, unvisited))
 //				{
-//					if (cls.getEAllSuperTypes().contains(higher)) {
-//						temp = cls;
-//						result++;
-//						break;
-//					}
-//					else if (cls.equals(higher)) {
-//						temp = cls;
-//						break;
+//					if (n.getWeight() > min.getWeight() + 1) {
+//						n.setWeight(min.getWeight() + 1);
+//						n.setPrevious(min);
 //					}
 //				}
 //			}
+//			
+//			result = visited.size();
+//			
 //		}
-//		else if (lower.equals(higher)) {
+//		else if(subClass.equals(superClass))
+//		{
 //			result = 0;
 //		}
+//		
+//		
 //		return result;
 //	}
-	
-	
-	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
-	{
-		int result = -1;
-		if(subClass.getEAllSuperTypes().contains(superClass))
-		{
-			ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>();
-			ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>();
-			result = 0;
-			for(EClass cls: subClass.getEAllSuperTypes())
-			{
-				MetaClassNode node = new MetaClassNode(cls);
-				node.setWeight(100000);
-				unvisited.add(node);
-			}
-			MetaClassNode current = new MetaClassNode(subClass);
-			current.setWeight(0);
-			unvisited.add(current);
-			
-			while(unvisited.size() != 0)
-			{
-				MetaClassNode min = current.extractMin(unvisited);
-				if (min.getEClass().equals(superClass)) {
-					break;
-				}
-				visited.add(min);
-				for(MetaClassNode n: current.getNeighbours(min, unvisited))
-				{
-					if (n.getWeight() > min.getWeight() + 1) {
-						n.setWeight(min.getWeight() + 1);
-						n.setPrevious(min);
-					}
-				}
-			}
-			
-			result = visited.size();
-			
-		}
-		else if(subClass.equals(superClass))
-		{
-			result = 0;
-		}
-		
-		
-		return result;
-	}
 
 	@Override
 	public EAttribute getEAttribute(String className, String attributeName) {

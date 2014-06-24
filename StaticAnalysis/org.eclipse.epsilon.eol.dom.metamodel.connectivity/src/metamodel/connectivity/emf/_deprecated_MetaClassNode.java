@@ -5,13 +5,13 @@ import java.util.LinkedList;
 
 import org.eclipse.emf.ecore.EClass;
 
-public class MetaClassNode {
+public class _deprecated_MetaClassNode {
 
 	EClass eClass;
 	int weight;
-	MetaClassNode previous;
+	_deprecated_MetaClassNode previous;
 	
-	public MetaClassNode(EClass eClass)
+	public _deprecated_MetaClassNode(EClass eClass)
 	{
 		this.eClass = eClass;
 		weight = 0;
@@ -33,22 +33,22 @@ public class MetaClassNode {
 		weight = w;
 	}
 	
-	public MetaClassNode getPrevious()
+	public _deprecated_MetaClassNode getPrevious()
 	{
 		return previous;
 	}
 	
-	public void setPrevious(MetaClassNode previous)
+	public void setPrevious(_deprecated_MetaClassNode previous)
 	{
 		this.previous = previous;
 	}
 	
 	//returns the node which has the minimum weight in the list
-	public MetaClassNode extractMin(ArrayList<MetaClassNode> list)
+	public _deprecated_MetaClassNode extractMin(ArrayList<_deprecated_MetaClassNode> list)
 	{
 		int min = 100000; //set the weight to be infinite
-		MetaClassNode result = null; //set result to null
-		for(MetaClassNode node: list) //for all nodes in the list
+		_deprecated_MetaClassNode result = null; //set result to null
+		for(_deprecated_MetaClassNode node: list) //for all nodes in the list
 		{
 			if (node.getWeight() < min) { 
 				min = node.getWeight();
@@ -62,12 +62,12 @@ public class MetaClassNode {
 	}
 	
 	//returns a list that contains the superTypes of the argument node that exist in the argument list
-	public LinkedList<MetaClassNode> getNeighbours(MetaClassNode node, ArrayList<MetaClassNode> list)
+	public LinkedList<_deprecated_MetaClassNode> getNeighbours(_deprecated_MetaClassNode node, ArrayList<_deprecated_MetaClassNode> list)
 	{
-		LinkedList<MetaClassNode> result = new LinkedList<MetaClassNode>();
+		LinkedList<_deprecated_MetaClassNode> result = new LinkedList<_deprecated_MetaClassNode>();
 		for(EClass cls: node.getEClass().getESuperTypes())
 		{
-			for(MetaClassNode n: list)
+			for(_deprecated_MetaClassNode n: list)
 			{
 				if(n.getEClass().equals(cls))
 				{
