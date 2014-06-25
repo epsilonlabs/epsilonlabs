@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 import org.eclipse.epsilon.eol.ast2eol.util.Ast2EolUtil;
 
 public class StandardLibraryOperationDefinitionContainer extends OperationDefinitionContainer{
@@ -13,7 +13,6 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	public StandardLibraryOperationDefinitionContainer(TypeUtil typeUtil) {
 		super(typeUtil);
 		init();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void registerOperation(String filename)
@@ -163,12 +162,6 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 		registerOperation("operationTypeModelElement.eol");
 		registerOperation("operationTypeReal.eol");
 		registerOperation("operationTypeString.eol");
-//		putOperationTypeAny();
-//		putOperationTypeInteger();
-//		putOperationTypeReal();
-//		putOperationTypeString();
-//		putOperationTypeCollection();
-//		putOperationTypeModeElement();
 	}
 	
 	
@@ -180,8 +173,6 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	public static void main(String[] args) {
 		StandardLibraryOperationDefinitionContainer a = new StandardLibraryOperationDefinitionContainer(new TypeUtil(new TypeResolutionContext()));
 		System.out.println(a.getOperations().size());
-		//Program p = a.getAst2DomUtil().generate(a.getClass(), "operationTypeAny.eol");
-		//System.out.println(p.getOperations().size());
 	}
 	
 	public ArrayList<OperationDefinition> getOperations()

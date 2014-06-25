@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-public class JavaClassIntrospector {
+public class _deprecated_JavaClassIntrospector {
 
 	public static void main(String[] args)
 	{
 		Class[] classes = null;
 		try {
-			classes = JavaClassIntrospector.getClasses("java.util");
+			classes = _deprecated_JavaClassIntrospector.getClasses("java.util");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

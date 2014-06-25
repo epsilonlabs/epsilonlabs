@@ -14,9 +14,12 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 
 public class TypeResolutionContext {
+	
+	protected boolean optimistic = false;
 	
 	//logbook is used to store errors/warnings
 	protected LogBook logBook = new LogBook();
@@ -28,7 +31,7 @@ public class TypeResolutionContext {
 	protected TypeUtil typeUtil = new TypeUtil(this);
 	
 	//containers to hold meta models
-	protected MetamodelContainer container = new MetamodelContainer();
+	protected MetamodelContainer container = new MetamodelContainer(this);
 	
 	//contains model declarations
 	protected HashMap<String, ModelDeclarationStatement> modelDeclarations = new HashMap<String, ModelDeclarationStatement>(); 
@@ -41,10 +44,20 @@ public class TypeResolutionContext {
 	
 	protected String directoryPathString;
 	
+	public TypeResolutionContext()
+	{
+		
+	}
+	
+	public TypeResolutionContext(boolean optimistic)
+	{
+		this.optimistic = optimistic;
+	}
+	
 	public static void main(String[] args) {
 		TypeResolutionContext context = new TypeResolutionContext();
-		Type type1 = context.getEolFactory().createType();
-		Type type2 = context.getEolFactory().createIntegerType();
+		Type type1 = context.getEolFactory().createModelElementType();
+		Type type2 = context.getEolFactory().createAnyType();
 		
 		System.out.println(context.getTypeUtil().isEqualOrGeneric(type2, type1));	
 	}
@@ -68,6 +81,7 @@ public class TypeResolutionContext {
 	{
 		return eolFactory;
 	}
+	
 	public TypeUtil getTypeUtil()
 	{
 		return typeUtil;
@@ -87,7 +101,6 @@ public class TypeResolutionContext {
 	public void inputMetaModel(EMFMetamodelDriver metaModel)
 	{
 		metaModelNameSpace.add(metaModel.getMetamodelName());
-		metaModelNameSpace.add(metaModel.getMetamodelName());
 		container.inputMetaModel(metaModel);
 	}
 			
@@ -105,8 +118,6 @@ public class TypeResolutionContext {
 	{
 		return container.getMetaModelsWithAlias(alias);
 	}
-	
-
 	
 	public void putModelDeclarationStatement(String name, ModelDeclarationStatement modelDeclaration)
 	{
@@ -190,8 +201,6 @@ public class TypeResolutionContext {
 		return result;
 	}
 	
-
-	
 	public void putOperationDefinition(OperationDefinition operation)
 	{
 		operationDefinitionControl.putOperationDefinition(operation);
@@ -238,6 +247,22 @@ public class TypeResolutionContext {
 			}
 		}
 	}
+	
+	public boolean isXMLSyntax(String fullName)
+	{
+		if (fullName.startsWith("a_") || fullName.startsWith("b_") ||
+				fullName.startsWith("i_") || fullName.startsWith("f_") || 
+				fullName.startsWith("d_") || fullName.startsWith("s_") ||
+				fullName.startsWith("t_") || fullName.startsWith("c_") ||
+				fullName.startsWith("e_") || fullName.startsWith("x_"))
+		{
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 
 	
 }

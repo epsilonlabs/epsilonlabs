@@ -3,7 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil;
 import java.util.ArrayList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class OperationDefinitionContainer {
 
@@ -33,7 +33,7 @@ public class OperationDefinitionContainer {
 							for (int i = 0; i < op.getParameters().size(); i++) { //for each of the parameter
 								Type a = op.getParameters().get(i).getResolvedType(); // get the actual parameter type
 								Type b = argTypes.get(i); //get the arg type in question
-								result = typeUtil.isEqualOrGeneric(a, b); //if a and b is equal or generic
+								result = typeUtil.isEqualOrGeneric(b, a); //if a and b is equal or generic
 								if (!result) {
 									break;
 								}
@@ -64,7 +64,7 @@ public class OperationDefinitionContainer {
 						for (int i = 0; i < op.getParameters().size(); i++) {
 							Type a = op.getParameters().get(i).getResolvedType();
 							Type b = argTypes.get(i);
-							result = typeUtil.isEqualOrGeneric(a, b);
+							result = typeUtil.isEqualOrGeneric(b, a);
 							if (!result) {
 								break;
 							}

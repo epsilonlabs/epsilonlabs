@@ -4,7 +4,6 @@ import metamodel.connectivity.emf.EMFMetamodelDriver;
 import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
@@ -20,11 +19,11 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 		String modelString = modelElementType.getModelName(); //get the string for model
 		String elementString = modelElementType.getElementName(); //get the string for element
 		
-		if (elementString.equals("_ModelElementType_")) {
+		if (elementString.equals("_ModelElementType_")) { //if keyword _ModelElementType_ is found, then return null, do nothing
 			return null;
 		}
 		
-		if (context.getContainer().getMetaModels().size() == 0) {
+		if (context.getContainer().getMetaModels().size() == 0) { //if no metamodel is declared, report error
 			context.getLogBook().addError(modelElementType, "No metamodel has been defined, please define metamodels");
 		}
 		

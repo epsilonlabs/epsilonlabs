@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.visitor.resolution.type.context;
+package org.eclipse.epsilon.eol.visitor.resolution.type.util;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

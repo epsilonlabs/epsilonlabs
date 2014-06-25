@@ -3,7 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.standard.library.collect
 import java.util.ArrayList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class LibraryOperationContainer {
 

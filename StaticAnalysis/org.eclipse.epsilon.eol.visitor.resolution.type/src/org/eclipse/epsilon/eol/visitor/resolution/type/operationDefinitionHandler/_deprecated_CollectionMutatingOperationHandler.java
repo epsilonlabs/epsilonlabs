@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class _deprecated_CollectionMutatingOperationHandler extends _deprecated_CollectionOperationDefinitionHandler{
 

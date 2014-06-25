@@ -16,9 +16,16 @@ public class MetamodelContainer {
 	//metamodel name space
 	ArrayList<String> metaModelNameSpace = new ArrayList<String>();
 	
+	TypeResolutionContext context;
+	
+	public MetamodelContainer(TypeResolutionContext context)
+	{
+		this.context = context;
+	}
+	
 	
 	public static void main(String[] args) {
-		MetamodelContainer container = new MetamodelContainer();
+		MetamodelContainer container = new MetamodelContainer(new TypeResolutionContext());
 		EMFMetamodelDriver mm1 = new EMFMetamodelDriver();
 		mm1.setName("name1");
 		mm1.addAlias("a");
@@ -49,12 +56,8 @@ public class MetamodelContainer {
 	public void inputMetaModel(EMFMetamodelDriver metaModel)
 	{
 		metaModels.add(metaModel);
-		try {
-			addToMetaModelNameSpace(metaModel.getMetamodelName());
-			addToMetaModelNameSpace(metaModel.getMetamodelName());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		addToMetaModelNameSpace(metaModel.getMetamodelName());
+
 		for(String s: metaModel.getAliases())
 		{
 			if (aliasLookUp.containsKey(s)) {
@@ -68,7 +71,7 @@ public class MetamodelContainer {
 		}
 	}
 		
-	public void addToMetaModelNameSpace(String s) throws Exception
+	public void addToMetaModelNameSpace(String s)
 	{
 		if (!metaModelNameSpace.contains(s)) {
 			metaModelNameSpace.add(s);

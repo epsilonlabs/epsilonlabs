@@ -1,7 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.standard.library.collection.handlers.old;
 
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeUtil;
+import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class LibraryOperationHandlerContext {
 

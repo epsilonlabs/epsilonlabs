@@ -1,12 +1,9 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
-import metamodel.connectivity.emf.EMFMetamodelDriver;
-import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ModelDeclarationStatementTypeResolver extends ModelDeclarationStatementVisitor<TypeResolutionContext, Object>{

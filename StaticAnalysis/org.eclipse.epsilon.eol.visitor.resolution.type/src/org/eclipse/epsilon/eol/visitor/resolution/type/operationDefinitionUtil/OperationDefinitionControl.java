@@ -43,13 +43,13 @@ public class OperationDefinitionControl {
 		OperationDefinition operation = null; //prepare the result
 		if (!priority) { //if priority is given to the userdefined operations
 			operation = userDefinedOperations.getOperation(name, contextType, argTypes); //get operation from the user defined opeartions
-			if (operation == null) {
-				operation = standardLibraryOperations.getOperation(name, contextType, argTypes);
-				if (operation != null) {
+			if (operation == null) { //if there is no operation in the user defined operations
+				operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
+				if (operation != null) { //if there's an operation in the standard library
 					if ((operation.getReturnType() instanceof SelfType) || (operation.getReturnType() instanceof SelfContentType)) {
-						
+						//if it's selfType or SelfContentType, it is handled automatically
 					}
-					else {
+					else { //otherwise it should be handled by the handler
 						OperationDefinition temp = handlerFactory.handle(methodCallExpression, name, contextType, argTypes);
 						if (temp != null) {
 							operation = temp;
@@ -62,12 +62,12 @@ public class OperationDefinitionControl {
 				}
 			}
 		}
-		else {
-			operation = standardLibraryOperations.getOperation(name, contextType, argTypes);
-			if (operation == null) {
-				operation = userDefinedOperations.getOperation(name, contextType, argTypes);
+		else { //if priority is given to the standard library
+			operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for operation in the standard library
+			if (operation == null) { //if there is no operation in the standard library
+				operation = userDefinedOperations.getOperation(name, contextType, argTypes); //assign operation
 			}
-			else {
+			else { //if there is operation in the standard library, proceed as before
 				if ((operation.getReturnType() instanceof SelfType) || (operation.getReturnType() instanceof SelfContentType)) {
 					
 				}

@@ -1,14 +1,14 @@
-package org.eclipse.epsilon.eol.visitor.resolution.type.context;
+package org.eclipse.epsilon.eol.visitor.resolution.type.util;
 
 import java.util.ArrayList;
 
 import metamodel.connectivity.emf.EMFMetamodelDriver;
-import metamodel.connectivity.emf.MetaClassNode;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class TypeUtil {
 
@@ -21,14 +21,7 @@ public class TypeUtil {
 		this.context = context;
 		this.eolFactory = context.getEolFactory();
 	}
-	
-	public static void main(String[] args) {
-		TypeUtil util = new TypeUtil(new TypeResolutionContext());
 		
-		IntegerType type1 = util.context.eolFactory.createIntegerType();
-		
-	}
-	
 	//returns true if the EObject is a EDataType
 	public boolean isEDataType(EObject obj)
 	{
@@ -143,11 +136,11 @@ public class TypeUtil {
 			b = (Type) t2;
 		}
 		
-		if (t1.eClass().equals(t2.eClass())) { //if the eclasses are the same return tru
+		if (t1.eClass().equals(t2.eClass())) { //if the eclasses are the same return true
 			return true;
 		}
 		
-		if (b instanceof AnyType) { //if b is any type, return true
+		if (a instanceof AnyType || b instanceof AnyType) { //if b is any type, return true
 			return true;
 		}
 		else if(a instanceof PrimitiveType && b instanceof PrimitiveType)
@@ -320,7 +313,7 @@ public class TypeUtil {
 	}
 
 	//returns true if Type t1 and Type t2 are equal
-	public boolean isTypeEqual(Type t1, Type t2)
+	public boolean isTypeEqual(Type t1, Type t2) //need to include native and map types
 	{
 		Type a = null;
 		Type b = null;
