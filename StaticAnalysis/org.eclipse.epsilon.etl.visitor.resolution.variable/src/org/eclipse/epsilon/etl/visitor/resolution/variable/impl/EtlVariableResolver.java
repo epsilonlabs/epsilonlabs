@@ -8,7 +8,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FOLMethodCallExp
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ForStatementVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.FormalParameterExpressionVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.IfStatementVariableResolver;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.ImportVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.NameExpressionVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.OperationDefinitionVariableResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.SwitchCaseDefaultStatementVariableResolver;
@@ -25,11 +24,7 @@ public class EtlVariableResolver{
 	
 	public EtlVariableResolver() {
 		
-		controller.addImportVisitor(new ImportVariableResolver());
-		//controller.addProgramVisitor(new ProgramVariableResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<VariableResolutionContext, Object>());
-		
-		//controller.addDefaultVisitor(new EtlDefaultVariableResolver());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionVariableResolver());
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionVariableResolver());
 		controller.addNameExpressionVisitor(new NameExpressionVariableResolver());
