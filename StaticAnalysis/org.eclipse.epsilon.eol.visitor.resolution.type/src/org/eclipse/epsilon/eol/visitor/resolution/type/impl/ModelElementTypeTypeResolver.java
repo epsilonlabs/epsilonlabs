@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
 import metamodel.connectivity.emf.EMFMetamodelDriver;
-import metamodel.connectivity.plainxml.PlainXMLModel;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.metamodel.*;

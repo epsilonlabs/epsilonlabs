@@ -15,38 +15,23 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		controller.visitContents(variableDeclarationExpression, context);
+		controller.visitContents(variableDeclarationExpression, context); //visit the content of the var first
 		
-		if (variableDeclarationExpression.getCreate() != null) {
-			boolean newExpression = variableDeclarationExpression.getCreate().isVal();
-			if (newExpression) {
-				Type rawType = variableDeclarationExpression.getResolvedType();
-				if (rawType instanceof ModelElementType) {
-					
-					
-					ModelElementType modelElementType = (ModelElementType) rawType;
-					if (modelElementType.getEcoreType() instanceof EClass) {
-						EClass eClass = (EClass) modelElementType.getEcoreType();
-						if (eClass.isAbstract() || eClass.isInterface()) {
-							context.getLogBook().addError(modelElementType, "Model element type is not instantiable");
+		if (variableDeclarationExpression.getCreate() != null) { // if create is not null
+			boolean newExpression = variableDeclarationExpression.getCreate().isVal(); //get the value of the create
+			if (newExpression) { //if it is a new variable
+				Type rawType = variableDeclarationExpression.getResolvedType(); //get resolved type
+				if (rawType instanceof ModelElementType) { //we are interested in the model element types
+					ModelElementType modelElementType = (ModelElementType) rawType; //get the type
+					if (modelElementType.getEcoreType() instanceof EClass) { //if the model element type is a EClass in the meta model
+						EClass eClass = (EClass) modelElementType.getEcoreType(); //get the EClass
+						if (eClass.isAbstract() || eClass.isInterface()) { //check if the class is an interface or abstract
+							context.getLogBook().addError(modelElementType, "Model element type is not instantiable"); //throw error
 						}
 					}
-//					String modelName = modelElementType.getModelName();
-//					String elementName = modelElementType.getElementName();
-//					if (modelName != null) {
-//						EMetaModel em = context.getMetaModel(modelName); //get metamodel
-//						EClass eClass = em.getMetaClass(elementName);
-//					}
-//					else {
-//						if (context.numberOfMetamodelsDefine(elementName, false) == 1) {
-//							
-//						}
-//					}
 				}
 			}
 		}
-				
-		// TODO Auto-generated method stub
 		return null;
 	}
 
