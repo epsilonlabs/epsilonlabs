@@ -256,8 +256,7 @@
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//SpecialAssignmentStatement"/>
     <genClasses ecoreClass="Eol.ecore#//ModelType">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//ModelType/modelName"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eol.ecore#//ModelType/model"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eol.ecore#//ModelType/models"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//NativeExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//NativeExpression/nativeExpr"/>

@@ -357,10 +357,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpecialAssignmentStatement" eSuperTypes="#//AssignmentStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModelType" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelName" lowerBound="1"
-        eType="#//NameExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="model" lowerBound="1" upperBound="-1"
-        eType="#//ModelDeclarationStatement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="models" lowerBound="1"
+        upperBound="-1" eType="#//ModelDeclarationStatement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NativeExpression" eSuperTypes="#//LiteralExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nativeExpr" eType="#//StringExpression"

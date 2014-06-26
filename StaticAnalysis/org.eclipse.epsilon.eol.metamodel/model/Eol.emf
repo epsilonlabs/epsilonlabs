@@ -389,8 +389,7 @@ class SpecialAssignmentStatement extends AssignmentStatement {
 }
 
 class ModelType extends Type {
-  val NameExpression[1] modelName;
-  ref ModelDeclarationStatement[+] model;
+  ref ModelDeclarationStatement[+] models;
 }
 
 class NativeExpression extends LiteralExpression {

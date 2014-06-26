@@ -4017,19 +4017,6 @@
     <element xmi:type="ecore:EReference" href="Eol.ecore#//EnumerationLiteralExpression/model"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qZHbM2JFEeKNRIrnX7v9Ew" points="[3, 20, -51, -345]$[54, 345, 0, -20]"/>
   </edges>
-  <edges xmi:type="notation:Edge" xmi:id="_pwJSEGLGEeKNRIrnX7v9Ew" type="3002" source="_H7P40GJFEeKNRIrnX7v9Ew" target="_lPIxAGJCEeKNRIrnX7v9Ew">
-    <children xmi:type="notation:Node" xmi:id="_pwJSFGLGEeKNRIrnX7v9Ew" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_pwJSFWLGEeKNRIrnX7v9Ew" x="-10" y="-10"/>
-    </children>
-    <children xmi:type="notation:Node" xmi:id="_pwJSFmLGEeKNRIrnX7v9Ew" type="4012">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_pwJSF2LGEeKNRIrnX7v9Ew" x="10" y="10"/>
-    </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_pwJSEWLGEeKNRIrnX7v9Ew" lineColor="4210752"/>
-    <styles xmi:type="notation:FontStyle" xmi:id="_pwJSEmLGEeKNRIrnX7v9Ew" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//ModelType/modelName"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pwJSE2LGEeKNRIrnX7v9Ew" points="[14, 20, -142, -196]$[157, 196, 1, -20]"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pwLHQGLGEeKNRIrnX7v9Ew" id="(0.17647058823529413,0.42857142857142855)"/>
-  </edges>
   <edges xmi:type="notation:Edge" xmi:id="_e34r0JbLEeK5OPqNo0mqGA" type="3002" source="_0SxnZCwgEeK7YdpDjc97Ew" target="_KH9QUCw0EeK7YdpDjc97Ew">
     <children xmi:type="notation:Node" xmi:id="_e3558JbLEeK5OPqNo0mqGA" type="4011">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_e3558ZbLEeK5OPqNo0mqGA" x="-10" y="-10"/>
@@ -4215,7 +4202,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_K5tlgVG9EeOrgodHRmgRxg" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_K5tlglG9EeOrgodHRmgRxg" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//ModelType/model"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//ModelType/models"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_K5tlg1G9EeOrgodHRmgRxg" points="[-13, 1, 136, -9]$[-147, 29, 2, 19]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_K5wBwFG9EeOrgodHRmgRxg" id="(0.13725490196078433,0.2857142857142857)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_K5wBwVG9EeOrgodHRmgRxg" id="(0.7612903225806451,0.5476190476190477)"/>
