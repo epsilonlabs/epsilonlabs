@@ -3247,7 +3247,7 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_0TWPICwgEeK7YdpDjc97Ew" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_0TWPISwgEeK7YdpDjc97Ew" fontColor="4210752" fontName="微软雅黑" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="Eol.ecore#//SwitchCaseStatement/body"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0TWPIiwgEeK7YdpDjc97Ew" points="[-51, 0, 578, 283]$[-629, 0, 0, 283]$[-629, -279, 0, 4]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_0TWPIiwgEeK7YdpDjc97Ew" points="[0, 0, 604, 315]$[-611, -20, -7, 295]$[-611, -295, -7, 20]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_0ZM_giwgEeK7YdpDjc97Ew" id="(0.3291139240506329,0.0)"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_0TWPJywgEeK7YdpDjc97Ew" type="3003" source="_0SnPWSwgEeK7YdpDjc97Ew" target="_p9EIECwxEeK7YdpDjc97Ew">
