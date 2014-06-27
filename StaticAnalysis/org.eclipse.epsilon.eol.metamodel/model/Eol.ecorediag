@@ -1616,6 +1616,18 @@
     </eAnnotations>
     <children xmi:type="notation:Node" xmi:id="_rhAbgyw7EeK7YdpDjc97Ew" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_rhBCkCw7EeK7YdpDjc97Ew" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_U1_EIP0hEeORx6h8kJmlug" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//NameExpression/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_U1_EIf0hEeORx6h8kJmlug"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_U1_EIv0hEeORx6h8kJmlug" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//NameExpression/resolvedContent"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_U1_EI_0hEeORx6h8kJmlug"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_-DjYoP3lEeORx6h8kJmlug" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//NameExpression/resolvedContentInSameScope"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_-DjYof3lEeORx6h8kJmlug"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_rhBCkSw7EeK7YdpDjc97Ew"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_rhBCkiw7EeK7YdpDjc97Ew"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_rhBCkyw7EeK7YdpDjc97Ew"/>

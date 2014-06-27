@@ -77,6 +77,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//NameExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//NameExpression/isType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//NameExpression/resolvedContent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//NameExpression/resolvedContentInSameScope"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Eol.ecore#//UnaryOperatorExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//UnaryOperatorExpression/expr"/>
