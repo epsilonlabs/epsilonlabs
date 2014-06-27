@@ -103,10 +103,6 @@ public class FrameStack {
 				if(frame.contains(name))
 				{
 					result = frame.get(name);
-					if (i == limit) {
-						result.setInScope(true);
-					}
-					
 				}
 				break;
 			}
@@ -114,9 +110,6 @@ public class FrameStack {
 				if(frame.contains(name))
 				{
 					result = frame.get(name);
-					if (i == limit) {
-						result.setInScope(true);
-					}
 					break;
 				}
 			}

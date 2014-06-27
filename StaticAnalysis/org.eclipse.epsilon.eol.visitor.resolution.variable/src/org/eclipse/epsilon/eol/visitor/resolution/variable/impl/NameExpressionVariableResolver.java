@@ -23,12 +23,6 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 		else
 		{
 			Variable v = context.getStack().getVariable(nameExpression.getName());
-			if (!v.getInScope()) {
-				nameExpression.setResolvedContentInSameScope(false);
-			}
-			else {
-				nameExpression.setResolvedContentInSameScope(true);
-			}
 			if(context.getStack().getVariable(nameExpression.getName()) != null)
 			{
 				if (v instanceof SimpleVariable) {
