@@ -19,7 +19,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class TypeResolutionContext {
 	
-	protected boolean optimistic = false;
+	protected boolean pessimistic = false;
 	
 	//logbook is used to store errors/warnings
 	protected LogBook logBook = new LogBook();
@@ -44,14 +44,36 @@ public class TypeResolutionContext {
 	
 	protected String directoryPathString;
 	
+	protected ArrayList<VariableDeclarationExpression> bestGuessVariableDeclarations = new ArrayList<VariableDeclarationExpression>();
+	
+	public ArrayList<VariableDeclarationExpression> getBestGuessVariableDeclarations() {
+		return bestGuessVariableDeclarations;
+	}
+	
+	public void addBestGuessVariableDeclaration(VariableDeclarationExpression var)
+	{
+		bestGuessVariableDeclarations.add(var);
+	}
+	
+	public boolean containsBestGuessVariableDeclaration(VariableDeclarationExpression var)
+	{
+		for(VariableDeclarationExpression variable: bestGuessVariableDeclarations)
+		{
+			if (variable.equals(var)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public TypeResolutionContext()
 	{
 		
 	}
 	
-	public TypeResolutionContext(boolean optimistic)
+	public TypeResolutionContext(boolean pessimistic)
 	{
-		this.optimistic = optimistic;
+		this.pessimistic = pessimistic;
 	}
 	
 	public static void main(String[] args) {
@@ -263,6 +285,19 @@ public class TypeResolutionContext {
 		}
 	}
 
-
+	public void setLocation(EolElement created, EolElement targetLocation)
+	{
+		created.setColumn(targetLocation.getColumn());
+		created.setLine(targetLocation.getLine());
+	}
 	
+	public boolean getPessimistic()
+	{
+		return pessimistic;
+	}
+	
+	public void setPessimistic(boolean pessimistic) {
+		this.pessimistic = pessimistic;
+	}
+
 }
