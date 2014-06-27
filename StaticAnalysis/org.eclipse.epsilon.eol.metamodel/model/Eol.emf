@@ -111,7 +111,6 @@ class NameExpression extends Expression {
   attr String name;
   val BooleanExpression[1] isType;
   transient attr EJavaObject[1] resolvedContent;
-  derived attr boolean resolvedContentInSameScope;
 }
 
 abstract class UnaryOperatorExpression extends OperatorExpression {

@@ -105,8 +105,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolvedContent" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resolvedContentInSameScope"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UnaryOperatorExpression" abstract="true"
       eSuperTypes="#//OperatorExpression">
