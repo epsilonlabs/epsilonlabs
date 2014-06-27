@@ -4,6 +4,17 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 public class Variable {
 
 	protected String name;
+	protected boolean inScope = false;
+	
+	public boolean getInScope()
+	{
+		return inScope;
+	}
+	
+	public void setInScope(boolean inScope)
+	{
+		this.inScope = inScope;
+	}
 	
 	public String getName()
 	{
@@ -19,6 +30,8 @@ public class Variable {
 	{
 		
 	}
+	
+	
 	
 //	public static Variable createReadOnlyVariable(String name, VariableDeclarationExpression value){
 //		return new Variable(name, value, true);

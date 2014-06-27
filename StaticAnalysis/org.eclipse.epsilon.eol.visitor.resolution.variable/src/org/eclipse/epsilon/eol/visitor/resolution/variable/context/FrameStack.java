@@ -94,7 +94,8 @@ public class FrameStack {
 	public Variable getVariable(String name)
 	{
 		Variable result = null;
-		for(int i = frames.size()-1; i >= 0; i --)
+		int limit = frames.size()-1;
+		for(int i = limit; i >= 0; i --)
 		{
 			Frame frame = frames.get(i);
 			if(frame.getType() == FrameType.PROTECTED)
@@ -102,6 +103,10 @@ public class FrameStack {
 				if(frame.contains(name))
 				{
 					result = frame.get(name);
+					if (i == limit) {
+						result.setInScope(true);
+					}
+					
 				}
 				break;
 			}
@@ -109,6 +114,9 @@ public class FrameStack {
 				if(frame.contains(name))
 				{
 					result = frame.get(name);
+					if (i == limit) {
+						result.setInScope(true);
+					}
 					break;
 				}
 			}

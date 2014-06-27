@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.PluralVariable;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.SimpleVariable;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.Variable;
@@ -22,6 +23,12 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 		else
 		{
 			Variable v = context.getStack().getVariable(nameExpression.getName());
+			if (!v.getInScope()) {
+				nameExpression.setResolvedContentInSameScope(false);
+			}
+			else {
+				nameExpression.setResolvedContentInSameScope(true);
+			}
 			if(context.getStack().getVariable(nameExpression.getName()) != null)
 			{
 				if (v instanceof SimpleVariable) {
