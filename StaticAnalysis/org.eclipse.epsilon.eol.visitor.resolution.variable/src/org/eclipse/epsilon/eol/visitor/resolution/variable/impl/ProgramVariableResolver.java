@@ -26,6 +26,7 @@ public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutio
 			{
 				controller.visit(op, context);
 			}
+			context.getStack().pop();
 		}
 		else { //if the program is the program that is imported
 			for(Import imported : program.getImports()) 
