@@ -27,49 +27,50 @@ public class _deprecated_ModelElementTypeCreateInstanceHandler extends _deprecat
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
-		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
-		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
-
-		Expression rawTarget = featureCallExpression.getTarget();
-		if(!(rawTarget instanceof NameExpression))
-		{
-			context.getLogBook().addError(featureCallExpression.getTarget(), "operation createInstance() can only be used on ModelElementTypes");
-			return null;
-		}
-		else {
-			NameExpression target = (NameExpression) rawTarget;
-			if (context.numberOfMetamodelsDefine(target.getName(), true) > 0) {
-				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
-				
-				if (!(rawTargetType instanceof ModelElementType)) {
-					context.getLogBook().addError(featureCallExpression.getTarget(), "operation createInstance() can only be used on ModelElementTypes");;
-				}
-				else if (rawTargetType instanceof ModelElementType) {
-					ModelElementType targetType = (ModelElementType) rawTargetType;
-					String modelName = targetType.getModelName();
-					String elementName = targetType.getElementName();
-					EMFMetamodelDriver em = context.getMetaModel(modelName); //get metamodel
-					EClass eClass = em.getMetaClass(elementName);
-					
-					if (eClass.isAbstract() || eClass.isInterface()) {
-						context.getLogBook().addError(featureCallExpression.getTarget(), "target of type: " + modelName + "!" + elementName + " is not instantiable");
-					}
-				}
-				
-				result.setContextType(EcoreUtil.copy(contextType));
-				result.setReturnType(EcoreUtil.copy(contextType));
-			}
-			else {
-				context.getLogBook().addError(featureCallExpression.getTarget(), "Model Element Type " + target.getName() + " does not exist");
-
-				return null;
-			}
-			
-		}
-		
-		
-		return result;
+		return null;
+//		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
+//		
+//		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+//
+//		Expression rawTarget = featureCallExpression.getTarget();
+//		if(!(rawTarget instanceof NameExpression))
+//		{
+//			context.getLogBook().addError(featureCallExpression.getTarget(), "operation createInstance() can only be used on ModelElementTypes");
+//			return null;
+//		}
+//		else {
+//			NameExpression target = (NameExpression) rawTarget;
+//			if (context.numberOfMetamodelsDefine(target.getName(), true) > 0) {
+//				Type rawTargetType = featureCallExpression.getTarget().getResolvedType();
+//				
+//				if (!(rawTargetType instanceof ModelElementType)) {
+//					context.getLogBook().addError(featureCallExpression.getTarget(), "operation createInstance() can only be used on ModelElementTypes");;
+//				}
+//				else if (rawTargetType instanceof ModelElementType) {
+//					ModelElementType targetType = (ModelElementType) rawTargetType;
+//					String modelName = targetType.getModelName();
+//					String elementName = targetType.getElementName();
+//					EMFMetamodelDriver em = context.getMetaModel(modelName); //get metamodel
+//					EClass eClass = em.getMetaClass(elementName);
+//					
+//					if (eClass.isAbstract() || eClass.isInterface()) {
+//						context.getLogBook().addError(featureCallExpression.getTarget(), "target of type: " + modelName + "!" + elementName + " is not instantiable");
+//					}
+//				}
+//				
+//				result.setContextType(EcoreUtil.copy(contextType));
+//				result.setReturnType(EcoreUtil.copy(contextType));
+//			}
+//			else {
+//				context.getLogBook().addError(featureCallExpression.getTarget(), "Model Element Type " + target.getName() + " does not exist");
+//
+//				return null;
+//			}
+//			
+//		}
+//		
+//		
+//		return result;
 	}
 
 }
