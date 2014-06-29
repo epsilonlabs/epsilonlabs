@@ -1,5 +1,7 @@
 package metamodel.connectivity.abstractmodel;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -12,9 +14,12 @@ public interface EMetamodelDriver {
 
 	public abstract void loadModel(String modelString) throws Exception; 
 	
+	public abstract String getName();
 	public abstract String getMetamodelName();
 	public abstract String getMetamodelNsURI();
 	public abstract String getMetamodelNsPrefix();
+	public abstract ArrayList<String> getAliases();
+
 	
 	public abstract boolean containsMetaClass(String className);
 	public abstract EClass getMetaClass(String className);

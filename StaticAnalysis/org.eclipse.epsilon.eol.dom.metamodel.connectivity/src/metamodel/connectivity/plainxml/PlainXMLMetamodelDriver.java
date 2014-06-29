@@ -70,7 +70,7 @@ public class PlainXMLMetamodelDriver implements EMetamodelDriver{
 
 	@Override
 	public boolean containsMetaClass(String className) {
-		if (className.startsWith("t_")) {
+		if (className.startsWith("t_") || className.equals("root")) {
 			return true;
 		}
 		return false;
