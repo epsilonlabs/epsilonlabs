@@ -12,7 +12,15 @@ public class TransactionStatementTypeResolver extends TransactionStatementVisito
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
+		if (context.getPessimistic()) {
+			context.getStack().push(transactionStatement, true);
+		}
+
 		controller.visit(transactionStatement.getBody(), context);
+		if (context.getPessimistic()) {
+			context.getStack().pop();
+		}
+
 		return null;
 	}
 

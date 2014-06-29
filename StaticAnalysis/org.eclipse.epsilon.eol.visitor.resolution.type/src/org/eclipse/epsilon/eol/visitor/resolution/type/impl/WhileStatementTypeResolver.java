@@ -12,8 +12,17 @@ public class WhileStatementTypeResolver extends WhileStatementVisitor<TypeResolu
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
+		if (context.getPessimistic()) {
+			context.getStack().push(whileStatement, true);
+		}
+
 		controller.visit(whileStatement.getCondition(), context);
 		controller.visit(whileStatement.getBody(), context);
+		
+		if (context.getPessimistic()) {
+			context.getStack().pop();
+		}
+
 		return null;
 	}
 

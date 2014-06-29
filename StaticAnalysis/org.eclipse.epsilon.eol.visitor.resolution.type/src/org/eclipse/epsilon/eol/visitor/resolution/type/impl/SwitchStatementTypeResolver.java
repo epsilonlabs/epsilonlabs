@@ -11,12 +11,21 @@ public class SwitchStatementTypeResolver extends SwitchStatementVisitor<TypeReso
 	public Object visit(SwitchStatement switchStatement,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		if (context.getPessimistic()) {
+			context.getStack().push(switchStatement, true);
+		}
+
 		controller.visit(switchStatement.getExpression(), context);
 		for(SwitchCaseExpressionStatement stmt: switchStatement.getCases())
 		{
 			controller.visit(stmt, context);
 		}
 		controller.visit(switchStatement.getDefault(), context);
+		
+		if (context.getPessimistic()) {
+			context.getStack().pop();
+		}
+
 		return null;
 	}
 

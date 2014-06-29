@@ -2,7 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.util;
 
 import java.util.ArrayList;
 
-import metamodel.connectivity.emf.EMFMetamodelDriver;
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -482,7 +482,7 @@ public class TypeUtil {
 			
 			if(context.containsMetaModel(model)) //check if metamodel exists
 			{
-				EMFMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
+				EMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
 				if(em.containsMetaClass(element)) //if metaclass exists
 				{
 					return true;

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import log.LogBook;
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
-import metamodel.connectivity.plainxml.PlainXMLModel;
+import metamodel.connectivity.plainxml.PlainXMLMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
@@ -14,10 +15,14 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
+import org.eclipse.epsilon.eol.visitor.resolution.type.pessimistic.FrameStack;
 import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 
 public class TypeResolutionContext {
+	
+	protected FrameStack stack = new FrameStack(); //the frameStack
+	protected EolLibraryModule mainProgram = null;
 	
 	protected boolean pessimistic = false;
 	
@@ -64,6 +69,14 @@ public class TypeResolutionContext {
 			}
 		}
 		return false;
+	}
+	
+	public EolLibraryModule getMainProgram() {
+		return mainProgram;
+	}
+	
+	public void setMainProgram(EolLibraryModule mainProgram) {
+		this.mainProgram = mainProgram;
 	}
 	
 	public TypeResolutionContext()
@@ -120,23 +133,23 @@ public class TypeResolutionContext {
 	}
 	
 	//put metamode in the metamode container
-	public void inputMetaModel(EMFMetamodelDriver metaModel)
+	public void inputMetaModel(EMetamodelDriver metaModel)
 	{
 		metaModelNameSpace.add(metaModel.getMetamodelName());
 		container.inputMetaModel(metaModel);
 	}
 			
-	public EMFMetamodelDriver getMetaModel(String name)
+	public EMetamodelDriver getMetaModel(String name)
 	{
 		return container.getMetaModel(name);
 	}
 	
-	public EMFMetamodelDriver getMetaModelWithNSURI(String nsURI)
+	public EMetamodelDriver getMetaModelWithNSURI(String nsURI)
 	{
 		return container.getMetaModelWithURI(nsURI);
 	}
 	
-	public ArrayList<EMFMetamodelDriver> getMetaModelsWithAlias(String alias)
+	public ArrayList<EMetamodelDriver> getMetaModelsWithAlias(String alias)
 	{
 		return container.getMetaModelsWithAlias(alias);
 	}
@@ -164,20 +177,10 @@ public class TypeResolutionContext {
 		obj.setColumn(container.getColumn());
 		obj.setContainer(container);
 	}
-	
-	public boolean isEnum(EObject obj)
-	{
-		boolean result = false;
-		EcorePackage ePack = EcorePackage.eINSTANCE;
-		if (obj.equals(ePack.getEEnum())) {
-			result = true;
-		}
-		return result;
-	}
-	
+		
 	public boolean containsMetaClass(String metaClass)
 	{
-		for(EMFMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetaModels())
 		{
 			if(em.containsMetaClass(metaClass))
 			{
@@ -187,11 +190,11 @@ public class TypeResolutionContext {
 		return false;
 	}
 		
-	public EMFMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
+	public EMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
 	{
-		for(EMFMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetaModels())
 		{
-			if ((!(em instanceof PlainXMLModel)) && em.containsMetaClass(metaClass)) {
+			if ((!(em instanceof PlainXMLMetamodelDriver)) && em.containsMetaClass(metaClass)) {
 				return em;
 			}
 		}
@@ -202,11 +205,11 @@ public class TypeResolutionContext {
 	{
 		return metaModelNameSpace.contains(metaModel);
 	}
-	
+		
 	public int numberOfMetamodelsDefine(String metaClass, boolean includeXMLModels)
 	{
 		int result = 0;
-		for(EMFMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetaModels())
 		{
 			if (includeXMLModels) {
 				if (em.containsMetaClass(metaClass)) {
@@ -214,10 +217,22 @@ public class TypeResolutionContext {
 				}
 			}
 			else {
-				if((!(em instanceof PlainXMLModel)) && em.containsMetaClass(metaClass))
+				if((!(em instanceof PlainXMLMetamodelDriver)) && em.containsMetaClass(metaClass))
 				{
 					result ++;
 				}
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<EMetamodelDriver> metamodelsDefine(String classString)
+	{
+		ArrayList<EMetamodelDriver> result = new ArrayList<EMetamodelDriver>();
+		for(EMetamodelDriver em: container.getMetaModels())
+		{
+			if (em.containsMetaClass(classString)) {
+				result.add(em);
 			}
 		}
 		return result;
@@ -235,25 +250,25 @@ public class TypeResolutionContext {
 	public int getNumberofPlainXMLModels()
 	{
 		int result = 0;
-		for(EMFMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetaModels())
 		{
-			if (em instanceof PlainXMLModel) {
+			if (em instanceof PlainXMLMetamodelDriver) {
 				result++;
 			}
 		}
 		return result;
 	}
 	
-	public PlainXMLModel getOneXMLModel()
-	{
-		for(EMFMetamodelDriver em: container.getMetaModels())
-		{
-			if (em instanceof PlainXMLModel) {
-				return (PlainXMLModel) em;
-			}
-		}
-		return null;
-	}
+//	public PlainXMLModel getOneXMLModel()
+//	{
+//		for(EMFMetamodelDriver em: container.getMetaModels())
+//		{
+//			if (em instanceof PlainXMLModel) {
+//				return (PlainXMLModel) em;
+//			}
+//		}
+//		return null;
+//	}
 
 	public void checkAndDisplayAnnotation(EModelElement element, EolElement dom)
 	{
@@ -298,6 +313,10 @@ public class TypeResolutionContext {
 	
 	public void setPessimistic(boolean pessimistic) {
 		this.pessimistic = pessimistic;
+	}
+	
+	public FrameStack getStack() {
+		return stack;
 	}
 
 }

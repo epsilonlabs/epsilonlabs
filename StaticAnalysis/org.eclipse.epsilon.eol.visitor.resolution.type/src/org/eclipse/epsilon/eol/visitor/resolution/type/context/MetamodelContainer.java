@@ -3,15 +3,16 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.context;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 public class MetamodelContainer {
 
 	//array that contains the metamodels
-	ArrayList<EMFMetamodelDriver> metaModels = new ArrayList<EMFMetamodelDriver>();
+	ArrayList<EMetamodelDriver> metaModels = new ArrayList<EMetamodelDriver>();
 	
 	//map that looks up an array of metamodels with a given alias
-	HashMap<String, ArrayList<EMFMetamodelDriver>> aliasLookUp = new HashMap<String, ArrayList<EMFMetamodelDriver>>();
+	HashMap<String, ArrayList<EMetamodelDriver>> aliasLookUp = new HashMap<String, ArrayList<EMetamodelDriver>>();
 	
 	//metamodel name space
 	ArrayList<String> metaModelNameSpace = new ArrayList<String>();
@@ -48,12 +49,12 @@ public class MetamodelContainer {
 		System.out.println(container.getMetaModelsWithAlias("b").size());
 	}
 	
-	public ArrayList<EMFMetamodelDriver> getMetaModels()
+	public ArrayList<EMetamodelDriver> getMetaModels()
 	{
 		return metaModels;
 	}
 	
-	public void inputMetaModel(EMFMetamodelDriver metaModel)
+	public void inputMetaModel(EMetamodelDriver metaModel)
 	{
 		metaModels.add(metaModel);
 		addToMetaModelNameSpace(metaModel.getMetamodelName());
@@ -64,7 +65,7 @@ public class MetamodelContainer {
 				aliasLookUp.get(s).add(metaModel);
 			}
 			else {
-				ArrayList<EMFMetamodelDriver> metamodels = new ArrayList<EMFMetamodelDriver>();
+				ArrayList<EMetamodelDriver> metamodels = new ArrayList<EMetamodelDriver>();
 				metamodels.add(metaModel);
 				aliasLookUp.put(s, metamodels);
 			}
@@ -77,20 +78,17 @@ public class MetamodelContainer {
 			metaModelNameSpace.add(s);
 		}
 		else {
+			System.err.println("Metamodel Identifier: " + s + " already exists");
 			//throw new Exception("Metamodel Identifier: " + s + " already exists");
 		}
 	}
 	
-	public EMFMetamodelDriver getMetaModel(String name)
+	public EMetamodelDriver getMetaModel(String name)
 	{
 		if (metaModelNameSpace.contains(name)) {
-			for(EMFMetamodelDriver m: metaModels)
+			for(EMetamodelDriver m: metaModels)
 			{
 				if (m.getMetamodelName().equals(name)) {
-					return m;
-				}
-				else if(m.getMetamodelName().equals(name))
-				{
 					return m;
 				}
 			}
@@ -98,9 +96,9 @@ public class MetamodelContainer {
 		return null;
 	}
 	
-	public EMFMetamodelDriver getMetaModelWithURI(String nsURI)
+	public EMetamodelDriver getMetaModelWithURI(String nsURI)
 	{
-		for(EMFMetamodelDriver m: metaModels)
+		for(EMetamodelDriver m: metaModels)
 		{
 			if (m.getMetamodelNsURI().equals(nsURI)) {
 				return m;
@@ -109,7 +107,7 @@ public class MetamodelContainer {
 		return null;
 	}
 	
-	public ArrayList<EMFMetamodelDriver> getMetaModelsWithAlias(String alias)
+	public ArrayList<EMetamodelDriver> getMetaModelsWithAlias(String alias)
 	{
 		return aliasLookUp.get(alias);
 	}

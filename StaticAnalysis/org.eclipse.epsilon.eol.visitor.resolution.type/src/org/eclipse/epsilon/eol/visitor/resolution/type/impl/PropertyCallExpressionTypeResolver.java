@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{
@@ -627,5 +626,18 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		}
 	}
 
+	public Type getDynType(AnyType anyType)
+	{
+		Type result = anyType.getDynamicType();
+		if (result == null) {
+			return null;
+		}
+		else {
+			while(((AnyType)result).getDynamicType() instanceof AnyType)
+			{
+				
+			}
+		}
+	}
 
 }

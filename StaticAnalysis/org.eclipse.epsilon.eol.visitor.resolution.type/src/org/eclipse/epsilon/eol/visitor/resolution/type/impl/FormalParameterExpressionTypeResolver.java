@@ -12,6 +12,9 @@ public class FormalParameterExpressionTypeResolver extends FormalParameterExpres
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
+		if (context.getPessimistic()) {
+			context.getStack().push(formalParameterExpression, true);
+		}
 		controller.visit(formalParameterExpression.getName(), context);
 		controller.visit(formalParameterExpression.getResolvedType(), context);
 		return null;

@@ -15,6 +15,15 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		if (context.getPessimistic()) {
+			if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
+				context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists");
+			}
+			else {
+				context.getStack().putVariable(variableDeclarationExpression, false);
+			}
+		}
+		
 		controller.visitContents(variableDeclarationExpression, context); //visit the content of the var first
 		
 		if (variableDeclarationExpression.getCreate() != null) { // if create is not null
