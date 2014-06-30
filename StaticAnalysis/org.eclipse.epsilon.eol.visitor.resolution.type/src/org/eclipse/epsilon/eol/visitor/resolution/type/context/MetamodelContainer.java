@@ -17,16 +17,16 @@ public class MetamodelContainer {
 	//metamodel name space
 	ArrayList<String> metaModelNameSpace = new ArrayList<String>();
 	
-	TypeResolutionContext context;
-	
-	public MetamodelContainer(TypeResolutionContext context)
-	{
-		this.context = context;
-	}
+//	TypeResolutionContext context;
+//	
+//	public MetamodelContainer(TypeResolutionContext context)
+//	{
+//		this.context = context;
+//	}
 	
 	
 	public static void main(String[] args) {
-		MetamodelContainer container = new MetamodelContainer(new TypeResolutionContext());
+		MetamodelContainer container = new MetamodelContainer();
 		EMFMetamodelDriver mm1 = new EMFMetamodelDriver();
 		mm1.setName("name1");
 		mm1.addAlias("a");

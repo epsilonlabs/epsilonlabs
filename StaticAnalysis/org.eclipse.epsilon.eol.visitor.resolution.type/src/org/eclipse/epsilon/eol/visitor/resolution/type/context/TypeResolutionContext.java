@@ -36,7 +36,7 @@ public class TypeResolutionContext {
 	protected TypeUtil typeUtil = new TypeUtil(this);
 	
 	//containers to hold meta models
-	protected MetamodelContainer container = new MetamodelContainer(this);
+	protected MetamodelContainer container = new MetamodelContainer();
 	
 	//contains model declarations
 	protected HashMap<String, ModelDeclarationStatement> modelDeclarations = new HashMap<String, ModelDeclarationStatement>(); 
