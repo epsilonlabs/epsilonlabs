@@ -69,12 +69,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				targetType = context.getEolFactory().createAnyType(); //there should be an error
 			}
 			
-			if (targetType instanceof AnyType) { //if target type is of type any
-//				if (((AnyType) targetType).getTempType() != null) { //if target type has a temp type
-//					targetType = ((AnyType) targetType).getTempType();
-//				}
-			}
-
 			arrow = methodCallExpression.getIsArrow().isVal();
 		}
 		
@@ -84,7 +78,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		if (operationDefinition != null) { //if there is an operation	
 			for(int i = 0; i < operationDefinition.getParameters().size(); i++)//deals with parameter of type Type
 			{
-				//System.err.println(operationDefinition.getParameters().get(i).getResolvedType().eClass().getName());
 				if (operationDefinition.getParameters().get(i).getResolvedType().eClass().getName().equals("Type")) {
 					if(methodCallExpression.getArguments().get(i) instanceof NameExpression)
 					{
@@ -102,22 +95,22 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				}
 			}
 			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
-			if (contextType == null) {
-				contextType = context.getTypeUtil().createType("Any");
-				targetIsNull = false;
-			}
+//			if (contextType == null) {
+//				contextType = context.getTypeUtil().createType("Any");
+//				targetIsNull = false;
+//			}
 			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
 				if (operationDefinition.getAnnotationBlock() != null) {
 					AnnotationBlock annotationBlock = operationDefinition.getAnnotationBlock();
-					if (targetIsNull) {
-						if (annotationContains(annotationBlock, "allowNoTarget")) {
-							
-						}
-						else {
-							context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
-							return null;
-						}
-					}
+//					if (targetIsNull) {
+//						if (annotationContains(annotationBlock, "allowNoTarget")) {
+//							
+//						}
+//						else {
+//							context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
+//							return null;
+//						}
+//					}
 					
 					if(annotationContains(annotationBlock, "returnInnermostType"))
 					{
@@ -220,10 +213,9 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					}
 				}
 				else {
-					if (targetIsNull) {
-						context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
-//						return null;
-					}
+//					if (targetIsNull) {
+//						context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
+//					}
 				}
 				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
 					methodCallExpression.setResolvedType(EcoreUtil.copy(targetType));  //just copy the target type because the target type has been resolved
@@ -325,15 +317,15 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				}
 			}
 			else if (targetType instanceof AnyType) {
-				if (targetIsNull) {
-					context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
-					return null;
-				}
-				else {
+//				if (targetIsNull) {
+//					context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
+//					return null;
+//				}
+//				else {
 					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
 					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
-				}
+//				}
 			}
 			else {
 				//handle type incompatible
