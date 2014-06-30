@@ -33,7 +33,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		
 		if(nameExpression.getResolvedContent() != null) //if name has a resolved content
 		{
-			Object resolvedContent = (EolElement) nameExpression.getResolvedContent();
+			Object resolvedContent = nameExpression.getResolvedContent();
 			if (resolvedContent instanceof ArrayList<?>) { //if variable's resolved content is an arraylist, it is defined in model delcaration statement
 				ModelType modelType = context.getEolFactory().createModelType();
 				for(VariableDeclarationExpression var: (ArrayList<VariableDeclarationExpression>)resolvedContent)
