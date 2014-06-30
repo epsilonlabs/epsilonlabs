@@ -3,13 +3,16 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
+import metamodel.connectivity.plainxml.PlainXMLMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
@@ -31,295 +34,283 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			context.setAssets(anyType, propertyCallExpression); //set assets
 			propertyCallExpression.setResolvedType(anyType); //assign type
 			
-			//can throw an warning for these types of property call, but we will see
 			context.getLogBook().addWarning(propertyCallExpression.getProperty(), "property is an Extended property, expression type is set to Any");
 			return null;
 		}
 		
 		if (propertyCallExpression.getTarget().getResolvedType() instanceof AnyType) {// or the target is of type Any
 			AnyType tempAnyType = (AnyType) propertyCallExpression.getTarget().getResolvedType();
-			Type tempType = null;
-			AnyType anyType = context.getEolFactory().createAnyType(); //create an anyType
+			if (context.getPessimistic()) {//if pessimistic, then retrieve the innermost non-any type
+				Type tempType = null;
 
-			if (tempAnyType.getDynamicType() != null) {
-				tempType = tempAnyType.getDynamicType();
-				propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
+				if (tempAnyType.getDynamicType() != null) {
+					tempType = getDynType(tempAnyType);
+					if (tempType instanceof AnyType) {
+						context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potential unsafe typing");
+					}
+					propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
+				}
+//				else {
+//					propertyCallExpression.setResolvedType(tempAnyType); //assign type
+//					context.setAssets(tempAnyType, propertyCallExpression); //set assets
+//					context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target is of type Any, expression type is set to Any");
+//					return null;
+//				}
+
 			}
 			else {
-				propertyCallExpression.setResolvedType(anyType); //assign type
-				context.setAssets(anyType, propertyCallExpression); //set assets
-				context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target is of type Any, expression type is set to Any");
-				return null;
+				context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 			}
-			//context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target type is Any, expression type is set to Any");
 		}
-		if(true) {
-			//if the property is an extended property, then the type of the call should be Any
-			//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
-			//EOL does not guarantee the safe property navigation of type Any -- need to talk to Dimitris for further development on EOL but leave it like this for now
-			//System.err.println(propertyCallExpression.getProperty().getName());
-			if (isKeyword(propertyCallExpression.getProperty().getName())) {
-				handleKeywords(propertyCallExpression, context);
-			}
-			else 
-			{ //if the property is not an extended property and the target type is not of type Any
-				if(propertyCallExpression.getTarget().getResolvedType() instanceof ModelElementType) //if the target type is ModelElementType
+
+		//if the property is an extended property, then the type of the call should be Any
+		//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
+		//EOL does not guarantee the safe property navigation of type Any -- need to talk to Dimitris for further development on EOL but leave it like this for now
+		//System.err.println(propertyCallExpression.getProperty().getName());
+		if (isKeyword(propertyCallExpression.getProperty().getName())) {
+			handleKeywords(propertyCallExpression, context);
+			return null;
+		}
+		else 
+		{ //if the property is not an extended property and the target type is not of type Any
+			if(propertyCallExpression.getTarget().getResolvedType() instanceof ModelElementType) //if the target type is ModelElementType
+			{
+				ModelElementType targetType = (ModelElementType) propertyCallExpression.getTarget().getResolvedType(); //get the type
+				EMetamodelDriver mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
+				String metaClassString = targetType.getElementName(); //get metaclass string
+				String propertyString = propertyCallExpression.getProperty().getName(); //get property string
+				
+				if(mm != null && mm.contains(metaClassString, propertyString)) //if metamode class contains the property
 				{
-					ModelElementType targetType = (ModelElementType) propertyCallExpression.getTarget().getResolvedType(); //get the type
-					EMFMetamodelDriver mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
-					String metaClassString = targetType.getElementName(); //get metaclass string
-					String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 					
+				}
+				else {
+					if (targetType.getEcoreType()!=null) {
+						mm = context.getMetaModelWithNSURI(targetType.getEcoreType().getEPackage().getNsURI());
+					}
+				}
+				
+				if (mm instanceof PlainXMLMetamodelDriver) {
 					if (context.getTypeUtil().isXMLSyntax(propertyString)) {
 						if (propertyString.startsWith("t_")) {
 							context.getLogBook().addError(propertyCallExpression.getProperty(), "The syntax t_ cannot be used on property calls");
 							return null;
 						}
 					}
+				}
+				
+				if(mm != null) //if meta model exists
+				{
 					
-					if(mm != null && mm.contains(metaClassString, propertyString)) //if metamode class contains the property
+					if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
 					{
-						
-					}
-					else {
-						if (targetType.getEcoreType()!=null) {
-							mm = context.getMetaModelWithNSURI(targetType.getEcoreType().getEPackage().getNsURI());
-						}
-					}
-
-					
-					//System.out.println(targetType.getEcoreType().getEPackage().getNsURI());
-
-					if(mm != null) //if meta model exists
-					{
-//						String metaClassString = targetType.getElementName(); //get metaclass string
-//						String propertyString = propertyCallExpression.getProperty().getName(); //get property string
-						
-						if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
-						{
-							EStructuralFeature feature = mm.getEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the property 
-							propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
-							if (feature.getEAnnotations() != null && feature.getEAnnotations().size() != 0) {
-								for(EAnnotation anno: feature.getEAnnotations())
-								{
-									if (anno.getDetails().get("warning") != null) {
-										context.getLogBook().addWarning(propertyCallExpression.getProperty(), anno.getDetails().get("warning"));	
-									}
-									if (anno.getDetails().get("error") != null) {
-										context.getLogBook().addError(propertyCallExpression.getProperty(), anno.getDetails().get("error"));	
-									}
+						EStructuralFeature feature = mm.getEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the property 
+						propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
+						if (feature.getEAnnotations() != null && feature.getEAnnotations().size() != 0) {
+							for(EAnnotation anno: feature.getEAnnotations())
+							{
+								if (anno.getDetails().get("warning") != null) {
+									context.getLogBook().addWarning(propertyCallExpression.getProperty(), anno.getDetails().get("warning"));	
 								}
+								if (anno.getDetails().get("error") != null) {
+									context.getLogBook().addError(propertyCallExpression.getProperty(), anno.getDetails().get("error"));	
+								}
+							}
+						}
+						
+						if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
+							Type contentType = null; //each collection type needs a content type
+							CollectionType callType = null; //prepare the callType
+							
+							EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
+							if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
+								if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
+									contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
+								}
+								else { //if type is not normalisable
+									contentType = context.getEolFactory().createEType(); //create a EType and assign it to contentType
+									((EType) contentType).setEcoreType(propertyType); //assign the EDataType to EType
+								}
+							}
+							else { //if type is not EDatatype
+								contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
+								((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
+								((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
+								((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
+							}
+
+				
+							
+							if (feature.isOrdered() && feature.isUnique()) { //if feature is ordered and unique
+								callType = context.getEolFactory().createOrderedSetType(); //this should be ordered set
+							}
+							else if (feature.isOrdered() && !feature.isUnique()) { //if feature is ordered but not unique
+								callType = context.getEolFactory().createSequenceType(); //this should be a sequence
+							}
+							else if (!feature.isOrdered() && feature.isUnique()) {//if feature is unordered and unique
+								callType = context.getEolFactory().createSetType();  //this should be a set
+							}
+							else if (!feature.isOrdered() && !feature.isUnique()) {//if feature is unordered and non-unique
+								callType = context.getEolFactory().createBagType(); //this should be a bag
 							}
 							
-							if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
-								Type contentType = null; //each collection type needs a content type
-								CollectionType callType = null; //prepare the callType
-								
-								EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
-								if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
-									if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
-										contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
-									}
-									else { //if type is not normalisable
-										contentType = context.getEolFactory().createEType(); //create a EType and assign it to contentType
-										((EType) contentType).setEcoreType(propertyType); //assign the EDataType to EType
-									}
-								}
-								else { //if type is not EDatatype
-									contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
-									((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-									((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
-									((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
-								}
-
-					
-								
-								if (feature.isOrdered() && feature.isUnique()) { //if feature is ordered and unique
-									callType = context.getEolFactory().createOrderedSetType(); //this should be ordered set
-								}
-								else if (feature.isOrdered() && !feature.isUnique()) { //if feature is ordered but not unique
-									callType = context.getEolFactory().createSequenceType(); //this should be a sequence
-								}
-								else if (!feature.isOrdered() && feature.isUnique()) {//if feature is unordered and unique
-									callType = context.getEolFactory().createSetType();  //this should be a set
-								}
-								else if (!feature.isOrdered() && !feature.isUnique()) {//if feature is unordered and non-unique
-									callType = context.getEolFactory().createBagType(); //this should be a bag
-								}
-								
-								callType.setContentType(EcoreUtil.copy(contentType));
-								//context.setAssets(contentType, callType); //set assets for contentType
-								
-								Type typeCopy = EcoreUtil.copy(callType);
-								propertyCallExpression.getProperty().setResolvedType(typeCopy);
-								context.setAssets(typeCopy, propertyCallExpression.getProperty());
-								
-								
-								propertyCallExpression.setResolvedType(typeCopy);
-								context.setAssets(typeCopy, propertyCallExpression); //set assets for callType
-								
-							}
-							else { //if the feature is single value aggregation
-								
-								EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
-								if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
-									if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
-										Type type = context.getTypeUtil().normalise(propertyType);
-										propertyCallExpression.getProperty().setResolvedType(type);
-										context.setAssets(type, propertyCallExpression.getProperty());
-										
-										Type typeCopy = EcoreUtil.copy(type);
-										propertyCallExpression.setResolvedType(typeCopy);
-										context.setAssets(typeCopy, propertyCallExpression);
-									}
-									else { //if the data type is not normalisable
-										EType eType = context.getEolFactory().createEType();
-										eType.setEcoreType(propertyType);
-										propertyCallExpression.getProperty().setResolvedType(eType);
-										context.setAssets(eType, propertyCallExpression.getProperty());
-										
-										Type typeCopy = EcoreUtil.copy(eType);
-										propertyCallExpression.setResolvedType(typeCopy);
-										context.setAssets(typeCopy, propertyCallExpression);
-									}
-								}
-								else { //if the property is not data type, then it should be model element type
-									ModelElementType callType = context.getEolFactory().createModelElementType();
-									callType.setEcoreType(propertyType);
-									callType.setModelName(mm.getMetamodelName());
-									callType.setElementName(propertyType.getName());
-									propertyCallExpression.getProperty().setResolvedType(callType);
-									context.setAssets(callType, propertyCallExpression.getProperty());
+							callType.setContentType(EcoreUtil.copy(contentType));
+							//context.setAssets(contentType, callType); //set assets for contentType
+							
+							Type typeCopy = EcoreUtil.copy(callType);
+							propertyCallExpression.getProperty().setResolvedType(typeCopy);
+							context.setAssets(typeCopy, propertyCallExpression.getProperty());
+							
+							
+							propertyCallExpression.setResolvedType(typeCopy);
+							context.setAssets(typeCopy, propertyCallExpression); //set assets for callType
+							
+						}
+						else { //if the feature is single value aggregation
+							
+							EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
+							if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
+								if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
+									Type type = context.getTypeUtil().normalise(propertyType);
+									propertyCallExpression.getProperty().setResolvedType(type);
+									context.setAssets(type, propertyCallExpression.getProperty());
 									
-									Type typeCopy = EcoreUtil.copy(callType);
+									Type typeCopy = EcoreUtil.copy(type);
+									propertyCallExpression.setResolvedType(typeCopy);
+									context.setAssets(typeCopy, propertyCallExpression);
+								}
+								else { //if the data type is not normalisable
+									EType eType = context.getEolFactory().createEType();
+									eType.setEcoreType(propertyType);
+									propertyCallExpression.getProperty().setResolvedType(eType);
+									context.setAssets(eType, propertyCallExpression.getProperty());
+									
+									Type typeCopy = EcoreUtil.copy(eType);
 									propertyCallExpression.setResolvedType(typeCopy);
 									context.setAssets(typeCopy, propertyCallExpression);
 								}
 							}
-						}
-						else {
-
-							context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyCallExpression.getProperty().getName()
-									+ " is not found" );
-							propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
-							
-							//handle property not found
-							//this might support for operations like a.all.first; 
+							else { //if the property is not data type, then it should be model element type
+								ModelElementType callType = context.getEolFactory().createModelElementType();
+								callType.setEcoreType(propertyType);
+								callType.setModelName(mm.getMetamodelName());
+								callType.setElementName(propertyType.getName());
+								propertyCallExpression.getProperty().setResolvedType(callType);
+								context.setAssets(callType, propertyCallExpression.getProperty());
+								
+								Type typeCopy = EcoreUtil.copy(callType);
+								propertyCallExpression.setResolvedType(typeCopy);
+								context.setAssets(typeCopy, propertyCallExpression);
+							}
 						}
 					}
 					else {
-						//handle mm not found
+
+						context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyCallExpression.getProperty().getName()
+								+ " is not found" );
+						propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
+						
+						//handle property not found
+						//this might support for operations like a.all.first; 
 					}
 				}
 				else {
-					if (propertyCallExpression.getTarget().getResolvedType() instanceof CollectionType) { //if target is of type CollectionType
-						CollectionType rawCollectionType = (CollectionType) propertyCallExpression.getTarget().getResolvedType(); //prepare collection type
-						
-						CollectionType rawResultType = EcoreUtil.copy(rawCollectionType);
-						
-						if (getInnermostType(rawCollectionType) instanceof ModelElementType) 
-						{ //if contentType is ModelElementType
-							ModelElementType resultContentType = (ModelElementType) getInnermostType(rawCollectionType); //prepare result content type
-							EMFMetamodelDriver mm = context.getMetaModel(resultContentType.getModelName()); //get the metamodel
-							if(mm != null) //if meta model exists
-							{
-								String metaClassString = resultContentType.getElementName(); //get metaclass string
-								String propertyString = propertyCallExpression.getProperty().getName(); //get property string
-								
-								if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
-								{
-									EStructuralFeature feature = mm.getEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the property 
-									propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
-
-									if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
-										Type contentType = null; //each collection type needs a content type
-										CollectionType callType = null; //prepare the callType
-										
-										EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
-										if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
-											if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
-												contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
-											}
-											else { //if type is not normalisable
-												contentType = context.getEolFactory().createEType(); //create a EType and assign it to contentType
-												((EType) contentType).setEcoreType(propertyType); //assign the EDataType to EType
-											}
-										}
-										else { //if type is not EDatatype
-											contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
-											((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-											((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
-											((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
-										}
-
+					//handle mm not found
+				}
+			}
+			else {
+				if (propertyCallExpression.getTarget().getResolvedType() instanceof CollectionType) { //if target is of type CollectionType
+					CollectionType rawCollectionType = (CollectionType) propertyCallExpression.getTarget().getResolvedType(); //prepare collection type
+					
+					CollectionType rawResultType = EcoreUtil.copy(rawCollectionType);
+					
+					if (getInnermostType(rawCollectionType) instanceof ModelElementType) 
+					{ //if contentType is ModelElementType
+						ModelElementType resultContentType = (ModelElementType) getInnermostType(rawCollectionType); //prepare result content type
+						EMetamodelDriver mm = context.getMetaModel(resultContentType.getModelName()); //get the metamodel
+						if(mm != null) //if meta model exists
+						{
+							String metaClassString = resultContentType.getElementName(); //get metaclass string
+							String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 							
-										
-										if (feature.isOrdered() && feature.isUnique()) { //if feature is ordered and unique
-											callType = context.getEolFactory().createOrderedSetType(); //this should be ordered set
+							if(mm.contains(metaClassString, propertyString)) //if metamode class contains the property
+							{
+								EStructuralFeature feature = mm.getEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the property 
+								propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
+
+								if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
+									Type contentType = null; //each collection type needs a content type
+									CollectionType callType = null; //prepare the callType
+									
+									EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get the type for the property
+									if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
+										if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
+											contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
 										}
-										else if (feature.isOrdered() && !feature.isUnique()) { //if feature is ordered but not unique
-											callType = context.getEolFactory().createSequenceType(); //this should be a sequence
+										else { //if type is not normalisable
+											contentType = context.getEolFactory().createEType(); //create a EType and assign it to contentType
+											((EType) contentType).setEcoreType(propertyType); //assign the EDataType to EType
 										}
-										else if (!feature.isOrdered() && feature.isUnique()) {//if feature is unordered and unique
-											callType = context.getEolFactory().createSetType();  //this should be a set
-										}
-										else if (!feature.isOrdered() && !feature.isUnique()) {//if feature is unordered and non-unique
-											callType = context.getEolFactory().createBagType(); //this should be a bag
-										}
-										
-										callType.setContentType(contentType);
-										context.setAssets(contentType, callType); //set assets for contentType
-										
-										Type typeCopy = EcoreUtil.copy(callType);
-										propertyCallExpression.getProperty().setResolvedType(typeCopy);
-										context.setAssets(typeCopy, propertyCallExpression.getProperty());
-										
-										rawResultType.setContentType(callType);
-										context.setAssets(callType, rawResultType);
-										
-										propertyCallExpression.setResolvedType(rawResultType);
-										context.setAssets(rawResultType, propertyCallExpression); //set assets for callType
-										
 									}
-									else { //if the feature is single value aggregation
-										
-										EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
-										if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
-											if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
-												Type type = context.getTypeUtil().normalise(propertyType);
-												propertyCallExpression.getProperty().setResolvedType(type);
-												context.setAssets(type, propertyCallExpression.getProperty());
-												
-												Type typeCopy = EcoreUtil.copy(type);
-												rawResultType.setContentType(typeCopy);
-												context.setAssets(typeCopy, rawResultType);
-												
-												propertyCallExpression.setResolvedType(rawResultType);
-												context.setAssets(rawResultType, propertyCallExpression);
-											}
-											else { //if the data type is not normalisable
-												EType eType = context.getEolFactory().createEType();
-												eType.setEcoreType(propertyType);
-												propertyCallExpression.getProperty().setResolvedType(eType);
-												context.setAssets(eType, propertyCallExpression.getProperty());
-												
-												Type typeCopy = EcoreUtil.copy(eType);
-												rawResultType.setContentType(typeCopy);
-												context.setAssets(typeCopy, rawResultType);
-												
-												propertyCallExpression.setResolvedType(rawResultType);
-												context.setAssets(rawResultType, propertyCallExpression);
-											}
-										}
-										else { //if the property is not data type, then it should be model element type
-											ModelElementType callType = context.getEolFactory().createModelElementType();
-											callType.setEcoreType(propertyType);
-											callType.setModelName(mm.getMetamodelName());
-											callType.setElementName(propertyType.getName());
-											propertyCallExpression.getProperty().setResolvedType(callType);
-											context.setAssets(callType, propertyCallExpression.getProperty());
+									else { //if type is not EDatatype
+										contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
+										((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
+										((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
+										((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
+									}
+
+						
+									
+									if (feature.isOrdered() && feature.isUnique()) { //if feature is ordered and unique
+										callType = context.getEolFactory().createOrderedSetType(); //this should be ordered set
+									}
+									else if (feature.isOrdered() && !feature.isUnique()) { //if feature is ordered but not unique
+										callType = context.getEolFactory().createSequenceType(); //this should be a sequence
+									}
+									else if (!feature.isOrdered() && feature.isUnique()) {//if feature is unordered and unique
+										callType = context.getEolFactory().createSetType();  //this should be a set
+									}
+									else if (!feature.isOrdered() && !feature.isUnique()) {//if feature is unordered and non-unique
+										callType = context.getEolFactory().createBagType(); //this should be a bag
+									}
+									
+									callType.setContentType(contentType);
+									context.setAssets(contentType, callType); //set assets for contentType
+									
+									Type typeCopy = EcoreUtil.copy(callType);
+									propertyCallExpression.getProperty().setResolvedType(typeCopy);
+									context.setAssets(typeCopy, propertyCallExpression.getProperty());
+									
+									rawResultType.setContentType(callType);
+									context.setAssets(callType, rawResultType);
+									
+									propertyCallExpression.setResolvedType(rawResultType);
+									context.setAssets(rawResultType, propertyCallExpression); //set assets for callType
+									
+								}
+								else { //if the feature is single value aggregation
+									
+									EClassifier propertyType = mm.getTypeForEStructuralFeature(mm.getMetaClass(metaClassString), propertyString); //get property
+									if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
+										if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
+											Type type = context.getTypeUtil().normalise(propertyType);
+											propertyCallExpression.getProperty().setResolvedType(type);
+											context.setAssets(type, propertyCallExpression.getProperty());
 											
-											Type typeCopy = EcoreUtil.copy(callType);
+											Type typeCopy = EcoreUtil.copy(type);
+											rawResultType.setContentType(typeCopy);
+											context.setAssets(typeCopy, rawResultType);
+											
+											propertyCallExpression.setResolvedType(rawResultType);
+											context.setAssets(rawResultType, propertyCallExpression);
+										}
+										else { //if the data type is not normalisable
+											EType eType = context.getEolFactory().createEType();
+											eType.setEcoreType(propertyType);
+											propertyCallExpression.getProperty().setResolvedType(eType);
+											context.setAssets(eType, propertyCallExpression.getProperty());
+											
+											Type typeCopy = EcoreUtil.copy(eType);
 											rawResultType.setContentType(typeCopy);
 											context.setAssets(typeCopy, rawResultType);
 											
@@ -327,18 +318,28 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 											context.setAssets(rawResultType, propertyCallExpression);
 										}
 									}
-								}
-								else {
-									context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyString
-											+ " is not found" );
-									propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
+									else { //if the property is not data type, then it should be model element type
+										ModelElementType callType = context.getEolFactory().createModelElementType();
+										callType.setEcoreType(propertyType);
+										callType.setModelName(mm.getMetamodelName());
+										callType.setElementName(propertyType.getName());
+										propertyCallExpression.getProperty().setResolvedType(callType);
+										context.setAssets(callType, propertyCallExpression.getProperty());
+										
+										Type typeCopy = EcoreUtil.copy(callType);
+										rawResultType.setContentType(typeCopy);
+										context.setAssets(typeCopy, rawResultType);
+										
+										propertyCallExpression.setResolvedType(rawResultType);
+										context.setAssets(rawResultType, propertyCallExpression);
+									}
 								}
 							}
-						}
-						else {
-							context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyCallExpression.getProperty().getName()
-									+ " is not found" );
-							propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
+							else {
+								context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyString
+										+ " is not found" );
+								propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
+							}
 						}
 					}
 					else {
@@ -346,10 +347,16 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								+ " is not found" );
 						propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
 					}
-					//no further property queries can be performed if the target type is not ModelElementType
 				}
+				else {
+					context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyCallExpression.getProperty().getName()
+							+ " is not found" );
+					propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
+				}
+				//no further property queries can be performed if the target type is not ModelElementType
 			}
 		}
+	
 		return null;
 	}
 	
@@ -373,7 +380,6 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		Type targetType = propertyCallExpression.getTarget().getResolvedType();
 		ArrayList<Type> argTypes = new ArrayList<Type>();
 		
-		//OperationDefinition operationDefinition = context.getOperationDefinitionControl().getHandlerFactory().handle(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes);
 		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false); //fetch operation definition using name, context type and arg types
 
 		if (operationDefinition != null) {
@@ -633,11 +639,25 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			return null;
 		}
 		else {
-			while(((AnyType)result).getDynamicType() instanceof AnyType)
+			while(result instanceof AnyType && ((AnyType)result).getDynamicType() != null)
 			{
-				
+				result = ((AnyType)result).getDynamicType();
 			}
 		}
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		PropertyCallExpressionTypeResolver tr = new PropertyCallExpressionTypeResolver();
+		EolFactoryImpl factory = new EolFactoryImpl();
+		AnyType anyType = factory.createAnyType();
+		AnyType inner1 = factory.createAnyType();
+		AnyType inner2 = factory.createAnyType();
+		CollectionType collectionType = factory.createCollectionType();
+		//inner2.setDynamicType(collectionType);
+		inner1.setDynamicType(inner2);
+		//anyType.setDynamicType(inner1);
+		System.out.println(tr.getDynType(anyType));
 	}
 
 }

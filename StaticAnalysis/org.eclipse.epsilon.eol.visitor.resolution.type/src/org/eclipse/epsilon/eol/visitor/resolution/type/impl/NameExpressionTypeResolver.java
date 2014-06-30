@@ -33,7 +33,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		
 		if(nameExpression.getResolvedContent() != null) //if name has a resolved content
 		{
-			EolElement resolvedContent = (EolElement) nameExpression.getResolvedContent();
+			Object resolvedContent = (EolElement) nameExpression.getResolvedContent();
 			if (resolvedContent instanceof ArrayList<?>) { //if variable's resolved content is an arraylist, it is defined in model delcaration statement
 				ModelType modelType = context.getEolFactory().createModelType();
 				for(VariableDeclarationExpression var: (ArrayList<VariableDeclarationExpression>)resolvedContent)
@@ -45,10 +45,10 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				nameExpression.setResolvedType(modelType);
 				return null;
 			}
-			if (definedInModelDeclarationStatement(resolvedContent)) { //if variable is defined in model declaration statement
+			if (definedInModelDeclarationStatement((EolElement) resolvedContent)) { //if variable is defined in model declaration statement
 				if (resolvedContent instanceof VariableDeclarationExpression) { //if single
 					ModelType modelType = context.getEolFactory().createModelType(); //create model type
-					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement(resolvedContent); //get the containing model declaration
+					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement((EolElement) resolvedContent); //get the containing model declaration
 					context.setLocation(modelType, nameExpression); //set the location
 					modelType.getModels().add(stmt); //add the model to the model type
 					nameExpression.setResolvedType(EcoreUtil.copy(modelType)); //set resolved type
@@ -110,7 +110,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							nameExpression.setResolvedType(type);
 						}
 						else {
-							context.getLogBook().addError(resolvedContent, "Expression does not have a type");
+							context.getLogBook().addError((EolElement) resolvedContent, "Expression does not have a type");
 						}
 					}
 					if (type != null) {

@@ -283,6 +283,8 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 						if (models != null) {
 							if (models.size() == 1) {
 								EMetamodelDriver leModel = models.get(0);
+								modelElementType.setModelName(leModel.getName());
+
 								if (leModel instanceof EMFMetamodelDriver) {
 									if (leModel.containsMetaClass(elementString)) {
 										EClass element = leModel.getMetaClass(elementString);
