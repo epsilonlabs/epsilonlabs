@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.performance.analysis.context;
 
 import java.util.ArrayList;
 
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
@@ -461,7 +462,7 @@ public class TypeUtil {
 			
 			if(context.containsMetaModel(model)) //check if metamodel exists
 			{
-				EMFMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
+				EMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
 				if(em.containsMetaClass(element)) //if metaclass exists
 				{
 					return true;

@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.performance.analysis.impl;
 
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
@@ -45,7 +46,7 @@ public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVis
 													ModelElementType modelElementType = (ModelElementType) lhs.getTarget().getResolvedType();
 													String modelName = modelElementType.getModelName();
 													String elementName = modelElementType.getElementName();
-													EMFMetamodelDriver mm = context.getMetaModel(modelName);
+													EMetamodelDriver mm = context.getMetaModel(modelName);
 													if (mm != null) {
 														EClass eClass = mm.getMetaClass(elementName);
 														EReference eReference = mm.getEReference(eClass, lhs.getProperty().getName());

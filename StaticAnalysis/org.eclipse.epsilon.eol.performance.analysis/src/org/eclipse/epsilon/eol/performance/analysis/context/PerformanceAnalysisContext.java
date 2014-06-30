@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import log.LogBook;
+import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import metamodel.connectivity.emf.EMFMetamodelDriver;
 
 import org.eclipse.emf.ecore.EObject;
@@ -76,19 +77,19 @@ public class PerformanceAnalysisContext {
 		}
 		
 		//put metamode in the metamode container
-		public void inputMetaModel(EMFMetamodelDriver metaModel)
+		public void inputMetaModel(EMetamodelDriver metaModel)
 		{
 			metaModelNameSpace.add(metaModel.getMetamodelName());
 			metaModelNameSpace.add(metaModel.getMetamodelName());
 			container.inputMetaModel(metaModel);
 		}
 				
-		public EMFMetamodelDriver getMetaModel(String name)
+		public EMetamodelDriver getMetaModel(String name)
 		{
 			return container.getMetaModel(name);
 		}
 		
-		public ArrayList<EMFMetamodelDriver> getMetaModelsWithAlias(String alias)
+		public ArrayList<EMetamodelDriver> getMetaModelsWithAlias(String alias)
 		{
 			return container.getMetaModelsWithAlias(alias);
 		}
@@ -130,7 +131,7 @@ public class PerformanceAnalysisContext {
 		
 		public boolean containsMetaClass(String metaClass)
 		{
-			for(EMFMetamodelDriver em: container.getMetaModels())
+			for(EMetamodelDriver em: container.getMetaModels())
 			{
 				if(em.containsMetaClass(metaClass))
 				{
@@ -140,9 +141,9 @@ public class PerformanceAnalysisContext {
 			return false;
 		}
 			
-		public EMFMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
+		public EMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
 		{
-			for(EMFMetamodelDriver em: container.getMetaModels())
+			for(EMetamodelDriver em: container.getMetaModels())
 			{
 				if (em.containsMetaClass(metaClass)) {
 					return em;
@@ -159,7 +160,7 @@ public class PerformanceAnalysisContext {
 		public int numberOfMetamodelsDefine(String metaClass)
 		{
 			int result = 0;
-			for(EMFMetamodelDriver em: container.getMetaModels())
+			for(EMetamodelDriver em: container.getMetaModels())
 			{
 				if(em.containsMetaClass(metaClass))
 				{
