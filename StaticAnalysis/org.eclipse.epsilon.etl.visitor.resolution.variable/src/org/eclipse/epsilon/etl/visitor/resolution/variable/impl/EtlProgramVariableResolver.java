@@ -3,6 +3,7 @@ package org.eclipse.epsilon.etl.visitor.resolution.variable.impl;
 import java.util.HashMap;
 
 import org.eclipse.epsilon.eol.metamodel.Import;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
@@ -48,36 +49,70 @@ public class EtlProgramVariableResolver extends EtlProgramVisitor<VariableResolu
 	public Object visit(EtlProgram etlProgram,
 			VariableResolutionContext context,
 			EtlVisitorController<VariableResolutionContext, Object> controller) {
-		//System.out.println("this is executed");
 		
 		if (context.getMainProgram() == null) { //if the program is the ETL in question (the main program)
 			context.getStack().push(etlProgram, true); //insert a stack
 			context.setMainProgram(etlProgram); //set the main program to be this one
-		}
-		
-		for(Import imported : etlProgram.getImports())
-		{
-			controller.visit(imported, context); //visit each import statement and resolve the imported programs
-		}
-		for(PreBlock pre: etlProgram.getPreBlocks())
-		{
-			controller.visit(pre, context);
-		}
-		for(OperationDefinition op: etlProgram.getOperations())
-		{
-			controller.visit(op, context);
-		}
-		resolveInheritance(etlProgram, context);
-		for(TransformationRule rule: etlProgram.getTransformationRules())
-		{
-			controller.visit(rule, context);
-		}
-		
-		for(PostBlock post: etlProgram.getPostBlocks())
-		{
-			controller.visit(post, context);
-		}
+			for(ModelDeclarationStatement mds: etlProgram.getModelDeclarations())
+			{
+				controller.visit(mds, context);
+			}
+			
+			for(Import imported : etlProgram.getImports())
+			{
+				controller.visit(imported, context); //visit each import statement and resolve the imported programs
+			}
+			for(PreBlock pre: etlProgram.getPreBlocks())
+			{
+				controller.visit(pre, context);
+			}
+			for(OperationDefinition op: etlProgram.getOperations())
+			{
+				controller.visit(op, context);
+			}
+			resolveInheritance(etlProgram, context);
+			for(TransformationRule rule: etlProgram.getTransformationRules())
+			{
+				controller.visit(rule, context);
+			}
+			
+			for(PostBlock post: etlProgram.getPostBlocks())
+			{
+				controller.visit(post, context);
+			}
+			context.getStack().pop();
 
+		}
+		else {
+			for(ModelDeclarationStatement mds: etlProgram.getModelDeclarations())
+			{
+				controller.visit(mds, context);
+			}
+			
+			for(Import imported : etlProgram.getImports())
+			{
+				controller.visit(imported, context); //visit each import statement and resolve the imported programs
+			}
+			for(PreBlock pre: etlProgram.getPreBlocks())
+			{
+				controller.visit(pre, context);
+			}
+			for(OperationDefinition op: etlProgram.getOperations())
+			{
+				controller.visit(op, context);
+			}
+			resolveInheritance(etlProgram, context);
+			for(TransformationRule rule: etlProgram.getTransformationRules())
+			{
+				controller.visit(rule, context);
+			}
+			
+			for(PostBlock post: etlProgram.getPostBlocks())
+			{
+				controller.visit(post, context);
+			}
+		}
+		
 		return null;
 	}
 
