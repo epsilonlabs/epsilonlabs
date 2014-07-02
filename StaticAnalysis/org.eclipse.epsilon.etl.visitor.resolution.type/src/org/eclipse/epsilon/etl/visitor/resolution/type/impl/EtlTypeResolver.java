@@ -31,12 +31,13 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.impl.SwitchStatementTypeR
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.VariableDeclarationExpressionTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.WhileStatementTypeResolver;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
+import org.eclipse.epsilon.etl.visitor.resolution.type.context.EtlTypeResolutionContext;
 
 
 public class EtlTypeResolver{
 
 	protected EtlVisitorController<TypeResolutionContext, Object> controller = new EtlVisitorController<TypeResolutionContext, Object>();
-	protected TypeResolutionContext context = new TypeResolutionContext();
+	protected EtlTypeResolutionContext context = new EtlTypeResolutionContext();
 	
 	public EtlTypeResolver()
 	{
