@@ -34,7 +34,7 @@ public class TransformationRuleCreator extends EtlElementCreator{
 
 		
 		AST previousAst = AstUtilities.getPreviousSibling(ast);
-		if(previousAst.getType() == EtlParser.ANNOTATIONBLOCK) //check if there is an annotation block
+		if(previousAst != null && previousAst.getType() == EtlParser.ANNOTATIONBLOCK) //check if there is an annotation block
 		{
 			rule.setAnnotationBlock((AnnotationBlock) _context.getEtlElementCreatorFactory().createDomElement(previousAst, rule, _context)); //process annotation block
 		}

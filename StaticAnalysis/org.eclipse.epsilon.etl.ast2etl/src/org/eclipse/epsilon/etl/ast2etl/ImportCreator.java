@@ -26,7 +26,7 @@ public class ImportCreator extends org.eclipse.epsilon.eol.ast2eol.ImportCreator
 			AST importedAst = null;
 			
 			try {
-				importedAst = getAstForFile(importedString, context);
+				importedAst = getAstForFile(importedString, (Ast2EtlContext)context);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -41,9 +41,9 @@ public class ImportCreator extends org.eclipse.epsilon.eol.ast2eol.ImportCreator
 		return imp;
 	}
 	
-	protected AST getAstForFile(String s, Ast2EolContext context) throws Exception
+	protected AST getAstForFile(String s, Ast2EtlContext context) throws Exception
 	{
-		String directoryPath = context.getEolElementCreatorFactory().getDirectoryPathString();
+		String directoryPath = context.getEtlElementCreatorFactory().getDirectoryPathString();
 		if (directoryPath != null && (s.endsWith(".etl") || s.endsWith(".eol"))) {
 			/*String fullPath = directoryPath + s;
 			File file = new File(fullPath);

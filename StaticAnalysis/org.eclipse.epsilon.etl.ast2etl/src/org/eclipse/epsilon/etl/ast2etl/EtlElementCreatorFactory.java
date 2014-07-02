@@ -233,7 +233,8 @@ public class EtlElementCreatorFactory {
 		result.add(new BlockCreator());
 		result.addAll(initiateCollectionInitValuePool());
 		result.addAll(initiateExpressionPool());
-		result.add(new ImportCreator());
+		//result.add(new ImportCreator());
+		result.add(new org.eclipse.epsilon.etl.ast2etl.ImportCreator());
 		result.add(new KeyValueCreator());
 		result.add(new ModelDeclarationParameterCreator());
 		result.add(new EtlProgramCreator());
