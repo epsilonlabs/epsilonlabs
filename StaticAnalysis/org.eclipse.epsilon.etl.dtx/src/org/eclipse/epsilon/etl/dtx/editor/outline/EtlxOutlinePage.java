@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
+import org.eclipse.epsilon.etl.visitor.resolution.type.impl.EtlTypeResolver;
 import org.eclipse.epsilon.etl.visitor.resolution.variable.impl.EtlVariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -48,6 +49,9 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 		
 		EtlVariableResolver etlvr = new EtlVariableResolver();
 		etlvr.run(dom);
+		
+		EtlTypeResolver etltr = new EtlTypeResolver();
+		etltr.run(dom);
 		
 		return new DomOutlineElement(dom);
 	}
