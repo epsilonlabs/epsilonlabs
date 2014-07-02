@@ -33,6 +33,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/annotationBlock"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/resolvedParentRules"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/dependingRules"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/guard"/>
     </genClasses>
   </genPackages>
