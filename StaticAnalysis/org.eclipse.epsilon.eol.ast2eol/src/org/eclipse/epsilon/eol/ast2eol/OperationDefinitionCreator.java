@@ -16,7 +16,7 @@ public class OperationDefinitionCreator extends EolElementCreator{
 		this.setAssets(ast, operation, container);
 		
 		AST previousAst = AstUtilities.getPreviousSibling(ast); //get the previous sibling
-		if(previousAst.getType() == EolParser.ANNOTATIONBLOCK) //check if there is an annotation block
+		if(previousAst != null && previousAst.getType() == EolParser.ANNOTATIONBLOCK) //check if there is an annotation block
 		{
 			operation.setAnnotationBlock((AnnotationBlock) context.getEolElementCreatorFactory().createDomElement(previousAst, operation, context)); //process annotation block
 		}

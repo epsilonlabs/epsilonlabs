@@ -148,6 +148,7 @@ public class EolElementCreatorFactory {
 		result.add(new OperationDefinitionCreator());
 		result.addAll(this.initiateStatementPool());
 		result.addAll(this.initiateTypePool());
+		result.add(new ExpressionOrStatementBlockCreator());
 		
 		return result;
 	}

@@ -4,6 +4,8 @@ package org.eclipse.epsilon.eol.ast2eol;
 import java.util.ArrayList;
 
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
 public class AstUtilities {
 
@@ -26,7 +28,12 @@ public class AstUtilities {
 		{
 			if(child.childIndex == ast.childIndex)
 			{
-				result = parentAst.getChild(child.childIndex-1);
+				if (child.childIndex > 1) {
+					result = parentAst.getChild(child.childIndex-1);
+				}
+				else {
+					return null;
+				}
 			}
 		}
 		return result;
