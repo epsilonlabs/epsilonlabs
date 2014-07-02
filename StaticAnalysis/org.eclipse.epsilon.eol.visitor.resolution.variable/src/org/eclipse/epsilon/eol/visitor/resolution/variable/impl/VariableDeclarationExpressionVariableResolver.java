@@ -12,8 +12,8 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 			VariableDeclarationExpression variableDeclarationExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
-			context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists");
+ 		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
+			context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists: " + variableDeclarationExpression.getName().getName());
 		}
 		else {
 			if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {

@@ -29,12 +29,20 @@ public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutio
 			context.getStack().pop();
 		}
 		else { //if the program is the program that is imported
+			for(ModelDeclarationStatement mds: program.getModelDeclarations())
+			{
+				controller.visit(mds, context);
+			}
+
 			for(Import imported : program.getImports()) 
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs
 			}
-			
-			controller.visitContents(program, context); //visit the contents of the program
+			controller.visit(program.getBlock(), context); //visit the contents of the program in question
+			for(OperationDefinition op: program.getOperations())
+			{
+				controller.visit(op, context);
+			}
 		}
 		 return null;
 	}
