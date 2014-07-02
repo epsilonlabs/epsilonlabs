@@ -1,10 +1,6 @@
 package org.eclipse.epsilon.etl.visitor.resolution.type.context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
