@@ -8,14 +8,10 @@ import org.eclipse.epsilon.common.module.IModuleValidator;
 import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.Region;
-import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
-import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 
-import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
@@ -32,6 +28,7 @@ public class EtlxModuleValidator implements IModuleValidator{
 
 	@Override
 	public List<ModuleMarker> validate(IModule arg0) {
+		
 		ArrayList<ModuleMarker> markers = new ArrayList<ModuleMarker>();
 		
 		if (arg0 instanceof EtlModule) {

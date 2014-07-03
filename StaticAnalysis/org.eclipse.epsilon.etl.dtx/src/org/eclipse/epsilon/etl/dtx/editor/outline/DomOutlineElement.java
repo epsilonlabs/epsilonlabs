@@ -1,21 +1,14 @@
 package org.eclipse.epsilon.etl.dtx.editor.outline;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.swt.widgets.Composite;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
-import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 public class DomOutlineElement implements IPropertySource{
 	

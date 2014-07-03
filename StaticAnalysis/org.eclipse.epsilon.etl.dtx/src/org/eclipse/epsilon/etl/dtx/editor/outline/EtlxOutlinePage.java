@@ -36,11 +36,8 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 	@Override
 	public Object getOutlineRoot(IModule module) {
 		
-		String path = module.getSourceUri().getPath();
-		//System.err.println("=============" + path);
+		String path = module.getSourceUri().getPath();		
 		int lastIndexOf = path.lastIndexOf("/");
-		//System.out.println("--------------------" + lastIndexOf);
-		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
 		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
 		EtlElementCreatorFactory factory = new EtlElementCreatorFactory(directoryPathString);
