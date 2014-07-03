@@ -44,6 +44,11 @@ public class OperationDefinitionHandlerFactory {
 		//handlers.add(new ModelElementTypeCreateInstanceHandler(context));
 	}
 	
+	public void addHandler(OperationDefinitionHandler handler)
+	{
+		handlers.add(handler);
+	}
+	
 	public OperationDefinition handle(FeatureCallExpression featureCallExpression, String name, Type contextType, ArrayList<Type> argTypes)
 	{
 		//System.err.println("handling: " + name + ", with " + argTypes.size() + "arguments");
