@@ -81,6 +81,7 @@ public class EtlTypeResolver{
 		controller.addTransformationRuleVisitor(new TransformationRuleTypeResolver());
 		controller.addPreBlockVisitor(new PreBlockTypeResolver());
 		controller.addPostBlockVisitor(new PostBlockTypeResolver());
+		controller.addSpecialAssignmentStatementVisitor(new SpecialAssignmentStatementTypeResolver());
 
 	}
 	

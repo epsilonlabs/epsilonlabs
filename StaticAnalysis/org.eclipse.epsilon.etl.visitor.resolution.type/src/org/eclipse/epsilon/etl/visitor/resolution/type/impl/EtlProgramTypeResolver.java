@@ -2,9 +2,12 @@ package org.eclipse.epsilon.etl.visitor.resolution.type.impl;
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
+import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
@@ -15,6 +18,8 @@ import org.eclipse.epsilon.etl.metamodel.PreBlock;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlProgramVisitor;
 import org.eclipse.epsilon.etl.metamodel.visitor.EtlVisitorController;
+import org.eclipse.epsilon.etl.visitor.resolution.type.context.EtlTypeResolutionContext;
+import org.eclipse.epsilon.etl.visitor.resolution.type.context.TraceUnitContainer;
 
 public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionContext, Object>{
 
@@ -70,6 +75,42 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 		
 		for(TransformationRule tr: etlProgram.getTransformationRules())
 		{
+			TraceUnitContainer container = new TraceUnitContainer(tr);
+			FormalParameterExpression source = tr.getSource();
+			if (source != null) {
+				controller.visit(source, context);
+				EClass eClass = getEcoreType(source);
+				if (eClass != null) {
+					container.setSource(eClass);
+				}
+				else {
+					context.getLogBook().addError(source, "type is not properly resolved");
+				}
+			}
+			for(FormalParameterExpression target: tr.getTargets())
+			{
+				if(target != null)
+				{
+					controller.visit(target, context);
+					EClass eClass = getEcoreType(target);
+					if (eClass != null) {
+						container.addTarget(eClass);
+					}
+					else {
+						context.getLogBook().addError(target, "type is not properly resolved");
+					}
+				}
+			}
+			
+			EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
+			leContext.addTraceUnitContainer(container);
+		}
+		
+		EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
+		leContext.printTraceUnitContainers();
+		
+		for(TransformationRule tr: etlProgram.getTransformationRules())
+		{
 			controller.visit(tr, context);
 		}
 		
@@ -80,5 +121,18 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 		
 		return null;
 	}
+	
+	public EClass getEcoreType(FormalParameterExpression fpe)
+	{
+		ModelElementType met = (ModelElementType) fpe.getResolvedType();
+		if (met != null) {
+			EClass eClass = (EClass) met.getEcoreType();
+			return eClass;
+		}
+		else {
+			return null;
+		}
+	}
+
 
 }
