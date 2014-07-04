@@ -7,6 +7,6 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.epsilon.eol.dom.metamodel.connectivity,
  org.eclipse.epsilon.static.analysis.problem.log,
- org.eclipse.epsilon.eol.metamodel.visitor;bundle-version="1.0.0"
+ org.eclipse.epsilon.eol.metamodel.visitor
 Export-Package: org.eclipse.epsilon.eol.coverage.analysis.context,
  org.eclipse.epsilon.eol.coverage.analysis.impl
