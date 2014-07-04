@@ -16,6 +16,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.SpecialAssignmentStatementVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
+import org.eclipse.epsilon.etl.metamodel.RuleDependency;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.visitor.resolution.type.context.EtlTypeResolutionContext;
 
@@ -46,7 +47,12 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 					if (currentRule == null) { //if the current rule is not null
 						return null;
 					}
-					currentRule.getDependingRules().add(dependingRule); //resolve the dependency
+					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+					ruleDependency.setDependingRule(dependingRule);
+					ruleDependency.setSourceElement(specialAssignmentStatement);
+					context.setAssets(ruleDependency, currentRule);
+
+					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
 					if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
 						FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target
 						ModelElementType primaryTargetType = (ModelElementType) primaryTarget.getResolvedType();
@@ -76,7 +82,12 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 					}
 					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
 					if (currentRule != null) { //if the current rule is not null
-						currentRule.getDependingRules().add(dependingRule); //resolve the dependency
+						RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+						ruleDependency.setDependingRule(dependingRule);
+						ruleDependency.setSourceElement(specialAssignmentStatement);
+						context.setAssets(ruleDependency, currentRule);
+
+						currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
 					}
 					if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
 						FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target

@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler.AnyOperationDefinitionHandler;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
+import org.eclipse.epsilon.etl.metamodel.RuleDependency;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.visitor.resolution.type.context.EtlTypeResolutionContext;
 
@@ -53,7 +54,12 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 				}
 				TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
 				if (currentRule != null) { //if the current rule is not null
-					currentRule.getDependingRules().add(dependingRule); //resolve the dependency
+					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+					ruleDependency.setDependingRule(dependingRule);
+					ruleDependency.setSourceElement(featureCallExpression);
+					context.setAssets(ruleDependency, currentRule);
+
+					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
 				}
 				if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
 					FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target
@@ -82,7 +88,12 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 				}
 				TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
 				if (currentRule != null) { //if the current rule is not null
-					currentRule.getDependingRules().add(dependingRule); //resolve the dependency
+					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+					ruleDependency.setDependingRule(dependingRule);
+					ruleDependency.setSourceElement(featureCallExpression);
+					context.setAssets(ruleDependency, currentRule);
+
+					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
 				}
 				if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
 					FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target

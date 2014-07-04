@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
+import org.eclipse.epsilon.etl.metamodel.EtlFactory;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.visitor.resolution.type.handler.EquivalentHandler;
 import org.eclipse.epsilon.etl.visitor.resolution.type.handler.EquivalentsHandler;
@@ -14,11 +15,16 @@ import org.eclipse.epsilon.etl.visitor.resolution.type.handler.EquivalentsHandle
 public class EtlTypeResolutionContext extends TypeResolutionContext{
 
 	protected TransformationRule currentRule;
+	protected EtlFactory etlFactory = EtlFactory.eINSTANCE;
 	
 	public EtlTypeResolutionContext()
 	{
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentHandler(this));
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentsHandler(this));
+	}
+	
+	public EtlFactory getEtlFactory() {
+		return etlFactory;
 	}
 	
 	public void setCurrentRule(TransformationRule currentRule) {
