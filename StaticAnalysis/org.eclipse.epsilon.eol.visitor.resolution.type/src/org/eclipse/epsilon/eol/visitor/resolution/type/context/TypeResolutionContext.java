@@ -175,6 +175,7 @@ public class TypeResolutionContext {
 	{
 		obj.setLine(container.getLine());
 		obj.setColumn(container.getColumn());
+		obj.setRegion(container.getRegion());
 		obj.setContainer(container);
 	}
 		
