@@ -11,6 +11,6 @@ Export-Package: org.eclipse.epsilon.etl.metamodel,
  org.eclipse.epsilon.etl.metamodel.impl,
  org.eclipse.epsilon.etl.metamodel.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore,
- org.eclipse.epsilon.eol.metamodel
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.epsilon.eol.metamodel;visibility:=reexport
 Bundle-ActivationPolicy: lazy
