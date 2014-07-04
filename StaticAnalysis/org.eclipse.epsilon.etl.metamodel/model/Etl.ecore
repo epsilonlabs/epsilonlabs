@@ -58,7 +58,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedParentRules" upperBound="-1"
         eType="#//TransformationRule"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedRuleDependencies"
-        upperBound="-1" eType="#//RuleDependency"/>
+        upperBound="-1" eType="#//RuleDependency" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//Guard"
         containment="true"/>
   </eClassifiers>
