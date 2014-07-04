@@ -57,9 +57,13 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedParentRules" upperBound="-1"
         eType="#//TransformationRule"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dependingRules" upperBound="-1"
-        eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedRuleDependencies"
+        upperBound="-1" eType="#//RuleDependency"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//Guard"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleDependency" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependingRule" eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceElement" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//EolElement"/>
   </eClassifiers>
 </ecore:EPackage>

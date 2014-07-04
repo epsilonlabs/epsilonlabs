@@ -38,7 +38,12 @@ class TransformationRule extends EtlElement {
   val eol.AnnotationBlock annotationBlock;
   val eol.NameExpression[*] ~extends;
   ref TransformationRule[*] resolvedParentRules;
-  ref TransformationRule[*] resolvedDependingRules;
+  ref RuleDependency[*] resolvedRuleDependencies;
   val Guard guard;
+}
+
+class RuleDependency extends EtlElement {
+	ref TransformationRule dependingRule;
+	ref eol.EolElement sourceElement;
 }
 

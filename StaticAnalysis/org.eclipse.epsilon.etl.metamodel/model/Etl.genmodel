@@ -33,8 +33,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/annotationBlock"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/extends"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/resolvedParentRules"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/dependingRules"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/resolvedRuleDependencies"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Etl.ecore#//TransformationRule/guard"/>
+    </genClasses>
+    <genClasses ecoreClass="Etl.ecore#//RuleDependency">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//RuleDependency/dependingRule"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Etl.ecore#//RuleDependency/sourceElement"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
