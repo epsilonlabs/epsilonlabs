@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
+import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
 import org.eclipse.epsilon.etl.visitor.resolution.type.impl.EtlTypeResolver;
 import org.eclipse.epsilon.etl.visitor.resolution.variable.impl.EtlVariableResolver;
 import org.eclipse.jface.text.IDocument;
@@ -28,9 +29,12 @@ import org.eclipse.ui.texteditor.ITextEditor;
 
 public class EtlxOutlinePage extends ModuleContentOutlinePage {
 
+	protected EtlxEditor etlxEditor;
+	
 	public EtlxOutlinePage(IDocumentProvider documentProvider,
 			ITextEditor editor, ILabelProvider labelProvider) {
 		super(documentProvider, editor, labelProvider);
+		etlxEditor = (EtlxEditor) editor;
 	}
 	
 	@Override
@@ -49,6 +53,8 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 		
 		EtlTypeResolver etltr = new EtlTypeResolver();
 		etltr.run(dom);
+		
+		etlxEditor.setEolLibraryModule(dom);
 		
 		return new DomOutlineElement(dom);
 	}

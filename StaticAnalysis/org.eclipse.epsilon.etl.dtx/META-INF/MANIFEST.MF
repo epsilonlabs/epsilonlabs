@@ -19,7 +19,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.ui.ide,
  org.eclipse.epsilon.static.analysis.problem.log,
- org.eclipse.epsilon.etl.visitor.resolution.type
+ org.eclipse.epsilon.etl.visitor.resolution.type,
+ org.eclipse.zest.core,
+ org.eclipse.zest.layouts
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: University of York

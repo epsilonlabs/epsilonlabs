@@ -3,12 +3,23 @@ package org.eclipse.epsilon.etl.dtx.editor;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleElementLabelProvider;
 import org.eclipse.epsilon.eol.dtx.EolxPlugin;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.etl.dt.editor.EtlEditor;
 import org.eclipse.epsilon.etl.dtx.editor.outline.EtlxOutlinePage;
 import org.eclipse.swt.graphics.Image;
 
 public class EtlxEditor extends EtlEditor {
 
+	protected EolElement eolLibraryModule = null;
+	
+	public void setEolLibraryModule(EolElement eolLibraryModule) {
+		this.eolLibraryModule = eolLibraryModule;
+	}
+	
+	public EolElement getEolLibraryModule() {
+		return eolLibraryModule;
+	}
+	
 	@Override
 	public ModuleContentOutlinePage createOutlinePage() {
 
