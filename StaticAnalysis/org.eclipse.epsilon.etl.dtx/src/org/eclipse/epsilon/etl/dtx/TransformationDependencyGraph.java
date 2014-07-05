@@ -148,6 +148,12 @@ public class TransformationDependencyGraph extends ViewPart {
 				}
 			}
 		}
+		g.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				System.out.println(e.getSource());
+			}
+		});
 		g.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
 		return g;
 	}
