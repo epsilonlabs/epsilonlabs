@@ -36,7 +36,7 @@ public class PostBlockCreator extends NamedBlockCreator{
 		}
 		
 
-		return null;
+		return postBlock;
 	}
 
 }

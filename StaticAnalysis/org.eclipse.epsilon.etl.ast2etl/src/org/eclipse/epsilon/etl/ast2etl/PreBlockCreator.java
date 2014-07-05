@@ -35,7 +35,7 @@ public class PreBlockCreator extends NamedBlockCreator{
 			preBlock.setBody((Block) _context.getEtlElementCreatorFactory().createDomElement(blockAst, preBlock, _context));
 		}
 		
-		return null;
+		return preBlock;
 	}
 
 }

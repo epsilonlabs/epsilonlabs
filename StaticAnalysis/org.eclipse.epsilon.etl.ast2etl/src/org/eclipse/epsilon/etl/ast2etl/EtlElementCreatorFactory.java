@@ -38,7 +38,6 @@ import org.eclipse.epsilon.eol.ast2eol.GreaterThanOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.GreaterThanOrEqualToOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.IfStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.ImpliesOperatorExpressionCreator;
-import org.eclipse.epsilon.eol.ast2eol.ImportCreator;
 import org.eclipse.epsilon.eol.ast2eol.IntegerExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.IntegerTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.KeyValueCreator;
@@ -94,7 +93,6 @@ import org.eclipse.epsilon.eol.ast2eol.VariableDeclarationExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.WhileStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.XorOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.metamodel.*;
-import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
 import org.eclipse.epsilon.etl.parse.EtlParser;
 
