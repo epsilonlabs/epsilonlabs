@@ -1,12 +1,17 @@
 package org.eclipse.epsilon.etl.dtx;
 
+import java.util.HashMap;
+
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
 import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
+import org.eclipse.epsilon.etl.metamodel.RuleDependency;
+import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 import org.eclipse.epsilon.etl.visitor.resolution.type.impl.EtlTypeResolver;
 import org.eclipse.epsilon.etl.visitor.resolution.variable.impl.EtlVariableResolver;
 import org.eclipse.swt.SWT;
@@ -48,46 +53,46 @@ public class TransformationDependencyGraph extends ViewPart {
 		if (editor instanceof EtlxEditor) {
 			EtlxEditor leEditor = (EtlxEditor) editor;
 			if (leEditor.getEolLibraryModule() != null) {
-				System.err.println(leEditor.getEolLibraryModule());
+				graph = getDependencyGraph((EtlProgram) leEditor.getEolLibraryModule(), parent);
 			}
 		}
 		
 		
-		graph = new Graph(parent, SWT.NONE);
-		
-		
-		
-	    // now a few nodes
-	    GraphNode node1 = new GraphNode(graph, SWT.NONE, "Jim");
-	    GraphNode node2 = new GraphNode(graph, SWT.NONE, "Jack");
-	    GraphNode node3 = new GraphNode(graph, SWT.NONE, "Joe");
-	    GraphNode node4 = new GraphNode(graph, SWT.NONE, "Bill");
-	    // Lets have a directed connection
-	    new GraphConnection(graph, ZestStyles.CONNECTIONS_DIRECTED, node1,
-	        node2);
-	    // Lets have a dotted graph connection
-	    new GraphConnection(graph, ZestStyles.CONNECTIONS_DOT, node2, node3);
-	    // Standard connection
-	    new GraphConnection(graph, SWT.NONE, node3, node1);
-	    // Change line color and line width
-	    GraphConnection graphConnection = new GraphConnection(graph, SWT.NONE,
-	        node1, node4);
-	    graphConnection.changeLineColor(parent.getDisplay().getSystemColor(SWT.COLOR_GREEN));
-	    // Also set a text
-	    graphConnection.setText("This is a text");
-	    graphConnection.setHighlightColor(parent.getDisplay().getSystemColor(SWT.COLOR_RED));
-	    graphConnection.setLineWidth(3);
-
-	    graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
-	    // Selection listener on graphConnect or GraphNode is not supported
-	    // see https://bugs.eclipse.org/bugs/show_bug.cgi?id=236528
-	    graph.addSelectionListener(new SelectionAdapter() {
-	      @Override
-	      public void widgetSelected(SelectionEvent e) {
-	        System.out.println(e);
-	      }
-
-	    });
+//		graph = new Graph(parent, SWT.NONE);
+//		
+//		
+//		
+//	    // now a few nodes
+//	    GraphNode node1 = new GraphNode(graph, SWT.NONE, "Jim");
+//	    GraphNode node2 = new GraphNode(graph, SWT.NONE, "Jack");
+//	    GraphNode node3 = new GraphNode(graph, SWT.NONE, "Joe");
+//	    GraphNode node4 = new GraphNode(graph, SWT.NONE, "Bill");
+//	    // Lets have a directed connection
+//	    new GraphConnection(graph, ZestStyles.CONNECTIONS_DIRECTED, node1,
+//	        node2);
+//	    // Lets have a dotted graph connection
+//	    new GraphConnection(graph, ZestStyles.CONNECTIONS_DOT, node2, node3);
+//	    // Standard connection
+//	    new GraphConnection(graph, SWT.NONE, node3, node1);
+//	    // Change line color and line width
+//	    GraphConnection graphConnection = new GraphConnection(graph, SWT.NONE,
+//	        node1, node4);
+//	    graphConnection.changeLineColor(parent.getDisplay().getSystemColor(SWT.COLOR_GREEN));
+//	    // Also set a text
+//	    graphConnection.setText("This is a text");
+//	    graphConnection.setHighlightColor(parent.getDisplay().getSystemColor(SWT.COLOR_RED));
+//	    graphConnection.setLineWidth(3);
+//
+//	    graph.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+//	    // Selection listener on graphConnect or GraphNode is not supported
+//	    // see https://bugs.eclipse.org/bugs/show_bug.cgi?id=236528
+//	    graph.addSelectionListener(new SelectionAdapter() {
+//	      @Override
+//	      public void widgetSelected(SelectionEvent e) {
+//	        System.out.println(e);
+//	      }
+//
+//	    });
 
 	}
 	
@@ -115,7 +120,36 @@ public class TransformationDependencyGraph extends ViewPart {
 	public Graph getDependencyGraph(EtlProgram etlProgram, Composite parent)
 	{
 		Graph g = new Graph(parent, SWT.NONE);
-		return null;
+		HashMap<TransformationRule, GraphNode> map = new HashMap<TransformationRule, GraphNode>();
+		for(TransformationRule rule: etlProgram.getTransformationRules())
+		{
+			GraphNode node = new GraphNode(g, SWT.NONE, rule.getName().getName());
+			map.put(rule, node);
+			
+			for(RuleDependency dependency: rule.getResolvedRuleDependencies())
+			{
+				TransformationRule dependingRule = dependency.getDependingRule();
+				if (map.containsKey(dependingRule)) {
+					
+					GraphNode leNode = map.get(dependingRule);
+					GraphConnection connection = new GraphConnection(g, ZestStyles.CONNECTIONS_DIRECTED, node,
+					        leNode);
+					connection.setText("depends on");
+					if (dependingRule.equals(rule)) {
+						connection.setCurveDepth(30);
+					}
+				}
+				else {
+					GraphNode leNode = new GraphNode(g, SWT.NONE, rule.getName().getName());
+					map.put(dependingRule, leNode);
+					GraphConnection connection = new GraphConnection(g, ZestStyles.CONNECTIONS_DIRECTED, node,
+					        leNode);
+					connection.setText("depends on");
+				}
+			}
+		}
+		g.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
+		return g;
 	}
 
 }
