@@ -11,8 +11,12 @@ public class PreBlockVariableResolver extends PreBlockVisitor<VariableResolution
 	@Override
 	public Object visit(PreBlock preBlock, VariableResolutionContext context,
 			EtlVisitorController<VariableResolutionContext, Object> controller) {
-		controller.visit(preBlock.getName(), context);
-		controller.visit(preBlock.getBody(), context);
+		if (preBlock.getName() != null) {
+			controller.visit(preBlock.getName(), context);
+		}
+		if (preBlock.getBody() != null) {
+			controller.visit(preBlock.getBody(), context);	
+		}
 		return null;
 	}
 

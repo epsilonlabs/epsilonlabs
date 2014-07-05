@@ -10,8 +10,13 @@ public class PostBlockVariableResolver extends PostBlockVisitor<VariableResoluti
 	@Override
 	public Object visit(PostBlock postBlock, VariableResolutionContext context,
 			EtlVisitorController<VariableResolutionContext, Object> controller) {
-		controller.visit(postBlock.getName(), context);
-		controller.visit(postBlock.getBody(), context);
+		if (postBlock.getName() != null) {
+			controller.visit(postBlock.getName(), context);	
+		}
+		if (postBlock.getBody() != null) {
+			controller.visit(postBlock.getBody(), context);	
+		}
+		
 		return null;
 	}
 
