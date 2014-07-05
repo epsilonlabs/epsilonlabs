@@ -14,7 +14,7 @@ public class ContextVariableResolver extends ContextVisitor<VariableResolutionCo
 			EvlVisitorController<VariableResolutionContext, Object> controller) {
 		
 		context.getStack().push(_context, true);
-		context.getStack().putVariable(_context.getSelf()); //put self on the stack
+		context.getStack().putVariable(_context.getSelf(), false); //put self on the stack
 		
 		ExpressionOrStatementBlock guard = _context.getGuard();
 		if (guard != null) {
