@@ -193,6 +193,8 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							nameExpression.setResolvedType(type);
 						}
 						else {
+							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+							nameExpression.setResolvedType(type);
 							context.getLogBook().addError(nameExpression, "MetaElement with name " + element + " in Meta Model " + model + " cannot be found");
 						}
 					}
