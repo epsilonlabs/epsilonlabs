@@ -79,12 +79,14 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 			FormalParameterExpression source = tr.getSource();
 			if (source != null) {
 				controller.visit(source, context);
-				EClass eClass = getEcoreType(source);
-				if (eClass != null) {
-					container.setSource(eClass);
-				}
-				else {
-					context.getLogBook().addError(source, "type is not properly resolved");
+				if (source.getResolvedType() instanceof ModelElementType) {
+					EClass eClass = getEcoreType(source);
+					if (eClass != null) {
+						container.setSource(eClass);
+					}
+					else {
+						context.getLogBook().addError(source, "type is not properly resolved");
+					}
 				}
 			}
 			for(FormalParameterExpression target: tr.getTargets())
@@ -92,18 +94,22 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 				if(target != null)
 				{
 					controller.visit(target, context);
-					EClass eClass = getEcoreType(target);
-					if (eClass != null) {
-						container.addTarget(eClass);
-					}
-					else {
-						context.getLogBook().addError(target, "type is not properly resolved");
+					if (target.getResolvedType() instanceof ModelElementType) {
+						EClass eClass = getEcoreType(target);
+						if (eClass != null) {
+							container.addTarget(eClass);
+						}
+						else {
+							context.getLogBook().addError(target, "type is not properly resolved");
+						}
 					}
 				}
 			}
 			
 			EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
-			leContext.addTraceUnitContainer(container);
+			if (source.getResolvedType() instanceof ModelElementType) {
+				leContext.addTraceUnitContainer(container);
+			}
 		}
 		
 		EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
