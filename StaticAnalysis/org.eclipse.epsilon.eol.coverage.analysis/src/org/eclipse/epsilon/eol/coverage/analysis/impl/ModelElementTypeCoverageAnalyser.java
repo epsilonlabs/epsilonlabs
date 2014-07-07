@@ -12,7 +12,6 @@ public class ModelElementTypeCoverageAnalyser extends ModelElementTypeVisitor<Co
 	public Object visit(ModelElementType modelElementType,
 			CoverageAnalysisContext context,
 			EolVisitorController<CoverageAnalysisContext, Object> controller) {
-		// TODO Auto-generated method stub
 		EClassifier classifier = modelElementType.getEcoreType();
 		if (classifier!=null) {
 			context.getCoverageAnalysisRepo().add(classifier);
