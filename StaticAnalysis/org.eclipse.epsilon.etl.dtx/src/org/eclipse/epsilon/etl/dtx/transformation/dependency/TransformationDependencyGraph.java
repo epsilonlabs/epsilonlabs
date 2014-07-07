@@ -6,17 +6,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
-import org.eclipse.epsilon.etl.EtlModule;
-import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
-import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
 import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
 import org.eclipse.epsilon.etl.metamodel.RuleDependency;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
-import org.eclipse.epsilon.etl.visitor.resolution.type.impl.EtlTypeResolver;
-import org.eclipse.epsilon.etl.visitor.resolution.variable.impl.EtlVariableResolver;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
@@ -29,7 +22,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.widgets.Graph;
@@ -38,12 +30,9 @@ import org.eclipse.zest.core.widgets.GraphItem;
 import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
-import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.HorizontalLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
 
 public class TransformationDependencyGraph extends ViewPart {
 
@@ -56,7 +45,6 @@ public class TransformationDependencyGraph extends ViewPart {
 
 	  public TransformationDependencyGraph() {
 		  super();
-		// TODO Auto-generated constructor stub
 	  }
 
 	  public EtlxEditor getEditor()
@@ -223,22 +211,15 @@ public class TransformationDependencyGraph extends ViewPart {
 	}
 	
 	public void refresh(){
-		
 		if (graph != null) {
 			graph.dispose();	
 		}
-		
-		
 		EtlxEditor leEditor = getEditor();
 		if (leEditor.getEolLibraryModule() != null) {
 			graph = getDependencyGraph((EtlProgram) leEditor.getEolLibraryModule(), parent);
 		}
-		
 		graph.applyLayout();
-		//parent.pack();
 		parent.layout();
-		
-		
 	}
 	
 	
