@@ -93,7 +93,9 @@ public class CoverageAnalysisRepo {
 				}
 			}
 			if (!exist) {
-				globalContainers.add(new MetaElementContainer(eClass));
+				MetaElementContainer container = new MetaElementContainer(eClass);
+				container.add(propertyName);
+				globalContainers.add(container);
 			}
 		}
 		else if(currentElement instanceof TransformationRule)
@@ -106,10 +108,13 @@ public class CoverageAnalysisRepo {
 					{
 						if (container.getClassifier().equals(eClass)) {
 							exist = true;
+							container.add(propertyName);
 						}
 					}
 					if (!exist) {
-						tc.getOtherContinaers().add(new MetaElementContainer(eClass));
+						MetaElementContainer container = new MetaElementContainer(eClass);
+						container.add(propertyName);
+						tc.getOtherContinaers().add(container);
 					}
 				}
 			}

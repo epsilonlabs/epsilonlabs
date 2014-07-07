@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.etl.visitor.coverage.analysis.impl;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
@@ -11,7 +12,7 @@ public class ModelElementTypeCoverageAnalyser extends ModelElementTypeVisitor<Co
 	public Object visit(ModelElementType modelElementType,
 			CoverageAnalysisContext context,
 			EolVisitorController<CoverageAnalysisContext, Object> controller) {
-		context.add(modelElementType.getEcoreType());
+		context.add((EClass) modelElementType.getEcoreType());
 		return null;
 	}
 

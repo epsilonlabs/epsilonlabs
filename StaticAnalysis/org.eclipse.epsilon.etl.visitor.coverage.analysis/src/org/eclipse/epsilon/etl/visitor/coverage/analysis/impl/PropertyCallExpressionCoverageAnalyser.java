@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.etl.visitor.coverage.analysis.impl;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
@@ -19,7 +20,7 @@ public class PropertyCallExpressionCoverageAnalyser extends PropertyCallExpressi
 			ModelElementType targetTypde = (ModelElementType) tempType;
 			EClassifier ecoreType = targetTypde.getEcoreType();
 			String propertyName = propertyCallExpression.getProperty().getName();
-			context.add(ecoreType, propertyName);
+			context.add((EClass) ecoreType, propertyName);
 		}
 		return null;
 	}

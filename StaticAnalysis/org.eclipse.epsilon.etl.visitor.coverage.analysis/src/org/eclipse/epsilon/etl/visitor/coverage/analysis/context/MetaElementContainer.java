@@ -65,6 +65,7 @@ public class MetaElementContainer {
 		{
 			if (attribute.getName().equals(propertyName)) {
 				attributes.add(attribute);
+				return;
 			}
 		}
 		for(EReference reference : clazz.getEAllReferences())
