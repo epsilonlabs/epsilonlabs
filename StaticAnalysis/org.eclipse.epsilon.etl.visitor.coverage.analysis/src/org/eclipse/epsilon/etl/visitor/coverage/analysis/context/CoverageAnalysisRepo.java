@@ -1,0 +1,120 @@
+package org.eclipse.epsilon.etl.visitor.coverage.analysis.context;
+
+import java.util.ArrayList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.etl.metamodel.EtlProgram;
+import org.eclipse.epsilon.etl.metamodel.TransformationRule;
+
+public class CoverageAnalysisRepo {
+
+	protected ArrayList<MetaElementContainer> globalContainers;
+	protected ArrayList<TransformationContainer> transformationContainers;
+	
+	public CoverageAnalysisRepo()
+	{
+		globalContainers = new ArrayList<MetaElementContainer>();
+		transformationContainers = new ArrayList<TransformationContainer>();
+	}
+	
+	public ArrayList<MetaElementContainer> getGlobalContainers() {
+		return globalContainers;
+	}
+	
+	public ArrayList<TransformationContainer> getTransformationContainers() {
+		return transformationContainers;
+	}
+	
+	public void addToGlobalContainer(MetaElementContainer container)
+	{
+		globalContainers.add(container);
+	}
+	
+	public void addToTransformationContainers(TransformationRule rule)
+	{
+		boolean defined = false;
+		for(TransformationContainer tc: transformationContainers)
+		{
+			if (tc.getTransformationRule().equals(rule)) {
+				defined = true;
+			}
+		}
+		
+		if (!defined) {
+			transformationContainers.add(new TransformationContainer(rule));
+		}
+	}
+	
+	public void add(EClass eClass, EolElement currentElement)
+	{
+		
+		if (currentElement instanceof EtlProgram) {
+			boolean exist = false;
+			for(MetaElementContainer container: globalContainers)
+			{
+				if (container.getClassifier().equals(eClass)) {
+					exist = true;
+				}
+			}
+			if (!exist) {
+				globalContainers.add(new MetaElementContainer(eClass));
+			}
+		}
+		else if(currentElement instanceof TransformationRule)
+		{
+			boolean exist = false;
+			for(TransformationContainer tc: transformationContainers)
+			{
+				if (tc.getTransformationRule().equals(currentElement)) {
+					for(MetaElementContainer container: tc.getOtherContinaers())
+					{
+						if (container.getClassifier().equals(eClass)) {
+							exist = true;
+						}
+					}
+					if (!exist) {
+						tc.getOtherContinaers().add(new MetaElementContainer(eClass));
+					}
+				}
+			}
+		}
+	}
+	
+	public void add(EClass eClass, String propertyName, EolElement currentElement)
+	{
+		if (currentElement instanceof EtlProgram) {
+			boolean exist = false;
+			for(MetaElementContainer container: globalContainers)
+			{
+				if (container.getClassifier().equals(eClass)) {
+					exist = true;
+					container.add(propertyName);
+				}
+			}
+			if (!exist) {
+				globalContainers.add(new MetaElementContainer(eClass));
+			}
+		}
+		else if(currentElement instanceof TransformationRule)
+		{
+			boolean exist = false;
+			for(TransformationContainer tc: transformationContainers)
+			{
+				if (tc.getTransformationRule().equals(currentElement)) {
+					for(MetaElementContainer container: tc.getOtherContinaers())
+					{
+						if (container.getClassifier().equals(eClass)) {
+							exist = true;
+						}
+					}
+					if (!exist) {
+						tc.getOtherContinaers().add(new MetaElementContainer(eClass));
+					}
+				}
+			}
+		}
+
+	}
+	
+}
