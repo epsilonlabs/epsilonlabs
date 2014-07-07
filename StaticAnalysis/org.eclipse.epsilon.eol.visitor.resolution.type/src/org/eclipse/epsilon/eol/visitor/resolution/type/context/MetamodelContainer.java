@@ -57,6 +57,7 @@ public class MetamodelContainer {
 	public void inputMetaModel(EMetamodelDriver metaModel)
 	{
 		metaModels.add(metaModel);
+		addToMetaModelNameSpace(metaModel.getName());
 		addToMetaModelNameSpace(metaModel.getMetamodelName());
 
 		for(String s: metaModel.getAliases())
@@ -88,7 +89,7 @@ public class MetamodelContainer {
 		if (metaModelNameSpace.contains(name)) {
 			for(EMetamodelDriver m: metaModels)
 			{
-				if (m.getMetamodelName().equals(name)) {
+				if (m.getName().equals(name)) {
 					return m;
 				}
 			}

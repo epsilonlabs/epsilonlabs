@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
@@ -135,6 +136,7 @@ public class TypeResolutionContext {
 	//put metamode in the metamode container
 	public void inputMetaModel(EMetamodelDriver metaModel)
 	{
+		metaModelNameSpace.add(metaModel.getName());
 		metaModelNameSpace.add(metaModel.getMetamodelName());
 		container.inputMetaModel(metaModel);
 	}
@@ -175,7 +177,7 @@ public class TypeResolutionContext {
 	{
 		obj.setLine(container.getLine());
 		obj.setColumn(container.getColumn());
-		obj.setRegion(container.getRegion());
+		obj.setRegion(EcoreUtil.copy(container.getRegion()));
 		obj.setContainer(container);
 	}
 		
