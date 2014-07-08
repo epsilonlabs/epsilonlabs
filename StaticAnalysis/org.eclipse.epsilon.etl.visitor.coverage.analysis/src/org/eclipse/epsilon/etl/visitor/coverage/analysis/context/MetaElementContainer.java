@@ -64,6 +64,9 @@ public class MetaElementContainer {
 		for(EAttribute attribute: clazz.getEAllAttributes())
 		{
 			if (attribute.getName().equals(propertyName)) {
+				if (attributes.contains(attribute)) {
+					return;
+				}
 				attributes.add(attribute);
 				return;
 			}
@@ -71,6 +74,9 @@ public class MetaElementContainer {
 		for(EReference reference : clazz.getEAllReferences())
 		{
 			if (reference.getName().equals(propertyName)) {
+				if (references.contains(reference)) {
+					return;
+				}
 				references.add(reference);
 			}
 		}

@@ -56,4 +56,32 @@ public class TransformationContainer {
 		return otherContinaers;
 	}
 	
+	public void add(EClass eClass, String propertyName)
+	{
+		if (sourceContainer.getClassifier().equals(eClass)) {
+			sourceContainer.add(propertyName);
+			return;
+		}
+		
+		for(MetaElementContainer mec: targetcontainers)
+		{
+			if (mec.getClassifier().equals(eClass)) {
+				mec.add(propertyName);
+				return;
+			}
+		}
+		
+		for(MetaElementContainer mec: otherContinaers)
+		{
+			if (mec.getClassifier().equals(eClass)) {
+				mec.add(propertyName);
+				return;
+			}
+		}
+		
+		MetaElementContainer newContainer = new MetaElementContainer(eClass);
+		newContainer.add(propertyName);
+		otherContinaers.add(newContainer);
+		
+	}
 }

@@ -66,17 +66,24 @@ public class CoverageAnalysisRepo {
 			boolean exist = false;
 			for(TransformationContainer tc: transformationContainers)
 			{
+				boolean innerExist = false;
 				if (tc.getTransformationRule().equals(currentElement)) {
+					exist = true;
 					for(MetaElementContainer container: tc.getOtherContinaers())
 					{
 						if (container.getClassifier().equals(eClass)) {
-							exist = true;
+							innerExist = true;
 						}
 					}
-					if (!exist) {
+					if (!innerExist) {
 						tc.getOtherContinaers().add(new MetaElementContainer(eClass));
 					}
 				}
+			}
+			if (!exist) {
+				TransformationContainer tc = new TransformationContainer((TransformationRule) currentElement);
+				
+				transformationContainers.add(tc);
 			}
 		}
 	}
@@ -100,24 +107,31 @@ public class CoverageAnalysisRepo {
 		}
 		else if(currentElement instanceof TransformationRule)
 		{
-			boolean exist = false;
+//			boolean exist = false;
 			for(TransformationContainer tc: transformationContainers)
 			{
-				if (tc.getTransformationRule().equals(currentElement)) {
-					for(MetaElementContainer container: tc.getOtherContinaers())
-					{
-						if (container.getClassifier().equals(eClass)) {
-							exist = true;
-							container.add(propertyName);
-						}
-					}
-					if (!exist) {
-						MetaElementContainer container = new MetaElementContainer(eClass);
-						container.add(propertyName);
-						tc.getOtherContinaers().add(container);
-					}
-				}
+				tc.add(eClass, propertyName);
+//				boolean innerExist = false;
+//				if (tc.getTransformationRule().equals(currentElement)) {
+//					exist = true;
+//					for(MetaElementContainer container: tc.getOtherContinaers())
+//					{
+//						if (container.getClassifier().equals(eClass)) {
+//							innerExist = true;
+//							container.add(propertyName);
+//						}
+//					}
+//					if (!innerExist) {
+//						MetaElementContainer container = new MetaElementContainer(eClass);
+//						container.add(propertyName);
+//						tc.getOtherContinaers().add(container);
+//					}
+//				}
 			}
+//			if (!exist) {
+//				TransformationContainer tc = new TransformationContainer((TransformationRule) currentElement);
+//				
+//			}
 		}
 
 	}
