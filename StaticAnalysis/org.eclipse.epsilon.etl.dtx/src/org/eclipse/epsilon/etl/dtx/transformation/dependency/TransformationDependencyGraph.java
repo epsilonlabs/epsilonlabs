@@ -6,10 +6,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
 import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
 import org.eclipse.epsilon.etl.metamodel.RuleDependency;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
+import org.eclipse.epsilon.etl.visitor.coverage.analysis.impl.EtlCoverageAnalyser;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
@@ -42,6 +44,7 @@ public class TransformationDependencyGraph extends ViewPart {
 	  
 	  private Composite parent;
 	  protected HashMap<GraphItem, EolElement> graphMap = new HashMap<GraphItem, EolElement>(); 
+	  protected EtlCoverageAnalyser coverageAnalyser = new EtlCoverageAnalyser();
 
 	  public TransformationDependencyGraph() {
 		  super();
@@ -66,6 +69,8 @@ public class TransformationDependencyGraph extends ViewPart {
 		EtlxEditor leEditor = getEditor();
 		if (leEditor.getEolLibraryModule() != null) {
 			graph = getDependencyGraph((EtlProgram) leEditor.getEolLibraryModule(), parent);
+			coverageAnalyser.run(leEditor.getEolLibraryModule());
+			System.out.println(coverageAnalyser.getContext().toString());
 		}
 		
 		
