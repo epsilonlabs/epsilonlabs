@@ -81,4 +81,28 @@ public class MetaElementContainer {
 			}
 		}
 	}
+	
+	public ArrayList<EAttribute> getUnusedAttributes()
+	{
+		ArrayList<EAttribute> result = new ArrayList<EAttribute>();
+		for(EAttribute attr: clazz.getEAllAttributes())
+		{
+			if (!attributes.contains(attr)) {
+				result.add(attr);
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<EReference> getUnusedEReferences()
+	{
+		ArrayList<EReference> result = new ArrayList<EReference>();
+		for(EReference eRef: clazz.getEAllReferences())
+		{
+			if (!references.contains(eRef)) {
+				result.add(eRef);
+			}
+		}
+		return result;
+	}
 }
