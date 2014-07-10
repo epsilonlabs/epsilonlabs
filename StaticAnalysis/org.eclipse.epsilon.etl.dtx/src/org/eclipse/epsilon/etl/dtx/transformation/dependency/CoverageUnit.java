@@ -21,37 +21,65 @@ public class CoverageUnit {
 	
 	public String getMetaModel()
 	{
-		return eClass.getEPackage().getName();
+		if (eClass != null) {
+			return eClass.getEPackage().getName();	
+		}
+		else {
+			return "";
+		}
+		
 	}
 	
 	public String getMetaElement()
 	{
-		return eClass.getName();
+		if (eClass != null) {
+			return eClass.getName();	
+		}
+		else {
+			return "";
+		}
+		
 	}
 	
 	public String getProperty()
 	{
-		return eStructuralFeature.getName();
+		if (eStructuralFeature != null) {
+			return eStructuralFeature.getName();	
+		}
+		else {
+			return "";
+		}
+		
 	}
 	
 	public String getPropertyType()
 	{
-		if (eStructuralFeature instanceof EAttribute) {
-			return "attribute";
+		if (eStructuralFeature != null) {
+			if (eStructuralFeature instanceof EAttribute) {
+				return "attribute";
+			}
+			else if (eStructuralFeature instanceof EReference) {
+				return "reference";
+			}	
 		}
-		else if (eStructuralFeature instanceof EReference) {
-			return "reference";
+		else {
+			return "";
 		}
-		return null;
+		return "";
 	}
 	
 	public String getUsed()
 	{
-		if (used) {
-			return "true";
+		if (eClass != null) {
+			if (used) {
+				return "true";
+			}
+			else {
+				return "false";
+			}	
 		}
 		else {
-			return "false";
+			return "";
 		}
 	}
 }

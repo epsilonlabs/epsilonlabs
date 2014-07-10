@@ -43,21 +43,19 @@ import org.eclipse.ui.part.ViewPart;
 
 public class TransformationAnalysis extends ViewPart {
 
-	protected final int METAMODEL_COLUMN = 0;
-	protected final int METAELEMENT_COLUMN = 1;
-	protected final int PROPERTY_COLUMN = 2;
-	protected final int PROPERTYTYPE_COLUMN = 3;
-	protected final int USED_COLUMN = 4;
-	
-	private TableViewer coverageAnalysisViewer;
+	protected final int CURRENTSCOPE_COLUMN = 0;
+	protected final int METAMODEL_COLUMN = 1;
+	protected final int METAELEMENT_COLUMN = 2;
+	protected final int PROPERTY_COLUMN = 3;
+	protected final int PROPERTYTYPE_COLUMN = 4;
+	protected final int USED_COLUMN = 5;
 	
 	public static final String ID = "org.eclipse.epsilon.etl.dtx.transformation.dependency";
-	  
 	protected TransformationDependencyViewer transformationDependencyViewer;
-	  
 	protected EtlCoverageAnalyser coverageAnalyser = new EtlCoverageAnalyser();
 	protected TransformationRule selectedTransformationRule;
-	
+	private TableViewer coverageAnalysisViewer;
+
 	private CTabFolder folder;
 
 
@@ -114,19 +112,19 @@ public class TransformationAnalysis extends ViewPart {
 	private void fillLocalPullDown(IMenuManager manager)
 	{
 		manager.removeAll();
-		manager.add(new PullDownAction("global", SWT.NONE));
+		manager.add(new PullDownAction("global", SWT.NONE, null, this));
 		manager.add(new Separator());
 		for(EolElement eolElement: transformationDependencyViewer.getGraphMap().values())
 		{
 			if (eolElement instanceof TransformationRule) {
 				TransformationRule rule = (TransformationRule) eolElement;
-				manager.add(new PullDownAction(rule.getName().getName(), SWT.NONE));
+				manager.add(new PullDownAction(rule.getName().getName(), SWT.NONE, rule, this));
 			}
 		}
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(new RefreshTransformationDependencyViewAction(this));
+		manager.add(new RefreshTransformationAnalysisViewAction(this));
 	}
 
 
@@ -135,16 +133,27 @@ public class TransformationAnalysis extends ViewPart {
 		// TODO Auto-generated method stub
 
 	}
-
 	
-	public void refresh(){
+	public void refreshTransformationDependencyViewer()
+	{
 		transformationDependencyViewer.refresh();
-		contributeToActionBars();
+	}
+	
+	public void refreshTransformationCoverageAnalysisViewer()
+	{
 		EtlxEditor leEditor = getEditor();
 		if (leEditor.getEolLibraryModule() != null) {
 			coverageAnalyser.run(leEditor.getEolLibraryModule());
 		}
 		coverageAnalysisViewer.refresh();
+	}
+
+	
+	public void refresh(){
+		
+		contributeToActionBars();
+		refreshTransformationDependencyViewer();
+		refreshTransformationCoverageAnalysisViewer();
 	}
 	
 	
@@ -159,7 +168,15 @@ public class TransformationAnalysis extends ViewPart {
 		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			CoverageUnit unit = (CoverageUnit) element;
-			if (columnIndex == METAMODEL_COLUMN) {
+			if (columnIndex == CURRENTSCOPE_COLUMN) {
+				if (selectedTransformationRule == null) {
+					return "Global";
+				}
+				else {
+					return selectedTransformationRule.getName().getName();
+				}
+			}
+			else if (columnIndex == METAMODEL_COLUMN) {
 				return unit.getMetaModel();
 			}
 			else if (columnIndex == METAELEMENT_COLUMN) {
@@ -183,8 +200,12 @@ public class TransformationAnalysis extends ViewPart {
 		public void dispose() {
 		}
 		public Object[] getElements(Object parent) {
-			return getUnits(coverageAnalyser.getContext().getGlobal()).toArray();
-//			return coverageAnalyser.getContext().getGlobal().toArray();
+			if (selectedTransformationRule == null) {
+				return getUnits(coverageAnalyser.getContext().getCoverageForGlobal()).toArray();
+			}
+			else {
+				return getUnits(coverageAnalyser.getContext().getCoverageForTransformation(selectedTransformationRule)).toArray();
+			}
 		}
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
@@ -201,6 +222,10 @@ public class TransformationAnalysis extends ViewPart {
 		coverageAnalysisViewer.setInput(getViewSite());
 		
 		TableColumn column = new StringTableColumn(coverageAnalysisViewer, SWT.FULL_SELECTION);
+	    column.setText("Current Scope");
+	    column.setWidth(125);
+	    
+	    column = new StringTableColumn(coverageAnalysisViewer, SWT.FULL_SELECTION);
 	    column.setText("Meta-model");
 	    column.setWidth(125);
 	    
@@ -241,6 +266,15 @@ public class TransformationAnalysis extends ViewPart {
 				result.add(new CoverageUnit(eClass, feature, false));
 			}
 		}
+		if (result.size() == 0) {
+			result.add(new CoverageUnit(null, null, false));
+		}
 		return result;
 	}
+	
+	public void setSelectedTransformationRule(
+			TransformationRule selectedTransformationRule) {
+		this.selectedTransformationRule = selectedTransformationRule;
+	}
+	
 }

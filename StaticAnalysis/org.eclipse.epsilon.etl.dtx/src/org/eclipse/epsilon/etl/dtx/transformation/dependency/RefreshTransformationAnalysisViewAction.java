@@ -3,9 +3,9 @@ package org.eclipse.epsilon.etl.dtx.transformation.dependency;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-public class RefreshTransformationDependencyViewAction extends TransformationDependencyViewAction{
+public class RefreshTransformationAnalysisViewAction extends TransformationDependencyViewAction{
 
-	public RefreshTransformationDependencyViewAction(
+	public RefreshTransformationAnalysisViewAction(
 			TransformationAnalysis tdgView) {
 		super(tdgView);
 		setText("Refresh View");
