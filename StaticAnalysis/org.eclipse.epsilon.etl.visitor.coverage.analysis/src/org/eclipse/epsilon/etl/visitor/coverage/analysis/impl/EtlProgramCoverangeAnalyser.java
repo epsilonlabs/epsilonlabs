@@ -27,9 +27,10 @@ public class EtlProgramCoverangeAnalyser extends EtlProgramVisitor<CoverageAnaly
 		
 		for(TransformationRule tr: etlProgram.getTransformationRules())
 		{
+			context.setCurrentElement(tr);
 			controller.visit(tr, context);
 		}
-		
+		context.setCurrentElement(etlProgram);
 		for(PostBlock post: etlProgram.getPostBlocks())
 		{
 			controller.visit(post, context);

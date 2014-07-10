@@ -110,7 +110,9 @@ public class CoverageAnalysisRepo {
 //			boolean exist = false;
 			for(TransformationContainer tc: transformationContainers)
 			{
-				tc.add(eClass, propertyName);
+				if (tc.getTransformationRule().equals(currentElement)) {
+					tc.add(eClass, propertyName);
+				}
 //				boolean innerExist = false;
 //				if (tc.getTransformationRule().equals(currentElement)) {
 //					exist = true;

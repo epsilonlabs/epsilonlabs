@@ -12,7 +12,7 @@ public class TransformationRuleCoverageAnalyser extends TransformationRuleVisito
 	public Object visit(TransformationRule transformationRule,
 			CoverageAnalysisContext context,
 			EtlVisitorController<CoverageAnalysisContext, Object> controller) {
-		context.setCurrentElement(transformationRule);
+		//context.setCurrentElement(transformationRule);
 		controller.visit(transformationRule.getSource(), context);
 		for(FormalParameterExpression target: transformationRule.getTargets())
 		{
