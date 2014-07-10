@@ -20,6 +20,7 @@ public class PropertyCallExpressionCoverageAnalyser extends PropertyCallExpressi
 	public Object visit(PropertyCallExpression propertyCallExpression,
 			CoverageAnalysisContext context,
 			EolVisitorController<CoverageAnalysisContext, Object> controller) {
+		controller.visit(propertyCallExpression.getTarget(), context);
 		Type tempType = propertyCallExpression.getTarget().getResolvedType();
 		if (tempType instanceof ModelElementType) {
 			ModelElementType targetTypde = (ModelElementType) tempType;
