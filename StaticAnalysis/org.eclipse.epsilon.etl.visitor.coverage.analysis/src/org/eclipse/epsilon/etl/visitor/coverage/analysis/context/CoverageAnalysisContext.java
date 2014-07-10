@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 
 public class CoverageAnalysisContext {
@@ -44,12 +45,90 @@ public class CoverageAnalysisContext {
 		return coverageAnalysisRepo.getTransformationContainers();
 	}
 	
+	public ArrayList<MetaElementContainer> getGlobal()
+	{
+		ArrayList<MetaElementContainer> result = new ArrayList<MetaElementContainer>();
+		for(MetaElementContainer mec: getglobalContainers())
+		{
+			MetaElementContainer container = getContainerForMetaElement(mec.getEClass(), result);
+			if (container != null) {
+			}
+			else {
+				container = new MetaElementContainer(mec.getEClass());
+				result.add(container);
+			}
+			for(EStructuralFeature esf: mec.getAllFeatures())
+			{
+				container.add(esf.getName());
+			}
+		}
+		for(TransformationContainer tc: getTransformationContainers())
+		{
+			MetaElementContainer sourceContainer = tc.getSourceContainer();
+			MetaElementContainer container = getContainerForMetaElement(sourceContainer.getEClass(), result);
+			if (container != null) {
+			}
+			else {
+				container = new MetaElementContainer(sourceContainer.getEClass());
+				result.add(container);
+			}
+			for(EStructuralFeature esf: sourceContainer.getAllFeatures())
+			{
+				container.add(esf.getName());
+			}
+			
+			for(MetaElementContainer targetContainer : tc.getTargetcontainers())
+			{
+				MetaElementContainer tempContainer = getContainerForMetaElement(targetContainer.getEClass(), result);
+				if (tempContainer != null) {
+					
+				}
+				else {
+					tempContainer = new MetaElementContainer(targetContainer.getEClass());
+					result.add(tempContainer);
+				}
+				for(EStructuralFeature esf: targetContainer.getAllFeatures())
+				{
+					tempContainer.add(esf.getName());
+				}
+			}
+			
+			for(MetaElementContainer otherContainer : tc.getOtherContinaers())
+			{
+				MetaElementContainer tempContainer = getContainerForMetaElement(otherContainer.getEClass(), result);
+				if (tempContainer != null) {
+					
+				}
+				else {
+					tempContainer = new MetaElementContainer(otherContainer.getEClass());
+					result.add(tempContainer);
+				}
+				for(EStructuralFeature esf: otherContainer.getAllFeatures())
+				{
+					tempContainer.add(esf.getName());
+				}
+			}
+		}
+		return result;
+	}
+	
+	public MetaElementContainer getContainerForMetaElement(EClass eClass, ArrayList<MetaElementContainer> containers)
+	{
+		for(MetaElementContainer mec: containers)
+		{
+			if (mec.getEClass().equals(eClass)) {
+				return mec;
+			}
+		}
+		return null;
+	}
+	
 	public String toString()
 	{
 		String result = "global: \n";
 		for(MetaElementContainer mec: getglobalContainers())
 		{
-			result += mec.getClassifier().getName() + " \n";
+			result += mec.getEClass().getName() + " \n";
 			result += "attributes: \n";
 			for(EAttribute attribute: mec.getAttributes())
 			{
@@ -67,7 +146,7 @@ public class CoverageAnalysisContext {
 			result += tc.getTransformationRule().getName().getName() + ": \n";
 			MetaElementContainer sourceContainer = tc.getSourceContainer();
 			result += "source: \n";
-			result += sourceContainer.getClassifier().getName() + "\n";
+			result += sourceContainer.getEClass().getName() + "\n";
 			result += "attributes: \n";
 			for(EAttribute attribute: sourceContainer.getAttributes())
 			{
@@ -81,7 +160,7 @@ public class CoverageAnalysisContext {
 			for(MetaElementContainer targetContainer: tc.getTargetcontainers())
 			{
 				result += "target: \n";
-				result += targetContainer.getClassifier().getName() + "\n";
+				result += targetContainer.getEClass().getName() + "\n";
 				result += "attributes: \n";
 				for(EAttribute attribute: targetContainer.getAttributes())
 				{
@@ -96,7 +175,7 @@ public class CoverageAnalysisContext {
 			for(MetaElementContainer otherContainer: tc.getOtherContinaers())
 			{
 				result += "target: \n";
-				result += otherContainer.getClassifier().getName() + "\n";
+				result += otherContainer.getEClass().getName() + "\n";
 				result += "attributes: \n";
 				for(EAttribute attribute: otherContainer.getAttributes())
 				{

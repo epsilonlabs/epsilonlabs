@@ -53,7 +53,7 @@ public class CoverageAnalysisRepo {
 			boolean exist = false;
 			for(MetaElementContainer container: globalContainers)
 			{
-				if (container.getClassifier().equals(eClass)) {
+				if (container.getEClass().equals(eClass)) {
 					exist = true;
 				}
 			}
@@ -71,7 +71,7 @@ public class CoverageAnalysisRepo {
 					exist = true;
 					for(MetaElementContainer container: tc.getOtherContinaers())
 					{
-						if (container.getClassifier().equals(eClass)) {
+						if (container.getEClass().equals(eClass)) {
 							innerExist = true;
 						}
 					}
@@ -94,7 +94,7 @@ public class CoverageAnalysisRepo {
 			boolean exist = false;
 			for(MetaElementContainer container: globalContainers)
 			{
-				if (container.getClassifier().equals(eClass)) {
+				if (container.getEClass().equals(eClass)) {
 					exist = true;
 					container.add(propertyName);
 				}

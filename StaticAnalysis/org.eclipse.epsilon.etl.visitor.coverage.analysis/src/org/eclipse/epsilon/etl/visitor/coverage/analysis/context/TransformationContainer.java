@@ -58,14 +58,14 @@ public class TransformationContainer {
 	
 	public void add(EClass eClass, String propertyName)
 	{
-		if (sourceContainer.getClassifier().equals(eClass)) {
+		if (sourceContainer.getEClass().equals(eClass)) {
 			sourceContainer.add(propertyName);
 			return;
 		}
 		
 		for(MetaElementContainer mec: targetcontainers)
 		{
-			if (mec.getClassifier().equals(eClass)) {
+			if (mec.getEClass().equals(eClass)) {
 				mec.add(propertyName);
 				return;
 			}
@@ -73,7 +73,7 @@ public class TransformationContainer {
 		
 		for(MetaElementContainer mec: otherContinaers)
 		{
-			if (mec.getClassifier().equals(eClass)) {
+			if (mec.getEClass().equals(eClass)) {
 				mec.add(propertyName);
 				return;
 			}

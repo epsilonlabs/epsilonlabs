@@ -9,24 +9,38 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 public class MetaElementContainer {
 
+//	protected boolean visited;
 	protected EClass clazz;
 	protected ArrayList<EAttribute> attributes;
 	protected ArrayList<EReference> references;
 	
-	public MetaElementContainer(EClass classifier)
+//	protected ArrayList<EAttribute> unvisitedAttributes;
+	protected ArrayList<EReference> unvisitedEReferences;
+	
+//	protected boolean usedAttributeDeplited;
+//	protected boolean usedReferenceEplited;
+	
+	public MetaElementContainer(EClass eClass)
 	{
-		this.clazz = classifier;
+//		visited = false;
+		this.clazz = eClass;
 		attributes = new ArrayList<EAttribute>();
 		references = new ArrayList<EReference>();
+		
+//		unvisitedAttributes = new ArrayList<EAttribute>();
+//		unvisitedEReferences = new ArrayList<EReference>();
+		
+//		usedAttributeDeplited = false;
+//		usedReferenceEplited = false;
 	}
 	
 	
-	public EClass getClassifier() {
+	public EClass getEClass() {
 		return clazz;
 	}
 	
-	public void setClassifier(EClass classifier) {
-		this.clazz = classifier;
+	public void setEClass(EClass eClass) {
+		this.clazz = eClass;
 	}
 	
 	public ArrayList<EAttribute> getAttributes() {
@@ -105,4 +119,38 @@ public class MetaElementContainer {
 		}
 		return result;
 	}
+	
+	public ArrayList<EStructuralFeature> getAllUnusedFeatures()
+	{
+		ArrayList<EStructuralFeature> result = new ArrayList<EStructuralFeature>();
+		result.addAll(getUnusedAttributes());
+		result.addAll(getUnusedEReferences());
+		return result;
+	}
+	
+//	public void sync()
+//	{
+//		unvisitedAttributes.addAll(attributes);
+//		unvisitedEReferences.addAll(references);
+//	}
+//	
+//	public void setVisited(boolean visited) {
+//		this.visited = visited;
+//	}
+//	
+//	public boolean isVisited() {
+//		return visited;
+//	}
+//
+//	public EAttribute getOneUsedAttribute()
+//	{
+//		if (unvisitedAttributes.size() != 0) {
+//			EAttribute attribute = unvisitedAttributes.get(0);
+//			unvisitedAttributes.remove(attribute);
+//			return attribute;
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 }
