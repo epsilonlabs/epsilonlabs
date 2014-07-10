@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 
 public class CoverageAnalysisContext {
 
@@ -45,7 +46,62 @@ public class CoverageAnalysisContext {
 		return coverageAnalysisRepo.getTransformationContainers();
 	}
 	
-	public ArrayList<MetaElementContainer> getGlobal()
+	public ArrayList<MetaElementContainer> getCoverageForTransformation(TransformationRule transformationRule)
+	{
+		ArrayList<MetaElementContainer> result = new ArrayList<MetaElementContainer>();
+		for(TransformationContainer tc: getTransformationContainers())
+		{
+			if (tc.getTransformationRule().equals(transformationRule)) {
+				MetaElementContainer sourceContainer = tc.getSourceContainer();
+				MetaElementContainer container = getContainerForMetaElement(sourceContainer.getEClass(), result);
+				if (container != null) {
+				}
+				else {
+					container = new MetaElementContainer(sourceContainer.getEClass());
+					result.add(container);
+				}
+				for(EStructuralFeature esf: sourceContainer.getAllFeatures())
+				{
+					container.add(esf.getName());
+				}
+				
+				for(MetaElementContainer targetContainer : tc.getTargetcontainers())
+				{
+					MetaElementContainer tempContainer = getContainerForMetaElement(targetContainer.getEClass(), result);
+					if (tempContainer != null) {
+						
+					}
+					else {
+						tempContainer = new MetaElementContainer(targetContainer.getEClass());
+						result.add(tempContainer);
+					}
+					for(EStructuralFeature esf: targetContainer.getAllFeatures())
+					{
+						tempContainer.add(esf.getName());
+					}
+				}
+				
+				for(MetaElementContainer otherContainer : tc.getOtherContinaers())
+				{
+					MetaElementContainer tempContainer = getContainerForMetaElement(otherContainer.getEClass(), result);
+					if (tempContainer != null) {
+						
+					}
+					else {
+						tempContainer = new MetaElementContainer(otherContainer.getEClass());
+						result.add(tempContainer);
+					}
+					for(EStructuralFeature esf: otherContainer.getAllFeatures())
+					{
+						tempContainer.add(esf.getName());
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<MetaElementContainer> getCoverageForGlobal()
 	{
 		ArrayList<MetaElementContainer> result = new ArrayList<MetaElementContainer>();
 		for(MetaElementContainer mec: getglobalContainers())
