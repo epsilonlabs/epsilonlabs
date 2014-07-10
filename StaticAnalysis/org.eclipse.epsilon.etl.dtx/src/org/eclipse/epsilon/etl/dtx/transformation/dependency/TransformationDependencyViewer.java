@@ -1,10 +1,8 @@
 package org.eclipse.epsilon.etl.dtx.transformation.dependency;
 
-import java.awt.SystemColor;
 import java.util.HashMap;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.draw2d.ColorConstants.SystemColorFactory;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
@@ -16,11 +14,8 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -34,22 +29,17 @@ import org.eclipse.zest.core.widgets.GraphNode;
 import org.eclipse.zest.core.widgets.ZestStyles;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 
 public class TransformationDependencyViewer extends Composite{
 
 	private Graph graph;
-	private int layout = 1;
 
 	protected HashMap<GraphItem, EolElement> graphMap = new HashMap<GraphItem, EolElement>(); 
-	private Composite parent;
 
 
 	public TransformationDependencyViewer(Composite parent, int style)
 	{
 		super(parent, style);
-		this.parent = parent;
 		this.setLayout(new FillLayout());
 //		this.setBackground(new Color(Display.getCurrent(), new RGB(63, 127, 95)));
 		EtlxEditor leEditor = getEditor();
@@ -61,7 +51,6 @@ public class TransformationDependencyViewer extends Composite{
 	public Graph getDependencyGraph(EtlProgram etlProgram, Composite parent)
 	{
 		Graph g = new Graph(parent, SWT.NONE);
-		System.err.println("Bounds: " + getBounds());
 //		g.setBackground(new Color(Display.getCurrent(), new RGB(127, 0, 85)));
 		HashMap<TransformationRule, GraphNode> map = new HashMap<TransformationRule, GraphNode>();
 		
@@ -147,6 +136,9 @@ public class TransformationDependencyViewer extends Composite{
 		if (graph != null) {
 			graph.dispose();
 		}
+		if (graphMap != null) {
+			graphMap.clear();
+		}
 		this.setLayout(new FillLayout());
 		EtlxEditor leEditor = getEditor();
 		if (leEditor.getEolLibraryModule() != null) {
@@ -155,6 +147,10 @@ public class TransformationDependencyViewer extends Composite{
 		graph.applyLayout();
 		this.layout();
 		//parent.layout();
+	}
+	
+	public HashMap<GraphItem, EolElement> getGraphMap() {
+		return graphMap;
 	}
 
 //	public void setLayoutManager() {

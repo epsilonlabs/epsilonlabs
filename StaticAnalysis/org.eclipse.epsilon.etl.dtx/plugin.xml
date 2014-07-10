@@ -26,9 +26,9 @@
       </category>
       <view
             category="org.eclipse.epsilon.etl.dtx.category"
-            class="org.eclipse.epsilon.etl.dtx.transformation.dependency.TransformationDependencyGraph"
+            class="org.eclipse.epsilon.etl.dtx.transformation.dependency.TransformationAnalysis"
             id="org.eclipse.epsilon.etl.dtx.transformation.dependency"
-            name="Transformation Dependency"
+            name="Transformation Analysis"
             restorable="true">
       </view>
    </extension>
