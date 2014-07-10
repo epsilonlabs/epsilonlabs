@@ -23,5 +23,9 @@ public class PullDownAction extends Action{
 	public void run() {
 		transformationAnalysis.setSelectedTransformationRule(transformationRule);
 		transformationAnalysis.refreshTransformationCoverageAnalysisViewer();
+		if (transformationRule != null) {
+			transformationAnalysis.selectElementInEditor(transformationRule);	
+		}
+		
 	}
 }

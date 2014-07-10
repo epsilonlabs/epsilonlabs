@@ -2,10 +2,13 @@ package org.eclipse.epsilon.etl.dtx.transformation.dependency;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
@@ -19,6 +22,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -39,6 +43,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 
 public class TransformationAnalysis extends ViewPart {
@@ -276,5 +281,29 @@ public class TransformationAnalysis extends ViewPart {
 			TransformationRule selectedTransformationRule) {
 		this.selectedTransformationRule = selectedTransformationRule;
 	}
+	
+	public void selectElementInEditor(EolElement selectedElement)
+	{
+		if (selectedElement != null) {
+			EtlxEditor editor = getEditor();
+			try {
+				IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
+				TextRegion region = selectedElement.getRegion();
+				
+				int startOffset = doc.getLineOffset(region.getStart().getLine()-1) + region.getStart().getColumn();
+				int endOffset = doc.getLineOffset(region.getEnd().getLine()-1) + region.getEnd().getColumn();
+				
+				FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
+				IFile file = fileInputEditor.getFile();
+
+				EclipseUtil.openEditorAt(file, region.getStart().getLine(), 
+						region.getStart().getColumn(), endOffset - startOffset, false);
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
 	
 }

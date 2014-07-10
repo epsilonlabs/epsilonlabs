@@ -89,26 +89,7 @@ public class TransformationDependencyViewer extends Composite{
 			public void widgetSelected(SelectionEvent e) {
 				
 				EolElement selectedElement = graphMap.get(e.item);
-				if (selectedElement != null) {
-					EtlxEditor editor = getEditor();
-					try {
-						IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
-						TextRegion region = selectedElement.getRegion();
-						
-						int startOffset = doc.getLineOffset(region.getStart().getLine()-1) + region.getStart().getColumn();
-						int endOffset = doc.getLineOffset(region.getEnd().getLine()-1) + region.getEnd().getColumn();
-						
-						FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
-						IFile file = fileInputEditor.getFile();
-
-						EclipseUtil.openEditorAt(file, region.getStart().getLine(), 
-								region.getStart().getColumn(), endOffset - startOffset, false);
-
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-					
-				}
+				selectElementInEditor(selectedElement);
 			}
 				
 		});
@@ -116,6 +97,29 @@ public class TransformationDependencyViewer extends Composite{
 		//g.setLayoutAlgorithm(new DirectedGraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
 		//g.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING), true);
 		return g;
+	}
+	
+	public void selectElementInEditor(EolElement selectedElement)
+	{
+		if (selectedElement != null) {
+			EtlxEditor editor = getEditor();
+			try {
+				IDocument doc = editor.getDocumentProvider().getDocument(editor.getEditorInput());
+				TextRegion region = selectedElement.getRegion();
+				
+				int startOffset = doc.getLineOffset(region.getStart().getLine()-1) + region.getStart().getColumn();
+				int endOffset = doc.getLineOffset(region.getEnd().getLine()-1) + region.getEnd().getColumn();
+				
+				FileEditorInput fileInputEditor = (FileEditorInput) editor.getEditorInput();
+				IFile file = fileInputEditor.getFile();
+
+				EclipseUtil.openEditorAt(file, region.getStart().getLine(), 
+						region.getStart().getColumn(), endOffset - startOffset, false);
+
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 	
 	  public EtlxEditor getEditor()
