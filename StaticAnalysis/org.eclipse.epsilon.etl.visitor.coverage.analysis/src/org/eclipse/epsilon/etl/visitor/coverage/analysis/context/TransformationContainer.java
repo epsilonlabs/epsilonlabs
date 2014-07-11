@@ -56,17 +56,17 @@ public class TransformationContainer {
 		return otherContinaers;
 	}
 	
-	public void add(EClass eClass, String propertyName)
+	public void add(EClass eClass, String propertyName, boolean featureAccessViaOpposite)
 	{
 		if (sourceContainer.getEClass().equals(eClass)) {
-			sourceContainer.add(propertyName);
+			sourceContainer.add(propertyName, featureAccessViaOpposite);
 			return;
 		}
 		
 		for(MetaElementContainer mec: targetcontainers)
 		{
 			if (mec.getEClass().equals(eClass)) {
-				mec.add(propertyName);
+				mec.add(propertyName, featureAccessViaOpposite);
 				return;
 			}
 		}
@@ -74,13 +74,13 @@ public class TransformationContainer {
 		for(MetaElementContainer mec: otherContinaers)
 		{
 			if (mec.getEClass().equals(eClass)) {
-				mec.add(propertyName);
+				mec.add(propertyName, featureAccessViaOpposite);
 				return;
 			}
 		}
 		
 		MetaElementContainer newContainer = new MetaElementContainer(eClass);
-		newContainer.add(propertyName);
+		newContainer.add(propertyName, featureAccessViaOpposite);
 		otherContinaers.add(newContainer);
 		
 	}

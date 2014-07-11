@@ -88,7 +88,7 @@ public class CoverageAnalysisRepo {
 		}
 	}
 	
-	public void add(EClass eClass, String propertyName, EolElement currentElement)
+	public void add(EClass eClass, String propertyName, EolElement currentElement, boolean featureAccessViaOpposite)
 	{
 		if (currentElement instanceof EtlProgram) {
 			boolean exist = false;
@@ -96,12 +96,12 @@ public class CoverageAnalysisRepo {
 			{
 				if (container.getEClass().equals(eClass)) {
 					exist = true;
-					container.add(propertyName);
+					container.add(propertyName, featureAccessViaOpposite);
 				}
 			}
 			if (!exist) {
 				MetaElementContainer container = new MetaElementContainer(eClass);
-				container.add(propertyName);
+				container.add(propertyName, featureAccessViaOpposite);
 				globalContainers.add(container);
 			}
 		}
@@ -111,7 +111,7 @@ public class CoverageAnalysisRepo {
 			for(TransformationContainer tc: transformationContainers)
 			{
 				if (tc.getTransformationRule().equals(currentElement)) {
-					tc.add(eClass, propertyName);
+					tc.add(eClass, propertyName, featureAccessViaOpposite);
 				}
 //				boolean innerExist = false;
 //				if (tc.getTransformationRule().equals(currentElement)) {

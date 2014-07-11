@@ -1,9 +1,12 @@
 package org.eclipse.epsilon.etl.visitor.coverage.analysis.context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
@@ -13,6 +16,7 @@ public class CoverageAnalysisContext {
 
 	protected EolElement currentElement;
 	protected CoverageAnalysisRepo coverageAnalysisRepo = new CoverageAnalysisRepo();
+	protected HashMap<EPackage, ArrayList<EClass>> packageUsageRegistry = new HashMap<EPackage, ArrayList<EClass>>();
 	
 	public CoverageAnalysisRepo getCoverageAnalysisRepo() {
 		return coverageAnalysisRepo;
@@ -29,11 +33,59 @@ public class CoverageAnalysisContext {
 	public void add(EClass eClass)
 	{
 		coverageAnalysisRepo.add(eClass, currentElement);
+		putEClassInPackageUsageRegistry(eClass);
+		
 	}
 	
-	public void add(EClass eClass, String propertyName)
+	public void add(EClass eClass, String propertyName, boolean featureAccessViaOpposite)
 	{
-		coverageAnalysisRepo.add(eClass, propertyName, currentElement);
+		coverageAnalysisRepo.add(eClass, propertyName, currentElement, featureAccessViaOpposite);
+		putEClassInPackageUsageRegistry(eClass);
+	}
+	
+	public void putEClassInPackageUsageRegistry(EClass eClass)
+	{
+		EPackage ePackage = eClass.getEPackage();
+		if (packageUsageRegistry.containsKey(ePackage)) {
+			ArrayList<EClass> classes = packageUsageRegistry.get(ePackage);
+			if (!classes.contains(eClass)) {
+				classes.add(eClass);	
+			}
+		}
+		else {
+			ArrayList<EClass> classes = new ArrayList<EClass>();
+			classes.add(eClass);
+			packageUsageRegistry.put(ePackage, classes);
+		}
+	}
+	
+	public ArrayList<EClass> getUnusedClasses()
+	{
+		ArrayList<EClass> result = new ArrayList<EClass>();
+		for(EPackage ePackage: packageUsageRegistry.keySet())
+		{
+			ArrayList<EClass> value = packageUsageRegistry.get(ePackage);
+			for(EClassifier eClass: ePackage.getEClassifiers())
+			{
+				if (eClass instanceof EClass && !value.contains(eClass)) {
+					result.add((EClass) eClass);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<EClass> getUnusedClasses(EPackage ePackage)
+	{
+		ArrayList<EClass> result = new ArrayList<EClass>();
+		ArrayList<EClass> value = packageUsageRegistry.get(ePackage);
+		for(EClassifier eClass: ePackage.getEClassifiers())
+		{
+			if (eClass instanceof EClass && !value.contains(eClass)) {
+				result.add((EClass) eClass);
+			}
+		}
+		return result;
 	}
 	
 	public ArrayList<MetaElementContainer> getglobalContainers()
@@ -62,7 +114,11 @@ public class CoverageAnalysisContext {
 				}
 				for(EStructuralFeature esf: sourceContainer.getAllFeatures())
 				{
-					container.add(esf.getName());
+					container.add(esf.getName(), false);
+				}
+				for(EReference ref: sourceContainer.getFeaturesAccessedViaOpposite())
+				{
+					container.add(ref.getName(), true);
 				}
 				
 				for(MetaElementContainer targetContainer : tc.getTargetcontainers())
@@ -77,7 +133,11 @@ public class CoverageAnalysisContext {
 					}
 					for(EStructuralFeature esf: targetContainer.getAllFeatures())
 					{
-						tempContainer.add(esf.getName());
+						tempContainer.add(esf.getName(), false);
+					}
+					for(EReference ref: targetContainer.getFeaturesAccessedViaOpposite())
+					{
+						container.add(ref.getName(), true);
 					}
 				}
 				
@@ -93,7 +153,11 @@ public class CoverageAnalysisContext {
 					}
 					for(EStructuralFeature esf: otherContainer.getAllFeatures())
 					{
-						tempContainer.add(esf.getName());
+						tempContainer.add(esf.getName(), false);
+					}
+					for(EReference ref: otherContainer.getFeaturesAccessedViaOpposite())
+					{
+						container.add(ref.getName(), true);
 					}
 				}
 			}
@@ -104,6 +168,7 @@ public class CoverageAnalysisContext {
 	public ArrayList<MetaElementContainer> getCoverageForGlobal()
 	{
 		ArrayList<MetaElementContainer> result = new ArrayList<MetaElementContainer>();
+		
 		for(MetaElementContainer mec: getglobalContainers())
 		{
 			MetaElementContainer container = getContainerForMetaElement(mec.getEClass(), result);
@@ -115,7 +180,11 @@ public class CoverageAnalysisContext {
 			}
 			for(EStructuralFeature esf: mec.getAllFeatures())
 			{
-				container.add(esf.getName());
+				container.add(esf.getName(), false);
+			}
+			for(EReference ref: mec.getFeaturesAccessedViaOpposite())
+			{
+				container.add(ref.getName(), true);
 			}
 		}
 		for(TransformationContainer tc: getTransformationContainers())
@@ -130,7 +199,11 @@ public class CoverageAnalysisContext {
 			}
 			for(EStructuralFeature esf: sourceContainer.getAllFeatures())
 			{
-				container.add(esf.getName());
+				container.add(esf.getName(), false);
+			}
+			for(EReference ref: sourceContainer.getFeaturesAccessedViaOpposite())
+			{
+				container.add(ref.getName(), true);
 			}
 			
 			for(MetaElementContainer targetContainer : tc.getTargetcontainers())
@@ -145,7 +218,11 @@ public class CoverageAnalysisContext {
 				}
 				for(EStructuralFeature esf: targetContainer.getAllFeatures())
 				{
-					tempContainer.add(esf.getName());
+					tempContainer.add(esf.getName(), false);
+				}
+				for(EReference ref: targetContainer.getFeaturesAccessedViaOpposite())
+				{
+					container.add(ref.getName(), true);
 				}
 			}
 			
@@ -161,7 +238,11 @@ public class CoverageAnalysisContext {
 				}
 				for(EStructuralFeature esf: otherContainer.getAllFeatures())
 				{
-					tempContainer.add(esf.getName());
+					tempContainer.add(esf.getName(), false);
+				}
+				for(EReference ref: otherContainer.getFeaturesAccessedViaOpposite())
+				{
+					container.add(ref.getName(), true);
 				}
 			}
 		}
@@ -179,73 +260,73 @@ public class CoverageAnalysisContext {
 		return null;
 	}
 	
-	public String toString()
-	{
-		String result = "global: \n";
-		for(MetaElementContainer mec: getglobalContainers())
-		{
-			result += mec.getEClass().getName() + " \n";
-			result += "attributes: \n";
-			for(EAttribute attribute: mec.getAttributes())
-			{
-				result += attribute.getName() + "\n";
-			}
-			result += "references: \n";
-			for(EReference reference: mec.getReferences())
-			{
-				result += reference.getName() + "\n";
-			}
-		}
-		result += "Transformations: \n";
-		for(TransformationContainer tc: getTransformationContainers())
-		{
-			result += tc.getTransformationRule().getName().getName() + ": \n";
-			MetaElementContainer sourceContainer = tc.getSourceContainer();
-			result += "source: \n";
-			result += sourceContainer.getEClass().getName() + "\n";
-			result += "attributes: \n";
-			for(EAttribute attribute: sourceContainer.getAttributes())
-			{
-				result += attribute.getName() + "\n";
-			}
-			result += "references: \n";
-			for(EReference reference: sourceContainer.getReferences())
-			{
-				result += reference.getName() + "\n";
-			}
-			for(MetaElementContainer targetContainer: tc.getTargetcontainers())
-			{
-				result += "target: \n";
-				result += targetContainer.getEClass().getName() + "\n";
-				result += "attributes: \n";
-				for(EAttribute attribute: targetContainer.getAttributes())
-				{
-					result += attribute.getName() + "\n";
-				}
-				result += "references: \n";
-				for(EReference reference: targetContainer.getReferences())
-				{
-					result += reference.getName() + "\n";
-				}
-			}
-			for(MetaElementContainer otherContainer: tc.getOtherContinaers())
-			{
-				result += "target: \n";
-				result += otherContainer.getEClass().getName() + "\n";
-				result += "attributes: \n";
-				for(EAttribute attribute: otherContainer.getAttributes())
-				{
-					result += attribute.getName() + "\n";
-				}
-				result += "references: \n";
-				for(EReference reference: otherContainer.getReferences())
-				{
-					result += reference.getName() + "\n";
-				}
-			}
-		}
-		return result;
-	}
+//	public String toString()
+//	{
+//		String result = "global: \n";
+//		for(MetaElementContainer mec: getglobalContainers())
+//		{
+//			result += mec.getEClass().getName() + " \n";
+//			result += "attributes: \n";
+//			for(EAttribute attribute: mec.getAttributes())
+//			{
+//				result += attribute.getName() + "\n";
+//			}
+//			result += "references: \n";
+//			for(EReference reference: mec.getReferences())
+//			{
+//				result += reference.getName() + "\n";
+//			}
+//		}
+//		result += "Transformations: \n";
+//		for(TransformationContainer tc: getTransformationContainers())
+//		{
+//			result += tc.getTransformationRule().getName().getName() + ": \n";
+//			MetaElementContainer sourceContainer = tc.getSourceContainer();
+//			result += "source: \n";
+//			result += sourceContainer.getEClass().getName() + "\n";
+//			result += "attributes: \n";
+//			for(EAttribute attribute: sourceContainer.getAttributes())
+//			{
+//				result += attribute.getName() + "\n";
+//			}
+//			result += "references: \n";
+//			for(EReference reference: sourceContainer.getReferences())
+//			{
+//				result += reference.getName() + "\n";
+//			}
+//			for(MetaElementContainer targetContainer: tc.getTargetcontainers())
+//			{
+//				result += "target: \n";
+//				result += targetContainer.getEClass().getName() + "\n";
+//				result += "attributes: \n";
+//				for(EAttribute attribute: targetContainer.getAttributes())
+//				{
+//					result += attribute.getName() + "\n";
+//				}
+//				result += "references: \n";
+//				for(EReference reference: targetContainer.getReferences())
+//				{
+//					result += reference.getName() + "\n";
+//				}
+//			}
+//			for(MetaElementContainer otherContainer: tc.getOtherContinaers())
+//			{
+//				result += "target: \n";
+//				result += otherContainer.getEClass().getName() + "\n";
+//				result += "attributes: \n";
+//				for(EAttribute attribute: otherContainer.getAttributes())
+//				{
+//					result += attribute.getName() + "\n";
+//				}
+//				result += "references: \n";
+//				for(EReference reference: otherContainer.getReferences())
+//				{
+//					result += reference.getName() + "\n";
+//				}
+//			}
+//		}
+//		return result;
+//	}
 	
 	
 }

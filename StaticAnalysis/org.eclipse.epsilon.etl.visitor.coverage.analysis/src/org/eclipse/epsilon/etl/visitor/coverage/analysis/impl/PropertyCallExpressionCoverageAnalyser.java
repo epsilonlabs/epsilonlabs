@@ -4,6 +4,8 @@ import java.beans.Statement;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
@@ -26,7 +28,19 @@ public class PropertyCallExpressionCoverageAnalyser extends PropertyCallExpressi
 			ModelElementType targetTypde = (ModelElementType) tempType;
 			EClassifier ecoreType = targetTypde.getEcoreType();
 			String propertyName = propertyCallExpression.getProperty().getName();
-			context.add((EClass) ecoreType, propertyName);
+			if (ecoreType instanceof EClass) {
+				EClass eClass = (EClass) ecoreType;
+				EStructuralFeature feature = eClass.getEStructuralFeature(propertyName);
+				if (feature != null && feature instanceof EReference) {
+					EReference ref = (EReference) feature;
+					EReference opposite = ref.getEOpposite();
+					if (opposite != null) {
+						EClass containingClass = opposite.getEContainingClass();
+						context.add(containingClass, opposite.getName(), true);
+					}
+				}
+			}
+			context.add((EClass) ecoreType, propertyName, false);
 		}
 		return null;
 	}

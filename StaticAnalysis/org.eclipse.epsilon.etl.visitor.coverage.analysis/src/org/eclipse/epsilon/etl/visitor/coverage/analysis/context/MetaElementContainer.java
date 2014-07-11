@@ -14,8 +14,9 @@ public class MetaElementContainer {
 	protected ArrayList<EAttribute> attributes;
 	protected ArrayList<EReference> references;
 	
+	protected ArrayList<EReference> featuresAccessedViaOpposite;
 //	protected ArrayList<EAttribute> unvisitedAttributes;
-	protected ArrayList<EReference> unvisitedEReferences;
+//	protected ArrayList<EReference> unvisitedEReferences;
 	
 //	protected boolean usedAttributeDeplited;
 //	protected boolean usedReferenceEplited;
@@ -26,6 +27,8 @@ public class MetaElementContainer {
 		this.clazz = eClass;
 		attributes = new ArrayList<EAttribute>();
 		references = new ArrayList<EReference>();
+		
+		featuresAccessedViaOpposite = new ArrayList<EReference>();
 		
 //		unvisitedAttributes = new ArrayList<EAttribute>();
 //		unvisitedEReferences = new ArrayList<EReference>();
@@ -73,7 +76,7 @@ public class MetaElementContainer {
 		return result;
 	}
 
-	public void add(String propertyName)
+	public void add(String propertyName, boolean accessedViaOpposite)
 	{
 		for(EAttribute attribute: clazz.getEAllAttributes())
 		{
@@ -84,14 +87,23 @@ public class MetaElementContainer {
 				attributes.add(attribute);
 				return;
 			}
+			
 		}
 		for(EReference reference : clazz.getEAllReferences())
 		{
 			if (reference.getName().equals(propertyName)) {
 				if (references.contains(reference)) {
+					if (accessedViaOpposite) {
+						featuresAccessedViaOpposite.add(reference);
+					}
 					return;
 				}
-				references.add(reference);
+				else {
+					if (accessedViaOpposite) {
+						featuresAccessedViaOpposite.add(reference);
+					}
+					references.add(reference);
+				}
 			}
 		}
 	}
@@ -126,6 +138,10 @@ public class MetaElementContainer {
 		result.addAll(getUnusedAttributes());
 		result.addAll(getUnusedEReferences());
 		return result;
+	}
+	
+	public ArrayList<EReference> getFeaturesAccessedViaOpposite() {
+		return featuresAccessedViaOpposite;
 	}
 	
 //	public void sync()
