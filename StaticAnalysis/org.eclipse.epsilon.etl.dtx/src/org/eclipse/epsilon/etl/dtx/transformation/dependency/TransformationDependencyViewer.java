@@ -33,13 +33,15 @@ import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 public class TransformationDependencyViewer extends Composite{
 
 	private Graph graph;
+	private TransformationAnalysis transformationAnalysis;
 
 	protected HashMap<GraphItem, EolElement> graphMap = new HashMap<GraphItem, EolElement>(); 
 
 
-	public TransformationDependencyViewer(Composite parent, int style)
+	public TransformationDependencyViewer(Composite parent, int style, TransformationAnalysis transformationAnalysis)
 	{
 		super(parent, style);
+		this.transformationAnalysis = transformationAnalysis;
 		this.setLayout(new FillLayout());
 //		this.setBackground(new Color(Display.getCurrent(), new RGB(63, 127, 95)));
 		EtlxEditor leEditor = getEditor();
@@ -89,7 +91,11 @@ public class TransformationDependencyViewer extends Composite{
 			public void widgetSelected(SelectionEvent e) {
 				
 				EolElement selectedElement = graphMap.get(e.item);
-				selectElementInEditor(selectedElement);
+				if (selectedElement instanceof TransformationRule) {
+					transformationAnalysis.selectedTransformationRule = (TransformationRule) selectedElement;
+					transformationAnalysis.refreshTransformationCoverageAnalysisViewer();
+				}
+				transformationAnalysis.selectElementInEditor(selectedElement);
 			}
 				
 		});

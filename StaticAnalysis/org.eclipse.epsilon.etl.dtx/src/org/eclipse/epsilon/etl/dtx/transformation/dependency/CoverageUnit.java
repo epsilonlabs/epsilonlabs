@@ -10,13 +10,13 @@ public class CoverageUnit {
 	protected EClass eClass;
 	protected EStructuralFeature eStructuralFeature;
 	
-	protected boolean used;
+	protected String usage;
 	
-	public CoverageUnit(EClass eClass, EStructuralFeature eStructuralFeature, boolean used)
+	public CoverageUnit(EClass eClass, EStructuralFeature eStructuralFeature, String usage)
 	{
 		this.eClass = eClass;
 		this.eStructuralFeature = eStructuralFeature;
-		this.used = used;
+		this.usage = usage;
 	}
 	
 	public String getMetaModel()
@@ -47,7 +47,7 @@ public class CoverageUnit {
 			return eStructuralFeature.getName();	
 		}
 		else {
-			return "";
+			return "*";
 		}
 		
 	}
@@ -63,23 +63,13 @@ public class CoverageUnit {
 			}	
 		}
 		else {
-			return "";
+			return "-";
 		}
-		return "";
+		return "-";
 	}
 	
 	public String getUsed()
 	{
-		if (eClass != null) {
-			if (used) {
-				return "true";
-			}
-			else {
-				return "false";
-			}	
-		}
-		else {
-			return "";
-		}
+		return usage;
 	}
 }

@@ -95,7 +95,7 @@ public class TransformationAnalysis extends ViewPart {
 
 		CTabItem overviewItem = new CTabItem(folder, SWT.NONE);
 		overviewItem.setText("Overview");
-		transformationDependencyViewer = new TransformationDependencyViewer(folder, SWT.NONE);
+		transformationDependencyViewer = new TransformationDependencyViewer(folder, SWT.NONE, this);
 		overviewItem.setControl(transformationDependencyViewer);
 		
 		CTabItem coverageItem = new CTabItem(folder, SWT.NONE);
@@ -206,10 +206,10 @@ public class TransformationAnalysis extends ViewPart {
 		}
 		public Object[] getElements(Object parent) {
 			if (selectedTransformationRule == null) {
-				return getUnits(coverageAnalyser.getContext().getCoverageForGlobal()).toArray();
+				return getUnits(coverageAnalyser.getContext().getCoverageForGlobal(), true).toArray();
 			}
 			else {
-				return getUnits(coverageAnalyser.getContext().getCoverageForTransformation(selectedTransformationRule)).toArray();
+				return getUnits(coverageAnalyser.getContext().getCoverageForTransformation(selectedTransformationRule), false).toArray();
 			}
 		}
 		@Override
@@ -256,7 +256,7 @@ public class TransformationAnalysis extends ViewPart {
 	}
 	
 
-	public ArrayList<CoverageUnit> getUnits(ArrayList<MetaElementContainer> containers)
+	public ArrayList<CoverageUnit> getUnits(ArrayList<MetaElementContainer> containers, boolean global)
 	{
 		ArrayList<CoverageUnit> result = new ArrayList<CoverageUnit>();
 		for(MetaElementContainer mec: containers)
@@ -264,15 +264,29 @@ public class TransformationAnalysis extends ViewPart {
 			EClass eClass = mec.getEClass();
 			for(EStructuralFeature feature: mec.getAllFeatures())
 			{
-				result.add(new CoverageUnit(eClass, feature, true));
+				if (mec.getFeaturesAccessedViaOpposite().contains(feature)) {
+					result.add(new CoverageUnit(eClass, feature, "via opposite"));
+				}
+				else {
+					result.add(new CoverageUnit(eClass, feature, "true"));	
+				}
 			}
 			for(EStructuralFeature feature: mec.getAllUnusedFeatures())
 			{
-				result.add(new CoverageUnit(eClass, feature, false));
+				result.add(new CoverageUnit(eClass, feature, "false"));
 			}
 		}
-		if (result.size() == 0) {
-			result.add(new CoverageUnit(null, null, false));
+		if (global) {
+			for(EClass eClass: coverageAnalyser.getContext().getUnusedClasses())
+			{
+				if (eClass.isAbstract() || eClass.isInterface()) {
+					
+				}
+				else {
+					result.add(new CoverageUnit(eClass, null, "false"));
+				}
+				
+			}
 		}
 		return result;
 	}
