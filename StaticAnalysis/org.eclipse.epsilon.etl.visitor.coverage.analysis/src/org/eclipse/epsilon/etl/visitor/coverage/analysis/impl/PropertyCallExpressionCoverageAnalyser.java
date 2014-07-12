@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.etl.visitor.coverage.analysis.impl;
 
 import java.beans.Statement;
+import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -37,13 +38,49 @@ public class PropertyCallExpressionCoverageAnalyser extends PropertyCallExpressi
 					if (opposite != null) {
 						EClass containingClass = opposite.getEContainingClass();
 						context.add(containingClass, opposite.getName(), true);
+						for(EClass superClass : getSuperClassContainingProperty(containingClass, opposite.getName()))
+						{
+							if (superClass.isAbstract() || superClass.isInterface()) {
+								
+							}
+							else {
+								context.add(superClass, opposite.getName(), true);	
+							}
+							 
+						}
 					}
 				}
 			}
 			context.add((EClass) ecoreType, propertyName, false);
+			for(EClass superClass : getSuperClassContainingProperty((EClass) ecoreType, propertyName))
+			{
+				if (superClass.isAbstract() || superClass.isInterface()) {
+					
+				}
+				else {
+					context.add(superClass, propertyName, false);	
+				}
+			}
 		}
 		return null;
 	}
+	
+	public ArrayList<EClass> getSuperClassContainingProperty(EClass eClass, String propertyName)
+	{
+		ArrayList<EClass> result = new ArrayList<EClass>();
+		for(EClass superClass: eClass.getESuperTypes())
+		{
+			for(EStructuralFeature feature: superClass.getEAllStructuralFeatures())
+			{
+				if (feature.getName().equals(propertyName)) {
+					result.add(superClass);
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
 	
 	public boolean isWrite(PropertyCallExpression propertyCallExpression)
 	{

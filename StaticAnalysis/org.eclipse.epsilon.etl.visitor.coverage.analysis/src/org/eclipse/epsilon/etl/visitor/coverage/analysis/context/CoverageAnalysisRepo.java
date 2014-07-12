@@ -3,6 +3,7 @@ package org.eclipse.epsilon.etl.visitor.coverage.analysis.context;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
@@ -86,6 +87,22 @@ public class CoverageAnalysisRepo {
 				transformationContainers.add(tc);
 			}
 		}
+	}
+	
+	public ArrayList<EClass> getSuperClassContainingProperty(EClass eClass, String propertyName)
+	{
+		ArrayList<EClass> result = new ArrayList<EClass>();
+		for(EClass superClass: eClass.getESuperTypes())
+		{
+			for(EStructuralFeature feature: superClass.getEAllStructuralFeatures())
+			{
+				if (feature.getName().equals(propertyName)) {
+					result.add(superClass);
+					break;
+				}
+			}
+		}
+		return result;
 	}
 	
 	public void add(EClass eClass, String propertyName, EolElement currentElement, boolean featureAccessViaOpposite)
