@@ -1,0 +1,4 @@
+model OO driver EMF {nsuri = "http://oo/1.0"};
+model DB driver EMF {nsuri = "http://db/1.0"};
+model OO2DB alias oo2db driver EMF {nsuri = "http://tm/1.0"};
+model Trace alias trace driver EMF {nsuri = "http://trace/1.0"};
