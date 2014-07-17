@@ -82,7 +82,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		ArrayList<TraceUnitContainer> result = new ArrayList<TraceUnitContainer>();
 		for(TraceUnitContainer tuc: traceUnitContainers)
 		{
-			if (greedy) {
+			if (isGreedy(tuc.getTransformationRule())) {
 				if (tuc.getSource().equals(eClass)) {
 					if (isPrimary(tuc.getTransformationRule())) {
 						primaryRules.add(tuc);
