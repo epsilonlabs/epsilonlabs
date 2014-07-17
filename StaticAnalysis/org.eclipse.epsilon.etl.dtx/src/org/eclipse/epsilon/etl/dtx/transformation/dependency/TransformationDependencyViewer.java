@@ -53,14 +53,21 @@ public class TransformationDependencyViewer extends Composite{
 	public Graph getDependencyGraph(EtlProgram etlProgram, Composite parent)
 	{
 		Graph g = new Graph(parent, SWT.NONE);
+		graphMap.clear();
 //		g.setBackground(new Color(Display.getCurrent(), new RGB(127, 0, 85)));
 		HashMap<TransformationRule, GraphNode> map = new HashMap<TransformationRule, GraphNode>();
 		
 		for(TransformationRule rule: etlProgram.getTransformationRules())
 		{
-			GraphNode node = new GraphNode(g, SWT.NONE, rule.getName().getName());
-			graphMap.put(node, rule);
-			map.put(rule, node);
+			GraphNode node = null;
+			if (map.containsKey(rule)) {
+				node = map.get(rule);
+			}
+			else {
+				node = new GraphNode(g, SWT.NONE, rule.getName().getName());
+				graphMap.put(node, rule);
+				map.put(rule, node);	
+			}
 			
 			for(RuleDependency dependency: rule.getResolvedRuleDependencies())
 			{
@@ -78,10 +85,12 @@ public class TransformationDependencyViewer extends Composite{
 					}
 				}
 				else {
-					GraphNode leNode = new GraphNode(g, SWT.NONE, rule.getName().getName());
+					GraphNode leNode = new GraphNode(g, SWT.NONE, dependingRule.getName().getName());
+					graphMap.put(leNode, dependingRule);
 					map.put(dependingRule, leNode);
 					GraphConnection connection = new GraphConnection(g, ZestStyles.CONNECTIONS_DIRECTED, node,
 					        leNode);
+					graphMap.put(connection, dependency.getSourceElement());
 					connection.setText("depends on");
 				}
 			}
