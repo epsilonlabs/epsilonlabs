@@ -125,6 +125,8 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 			controller.visit(pb, context);
 		}
 		
+		leContext.supressErrors();
+		
 		return null;
 	}
 	
