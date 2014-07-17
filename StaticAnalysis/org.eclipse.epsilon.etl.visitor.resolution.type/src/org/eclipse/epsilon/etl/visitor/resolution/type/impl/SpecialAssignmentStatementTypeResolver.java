@@ -41,7 +41,7 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 				ModelElementType rhsType = (ModelElementType) rhs.getResolvedType();
 				EClass ecoreType = (EClass) rhsType.getEcoreType();
 				if (ecoreType != null) {
-					TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType, true).getTransformationRule(); //get the depending rule from the context
+					TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); //get the depending rule from the context
 					if (dependingRule == null) { //if depending rule is null, return null
 						context.getLogBook().addError(specialAssignmentStatement, "No applicable transformation rule is found");
 						return null;
@@ -79,7 +79,7 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 				if (rhsContentType != null) {
 					EClass ecoreType = (EClass) rhsContentType.getEcoreType();
 					
-					ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, false);
+					ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
 					for(TraceUnitContainer tuc : containers)
 					{
 						TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context

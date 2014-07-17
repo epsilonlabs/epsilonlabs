@@ -75,7 +75,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		return null;
 	}
 	
-	public ArrayList<TraceUnitContainer> getTraceUnitContainersWhichTransforms(EClass eClass, boolean greedy)
+	public ArrayList<TraceUnitContainer> getTraceUnitContainersWhichTransforms(EClass eClass)
 	{
 		ArrayList<TraceUnitContainer> normalRules = new ArrayList<TraceUnitContainer>();
 		ArrayList<TraceUnitContainer> primaryRules = new ArrayList<TraceUnitContainer>();
@@ -121,7 +121,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		return result;
 	}
 	
-	public TraceUnitContainer getTraceUnitContainerWhichTransforms(EClass eClass, boolean greedy)
+	public TraceUnitContainer getTraceUnitContainerWhichTransforms(EClass eClass)
 	{
  		TraceUnitContainer first = null;
 		for(TraceUnitContainer tuc: traceUnitContainers)

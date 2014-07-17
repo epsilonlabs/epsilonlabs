@@ -52,7 +52,7 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			ModelElementType targetType = (ModelElementType) target.getResolvedType(); //get the target typ
 			if (targetType != null) { //if target type is not null
 				EClass ecoreType = (EClass) targetType.getEcoreType(); //get the ecore type from the target type
-				TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType, isGreedy(leContext.getCurrentRule())).getTransformationRule(); //get the depending rule from the context
+				TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); //get the depending rule from the context
 				if (dependingRule == null) { //if depending rule is null, return null
 					context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
 					return null;
@@ -87,7 +87,7 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			if (targetContentType != null) {
 				EClass ecoreType = (EClass) targetContentType.getEcoreType();
 				
-				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, isGreedy(leContext.getCurrentRule()));
+				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
 				for(TraceUnitContainer tuc : containers)
 				{
 					TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context
@@ -144,23 +144,5 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			container = container.getContainer();
 		}
 	}
-	
-	public boolean isGreedy(TransformationRule rule)
-	{
-		AnnotationBlock annot = rule.getAnnotationBlock();
-		if (annot != null) {
-			for(SimpleAnnotation sa: annot.getSimpleAnnotations())
-			{
-				if (sa.getName().getName().equals("greedy")) {
-					return true;
-				}
-			}
-			return false;
-		}
-		else {
-			return false;
-		}
-	}
-
 
 }
