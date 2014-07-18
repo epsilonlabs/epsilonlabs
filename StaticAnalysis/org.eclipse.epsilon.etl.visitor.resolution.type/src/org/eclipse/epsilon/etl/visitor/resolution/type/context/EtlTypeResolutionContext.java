@@ -115,6 +115,17 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 					}
 				}
 			}
+			for(EClass theClass: tuc.getSource().getEAllSuperTypes())
+			{
+				if (theClass.equals(eClass)) {
+					if (isPrimary(tuc.getTransformationRule())) {
+						primaryRules.add(tuc);
+					}
+					else {
+						normalRules.add(tuc);
+					}
+				}
+			}
 		}
 		result.addAll(primaryRules);
 		result.addAll(normalRules);
@@ -142,20 +153,30 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 								}
 							}
 						}
-//						for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
-//							if (eClass2.equals(eClass)) { 
-//								if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-//									return tuc;
-//								}
-//							}
-//						}	
 					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								return tuc;
+							}
+						}
+					}	
+
 				}
 				else {
 					if (tuc.getSource().equals(eClass)) { //if not greedy if classes match
 						if (isPrimary(tuc.getTransformationRule())) { //if is primary rule return immediately
 							return tuc;
 						}
+					}
+					else {
+						for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+							if (eClass2.equals(eClass)) { 
+								if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+									return tuc;
+								}
+							}
+						}	
 					}
 				}
 			}
@@ -178,6 +199,15 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 							}
 						}	
 					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								return tuc;
+							}
+							first = tuc;
+						}
+					}	
+
 				}
 				else {
 					if (tuc.getSource().equals(eClass)) {
@@ -185,6 +215,16 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 							return tuc;
 						}
 						first = tuc; //record first
+					}
+					else {
+						for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+							if (eClass2.equals(eClass)) { 
+								if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+									return tuc;
+								}
+								first = tuc;
+							}
+						}	
 					}
 				}
 			}
