@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="defaultname" nsURI="http://defaultname/1.0" nsPrefix="defaultname">
+  <eClassifiers xsi:type="ecore:EClass" name="EtlElement" eSuperTypes="Eol.ecore#//EolElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedBlock" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass Eol.ecore#//Block"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PreBlock" eSuperTypes="#//NamedBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PostBlock" eSuperTypes="#//NamedBlock"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EtlProgram" eSuperTypes="Eol.ecore#//EolLibraryModule #//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transformationRules" upperBound="-1"
+        eType="#//TransformationRule" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preBlocks" upperBound="-1"
+        eType="#//PreBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="postBlocks" upperBound="-1"
+        eType="#//PostBlock" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationRule" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="ecore:EClass Eol.ecore#//FormalParameterExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targets" lowerBound="1"
+        upperBound="-1" eType="ecore:EClass Eol.ecore#//FormalParameterExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="ecore:EClass Eol.ecore#//Block"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotationBlock" eType="ecore:EClass Eol.ecore#//AnnotationBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass Eol.ecore#//NameExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extends" upperBound="-1"
+        eType="ecore:EClass Eol.ecore#//NameExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedParentRule" upperBound="-1"
+        eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guard" eType="#//Guard"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedRuleDependencies"
+        upperBound="-1" eType="#//RuleDependency" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RuleDependency" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependingRule" lowerBound="1"
+        eType="#//TransformationRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceElement" lowerBound="1"
+        eType="ecore:EClass Eol.ecore#//EolElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Guard" eSuperTypes="#//EtlElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
+        eType="ecore:EClass Eol.ecore#//ExpressionOrStatementBlock" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
