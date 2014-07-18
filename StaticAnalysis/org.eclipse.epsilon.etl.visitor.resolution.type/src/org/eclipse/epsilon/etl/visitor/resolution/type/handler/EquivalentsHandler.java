@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.SequenceType;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler.AnyOperationDefinitionHandler;
@@ -52,32 +53,59 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			ModelElementType targetType = (ModelElementType) target.getResolvedType(); //get the target typ
 			if (targetType != null) { //if target type is not null
 				EClass ecoreType = (EClass) targetType.getEcoreType(); //get the ecore type from the target type
-				TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); //get the depending rule from the context
-				if (dependingRule == null) { //if depending rule is null, return null
-					context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
-					return null;
-				}
-				TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
-				if (currentRule != null) { //if the current rule is not null
-					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
-					ruleDependency.setDependingRule(dependingRule);
-					ruleDependency.setSourceElement(featureCallExpression);
-					context.setAssets(ruleDependency, currentRule);
+				
+				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
 
-					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
-				}
-				if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
-					FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target
-					ModelElementType primaryTargetType = (ModelElementType) primaryTarget.getResolvedType();
-					if (primaryTargetType != null) { //if the first target is not null
-						if (primaryTargetType.getEcoreType() != null) {
-							result.setReturnType(EcoreUtil.copy(primaryTargetType));
-						}
-						else {
-							context.getLogBook().addError(primaryTarget, "type not resolved properly");
-						}
+				for(TraceUnitContainer tuc : containers)
+				{
+					TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context
+					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
+					if (currentRule != null) { //if the current rule is not null
+						RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+						ruleDependency.setDependingRule(dependingRule);
+						ruleDependency.setSourceElement(featureCallExpression);
+						context.setAssets(ruleDependency, currentRule);
+
+						currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
 					}
 				}
+				SequenceType sequenceType = context.getEolFactory().createSequenceType();
+//				BagType bag2 = context.getEolFactory().createBagType();
+//				bag2.setContentType(context.getEolFactory().createAnyType());
+//				context.setAssets(bag2, bag);
+//				bag.setContentType(bag2);
+				sequenceType.setContentType(context.getEolFactory().createAnyType());
+				
+				result.setReturnType(sequenceType);
+				context.setAssets(sequenceType, result);
+
+				
+//				TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); //get the depending rule from the context
+//				if (dependingRule == null) { //if depending rule is null, return null
+//					context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
+//					return null;
+//				}
+//				TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
+//				if (currentRule != null) { //if the current rule is not null
+//					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+//					ruleDependency.setDependingRule(dependingRule);
+//					ruleDependency.setSourceElement(featureCallExpression);
+//					context.setAssets(ruleDependency, currentRule);
+//
+//					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
+//				}
+//				if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
+//					FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target
+//					ModelElementType primaryTargetType = (ModelElementType) primaryTarget.getResolvedType();
+//					if (primaryTargetType != null) { //if the first target is not null
+//						if (primaryTargetType.getEcoreType() != null) {
+//							result.setReturnType(EcoreUtil.copy(primaryTargetType));
+//						}
+//						else {
+//							context.getLogBook().addError(primaryTarget, "type not resolved properly");
+//						}
+//					}
+//				}
 			}
 
 		}

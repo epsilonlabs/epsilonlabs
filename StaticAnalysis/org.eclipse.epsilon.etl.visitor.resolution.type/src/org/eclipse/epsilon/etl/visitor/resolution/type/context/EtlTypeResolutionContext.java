@@ -132,6 +132,109 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		return result;
 	}
 	
+	public ArrayList<TraceUnitContainer> getTraceUnitContainersForEquivalent(EClass eClass)
+	{
+		ArrayList<TraceUnitContainer> result = new ArrayList<TraceUnitContainer>();
+ 		TraceUnitContainer first = null;
+
+		for (TraceUnitContainer tuc: traceUnitContainers) {
+			if (first != null) { //if first is not null
+				if (isGreedy(tuc.getTransformationRule())) {
+					if (tuc.getSource().equals(eClass)) {
+						if (isPrimary(tuc.getTransformationRule())) {
+							result.clear();
+							result.add(tuc);
+							return result;
+						}
+					}
+					else {
+						for(EClass superClass : eClass.getEAllSuperTypes())
+						{
+							if (superClass.equals(tuc.getSource())) {
+								if (isPrimary(tuc.getTransformationRule())) {
+									result.clear();
+									result.add(tuc);
+									return result;
+								}
+							}
+						}
+					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								result.add(tuc);
+							}
+						}
+					}	
+				}
+				else {
+					if (tuc.getSource().equals(eClass)) {
+						if (isPrimary(tuc.getTransformationRule())) {
+							result.clear();
+							result.add(tuc);
+							return result;
+						}
+					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								result.add(tuc);
+							}
+						}
+					}	
+				}
+			}
+			else {
+				if (isGreedy(tuc.getTransformationRule())) {
+					if (tuc.getSource().equals(eClass)) {
+						if (isPrimary(tuc.getTransformationRule())) {
+							result.add(tuc);
+							return result;
+						}
+						first = tuc;
+					}
+					else {
+						for(EClass superClass : eClass.getEAllSuperTypes())
+						{
+							if (superClass.equals(tuc.getSource())) {
+								if (isPrimary(tuc.getTransformationRule())) {
+									result.add(tuc);
+									return result;
+								}
+								first = tuc;
+							}
+						}
+					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								result.add(tuc);
+							}
+						}
+					}	
+				}
+				else {
+					if (tuc.getSource().equals(eClass)) {
+						if (isPrimary(tuc.getTransformationRule())) {
+							result.add(tuc);
+							return result;
+						}
+						result.add(tuc);
+						first = tuc;
+					}
+					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
+						if (eClass2.equals(eClass)) { 
+							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
+								result.add(tuc);
+							}
+						}
+					}	
+				}
+			}
+		}
+		return result;
+	}
+	
 	public TraceUnitContainer getTraceUnitContainerWhichTransforms(EClass eClass)
 	{
  		TraceUnitContainer first = null;
