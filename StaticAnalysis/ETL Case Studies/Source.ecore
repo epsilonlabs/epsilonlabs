@@ -6,4 +6,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="B" eSuperTypes="#//C"/>
   <eClassifiers xsi:type="ecore:EClass" name="C"/>
+  <eClassifiers xsi:type="ecore:EClass" name="D" eSuperTypes="#//B"/>
 </ecore:EPackage>

@@ -2,29 +2,26 @@ import 'loadModels.eol';
 
 rule A2D 
   transform a : Source!A
-  to d : Target!D {
-  d.e = a.b.equivalent();
-}
-
-rule B2E 
-  transform b : Source!B
   to e : Target!E {
+  a.b.equivalents();
 }
 
 rule B2F 
   transform b : Source!B
-  to f : Target!F {
-}
+  to f : Target!F { }
 
-rule B2G
+rule B2G 
   transform b : Source!B
-  to g : Target!G {
-}
-  
-@greedy
+  to g : Target!G { }
+
 @primary
-rule C2E
+@greedy
+rule C2F
 	transform c : Source!C
-	to e: Target!E {
-}
-      
+	to f: Target!F { }
+
+@primary
+rule D2G 
+	transform d: Source!D
+	to g: Target!G { }  
+   
