@@ -162,7 +162,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
 						if (eClass2.equals(eClass)) { 
 							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(tuc);
+								result.add(0, tuc);
 							}
 						}
 					}	
@@ -178,7 +178,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
 						if (eClass2.equals(eClass)) { 
 							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(tuc);
+								result.add(0, tuc);
 							}
 						}
 					}	
@@ -208,7 +208,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
 						if (eClass2.equals(eClass)) { 
 							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(tuc);
+								result.add(0, tuc);
 							}
 						}
 					}	
@@ -225,7 +225,7 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
 						if (eClass2.equals(eClass)) { 
 							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(tuc);
+								result.add(0, tuc);
 							}
 						}
 					}	
