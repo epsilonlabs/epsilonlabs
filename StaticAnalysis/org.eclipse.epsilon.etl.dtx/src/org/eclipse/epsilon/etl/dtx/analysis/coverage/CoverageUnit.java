@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.transformation.dependency;
+package org.eclipse.epsilon.etl.dtx.analysis.coverage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

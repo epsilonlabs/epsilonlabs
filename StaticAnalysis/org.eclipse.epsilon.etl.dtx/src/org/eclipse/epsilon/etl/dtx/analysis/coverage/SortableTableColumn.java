@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.transformation.dependency;
+package org.eclipse.epsilon.etl.dtx.analysis.coverage;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;

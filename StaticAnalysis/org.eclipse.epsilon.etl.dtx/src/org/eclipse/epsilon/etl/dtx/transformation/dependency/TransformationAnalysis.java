@@ -11,6 +11,8 @@ import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
+import org.eclipse.epsilon.etl.dtx.analysis.coverage.CoverageUnit;
+import org.eclipse.epsilon.etl.dtx.analysis.coverage.StringTableColumn;
 import org.eclipse.epsilon.etl.dtx.editor.EtlxEditor;
 import org.eclipse.epsilon.etl.metamodel.EtlProgram;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;

@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.transformation.dependency;
+package org.eclipse.epsilon.etl.dtx.analysis.coverage;
 
 import org.eclipse.epsilon.common.util.StringUtil;
 import org.eclipse.jface.viewers.TableViewer;
