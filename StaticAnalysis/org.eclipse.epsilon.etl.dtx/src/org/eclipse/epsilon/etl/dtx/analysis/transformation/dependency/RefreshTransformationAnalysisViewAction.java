@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.transformation.dependency;
+package org.eclipse.epsilon.etl.dtx.analysis.transformation.dependency;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -6,8 +6,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class RefreshTransformationAnalysisViewAction extends TransformationDependencyViewAction{
 
 	public RefreshTransformationAnalysisViewAction(
-			TransformationAnalysis tdgView) {
-		super(tdgView);
+			TransformationDependencyView tdView) {
+		super(tdView);
 		setText("Refresh View");
 		
 		setImageDescriptor(getImageDescriptor("icons/refresh.gif"));
@@ -17,7 +17,7 @@ public class RefreshTransformationAnalysisViewAction extends TransformationDepen
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		tdgView.refresh();
+		tdView.refresh();
 	}
 
 	public ImageDescriptor getImageDescriptor(String path) {

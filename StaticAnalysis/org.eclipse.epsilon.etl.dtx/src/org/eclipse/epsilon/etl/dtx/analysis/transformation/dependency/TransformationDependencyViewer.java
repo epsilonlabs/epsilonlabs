@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.transformation.dependency;
+package org.eclipse.epsilon.etl.dtx.analysis.transformation.dependency;
 
 import java.util.HashMap;
 
@@ -33,15 +33,15 @@ import org.eclipse.zest.layouts.algorithms.HorizontalTreeLayoutAlgorithm;
 public class TransformationDependencyViewer extends Composite{
 
 	private Graph graph;
-	private TransformationAnalysis transformationAnalysis;
+	private TransformationDependencyView transformationDependencyView;
 
 	protected HashMap<GraphItem, EolElement> graphMap = new HashMap<GraphItem, EolElement>(); 
 
 
-	public TransformationDependencyViewer(Composite parent, int style, TransformationAnalysis transformationAnalysis)
+	public TransformationDependencyViewer(Composite parent, int style, TransformationDependencyView transformationDependencyView)
 	{
 		super(parent, style);
-		this.transformationAnalysis = transformationAnalysis;
+		this.transformationDependencyView = transformationDependencyView;
 		this.setLayout(new FillLayout());
 //		this.setBackground(new Color(Display.getCurrent(), new RGB(63, 127, 95)));
 		EtlxEditor leEditor = getEditor();
@@ -101,10 +101,10 @@ public class TransformationDependencyViewer extends Composite{
 				
 				EolElement selectedElement = graphMap.get(e.item);
 				if (selectedElement instanceof TransformationRule) {
-					transformationAnalysis.selectedTransformationRule = (TransformationRule) selectedElement;
-					transformationAnalysis.refreshTransformationCoverageAnalysisViewer();
+					transformationDependencyView.selectedTransformationRule = (TransformationRule) selectedElement;
+					//transformationDependencyView.refresh();
 				}
-				transformationAnalysis.selectElementInEditor(selectedElement);
+				transformationDependencyView.selectElementInEditor(selectedElement);
 			}
 				
 		});

@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.etl.dtx.analysis.coverage;
+package org.eclipse.epsilon.etl.dtx.analysis.metamodel.coverage;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
