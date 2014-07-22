@@ -260,6 +260,13 @@ public class CoverageAnalysisContext {
 		return null;
 	}
 	
+	
+	public void clear()
+	{
+		this.coverageAnalysisRepo = new CoverageAnalysisRepo();
+		this.currentElement = null;
+		this.packageUsageRegistry.clear();
+	}
 //	public String toString()
 //	{
 //		String result = "global: \n";
