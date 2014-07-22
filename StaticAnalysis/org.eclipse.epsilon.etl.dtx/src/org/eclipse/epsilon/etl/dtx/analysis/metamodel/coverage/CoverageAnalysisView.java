@@ -111,6 +111,7 @@ public class CoverageAnalysisView extends ViewPart {
 	{
 		EtlxEditor leEditor = getEditor();
 		if (leEditor.getEolLibraryModule() != null) {
+			coverageAnalyser.getContext().clear();
 			coverageAnalyser.run(leEditor.getEolLibraryModule());
 		}
 		coverageAnalysisViewer.refresh();
