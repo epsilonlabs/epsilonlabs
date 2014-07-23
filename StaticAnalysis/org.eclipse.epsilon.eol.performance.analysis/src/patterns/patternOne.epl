@@ -1,14 +1,14 @@
 pattern PatternOne
 	folcall : FOLMethodCallExpression
 	guard: (folcall.method.name = 'select' or folcall.method.name = 'selectOne') 
-	and folcall.conditions.size() = 1 
+	and folcall.condition.isDefined()
 	and folcall.target.isTypeOf(PropertyCallExpression) 
 	and	folcall.target.property.name = 'all',
 	
 	condition : EqualsOperatorExpression
-		from: folcall.conditions.at(0)
+		from: folcall.condition
 		guard: condition.lhs.isTypeOf(PropertyCallExpression)
-		and condition.lhs.target.resolvedContent = folcall.iterators.at(0),
+		and condition.lhs.target.resolvedContent = folcall.iterator,
 	
 	lhs : PropertyCallExpression
 		from: condition.lhs
