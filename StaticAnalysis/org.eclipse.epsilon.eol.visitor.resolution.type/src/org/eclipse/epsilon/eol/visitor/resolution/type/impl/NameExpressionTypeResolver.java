@@ -67,7 +67,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					if (context.getPessimistic() == true) { //if optimistic is set
 						if (!context.getStack().contentInSameScope(nameExpression)) {
 							context.addBestGuessVariableDeclaration(content);
-							context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
+							//context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
 						}
 						Object lastDefinitionPoint = content.getLastDefinitionPoint();
 						if (lastDefinitionPoint != null) {

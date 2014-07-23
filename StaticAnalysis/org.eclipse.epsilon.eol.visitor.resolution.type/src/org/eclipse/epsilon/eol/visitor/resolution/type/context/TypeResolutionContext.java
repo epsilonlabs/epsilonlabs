@@ -25,7 +25,7 @@ public class TypeResolutionContext {
 	protected FrameStack stack = new FrameStack(); //the frameStack
 	protected EolLibraryModule mainProgram = null;
 	
-	protected boolean pessimistic = false;
+	protected boolean pessimistic = true;
 	
 	//logbook is used to store errors/warnings
 	protected LogBook logBook = new LogBook();
