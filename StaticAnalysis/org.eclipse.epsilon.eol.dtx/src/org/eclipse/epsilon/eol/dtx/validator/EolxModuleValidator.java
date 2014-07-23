@@ -97,26 +97,26 @@ public class EolxModuleValidator implements IModuleValidator{
 				warnings++;
 			}
 			
-//			PerformanceAnalyser o = new PerformanceAnalyser();
-//			o.getOptimisationContext().setDirectoryPathString(directoryPathString);
-//			o.run(dom);
-//			
-//			for(log.Error error: o.getOptimisationContext().getLogBook().getErrors())
-//			{
-//				TextRegion textRegion = error.getDomElement().getRegion();
-//				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-//				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
-//				markers.add(marker);
-//			}
-//			
-//			for(log.Warning warning: o.getOptimisationContext().getLogBook().getWarnings())
-//			{
-//				TextRegion textRegion = warning.getDomElement().getRegion();
-//				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-//
-//				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
-//				markers.add(marker);
-//			}
+			PerformanceAnalyser o = new PerformanceAnalyser();
+			o.getOptimisationContext().setDirectoryPathString(directoryPathString);
+			o.run(dom);
+			
+			for(log.Error error: o.getOptimisationContext().getLogBook().getErrors())
+			{
+				TextRegion textRegion = error.getDomElement().getRegion();
+				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+				markers.add(marker);
+			}
+			
+			for(log.Warning warning: o.getOptimisationContext().getLogBook().getWarnings())
+			{
+				TextRegion textRegion = warning.getDomElement().getRegion();
+				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+
+				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+				markers.add(marker);
+			}
 //			
 //			CoverageAnalyser ca = new CoverageAnalyser();
 //			ca.run(dom);
