@@ -1,0 +1,53 @@
+model library alias lib driver EMF {nsuri = "http://library/1.0"};
+ 
+ 
+var a = Author.all.first;
+var books = Book.all.select(b|b.author = a);
+var aBook = Book.all.selectOne(b|b.author = a);
+
+var authors = Author.all.select(a|a.first_name = 'William').select(a|a.surname = 'Shakespear');
+
+var authorOne = Author.all.first;
+var authorTwo = Author.all.last;
+var bookOne = authorOne.books.first;
+var bookSet : Set(Book);
+bookSet.addAll(authorTwo.books);
+bookSet.select(b|b = bookOne);
+
+ 
+if(Book.all.select(b|b.name = "EpsilonBook").size() > 0)
+{
+	"There is a book called EpsilonBook".println();
+}
+
+var anEpsilonBook = Book.all.select(b|b.name = "EpsilonBook").first();
+  
+
+
+
+/*
+for(name in Book.all.name)
+{
+	var bookSet = Book.all.select(b|b.name = name);
+	name.print();
+	bookSet.size().println();
+}
+
+for(name in Book.all.name)
+{
+	var bookSet = getBooks(name);
+	name.print();
+	bookSet.size().println();
+}
+
+for(book in Book.all.select(b|b.name = "Epsilon Book"))
+{
+	book.println();
+}
+
+operation getBooks(name: String) : Sequence
+{
+	return Book.all.select(b|b.name = name);
+}
+*/
+
