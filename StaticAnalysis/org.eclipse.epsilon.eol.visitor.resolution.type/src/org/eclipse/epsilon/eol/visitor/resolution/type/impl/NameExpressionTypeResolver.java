@@ -76,7 +76,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							}
 							else if (lastDefinitionPoint instanceof AssignmentStatement) { //if the last definition point is an assignment statement
 								AssignmentStatement stmt = (AssignmentStatement) content.getLastDefinitionPoint();
-								NameExpression expression = (NameExpression) stmt.getRhs();
+								Expression expression = stmt.getRhs();
 								type = EcoreUtil.copy(expression.getResolvedType());
 							}
 						}
