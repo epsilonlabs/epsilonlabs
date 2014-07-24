@@ -39,6 +39,20 @@ public class Ast2EolWorkbench {
 //		System.out.println(ast.getChild(0).getChild(0).getType());
 //		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 		
+		System.out.println(ast.getType());
+		System.out.println(ast.getText());
+		
+		
+		System.out.println(ast.getChild(0).getType());
+		System.out.println(ast.getChild(0).getText());
+		
+		System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getType());
+		System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getText());
+		
+		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
+		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
+		
+		
 		Ast2EolContext context = new Ast2EolContext();
 		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
 		
