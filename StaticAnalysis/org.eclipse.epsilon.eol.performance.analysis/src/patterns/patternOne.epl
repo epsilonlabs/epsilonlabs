@@ -5,23 +5,23 @@ pattern PatternOne
 	and folcall.target.isTypeOf(PropertyCallExpression) 
 	and	folcall.target.property.name = 'all',
 	
-	condition : EqualsOperatorExpression
+	cond : EqualsOperatorExpression
 		from: folcall.condition
-		guard: condition.lhs.isTypeOf(PropertyCallExpression)
-		and condition.lhs.target.resolvedContent = folcall.iterator,
+		guard: cond.lhs.isTypeOf(PropertyCallExpression)
+		and cond.lhs.target.resolvedContent = folcall.iterator,
 	
 	lhs : PropertyCallExpression
-		from: condition.lhs
+		from: cond.lhs
 		guard: lhs.resolvedType.isTypeOf(ModelElementType),
 		
 	rhs : NameExpression
-		from: condition.rhs
-		guard: rhs.resolvedType.isTypeOf(ModelElementType),
+		from: cond.rhs
+		guard: rhs.resolvedType.dynamicType.isTypeOf(ModelElementType),
 		
 	lhsType : ModelElementType
 		from: lhs.resolvedType,
 	rhsType : ModelElementType
-		from: rhs.resolvedType
+		from: rhs.resolvedType.dynamicType
 		guard: lhsType.ecoreType = rhsType.ecoreType
 	
 	{
@@ -34,7 +34,7 @@ pattern PatternOne
 					return true;
 				}
 			}
-			
+			"not matched".println();
 			return false;
 		}
 	} 
