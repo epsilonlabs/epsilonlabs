@@ -10,34 +10,34 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 public class EolElementCreatorFactory {
 	
 	
-	LinkedList<EolElement> createdDomElements;
-	LinkedList<EolElementCreator> domElementCreators;
+	LinkedList<EolElement> createdEolElements;
+	LinkedList<EolElementCreator> eolElementCreators;
 	String directoryPathString = null;
 
 	public EolElementCreatorFactory()
 	{
-		createdDomElements = new LinkedList<EolElement>();
-		domElementCreators = new LinkedList<EolElementCreator>();
+		createdEolElements = new LinkedList<EolElement>();
+		eolElementCreators = new LinkedList<EolElementCreator>();
 		initialiseDomElementCreators();
 	}
 	
 	public EolElementCreatorFactory(String directoryPath)
 	{
-		createdDomElements = new LinkedList<EolElement>();
-		domElementCreators = new LinkedList<EolElementCreator>();
+		createdEolElements = new LinkedList<EolElement>();
+		eolElementCreators = new LinkedList<EolElementCreator>();
 		directoryPathString = directoryPath;
 		initialiseDomElementCreators();
 	}
 	
 	public void initialiseDomElementCreators()
 	{
-		 domElementCreators.addAll(this.initiateDomElementPool());
+		 eolElementCreators.addAll(this.initiateDomElementPool());
 	}
 	
 	public EolElement createDomElement(AST ast, EolElement container, Ast2EolContext context)
 	{
 		EolElement result = null;
-		for(EolElementCreator dec: domElementCreators)
+		for(EolElementCreator dec: eolElementCreators)
 		{
 			if(dec.appliesTo(ast))
 			{
@@ -60,7 +60,7 @@ public class EolElementCreatorFactory {
 	public EolElement createDomElement(AST ast, EolElement container, Ast2EolContext context, Class<? extends EolElementCreator> ofCreatorClass)
 	{
 		EolElement result = null;
-		for(EolElementCreator dec: domElementCreators)
+		for(EolElementCreator dec: eolElementCreators)
 		{
 			if(ofCreatorClass == dec.getClass())
 			{
@@ -269,7 +269,7 @@ public class EolElementCreatorFactory {
 	public AssignmentStatementCreator fetchAssignmentStatementCreator()
 	{
 		AssignmentStatementCreator result = null;
-		for(EolElementCreator dec: domElementCreators)
+		for(EolElementCreator dec: eolElementCreators)
 		{
 			if(dec instanceof AssignmentStatementCreator)
 			{
@@ -283,7 +283,7 @@ public class EolElementCreatorFactory {
 	public ExpressionStatementCreator fetchExpressionStatementCreator()
 	{
 		ExpressionStatementCreator result = null;
-		for(EolElementCreator dec: domElementCreators)
+		for(EolElementCreator dec: eolElementCreators)
 		{
 			if(dec instanceof ExpressionStatementCreator)
 			{
@@ -300,13 +300,13 @@ public class EolElementCreatorFactory {
 	
 	public void addCreatedDomElements(EolElement e)
 	{
-		this.createdDomElements.add(e);
+		this.createdEolElements.add(e);
 	}
 	
 	public boolean isProperlyContained()
 	{
 		boolean result = false;
-		for(EolElement de: createdDomElements)
+		for(EolElement de: createdEolElements)
 		{
 			EolElement trace = de;
 			while(!(de instanceof EolProgram) && trace.getContainer() != null)
@@ -330,7 +330,7 @@ public class EolElementCreatorFactory {
 	public EolProgram fetchProgram()
 	{
 		EolProgram result = null;
-		for(EolElement de: createdDomElements)
+		for(EolElement de: createdEolElements)
 		{
 			if (de instanceof EolProgram) {
 				result = (EolProgram) de;
@@ -373,6 +373,11 @@ public class EolElementCreatorFactory {
 	public String getDirectoryPathString()
 	{
 		return directoryPathString;
+	}
+	
+	public void discardEolElement(EolElement eolElement)
+	{
+		this.createdEolElements.remove(eolElement);
 	}
 	
 

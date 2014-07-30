@@ -26,7 +26,15 @@ public class ExpressionOrStatementBlockCreator extends EolElementCreator{
 			body.setBlock((Block)context.getEolElementCreatorFactory().createDomElement(ast, body, context)); //process the body
 		}
 		else {
-			body.setExpression((Expression) context.getEolElementCreatorFactory().createDomElement(ast, body, context));
+			EolElement createdElement = context.getEolElementCreatorFactory().createDomElement(ast, body, context);
+			if (createdElement instanceof Expression) {
+				body.setExpression((Expression) createdElement);	
+			}
+			else {
+				context.getEolElementCreatorFactory().discardEolElement(createdElement);
+				body.setBlock((Block) context.getEolElementCreatorFactory().createDomElement(ast, body, context, BlockCreator.class));
+			}
+			
 		}
 		return body;
 	}
