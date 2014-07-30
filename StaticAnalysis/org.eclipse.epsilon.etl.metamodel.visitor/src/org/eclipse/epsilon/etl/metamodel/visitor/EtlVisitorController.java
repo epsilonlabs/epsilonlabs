@@ -69,8 +69,8 @@ public class EtlVisitorController<T, R> extends EolVisitorController<T, R> {
 			}
 		}
 		
-		super.visit(o, context);
-		return null;
+		return super.visit(o, context);
+		//return null;
 	}
 	
 	public void visitContents(EObject o, T context) {
