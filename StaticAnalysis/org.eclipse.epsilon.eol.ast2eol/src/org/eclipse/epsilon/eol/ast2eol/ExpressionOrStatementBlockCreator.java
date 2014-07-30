@@ -5,6 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
+import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class ExpressionOrStatementBlockCreator extends EolElementCreator{
@@ -32,7 +33,12 @@ public class ExpressionOrStatementBlockCreator extends EolElementCreator{
 			}
 			else {
 				context.getEolElementCreatorFactory().discardEolElement(createdElement);
-				body.setBlock((Block) context.getEolElementCreatorFactory().createDomElement(ast, body, context, BlockCreator.class));
+				Block block = context.getEolFactory().createBlock();
+				setAssets(ast, block, body);
+				Statement stmt = context.getEolElementCreatorFactory().createStatement(ast, block, context);
+				block.getStatements().add(stmt);
+				setAssets(ast, stmt, block);
+				body.setBlock(block);
 			}
 			
 		}

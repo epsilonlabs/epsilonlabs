@@ -23,7 +23,10 @@ public class CollectionTypeCreator extends TypeCreator{
 			type.setContentType((Type) context.getEolElementCreatorFactory().createDomElement(ast.getChild(0), type, context));
 		}
 		else {
-			type.setContentType((Type) context.getEolElementCreatorFactory().createDomElement(ast, type, context, AnyTypeCreator.class));
+			AnyType anyType = context.getEolFactory().createAnyType();
+			setAssets(ast, anyType, type);
+			type.setContentType(anyType);
+//			type.setContentType((Type) context.getEolElementCreatorFactory().createDomElement(ast, type, context, AnyTypeCreator.class));
 		}
 		
 		
