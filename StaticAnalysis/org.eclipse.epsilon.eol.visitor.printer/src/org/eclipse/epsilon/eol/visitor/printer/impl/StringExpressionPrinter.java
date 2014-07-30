@@ -11,8 +11,8 @@ public class StringExpressionPrinter extends StringExpressionVisitor<PrinterCont
 	public Object visit(StringExpression stringExpression,
 			PrinterContext context,
 			EolVisitorController<PrinterContext, Object> controller) {
-		
-		return "\'" + stringExpression.getVal() + "\'";
+		String result = "\'" + stringExpression.getVal() + "\'"; 
+		return result;
 	}
 
 }

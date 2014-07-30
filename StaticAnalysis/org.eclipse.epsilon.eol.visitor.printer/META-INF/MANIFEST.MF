@@ -9,3 +9,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.epsilon.eol.engine,
  org.eclipse.epsilon.eol.ast2eol
+Export-Package: org.eclipse.epsilon.eol.visitor.printer.context,
+ org.eclipse.epsilon.eol.visitor.printer.impl

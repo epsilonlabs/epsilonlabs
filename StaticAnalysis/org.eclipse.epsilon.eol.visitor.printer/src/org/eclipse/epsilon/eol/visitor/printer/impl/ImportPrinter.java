@@ -10,7 +10,7 @@ public class ImportPrinter extends ImportVisitor<PrinterContext, Object>{
 	@Override
 	public Object visit(Import _import, PrinterContext context,
 			EolVisitorController<PrinterContext, Object> controller) {
-		String result = "import \"" + controller.visit(_import.getImported(), context) + "\";";
+		String result = "import " + controller.visit(_import.getImported(), context) + ";";
 		return result;
 	}
 
