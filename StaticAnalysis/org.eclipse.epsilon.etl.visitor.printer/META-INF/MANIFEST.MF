@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.etl.visitor.printer
+Bundle-SymbolicName: org.eclipse.epsilon.etl.visitor.printer; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.epsilon.etl.metamodel,
+ org.eclipse.epsilon.etl.metamodel.visitor,
+ org.eclipse.epsilon.eol.visitor.printer,
+ org.eclipse.epsilon.etl.engine,
+ org.eclipse.epsilon.etl.ast2etl,
+ org.eclipse.epsilon.erl.engine
