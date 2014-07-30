@@ -1,6 +1,8 @@
 package org.eclipse.epsilon.eol.visitor.printer.impl;
 
+import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.OperationDefinitionVisitor;
 import org.eclipse.epsilon.eol.visitor.printer.context.PrinterContext;
@@ -38,13 +40,22 @@ public class OperationDefinitionPrinter extends OperationDefinitionVisitor<Print
 		}
 		if(operationDefinition.getReturnType() != null)
 		{
-			result += " : " + controller.visit(operationDefinition.getReturnType(), context) + " ";
+			Type returnType = operationDefinition.getReturnType();
+			if (returnType instanceof AnyType) {
+				if (((AnyType)returnType).isDeclared()) {
+					result += " : ";
+				}
+			}
+			else {
+				result += " : ";
+			}
+			result += controller.visit(operationDefinition.getReturnType(), context) + " ";
 		}
 		result += " {" + context.newline();
 		context.indent();
 		result += controller.visit(operationDefinition.getBody(), context);
 		context.outdent();
-		result += context.newline() + context.whitespace() + "}";
+		result += context.whitespace() + "}";
 
 		return result;
 	}

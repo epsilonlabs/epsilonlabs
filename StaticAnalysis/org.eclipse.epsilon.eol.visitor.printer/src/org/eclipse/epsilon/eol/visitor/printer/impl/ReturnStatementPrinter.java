@@ -11,7 +11,9 @@ public class ReturnStatementPrinter extends ReturnStatementVisitor<PrinterContex
 	public Object visit(ReturnStatement returnStatement,
 			PrinterContext context,
 			EolVisitorController<PrinterContext, Object> controller) {
-		String result = "return";
+		String result = "";
+		result += context.whitespace();
+		result += "return";
 		if (returnStatement.getReturned() != null) {
 			result += " " + controller.visit(returnStatement.getReturned(), context);
 		}

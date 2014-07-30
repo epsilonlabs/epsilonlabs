@@ -18,7 +18,7 @@ public class FOLMethodCallExpressionPrinter extends FOLMethodCallExpressionVisit
 			result += fOLMethodCallExpression.getIsArrow().isVal() ? "->" : ".";
 		}
 		result += controller.visit(fOLMethodCallExpression.getMethod(), context);
-		result += "(" + controller.visit(fOLMethodCallExpression.getIterator(), context) + " | " + controller.visit(fOLMethodCallExpression.getCondition(), context) + ")";
+		result += "(" + controller.visit(fOLMethodCallExpression.getIterator(), context) + "|" + controller.visit(fOLMethodCallExpression.getCondition(), context) + ")";
 		return result;
 	}
 
