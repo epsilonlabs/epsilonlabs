@@ -24,5 +24,4 @@ public class NewExpressionPrinter extends NewExpressionVisitor<PrinterContext, O
 		}
 		return result;
 	}
-
 }

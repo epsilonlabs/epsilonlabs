@@ -12,7 +12,7 @@ public class StringExpressionPrinter extends StringExpressionVisitor<PrinterCont
 			PrinterContext context,
 			EolVisitorController<PrinterContext, Object> controller) {
 		
-		return "\"" + stringExpression.getVal() + "\"";
+		return "\'" + stringExpression.getVal() + "\'";
 	}
 
 }

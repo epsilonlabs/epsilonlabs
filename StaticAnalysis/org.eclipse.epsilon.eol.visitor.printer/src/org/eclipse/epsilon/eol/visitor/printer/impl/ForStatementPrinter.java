@@ -11,12 +11,13 @@ public class ForStatementPrinter extends ForStatementVisitor<PrinterContext, Obj
 	public Object visit(ForStatement forStatement, PrinterContext context,
 			EolVisitorController<PrinterContext, Object> controller) {
 		String result = "";
+		result += context.whitespace();
 		result += "for(" + controller.visit(forStatement.getIterator(), context) + " in " + controller.visit(forStatement.getIterated(), context) + ") {";
 		result += context.newline();
 		context.indent();
 		result += controller.visit(forStatement.getBody(), context);
 		context.outdent();
-		result += context.newline();
+		//result += context.newline();
 		result += context.whitespace() + "}";
 		return result;
 	}

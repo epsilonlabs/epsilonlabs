@@ -34,6 +34,7 @@ public class EolPrinter {
 		controller.addExpRangeVisitor(new ExpRangePrinter());
 		controller.addExpressionStatementVisitor(new ExpressionStatementPrinter());
 		controller.addExprListVisitor(new ExprListPrinter());
+		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockPrinter());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionPrinter());
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionPrinter());
 		controller.addForStatementVisitor(new ForStatementPrinter());
@@ -53,6 +54,7 @@ public class EolPrinter {
 		controller.addMinusOperatorExpressionVisitor(new MinusOperatorExpressionPrinter());
 		controller.addModelDeclarationParameterVisitor(new ModelDeclarationParameterPrinter());
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementPrinter());
+		controller.addModelElementTypeVisitor(new ModelElementTypePrinter());
 		controller.addMultiplyOperatorExpressionVisitor(new MultiplyOperatorExpressionPrinter());
 		controller.addNameExpressionVisitor(new NameExpressionPrinter());
 		controller.addNativeTypeVisitor(new NativeTypePrinter());

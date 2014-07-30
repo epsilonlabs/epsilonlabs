@@ -26,6 +26,7 @@ public class MethodCallExpressionPrinter extends MethodCallExpressionVisitor<Pri
 			{
 				result += ", " + controller.visit(methodCallExpression.getArguments().get(i), context);
 			}
+			result += ")";
 		}
 		else {
 			result += ")";

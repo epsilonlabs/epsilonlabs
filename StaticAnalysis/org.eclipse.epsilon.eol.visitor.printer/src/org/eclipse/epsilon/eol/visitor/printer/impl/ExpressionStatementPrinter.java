@@ -14,6 +14,7 @@ public class ExpressionStatementPrinter extends ExpressionStatementVisitor<Print
 		String result = "";
 		result += context.whitespace();
 		result += controller.visit(expressionStatement.getExpression(), context);
+		result += ";";
 		return result;
 	}
 
