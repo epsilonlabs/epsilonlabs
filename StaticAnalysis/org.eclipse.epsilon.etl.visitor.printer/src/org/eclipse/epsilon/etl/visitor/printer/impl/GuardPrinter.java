@@ -22,8 +22,9 @@ public class GuardPrinter extends GuardVisitor<PrinterContext, Object>{
 			result += context.whitespace() + "}";
 		}
 		else if (guard.getCondition().getExpression() != null) {
-			result = " " + controller.visit(guard.getCondition().getExpression(), context);
+			result += " " + controller.visit(guard.getCondition().getExpression(), context);
 		}
+		result += context.newline();
 		
 		return result;
 	}

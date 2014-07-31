@@ -17,8 +17,10 @@ public class TransformationRulePrinter extends TransformationRuleVisitor<Printer
 			PrinterContext context,
 			EtlVisitorController<PrinterContext, Object> controller) {
 		String result = "";
-		result += controller.visit(transformationRule.getAnnotationBlock(), context);
-		result += context.newline();
+		if (transformationRule.getAnnotationBlock() != null) {
+			result += controller.visit(transformationRule.getAnnotationBlock(), context);
+			result += context.newline();	
+		}
 		result += "rule";
 		result += " " + controller.visit(transformationRule.getName(), context);
 		result += context.newline();
