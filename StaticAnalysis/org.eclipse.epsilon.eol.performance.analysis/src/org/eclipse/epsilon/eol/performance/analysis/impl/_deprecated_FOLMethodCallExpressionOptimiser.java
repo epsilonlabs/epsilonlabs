@@ -10,7 +10,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
+public class _deprecated_FOLMethodCallExpressionOptimiser extends FOLMethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
 
 	@Override
 	public Object visit(FOLMethodCallExpression fOLMethodCallExpression,

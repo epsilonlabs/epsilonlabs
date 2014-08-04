@@ -22,8 +22,6 @@ public class PerformanceAnalysisContext {
 		protected EolFactory eolFactory = new EolFactoryImpl();
 		
 		//type utility, methods are not declared static for performance concerns
-		protected TypeUtil typeUtil = new TypeUtil(this);
-		
 		protected ArrayList<OperationDefinitionReference> operationsWithPerformancePotential = new ArrayList<OperationDefinitionReference>();
 		
 		//containers to hold meta models
@@ -65,10 +63,6 @@ public class PerformanceAnalysisContext {
 		public EolFactory getEolFactory()
 		{
 			return eolFactory;
-		}
-		public TypeUtil getTypeUtil()
-		{
-			return typeUtil;
 		}
 				
 		public HashMap<String, ModelDeclarationStatement> getModelDeclarations()

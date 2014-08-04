@@ -13,14 +13,9 @@ public class PerformanceAnalyser {
 	public PerformanceAnalyser()
 	{
 		System.out.println("Inside Optimiser");
-		controller.addDefaultVisitor(new EolDefaultVisitor<PerformanceAnalysisContext, Object>());
 		
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementOptimiser());
-		//controller.addProgramVisitor(new ProgramOptimiser());
 		controller.addEolProgramVisitor(new ProgramPerformanceAnalyser());
-		controller.addBlockVisitor(new BlockOptimiser());
-		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionOptimiser());
-		controller.addMethodCallExpressionVisitor(new MethodCallExpressionOptimiser());
 	}
 	
 	

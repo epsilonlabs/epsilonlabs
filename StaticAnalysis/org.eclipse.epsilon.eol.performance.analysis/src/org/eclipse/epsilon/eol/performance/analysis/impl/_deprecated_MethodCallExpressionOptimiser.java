@@ -6,7 +6,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.performance.analysis.context.OperationDefinitionReference;
 import org.eclipse.epsilon.eol.performance.analysis.context.PerformanceAnalysisContext;
 
-public class MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
+public class _deprecated_MethodCallExpressionOptimiser extends MethodCallExpressionVisitor<PerformanceAnalysisContext, Object>{
 
 	@Override
 	public Object visit(MethodCallExpression methodCallExpression,
