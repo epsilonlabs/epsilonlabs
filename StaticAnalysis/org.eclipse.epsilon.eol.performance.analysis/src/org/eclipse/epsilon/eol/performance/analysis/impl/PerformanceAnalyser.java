@@ -14,7 +14,7 @@ public class PerformanceAnalyser {
 	{
 		System.out.println("Inside Optimiser");
 		
-		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementOptimiser());
+//		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementOptimiser());
 		controller.addEolProgramVisitor(new ProgramPerformanceAnalyser());
 	}
 	
