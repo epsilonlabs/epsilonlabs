@@ -38,6 +38,10 @@ public class ProgramPerformanceAnalyser {
 		context = new SuboptimalDetectionContext();
 	}
 	
+	public SuboptimalDetectionContext getContext() {
+		return context;
+	}
+	
 	public void visit(EolProgram program)
 	{
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -53,7 +57,6 @@ public class ProgramPerformanceAnalyser {
 			matchSelectPatterFour(program);
 			matchSelectPatterFive(program);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

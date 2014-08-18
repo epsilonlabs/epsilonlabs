@@ -11,3 +11,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.eol.engine,
  org.eclipse.epsilon.static.analysis.problem.log,
  org.eclipse.epsilon.eol.visitor.printer
+Export-Package: org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.context,
+ org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl

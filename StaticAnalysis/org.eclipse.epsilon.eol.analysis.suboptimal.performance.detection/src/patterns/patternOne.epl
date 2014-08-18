@@ -34,7 +34,6 @@ pattern PatternOne
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	} 
