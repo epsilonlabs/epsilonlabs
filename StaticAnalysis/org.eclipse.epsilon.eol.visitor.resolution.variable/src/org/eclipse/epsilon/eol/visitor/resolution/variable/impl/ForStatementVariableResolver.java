@@ -12,12 +12,16 @@ public class ForStatementVariableResolver extends ForStatementVisitor<VariableRe
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
  
+		
+		//push to stack
 		context.getStack().push(forStatement, true);
+		//visit the iterator
 		controller.visit(forStatement.getIterator(), context);
+		//visit the iterated
 		controller.visit(forStatement.getIterated(), context);
-//		context.getStack().push(forStatement.getBody(), true);
+		//visit the body
 		controller.visit(forStatement.getBody(), context);
-//		context.getStack().pop();
+		//pop from stack
 		context.getStack().pop();
 		return null;
 	}

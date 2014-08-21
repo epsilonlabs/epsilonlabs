@@ -13,11 +13,14 @@ public class ImportVariableResolver extends ImportVisitor<VariableResolutionCont
 	public Object visit(Import _import, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		EolLibraryModule program = _import.getImportedProgram();
-		if (program != null) {
+		if (program != null) { 
 			if (program instanceof EolProgram) {
 				EolProgram temp = (EolProgram) program;
 				controller.visit(temp, context);	
 			}
+		}
+		else {
+			context.getLogBook().addError(_import, "cannot find the imported program");
 		}
 		return null;
 	}

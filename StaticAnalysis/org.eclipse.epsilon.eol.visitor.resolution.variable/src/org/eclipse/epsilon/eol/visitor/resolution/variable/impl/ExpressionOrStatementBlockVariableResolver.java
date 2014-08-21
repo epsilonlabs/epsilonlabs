@@ -13,16 +13,24 @@ public class ExpressionOrStatementBlockVariableResolver extends ExpressionOrStat
 	public Object visit(ExpressionOrStatementBlock expressionOrStatementBlock,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		//push to stack first
 		context.getStack().push(expressionOrStatementBlock, true);
+		//get the block
 		Block block = expressionOrStatementBlock.getBlock();
+		//get the expression
 		Expression expr = expressionOrStatementBlock.getExpression();
+		
+		//if block is not null visit the block
 		if (block != null) {
 			controller.visit(block, context);
 		}
 		
+		//if expression is not null visit the expression
 		if (expr != null) {
 			controller.visit(expr, context);
 		}
+		
+		//pop from stack
 		context.getStack().pop();
 		return null;
 	}

@@ -11,9 +11,13 @@ public class WhileStatementVariableResolver extends WhileStatementVisitor<Variab
 	public Object visit(WhileStatement whileStatement,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		//push to stack
 		context.getStack().push(whileStatement, true);
+		//visit the condition
 		controller.visit(whileStatement.getCondition(), context);
+		//visit the body
 		controller.visit(whileStatement.getBody(),context);
+		//pop from stack
 		context.getStack().pop();
 		return null;
 	}

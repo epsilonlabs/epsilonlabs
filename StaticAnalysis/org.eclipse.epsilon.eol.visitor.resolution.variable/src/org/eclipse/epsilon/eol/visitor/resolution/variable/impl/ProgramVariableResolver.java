@@ -11,8 +11,8 @@ public class ProgramVariableResolver extends EolProgramVisitor<VariableResolutio
 	public Object visit(EolProgram program, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		if (context.getMainProgram() == null) { //if the program is the EOL in question (the main program)
-			context.getStack().push(program, true); //insert a stack
 			context.setMainProgram(program); //set the main program to be this one
+			context.getStack().push(program, true); //insert a stack
 			for(ModelDeclarationStatement mds: program.getModelDeclarations())
 			{
 				controller.visit(mds, context);

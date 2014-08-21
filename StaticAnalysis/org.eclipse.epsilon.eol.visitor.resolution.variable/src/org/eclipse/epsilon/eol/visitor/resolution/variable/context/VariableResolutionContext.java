@@ -8,6 +8,11 @@ import org.eclipse.epsilon.eol.ast2eol.util.Ast2EolUtil;
 
 
 public class VariableResolutionContext {
+	
+	public final String VARIABLE_EXISTED = "Variable with the same is already defined: ";
+	public final String RESERVED_KEYWORD = "cannot create an variable with a reserved keyword";
+	
+	
 	protected FrameStack stack = new FrameStack(); //the frameStack
 	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors

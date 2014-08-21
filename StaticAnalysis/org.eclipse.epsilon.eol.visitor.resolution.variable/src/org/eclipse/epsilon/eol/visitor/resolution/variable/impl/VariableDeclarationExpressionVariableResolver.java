@@ -12,12 +12,13 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 			VariableDeclarationExpression variableDeclarationExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		//if there is already a variable in the current scope, report error
  		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
-			context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists: " + variableDeclarationExpression.getName().getName());
+			context.getLogBook().addError(variableDeclarationExpression, context.VARIABLE_EXISTED + variableDeclarationExpression.getName().getName());
 		}
 		else {
 			if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
-				context.getLogBook().addError(variableDeclarationExpression.getName(), "cannot create an variable with reserved keyword");
+				context.getLogBook().addError(variableDeclarationExpression.getName(), context.RESERVED_KEYWORD);
 			}
 			else {
 				context.getStack().putVariable(variableDeclarationExpression, false);

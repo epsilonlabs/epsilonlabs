@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 
 public class PluralVariable extends Variable{
+	
+	/* This class is particularly used for alias declarations for ModelDeclarationStatements,
+	 * this is because that an alias (named "a" for example) can be declared in multiple ModeDeclarationStatements.
+	 * So far, this class is only used when declaring aliases. No further usage known.
+	 */
 
 	protected ArrayList<VariableDeclarationExpression> values;
 

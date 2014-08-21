@@ -11,10 +11,15 @@ public class FOLMethodCallExpressionVariableResolver extends FOLMethodCallExpres
 	public Object visit(FOLMethodCallExpression fOLMethodCallExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		//visit the target first
 		controller.visit(fOLMethodCallExpression.getTarget(), context);
+		//push to stack
 		context.getStack().push(fOLMethodCallExpression, true);
+		//visit the iterator
 		controller.visit(fOLMethodCallExpression.getIterator(), context);
+		//visit the condition
 		controller.visit(fOLMethodCallExpression.getCondition(), context);
+		//pop from stack
 		context.getStack().pop();
 		return null;
 	}

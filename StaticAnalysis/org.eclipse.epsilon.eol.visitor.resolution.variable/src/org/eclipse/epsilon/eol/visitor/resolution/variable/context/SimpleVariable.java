@@ -3,6 +3,10 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 
+/*
+ * This class is used to store a VariableDeclarationExpression, used mostly 99% of the variable resolution.
+ * One exception for variable resolution is the PluralVariable, description attached to that class.
+ */
 public class SimpleVariable extends Variable{
 
 	protected VariableDeclarationExpression value;

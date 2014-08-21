@@ -27,7 +27,6 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 		
 		VariableDeclarationExpression driver = modelDeclarationStatement.getDriver();
 		if (driver != null) {
-//			context.getStack().putVariable(driver, false);
 		}
 		else {
 			context.getLogBook().addError(modelDeclarationStatement, "model loading driver needs to be specified");

@@ -13,12 +13,16 @@ public class TransactionStatementVariableResolver extends TransactionStatementVi
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		
+		//visit the transaction name(s)
 		for(NameExpression ne: transactionStatement.getNames())
 		{
 			controller.visit(ne, context);
 		}
+		//push to stack
 		context.getStack().push(transactionStatement, true);
+		//visit the body
 		controller.visit(transactionStatement.getBody(), context);
+		//pop from stack
 		context.getStack().pop();
 		
 		return null;

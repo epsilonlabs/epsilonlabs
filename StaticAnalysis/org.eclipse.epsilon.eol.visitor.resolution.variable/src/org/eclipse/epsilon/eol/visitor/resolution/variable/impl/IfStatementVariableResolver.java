@@ -11,16 +11,22 @@ public class IfStatementVariableResolver extends IfStatementVisitor<VariableReso
 	public Object visit(IfStatement ifStatement,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		
+		//visit the condition first
 		controller.visit(ifStatement.getCondition(), context);
-		
+		//put to stack
 		context.getStack().push(ifStatement.getIfBody(), true);
+		//visit the if branch
 		controller.visit(ifStatement.getIfBody(), context);
+		//pop from stack
 		context.getStack().pop();
 		
+		//if there is an else body
 		if (ifStatement.getElseBody() != null) {
+			//push to stack
 			context.getStack().push(ifStatement.getElseBody(), true);
+			//visit the else branch
 			controller.visit(ifStatement.getElseBody(), context);
+			//pop from the stack
 			context.getStack().pop();
 		}
 		return null;
