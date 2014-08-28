@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.printer.impl;
 
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.printer.context.PrinterContext;
 
 public class EolPrinter {
@@ -91,6 +92,11 @@ public class EolPrinter {
 	public void run(EolElement eolElement)
 	{
 		printedProgram = (String) controller.visit(eolElement, context);
+	}
+	
+	public String print(EolElement eolElement)
+	{
+		return (String) controller.visit(eolElement, context);
 	}
 	
 	public String getPrintedProgram() {
