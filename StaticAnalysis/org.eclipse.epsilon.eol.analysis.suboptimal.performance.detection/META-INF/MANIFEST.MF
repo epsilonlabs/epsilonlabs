@@ -4,12 +4,12 @@ Bundle-Name: org.eclipse.epsilon.eol.analysis.suboptimal.detection
 Bundle-SymbolicName: org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
- org.eclipse.epsilon.emc.emf,
  org.eclipse.epsilon.eol.metamodel,
  org.eclipse.epsilon.epl.engine,
  org.eclipse.epsilon.erl.engine,
  org.eclipse.epsilon.eol.engine,
  org.eclipse.epsilon.static.analysis.problem.log,
- org.eclipse.epsilon.eol.visitor.printer
+ org.eclipse.epsilon.eol.visitor.printer,
+ org.eclipse.epsilon.emc.emf
 Export-Package: org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.context,
  org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl
