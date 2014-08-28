@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.epsilon.eol.visitor.resolution.variable,
  org.eclipse.epsilon.static.analysis.problem.log,
  org.eclipse.epsilon.eol.coverage.analysis,
- org.eclipse.epsilon.eol.performance.analysis
+ org.eclipse.epsilon.eol.performance.analysis,
+ org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.epsilon.eol.dtx,

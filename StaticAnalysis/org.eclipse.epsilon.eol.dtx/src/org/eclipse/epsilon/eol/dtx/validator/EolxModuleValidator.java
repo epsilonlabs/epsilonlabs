@@ -9,12 +9,13 @@ import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl.ProgramPerformanceAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EolProgram;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-import org.eclipse.epsilon.eol.performance.analysis.impl.PerformanceAnalyser;
 import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
@@ -97,11 +98,12 @@ public class EolxModuleValidator implements IModuleValidator{
 				warnings++;
 			}
 			
-			PerformanceAnalyser o = new PerformanceAnalyser();
-			o.getOptimisationContext().setDirectoryPathString(directoryPathString);
-			o.run(dom);
+			//PerformanceAnalyser o = new PerformanceAnalyser();
+			//o.getOptimisationContext().setDirectoryPathString(directoryPathString);
+			ProgramPerformanceAnalyser ppa = new ProgramPerformanceAnalyser();
+			ppa.visit((EolProgram) dom);
 			
-			for(log.Error error: o.getOptimisationContext().getLogBook().getErrors())
+			for(log.Error error: ppa.getContext().getLogBook().getErrors())
 			{
 				TextRegion textRegion = error.getDomElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
@@ -109,7 +111,7 @@ public class EolxModuleValidator implements IModuleValidator{
 				markers.add(marker);
 			}
 			
-			for(log.Warning warning: o.getOptimisationContext().getLogBook().getWarnings())
+			for(log.Warning warning: ppa.getContext().getLogBook().getWarnings())
 			{
 				TextRegion textRegion = warning.getDomElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
