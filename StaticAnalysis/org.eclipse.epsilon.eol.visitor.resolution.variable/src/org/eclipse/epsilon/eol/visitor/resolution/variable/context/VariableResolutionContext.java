@@ -16,12 +16,14 @@ public class VariableResolutionContext {
 	
 	
 	protected FrameStack stack = new FrameStack(); //the frameStack
-	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
+	
+//	protected Ast2EolUtil ast2DomUtil = new Ast2EolUtil();
+//	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
+
+	
 	protected EolLibraryModule mainProgram = null; //main program, which is the EOL program in question
-	protected Ast2EolUtil ast2DomUtil = new Ast2EolUtil();
-	
-	
+
 	protected ArrayList<String> modelNames = new ArrayList<String>();
 
 	public FrameStack getStack()
@@ -29,10 +31,10 @@ public class VariableResolutionContext {
 		return stack;
 	}
 	
-	public EolFactory getEolFactory()
-	{
-		return eolFactory;
-	}
+//	public EolFactory getEolFactory()
+//	{
+//		return eolFactory;
+//	}
 	
 	public LogBook getLogBook()
 	{
@@ -49,10 +51,10 @@ public class VariableResolutionContext {
 		return mainProgram;
 	}
 	
-	public Ast2EolUtil getAst2DomUtil()
-	{
-		return ast2DomUtil;
-	}
+//	public Ast2EolUtil getAst2DomUtil()
+//	{
+//		return ast2DomUtil;
+//	}
 		
 	public boolean isKeyWordSimple(String s)
 	{
