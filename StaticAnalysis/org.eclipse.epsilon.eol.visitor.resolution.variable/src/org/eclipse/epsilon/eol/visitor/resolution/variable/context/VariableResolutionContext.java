@@ -1,5 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 
+import java.util.ArrayList;
+
 import log.LogBook;
 
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -18,6 +20,9 @@ public class VariableResolutionContext {
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
 	protected EolLibraryModule mainProgram = null; //main program, which is the EOL program in question
 	protected Ast2EolUtil ast2DomUtil = new Ast2EolUtil();
+	
+	
+	protected ArrayList<String> modelNames = new ArrayList<String>();
 
 	public FrameStack getStack()
 	{
@@ -88,4 +93,21 @@ public class VariableResolutionContext {
 			return false;
 		}
 	}
+	
+	public boolean nameDefinedInModelNames(String s)
+	{
+		if (modelNames.contains(s)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	public void putModelName(String name)
+	{
+		modelNames.add(name);
+	}
+	
 }
