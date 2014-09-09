@@ -19,57 +19,101 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		String modelString = modelElementType.getModelName(); //get the string for model
-		String elementString = modelElementType.getElementName(); //get the string for element
+		//get the string for model
+		String modelString = modelElementType.getModelName();
 		
-		if (modelString == null && elementString.equals("_ModelElementType_")) { //if keyword _ModelElementType_ is found, then return null, do nothing
+		//get the string for element
+		String elementString = modelElementType.getElementName(); 
+		
+		//if keyword _ModelElementType_ is found, then return null, do nothing
+		if (modelString == null && elementString.equals("_ModelElementType_")) { 
 			return null;
 		}
 		
-		if (context.getContainer().getMetaModels().size() == 0) { //if no metamodel is declared, report error
+		//if no metamodel is declared, report error
+		if (context.getContainer().getMetaModels().size() == 0) {
 			context.getLogBook().addError(modelElementType, "No metamodel has been defined, please define metamodels");
+			return null;
 		}
 		
 		else {
-			if (modelString != null) { //if model name is not null
+			
+			//if model name is not null
+			if (modelString != null) {
+				
+				//if elementString is not null
 				if (elementString != null) {
+					//if metamodel repository contains a metamodel with name
 					if (context.containsMetaModel(modelString)) {
-						ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(modelString); //if there are multiple metamodels
+						
+						//first look for models with the same alias, with the assumption that the model string is an alias
+						ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(modelString);
+						
+						//if there are models no matter how many
 						if (models != null) {
+							
+							//if there is only 1 model
 							if (models.size() == 1) {
+								
+								//get the model
 								EMetamodelDriver leModel = models.get(0);
+								
+								//if it is an EMFMetamodel
 								if (leModel instanceof EMFMetamodelDriver) {
+									
+									//if the model contains the model element
 									if (leModel.containsMetaClass(elementString)) {
+										
+										//get the element
 										EClass element = leModel.getMetaClass(elementString);
+										
+										//check if there are any annotations(errors or warnings) associated with this element
 										context.checkAndDisplayAnnotation(element, modelElementType);
 										
-										modelElementType.setEcoreType(element); //set ecore type
+										//set the ecoretype of the model element type
+										modelElementType.setEcoreType(element); 
 										
-										ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
+										//declare a model declaration statement first
+										ModelDeclarationStatement resolveDeclarationStatement = null; 
 										
-										for(String s: context.getModelDeclarations().keySet()) //get model declaration names
+										//get model declaration names
+										for(String s: context.getModelDeclarations().keySet()) 
 										{
-											if (leModel.getMetamodelName().equals(s)) { //if declaration name is equal to metamodel name, set
+											//if declaration name is equal to metamodel name, set
+											if (leModel.getMetamodelName().equals(s)) { 
 												resolveDeclarationStatement = context.getModelDeclarations().get(s);
 												break;
 											}
 											else {
 												for(String alias: leModel.getAliases())
 												{
-													if (alias.equals(s)) { //if declaration name is equal to any alias name, set
+													//if declaration name is equal to any alias name, set
+													if (alias.equals(s)) {
 														resolveDeclarationStatement = context.getModelDeclarations().get(s);
 														break;
 													}
 												}
 											}
 										}
-										modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);								
+										
+										if (resolveDeclarationStatement == null) {
+											context.getLogBook().addError(modelElementType, "no corresponding model declaration statement found");
+											return null;
+										}
+										else {
+											modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);		
+											return null;	
+										}
 									}
+									
+									//if the model does not contain the model element report error
 									else {
 										context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+										return null;
 									}
 								}
 								else if (leModel instanceof PlainXMLMetamodelDriver) {
+									/*
 									if (elementString.startsWith("b_") ||
 											elementString.startsWith("f_") ||
 											elementString.startsWith("d_") ||
@@ -79,6 +123,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 											elementString.startsWith("x_") ||
 											elementString.startsWith("e_") ) {
 										context.getLogBook().addError(modelElementType, "model element type cannot be denoted with prefix: " + elementString.substring(0, 2));
+										return null;
 									}
 									else {
 										if (leModel.containsMetaClass(elementString)) {
@@ -110,11 +155,12 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 										else {
 											context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
 										}
-									}
+									*/}
 								}
+								
 							}
 							else {
-								//need more elaborative handling
+								context.getLogBook().addError(modelElementType, "unknown error, unknown metamodel driver");
 							}
 						}
 						else {
@@ -271,10 +317,11 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 				}
 			}
 			
+			//if element string is not null
 			else {
 				if(elementString != null)
 				{
-					if (context.getNumberofPlainXMLModels() > 1) {
+					if (context.getNumberOfModelsOfType("XML") > 1) {
 						context.getLogBook().addError(modelElementType, "Multiple XML models detected, please specify one");
 					}
 					else {

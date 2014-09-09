@@ -10,10 +10,14 @@ import metamodel.connectivity.plainxml.PlainXMLMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.EolLibraryModule;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
+import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.OperationDefinitionControl;
 import org.eclipse.epsilon.eol.visitor.resolution.type.pessimistic.FrameStack;
@@ -22,9 +26,16 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class TypeResolutionContext {
 	
-	protected FrameStack stack = new FrameStack(); //the frameStack
+	//the frameStack
+	protected FrameStack stack = new FrameStack();
+	
+	/*
+	 * the 'main' program, is the program that is at the focus of the current E*L editor
+	 * this is used to distinguish between the program in question and the parsed programs which are imported by the 'import' statement
+	 */
 	protected EolLibraryModule mainProgram = null;
 	
+	//pessimistic switch
 	protected boolean pessimistic = true;
 	
 	//logbook is used to store errors/warnings
@@ -42,13 +53,12 @@ public class TypeResolutionContext {
 	//contains model declarations
 	protected HashMap<String, ModelDeclarationStatement> modelDeclarations = new HashMap<String, ModelDeclarationStatement>(); 
 	
-	//namespace for metamodel
-	protected ArrayList<String> metaModelNameSpace = new ArrayList<String>();
-	
 	//operation definition container used to store user defined operations
 	protected OperationDefinitionControl operationDefinitionControl = new OperationDefinitionControl(this);
 	
+	//the path string of the program in question
 	protected String directoryPathString;
+	
 	
 	protected ArrayList<VariableDeclarationExpression> bestGuessVariableDeclarations = new ArrayList<VariableDeclarationExpression>();
 	
@@ -134,11 +144,11 @@ public class TypeResolutionContext {
 	}
 	
 	//put metamode in the metamode container
-	public void inputMetaModel(EMetamodelDriver metaModel)
+	public String inputMetaModel(EMetamodelDriver metaModel)
 	{
-		metaModelNameSpace.add(metaModel.getName());
-		metaModelNameSpace.add(metaModel.getMetamodelName());
-		container.inputMetaModel(metaModel);
+		//metaModelNameSpace.add(metaModel.getName());
+		//metaModelNameSpace.add(metaModel.getMetamodelName());
+		return container.inputMetaModel(metaModel);
 	}
 			
 	public EMetamodelDriver getMetaModel(String name)
@@ -148,7 +158,7 @@ public class TypeResolutionContext {
 	
 	public EMetamodelDriver getMetaModelWithNSURI(String nsURI)
 	{
-		return container.getMetaModelWithURI(nsURI);
+		return container.getMetaModelWithNSURI(nsURI);
 	}
 	
 	public ArrayList<EMetamodelDriver> getMetaModelsWithAlias(String alias)
@@ -206,7 +216,7 @@ public class TypeResolutionContext {
 	
 	public boolean containsMetaModel(String metaModel)
 	{
-		return metaModelNameSpace.contains(metaModel);
+		return container.containsMetaModel(metaModel);
 	}
 		
 	public int numberOfMetamodelsDefine(String metaClass, boolean includeXMLModels)
@@ -250,17 +260,30 @@ public class TypeResolutionContext {
 		return container;
 	}
 	
-	public int getNumberofPlainXMLModels()
+	public int getNumberOfModelsOfType(String type)
 	{
 		int result = 0;
-		for(EMetamodelDriver em: container.getMetaModels())
-		{
-			if (em instanceof PlainXMLMetamodelDriver) {
-				result++;
+		if (type.equals("XML")) {
+			for(EMetamodelDriver em: container.getMetaModels())
+			{
+				if (em instanceof PlainXMLMetamodelDriver) {
+					result++;
+				}
 			}
+			return result;
+		}
+		else if (type.equals("EMF")) {
+			for(EMetamodelDriver em: container.getMetaModels())
+			{
+				if (em instanceof EMFMetamodelDriver) {
+					result++;
+				}
+			}
+			return result;
 		}
 		return result;
 	}
+	
 	
 //	public PlainXMLModel getOneXMLModel()
 //	{
@@ -290,20 +313,10 @@ public class TypeResolutionContext {
 	
 	public boolean isXMLSyntax(String fullName)
 	{
-		if (fullName.startsWith("a_") || fullName.startsWith("b_") ||
-				fullName.startsWith("i_") || fullName.startsWith("f_") || 
-				fullName.startsWith("d_") || fullName.startsWith("s_") ||
-				fullName.startsWith("t_") || fullName.startsWith("c_") ||
-				fullName.startsWith("e_") || fullName.startsWith("x_"))
-		{
-			return true;
-		}
-		else {
-			return false;
-		}
+		return typeUtil.isXMLSyntax(fullName);
 	}
 
-	public void setLocation(EolElement created, EolElement targetLocation)
+	public void copyLocation(EolElement created, EolElement targetLocation)
 	{
 		created.setColumn(targetLocation.getColumn());
 		created.setLine(targetLocation.getLine());

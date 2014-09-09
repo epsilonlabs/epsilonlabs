@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.visitor.resolution.type.context;
+package org.eclipse.epsilon.eol.visitor.resolution.type.java;
 
 import java.io.File;
 import java.io.IOException;

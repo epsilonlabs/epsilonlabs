@@ -4,18 +4,29 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.impl;
 import java.util.ArrayList;
 
 import metamodel.connectivity.abstractmodel.EMetamodelDriver;
-import metamodel.connectivity.emf.EMFMetamodelDriver;
 import metamodel.connectivity.plainxml.PlainXMLMetamodelDriver;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
+import org.eclipse.epsilon.eol.metamodel.AnyType;
+import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EType;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
+import org.eclipse.epsilon.eol.metamodel.SelfContentType;
+import org.eclipse.epsilon.eol.metamodel.SelfType;
+import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.impl.EolFactoryImpl;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{

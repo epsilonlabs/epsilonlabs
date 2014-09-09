@@ -18,40 +18,71 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//get the name of the name expression
 		String nameString = nameExpression.getName();
-		nameExpression.setResolvedType(EcoreUtil.copy(context.getEolFactory().createAnyType()));
 		
+		//if the container is an variableDeclarationExpression, should return, as we don't need 
 		if (nameExpression.getContainer() instanceof VariableDeclarationExpression) {
 			return null;
 		}
-
+		
+		//if the name is a keyword, create corresponding type and return 
 		if (context.getTypeUtil().isKeyWordSimple(nameString)) { //if name expression is keyword then resolve type immediately
 			nameExpression.setResolvedType(context.getTypeUtil().createType(nameString));
 			return null;
 		}
 		
+		//set the resolved type of the name to be Any first
+		nameExpression.setResolvedType(EcoreUtil.copy(context.getEolFactory().createAnyType()));
 		
-		if(nameExpression.getResolvedContent() != null) //if name has a resolved content
+		//if name has a resolved content
+		if(nameExpression.getResolvedContent() != null) 
 		{
+			//obtain the resolved content
 			Object resolvedContent = nameExpression.getResolvedContent();
-			if (resolvedContent instanceof ArrayList<?>) { //if variable's resolved content is an arraylist, it is defined in model delcaration statement
+			
+			//if variable's resolved content is an ArrayList, it is surely defined in model declaration statement
+			if (resolvedContent instanceof ArrayList<?>) { 
+				
+				//create model type
 				ModelType modelType = context.getEolFactory().createModelType();
+				
+				//for all of the variables in the resolved content
 				for(VariableDeclarationExpression var: (ArrayList<VariableDeclarationExpression>)resolvedContent)
 				{
+					//get the containing statement
 					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement(var);
+					
+					//add model to model type
 					modelType.getModels().add(stmt);
 				}
-				context.setLocation(modelType, nameExpression);
+				context.copyLocation(modelType, nameExpression);
+				
+				//set resolved type and return
 				nameExpression.setResolvedType(modelType);
 				return null;
 			}
-			if (definedInModelDeclarationStatement((EolElement) resolvedContent)) { //if variable is defined in model declaration statement
-				if (resolvedContent instanceof VariableDeclarationExpression) { //if single
-					ModelType modelType = context.getEolFactory().createModelType(); //create model type
-					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement((EolElement) resolvedContent); //get the containing model declaration
-					context.setLocation(modelType, nameExpression); //set the location
-					modelType.getModels().add(stmt); //add the model to the model type
-					nameExpression.setResolvedType(EcoreUtil.copy(modelType)); //set resolved type
+			
+			//if variable is defined in model declaration statement
+			if (definedInModelDeclarationStatement((EolElement) resolvedContent)) { 
+				
+				//if single
+				if (resolvedContent instanceof VariableDeclarationExpression) {
+					
+					//create model type
+					ModelType modelType = context.getEolFactory().createModelType();
+					
+					//get the containing model declaration
+					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement((EolElement) resolvedContent);
+					
+					//set the location
+					context.copyLocation(modelType, nameExpression); 
+					
+					//add the model to the model type
+					modelType.getModels().add(stmt); 
+					
+					//set resolved type
+					nameExpression.setResolvedType(EcoreUtil.copy(modelType)); 
 					return null;
 				}
 				else {
@@ -130,7 +161,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		else { //if name does not have a resolved content
 			if (nameString.equals("null")) { //if name is null then it is the keyword
 				AnyType anyType = context.getEolFactory().createAnyType();
-				context.setLocation(anyType, nameExpression);
+				context.copyLocation(anyType, nameExpression);
 				nameExpression.setResolvedType(EcoreUtil.copy(anyType));
 			}
 			else if (nameString.contains("!")) { //if name is formed like A!B
@@ -294,6 +325,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		return null;
 	}
 	
+	//check if an eolElement is defined in a model declaration statement
 	public boolean definedInModelDeclarationStatement(EolElement eolElement)
 	{
 		EolElement container = eolElement;
