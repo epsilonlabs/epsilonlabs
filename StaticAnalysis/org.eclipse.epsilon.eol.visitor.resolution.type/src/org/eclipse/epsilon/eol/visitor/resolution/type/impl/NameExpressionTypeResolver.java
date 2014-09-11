@@ -42,7 +42,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			Object resolvedContent = nameExpression.getResolvedContent();
 			
 			//if variable's resolved content is an ArrayList, it is surely defined in model declaration statement
-			if (resolvedContent instanceof ArrayList<?>) { 
+			if(resolvedContent instanceof ArrayList<?>) { 
 				
 				//create model type
 				ModelType modelType = context.getEolFactory().createModelType();
@@ -64,7 +64,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			}
 			
 			//if variable is defined in model declaration statement
-			if (definedInModelDeclarationStatement((EolElement) resolvedContent)) { 
+			if(definedInModelDeclarationStatement((EolElement) resolvedContent)) { 
 				
 				//if single
 				if (resolvedContent instanceof VariableDeclarationExpression) {
@@ -95,37 +95,60 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				{
 					VariableDeclarationExpression content = (VariableDeclarationExpression) resolvedContent;
 					Type type = null;
-					if (context.getPessimistic() == true) { //if optimistic is set
+					
+					//if optimistic is set
+					if (context.getPessimistic()) {
+						
+						//if the current frame does not contain the expression
 						if (!context.getStack().contentInSameScope(nameExpression)) {
+							//add to best guess
 							context.addBestGuessVariableDeclaration(content);
 							//context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
 						}
+						
+						//get the last definition point
 						Object lastDefinitionPoint = content.getLastDefinitionPoint();
+						
+						//if last definition point is not null
 						if (lastDefinitionPoint != null) {
-							if (lastDefinitionPoint.equals(content)) { //if last definition point is the content itself
+							
+							//if last definition point is the content itself
+							if (lastDefinitionPoint.equals(content)) { 
 								type = EcoreUtil.copy(content.getResolvedType());
 							}
-							else if (lastDefinitionPoint instanceof AssignmentStatement) { //if the last definition point is an assignment statement
+							//if the last definition point is an assignment statement
+							else if (lastDefinitionPoint instanceof AssignmentStatement) {
+								//copy the rhs of the assignment to the current type
 								AssignmentStatement stmt = (AssignmentStatement) content.getLastDefinitionPoint();
 								Expression expression = stmt.getRhs();
 								type = EcoreUtil.copy(expression.getResolvedType());
 							}
 						}
+						//if the last definition point is null
 						else {
-							type = EcoreUtil.copy(content.getResolvedType()); 
+							//get the type of the resolved content
+							type = EcoreUtil.copy(content.getResolvedType());
+							//if the content is a best guess variable declaration do nothing
 							if (context.containsBestGuessVariableDeclaration(content)) {
 								
 							}
+							//if the content is not in the best guess variable list
 							else {
+								//if the type is any
 								if (type instanceof AnyType) {
+									//if the name expression is in an assignment statement
 									if (nameExpression.getContainer() instanceof AssignmentStatement) {
 										AssignmentStatement stmt = (AssignmentStatement) nameExpression.getContainer();
+										//if it is on the left hand side, then set the last definition point, but do not set the type because it is pessimistic
 										if (stmt.getLhs().equals(nameExpression)) {
 											content.setLastDefinitionPoint(stmt);
 										}
 									}
+									//if the name expression is not in an assignemnt statement
 									else {
+										//if it is in an operator expression
 										if (nameExpression.getContainer() instanceof OperatorExpression){
+											//get the dynamic type
 											if (((AnyType) type).getDynamicType() != null) {
 												type = EcoreUtil.copy(((AnyType) type).getDynamicType());
 											}

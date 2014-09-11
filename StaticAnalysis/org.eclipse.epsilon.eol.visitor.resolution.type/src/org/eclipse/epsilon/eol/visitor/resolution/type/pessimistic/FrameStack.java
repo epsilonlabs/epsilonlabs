@@ -117,6 +117,7 @@ public class FrameStack {
 		return result;
 	}
 	
+	//check if the current frame contains the name expression
 	public boolean contentInSameScope(NameExpression name)
 	{
 		Frame frame = frames.getLast();

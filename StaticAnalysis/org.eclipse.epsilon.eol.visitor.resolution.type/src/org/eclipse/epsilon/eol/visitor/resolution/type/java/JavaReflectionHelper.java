@@ -1,5 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.java;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,18 +12,49 @@ public class JavaReflectionHelper {
 	protected ClassLoader classLoader;
 
 	public static void main(String[] args) {
+		String className = "org.eclipse.epsilon.eol.visitor.resolution.type.java.JavaClassLoader";
 		JavaReflectionHelper loader = new JavaReflectionHelper("org.eclipse.epsilon.eol.visitor.resolution.type.java.JavaClassLoader");
-		ClassLoader theloader = loader.getClass().getClassLoader();
+		System.out.println(loader.loadClass());
+		
+		Class<?> clazz = null;
 		try {
-			String className = "org.eclipse.epsilon.eol.visitor.resolution.type.java.JavaClassLoader";
-			String className2 = "org.eclipse.epsilon.eol.ast2eol.AbortStatementCreator";
-			theloader.loadClass(className2);
-			System.out.println("class Loaded");
-		} catch (Exception e) {
+			clazz = Class.forName(className);
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+		
+		Constructor<?> constructor = null;
+		try {
+			constructor = clazz.getConstructor(null);
+//			constructor = clazz.getConstructor(String.class);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Object object = constructor.newInstance(null);
+			System.out.println(object);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+
+	}
 	
 	public JavaReflectionHelper(String name)
 	{
@@ -37,8 +70,7 @@ public class JavaReflectionHelper {
 		return className;
 	}
 	
-	
-	public boolean classExists(String className)
+	public boolean loadClass()
 	{
 		try {
 			classLoader.loadClass(className);
@@ -47,7 +79,7 @@ public class JavaReflectionHelper {
 		}
 		return true;
 	}
-
+	
 	public static boolean hasMethods(Object obj, String methodName) {
 		
 		if (obj == null) return false;
