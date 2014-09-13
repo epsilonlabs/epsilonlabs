@@ -87,11 +87,14 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				}
 				else {
 					//this should not happen
+					return null;
 				}
 			}
-			else { //if variable is defined elsewhere rather than model declaration
+			//if variable is defined elsewhere rather than model declaration
+			else { 
+				//if resolvedContent is a var
 				if(nameExpression.getResolvedContent() instanceof VariableDeclarationExpression ||
-						nameExpression.getResolvedContent() instanceof FormalParameterExpression) //if resolvedContent is a var
+						nameExpression.getResolvedContent() instanceof FormalParameterExpression) 
 				{
 					VariableDeclarationExpression content = (VariableDeclarationExpression) resolvedContent;
 					Type type = null;
@@ -99,11 +102,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					//if optimistic is set
 					if (context.getPessimistic()) {
 						
-						//if the current frame does not contain the expression
+						//if the current frame does not contain the expression, this is to cater the branching situations such as if/else, while, for, switch, etc
 						if (!context.getStack().contentInSameScope(nameExpression)) {
 							//add to best guess
 							context.addBestGuessVariableDeclaration(content);
-							//context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
+							context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
 						}
 						
 						//get the last definition point
@@ -134,8 +137,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							}
 							//if the content is not in the best guess variable list
 							else {
-								//if the type is any
+								//if the type is any (it only matters if it is AnyType, other types will throw type incompatibility errors)
 								if (type instanceof AnyType) {
+									
+									//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Other operations can also define collection, need elaborative handling
+									
 									//if the name expression is in an assignment statement
 									if (nameExpression.getContainer() instanceof AssignmentStatement) {
 										AssignmentStatement stmt = (AssignmentStatement) nameExpression.getContainer();
@@ -147,7 +153,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 									//if the name expression is not in an assignemnt statement
 									else {
 										//if it is in an operator expression
-										if (nameExpression.getContainer() instanceof OperatorExpression){
+										if (nameExpression.getContainer() instanceof OperatorExpression){ 
 											//get the dynamic type
 											if (((AnyType) type).getDynamicType() != null) {
 												type = EcoreUtil.copy(((AnyType) type).getDynamicType());
@@ -186,13 +192,19 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				AnyType anyType = context.getEolFactory().createAnyType();
 				context.copyLocation(anyType, nameExpression);
 				nameExpression.setResolvedType(EcoreUtil.copy(anyType));
+				return null;
 			}
-			else if (nameString.contains("!")) { //if name is formed like A!B
+			//if name is formed like A!B
+			else if (nameString.contains("!")) {
+				//split the string by "!"
 				String[] arr = nameString.split("!");
+				//model is model
 				String model = arr[0];
+				//element is element
 				String element = arr[1];
 				
-				if(context.containsMetaModel(model)) //check if metamodel exists
+				//check if metamodel exists
+				if(context.containsMetaModel(model)) 
 				{
 					ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(model);
 					if (models != null) {
@@ -363,5 +375,21 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		}
 		return false;
 	}
+	
+	public Type getDynamicType(AnyType anyType)
+	{
+		AnyType result = anyType;
+		while(result.getDynamicType() != null)
+		{
+			if (result.getDynamicType() instanceof AnyType) {
+				result = (AnyType) anyType.getDynamicType();
+			}
+			else {
+				return result.getDynamicType();
+			}
+		}
+		return result;
+	}
+
 	
 }

@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeResolutionContext, Object>{
@@ -43,6 +44,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 				
 				//if elementString is not null
 				if (elementString != null) {
+					
 					//if metamodel repository contains a metamodel with name
 					if (context.containsMetaModel(modelString)) {
 						
@@ -74,46 +76,39 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 										modelElementType.setEcoreType(element); 
 										
 										//declare a model declaration statement first
-										ModelDeclarationStatement resolveDeclarationStatement = null; 
+										ModelDeclarationStatement resolvedDeclarationStatement = null; 
 										
-										//get model declaration names
-										for(String s: context.getModelDeclarations().keySet()) 
+										//look into model declaration statements, and assign resolved declarationstatement 
+										for(ModelDeclarationStatement mds: context.getModelDeclarations().values())
 										{
-											//if declaration name is equal to metamodel name, set
-											if (leModel.getMetamodelName().equals(s)) { 
-												resolveDeclarationStatement = context.getModelDeclarations().get(s);
-												break;
-											}
-											else {
-												for(String alias: leModel.getAliases())
-												{
-													//if declaration name is equal to any alias name, set
-													if (alias.equals(s)) {
-														resolveDeclarationStatement = context.getModelDeclarations().get(s);
-														break;
-													}
+											for(VariableDeclarationExpression alias: mds.getAlias())
+											{
+												if (modelString.equals(alias.getName().getName())) {
+													resolvedDeclarationStatement = mds;
+													break;
 												}
 											}
 										}
 										
-										if (resolveDeclarationStatement == null) {
+										//if no resolved declaration is found report error
+										if (resolvedDeclarationStatement == null) {
 											context.getLogBook().addError(modelElementType, "no corresponding model declaration statement found");
 											return null;
 										}
+										//if resolved declaration is found, set resolved model declaration and return
 										else {
-											modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);		
+											modelElementType.getResolvedModelDeclaration().add(resolvedDeclarationStatement);
 											return null;	
 										}
 									}
-									
 									//if the model does not contain the model element report error
 									else {
 										context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
 										return null;
 									}
 								}
+								//if the model is a plain xml model
 								else if (leModel instanceof PlainXMLMetamodelDriver) {
-									/*
 									if (elementString.startsWith("b_") ||
 											elementString.startsWith("f_") ||
 											elementString.startsWith("d_") ||
@@ -126,42 +121,178 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 										return null;
 									}
 									else {
+										//if the model contains the element
 										if (leModel.containsMetaClass(elementString)) {
+											//get the element
 											EClass element = leModel.getMetaClass(elementString);
+											//check if there are any annotations to display
 											context.checkAndDisplayAnnotation(element, modelElementType);
 											
+											//set ecore type
 											modelElementType.setEcoreType(element); //set ecore type
 											
-											ModelDeclarationStatement resolveDeclarationStatement = null; //declare a model declaration statement
+											//prepare resolved declaration statement
+											ModelDeclarationStatement resolvedDeclarationStatement = null; //declare a model declaration statement
 											
-											for(String s: context.getModelDeclarations().keySet()) //get model declaration names
+											//look into model declaration statements, and assign resolved declarationstatement 
+											for(ModelDeclarationStatement mds: context.getModelDeclarations().values())
 											{
-												if (leModel.getMetamodelName().equals(s)) { //if declaration name is equal to metamodel name, set
-													resolveDeclarationStatement = context.getModelDeclarations().get(s);
-													break;
+												for(VariableDeclarationExpression alias: mds.getAlias())
+												{
+													if (modelString.equals(alias.getName().getName())) {
+														resolvedDeclarationStatement = mds;
+														break;
+													}
 												}
-												else {
-													for(String alias: leModel.getAliases())
+											}
+											
+											//if no resolved declaration is found report error
+											if (resolvedDeclarationStatement == null) {
+												context.getLogBook().addError(modelElementType, "no corresponding model declaration statement found");
+												return null;
+											}
+											//if resolved declaration is found, set resolved model declaration and return
+											else {
+												modelElementType.getResolvedModelDeclaration().add(resolvedDeclarationStatement);
+												return null;	
+											}
+										}
+										//if cannot find the element report error
+										else {
+											context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+										}
+									}
+								}
+								//if more than one models are found
+								else {
+									context.getLogBook().addError(modelElementType, "unknown error, unknown metamodel driver");
+								}
+							}
+							//if there are multiple models with the same alias
+							else if (models.size() > 1) {
+								
+								for(int i = 0; i < models.size(); i++)
+								{
+									//get the model
+									EMetamodelDriver leModel = models.get(i);
+									
+									//if it is an EMFMetamodel
+									if (leModel instanceof EMFMetamodelDriver) {
+										
+										//if the model contains the model element
+										if (leModel.containsMetaClass(elementString)) {
+											
+											//get the element
+											EClass element = leModel.getMetaClass(elementString);
+											
+											//check if there are any annotations(errors or warnings) associated with this element
+											context.checkAndDisplayAnnotation(element, modelElementType);
+											
+											//set the ecoretype of the model element type
+											modelElementType.setEcoreType(element); 
+											
+											//declare a model declaration statement first
+											ModelDeclarationStatement resolvedDeclarationStatement = null; 
+											
+											//look into model declaration statements, and assign resolved declarationstatement 
+											for(ModelDeclarationStatement mds: context.getModelDeclarations().values())
+											{
+												for(VariableDeclarationExpression alias: mds.getAlias())
+												{
+													if (modelString.equals(alias.getName().getName())) {
+														resolvedDeclarationStatement = mds;
+														break;
+													}
+												}
+											}
+											
+											//if no resolved declaration is found report error
+											if (resolvedDeclarationStatement == null) {
+												context.getLogBook().addError(modelElementType, "no corresponding model declaration statement found");
+												return null;
+											}
+											//if resolved declaration is found, set resolved model declaration and return
+											else {
+												modelElementType.getResolvedModelDeclaration().add(resolvedDeclarationStatement);
+												return null;	
+											}
+										}
+										//if the model does not contain the model element report error
+										else {
+											context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+											return null;
+										}
+									}
+									//if the model is a plain xml model
+									else if (leModel instanceof PlainXMLMetamodelDriver) {
+										if (elementString.startsWith("b_") ||
+												elementString.startsWith("f_") ||
+												elementString.startsWith("d_") ||
+												elementString.startsWith("i_") ||
+												elementString.startsWith("s_") ||
+												elementString.startsWith("c_") ||
+												elementString.startsWith("x_") ||
+												elementString.startsWith("e_") ) {
+											context.getLogBook().addError(modelElementType, "model element type cannot be denoted with prefix: " + elementString.substring(0, 2));
+											return null;
+										}
+										else {
+											//if the model contains the element
+											if (leModel.containsMetaClass(elementString)) {
+												//get the element
+												EClass element = leModel.getMetaClass(elementString);
+												//check if there are any annotations to display
+												context.checkAndDisplayAnnotation(element, modelElementType);
+												
+												//set ecore type
+												modelElementType.setEcoreType(element); //set ecore type
+												
+												//prepare resolved declaration statement
+												ModelDeclarationStatement resolvedDeclarationStatement = null; //declare a model declaration statement
+												
+												//look into model declaration statements, and assign resolved declarationstatement 
+												for(ModelDeclarationStatement mds: context.getModelDeclarations().values())
+												{
+													for(VariableDeclarationExpression alias: mds.getAlias())
 													{
-														if (alias.equals(s)) { //if declaration name is equal to any alias name, set
-															resolveDeclarationStatement = context.getModelDeclarations().get(s);
+														if (modelString.equals(alias.getName().getName())) {
+															resolvedDeclarationStatement = mds;
 															break;
 														}
 													}
 												}
+												
+												//if no resolved declaration is found report error
+												if (resolvedDeclarationStatement == null) {
+													context.getLogBook().addError(modelElementType, "no corresponding model declaration statement found");
+													return null;
+												}
+												//if resolved declaration is found, set resolved model declaration and return
+												else {
+													modelElementType.getResolvedModelDeclaration().add(resolvedDeclarationStatement);
+													return null;	
+												}
 											}
-											modelElementType.setResolvedModelDeclaration(resolveDeclarationStatement);								
+											//if cannot find the element report error
+											else {
+												context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
+											}
 										}
-										else {
-											context.getLogBook().addError(modelElementType, elementString + " cannot be resolved to a type");
-										}
-									*/}
+									}
+									//if more than one models are found
+									else {
+										context.getLogBook().addError(modelElementType, "unknown error, unknown metamodel driver");
+									}
 								}
 								
+								if (modelElementType.getResolvedModelDeclaration().size()>1) {
+									context.getLogBook().addWarning(modelElementType, "element defined in multiple models, please be specific");
+								}
 							}
 							else {
-								context.getLogBook().addError(modelElementType, "unknown error, unknown metamodel driver");
+								context.getLogBook().addError(modelElementType, "no model found");
 							}
+							
 						}
 						else {
 							EMetamodelDriver leModel = context.getMetaModel(modelString);
@@ -424,4 +555,6 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 		
 		return null;
 	}
+	
+	
 }

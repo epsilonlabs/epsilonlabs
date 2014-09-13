@@ -14,16 +14,26 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		Expression lhs = assignmentStatement.getLhs(); //get lhs expression
 		Expression rhs = assignmentStatement.getRhs(); //get rhs expression
+		
+		//lhs should be either a name expression, a property call, or a variable declaration expression
 		if (lhs instanceof PropertyCallExpression || lhs instanceof NameExpression || lhs instanceof VariableDeclarationExpression) {
-			controller.visit(rhs, context); //visit rhs
-			controller.visit(lhs, context); //visit lhs
+			//visit rhs to resolve type
+			controller.visit(rhs, context); 
+			//visit lhs to resolve type
+			controller.visit(lhs, context); 
 			
-			if (lhs.getResolvedType() instanceof AnyType) { //if lhs is of type Any
-				AnyType lhsType = (AnyType) lhs.getResolvedType(); //get the type
+			//if lhs is of type Any
+			if (lhs.getResolvedType() instanceof AnyType) {
+				//get the type
+				AnyType lhsType = (AnyType) lhs.getResolvedType(); 
+				
+				//copy the rhs resolved type
 				Type typeCopy = EcoreUtil.copy(rhs.getResolvedType());
+				//if rhs is also any
 				if (typeCopy instanceof AnyType) {
 					
 				}
+				//if not set the dynamic type to lhs
 				else {
 					lhsType.setDynamicType(typeCopy);
 				}
@@ -32,14 +42,22 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			else {
 				Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs
 				Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
+				
+				//if rhs is of any type
 				if (rhsType instanceof AnyType) {
+					//fire a warning?
 					context.getLogBook().addWarning(rhs, "potential type mismatch");
+					
+					//get the rhs type
 					AnyType temp = (AnyType) rhsType;
+					//if there is dynamic type
 					if (temp.getDynamicType() != null) {
 						//rhsType = temp.getTempType();
+						//get the rhs dynamic type
 						rhsType = getDynamicType(temp);
 					}
 					
+					//
 					if (rhsType instanceof AnyType || rhsType instanceof VoidType) {
 						
 					}
@@ -64,16 +82,17 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 	
 	public Type getDynamicType(AnyType anyType)
 	{
-		while(anyType.getDynamicType() != null)
+		AnyType result = anyType;
+		while(result.getDynamicType() != null)
 		{
-			if (anyType.getDynamicType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getDynamicType();
+			if (result.getDynamicType() instanceof AnyType) {
+				result = (AnyType) anyType.getDynamicType();
 			}
 			else {
-				return anyType.getDynamicType();
+				return result.getDynamicType();
 			}
 		}
-		return anyType;
+		return result;
 	}
 
 }
