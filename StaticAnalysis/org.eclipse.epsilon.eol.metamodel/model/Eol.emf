@@ -332,7 +332,7 @@ class SpecialNameExpression extends NameExpression {
 
 class ModelElementType extends Type {
   ref ecore.EClassifier ecoreType;
-  ref ModelDeclarationStatement resolvedModelDeclaration;
+  ref ModelDeclarationStatement[*] resolvedModelDeclaration;
   attr String modelName;
   attr String elementName;
 }
