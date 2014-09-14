@@ -207,10 +207,17 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				if(context.containsMetaModel(model)) 
 				{
 					ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(model);
+					
+					//if models with alias are found
 					if (models != null) {
+						
+						//if there is only one
 						if (models.size() == 1) {
+							//get the model
 							EMetamodelDriver leModel = models.get(0);
-							if(leModel.containsMetaClass(element)) //if metaclass exists
+							
+							//if the model contains the element
+							if(leModel.containsMetaClass(element)) 
 							{
 								BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
 								isType.setVal(true); //isType should be true
