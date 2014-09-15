@@ -38,6 +38,7 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 		
 		for(OperationDefinition od: etlProgram.getOperations()) //process each operation
 		{
+			controller.visit(od.getAnnotationBlock(), context);
 			if (od.getContextType() != null) {
 				controller.visit(od.getContextType(), context); //resolve context type	
 			}
@@ -56,17 +57,18 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 			}
 			if (!context.getOperationDefinitionControl().containsOperation(od.getName().getName(), contextType, argTypes)) { //check if operation with the same name and arg list exists
 				context.putOperationDefinition(od);
+				controller.visit(od.getBody(), context);
 			}
 			else {
 				context.getLogBook().addError(od, "OperationDefinition with same signature already defined");
 				///handle signature existence
 			}
 		}
-		
-		for(OperationDefinition od: etlProgram.getOperations())
-		{
-			controller.visit(od, context);
-		}
+		//the implementation commented out was stupid.
+//		for(OperationDefinition od: etlProgram.getOperations())
+//		{
+//			controller.visit(od, context);
+//		}
 		
 		for(PreBlock pb: etlProgram.getPreBlocks())
 		{
@@ -75,13 +77,20 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 		
 		for(TransformationRule tr: etlProgram.getTransformationRules())
 		{
+			//create a new container
 			TraceUnitContainer container = new TraceUnitContainer(tr);
+			//get the source of the transformation rule
 			FormalParameterExpression source = tr.getSource();
+			//if source is not null
 			if (source != null) {
+				//visit the source first
 				controller.visit(source, context);
+				//if the resolved type is an instance of model element type (which it fucking should be)
 				if (source.getResolvedType() instanceof ModelElementType) {
+					//get the eClass
 					EClass eClass = getEcoreType(source);
 					if (eClass != null) {
+						//set the source
 						container.setSource(eClass);
 					}
 					else {
@@ -89,13 +98,20 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 					}
 				}
 			}
+			//iterate through targets
 			for(FormalParameterExpression target: tr.getTargets())
 			{
+				//if target is not null
 				if(target != null)
 				{
+					//visit the target first
 					controller.visit(target, context);
+					
+					//if the resolved type is model element type
 					if (target.getResolvedType() instanceof ModelElementType) {
+						//get the ecore type
 						EClass eClass = getEcoreType(target);
+						//add to targets
 						if (eClass != null) {
 							container.addTarget(eClass);
 						}
@@ -106,7 +122,10 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 				}
 			}
 			
+			//cast to etl type resolution context
 			EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
+			
+			//if source is model element type
 			if (source.getResolvedType() instanceof ModelElementType) {
 				leContext.addTraceUnitContainer(container);
 			}

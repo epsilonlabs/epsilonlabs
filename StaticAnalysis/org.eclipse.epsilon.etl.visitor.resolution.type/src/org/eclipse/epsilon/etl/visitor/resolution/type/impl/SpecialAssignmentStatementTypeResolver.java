@@ -29,24 +29,42 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 	public Object visit(SpecialAssignmentStatement specialAssignmentStatement,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		Expression lhs = specialAssignmentStatement.getLhs(); //get lhs expression
-		Expression rhs = specialAssignmentStatement.getRhs(); //get rhs expression
+		
+		//get lhs expression
+		Expression lhs = specialAssignmentStatement.getLhs(); 
+		//get rhs expression
+		Expression rhs = specialAssignmentStatement.getRhs();
+		
+		//if the lhs is a property call, a name expression or a variable declaration
 		if (lhs instanceof PropertyCallExpression || lhs instanceof NameExpression || lhs instanceof VariableDeclarationExpression) {
-			controller.visit(rhs, context); //visit rhs
-			controller.visit(lhs, context); //visit lhs
+			//visit rhs
+			controller.visit(rhs, context); 
+			//visit lhs
+			controller.visit(lhs, context); 
 			
+			//cast the context to be an ETL type resolution context
 			EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
 			
+			
+			//if both the lhs and the rhs are model element types
 			if (lhs.getResolvedType() instanceof ModelElementType && rhs.getResolvedType() instanceof ModelElementType) {
+				//get the rhs type
 				ModelElementType rhsType = (ModelElementType) rhs.getResolvedType();
+				//get the ecoretype of the rhs type
 				EClass ecoreType = (EClass) rhsType.getEcoreType();
+				
+				//if ecore type is not null
 				if (ecoreType != null) {
-					TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); //get the depending rule from the context
-					if (dependingRule == null) { //if depending rule is null, return null
+					//get the depending rule from the context
+					TransformationRule dependingRule = leContext.getTraceUnitContainerWhichTransforms(ecoreType).getTransformationRule(); 
+					
+					//if depending rule is null, return null
+					if (dependingRule == null) { 
 						context.getLogBook().addError(specialAssignmentStatement, "No applicable transformation rule is found");
 						return null;
 					}
-					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
+					
+					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rule
 					if (currentRule == null) { //if the current rule is not null
 						return null;
 					}
