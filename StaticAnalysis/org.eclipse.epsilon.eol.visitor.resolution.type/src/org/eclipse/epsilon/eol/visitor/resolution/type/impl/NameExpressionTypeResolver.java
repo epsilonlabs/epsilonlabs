@@ -32,6 +32,14 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			return null;
 		}
 		
+		if (nameString.equals("null")) { //if name is null then it is the keyword
+			AnyType anyType = context.getEolFactory().createAnyType();
+			context.copyLocation(anyType, nameExpression);
+			nameExpression.setResolvedType(EcoreUtil.copy(anyType));
+			return null;
+		}
+
+		
 		//set the resolved type of the name to be Any first
 		nameExpression.setResolvedType(EcoreUtil.copy(context.getEolFactory().createAnyType()));
 		
@@ -188,14 +196,8 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			
 		}
 		else { //if name does not have a resolved content
-			if (nameString.equals("null")) { //if name is null then it is the keyword
-				AnyType anyType = context.getEolFactory().createAnyType();
-				context.copyLocation(anyType, nameExpression);
-				nameExpression.setResolvedType(EcoreUtil.copy(anyType));
-				return null;
-			}
 			//if name is formed like A!B
-			else if (nameString.contains("!")) {
+			if (nameString.contains("!")) {
 				//split the string by "!"
 				String[] arr = nameString.split("!");
 				//model is model
@@ -203,153 +205,183 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				//element is element
 				String element = arr[1];
 				
-				//check if metamodel exists
-				if(context.containsMetaModel(model)) 
-				{
-					ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(model);
-					
-					//if models with alias are found
-					if (models != null) {
-						
-						//if there is only one
-						if (models.size() == 1) {
-							//get the model
-							EMetamodelDriver leModel = models.get(0);
-							
-							//if the model contains the element
-							if(leModel.containsMetaClass(element)) 
-							{
-								BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
-								isType.setVal(true); //isType should be true
-								context.setAssets(isType, nameExpression);
-								nameExpression.setIsType(isType); //set isType for the nameExpression
-								nameExpression.setResolvedContent(leModel.getMetaClass(element)); //setResolvedContent for nameExpression
-								
-								EClass ecoreType = leModel.getMetaClass(element);
-								context.checkAndDisplayAnnotation(ecoreType, nameExpression);
-								
-								ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-								type.setModelName(leModel.getMetamodelName()); //set model name
-								type.setElementName(element); //set element name
-								type.setEcoreType(ecoreType);
-								context.setAssets(type, nameExpression); //set assets
-								type.setResolvedModelDeclaration(context.getModelDeclarationStatement(model)); //set resolved model declaration statement
-								nameExpression.setResolvedType(type);
-							}
-							else {
-								context.getLogBook().addError(nameExpression, "MetaElement with name " + element + " in Meta Model " + model + " cannot be found");
-							}
-						}
-						else {
-							//handle multiple metamodel
-						}
-					}
-					else {
-						EMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
-						if(em.containsMetaClass(element)) //if metaclass exists
-						{
-							BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
-							isType.setVal(true); //isType should be true
-							context.setAssets(isType, nameExpression);
-							nameExpression.setIsType(isType); //set isType for the nameExpression
-							nameExpression.setResolvedContent(em.getMetaClass(element)); //setResolvedContent for nameExpression
-							
-							EClass ecoreType = em.getMetaClass(element);
-							context.checkAndDisplayAnnotation(ecoreType, nameExpression);
-							
-							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-							type.setModelName(em.getMetamodelName()); //set model name
-							type.setElementName(element); //set element name
-							type.setEcoreType(ecoreType);
-							context.setAssets(type, nameExpression); //set assets
-							type.setResolvedModelDeclaration(context.getModelDeclarationStatement(model)); //set resolved model declaration statement
-							nameExpression.setResolvedType(type);
-						}
-						else {
-							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-							nameExpression.setResolvedType(type);
-							context.getLogBook().addError(nameExpression, "MetaElement with name " + element + " in Meta Model " + model + " cannot be found");
-						}
-					}
-				}
-				else {
-					context.getLogBook().addError(nameExpression, "MetaModel with name " + model + " cannot be found");
-					//handle metamodel not found
-				}
+				
+				ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+				type.setModelName(model); //set model name
+				type.setElementName(element); //set element name
+				context.setAssets(type, nameExpression); //set assets
+				nameExpression.setResolvedType(type);
+				controller.visit(nameExpression.getResolvedType(), context);
+				return null;
+				
+				
+				
+//				//check if metamodel exists
+//				if(context.containsMetaModel(model)) 
+//				{
+//					ArrayList<EMetamodelDriver> models = context.getMetaModelsWithAlias(model);
+//					
+//					//if models with alias are found
+//					if (models != null) {
+//						
+//						//if there is only one
+//						if (models.size() == 1) {
+//							//get the model
+//							EMetamodelDriver leModel = models.get(0);
+//							
+//							//if the model contains the element
+//							if(leModel.containsMetaClass(element)) 
+//							{
+//								//prepare isType, indicating that this name expression is actually a type
+//								BooleanExpression isType = context.getEolFactory().createBooleanExpression();
+//								//isType should be true
+//								isType.setVal(true); 
+//								//set assets
+//								context.setAssets(isType, nameExpression);
+//								//set isType for the nameExpression
+//								nameExpression.setIsType(isType);
+//								//setResolvedContent for nameExpression (to be the element in the metamodel)
+//								nameExpression.setResolvedContent(leModel.getMetaClass(element)); 
+//								
+//								//get the ecoreType
+//								EClass ecoreType = leModel.getMetaClass(element);
+//								//check contents for display
+//								context.checkAndDisplayAnnotation(ecoreType, nameExpression);
+//								
+//								//create a model element type
+//								ModelElementType type = context.getEolFactory().createModelElementType(); 
+//								type.setModelName(leModel.getMetamodelName()); //set model name
+//								type.setElementName(element); //set element name
+//								type.setEcoreType(ecoreType);
+//								context.setAssets(type, nameExpression); //set assets
+//								type.getResolvedModelDeclaration().add(context.getModelDeclarationStatement(model));
+//								nameExpression.setResolvedType(type);
+//							}
+//							else {
+//								context.getLogBook().addError(nameExpression, "MetaElement with name " + element + " in Meta Model " + model + " cannot be found");
+//							}
+//						}
+//						else {
+//							for(EMetamodelDriver driver : models)
+//							{
+//								
+//							}
+//							//handle multiple metamodel
+//						}
+//						return null;
+//					}
+//					else {
+//						EMetamodelDriver em = context.getMetaModel(model); //fetch the metamodel
+//						if(em.containsMetaClass(element)) //if metaclass exists
+//						{
+//							BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
+//							isType.setVal(true); //isType should be true
+//							context.setAssets(isType, nameExpression);
+//							nameExpression.setIsType(isType); //set isType for the nameExpression
+//							nameExpression.setResolvedContent(em.getMetaClass(element)); //setResolvedContent for nameExpression
+//							
+//							EClass ecoreType = em.getMetaClass(element);
+//							context.checkAndDisplayAnnotation(ecoreType, nameExpression);
+//							
+//							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+//							type.setModelName(em.getMetamodelName()); //set model name
+//							type.setElementName(element); //set element name
+//							type.setEcoreType(ecoreType);
+//							context.setAssets(type, nameExpression); //set assets
+//							type.setResolvedModelDeclaration(context.getModelDeclarationStatement(model)); //set resolved model declaration statement
+//							nameExpression.setResolvedType(type);
+//						}
+//						else {
+//							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+//							nameExpression.setResolvedType(type);
+//							context.getLogBook().addError(nameExpression, "MetaElement with name " + element + " in Meta Model " + model + " cannot be found");
+//						}
+//					}
+//				}
+//				else {
+//					context.getLogBook().addError(nameExpression, "MetaModel with name " + model + " cannot be found");
+//					//handle metamodel not found
+//				}
 			}
 				
 			
-			else if(context.numberOfMetamodelsDefine(nameString, true) > 0) //if name is a modelElementName
-			{
-				if (context.getTypeUtil().isXMLSyntax(nameString) && context.getNumberofPlainXMLModels() > 1) {
-					context.getLogBook().addError(nameExpression, "Multiple XML models detected, please specify one");
-					return null;
-				}
-				ArrayList<EMetamodelDriver> models = context.metamodelsDefine(nameString);
-				if (models != null) {
-					if (models.size() == 1) {
-						EMetamodelDriver leModel = models.get(0);
-						if(leModel.containsMetaClass(nameString)) //if metaclass exists
-						{
-							BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
-							isType.setVal(true); //isType should be true
-							context.setAssets(isType, nameExpression);
-							nameExpression.setIsType(isType); //set isType for the nameExpression
-							nameExpression.setResolvedContent(leModel.getMetaClass(nameString)); //setResolvedContent for nameExpression
-							
-							EClass ecoreType = leModel.getMetaClass(nameString);
-							context.checkAndDisplayAnnotation(ecoreType, nameExpression);
-							
-							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-							type.setModelName(leModel.getMetamodelName()); //set model name
-							type.setElementName(nameString); //set element name
-							type.setEcoreType(ecoreType);
-							context.setAssets(type, nameExpression); //set assets
-							type.setResolvedModelDeclaration(context.getModelDeclarationStatement(leModel.getName())); //set resolved model declaration statement
-							nameExpression.setResolvedType(type);
-						}
-						else {
-							context.getLogBook().addError(nameExpression, "MetaElement with name " + nameString + " cannot be found");
-						}
-					}
-					else {
-						context.getLogBook().addError(nameExpression, "metaElement: " + nameString + " is defined in multiple metamodels");
-					}
-				}
-				else {
-					if(context.numberOfMetamodelsDefine(nameString, true) == 1)
-					{
-						EMetamodelDriver em = context.getMetaModelDefiningMetaClass(nameString);
-						
-						BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
-						isType.setVal(true); //isType should be true
-						context.setAssets(isType, nameExpression);
-						nameExpression.setIsType(isType); //set isType for the nameExpression
-						nameExpression.setResolvedContent(em.getMetaClass(nameString)); //setResolvedContent for nameExpression
-						
-						ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
-						type.setModelName(em.getMetamodelName()); //set model name
-						type.setElementName(nameString); //set element name
-						type.setEcoreType(em.getMetaClass(nameString));
-						context.setAssets(type, nameExpression); //set assets
-						type.setResolvedModelDeclaration(context.getModelDeclarationStatement(em.getMetamodelName())); //set resolved model declaration statement
-						nameExpression.setResolvedType(type);
-					}
-					else {
-						if (context.getTypeUtil().isXMLSyntax(nameString)) {
-							context.getLogBook().addError(nameExpression, "Multiple XML models detected, please specify one");
-						}
-					}
-				}
-			}
-			
+//			else if(context.numberOfMetamodelsDefine(nameString, true) > 0) //if name is a modelElementName
+//			{
+//				if (context.getTypeUtil().isXMLSyntax(nameString) && context.getNumberofPlainXMLModels() > 1) {
+//					context.getLogBook().addError(nameExpression, "Multiple XML models detected, please specify one");
+//					return null;
+//				}
+//				ArrayList<EMetamodelDriver> models = context.metamodelsDefine(nameString);
+//				if (models != null) {
+//					if (models.size() == 1) {
+//						EMetamodelDriver leModel = models.get(0);
+//						if(leModel.containsMetaClass(nameString)) //if metaclass exists
+//						{
+//							BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
+//							isType.setVal(true); //isType should be true
+//							context.setAssets(isType, nameExpression);
+//							nameExpression.setIsType(isType); //set isType for the nameExpression
+//							nameExpression.setResolvedContent(leModel.getMetaClass(nameString)); //setResolvedContent for nameExpression
+//							
+//							EClass ecoreType = leModel.getMetaClass(nameString);
+//							context.checkAndDisplayAnnotation(ecoreType, nameExpression);
+//							
+//							ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+//							type.setModelName(leModel.getMetamodelName()); //set model name
+//							type.setElementName(nameString); //set element name
+//							type.setEcoreType(ecoreType);
+//							context.setAssets(type, nameExpression); //set assets
+//							type.setResolvedModelDeclaration(context.getModelDeclarationStatement(leModel.getName())); //set resolved model declaration statement
+//							nameExpression.setResolvedType(type);
+//						}
+//						else {
+//							context.getLogBook().addError(nameExpression, "MetaElement with name " + nameString + " cannot be found");
+//						}
+//					}
+//					else {
+//						context.getLogBook().addError(nameExpression, "metaElement: " + nameString + " is defined in multiple metamodels");
+//					}
+//				}
+//				else {
+//					if(context.numberOfMetamodelsDefine(nameString, true) == 1)
+//					{
+//						EMetamodelDriver em = context.getMetaModelDefiningMetaClass(nameString);
+//						
+//						BooleanExpression isType = context.getEolFactory().createBooleanExpression(); //prepare isType
+//						isType.setVal(true); //isType should be true
+//						context.setAssets(isType, nameExpression);
+//						nameExpression.setIsType(isType); //set isType for the nameExpression
+//						nameExpression.setResolvedContent(em.getMetaClass(nameString)); //setResolvedContent for nameExpression
+//						
+//						ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+//						type.setModelName(em.getMetamodelName()); //set model name
+//						type.setElementName(nameString); //set element name
+//						type.setEcoreType(em.getMetaClass(nameString));
+//						context.setAssets(type, nameExpression); //set assets
+//						type.setResolvedModelDeclaration(context.getModelDeclarationStatement(em.getMetamodelName())); //set resolved model declaration statement
+//						nameExpression.setResolvedType(type);
+//					}
+//					else {
+//						if (context.getTypeUtil().isXMLSyntax(nameString)) {
+//							context.getLogBook().addError(nameExpression, "Multiple XML models detected, please specify one");
+//						}
+//					}
+//				}
+//			}
+//			
+//			else {
+//				context.getLogBook().addError(nameExpression, "Name is not defined");
+//			}
+		
 			else {
-				context.getLogBook().addError(nameExpression, "Name is not defined");
+				ModelElementType type = context.getEolFactory().createModelElementType(); //create modelElementType for this
+				type.setElementName(nameString); //set element name
+				context.setAssets(type, nameExpression); //set assets
+				nameExpression.setResolvedType(type);
+				controller.visit(nameExpression.getResolvedType(), context);
+				return null;
 			}
-			
 		}
-
-		return null;
 	}
 	
 	public ModelDeclarationStatement getContainingModelDeclarationStatement(EolElement eolElement)
