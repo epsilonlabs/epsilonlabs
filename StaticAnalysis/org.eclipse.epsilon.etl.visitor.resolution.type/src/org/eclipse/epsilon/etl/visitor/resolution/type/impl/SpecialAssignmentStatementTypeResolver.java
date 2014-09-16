@@ -65,19 +65,27 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 					}
 					
 					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rule
-					if (currentRule == null) { //if the current rule is not null
+					if (currentRule == null) { //if the current rule is null
 						return null;
 					}
+					
+					//create a rule dependency and attach the leads
 					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
 					ruleDependency.setDependingRule(dependingRule);
 					ruleDependency.setSourceElement(specialAssignmentStatement);
 					context.setAssets(ruleDependency, currentRule);
 
-					currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
-					if (dependingRule.getTargets().size() > 0) { //if the depending rule has targets 
-						FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0); //get the first target
+					//resolve the dependency
+					currentRule.getResolvedRuleDependencies().add(ruleDependency);
+					
+					//if the depending rule has targets
+					if (dependingRule.getTargets().size() > 0) {
+						//get the first target
+						FormalParameterExpression primaryTarget = dependingRule.getTargets().get(0);
+						//get the type of the first target
 						ModelElementType primaryTargetType = (ModelElementType) primaryTarget.getResolvedType();
-						if (primaryTargetType != null) { //if the first target is not null
+						//if the first target type is not null, get the ecore type and set the resolved type to the rhs
+						if (primaryTargetType != null) { 
 							if (primaryTargetType.getEcoreType() != null) {
 								rhs.setResolvedType(EcoreUtil.copy(primaryTargetType));
 							}
@@ -87,12 +95,16 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 						}
 					}
 				}
+				//if ecore type is null, report error
 				else {
 					context.getLogBook().addError(rhs, "type is not properly resolved");
 				}
 			}
+			//if lhs and rhs are both collections
 			else if (lhs.getResolvedType() instanceof CollectionType && rhs.getResolvedType() instanceof CollectionType) {
+				//get the type of the rhs
 				CollectionType rhsType = (CollectionType) rhs.getResolvedType();
+				//get the content type of rhs
  				ModelElementType rhsContentType = (ModelElementType) rhsType.getContentType();
 				if (rhsContentType != null) {
 					EClass ecoreType = (EClass) rhsContentType.getEcoreType();

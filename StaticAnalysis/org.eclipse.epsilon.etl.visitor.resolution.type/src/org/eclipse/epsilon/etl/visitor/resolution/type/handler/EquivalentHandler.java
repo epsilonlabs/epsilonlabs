@@ -42,44 +42,68 @@ public class EquivalentHandler extends AnyOperationDefinitionHandler{
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
 		
+		//get the standard library operation definition contianer (quite a long name i know...)
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
+		//get the operation by name and arg types
 		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 
+		//get the target of the feature call expression
 		Expression target = featureCallExpression.getTarget();
+		
+		//cast the context to be the etl type resolution context
 		EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
 		
-		if (target.getResolvedType() instanceof ModelElementType) {
-			ModelElementType targetType = (ModelElementType) target.getResolvedType(); //get the target typ
-			if (targetType != null) { //if target type is not null
-				EClass ecoreType = (EClass) targetType.getEcoreType(); //get the ecore type from the target type
+		//if the target has a resolved type
+		if (target.getResolvedType() != null) {
+			//if target type is model element type
+			if (target.getResolvedType() instanceof ModelElementType) {
+				//get the target type
+				ModelElementType targetType = (ModelElementType) target.getResolvedType();
+
+				//get the ecore type from the target type
+				EClass ecoreType = (EClass) targetType.getEcoreType(); 
 				
+				//get the containers
 				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersForEquivalent(ecoreType);
+				//if there are no containers found, report error
 				if (containers.size() == 0) {
 					context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
 					return null;
 				}
+				//if there are contianers
 				else {
+					//iterate
 					for(TraceUnitContainer tuc : containers)
 					{
-						TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context
-						TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
-						if (currentRule != null) { //if the current rule is not null
+						//get the depending rule 
+						TransformationRule dependingRule = tuc.getTransformationRule();
+						//get the current rule
+						TransformationRule currentRule = leContext.getCurrentRule();
+						//if the current rule is not null
+						if (currentRule != null) {
+							//create rule dependency and attach the leads
 							RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
 							ruleDependency.setDependingRule(dependingRule);
 							ruleDependency.setSourceElement(featureCallExpression);
 							context.setAssets(ruleDependency, currentRule);
 
-							currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
+							//resolve the dependency
+							currentRule.getResolvedRuleDependencies().add(ruleDependency); 
 						}
 					}
 					
+					//get the first rule
 					TransformationRule firstRule = containers.get(0).getTransformationRule();
 					
-					if (firstRule.getTargets().size() > 0) { //if the depending rule has targets 
-						FormalParameterExpression primaryTarget = firstRule.getTargets().get(0); //get the first target
+					//if the depending rule has targets
+					if (firstRule.getTargets().size() > 0) {
+						//get the first target
+						FormalParameterExpression primaryTarget = firstRule.getTargets().get(0); 
+						//get the type fot he primary target
 						ModelElementType primaryTargetType = (ModelElementType) primaryTarget.getResolvedType();
-						if (primaryTargetType != null) { //if the first target is not null
+						//if the first target is not null
+						if (primaryTargetType != null) {
 							if (primaryTargetType.getEcoreType() != null) {
 								result.setReturnType(EcoreUtil.copy(primaryTargetType));
 							}
@@ -88,45 +112,68 @@ public class EquivalentHandler extends AnyOperationDefinitionHandler{
 							}
 						}
 					}
-
 				}
 			}
-
-		}
-		else if (target.getResolvedType() instanceof CollectionType) {
-			CollectionType targetType = (CollectionType) target.getResolvedType();
-			ModelElementType targetContentType = (ModelElementType) targetType.getContentType();
-			if (targetContentType != null) {
-				EClass ecoreType = (EClass) targetContentType.getEcoreType();
+			//else if target type is a collection type
+			else if (target.getResolvedType() instanceof CollectionType) {
+				//get the target type
+				CollectionType targetType = (CollectionType) target.getResolvedType();
 				
-				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
-				for(TraceUnitContainer tuc : containers)
-				{
-					TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context
-					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rul
-					if (currentRule != null) { //if the current rule is not null
-						RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
-						ruleDependency.setDependingRule(dependingRule);
-						ruleDependency.setSourceElement(featureCallExpression);
-						context.setAssets(ruleDependency, currentRule);
-
-						currentRule.getResolvedRuleDependencies().add(ruleDependency); //resolve the dependency
+				if (targetType.getContentType() != null) {
+					//get the target content type
+					ModelElementType targetContentType = (ModelElementType) targetType.getContentType();
+					
+					//get the target ecore type
+					EClass ecoreType = (EClass) targetContentType.getEcoreType();
+					
+					//get the containers with the ecore
+					ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+					
+					//if no containers, report error
+					if (containers.size() == 0) {
+						context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
+						return null;
 					}
+
+					//iterate TUCs, TUC rules
+					for(TraceUnitContainer tuc : containers)
+					{
+						//get the depending rule from the context
+						TransformationRule dependingRule = tuc.getTransformationRule();
+						//get the current rule
+						TransformationRule currentRule = leContext.getCurrentRule();
+						//if the current rule is not null
+						if (currentRule != null) { 
+							//create rule dependency and attach the leads
+							RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+							ruleDependency.setDependingRule(dependingRule);
+							ruleDependency.setSourceElement(featureCallExpression);
+							context.setAssets(ruleDependency, currentRule);
+							
+							//resolve the dependency
+							currentRule.getResolvedRuleDependencies().add(ruleDependency); 
+						}
+					}
+					//create a bag type and assign it to the result
+					BagType bag = context.getEolFactory().createBagType();
+					bag.setContentType(context.getEolFactory().createAnyType());
+					result.setReturnType(bag);
+					context.setAssets(bag, result);
+				
 				}
-				BagType bag = context.getEolFactory().createBagType();
-				bag.setContentType(context.getEolFactory().createAnyType());
-				result.setReturnType(bag);
-				context.setAssets(bag, result);
+				else {
+					context.getLogBook().addError(targetType, "type not resolved properly");
+				}
 			}
 			else {
-				context.getLogBook().addError(targetType, "type not resolved properly");
+				context.getLogBook().addError(target, "operaiton equivalents() can only be used on model elements and collections"); 
 			}
+			supressErrorForAssignment(featureCallExpression);
+			return result;
 		}
 		else {
-			context.getLogBook().addError(target, "operaiton equivalents() can only be used on model elements and collections"); 
+			return null;
 		}
-		supressErrorForAssignment(featureCallExpression);
-		return result;
 	}
 	
 	public void supressErrorForAssignment(FeatureCallExpression featureCallExpression)
