@@ -57,8 +57,6 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), new ArrayList<Type>());
 		}
 
-
-		
 		ArrayList<StringExpression> parameters = new ArrayList<StringExpression>();
 		
 		MethodCallExpression mce = (MethodCallExpression) featureCallExpression;
