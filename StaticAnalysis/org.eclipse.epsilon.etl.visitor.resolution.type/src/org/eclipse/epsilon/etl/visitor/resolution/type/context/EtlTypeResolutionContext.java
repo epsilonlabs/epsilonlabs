@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.etl.metamodel.EtlFactory;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
@@ -143,6 +144,93 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		return result;
 	}
 	
+	public ArrayList<TraceUnitContainer> getTraceUnitContainersWhichTransforms(EClass eClass, ArrayList<StringExpression> names)
+	{
+		
+		//normal rule container
+		ArrayList<TraceUnitContainer> normalRules = new ArrayList<TraceUnitContainer>();
+		//primary rule container
+		ArrayList<TraceUnitContainer> primaryRules = new ArrayList<TraceUnitContainer>();
+		//result container
+		ArrayList<TraceUnitContainer> result = new ArrayList<TraceUnitContainer>();
+		//iterate TUCs
+		for(TraceUnitContainer tuc: traceUnitContainers)
+		{
+			//if tuc is greedy, if source matches, if is primary add to primary rules
+			if (isGreedy(tuc.getTransformationRule())) {
+				if (tuc.getSource().equals(eClass)) {
+					if (isPrimary(tuc.getTransformationRule())) {
+						primaryRules.add(tuc);
+					}
+					else {
+						normalRules.add(tuc);
+					}
+				}
+				//if not equals, iterate super class, if primary add to primary rules
+				else {
+					for(EClass superClass: eClass.getEAllSuperTypes())
+					{
+						if (superClass.equals(tuc.getSource())) {
+							if (isPrimary(tuc.getTransformationRule())) {
+								primaryRules.add(tuc);
+							}
+							else {
+								normalRules.add(tuc);
+							}
+						}
+					}
+				}
+			}
+			//if not greedy, if classes match, if primary add to primary
+			else {
+				if (tuc.getSource().equals(eClass)) { //if not greedy if classes match
+					if (isPrimary(tuc.getTransformationRule())) { //if is primary rule return immediately
+						primaryRules.add(tuc);
+					}
+					else {
+						normalRules.add(tuc);
+					}
+				}
+			}
+			//for all super types of the source's eclass, if it matches, if it is primary then add to primary, otherwise add to normal
+			for(EClass theClass: tuc.getSource().getEAllSuperTypes())
+			{
+				if (theClass.equals(eClass)) {
+					if (isPrimary(tuc.getTransformationRule())) {
+						primaryRules.add(tuc);
+					}
+					else {
+						normalRules.add(tuc);
+					}
+				}
+			}
+		}
+		//add primary to results 
+		result.addAll(primaryRules);
+		//add normal to results
+		result.addAll(normalRules);
+		//return results
+		
+		ArrayList<TraceUnitContainer> resultClone = (ArrayList<TraceUnitContainer>) result.clone();
+		ArrayList<TraceUnitContainer> selected = new ArrayList<TraceUnitContainer>();
+		
+		for(int i = 0; i < names.size(); i++)
+		{
+			String str = names.get(i).getVal();
+			for(TraceUnitContainer tuc: resultClone)
+			{
+				if (tuc.getName().equals(str)) {
+					selected.add(tuc);
+					result.remove(tuc);
+					break;
+				}
+			}
+		}
+		
+		selected.addAll(result);
+		return selected;
+	}
+	
 	public ArrayList<TraceUnitContainer> getTraceUnitContainersForEquivalent(EClass eClass)
 	{
 		ArrayList<TraceUnitContainer> result = new ArrayList<TraceUnitContainer>();
@@ -245,110 +333,6 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 		}
 		return result;
 	}
-	
-	public ArrayList<TraceUnitContainer> getTraceUnitContainersForEquivalent(EClass eClass, ArrayList<String> names)
-	{
-		ArrayList<TraceUnitContainer> result = new ArrayList<TraceUnitContainer>();
- 		TraceUnitContainer first = null;
-
-		for (TraceUnitContainer tuc: traceUnitContainers) {
-			if (first != null) { //if first is not null
-				if (isGreedy(tuc.getTransformationRule())) {
-					if (tuc.getSource().equals(eClass)) {
-						if (isPrimary(tuc.getTransformationRule())) {
-							result.clear();
-							result.add(tuc);
-							return result;
-						}
-					}
-					else {
-						for(EClass superClass : eClass.getEAllSuperTypes())
-						{
-							if (superClass.equals(tuc.getSource())) {
-								if (isPrimary(tuc.getTransformationRule())) {
-									result.clear();
-									result.add(tuc);
-									return result;
-								}
-							}
-						}
-					}
-					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
-						if (eClass2.equals(eClass)) { 
-							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(0, tuc);
-							}
-						}
-					}	
-				}
-				else {
-					if (tuc.getSource().equals(eClass)) {
-						if (isPrimary(tuc.getTransformationRule())) {
-							result.clear();
-							result.add(tuc);
-							return result;
-						}
-					}
-					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
-						if (eClass2.equals(eClass)) { 
-							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(0, tuc);
-							}
-						}
-					}	
-				}
-			}
-			else {
-				if (isGreedy(tuc.getTransformationRule())) {
-					if (tuc.getSource().equals(eClass)) {
-						if (isPrimary(tuc.getTransformationRule())) {
-							result.add(tuc);
-							return result;
-						}
-						first = tuc;
-					}
-					else {
-						for(EClass superClass : eClass.getEAllSuperTypes())
-						{
-							if (superClass.equals(tuc.getSource())) {
-								if (isPrimary(tuc.getTransformationRule())) {
-									result.add(tuc);
-									return result;
-								}
-								first = tuc;
-							}
-						}
-					}
-					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
-						if (eClass2.equals(eClass)) { 
-							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(0, tuc);
-							}
-						}
-					}	
-				}
-				else {
-					if (tuc.getSource().equals(eClass)) {
-						if (isPrimary(tuc.getTransformationRule())) {
-							result.add(tuc);
-							return result;
-						}
-						result.add(tuc);
-						first = tuc;
-					}
-					for(EClass eClass2: tuc.getSource().getEAllSuperTypes()) { //if source is not the type look for sub types
-						if (eClass2.equals(eClass)) { 
-							if (isPrimary(tuc.getTransformationRule())) { //if is primary return immediately
-								result.add(0, tuc);
-							}
-						}
-					}	
-				}
-			}
-		}
-		return result;
-	}
-
 	
 	public TraceUnitContainer getTraceUnitContainerWhichTransforms(EClass eClass)
 	{

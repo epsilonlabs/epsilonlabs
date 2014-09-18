@@ -14,8 +14,11 @@ import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler.AnyOperationDefinitionHandler;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
@@ -45,8 +48,35 @@ public class EquivalentHandler extends AnyOperationDefinitionHandler{
 		//get the standard library operation definition contianer (quite a long name i know...)
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		//get the operation by name and arg types
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
+		
+		if (argTypes.size() == 0) {
+			//get the operation by name and arg types
+			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		}
+		
+		else {
+			//get the operation by name and arg types
+			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), new ArrayList<Type>());
+		}
+		
+		ArrayList<StringExpression> parameters = new ArrayList<StringExpression>();
+		
+		MethodCallExpression mce = (MethodCallExpression) featureCallExpression;
+		for(Expression expr: mce.getArguments())
+		{
+			if (expr.getResolvedType() instanceof StringType) {
+				if (expr instanceof StringExpression) {
+					parameters.add((StringExpression) expr);
+				}
+				else {
+					context.getLogBook().addWarning(expr, "use of String expression is recommended");
+				}
+			}
+			else {
+				context.getLogBook().addError(expr, "This expression should be of type String");
+			}
+		}
 
 		//get the target of the feature call expression
 		Expression target = featureCallExpression.getTarget();
@@ -63,9 +93,15 @@ public class EquivalentHandler extends AnyOperationDefinitionHandler{
 
 				//get the ecore type from the target type
 				EClass ecoreType = (EClass) targetType.getEcoreType(); 
-				
+				ArrayList<TraceUnitContainer> containers = null;
+				if (parameters.size() == 0) {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+				}
+				else {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, parameters);
+				}
 				//get the containers
-				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersForEquivalent(ecoreType);
+				//ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersForEquivalent(ecoreType);
 				//if there are no containers found, report error
 				if (containers.size() == 0) {
 					context.getLogBook().addError(featureCallExpression, "No applicable transformation rule is found");
@@ -127,7 +163,16 @@ public class EquivalentHandler extends AnyOperationDefinitionHandler{
 					EClass ecoreType = (EClass) targetContentType.getEcoreType();
 					
 					//get the containers with the ecore
-					ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+					ArrayList<TraceUnitContainer> containers = null;
+					
+					if (parameters.size() == 0) {
+						containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+
+					}
+					else {
+						containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, parameters);
+					}
+
 					
 					//if no containers, report error
 					if (containers.size() == 0) {

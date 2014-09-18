@@ -17,6 +17,8 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.SequenceType;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler.AnyOperationDefinitionHandler;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
@@ -44,17 +46,54 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 		
 		StandardLibraryOperationDefinitionContainer container = context.getOperationDefinitionControl().getStandardLibraryOperationDefinitionContainer();
 		
-		OperationDefinition result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
+		if (argTypes.size() == 0) {
+			//get the operation by name and arg types
+			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		}
+		
+		else {
+			//get the operation by name and arg types
+			result = container.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), new ArrayList<Type>());
+		}
+
+
+		
+		ArrayList<StringExpression> parameters = new ArrayList<StringExpression>();
+		
+		MethodCallExpression mce = (MethodCallExpression) featureCallExpression;
+		for(Expression expr: mce.getArguments())
+		{
+			if (expr.getResolvedType() instanceof StringType) {
+				if (expr instanceof StringExpression) {
+					parameters.add((StringExpression) expr);
+				}
+				else {
+					context.getLogBook().addWarning(expr, "use of String expression is recommended");
+				}
+			}
+			else {
+				context.getLogBook().addError(expr, "This expression should be of type String");
+			}
+		}
 
 		Expression target = featureCallExpression.getTarget();
 		EtlTypeResolutionContext leContext = (EtlTypeResolutionContext) context;
-		
+
 		if (target.getResolvedType() instanceof ModelElementType) {
 			ModelElementType targetType = (ModelElementType) target.getResolvedType(); //get the target typ
 			if (targetType != null) { //if target type is not null
 				EClass ecoreType = (EClass) targetType.getEcoreType(); //get the ecore type from the target type
 				
-				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+				ArrayList<TraceUnitContainer> containers = null;
+				if (parameters.size() == 0) {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+				}
+				else {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, parameters);
+				}
+
+//				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
 
 				for(TraceUnitContainer tuc : containers)
 				{
@@ -115,7 +154,17 @@ public class EquivalentsHandler extends AnyOperationDefinitionHandler{
 			if (targetContentType != null) {
 				EClass ecoreType = (EClass) targetContentType.getEcoreType();
 				
-				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+				ArrayList<TraceUnitContainer> containers = null;
+				
+				if (parameters.size() == 0) {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
+
+				}
+				else {
+					containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType, parameters);
+				}
+
+//				ArrayList<TraceUnitContainer> containers = leContext.getTraceUnitContainersWhichTransforms(ecoreType);
 				for(TraceUnitContainer tuc : containers)
 				{
 					TransformationRule dependingRule = tuc.getTransformationRule(); //get the depending rule from the context

@@ -38,7 +38,7 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 		
 		for(OperationDefinition od: etlProgram.getOperations()) //process each operation
 		{
-			controller.visit(od.getAnnotationBlock(), context);
+			
 			if (od.getContextType() != null) {
 				controller.visit(od.getContextType(), context); //resolve context type	
 			}
@@ -57,18 +57,18 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 			}
 			if (!context.getOperationDefinitionControl().containsOperation(od.getName().getName(), contextType, argTypes)) { //check if operation with the same name and arg list exists
 				context.putOperationDefinition(od);
-				controller.visit(od.getBody(), context);
+//				controller.visit(od.getBody(), context);
 			}
 			else {
 				context.getLogBook().addError(od, "OperationDefinition with same signature already defined");
 				///handle signature existence
 			}
 		}
-		//the implementation commented out was stupid.
-//		for(OperationDefinition od: etlProgram.getOperations())
-//		{
-//			controller.visit(od, context);
-//		}
+		//the following implementation is NOT stupid.
+		for(OperationDefinition od: etlProgram.getOperations())
+		{
+			controller.visit(od, context);
+		}
 		
 		for(PreBlock pb: etlProgram.getPreBlocks())
 		{
