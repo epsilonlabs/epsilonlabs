@@ -36,7 +36,7 @@ public class TypeResolutionContext {
 	protected EolLibraryModule mainProgram = null;
 	
 	//pessimistic switch
-	protected boolean pessimistic = true;
+	protected boolean pessimistic = false;
 	
 	//logbook is used to store errors/warnings
 	protected LogBook logBook = new LogBook();

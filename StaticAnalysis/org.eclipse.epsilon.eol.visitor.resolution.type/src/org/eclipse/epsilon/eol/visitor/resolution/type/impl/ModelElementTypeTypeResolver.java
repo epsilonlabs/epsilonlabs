@@ -320,7 +320,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 										for(String s: context.getModelDeclarations().keySet()) //get model declaration names
 										{
 											//this would only look up model names, no aliases are looked up
-											if (leModel.getMetamodelName().equals(s)) { //if declaration name is equal to metamodel name, set
+											if (leModel.getName().equals(s)) { //if declaration name is equal to metamodel name, set
 												resolvedDeclarationStatement = context.getModelDeclarations().get(s);
 												break;
 											}
@@ -364,7 +364,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 											
 											for(String s: context.getModelDeclarations().keySet()) //get model declaration names
 											{
-												if (leModel.getMetamodelName().equals(s)) { //if declaration name is equal to metamodel name, set
+												if (leModel.getName().equals(s)) { //if declaration name is equal to metamodel name, set
 													resolvedDeclarationStatement = context.getModelDeclarations().get(s);
 													break;
 												}

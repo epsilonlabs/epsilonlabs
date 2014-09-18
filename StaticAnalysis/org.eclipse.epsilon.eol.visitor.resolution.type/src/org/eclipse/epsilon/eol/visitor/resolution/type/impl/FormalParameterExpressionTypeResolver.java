@@ -17,6 +17,9 @@ public class FormalParameterExpressionTypeResolver extends FormalParameterExpres
 		}
 		controller.visit(formalParameterExpression.getName(), context);
 		controller.visit(formalParameterExpression.getResolvedType(), context);
+		if (context.getPessimistic()) {
+			context.getStack().pop();
+		}
 		return null;
 	}
 

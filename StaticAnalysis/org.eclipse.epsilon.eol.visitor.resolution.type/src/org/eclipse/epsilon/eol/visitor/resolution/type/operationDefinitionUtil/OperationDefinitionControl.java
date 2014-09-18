@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionUtil;
 import java.util.ArrayList;
 
 import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 
@@ -44,7 +45,13 @@ public class OperationDefinitionControl {
 		if (!priority) { //if priority is given to the userdefined operations
 			operation = userDefinedOperations.getOperation(name, contextType, argTypes); //get operation from the user defined opeartions
 			if (operation == null) { //if there is no operation in the user defined operations
-				operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
+				if (name.equals("equivalent") || name.equals("equivalents")) {
+					operation = standardLibraryOperations.getOperation(name, contextType, new ArrayList<Type>()); //look for standard library
+				}
+				else {
+					operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
+				}
+				
 				if (operation != null) { //if there's an operation in the standard library
 					if ((operation.getReturnType() instanceof SelfType) || (operation.getReturnType() instanceof SelfContentType)) {
 						//if it's selfType or SelfContentType, it is handled automatically
@@ -63,7 +70,13 @@ public class OperationDefinitionControl {
 			}
 		}
 		else { //if priority is given to the standard library
-			operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for operation in the standard library
+			if (name.equals("equivalent") || name.equals("equivalents")) {
+				operation = standardLibraryOperations.getOperation(name, contextType, new ArrayList<Type>()); //look for standard library
+			}
+			else {
+				operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
+			}
+
 			if (operation == null) { //if there is no operation in the standard library
 				operation = userDefinedOperations.getOperation(name, contextType, argTypes); //assign operation
 			}

@@ -362,7 +362,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					argString.concat(", ");
 				}
 			}
-			context.getLogBook().addError(methodCallExpression, "OperationDefinition: " + methodName + "("+ argString +")" + "cannot be found");
+			context.getLogBook().addError(methodCallExpression, "OperationDefinition: " + methodName + "("+ argString +") " + "cannot be found");
 		}
 		return null;
 	}
