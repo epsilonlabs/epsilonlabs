@@ -1,0 +1,24 @@
+import 'loadModels.eol'; 
+ 
+rule A2D 
+  transform a : Source!A
+  to e : Target!E { 
+  e.f = a.b.equivalents("B2G", "D2G");    
+}
+
+rule B2F
+  transform b : Source!B
+  to f : Target!F { }  
+
+rule B2G  
+  transform b : Source!B 
+  to g : Target!G { }
+
+rule C2F
+	transform c : Source!C
+	to f: Target!F { }
+
+rule D2G 
+	transform d: Source!D
+	to g: Target!G { }    
+  
