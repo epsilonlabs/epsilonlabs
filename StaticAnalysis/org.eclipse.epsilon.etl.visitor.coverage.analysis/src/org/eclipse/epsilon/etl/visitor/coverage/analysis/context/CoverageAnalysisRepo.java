@@ -11,19 +11,19 @@ import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 public class CoverageAnalysisRepo {
 
 	protected ArrayList<MetaElementContainer> globalContainers;
-	protected ArrayList<TransformationContainer> transformationContainers;
+	protected ArrayList<TransformationRuleContainer> transformationContainers;
 	
 	public CoverageAnalysisRepo()
 	{
 		globalContainers = new ArrayList<MetaElementContainer>();
-		transformationContainers = new ArrayList<TransformationContainer>();
+		transformationContainers = new ArrayList<TransformationRuleContainer>();
 	}
 	
 	public ArrayList<MetaElementContainer> getGlobalContainers() {
 		return globalContainers;
 	}
 	
-	public ArrayList<TransformationContainer> getTransformationContainers() {
+	public ArrayList<TransformationRuleContainer> getTransformationContainers() {
 		return transformationContainers;
 	}
 	
@@ -35,7 +35,7 @@ public class CoverageAnalysisRepo {
 	public void addToTransformationContainers(TransformationRule rule)
 	{
 		boolean defined = false;
-		for(TransformationContainer tc: transformationContainers)
+		for(TransformationRuleContainer tc: transformationContainers)
 		{
 			if (tc.getTransformationRule().equals(rule)) {
 				defined = true;
@@ -43,7 +43,7 @@ public class CoverageAnalysisRepo {
 		}
 		
 		if (!defined) {
-			transformationContainers.add(new TransformationContainer(rule));
+			transformationContainers.add(new TransformationRuleContainer(rule));
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class CoverageAnalysisRepo {
 		else if(currentElement instanceof TransformationRule)
 		{
 			boolean exist = false;
-			for(TransformationContainer tc: transformationContainers)
+			for(TransformationRuleContainer tc: transformationContainers)
 			{
 				boolean innerExist = false;
 				if (tc.getTransformationRule().equals(currentElement)) {
@@ -82,7 +82,7 @@ public class CoverageAnalysisRepo {
 				}
 			}
 			if (!exist) {
-				TransformationContainer tc = new TransformationContainer((TransformationRule) currentElement);
+				TransformationRuleContainer tc = new TransformationRuleContainer((TransformationRule) currentElement);
 				
 				transformationContainers.add(tc);
 			}
@@ -125,7 +125,7 @@ public class CoverageAnalysisRepo {
 		else if(currentElement instanceof TransformationRule)
 		{
 //			boolean exist = false;
-			for(TransformationContainer tc: transformationContainers)
+			for(TransformationRuleContainer tc: transformationContainers)
 			{
 				if (tc.getTransformationRule().equals(currentElement)) {
 					tc.add(eClass, propertyName, featureAccessViaOpposite);

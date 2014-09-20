@@ -8,14 +8,14 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.etl.metamodel.TransformationRule;
 
-public class TransformationContainer {
+public class TransformationRuleContainer {
 
 	protected TransformationRule transformationRule;
 	protected MetaElementContainer sourceContainer;
 	protected ArrayList<MetaElementContainer> targetcontainers = new ArrayList<MetaElementContainer>();
 	protected ArrayList<MetaElementContainer> otherContinaers = new ArrayList<MetaElementContainer>();
 	
-	public TransformationContainer(TransformationRule rule)
+	public TransformationRuleContainer(TransformationRule rule)
 	{
 		transformationRule = rule;
 		Type sType = rule.getSource().getResolvedType();

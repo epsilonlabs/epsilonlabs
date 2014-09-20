@@ -93,7 +93,7 @@ public class CoverageAnalysisContext {
 		return coverageAnalysisRepo.getGlobalContainers();
 	}
 	
-	public ArrayList<TransformationContainer> getTransformationContainers()
+	public ArrayList<TransformationRuleContainer> getTransformationContainers()
 	{
 		return coverageAnalysisRepo.getTransformationContainers();
 	}
@@ -101,7 +101,7 @@ public class CoverageAnalysisContext {
 	public ArrayList<MetaElementContainer> getCoverageForTransformation(TransformationRule transformationRule)
 	{
 		ArrayList<MetaElementContainer> result = new ArrayList<MetaElementContainer>();
-		for(TransformationContainer tc: getTransformationContainers())
+		for(TransformationRuleContainer tc: getTransformationContainers())
 		{
 			if (tc.getTransformationRule().equals(transformationRule)) {
 				MetaElementContainer sourceContainer = tc.getSourceContainer();
@@ -187,7 +187,7 @@ public class CoverageAnalysisContext {
 				container.add(ref.getName(), true);
 			}
 		}
-		for(TransformationContainer tc: getTransformationContainers())
+		for(TransformationRuleContainer tc: getTransformationContainers())
 		{
 			MetaElementContainer sourceContainer = tc.getSourceContainer();
 			MetaElementContainer container = getContainerForMetaElement(sourceContainer.getEClass(), result);
