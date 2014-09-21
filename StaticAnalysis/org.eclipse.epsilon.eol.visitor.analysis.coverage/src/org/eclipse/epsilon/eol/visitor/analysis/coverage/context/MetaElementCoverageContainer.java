@@ -261,7 +261,6 @@ public class MetaElementCoverageContainer {
 				result.add(esf);
 			}
 		}
-		
 		return result;
 	}
 	
