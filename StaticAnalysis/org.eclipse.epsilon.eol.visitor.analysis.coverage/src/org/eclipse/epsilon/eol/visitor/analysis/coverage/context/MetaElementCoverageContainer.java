@@ -17,7 +17,7 @@ public class MetaElementCoverageContainer {
 	//container to store references
 	protected ArrayList<EStructuralFeatureHolder> references = new ArrayList<EStructuralFeatureHolder>();
 	//container to store features accessed via eOpposite
-	protected ArrayList<EStructuralFeatureHolder> featuresAccessedViaOpposite = new ArrayList<EStructuralFeatureHolder>();
+	protected ArrayList<EStructuralFeatureHolder> referencesAccessedViaOpposite = new ArrayList<EStructuralFeatureHolder>();
 	
 	//constructor
 	public MetaElementCoverageContainer(EClass eClass)
@@ -33,13 +33,6 @@ public class MetaElementCoverageContainer {
 		this.eClass = eClass;
 	}
 	
-	public ArrayList<EStructuralFeatureHolder> getAttributes() {
-		return attributes;
-	}
-	
-	public ArrayList<EStructuralFeatureHolder> getReferences() {
-		return references;
-	}
 	
 	//add attribute that is read to the container
 	public void addReadAttribute(EAttribute attribute, EolElement eolElement)
@@ -70,32 +63,97 @@ public class MetaElementCoverageContainer {
 	}
 	
 	//add reference that is read to the container
-	public void addReadReference(EReference eReference, EolElement eolElement)
+	public void addReadReference(EReference eReference, EolElement eolElement, boolean viaOpposite)
 	{
-		EStructuralFeatureHolder holder = getEReferenceContainer(eReference);
-		if (holder != null) {
-			holder.addRead(eolElement);
+		if (viaOpposite) {
+			EStructuralFeatureHolder holder = getEReferenceViaOppositeContainer(eReference);
+			if (holder != null) {
+				holder.addRead(eolElement);
+			}
+			else {
+				holder = new EStructuralFeatureHolder();
+				holder.addRead(eolElement);
+				referencesAccessedViaOpposite.add(holder);
+			}
 		}
 		else {
-			holder = new EStructuralFeatureHolder();
-			holder.addRead(eolElement);
-			references.add(holder);
+			EStructuralFeatureHolder holder = getEReferenceContainer(eReference);
+			if (holder != null) {
+				holder.addRead(eolElement);
+			}
+			else {
+				holder = new EStructuralFeatureHolder();
+				holder.addRead(eolElement);
+				references.add(holder);
+			}
 		}
+		
 	}
 	
 	//add reference that is written to the container
-	public void addWriteReference(EReference eReference, EolElement eolElement)
+	public void addWriteReference(EReference eReference, EolElement eolElement, boolean viaOpposite)
 	{
-		EStructuralFeatureHolder holder = getEReferenceContainer(eReference);
-		if (holder != null) {
-			holder.addWrite(eolElement);
+		if (viaOpposite) {
+			EStructuralFeatureHolder holder = getEReferenceViaOppositeContainer(eReference);
+			if (holder != null) {
+				holder.addRead(eolElement);
+			}
+			else {
+				holder = new EStructuralFeatureHolder();
+				holder.addWrite(eolElement);
+				referencesAccessedViaOpposite.add(holder);
+			}
+
 		}
 		else {
-			holder = new EStructuralFeatureHolder();
-			holder.addWrite(eolElement);
-			references.add(holder);
+			EStructuralFeatureHolder holder = getEReferenceContainer(eReference);
+			if (holder != null) {
+				holder.addWrite(eolElement);
+			}
+			else {
+				holder = new EStructuralFeatureHolder();
+				holder.addWrite(eolElement);
+				references.add(holder);
+			}
 		}
 	}
+	
+	public ArrayList<EStructuralFeatureHolder> getAllEAttributesContainer() 
+	{
+		return attributes;
+	}
+	
+	public ArrayList<EStructuralFeatureHolder> getEAttributesContainer()
+	{
+		ArrayList<EStructuralFeatureHolder> result = new ArrayList<EStructuralFeatureHolder>();
+		ArrayList<EStructuralFeature> usedAttributes = getUsedAttributes();
+		for(EStructuralFeatureHolder efh: attributes)
+		{
+			if (usedAttributes.contains(efh.getFeature())) {
+				result.add(efh);
+			}
+		}
+		return result;
+	}
+	
+	public ArrayList<EStructuralFeatureHolder> getAllEReferencesContainer() 
+	{
+		return references;
+	}
+	
+	public ArrayList<EStructuralFeatureHolder> getEReferencesContainer()
+	{
+		ArrayList<EStructuralFeatureHolder> result = new ArrayList<EStructuralFeatureHolder>();
+		ArrayList<EStructuralFeature> usedReferences = getUsedReferences();
+		for(EStructuralFeatureHolder efh: references)
+		{
+			if (usedReferences.contains(efh.getFeature())) {
+				result.add(efh);
+			}
+		}
+		return result;
+	}
+
 	
 	//get the container for the attribute
 	public EStructuralFeatureHolder getEAttributeContainer(EAttribute eAttribute)
@@ -113,6 +171,17 @@ public class MetaElementCoverageContainer {
 	public EStructuralFeatureHolder getEReferenceContainer(EReference eReference)
 	{
 		for(EStructuralFeatureHolder esf: references)
+		{
+			if (esf.getFeature().equals(eReference)) {
+				return esf;
+			}
+		}
+		return null;
+	}
+	
+	public EStructuralFeatureHolder getEReferenceViaOppositeContainer(EReference eReference)
+	{
+		for(EStructuralFeatureHolder esf: referencesAccessedViaOpposite)
 		{
 			if (esf.getFeature().equals(eReference)) {
 				return esf;
@@ -263,45 +332,4 @@ public class MetaElementCoverageContainer {
 		}
 		return result;
 	}
-	
-	
-	public void add(String propertyName, boolean accessedViaOpposite)
-	{
-		for(EAttribute attribute: eClass.getEAllAttributes())
-		{
-			if (attribute.getName().equals(propertyName)) {
-				if (attributes.contains(attribute)) {
-					return;
-				}
-				attributes.add(attribute);
-				return;
-			}
-			
-		}
-		for(EReference reference : eClass.getEAllReferences())
-		{
-			if (reference.getName().equals(propertyName)) {
-				if (references.contains(reference)) {
-					if (accessedViaOpposite) {
-						featuresAccessedViaOpposite.add(reference);
-					}
-					return;
-				}
-				else {
-					if (accessedViaOpposite) {
-						featuresAccessedViaOpposite.add(reference);
-					}
-					references.add(reference);
-				}
-			}
-		}
-	}
-	
-	
-	
-	
-	public ArrayList<EReference> getFeaturesAccessedViaOpposite() {
-		return featuresAccessedViaOpposite;
-	}
-	
-}
+}	
