@@ -66,6 +66,12 @@ public class OperationDefinitionCreator extends EolElementCreator{
 			Type contextType = (Type) context.getEolElementCreatorFactory().createDomElement(contextTypeAst, operation, context); //process context type
 			operation.setContextType(contextType); //assign context type
 		}
+		else {
+			AnyType contextType = context.getEolFactory().createAnyType();
+			contextType.setDeclared(false);
+			setAssets(nameAst, contextType, operation);
+			operation.setContextType(contextType);
+		}
 		
 		operation.setName((NameExpression)context.getEolElementCreatorFactory().createDomElement(nameAst, operation, context)); //process name
 		
