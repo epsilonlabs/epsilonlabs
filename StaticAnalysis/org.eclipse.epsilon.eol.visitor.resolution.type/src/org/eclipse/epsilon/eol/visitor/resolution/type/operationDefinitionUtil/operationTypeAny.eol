@@ -10,9 +10,9 @@ operation Any isKindOf(type: Type) : Boolean{} //done --------------------------
 
 operation Any type() : SelfType{} // done ---------------------------
 
-operation Any owningModel() : Model{} //tbd
+operation Any owningModel() : Model{} //tbd ========================================================================================================
 
-operation Any hasProperty(name: String) : Boolean{} //do we need a check for the target to be a modelelement????????
+operation Any hasProperty(name: String) : Boolean{} //do we need a check for the target to be a modelelement????????====================================================
 
 operation Any asString() : String{} //done ---------------------------
 
@@ -62,7 +62,7 @@ operation Any errln() : SelfType{} //done ---------------------------
 @_sysParam allowNoTarget
 operation Any errln(prefix: String) : SelfType{} //done ---------------------------
 
-operation Any format() : String{} //done ---------------------------
+operation Any format() : String{} //done --------------------------- ==============================================================================
 
 operation Any format(pattern: String) : String{} //done ---------------------------
 

@@ -31,9 +31,6 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 			}
 
 		}
-		if (context.getPessimistic()) {
-			context.getStack().pop();
-		}
 		return null;
 	}
 

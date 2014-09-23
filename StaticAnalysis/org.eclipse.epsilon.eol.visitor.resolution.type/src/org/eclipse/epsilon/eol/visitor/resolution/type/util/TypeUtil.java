@@ -315,6 +315,9 @@ public class TypeUtil {
 	//returns true if Type t1 and Type t2 are equal
 	public boolean isTypeEqual(Type t1, Type t2) //need to include native and map types
 	{
+		if (t1 == null && t2 == null) {
+			return true;
+		}
 		Type a = null;
 		Type b = null;
 		

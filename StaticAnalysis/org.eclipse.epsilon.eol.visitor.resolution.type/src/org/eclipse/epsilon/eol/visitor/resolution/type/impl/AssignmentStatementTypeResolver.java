@@ -46,7 +46,6 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 				//if rhs is of any type
 				if (rhsType instanceof AnyType) {
 					//fire a warning?
-					context.getLogBook().addWarning(rhs, "potential type mismatch");
 					
 					//get the rhs type
 					AnyType temp = (AnyType) rhsType;
@@ -59,7 +58,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 					
 					//
 					if (rhsType instanceof AnyType || rhsType instanceof VoidType) {
-						
+						context.getLogBook().addWarning(rhs, "potential type mismatch");
 					}
 					else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
 						context.getLogBook().addError(rhs, "Type mismatch");

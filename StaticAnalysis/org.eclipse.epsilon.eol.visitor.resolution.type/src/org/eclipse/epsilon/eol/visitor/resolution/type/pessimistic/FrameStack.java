@@ -83,6 +83,10 @@ public class FrameStack {
 	public boolean variableExistsInCurrentScope(String name)
 	{
 		boolean result = false;
+		if (frames.size() == 0) {
+			return false;
+		}
+		
 		Frame frame = frames.getLast();
 		if(frame.contains(name))
 		{

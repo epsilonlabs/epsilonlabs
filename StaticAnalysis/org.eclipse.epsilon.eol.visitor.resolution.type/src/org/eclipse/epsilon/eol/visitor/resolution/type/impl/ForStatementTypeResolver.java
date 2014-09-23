@@ -29,6 +29,7 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 		}
 		
 		controller.visit(forStatement.getBody(), context);
+		
 		if (context.getPessimistic()) {
 			context.getStack().pop();
 		}

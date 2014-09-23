@@ -20,7 +20,7 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 				context.getLogBook().addError(variableDeclarationExpression, "variable with same name already exists");
 			}
 			else {
-				context.getStack().putVariable(variableDeclarationExpression, false);
+				context.getStack().putVariable(variableDeclarationExpression, false); 
 			}
 		}
 		

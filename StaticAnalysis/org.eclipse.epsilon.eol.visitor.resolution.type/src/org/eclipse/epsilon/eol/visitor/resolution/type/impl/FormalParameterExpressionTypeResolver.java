@@ -12,14 +12,24 @@ public class FormalParameterExpressionTypeResolver extends FormalParameterExpres
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
-		if (context.getPessimistic()) {
-			context.getStack().push(formalParameterExpression, true);
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().push(formalParameterExpression, true);
+//		}
 		controller.visit(formalParameterExpression.getName(), context);
 		controller.visit(formalParameterExpression.getResolvedType(), context);
+
 		if (context.getPessimistic()) {
-			context.getStack().pop();
+			if (context.getStack().variableExistsInCurrentScope(formalParameterExpression.getName().getName())) {
+				context.getLogBook().addError(formalParameterExpression, "variable with same name already exists");
+			}
+			else {
+				context.getStack().putVariable(formalParameterExpression, false); 
+			}
 		}
+
+//		if (context.getPessimistic()) {
+//			context.getStack().pop();
+//		}
 		return null;
 	}
 

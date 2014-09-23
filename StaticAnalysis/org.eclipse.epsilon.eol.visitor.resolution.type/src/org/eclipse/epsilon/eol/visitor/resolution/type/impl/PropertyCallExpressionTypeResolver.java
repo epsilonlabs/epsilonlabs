@@ -70,7 +70,9 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 
 			}
 			else {
+				propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
 				context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+				return null;
 			}
 		}
 

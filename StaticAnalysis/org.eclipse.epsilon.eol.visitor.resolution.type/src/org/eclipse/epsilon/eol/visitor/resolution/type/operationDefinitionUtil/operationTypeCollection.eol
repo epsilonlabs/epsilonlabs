@@ -1,15 +1,16 @@
-@_sysParam checkCollectionArgSingle
+@_sysParam checkCollectionArgSingle, modifier
 operation Collection add(item: Any) : SelfType {} //done ---------------------------
 
-@_sysParam checkCollectionArgCollection
+@_sysParam checkCollectionArgCollection, modifier
 operation Collection addAll(col: Collection) : SelfType {} //done ---------------------------
 
-@_sysParam checkCollectionArgSingle
+@_sysParam checkCollectionArgSingle, modifier
 operation Collection remove(item: Any) : SelfType {} //done ---------------------------
 
-@_sysParam checkCollectionArgCollection
+@_sysParam checkCollectionArgCollection, modifier
 operation Collection removeAll(col: Collection) : SelfType{} //done ---------------------------
 
+@_sysParam modifier
 operation Collection clear() : SelfType{} //done ---------------------------
 
 operation Collection includes(item: Any) : Boolean{} //done ---------------------------
