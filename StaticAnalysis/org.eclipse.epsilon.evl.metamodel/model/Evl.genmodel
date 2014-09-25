@@ -29,6 +29,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Fix/do"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Evl.ecore#//Invariant">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/satisfies"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/fixes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Evl.ecore#//Invariant/check"/>
