@@ -45,6 +45,8 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Invariant" abstract="true" eSuperTypes="#//GuardedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="satisfies" upperBound="-1"
+        eType="#//Invariant"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass ../../org.eclipse.epsilon.eol.metamodel/model/Eol.ecore#//NameExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="fixes" upperBound="-1"

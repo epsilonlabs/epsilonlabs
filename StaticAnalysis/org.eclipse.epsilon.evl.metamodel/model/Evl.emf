@@ -33,6 +33,7 @@ class Fix extends EvlElement {
 
 
 abstract class Invariant extends GuardedElement {
+	ref Invariant[*] satisfies;
 	val eol.NameExpression[1] name;	
 	val Fix[*] fixes;
 	val eol.ExpressionOrStatementBlock[1] check;
