@@ -65,18 +65,18 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 					}
 					
 					TransformationRule currentRule = leContext.getCurrentRule(); //get the current rule
-					if (currentRule == null) { //if the current rule is null
-						return null;
+					if (currentRule != null) { //if the current rule is null
+						//create a rule dependency and attach the leads
+						RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
+						ruleDependency.setDependingRule(dependingRule);
+						ruleDependency.setSourceElement(specialAssignmentStatement);
+						context.setAssets(ruleDependency, currentRule);
+
+						//resolve the dependency
+						currentRule.getResolvedRuleDependencies().add(ruleDependency);
 					}
 					
-					//create a rule dependency and attach the leads
-					RuleDependency ruleDependency = leContext.getEtlFactory().createRuleDependency();
-					ruleDependency.setDependingRule(dependingRule);
-					ruleDependency.setSourceElement(specialAssignmentStatement);
-					context.setAssets(ruleDependency, currentRule);
-
-					//resolve the dependency
-					currentRule.getResolvedRuleDependencies().add(ruleDependency);
+					
 					
 					//if the depending rule has targets
 					if (dependingRule.getTargets().size() > 0) {

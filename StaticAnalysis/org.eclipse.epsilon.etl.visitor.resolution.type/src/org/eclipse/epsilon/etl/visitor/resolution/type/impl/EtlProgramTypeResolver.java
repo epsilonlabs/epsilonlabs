@@ -139,6 +139,9 @@ public class EtlProgramTypeResolver extends EtlProgramVisitor<TypeResolutionCont
 			controller.visit(tr, context);
 		}
 		
+		//deals with equivalent()/equivalents() and special assignments outside transformation rules
+		leContext.setCurrentRule(null);
+		
 		for(PostBlock pb: etlProgram.getPostBlocks())
 		{
 			controller.visit(pb, context);
