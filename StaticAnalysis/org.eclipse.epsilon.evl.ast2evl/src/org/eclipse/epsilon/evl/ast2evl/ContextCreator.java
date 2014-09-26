@@ -2,6 +2,7 @@ package org.eclipse.epsilon.evl.ast2evl;
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.AstUtilities;
@@ -74,7 +75,7 @@ public class ContextCreator extends EvlElementCreator{
 		NameExpression selfName = context.getEolFactory().createNameExpression();
 		selfName.setName("self");
 		self.setName(selfName);
-		self.setResolvedType(_theContext.getType());
+		self.setResolvedType(EcoreUtil.copy(_theContext.getType()));
 		
 		_theContext.setSelf(self);
 		

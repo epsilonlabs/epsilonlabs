@@ -231,7 +231,7 @@ public class EvlElementCreatorFactory {
 		result.add(new BlockCreator());
 		result.addAll(initiateCollectionInitValuePool());
 		result.addAll(initiateExpressionPool());
-		result.add(new ImportCreator());
+		result.add(new org.eclipse.epsilon.evl.ast2evl.ImportCreator());
 		result.add(new KeyValueCreator());
 		result.add(new ModelDeclarationParameterCreator());
 		result.add(new OperationDefinitionCreator());

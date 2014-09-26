@@ -6,5 +6,6 @@ Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.eol.ast2eol;visibility:=reexport,
  org.eclipse.epsilon.evl.engine,
- org.eclipse.epsilon.evl.metamodel
+ org.eclipse.epsilon.evl.metamodel,
+ org.eclipse.epsilon.common
 Export-Package: org.eclipse.epsilon.evl.ast2evl
