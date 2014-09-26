@@ -2,17 +2,20 @@ package org.eclipse.epsilon.evl.visitor.resolution.type.impl;
 
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
-
 import org.eclipse.epsilon.evl.metamodel.Constraint;
 import org.eclipse.epsilon.evl.metamodel.Fix;
 import org.eclipse.epsilon.evl.metamodel.visitor.ConstraintVisitor;
 import org.eclipse.epsilon.evl.metamodel.visitor.EvlVisitorController;
+import org.eclipse.epsilon.evl.visitor.resolution.type.context.EvlTypeResolutionContext;
 
 public class ConstraintTypeResolver extends ConstraintVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(Constraint constraint, TypeResolutionContext context,
 			EvlVisitorController<TypeResolutionContext, Object> controller) {
+		
+		EvlTypeResolutionContext leContext = (EvlTypeResolutionContext) context;
+		leContext.setCurrentInvariant(constraint);
 		
 		ExpressionOrStatementBlock guard = constraint.getGuard();
 		ExpressionOrStatementBlock check = constraint.getCheck();

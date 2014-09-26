@@ -11,16 +11,19 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 import org.eclipse.epsilon.evl.metamodel.Context;
 import org.eclipse.epsilon.evl.metamodel.EvlProgram;
+import org.eclipse.epsilon.evl.metamodel.Invariant;
 import org.eclipse.epsilon.evl.metamodel.PostBlock;
 import org.eclipse.epsilon.evl.metamodel.PreBlock;
 import org.eclipse.epsilon.evl.metamodel.visitor.EvlProgramVisitor;
 import org.eclipse.epsilon.evl.metamodel.visitor.EvlVisitorController;
+import org.eclipse.epsilon.evl.visitor.resolution.type.context.EvlTypeResolutionContext;
 
 public class EvlProgramTypeResolver extends EvlProgramVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(EvlProgram evlProgram, TypeResolutionContext context,
 			EvlVisitorController<TypeResolutionContext, Object> controller) {
+		EvlTypeResolutionContext leContext = (EvlTypeResolutionContext) context;
 		for(Import _import: evlProgram.getImports())
 		{
 			controller.visit(_import, context);
@@ -70,6 +73,12 @@ public class EvlProgramTypeResolver extends EvlProgramVisitor<TypeResolutionCont
 		
 		for(Context _context: evlProgram.getContexts())
 		{
+			if (_context.getInvariants() != null) {
+				for(Invariant inv: _context.getInvariants())
+				{
+					leContext.insertInv(_context, inv.getName().getName(), inv);
+				}
+			}
 			controller.visit(_context, context);
 		}
 		

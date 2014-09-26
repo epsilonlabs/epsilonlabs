@@ -7,6 +7,7 @@ import org.eclipse.epsilon.evl.metamodel.Context;
 import org.eclipse.epsilon.evl.metamodel.Invariant;
 import org.eclipse.epsilon.evl.metamodel.visitor.ContextVisitor;
 import org.eclipse.epsilon.evl.metamodel.visitor.EvlVisitorController;
+import org.eclipse.epsilon.evl.visitor.resolution.type.context.EvlTypeResolutionContext;
 
 public class ContextTypeResolver extends ContextVisitor<TypeResolutionContext, Object>{
 
@@ -14,6 +15,10 @@ public class ContextTypeResolver extends ContextVisitor<TypeResolutionContext, O
 	public Object visit(Context _context, TypeResolutionContext context,
 			EvlVisitorController<TypeResolutionContext, Object> controller) {
 
+		EvlTypeResolutionContext leContext = (EvlTypeResolutionContext) context;
+		
+		leContext.setCurrentContext(_context);
+		
 		controller.visit(_context.getType(), context);
 		
 		if (_context.getSelf() != null) {
