@@ -16,6 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.epsilon.evl.metamodel,
  org.eclipse.ui.ide,
  org.eclipse.epsilon.eol.dtx,
- org.eclipse.epsilon.evl.visitor.resolution.variable
+ org.eclipse.epsilon.evl.visitor.resolution.variable,
+ org.eclipse.epsilon.evl.visitor.resolution.type
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

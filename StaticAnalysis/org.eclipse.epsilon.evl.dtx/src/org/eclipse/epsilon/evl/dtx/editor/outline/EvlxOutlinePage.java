@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.evl.ast2evl.Ast2EvlContext;
 import org.eclipse.epsilon.evl.ast2evl.EvlElementCreatorFactory;
 import org.eclipse.epsilon.evl.visitor.resolution.impl.EvlVariableResolver;
+import org.eclipse.epsilon.evl.visitor.resolution.type.impl.EvlTypeResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -47,8 +48,10 @@ public class EvlxOutlinePage extends ModuleContentOutlinePage{
 		
 		EvlVariableResolver evlvr = new EvlVariableResolver();
 		evlvr.run(dom);
-		//EtlVariableResolver etlvr = new EtlVariableResolver();
-		//etlvr.run(dom);
+		
+		EvlTypeResolver evltr = new EvlTypeResolver();
+		evltr.getContext().setDirectoryPathString(directoryPathString);
+		evltr.run(dom);
 		
 		return new DomOutlineElement(dom);
 	}
