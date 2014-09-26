@@ -14,7 +14,7 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		controller.visitContents(plusOperatorExpression, context); //visit contents first
 		
-		Type type = context.getEolFactory().createStringType();
+		Type type = null;
 		
 		Type lhsType = plusOperatorExpression.getLhs().getResolvedType(); //get the lhs type
 		Type rhsType = plusOperatorExpression.getRhs().getResolvedType(); //get the rhs type
@@ -29,7 +29,12 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 			context.getLogBook().addError(plusOperatorExpression.getRhs(), "Cannot resolve type");
 		}
 		
-		if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
+		if (lhsType instanceof AnyType && rhsType instanceof AnyType) {
+			type = context.getEolFactory().createAnyType();
+		}
+		//if both sides are of primitive type
+		else if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
+			//if either one is a string
 			if (lhsType instanceof StringType || rhsType instanceof StringType) {
 				type = context.getEolFactory().createStringType();
 			}
@@ -49,8 +54,13 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 				type = EcoreUtil.copy(lhsType);
 			}
 		}
-		else {
-			type = context.getEolFactory().createStringType(); 
+		else if ((lhsType instanceof AnyType && !(rhsType instanceof AnyType)) || (!(lhsType instanceof AnyType) && rhsType instanceof AnyType)) {
+			if (lhsType instanceof AnyType) {
+				type = EcoreUtil.copy(rhsType);
+			}
+			else {
+				type = EcoreUtil.copy(lhsType);
+			}
 		}
 		
 		context.setAssets(type, plusOperatorExpression);

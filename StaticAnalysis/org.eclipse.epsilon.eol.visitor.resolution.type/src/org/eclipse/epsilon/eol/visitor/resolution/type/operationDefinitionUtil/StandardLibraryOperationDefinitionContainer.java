@@ -15,9 +15,9 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 		init();
 	}
 	
-	public void registerOperation(String filename)
+	public void registerOperation(Class leClass, String filename)
 	{
-		EolProgram program = ast2EolUtil.generate(getClass(), filename);
+		EolProgram program = ast2EolUtil.generate(leClass, filename);
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType
@@ -156,12 +156,12 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void init()
 	{
-		registerOperation("operationTypeAny.eol");
-		registerOperation("operationTypeCollection.eol");
-		registerOperation("operationTypeInteger.eol");
-		registerOperation("operationTypeModelElement.eol");
-		registerOperation("operationTypeReal.eol");
-		registerOperation("operationTypeString.eol");
+		registerOperation(this.getClass(), "operationTypeAny.eol");
+		registerOperation(this.getClass(), "operationTypeCollection.eol");
+		registerOperation(this.getClass(), "operationTypeInteger.eol");
+		registerOperation(this.getClass(), "operationTypeModelElement.eol");
+		registerOperation(this.getClass(), "operationTypeReal.eol");
+		registerOperation(this.getClass(), "operationTypeString.eol");
 	}
 	
 	

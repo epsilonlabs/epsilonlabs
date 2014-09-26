@@ -24,6 +24,17 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			
 			//if lhs is of type Any
 			if (lhs.getResolvedType() instanceof AnyType) {
+				
+				if (lhs instanceof NameExpression && ((NameExpression) lhs).getResolvedContent() != null && ((NameExpression) lhs).getResolvedContent() instanceof VariableDeclarationExpression) {
+					AnyType lhsType = (AnyType) lhs.getResolvedType();
+					if (lhsType.getDynamicType() != null) {
+						Type dynamicType = lhsType.getDynamicType();
+						if (!context.getTypeUtil().isEqualOrGeneric(dynamicType, rhs.getResolvedType())) {
+							VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) lhs.getResolvedType();
+							variableDeclarationExpression.setLastDefinitionPoint(assignmentStatement);
+						}
+					}
+				}
 				//get the type
 				AnyType lhsType = (AnyType) lhs.getResolvedType(); 
 				

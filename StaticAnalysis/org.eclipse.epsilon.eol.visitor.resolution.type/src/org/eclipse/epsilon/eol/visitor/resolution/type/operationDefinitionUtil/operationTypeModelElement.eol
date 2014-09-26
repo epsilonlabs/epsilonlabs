@@ -16,6 +16,3 @@ operation _ModelElementType_ isInstantiable() : Boolean {} //done
 @_sysParam modelOp
 operation _ModelElementType_ createInstance() : SelfType {} //done
 
-operation Any equivalent() : Any {}
-
-operation Any equivalents() : Any {}
