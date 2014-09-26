@@ -27,6 +27,8 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 	{
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentHandler(this));
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentsHandler(this));
+		
+		operationDefinitionControl.getStandardLibraryOperationDefinitionContainer().registerOperation(this.getClass(), "EtlOperations.eol");
 	}
 	
 	public EtlFactory getEtlFactory() {

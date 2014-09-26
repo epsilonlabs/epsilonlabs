@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.BagType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
@@ -14,9 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
-import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
