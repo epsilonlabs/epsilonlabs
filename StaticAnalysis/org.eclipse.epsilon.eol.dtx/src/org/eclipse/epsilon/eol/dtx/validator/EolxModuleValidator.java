@@ -8,6 +8,7 @@ import org.eclipse.epsilon.common.module.IModuleValidator;
 import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.Region;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl.ProgramPerformanceAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
@@ -53,7 +54,7 @@ public class EolxModuleValidator implements IModuleValidator{
 			String directoryPathString = path.substring(0, lastIndexOf+1);
 			
 
-			EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
+			EolElementCreatorFactory factory = new EolElementCreatorFactory((EolLibraryModule) arg0);
 			Ast2EolContext context = new Ast2EolContext(factory);
 			EolElement dom = factory.createDomElement(arg0.getAst(), null, context);
 			

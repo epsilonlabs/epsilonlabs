@@ -17,6 +17,7 @@ import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.parse.Region;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
@@ -60,7 +61,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
 		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
-		EolElementCreatorFactory factory = new EolElementCreatorFactory(directoryPathString);
+		EolElementCreatorFactory factory = new EolElementCreatorFactory((EolLibraryModule) module);
 		Ast2EolContext context = new Ast2EolContext(factory);
 		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		
