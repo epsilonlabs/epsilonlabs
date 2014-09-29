@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.common.util.AstUtil;
+import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -34,6 +36,9 @@ public class Ast2EolWorkbench {
 		}
 
 		AST ast = eolModule.getAst();
+		
+		
+		
 		System.out.println(ast.toStringTree());
 		
 //		System.out.println(ast.getChild(0).getChild(0).getType());
@@ -46,12 +51,20 @@ public class Ast2EolWorkbench {
 		System.out.println(ast.getChild(0).getType());
 		System.out.println(ast.getChild(0).getText());
 		
-		System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getType());
-		System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getText());
+		//eolModule.buildModel();
+
 		
-		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
-		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
+		for(EolImport imp: eolModule.getImports())
+		{
+			System.out.println(imp.getModule().getAst().toStringTree());
+		}
 		
+		//System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getType());
+//		System.out.println(ast.getChild(0).getChild(0).getChild(0).getChild(0).getText());
+//		
+//		System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
+//		System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
+//		
 		
 		Ast2EolContext context = new Ast2EolContext();
 		EolElement dom = context.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, context);
