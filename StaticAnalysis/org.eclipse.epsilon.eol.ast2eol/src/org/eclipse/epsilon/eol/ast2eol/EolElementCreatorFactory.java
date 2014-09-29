@@ -9,10 +9,10 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class EolElementCreatorFactory {
 	
+	org.eclipse.epsilon.eol.EolLibraryModule module = null;
 	
 	LinkedList<EolElement> createdEolElements;
 	LinkedList<EolElementCreator> eolElementCreators;
-	String directoryPathString = null;
 
 	public EolElementCreatorFactory()
 	{
@@ -21,11 +21,11 @@ public class EolElementCreatorFactory {
 		initialiseDomElementCreators();
 	}
 	
-	public EolElementCreatorFactory(String directoryPath)
+	public EolElementCreatorFactory(org.eclipse.epsilon.eol.EolLibraryModule module)
 	{
 		createdEolElements = new LinkedList<EolElement>();
 		eolElementCreators = new LinkedList<EolElementCreator>();
-		directoryPathString = directoryPath;
+		this.module = module;
 		initialiseDomElementCreators();
 	}
 	
@@ -370,14 +370,13 @@ public class EolElementCreatorFactory {
 		return pool.contains(ast.getType());
 	}
 	
-	public String getDirectoryPathString()
-	{
-		return directoryPathString;
-	}
-	
 	public void discardEolElement(EolElement eolElement)
 	{
 		this.createdEolElements.remove(eolElement);
+	}
+	
+	public org.eclipse.epsilon.eol.EolLibraryModule getModule() {
+		return module;
 	}
 	
 

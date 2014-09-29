@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.ast2eol;
 import java.io.File;
 
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
@@ -23,16 +24,13 @@ public class ImportCreator extends EolElementCreator{
 			String importedString = importedStringAST.getText();
 			AST importedAst = null;
 			
-			try {
-				importedAst = getAstForFile(importedString, context);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if (importedAst!=null) {
-				if (importedAst.getType() == EolParser.EOLMODULE) {
-					imp.setImportedProgram((EolLibraryModule) context.getEolElementCreatorFactory().createDomElement(importedAst, imp, context));	
+			for(EolImport leImport: context.getEolElementCreatorFactory().getModule().getImports())
+			{
+				if (leImport.getAst().equals(ast)) {
+					EolProgram importedProgram = (EolProgram) context.getEolElementCreatorFactory().createDomElement(leImport.getModule().getAst(), imp, context);
+					if (importedProgram != null) {
+						imp.setImportedProgram(importedProgram);
+					}
 				}
 			}
 			imp.setImported((StringExpression)context.getEolElementCreatorFactory().createDomElement(importedStringAST, imp, context)); //create an StringExpression for the imported string
@@ -41,30 +39,30 @@ public class ImportCreator extends EolElementCreator{
 		return imp;
 	}
 	
-	protected AST getAstForFile(String s, Ast2EolContext context) throws Exception
-	{
-		String directoryPath = context.getEolElementCreatorFactory().getDirectoryPathString();
-		if (directoryPath != null && s.endsWith(".eol")) {
-			/*String fullPath = directoryPath + s;
-			File file = new File(fullPath);
-			ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(file));
-			EolLexer lexer = new EolLexer(input);
-			CommonTokenStream stream = new CommonTokenStream(lexer);
-			EolParser parser = new EolParser(stream);
-			EpsilonTreeAdaptor adaptor = new EpsilonTreeAdaptor(file);
-			parser.setDeepTreeAdaptor(adaptor);
-			AST ast = (AST) parser.eolModule().getTree();	
-			return ast;*/
-			EolModule eolModule = new EolModule();
-			String fullPath = directoryPath + s;
-			File file = new File(fullPath);
-			eolModule.parse(file);
-			return eolModule.getAst();
-		}
-		else {
-			return null;
-		}
-	}
+//	protected AST getAstForFile(String s, Ast2EolContext context) throws Exception
+//	{
+//		String directoryPath = context.getEolElementCreatorFactory().getDirectoryPathString();
+//		if (directoryPath != null && s.endsWith(".eol")) {
+//			/*String fullPath = directoryPath + s;
+//			File file = new File(fullPath);
+//			ANTLRInputStream input = new ANTLRInputStream(new FileInputStream(file));
+//			EolLexer lexer = new EolLexer(input);
+//			CommonTokenStream stream = new CommonTokenStream(lexer);
+//			EolParser parser = new EolParser(stream);
+//			EpsilonTreeAdaptor adaptor = new EpsilonTreeAdaptor(file);
+//			parser.setDeepTreeAdaptor(adaptor);
+//			AST ast = (AST) parser.eolModule().getTree();	
+//			return ast;*/
+//			EolModule eolModule = new EolModule();
+//			String fullPath = directoryPath + s;
+//			File file = new File(fullPath);
+//			eolModule.parse(file);
+//			return eolModule.getAst();
+//		}
+//		else {
+//			return null;
+//		}
+//	}
 
 	@Override
 	public boolean appliesTo(AST ast) {
