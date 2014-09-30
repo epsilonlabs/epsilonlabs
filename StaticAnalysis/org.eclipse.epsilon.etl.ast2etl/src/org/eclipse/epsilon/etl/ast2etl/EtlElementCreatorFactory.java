@@ -4,6 +4,7 @@ package org.eclipse.epsilon.etl.ast2etl;
 import java.util.ArrayList;
 
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.ast2eol.AbortStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.AndOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.AnnotationBlockCreator;
@@ -101,7 +102,7 @@ public class EtlElementCreatorFactory {
 	
 	ArrayList<EolElement> createdEolElements;
 	ArrayList<EolElementCreator> domElementCreators;
-	String directoryPathString = null;
+	EolLibraryModule module = null;
 
 	public EtlElementCreatorFactory()
 	{
@@ -110,11 +111,11 @@ public class EtlElementCreatorFactory {
 		initialiseDomElementCreators();
 	}
 	
-	public EtlElementCreatorFactory(String directoryPath)
+	public EtlElementCreatorFactory(EolLibraryModule module)
 	{
 		createdEolElements = new ArrayList<EolElement>();
 		domElementCreators = new ArrayList<EolElementCreator>();
-		directoryPathString = directoryPath;
+		this.module = module;
 		initialiseDomElementCreators();
 	}
 	
@@ -231,8 +232,8 @@ public class EtlElementCreatorFactory {
 		result.add(new BlockCreator());
 		result.addAll(initiateCollectionInitValuePool());
 		result.addAll(initiateExpressionPool());
-		//result.add(new ImportCreator());
-		result.add(new org.eclipse.epsilon.etl.ast2etl.ImportCreator());
+		result.add(new ImportCreator());
+//		result.add(new org.eclipse.epsilon.etl.ast2etl.ImportCreator());
 		result.add(new KeyValueCreator());
 		result.add(new ModelDeclarationParameterCreator());
 		result.add(new EtlProgramCreator());
@@ -476,11 +477,8 @@ public class EtlElementCreatorFactory {
 		ArrayList<Integer> pool = getStatementKeywords();
 		return pool.contains(ast.getType());
 	}
-	
-	public String getDirectoryPathString()
-	{
-		return directoryPathString;
-	}
-	
 
+	public EolLibraryModule getModule() {
+		return module;
+	}
 }
