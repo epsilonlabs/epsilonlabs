@@ -270,7 +270,7 @@ class Type extends EolElement {
 }
 
 class AnyType extends Type {
-  val Type dynamicType;
+  val Type[*] dynamicTypes;
   attr boolean declared;
 }
 

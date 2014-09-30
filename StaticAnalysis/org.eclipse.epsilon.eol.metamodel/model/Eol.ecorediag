@@ -4224,7 +4224,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_GxoF4f6nEeKy3qzlvS4lCg" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_GxoF4v6nEeKy3qzlvS4lCg" fontColor="4210752" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Eol.ecore#//AnyType/dynamicType"/>
+    <element xmi:type="ecore:EReference" href="Eol.ecore#//AnyType/dynamicTypes"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GxoF4_6nEeKy3qzlvS4lCg" points="[50, -13, -670, 162]$[713, -195, -7, -20]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_FpS8sErWEeOrgodHRmgRxg" type="3003" source="_CQcxkErWEeOrgodHRmgRxg" target="_KH9QUCw0EeK7YdpDjc97Ew">
