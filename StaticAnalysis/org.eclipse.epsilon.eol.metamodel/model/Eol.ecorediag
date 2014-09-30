@@ -2444,10 +2444,6 @@
     </eAnnotations>
     <children xmi:type="notation:Node" xmi:id="_L5DzYPelEeOPDsRIcuzRlw" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_L5EacPelEeOPDsRIcuzRlw" type="5001">
-      <children xmi:type="notation:Node" xmi:id="_L57WEPelEeOPDsRIcuzRlw" type="2001">
-        <element xmi:type="ecore:EAttribute" href="Eol.ecore#//VariableDeclarationExpression/lastDefinitionPoint"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_L57WEfelEeOPDsRIcuzRlw"/>
-      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_L5EacfelEeOPDsRIcuzRlw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_L5EacvelEeOPDsRIcuzRlw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_L5Eac_elEeOPDsRIcuzRlw"/>

@@ -149,7 +149,7 @@ class VariableDeclarationExpression extends Expression {
   val NameExpression[1] name;
   val BooleanExpression create;
   val Expression[*] parameters;
-  transient attr EJavaObject[1] lastDefinitionPoint;
+  transient attr EJavaObject[*] definitionPoints;
 }
 
 class XorOperatorExpression extends BinaryOperatorExpression {

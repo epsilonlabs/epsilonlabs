@@ -100,7 +100,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//VariableDeclarationExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//VariableDeclarationExpression/create"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//VariableDeclarationExpression/parameters"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//VariableDeclarationExpression/lastDefinitionPoint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Eol.ecore#//VariableDeclarationExpression/definitionPoints"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//XorOperatorExpression"/>
     <genClasses ecoreClass="Eol.ecore#//OperationDefinition">
