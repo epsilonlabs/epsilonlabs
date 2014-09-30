@@ -26,6 +26,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.util.TypeUtil;
 
 public class TypeResolutionContext {
 	
+	protected org.eclipse.epsilon.eol.EolLibraryModule module = null;
+	
 	//the frameStack
 	protected FrameStack stack = new FrameStack();
 	
@@ -55,9 +57,6 @@ public class TypeResolutionContext {
 	
 	//operation definition container used to store user defined operations
 	protected OperationDefinitionControl operationDefinitionControl = new OperationDefinitionControl(this);
-	
-	//the path string of the program in question
-	protected String directoryPathString;
 	
 	
 	protected ArrayList<VariableDeclarationExpression> bestGuessVariableDeclarations = new ArrayList<VariableDeclarationExpression>();
@@ -95,6 +94,11 @@ public class TypeResolutionContext {
 		
 	}
 	
+	public TypeResolutionContext(org.eclipse.epsilon.eol.EolLibraryModule module)
+	{
+		this.module = module;
+	}
+	
 	public TypeResolutionContext(boolean pessimistic)
 	{
 		this.pessimistic = pessimistic;
@@ -106,14 +110,6 @@ public class TypeResolutionContext {
 		Type type2 = context.getEolFactory().createAnyType();
 		
 		System.out.println(context.getTypeUtil().isEqualOrGeneric(type2, type1));	
-	}
-	
-	public void setDirectoryPathString(String directoryPathString) {
-		this.directoryPathString = directoryPathString;
-	}
-	
-	public String getDirectoryPathString() {
-		return directoryPathString;
 	}
 	
 	//return the logbook
@@ -333,6 +329,26 @@ public class TypeResolutionContext {
 	
 	public FrameStack getStack() {
 		return stack;
+	}
+	
+	
+	public org.eclipse.epsilon.eol.EolLibraryModule getModule() {
+		return module;
+	}
+	
+	public void setModule(org.eclipse.epsilon.eol.EolLibraryModule module) {
+		this.module = module;
+	}
+	
+	public String getDirectory(String path)
+	{
+		int lastIndexOf = path.lastIndexOf("/");
+		return path.substring(0, lastIndexOf+1);
+	}
+	
+	public String getParentFolderDirectory()
+	{
+		return getDirectory(module.getSourceFile().getAbsolutePath());
 	}
 
 }

@@ -111,11 +111,9 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 				
 				//create a new XMLMetaModel
 				PlainXMLMetamodelDriver metaModel = new PlainXMLMetamodelDriver();
-				String directoryPath = context.getDirectoryPathString();
-				
 				
 				try {
-					metaModel.loadModel(directoryPath + sourceString);
+					metaModel.loadModel(context.getParentFolderDirectory() + sourceString);
 				} catch (Exception e) {
 					context.getLogBook().addError(modelDeclarationStatement, "cannot load model: " + e.getMessage());
 					return null;
