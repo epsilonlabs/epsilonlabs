@@ -43,7 +43,7 @@ public class Ast2EvlWorkbench {
 		//System.out.println(ast.getChild(0).getChild(0).getChild(1).getType());
 		//System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 
-		Ast2EvlContext context = new Ast2EvlContext();
+		Ast2EvlContext context = new Ast2EvlContext(evlModule);
 		EolElement dom = (EolElement) context.getEvlElementCreatorFactory().createDomElement(evlModule.getAst(), null, context);
 		
 //		Ast2EolContext context = new Ast2EolContext();

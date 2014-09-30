@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.evl.ast2evl.Ast2EvlContext;
@@ -42,15 +43,15 @@ public class EvlxOutlinePage extends ModuleContentOutlinePage{
 		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
 		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
-		EvlElementCreatorFactory factory = new EvlElementCreatorFactory(directoryPathString);
-		Ast2EvlContext context = new Ast2EvlContext(factory);
+		
+		Ast2EvlContext context = new Ast2EvlContext((EolLibraryModule) module);
+		EvlElementCreatorFactory factory = context.getEvlElementCreatorFactory();
 		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		
 		EvlVariableResolver evlvr = new EvlVariableResolver();
 		evlvr.run(dom);
 		
-		EvlTypeResolver evltr = new EvlTypeResolver();
-		evltr.getContext().setDirectoryPathString(directoryPathString);
+		EvlTypeResolver evltr = new EvlTypeResolver((EolLibraryModule) module);
 		evltr.run(dom);
 		
 		return new DomOutlineElement(dom);

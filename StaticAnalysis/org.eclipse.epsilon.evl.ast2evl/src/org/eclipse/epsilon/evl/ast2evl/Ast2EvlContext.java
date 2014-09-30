@@ -3,6 +3,7 @@ package org.eclipse.epsilon.evl.ast2evl;
 import java.util.HashMap;
 
 import org.eclipse.epsilon.common.parse.AST;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
@@ -11,13 +12,14 @@ import org.eclipse.epsilon.evl.metamodel.EvlFactory;
 import org.eclipse.epsilon.evl.metamodel.EvlPackage;
 
 public class Ast2EvlContext extends Ast2EolContext {
-	EvlElementCreatorFactory evlElementCreatorFactory;
-	EolFactory eolFactory;
-	EvlFactory evlFactory;
-	HashMap<EolElement, AST> trace = new HashMap<EolElement, AST>();
+	protected EvlElementCreatorFactory evlElementCreatorFactory;
+	protected EolFactory eolFactory;
+	protected EvlFactory evlFactory;
+	protected HashMap<EolElement, AST> trace = new HashMap<EolElement, AST>();
 	
-	public Ast2EvlContext()
+	public Ast2EvlContext(EolLibraryModule module)
 	{
+		this.module = module;
 		evlElementCreatorFactory = new EvlElementCreatorFactory();
 		eolFactory = EolPackage.eINSTANCE.getEolFactory();
 		evlFactory = EvlPackage.eINSTANCE.getEvlFactory();
