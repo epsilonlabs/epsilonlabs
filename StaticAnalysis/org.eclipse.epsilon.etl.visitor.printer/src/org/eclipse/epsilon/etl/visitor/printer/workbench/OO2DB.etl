@@ -1,5 +1,3 @@
-import "loadModels.eol";
- 
 pre {
   "Running ETL".println();
   var db : new DB!Database;

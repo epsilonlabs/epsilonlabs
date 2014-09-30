@@ -29,7 +29,7 @@ public class Example {
 		
 		System.out.println(ast.toStringTree());
 		
-		Ast2EtlContext context = new Ast2EtlContext();
+		Ast2EtlContext context = new Ast2EtlContext(etlModule);
 		EolElement dom = context.getEtlElementCreatorFactory().createDomElement(etlModule.getAst(), null, context);
 		
 		System.err.println(context.getEtlElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");
