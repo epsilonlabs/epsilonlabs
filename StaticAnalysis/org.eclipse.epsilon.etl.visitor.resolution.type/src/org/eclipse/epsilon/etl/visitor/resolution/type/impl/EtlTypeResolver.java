@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.etl.visitor.resolution.type.impl;
 
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
@@ -37,10 +38,11 @@ import org.eclipse.epsilon.etl.visitor.resolution.type.context.EtlTypeResolution
 public class EtlTypeResolver{
 
 	protected EtlVisitorController<TypeResolutionContext, Object> controller = new EtlVisitorController<TypeResolutionContext, Object>();
-	protected EtlTypeResolutionContext context = new EtlTypeResolutionContext();
+	protected EtlTypeResolutionContext context = null;
 	
-	public EtlTypeResolver()
+	public EtlTypeResolver(EolLibraryModule module)
 	{
+		context = new EtlTypeResolutionContext(module);
 		controller.addImportVisitor(new ImportTypeResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
 		controller.addEolProgramVisitor(new ProgramTypeResolver());

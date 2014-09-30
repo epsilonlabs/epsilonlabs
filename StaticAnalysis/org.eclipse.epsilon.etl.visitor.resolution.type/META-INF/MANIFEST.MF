@@ -6,5 +6,6 @@ Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.etl.metamodel.visitor,
  org.eclipse.epsilon.eol.visitor.resolution.type;visibility:=reexport,
- org.eclipse.epsilon.static.analysis.problem.log
+ org.eclipse.epsilon.static.analysis.problem.log,
+ org.eclipse.epsilon.eol.engine
 Export-Package: org.eclipse.epsilon.etl.visitor.resolution.type.impl

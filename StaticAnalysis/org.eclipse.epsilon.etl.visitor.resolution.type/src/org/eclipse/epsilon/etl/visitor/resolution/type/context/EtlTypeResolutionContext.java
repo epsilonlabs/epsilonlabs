@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import log.Error;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotation;
@@ -18,13 +19,15 @@ import org.eclipse.epsilon.etl.visitor.resolution.type.handler.EquivalentsHandle
 
 public class EtlTypeResolutionContext extends TypeResolutionContext{
 
+	protected EolLibraryModule module;
 	protected TransformationRule currentRule;
 	protected EtlFactory etlFactory = EtlFactory.eINSTANCE;
 	protected ArrayList<Expression> surpressionList = new ArrayList<Expression>();
 	
 	
-	public EtlTypeResolutionContext()
+	public EtlTypeResolutionContext(EolLibraryModule module)
 	{
+		this.module = module;
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentHandler(this));
 		operationDefinitionControl.getHandlerFactory().addHandler(new EquivalentsHandler(this));
 		
@@ -543,6 +546,8 @@ public class EtlTypeResolutionContext extends TypeResolutionContext{
 			}
 		}
 	}
+	
+
 	
 	
 
