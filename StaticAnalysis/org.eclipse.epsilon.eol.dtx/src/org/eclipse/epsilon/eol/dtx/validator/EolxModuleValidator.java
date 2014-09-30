@@ -54,8 +54,8 @@ public class EolxModuleValidator implements IModuleValidator{
 			String directoryPathString = path.substring(0, lastIndexOf+1);
 			
 
-			EolElementCreatorFactory factory = new EolElementCreatorFactory((EolLibraryModule) arg0);
-			Ast2EolContext context = new Ast2EolContext(factory);
+			Ast2EolContext context = new Ast2EolContext((EolLibraryModule) arg0);
+			EolElementCreatorFactory factory = context.getEolElementCreatorFactory();
 			EolElement dom = factory.createDomElement(arg0.getAst(), null, context);
 			
 			VariableResolver vr = new VariableResolver();
@@ -79,7 +79,6 @@ public class EolxModuleValidator implements IModuleValidator{
 			}
 			
 			TypeResolver tr = new TypeResolver();
-			tr.getTypeResolutionContext().setDirectoryPathString(directoryPathString);
 			tr.run(dom);
 			
 			for(log.Error error: tr.getTypeResolutionContext().getLogBook().getErrors())

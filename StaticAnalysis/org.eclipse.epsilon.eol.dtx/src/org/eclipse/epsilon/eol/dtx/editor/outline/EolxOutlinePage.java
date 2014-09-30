@@ -61,15 +61,14 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
 		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
-		EolElementCreatorFactory factory = new EolElementCreatorFactory((EolLibraryModule) module);
-		Ast2EolContext context = new Ast2EolContext(factory);
+		Ast2EolContext context = new Ast2EolContext((EolLibraryModule) module);
+		EolElementCreatorFactory factory = context.getEolElementCreatorFactory();
 		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		
 		VariableResolver vr = new VariableResolver();
 		vr.run(dom);
 		
 		TypeResolver tr = new TypeResolver();
-		tr.getTypeResolutionContext().setDirectoryPathString(directoryPathString);
 		tr.run(dom);
 		
 		return new DomOutlineElement(dom);
