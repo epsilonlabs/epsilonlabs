@@ -8,10 +8,9 @@ import org.eclipse.epsilon.common.module.IModuleValidator;
 import org.eclipse.epsilon.common.module.ModuleMarker;
 import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.Region;
-
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-
 import org.eclipse.epsilon.etl.EtlModule;
 import org.eclipse.epsilon.etl.ast2etl.Ast2EtlContext;
 import org.eclipse.epsilon.etl.ast2etl.EtlElementCreatorFactory;
@@ -34,18 +33,22 @@ public class EtlxModuleValidator implements IModuleValidator{
 		if (arg0 instanceof EtlModule) {
 			String path = arg0.getSourceUri().getPath();
 			//System.err.println("=============" + path);
-			int lastIndexOf = path.lastIndexOf("/");
+			
 			//System.out.println("--------------------" + lastIndexOf);
 			//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
+			int lastIndexOf = path.lastIndexOf("/");
 			String directoryPathString = path.substring(0, lastIndexOf+1);
 			
 
-			EtlElementCreatorFactory factory = new EtlElementCreatorFactory(directoryPathString);
-			Ast2EtlContext context = new Ast2EtlContext(factory);
+			Ast2EtlContext context = new Ast2EtlContext((EolLibraryModule) arg0);
+			EtlElementCreatorFactory factory = context.getEtlElementCreatorFactory();
 			EolElement dom = factory.createDomElement(arg0.getAst(), null, context);
 			
 			EtlVariableResolver etlvr = new EtlVariableResolver();
 			etlvr.run(dom);
+			
+			EtlTypeResolver etltr = new EtlTypeResolver((EolLibraryModule) arg0);
+			etltr.run(dom);
 			
 			int warnings = 0;
 			for(log.Error error: etlvr.getContext().getLogBook().getErrors())
@@ -65,10 +68,6 @@ public class EtlxModuleValidator implements IModuleValidator{
 				warnings++;
 			}
 			
-			EtlTypeResolver etltr = new EtlTypeResolver();
-			
-			etltr.getContext().setDirectoryPathString(directoryPathString);
-			etltr.run(dom);
 			
 			for(log.Error error: etltr.getContext().getLogBook().getErrors())
 			{

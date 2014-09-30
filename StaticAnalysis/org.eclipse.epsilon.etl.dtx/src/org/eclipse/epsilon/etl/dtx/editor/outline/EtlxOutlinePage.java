@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.dtx.editor.outline.DomOutlineElement;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
@@ -40,18 +41,14 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 	@Override
 	public Object getOutlineRoot(IModule module) {
 		
-		String path = module.getSourceUri().getPath();		
-		int lastIndexOf = path.lastIndexOf("/");
-		String directoryPathString = path.substring(0, lastIndexOf+1);		
-		
-		EtlElementCreatorFactory factory = new EtlElementCreatorFactory(directoryPathString);
-		Ast2EtlContext context = new Ast2EtlContext(factory);
+		Ast2EtlContext context = new Ast2EtlContext((EolLibraryModule) module);
+		EtlElementCreatorFactory factory = context.getEtlElementCreatorFactory();
 		EolElement dom = factory.createDomElement(module.getAst(), null, context);
 		
 		EtlVariableResolver etlvr = new EtlVariableResolver();
 		etlvr.run(dom);
 		
-		EtlTypeResolver etltr = new EtlTypeResolver();
+		EtlTypeResolver etltr = new EtlTypeResolver((EolLibraryModule) module);
 		etltr.run(dom);
 		
 		etlxEditor.setEolLibraryModule(dom);

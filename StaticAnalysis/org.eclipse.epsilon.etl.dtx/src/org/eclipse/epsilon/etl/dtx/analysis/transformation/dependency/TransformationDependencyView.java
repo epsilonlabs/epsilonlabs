@@ -82,17 +82,17 @@ public class TransformationDependencyView extends ViewPart {
 	}
 
 	public EtlxEditor getEditor()
-	  {
-		  IWorkbench wb = PlatformUI.getWorkbench();
-			IWorkbenchWindow window = wb.getActiveWorkbenchWindow();
-			IWorkbenchPage page = window.getActivePage();
-			IEditorPart editor = page.getActiveEditor();
-			if (editor instanceof EtlxEditor) {
-				return (EtlxEditor) editor;
-			}
-			else {
-				return null;
-			}
-	  }
+	{
+		IWorkbench wb = PlatformUI.getWorkbench();
+		IWorkbenchWindow window = wb.getActiveWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		IEditorPart editor = page.getActiveEditor();
+		if (editor instanceof EtlxEditor) {
+			return (EtlxEditor) editor;
+		}
+		else {
+			return null;
+		}
+	}
 
 }
