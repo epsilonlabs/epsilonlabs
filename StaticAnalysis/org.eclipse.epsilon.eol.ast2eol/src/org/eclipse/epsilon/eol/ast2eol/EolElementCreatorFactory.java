@@ -9,23 +9,13 @@ import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class EolElementCreatorFactory {
 	
-	org.eclipse.epsilon.eol.EolLibraryModule module = null;
-	
-	LinkedList<EolElement> createdEolElements;
-	LinkedList<EolElementCreator> eolElementCreators;
+	protected LinkedList<EolElement> createdEolElements;
+	protected LinkedList<EolElementCreator> eolElementCreators;
 
 	public EolElementCreatorFactory()
 	{
 		createdEolElements = new LinkedList<EolElement>();
 		eolElementCreators = new LinkedList<EolElementCreator>();
-		initialiseDomElementCreators();
-	}
-	
-	public EolElementCreatorFactory(org.eclipse.epsilon.eol.EolLibraryModule module)
-	{
-		createdEolElements = new LinkedList<EolElement>();
-		eolElementCreators = new LinkedList<EolElementCreator>();
-		this.module = module;
 		initialiseDomElementCreators();
 	}
 	
@@ -375,9 +365,4 @@ public class EolElementCreatorFactory {
 		this.createdEolElements.remove(eolElement);
 	}
 	
-	public org.eclipse.epsilon.eol.EolLibraryModule getModule() {
-		return module;
-	}
-	
-
 }

@@ -1,11 +1,11 @@
 package org.eclipse.epsilon.eol.ast2eol;
 
-import java.io.File;
-
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolImport;
-import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EolProgram;
+import org.eclipse.epsilon.eol.metamodel.Import;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 
@@ -21,10 +21,7 @@ public class ImportCreator extends EolElementCreator{
 		AST importedStringAST = ast.getFirstChild(); //obtain the imported string AST
 		if(importedStringAST != null)
 		{
-			String importedString = importedStringAST.getText();
-			AST importedAst = null;
-			
-			for(EolImport leImport: context.getEolElementCreatorFactory().getModule().getImports())
+			for(EolImport leImport: context.getModule().getImports())
 			{
 				if (leImport.getAst().equals(ast)) {
 					EolProgram importedProgram = (EolProgram) context.getEolElementCreatorFactory().createDomElement(leImport.getModule().getAst(), imp, context);
