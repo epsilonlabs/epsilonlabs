@@ -36,10 +36,12 @@ import org.eclipse.epsilon.evl.visitor.resolution.type.context.EvlTypeResolution
 public class EvlTypeResolver {
 
 	protected EvlVisitorController<TypeResolutionContext, Object> controller = new EvlVisitorController<TypeResolutionContext, Object>();
-	protected EvlTypeResolutionContext context = new EvlTypeResolutionContext();
+	protected EvlTypeResolutionContext context = null;
 	
-	public EvlTypeResolver()
+	public EvlTypeResolver(org.eclipse.epsilon.eol.EolLibraryModule module)
 	{
+		context = new EvlTypeResolutionContext(module);
+		
 		controller.addImportVisitor(new ImportTypeResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
 		controller.addEolProgramVisitor(new ProgramTypeResolver());

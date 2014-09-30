@@ -15,8 +15,9 @@ public class EvlTypeResolutionContext extends TypeResolutionContext{
 	protected Context currentContext = null;
 	protected Invariant currentInvariant = null;
 	
-	public EvlTypeResolutionContext()
+	public EvlTypeResolutionContext(org.eclipse.epsilon.eol.EolLibraryModule module)
 	{
+		this.module = module;
 		operationDefinitionControl.getHandlerFactory().addHandler(new SatisfiesHandler(this));
 		operationDefinitionControl.getHandlerFactory().addHandler(new SatisfiesAllHandler(this));
 		operationDefinitionControl.getHandlerFactory().addHandler(new SatisfiesOneHandler(this));
