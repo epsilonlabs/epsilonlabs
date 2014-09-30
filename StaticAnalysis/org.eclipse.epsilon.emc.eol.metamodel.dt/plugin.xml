@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.epsilon.common.dt.modelType">
+      <modelType
+            class="org.eclipse.epsilon.emc.eol.metamodel.dt.EolMetamodelModel"
+            dialog="org.eclipse.epsilon.emc.eol.metamodel.dt.EolMetamodelModelConfigurationDialog"
+            icon="images/xml.png"
+            label="Epsilon Program"
+            stable="true"
+            type="DOM">
+      </modelType>
+   </extension>
+
+</plugin>
