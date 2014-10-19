@@ -164,6 +164,7 @@ class OperationDefinition extends EolElement {
   val FormalParameterExpression[*] parameters;
   val VariableDeclarationExpression[1] self;
   val VariableDeclarationExpression _result;
+  ref OperationDefinition[*] dependingOperationDefinitions;
 }
 
 class AssignmentStatement extends Statement {

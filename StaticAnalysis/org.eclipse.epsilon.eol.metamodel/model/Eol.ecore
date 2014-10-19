@@ -157,6 +157,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="_result" eType="#//VariableDeclarationExpression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dependingOperationDefinitions"
+        upperBound="-1" eType="#//OperationDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssignmentStatement" eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="lhs" lowerBound="1" eType="#//Expression"

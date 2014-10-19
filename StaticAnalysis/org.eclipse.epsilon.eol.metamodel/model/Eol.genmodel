@@ -112,6 +112,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//OperationDefinition/parameters"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//OperationDefinition/self"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//OperationDefinition/_result"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Eol.ecore#//OperationDefinition/dependingOperationDefinitions"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//AssignmentStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//AssignmentStatement/lhs"/>
