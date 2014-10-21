@@ -172,19 +172,6 @@ public class SpecialAssignmentStatementTypeResolver extends SpecialAssignmentSta
 		return null;
 	}
 	
-	public Type getDynamicType(AnyType anyType)
-	{
-		while(anyType.getDynamicType() != null)
-		{
-			if (anyType.getDynamicType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getDynamicType();
-			}
-			else {
-				return anyType.getDynamicType();
-			}
-		}
-		return anyType;
-	}
 
 
 }
