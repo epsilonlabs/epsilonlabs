@@ -17,7 +17,8 @@ import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.EolProgram;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier2.impl.TypeResolver_T2;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
 public class EolxModuleValidator implements IModuleValidator{
@@ -81,6 +82,9 @@ public class EolxModuleValidator implements IModuleValidator{
 			TypeResolver tr = new TypeResolver();
 			tr.run(dom);
 			
+			TypeResolver_T2 tr2 = new TypeResolver_T2();
+			tr2.run(dom);
+			
 			for(log.Error error: tr.getTypeResolutionContext().getLogBook().getErrors())
 			{
 				TextRegion textRegion = error.getDomElement().getRegion();
@@ -89,6 +93,23 @@ public class EolxModuleValidator implements IModuleValidator{
 				markers.add(marker);
 			}
 			for(log.Warning warning: tr.getTypeResolutionContext().getLogBook().getWarnings())
+			{
+				TextRegion textRegion = warning.getDomElement().getRegion();
+				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+
+				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+				markers.add(marker);
+				warnings++;
+			}
+			
+			for(log.Error error: tr2.getTypeResolutionContext().getLogBook().getErrors())
+			{
+				TextRegion textRegion = error.getDomElement().getRegion();
+				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+				markers.add(marker);
+			}
+			for(log.Warning warning: tr2.getTypeResolutionContext().getLogBook().getWarnings())
 			{
 				TextRegion textRegion = warning.getDomElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());

@@ -25,7 +25,8 @@ import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
 import org.eclipse.epsilon.eol.performance.analysis.impl.PerformanceAnalyser;
-import org.eclipse.epsilon.eol.visitor.resolution.type.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier2.impl.TypeResolver_T2;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -70,6 +71,9 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 		
 		TypeResolver tr = new TypeResolver();
 		tr.run(dom);
+		
+		TypeResolver_T2 tr2 = new TypeResolver_T2();
+		tr2.run(dom);
 		
 		return new DomOutlineElement(dom);
 	}
