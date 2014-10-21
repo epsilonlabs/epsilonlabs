@@ -18,9 +18,12 @@ public class VariableResolutionContext {
 	protected FrameStack stack = new FrameStack(); //the frameStack
 	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
 	
+	protected ArrayList<AssignmentStatement> assignmentsToAvoid = new ArrayList<AssignmentStatement>();
+	
 //	protected Ast2EolUtil ast2DomUtil = new Ast2EolUtil();
 //	protected EolFactory eolFactory = new EolFactoryImpl(); //the eolFactory for creating DomElements
 
+	protected EolElement currentEolElement = null;
 	
 	protected EolLibraryModule mainProgram = null; //main program, which is the EOL program in question
 
@@ -110,6 +113,30 @@ public class VariableResolutionContext {
 	public void putModelName(String name)
 	{
 		modelNames.add(name);
+	}
+	
+	public ArrayList<AssignmentStatement> getAssignmentsToAvoid() {
+		return assignmentsToAvoid;
+	}
+	
+	public void addAssignmentToAvoid(AssignmentStatement assignmentStatement)
+	{
+		if (!assignmentsToAvoid.contains(assignmentStatement)) {
+			assignmentsToAvoid.add(assignmentStatement);	
+		}
+	}
+	
+	public boolean isAssignmentToAvoid(AssignmentStatement assignmentStatement)
+	{
+		return assignmentsToAvoid.contains(assignmentStatement);
+	}
+	
+	public void setCurrentEolElement(EolElement currentEolElement) {
+		this.currentEolElement = currentEolElement;
+	}
+	
+	public EolElement getCurrentEolElement() {
+		return currentEolElement;
 	}
 	
 }
