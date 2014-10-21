@@ -13,14 +13,14 @@ public class SwitchCaseExpressionStatementTypeResolver extends SwitchCaseExpress
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		if (context.getPessimistic()) {
-			context.getStack().push(switchCaseExpressionStatement, true);	
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().push(switchCaseExpressionStatement, true);	
+//		}
 		controller.visit(switchCaseExpressionStatement.getExpression(), context);
 		controller.visit(switchCaseExpressionStatement.getBody(), context);
-		if (context.getPessimistic()) {
-			context.getStack().pop();
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().pop();
+//		}
 		return null;
 	}
 

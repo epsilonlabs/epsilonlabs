@@ -18,14 +18,14 @@ public class FormalParameterExpressionTypeResolver extends FormalParameterExpres
 		controller.visit(formalParameterExpression.getName(), context);
 		controller.visit(formalParameterExpression.getResolvedType(), context);
 
-		if (context.getPessimistic()) {
-			if (context.getStack().variableExistsInCurrentScope(formalParameterExpression.getName().getName())) {
-				context.getLogBook().addError(formalParameterExpression, "variable with same name already exists");
-			}
-			else {
-				context.getStack().putVariable(formalParameterExpression, false); 
-			}
-		}
+//		if (context.getPessimistic()) {
+//			if (context.getStack().variableExistsInCurrentScope(formalParameterExpression.getName().getName())) {
+//				context.getLogBook().addError(formalParameterExpression, "variable with same name already exists");
+//			}
+//			else {
+//				context.getStack().putVariable(formalParameterExpression, false); 
+//			}
+//		}
 
 //		if (context.getPessimistic()) {
 //			context.getStack().pop();

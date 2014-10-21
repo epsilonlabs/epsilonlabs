@@ -29,8 +29,8 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				controller.visit(argument, context); //resolve the type of the argument first
 				if (argument.getResolvedType() instanceof AnyType) { //if is anytype
 					AnyType argType = (AnyType) argument.getResolvedType(); //get the argument type
-					if (argType.getDynamicType() != null) { //if type has a temp type
-						argTypes.add(EcoreUtil.copy(argType.getDynamicType())); //if there's a temp type, set the type to be the temp type
+					if (argType.getDynamicTypes() != null) { //if type has a temp type
+						argTypes.add(EcoreUtil.copy(context.getDynamicType(argType))); //if there's a temp type, set the type to be the temp type
 					}
 					else {
 						argTypes.add(EcoreUtil.copy(argType));
@@ -51,8 +51,8 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				controller.visit(argument, context); //resolve the type of the argument first
 				if (argument.getResolvedType() instanceof AnyType) { //if is anytype
 					AnyType argumentType = (AnyType) argument.getResolvedType(); //get the argument type
-					if (argumentType.getDynamicType() != null) { //if there is a temp type
-						argTypes.add(argumentType.getDynamicType()); //if there's a temp type, set the type to be the temp type
+					if (argumentType.getDynamicTypes() != null) { //if there is a temp type
+						argTypes.add(context.getDynamicType(argumentType)); //if there's a temp type, set the type to be the temp type
 					}
 					else {
 						argTypes.add(argumentType);
@@ -131,7 +131,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 								for(Expression e: methodCallExpression.getArguments())
 								{
 									if (e.getResolvedType() instanceof AnyType) {
-										if (context.getTypeUtil().isGeneric(getDynamicType((AnyType) e.getResolvedType()), contentType)) {
+										if (context.getTypeUtil().isGeneric(context.getDynamicType((AnyType) e.getResolvedType()), contentType)) {
 											
 										}
 										else {
@@ -429,17 +429,17 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		}
 	}
 	
-	public Type getDynamicType(AnyType anyType)
-	{
-		while(anyType.getDynamicType() != null)
-		{
-			if (anyType.getDynamicType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getDynamicType();
-			}
-			else {
-				return anyType.getDynamicType();
-			}
-		}
-		return anyType;
-	}
+//	public Type getDynamicType(AnyType anyType)
+//	{
+//		while(anyType.getDynamicType() != null)
+//		{
+//			if (anyType.getDynamicType() instanceof AnyType) {
+//				anyType = (AnyType) anyType.getDynamicType();
+//			}
+//			else {
+//				return anyType.getDynamicType();
+//			}
+//		}
+//		return anyType;
+//	}
 }

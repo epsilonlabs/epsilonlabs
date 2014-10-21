@@ -27,11 +27,11 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 				
 				if (lhs instanceof NameExpression && ((NameExpression) lhs).getResolvedContent() != null && ((NameExpression) lhs).getResolvedContent() instanceof VariableDeclarationExpression) {
 					AnyType lhsType = (AnyType) lhs.getResolvedType();
-					if (lhsType.getDynamicType() != null) {
-						Type dynamicType = lhsType.getDynamicType();
+					if (lhsType.getDynamicTypes() != null) {
+						Type dynamicType = context.getDynamicType(lhsType);
 						if (!context.getTypeUtil().isEqualOrGeneric(dynamicType, rhs.getResolvedType())) {
-							VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) lhs.getResolvedType();
-							variableDeclarationExpression.setLastDefinitionPoint(assignmentStatement);
+							VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) ((NameExpression) lhs).getResolvedContent();
+							variableDeclarationExpression.getDefinitionPoints().add(assignmentStatement);
 						}
 					}
 				}
@@ -46,7 +46,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 				}
 				//if not set the dynamic type to lhs
 				else {
-					lhsType.setDynamicType(typeCopy);
+					lhsType.getDynamicTypes().add(typeCopy);
 				}
 				//context.setAssets(typeCopy, lhs);
 			}
@@ -61,10 +61,10 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 					//get the rhs type
 					AnyType temp = (AnyType) rhsType;
 					//if there is dynamic type
-					if (temp.getDynamicType() != null) {
+					if (temp.getDynamicTypes() != null) {
 						//rhsType = temp.getTempType();
 						//get the rhs dynamic type
-						rhsType = getDynamicType(temp);
+						rhsType = context.getDynamicType(temp);
 					}
 					
 					//
@@ -90,19 +90,4 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 		return null;
 	}
 	
-	public Type getDynamicType(AnyType anyType)
-	{
-		AnyType result = anyType;
-		while(result.getDynamicType() != null)
-		{
-			if (result.getDynamicType() instanceof AnyType) {
-				result = (AnyType) anyType.getDynamicType();
-			}
-			else {
-				return result.getDynamicType();
-			}
-		}
-		return result;
-	}
-
 }

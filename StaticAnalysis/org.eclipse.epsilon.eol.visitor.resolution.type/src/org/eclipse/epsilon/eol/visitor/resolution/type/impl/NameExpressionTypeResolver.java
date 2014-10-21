@@ -108,71 +108,72 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					Type type = null;
 					
 					//if optimistic is set
-					if (context.getPessimistic()) {
-						
-						//if the current frame does not contain the expression, this is to cater the branching situations such as if/else, while, for, switch, etc
-						if (!context.getStack().contentInSameScope(nameExpression)) {
-							//add to best guess
-							context.addBestGuessVariableDeclaration(content);
-							context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
-						}
-						
-						//get the last definition point
-						Object lastDefinitionPoint = content.getLastDefinitionPoint();
-						
-						//if last definition point is not null
-						if (lastDefinitionPoint != null) {
-							
-							//if last definition point is the content itself
-							if (lastDefinitionPoint.equals(content)) { 
-								type = EcoreUtil.copy(content.getResolvedType());
-							}
-							//if the last definition point is an assignment statement
-							else if (lastDefinitionPoint instanceof AssignmentStatement) {
-								//copy the rhs of the assignment to the current type
-								AssignmentStatement stmt = (AssignmentStatement) content.getLastDefinitionPoint();
-								Expression expression = stmt.getRhs();
-								type = EcoreUtil.copy(expression.getResolvedType());
-							}
-						}
-						//if the last definition point is null
-						else {
-							//get the type of the resolved content
-							type = EcoreUtil.copy(content.getResolvedType());
-							//if the content is a best guess variable declaration do nothing
-							if (context.containsBestGuessVariableDeclaration(content)) {
-								
-							}
-							//if the content is not in the best guess variable list
-							else {
-								//if the type is any (it only matters if it is AnyType, other types will throw type incompatibility errors)
-								if (type instanceof AnyType) {
-									
-									//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Other operations can also define collection, need elaborative handling
-									
-									//if the name expression is in an assignment statement
-									if (nameExpression.getContainer() instanceof AssignmentStatement) {
-										AssignmentStatement stmt = (AssignmentStatement) nameExpression.getContainer();
-										//if it is on the left hand side, then set the last definition point, but do not set the type because it is pessimistic
-										if (stmt.getLhs().equals(nameExpression)) {
-											content.setLastDefinitionPoint(stmt);
-										}
-									}
-									//if the name expression is not in an assignemnt statement
-									else {
-										//if it is in an operator expression
-										if (nameExpression.getContainer() instanceof OperatorExpression){ 
-											//get the dynamic type
-											if (((AnyType) type).getDynamicType() != null) {
-												type = EcoreUtil.copy(((AnyType) type).getDynamicType());
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-					else{ //if optimistic is unset
+//					if (context.getPessimistic()) {
+//						
+//						//if the current frame does not contain the expression, this is to cater the branching situations such as if/else, while, for, switch, etc
+//						if (!context.getStack().contentInSameScope(nameExpression)) {
+//							//add to best guess
+//							context.addBestGuessVariableDeclaration(content);
+//							context.getLogBook().addWarning(nameExpression, "The type of this expression is at the best guess of the type inferrence system");
+//						}
+//						
+//						//get the last definition point
+//						Object lastDefinitionPoint = content.getLastDefinitionPoint();
+//						
+//						//if last definition point is not null
+//						if (lastDefinitionPoint != null) {
+//							
+//							//if last definition point is the content itself
+//							if (lastDefinitionPoint.equals(content)) { 
+//								type = EcoreUtil.copy(content.getResolvedType());
+//							}
+//							//if the last definition point is an assignment statement
+//							else if (lastDefinitionPoint instanceof AssignmentStatement) {
+//								//copy the rhs of the assignment to the current type
+//								AssignmentStatement stmt = (AssignmentStatement) content.getLastDefinitionPoint();
+//								Expression expression = stmt.getRhs();
+//								type = EcoreUtil.copy(expression.getResolvedType());
+//							}
+//						}
+//						//if the last definition point is null
+//						else {
+//							//get the type of the resolved content
+//							type = EcoreUtil.copy(content.getResolvedType());
+//							//if the content is a best guess variable declaration do nothing
+//							if (context.containsBestGuessVariableDeclaration(content)) {
+//								
+//							}
+//							//if the content is not in the best guess variable list
+//							else {
+//								//if the type is any (it only matters if it is AnyType, other types will throw type incompatibility errors)
+//								if (type instanceof AnyType) {
+//									
+//									//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Other operations can also define collection, need elaborative handling
+//									
+//									//if the name expression is in an assignment statement
+//									if (nameExpression.getContainer() instanceof AssignmentStatement) {
+//										AssignmentStatement stmt = (AssignmentStatement) nameExpression.getContainer();
+//										//if it is on the left hand side, then set the last definition point, but do not set the type because it is pessimistic
+//										if (stmt.getLhs().equals(nameExpression)) {
+//											content.setLastDefinitionPoint(stmt);
+//										}
+//									}
+//									//if the name expression is not in an assignemnt statement
+//									else {
+//										//if it is in an operator expression
+//										if (nameExpression.getContainer() instanceof OperatorExpression){ 
+//											//get the dynamic type
+//											if (((AnyType) type).getDynamicType() != null) {
+//												type = EcoreUtil.copy(((AnyType) type).getDynamicType());
+//											}
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
+				
+//					else{ //if optimistic is unset
 						type = EcoreUtil.copy(content.getResolvedType());
 						if (type != null) {
 							nameExpression.setResolvedType(type);
@@ -180,7 +181,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						else {
 							context.getLogBook().addError((EolElement) resolvedContent, "Expression does not have a type");
 						}
-					}
+//					}
 					if (type != null) {
 						context.setAssets(type, nameExpression); //set assets of the type
 						nameExpression.setResolvedType(type); //assign the var type to the name type
@@ -415,20 +416,6 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		return false;
 	}
 	
-	public Type getDynamicType(AnyType anyType)
-	{
-		AnyType result = anyType;
-		while(result.getDynamicType() != null)
-		{
-			if (result.getDynamicType() instanceof AnyType) {
-				result = (AnyType) anyType.getDynamicType();
-			}
-			else {
-				return result.getDynamicType();
-			}
-		}
-		return result;
-	}
 
 	
 }

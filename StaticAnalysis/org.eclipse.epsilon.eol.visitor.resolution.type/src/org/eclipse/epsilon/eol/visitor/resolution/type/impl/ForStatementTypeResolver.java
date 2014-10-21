@@ -13,9 +13,9 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		// TODO Auto-generated method stub
-		if (context.getPessimistic()) {
-			context.getStack().push(forStatement, true);
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().push(forStatement, true);
+//		}
 
 		controller.visit(forStatement.getIterator(), context);
 		controller.visit(forStatement.getIterated(), context);
@@ -30,9 +30,9 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 		
 		controller.visit(forStatement.getBody(), context);
 		
-		if (context.getPessimistic()) {
-			context.getStack().pop();
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().pop();
+//		}
 
 		return null;
 	}

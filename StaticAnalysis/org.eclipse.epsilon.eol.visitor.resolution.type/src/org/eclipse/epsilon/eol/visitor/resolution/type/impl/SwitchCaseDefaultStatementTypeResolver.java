@@ -12,13 +12,13 @@ public class SwitchCaseDefaultStatementTypeResolver extends SwitchCaseDefaultSta
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		if (context.getPessimistic()) {
-			context.getStack().push(switchCaseDefaultStatement, true);
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().push(switchCaseDefaultStatement, true);
+//		}
 		controller.visit(switchCaseDefaultStatement.getBody(), context);
-		if (context.getPessimistic()) {
-			context.getStack().pop();
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().pop();
+//		}
 
 		return null;
 	}

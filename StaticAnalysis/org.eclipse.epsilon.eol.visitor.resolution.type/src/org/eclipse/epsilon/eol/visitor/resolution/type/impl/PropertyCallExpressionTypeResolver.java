@@ -51,29 +51,29 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		
 		if (propertyCallExpression.getTarget().getResolvedType() instanceof AnyType) {// or the target is of type Any
 			AnyType tempAnyType = (AnyType) propertyCallExpression.getTarget().getResolvedType();
-			if (context.getPessimistic()) {//if pessimistic, then retrieve the innermost non-any type
-				Type tempType = null;
-
-				if (tempAnyType.getDynamicType() != null) {
-					tempType = getDynType(tempAnyType);
-					if (tempType instanceof AnyType) {
-						context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potential unsafe typing");
-					}
-					propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
-				}
-//				else {
-//					propertyCallExpression.setResolvedType(tempAnyType); //assign type
-//					context.setAssets(tempAnyType, propertyCallExpression); //set assets
-//					context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target is of type Any, expression type is set to Any");
-//					return null;
+//			if (context.getPessimistic()) {//if pessimistic, then retrieve the innermost non-any type
+//				Type tempType = null;
+//
+//				if (tempAnyType.getDynamicType() != null) {
+//					tempType = getDynType(tempAnyType);
+//					if (tempType instanceof AnyType) {
+//						context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potential unsafe typing");
+//					}
+//					propertyCallExpression.getTarget().setResolvedType(EcoreUtil.copy(tempType));
 //				}
-
-			}
-			else {
+////				else {
+////					propertyCallExpression.setResolvedType(tempAnyType); //assign type
+////					context.setAssets(tempAnyType, propertyCallExpression); //set assets
+////					context.getLogBook().addWarning(propertyCallExpression.getTarget(), "target is of type Any, expression type is set to Any");
+////					return null;
+////				}
+//
+//			}
+//			else {
 				propertyCallExpression.setResolvedType(context.getEolFactory().createAnyType());
 				context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 				return null;
-			}
+//			}
 		}
 
 		//if the property is an extended property, then the type of the call should be Any
@@ -645,32 +645,32 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		}
 	}
 
-	public Type getDynType(AnyType anyType)
-	{
-		Type result = anyType.getDynamicType();
-		if (result == null) {
-			return null;
-		}
-		else {
-			while(result instanceof AnyType && ((AnyType)result).getDynamicType() != null)
-			{
-				result = ((AnyType)result).getDynamicType();
-			}
-		}
-		return result;
-	}
+//	public Type getDynType(AnyType anyType)
+//	{
+//		Type result = anyType.getDynamicType();
+//		if (result == null) {
+//			return null;
+//		}
+//		else {
+//			while(result instanceof AnyType && ((AnyType)result).getDynamicType() != null)
+//			{
+//				result = ((AnyType)result).getDynamicType();
+//			}
+//		}
+//		return result;
+//	}
 	
-	public static void main(String[] args) {
-		PropertyCallExpressionTypeResolver tr = new PropertyCallExpressionTypeResolver();
-		EolFactoryImpl factory = new EolFactoryImpl();
-		AnyType anyType = factory.createAnyType();
-		AnyType inner1 = factory.createAnyType();
-		AnyType inner2 = factory.createAnyType();
-		CollectionType collectionType = factory.createCollectionType();
-		//inner2.setDynamicType(collectionType);
-		inner1.setDynamicType(inner2);
-		//anyType.setDynamicType(inner1);
-		System.out.println(tr.getDynType(anyType));
-	}
+//	public static void main(String[] args) {
+//		PropertyCallExpressionTypeResolver tr = new PropertyCallExpressionTypeResolver();
+//		EolFactoryImpl factory = new EolFactoryImpl();
+//		AnyType anyType = factory.createAnyType();
+//		AnyType inner1 = factory.createAnyType();
+//		AnyType inner2 = factory.createAnyType();
+//		CollectionType collectionType = factory.createCollectionType();
+//		//inner2.setDynamicType(collectionType);
+//		inner1.setDynamicType(inner2);
+//		//anyType.setDynamicType(inner1);
+//		System.out.println(tr.getDynType(anyType));
+//	}
 
 }

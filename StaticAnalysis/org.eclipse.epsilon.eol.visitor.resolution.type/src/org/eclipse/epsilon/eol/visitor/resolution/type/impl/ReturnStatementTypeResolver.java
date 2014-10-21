@@ -37,7 +37,7 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 				}
 				else {
 					if (returnedType instanceof AnyType) {
-						returnedType = getDynamicType((AnyType) returnedType);
+						returnedType = context.getDynamicType((AnyType) returnedType);
 						//container.setReturnType(returnedType); //==============attention
 //						rawReturnType = (AnyType) returnedType;
 //						if (rawReturnType.getTempType()!=null) {
@@ -60,18 +60,18 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 		return null;
 	}
 	
-	public Type getDynamicType(AnyType anyType)
-	{
-		while(anyType.getDynamicType() != null)
-		{
-			if (anyType.getDynamicType() instanceof AnyType) {
-				anyType = (AnyType) anyType.getDynamicType();
-			}
-			else {
-				return anyType.getDynamicType();
-			}
-		}
-		return anyType;
-	}
+//	public Type getDynamicType(AnyType anyType)
+//	{
+//		while(anyType.getDynamicType() != null)
+//		{
+//			if (anyType.getDynamicType() instanceof AnyType) {
+//				anyType = (AnyType) anyType.getDynamicType();
+//			}
+//			else {
+//				return anyType.getDynamicType();
+//			}
+//		}
+//		return anyType;
+//	}
 
 }

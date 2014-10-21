@@ -13,12 +13,12 @@ public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext
 	@Override
 	public Object visit(EolProgram program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		if (context.getPessimistic()) {
-			if (context.getMainProgram() == null) {
-				context.getStack().push(program, true);
-				context.setMainProgram(program);
-			}
-		}
+//		if (context.getPessimistic()) {
+//			if (context.getMainProgram() == null) {
+//				context.getStack().push(program, true);
+//				context.setMainProgram(program);
+//			}
+//		}
 		
 		for(Import import1: program.getImports())
 		{
@@ -32,9 +32,9 @@ public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext
 		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			if (context.getPessimistic()) {
-				context.getStack().push(od, true);
-			}
+//			if (context.getPessimistic()) {
+//				context.getStack().push(od, true);
+//			}
 			
 			if (od.getContextType() != null) {
 				controller.visit(od.getContextType(), context); //resolve context type	
@@ -60,32 +60,32 @@ public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext
 				///handle signature existence
 			}
 			
-			if (context.getPessimistic()) {
-				context.getStack().pop();
-			}
+//			if (context.getPessimistic()) {
+//				context.getStack().pop();
+//			}
 		}
 		
 		controller.visitContents(program.getBlock(), context); //process statement block
 
 		for(OperationDefinition od: program.getOperations())
 		{			
-			if (context.getPessimistic()) {
-			context.getStack().push(od, true);
-			}
+//			if (context.getPessimistic()) {
+//			context.getStack().push(od, true);
+//			}
 
 			controller.visit(od, context);
 			
-			if (context.getPessimistic()) {
-				context.getStack().pop();
-			}
+//			if (context.getPessimistic()) {
+//				context.getStack().pop();
+//			}
 
 		}
 				
-		if (context.getPessimistic()) {
-			if (context.getMainProgram().equals(program)) {
-				context.getStack().pop();
-			}
-		}
+//		if (context.getPessimistic()) {
+//			if (context.getMainProgram().equals(program)) {
+//				context.getStack().pop();
+//			}
+//		}
 		return null;
 	}
 

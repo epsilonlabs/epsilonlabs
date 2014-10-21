@@ -13,22 +13,22 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 		// TODO Auto-generated method stub
 		controller.visit(ifStatement.getCondition(), context);
 
-		if (context.getPessimistic()) {
-			context.getStack().push(ifStatement, true);
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().push(ifStatement, true);
+//		}
 		controller.visit(ifStatement.getIfBody(), context);
-		if (context.getPessimistic()) {
-			context.getStack().pop();
-		}
+//		if (context.getPessimistic()) {
+//			context.getStack().pop();
+//		}
 		
 		if (ifStatement.getElseBody() != null) {
-			if (context.getPessimistic()) {
-				context.getStack().push(ifStatement, true);
-			}
+//			if (context.getPessimistic()) {
+//				context.getStack().push(ifStatement, true);
+//			}
 			controller.visit(ifStatement.getElseBody(), context);
-			if (context.getPessimistic()) {
-				context.getStack().pop();
-			}
+//			if (context.getPessimistic()) {
+//				context.getStack().pop();
+//			}
 
 		}
 		return null;

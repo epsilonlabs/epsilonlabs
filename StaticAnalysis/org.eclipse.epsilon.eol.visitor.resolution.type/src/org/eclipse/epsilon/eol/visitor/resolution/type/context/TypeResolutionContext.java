@@ -11,6 +11,7 @@ import metamodel.connectivity.plainxml.PlainXMLMetamodelDriver;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolLibraryModule;
@@ -38,7 +39,7 @@ public class TypeResolutionContext {
 	protected EolLibraryModule mainProgram = null;
 	
 	//pessimistic switch
-	protected boolean pessimistic = false;
+//	protected boolean pessimistic = false;
 	
 	//logbook is used to store errors/warnings
 	protected LogBook logBook = new LogBook();
@@ -99,10 +100,10 @@ public class TypeResolutionContext {
 		this.module = module;
 	}
 	
-	public TypeResolutionContext(boolean pessimistic)
-	{
-		this.pessimistic = pessimistic;
-	}
+//	public TypeResolutionContext(boolean pessimistic)
+//	{
+//		this.pessimistic = pessimistic;
+//	}
 	
 	public static void main(String[] args) {
 		TypeResolutionContext context = new TypeResolutionContext();
@@ -318,14 +319,14 @@ public class TypeResolutionContext {
 		created.setLine(targetLocation.getLine());
 	}
 	
-	public boolean getPessimistic()
-	{
-		return pessimistic;
-	}
-	
-	public void setPessimistic(boolean pessimistic) {
-		this.pessimistic = pessimistic;
-	}
+//	public boolean getPessimistic()
+//	{
+//		return pessimistic;
+//	}
+//	
+//	public void setPessimistic(boolean pessimistic) {
+//		this.pessimistic = pessimistic;
+//	}
 	
 	public FrameStack getStack() {
 		return stack;
@@ -349,6 +350,23 @@ public class TypeResolutionContext {
 	public String getParentFolderDirectory()
 	{
 		return getDirectory(module.getSourceFile().getAbsolutePath());
+	}
+	
+	public Type getDynamicType(AnyType anyType)
+	{
+		
+		if (anyType.getDynamicTypes() != null) {
+			int size = anyType.getDynamicTypes().size();
+			if (size != 0) {
+				return anyType.getDynamicTypes().get(size-1);
+			}
+			else {
+				return null;
+			}
+		}
+		else {
+			return null;
+		}
 	}
 
 }
