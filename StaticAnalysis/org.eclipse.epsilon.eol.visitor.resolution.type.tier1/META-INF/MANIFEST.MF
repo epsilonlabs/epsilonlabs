@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.eol.visitor.resolution.type.tier1
+Bundle-SymbolicName: org.eclipse.epsilon.eol.visitor.resolution.type.tier1; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.epsilon.eol.metamodel;visibility:=reexport,
+ org.eclipse.epsilon.eol.dom.metamodel.connectivity,
+ org.eclipse.epsilon.static.analysis.problem.log,
+ org.eclipse.epsilon.eol.ast2eol,
+ org.eclipse.epsilon.eol.metamodel.visitor
+Export-Package: org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionHandler,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1.standard.library.collection.handlers.old,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util
