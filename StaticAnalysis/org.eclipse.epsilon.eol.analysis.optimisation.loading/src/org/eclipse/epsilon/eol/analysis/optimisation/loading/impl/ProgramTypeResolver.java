@@ -2,7 +2,6 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
@@ -39,7 +38,6 @@ public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext
 			}
 			else {
 				context.getLogBook().addError(od, "OperationDefinition with same signature already defined");
-				///handle signature existence
 			}
 			
 		}

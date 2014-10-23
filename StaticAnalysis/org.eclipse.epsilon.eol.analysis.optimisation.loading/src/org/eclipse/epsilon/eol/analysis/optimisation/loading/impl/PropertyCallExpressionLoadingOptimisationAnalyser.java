@@ -1,6 +1,8 @@
 package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
@@ -15,8 +17,11 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
 		String propertyString = propertyCallExpression.getProperty().getName();
+		Expression target = propertyCallExpression.getTarget();
 		if (isKeyword(propertyString)) {
-			
+			if (target instanceof NameExpression) {
+				String targetString = ((NameExpression) target).getName();
+			}
 		}
 		
 		return null;
