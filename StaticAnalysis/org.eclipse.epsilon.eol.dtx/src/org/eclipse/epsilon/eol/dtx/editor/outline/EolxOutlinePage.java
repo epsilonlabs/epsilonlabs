@@ -60,7 +60,6 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 		int lastIndexOf = path.lastIndexOf("/");
 		//System.out.println("--------------------" + lastIndexOf);
 		//System.out.println("=======================" + path.substring(0, lastIndexOf+1));
-		String directoryPathString = path.substring(0, lastIndexOf+1);		
 		
 		Ast2EolContext context = new Ast2EolContext((EolLibraryModule) module);
 		EolElementCreatorFactory factory = context.getEolElementCreatorFactory();
@@ -70,6 +69,7 @@ public class EolxOutlinePage extends ModuleContentOutlinePage{
 		vr.run(dom);
 		
 		TypeResolver tr = new TypeResolver();
+		tr.getTypeResolutionContext().setModule((EolLibraryModule) module);
 		tr.run(dom);
 		
 		TypeResolver_T2 tr2 = new TypeResolver_T2();

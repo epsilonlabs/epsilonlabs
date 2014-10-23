@@ -80,6 +80,7 @@ public class EolxModuleValidator implements IModuleValidator{
 			}
 			
 			TypeResolver tr = new TypeResolver();
+			tr.getTypeResolutionContext().setModule((EolLibraryModule) arg0);
 			tr.run(dom);
 			
 			TypeResolver_T2 tr2 = new TypeResolver_T2();
