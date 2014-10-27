@@ -6,100 +6,29 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 
 
 public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
+	
+	
+	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();
+	
+	
+	public void addToModel(String modelName, String elementName)
+	{
+		ModelContainer container = getModelContainer(modelName);
+	}
+	
+	public ModelContainer getModelContainer(String modelName)
+	{
+		for(ModelContainer mc: modelContainers)
+		{
+			if (mc.getModelName().equals(modelName)) {
+				return mc;
+			}
+		}
+		return null;
+	}
 
-	protected ArrayList<ModelElementContainer> modelElementsAllOfType = new ArrayList<ModelElementContainer>();
-	protected ArrayList<ModelElementContainer> modelElementsAllOfKind = new ArrayList<ModelElementContainer>();
-	
-	public ArrayList<ModelElementContainer> getModelElementsAllOfType() {
-		return modelElementsAllOfType;
+	public ArrayList<ModelContainer> getModelContainers() {
+		return modelContainers;
 	}
-	
-	public ArrayList<ModelElementContainer> getModelElementsAllOfKind() {
-		return modelElementsAllOfKind;
-	}
-	
-	public void addToModeElementsAllOfType(String modelElement)
-	{
-		if (!modelElementsAllOfTypeContains(modelElement)) {
-			modelElementsAllOfType.add(new ModelElementContainer(modelElement));
-		}
-	}
-	
-	public void addToModelElementsAllOfKind(String modelElement)
-	{
-		if (!modelElementsAllOfKindContains(modelElement)) {
-			modelElementsAllOfKind.add(new ModelElementContainer(modelElement));
-		}
-	}
-	
-	public void addAttributeToModelElement(String elementName, String attribute)
-	{
-		ModelElementContainer mec = getFromModelElementsAllOfKind(elementName);
-		if (mec != null) {
-			mec.addToAttributes(attribute);
-		}
-		mec = getFromModelElementsAllOfType(elementName);
-		if (mec != null) {
-			mec.addToAttributes(attribute);
-		}
-	}
-	
-	public void addReferenceToModelElement(String elementName, String reference)
-	{
-		ModelElementContainer mec = getFromModelElementsAllOfKind(elementName);
-		if (mec != null) {
-			mec.addToReferences(reference);
-		}
-		mec = getFromModelElementsAllOfType(elementName);
-		if (mec != null) {
-			mec.addToReferences(reference);
-		}
-	}
-	
-	
-	public ModelElementContainer getFromModelElementsAllOfType(String elementName)
-	{
-		for(ModelElementContainer mec: modelElementsAllOfType)
-		{
-			if (mec.getElementName().equals(elementName)) {
-				return mec;
-			}
-		}
-		return null;
-	}
-	
-	public ModelElementContainer getFromModelElementsAllOfKind(String elementName)
-	{
-		for(ModelElementContainer mec: modelElementsAllOfKind)
-		{
-			if (mec.getElementName().equals(elementName)) {
-				return mec;
-			}
-		}
-		return null;
-	}
-	
-	public boolean modelElementsAllOfTypeContains(String modelElement)
-	{
-		for(ModelElementContainer mec: modelElementsAllOfType)
-		{
-			if (mec.getElementName().equals(modelElement)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean modelElementsAllOfKindContains(String modelElement)
-	{
-		for(ModelElementContainer mec: modelElementsAllOfKind)
-		{
-			if (mec.getElementName().equals(modelElement)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 
 }
