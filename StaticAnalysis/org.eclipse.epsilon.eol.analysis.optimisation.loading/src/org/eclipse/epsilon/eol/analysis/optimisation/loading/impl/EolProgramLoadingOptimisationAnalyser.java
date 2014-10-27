@@ -7,7 +7,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ProgramTypeResolver extends EolProgramVisitor<TypeResolutionContext, Object>{
+public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(EolProgram program, TypeResolutionContext context,

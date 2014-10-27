@@ -1,29 +1,26 @@
 package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
-
 import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
-import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{
+public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
-	public Object visit(
-			PropertyCallExpression propertyCallExpression,
+	public Object visit(MethodCallExpression methodCallExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		controller.visitContents(propertyCallExpression, context);
-		
-		String propertyString = propertyCallExpression.getProperty().getName();
-		Expression target = propertyCallExpression.getTarget();
+		controller.visitContents(methodCallExpression, context);
+		String propertyString = methodCallExpression.getMethod().getName();
+		Expression target = methodCallExpression.getTarget();
 		if (isKeyword(propertyString)) {
 			if (target instanceof NameExpression) {
 				String targetString = ((NameExpression) target).getName();
@@ -51,9 +48,7 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 
 			}
 		}
-		
 		return null;
-		
 	}
 	
 	public boolean isKeyword(String s)
@@ -67,5 +62,6 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 		}
 		
 	}
+
 
 }
