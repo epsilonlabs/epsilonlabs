@@ -18,10 +18,13 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//visit the contents first
 		controller.visitContents(methodCallExpression, context);
-		String propertyString = methodCallExpression.getMethod().getName();
+		
+		//get the method name
+		String methodString = methodCallExpression.getMethod().getName();
 		Expression target = methodCallExpression.getTarget();
-		if (isKeyword(propertyString)) {
+		if (isKeyword(methodString)) {
 			if (target instanceof NameExpression) {
 				String targetString = ((NameExpression) target).getName();
 				if (target.getResolvedType() instanceof ModelElementType) {
@@ -38,8 +41,12 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 					
 					if (driver.containsMetaClass(elementString)) {
 						LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
-						
-						leContext.addToModelElementTypeToLoadAll(modelString, targetString);
+						if (methodString.equals("allOfType")) {
+							leContext.addToModelAllOfType(modelString, targetString);
+						}
+						else {
+							leContext.addToModelAllOfKind(modelString, targetString);
+						}
 					}
 
 				}
@@ -54,6 +61,8 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 	public boolean isKeyword(String s)
 	{
 		if (s.equals("all") ||
+				s.equals("allOfType") ||
+				s.equals("allOfKind") ||
 				s.equals("allInstances")) {
 			return true;
 		}

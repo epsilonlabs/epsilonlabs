@@ -41,14 +41,9 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					
 					if (driver.containsMetaClass(elementString)) {
 						LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
-						
-						leContext.addToModelElementTypeToLoadAll(modelString, targetString);
+						leContext.addToModelAllOfKind(modelString, targetString);
 					}
-
 				}
-				
-				
-
 			}
 		}
 		

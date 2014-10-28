@@ -25,7 +25,7 @@ public class ModelContainer {
 		return modelElementsAllOfKind;
 	}
 	
-	public void addToModeElementsAllOfType(String modelElement)
+	public void addToModelElementsAllOfType(String modelElement)
 	{
 		if (!modelElementsAllOfTypeContains(modelElement)) {
 			modelElementsAllOfType.add(new ModelElementContainer(modelElement));

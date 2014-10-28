@@ -35,5 +35,4 @@ public class LoadingOptimisationAnalyser {
 		return context;
 	}
 
-
 }
