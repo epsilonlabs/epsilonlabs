@@ -65,29 +65,29 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	{
 		for(ModelContainer mc: modelContainers)
 		{
-			System.out.println(mc.getModelName());
+			System.out.println("Model: " + mc.getModelName());
 			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
 			{
-				System.out.println("	" +mec.getElementName());
+				System.out.println("	AllOfType: " +mec.getElementName());
 				for(String attr: mec.getAttributes())
 				{
-					System.out.println("		" + attr);
+					System.out.println("		Attr: " + attr);
 				}
 				for(String ref: mec.getReferences())
 				{
-					System.out.println("		" + ref);
+					System.out.println("		Ref: " + ref);
 				}
 			}
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 			{
-				System.out.println("	" +mec.getElementName());
+				System.out.println("	AllOfKind: " +mec.getElementName());
 				for(String attr: mec.getAttributes())
 				{
-					System.out.println("		" + attr);
+					System.out.println("		Attr: " + attr);
 				}
 				for(String ref: mec.getReferences())
 				{
-					System.out.println("		" + ref);
+					System.out.println("		Ref: " + ref);
 				}
 			}
 		}
