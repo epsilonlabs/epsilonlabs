@@ -1,0 +1,36 @@
+model Core driver EMF {nsuri = "org.amma.dsl.jdt.core"};
+model DOM driver EMF {nsuri = "org.amma.dsl.jdt.dom"};
+model PrimitiveTypes driver EMF {nsuri = "org.amma.dsl.jdt.primitiveTypes"};
+	/*
+	 * grabats query! Tests the Grabats query.
+	 * 
+	 * The query finds all classes (TypeDeclaration) that declare static
+	 * public methods (MethodDeclaration) whose return type is the same
+	 * class
+	 */
+
+var matches:Set;
+
+"".println();
+ 
+matches.addAll(DOM!TypeDeclaration.all.collect(td:DOM!TypeDeclaration|td.bodyDeclarations.select(
+	md:DOM!MethodDeclaration|md.modifiers.exists(mod:DOM!Modifier|mod.public==true)
+	and 
+	md.modifiers.exists(mod:DOM!Modifier|mod.static==true)
+	and
+	md.returnType.isTypeOf(SimpleType)
+	and 
+	md.returnType.asType(SimpleType).name.fullyQualifiedName == td.name.fullyQualifiedName
+	))
+.flatten()
+.collect(names:DOM!MethodDeclaration|names.returnType.asType(SimpleType).name.fullyQualifiedName)
+);
+ 
+for(match in matches)
+{
+	match.println();
+}
+
+"".println();
+  	 
+ 
