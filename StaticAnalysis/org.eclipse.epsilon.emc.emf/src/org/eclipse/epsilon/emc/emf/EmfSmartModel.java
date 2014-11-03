@@ -7,9 +7,15 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
@@ -35,7 +41,7 @@ public class EmfSmartModel extends EmfModel{
 		super.loadModelFromUri();
 		if (modelContainer != null) {
 			try {
-				populateCaches();
+				populateCaches_v2();
 			} catch (EolModelElementTypeNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,14 +95,56 @@ public class EmfSmartModel extends EmfModel{
 		
 	}
 	
+	public void populateCaches_v2() throws EolModelElementTypeNotFoundException
+	{
+		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
+		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
+		
+		
+		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
+		{
+			EClass eClass = classForName(mec.getElementName());
+			allOfKinds.add(eClass);
+			cachedKinds.add(eClass);
+		}
+		
+		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
+		{
+			EClass eClass = classForName(mec.getElementName());
+			allOfTypes.add(eClass);
+			cachedTypes.add(eClass);
+		}
+		
+		
+		for (EObject eObject : (Collection<EObject>)allContents()) {
+			for(EClass eClass : allOfKinds)
+			{
+				if (eClass.isInstance(eObject)) {
+					kindCache.put(eClass, eObject);
+				}
+			}
+			for(EClass eClass : allOfTypes)
+			{
+				if (eObject.eClass() == eClass){
+					typeCache.put(eClass, eObject);
+				}
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) throws URISyntaxException, Exception {
 		EolModule eolModule = new EolModule();
 		eolModule.parse(new File("test/grabats.eol"));
 		
 		EmfSmartModel smartModel = new EmfSmartModel();
-		smartModel.setName("smartModel");
-		smartModel.setModelFile(new File("test/set0.xmi").getAbsolutePath());
-		smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
+		smartModel.setName("DOM");
+		smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+		smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+		//smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
+		
+		loadEPackageFromFile("test/JDTAST.ecore");
+		
 		Ast2EolContext ast2EolContext = new Ast2EolContext();
 		EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
 		
@@ -115,11 +163,33 @@ public class EmfSmartModel extends EmfModel{
 		
 		smartModel.setModelContainer(loaContext.getModelContainers().get(0));
 		
+		long init = System.nanoTime();
+
 		smartModel.load();
-		
 		
 		eolModule.getContext().getModelRepository().addModel(smartModel);
 		eolModule.execute();
+		System.out.println("(took ~" + (System.nanoTime() - init)
+				/ 1000000 + "ms to run)");
+	}
+	
+	public static EPackage loadEPackageFromFile(String fileName)
+	{
+		EPackage result = null;
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
+		URI uri = URI.createFileURI(new File(fileName).getAbsolutePath());
+		Resource resource = resourceSet.getResource(uri, true);
+		for(EObject obj: resource.getContents())
+		{
+			if(obj instanceof EPackage)
+			{
+				EPackage.Registry.INSTANCE.put(((EPackage) obj).getNsURI(), obj);
+				result = (EPackage) obj;
+				//break;
+			}
+		}
+		return result;
 	}
 
 }

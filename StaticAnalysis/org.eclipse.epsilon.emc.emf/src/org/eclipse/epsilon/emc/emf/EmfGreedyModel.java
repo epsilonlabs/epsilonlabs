@@ -74,12 +74,18 @@ public class EmfGreedyModel extends EmfModel{
 		eolModule.parse(new File("test/grabats.eol"));
 		
 		EmfGreedyModel greedyModel = new EmfGreedyModel();
-		greedyModel.setName("greedyModel");
-		greedyModel.setModelFile(new File("test/set0.xmi").getAbsolutePath());
-		greedyModel.setMetamodelUri("org.amma.dsl.jdt.dom");
-		greedyModel.setMetamodelUri("http://www.eclipse.org/emf/2002/Ecore");
-		greedyModel.load();
+		greedyModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+		greedyModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+		greedyModel.setName("DOM");
 		
+		long init = System.nanoTime();
+
+		//greedyModel.setMetamodelUri("org.amma.dsl.jdt.dom");
+		//greedyModel.setMetamodelUri("http://www.eclipse.org/emf/2002/Ecore");
+		greedyModel.load();
+		System.out.println("(took ~" + (System.nanoTime() - init)
+				/ 1000000 + "ms to run)");
+
 		
 		eolModule.getContext().getModelRepository().addModel(greedyModel);
 		eolModule.execute();

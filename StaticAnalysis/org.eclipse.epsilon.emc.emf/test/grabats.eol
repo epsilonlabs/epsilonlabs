@@ -18,12 +18,12 @@ matches.addAll(DOM!TypeDeclaration.all.collect(td:DOM!TypeDeclaration|td.bodyDec
 	and 
 	md.modifiers.exists(mod:DOM!Modifier|mod.static==true)
 	and
-	md.returnType.isTypeOf(SimpleType)
+	md.returnType.isTypeOf(DOM!SimpleType)
 	and 
-	md.returnType.asType(SimpleType).name.fullyQualifiedName == td.name.fullyQualifiedName
+	md.returnType.name.fullyQualifiedName == td.name.fullyQualifiedName
 	))
 .flatten()
-.collect(names:DOM!MethodDeclaration|names.returnType.asType(SimpleType).name.fullyQualifiedName)
+.collect(names:DOM!MethodDeclaration|names.returnType.name.fullyQualifiedName)
 );
  
 for(match in matches)
@@ -33,4 +33,4 @@ for(match in matches)
 
 "".println();
   	 
- 
+var a = DOM!Block.all.first;
