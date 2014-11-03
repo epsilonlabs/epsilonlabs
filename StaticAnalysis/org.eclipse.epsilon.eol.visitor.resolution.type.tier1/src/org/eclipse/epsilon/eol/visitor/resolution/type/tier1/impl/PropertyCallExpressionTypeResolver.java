@@ -369,34 +369,44 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 	
 	public Object handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
 	{
+		//get the target type
 		Type targetType = propertyCallExpression.getTarget().getResolvedType();
+		//prepare arg types
 		ArrayList<Type> argTypes = new ArrayList<Type>();
 		
+		//get the operation definition
 		OperationDefinition operationDefinition = context.getOperationDefinitionControl().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false); //fetch operation definition using name, context type and arg types
 
+		//if there is operation definition
 		if (operationDefinition != null) {
-			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
-			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
+			//get the context type
+			Type contextType = operationDefinition.getContextType(); 
+			
+			//if target type and context type is generic
+			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) {
+				//if operation definition has a annotation block
 				if (operationDefinition.getAnnotationBlock() != null) {
 					AnnotationBlock annotationBlock = operationDefinition.getAnnotationBlock();
 
+					//if annotation instructs to return the innermost type
 					if(annotationContains(annotationBlock, "returnInnermostType"))
 					{
 						setInnermostType(operationDefinition, getInnermostType(targetType));
-						
 						propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
-						//propertyCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the resolved type of the method
-						//propertyCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 						return null;
 					}
+					
 					if(annotationContains(annotationBlock, "checkCollectionArgSingle"))
 					{
 						//shoudl not happen and should be an error
 					}
+					
 					if(annotationContains(annotationBlock, "checkCollectionArgCollection"))
 					{
 						//shoudl not happen and should be an error
 					}
+					
+					//if annotation instructs that this operation should only be applied on model element types
 					if (annotationContains(annotationBlock, "modelOp")) {						
 						String methodcallName = propertyCallExpression.getProperty().getName();
 												
