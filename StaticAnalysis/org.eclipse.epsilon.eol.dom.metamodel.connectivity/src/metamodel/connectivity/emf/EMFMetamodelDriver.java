@@ -59,11 +59,9 @@ public class EMFMetamodelDriver implements EMetamodelDriver{
 	
 	public void loadModel(String sourceString) throws Exception
 	{
-		if (sourceString.startsWith("http://")) {
+		ePackage = EcoreRegistryLoader.loadEPackageFromRetistry(sourceString);
+		if (ePackage == null) {
 			ePackage = EcoreRegistryLoader.loadEPackageFromRetistry(sourceString);
-		}
-		else {
-			ePackage = EcoreFileLoader.loadEPackageFromFile(sourceString);
 		}
 		
 		if (ePackage == null) {

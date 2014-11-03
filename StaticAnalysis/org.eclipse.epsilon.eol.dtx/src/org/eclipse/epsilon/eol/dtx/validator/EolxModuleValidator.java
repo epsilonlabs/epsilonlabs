@@ -10,6 +10,7 @@ import org.eclipse.epsilon.common.module.ModuleMarker.Severity;
 import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
 import org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl.ProgramPerformanceAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
@@ -83,8 +84,9 @@ public class EolxModuleValidator implements IModuleValidator{
 			tr.getTypeResolutionContext().setModule((EolLibraryModule) arg0);
 			tr.run(dom);
 			
-			TypeResolver_T2 tr2 = new TypeResolver_T2();
-			tr2.run(dom);
+			LoadingOptimisationAnalyser loadingOptimisationAnalyser = new LoadingOptimisationAnalyser();
+			loadingOptimisationAnalyser.run(dom);
+			
 			
 			for(log.Error error: tr.getTypeResolutionContext().getLogBook().getErrors())
 			{
@@ -103,22 +105,6 @@ public class EolxModuleValidator implements IModuleValidator{
 				warnings++;
 			}
 			
-			for(log.Error error: tr2.getTypeResolutionContext().getLogBook().getErrors())
-			{
-				TextRegion textRegion = error.getDomElement().getRegion();
-				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
-				markers.add(marker);
-			}
-			for(log.Warning warning: tr2.getTypeResolutionContext().getLogBook().getWarnings())
-			{
-				TextRegion textRegion = warning.getDomElement().getRegion();
-				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-
-				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
-				markers.add(marker);
-				warnings++;
-			}
 			
 			//PerformanceAnalyser o = new PerformanceAnalyser();
 			//o.getOptimisationContext().setDirectoryPathString(directoryPathString);

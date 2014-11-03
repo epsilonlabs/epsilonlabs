@@ -2,10 +2,8 @@ package org.eclipse.epsilon.eol.coverage.analysis.context;
 
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 public class MetaModelContainer {
 
