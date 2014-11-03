@@ -55,25 +55,27 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			else {
 				if (driver.containsEReference(elementString, propertyString)) {
 					ModelContainer mc = leContext.getModelContainer(modelString);
-					ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
-					if (mec != null) {
-						mec.addToReferences(propertyString);
-					}
-					else {
-						mec = mc.getFromModelElementsAllOfKind(elementString);
+					if (mc != null) {
+						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
 						if (mec != null) {
 							mec.addToReferences(propertyString);
 						}
 						else {
-							EClass actualClass = driver.getMetaClass(elementString);
-							ArrayList<ModelElementContainer> containers = mc.getModelElementsAllOfKind();
-							for(ModelElementContainer container: containers)
-							{
-								String containerElementName = container.getElementName();
-								EClass containerClass = driver.getMetaClass(containerElementName);
-								
-								if (actualClass.getESuperTypes().contains(containerClass)) {
-									container.addToReferences(propertyString);
+							mec = mc.getFromModelElementsAllOfKind(elementString);
+							if (mec != null) {
+								mec.addToReferences(propertyString);
+							}
+							else {
+								EClass actualClass = driver.getMetaClass(elementString);
+								ArrayList<ModelElementContainer> containers = mc.getModelElementsAllOfKind();
+								for(ModelElementContainer container: containers)
+								{
+									String containerElementName = container.getElementName();
+									EClass containerClass = driver.getMetaClass(containerElementName);
+									
+									if (actualClass.getESuperTypes().contains(containerClass)) {
+										container.addToReferences(propertyString);
+									}
 								}
 							}
 						}
@@ -81,23 +83,25 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 				}
 				if (driver.containsEAttribute(elementString, propertyString)) {
 					ModelContainer mc = leContext.getModelContainer(modelString);
-					ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
-					if (mec != null) {
-						mec.addToAttributes(propertyString);
-					}
-					else {
-						mec = mc.getFromModelElementsAllOfKind(elementString);
+					if (mc != null) {
+						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
 						if (mec != null) {
 							mec.addToAttributes(propertyString);
 						}
 						else {
-							EClass actualClass = driver.getMetaClass(elementString);
-							for(ModelElementContainer container: mc.getModelElementsAllOfKind())
-							{
-								String containerElementName = container.getElementName();
-								EClass containerClass = driver.getMetaClass(containerElementName);
-								if (actualClass.getESuperTypes().contains(containerClass)) {
-									container.addToAttributes(propertyString);
+							mec = mc.getFromModelElementsAllOfKind(elementString);
+							if (mec != null) {
+								mec.addToAttributes(propertyString);
+							}
+							else {
+								EClass actualClass = driver.getMetaClass(elementString);
+								for(ModelElementContainer container: mc.getModelElementsAllOfKind())
+								{
+									String containerElementName = container.getElementName();
+									EClass containerClass = driver.getMetaClass(containerElementName);
+									if (actualClass.getESuperTypes().contains(containerClass)) {
+										container.addToAttributes(propertyString);
+									}
 								}
 							}
 						}
