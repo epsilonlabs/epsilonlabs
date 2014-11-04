@@ -20,7 +20,8 @@ public class EmfGreedyModel extends EmfModel{
 	public void loadModelFromUri() throws EolModelLoadingException {
 		super.loadModelFromUri();
 		
-		populateCaches();
+		//populateCaches();
+		populateCaches_v2();
 	}
 	
 	
@@ -65,6 +66,38 @@ public class EmfGreedyModel extends EmfModel{
 		{
 			typeCache.replaceValues(eClass, allOfTypes.get(eClass));
 			cachedTypes.add(eClass);
+		}
+		
+	}
+	
+	
+	public void populateCaches_v2()
+	{
+		ArrayList<EClass> all = new ArrayList<EClass>();
+		
+		for(EPackage epack: packages)
+		{
+			for(EClassifier eClass: epack.getEClassifiers())
+			{
+				if (eClass instanceof EClass) {
+					all.add((EClass) eClass);
+					cachedKinds.add(eClass);
+					cachedTypes.add(eClass);
+				}
+			}
+		}
+				
+		
+		for (EObject eObject : (Collection<EObject>)allContents()) {
+			for(EClass eClass: all)
+			{
+				if (eClass.isInstance(eObject)) {
+					kindCache.put(eClass, eObject);
+				}
+				if (eObject.eClass() == eClass) {
+					typeCache.put(eClass, eObject);
+				}
+			}
 		}
 		
 	}

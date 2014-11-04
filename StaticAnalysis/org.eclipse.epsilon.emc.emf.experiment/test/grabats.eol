@@ -45,3 +45,15 @@ b.println();
 var c:DOM!Block = DOM!Block.all.first();
 
 c.println();
+
+var returnStatement: DOM!ReturnStatement = DOM!ReturnStatement.all.first();
+returnStatement.println();
+
+var singleVariableDeclaration : DOM!SingleVariableDeclaration = SingleVariableDeclaration.all.first();
+singleVariableDeclaration.println();
+
+var simpleName : DOM!SimpleName = DOM!SimpleName.all.first();
+simpleName.println();
+
+var qualifiedName : DOM!QualifiedName = DOM!QualifiedName.all.first();
+qualifiedName.println();

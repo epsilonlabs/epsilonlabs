@@ -38,75 +38,75 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void loadModelFromUri() throws EolModelLoadingException {
 		super.loadModelFromUri();
-//		if (modelContainer != null) {
+		if (modelContainer != null) {
+			try {
+				populateCaches_v2();
+			} catch (EolModelElementTypeNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
+	}
+	
+//	public void setupContainmentChangeListeners() {
+//		// Add a notification adapter to all objects in the model
+//		// so that they get moved when their containment changes
+//		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
+//		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
+//
+//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
+//		{
+//			EClass eClass = null;
 //			try {
-//				populateCaches_v2();
+//				eClass = classForName(mec.getElementName());
 //			} catch (EolModelElementTypeNotFoundException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
-//			}	
+//			}
+//			allOfKinds.add(eClass);
+//			cachedKinds.add(eClass);
 //		}
-	}
-	
-	public void setupContainmentChangeListeners() {
-		// Add a notification adapter to all objects in the model
-		// so that they get moved when their containment changes
-		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
-		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
-
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
-		{
-			EClass eClass = null;
-			try {
-				eClass = classForName(mec.getElementName());
-			} catch (EolModelElementTypeNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			allOfKinds.add(eClass);
-			cachedKinds.add(eClass);
-		}
-		
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
-		{
-			EClass eClass = null;
-			try {
-				eClass = classForName(mec.getElementName());
-			} catch (EolModelElementTypeNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			allOfTypes.add(eClass);
-			cachedTypes.add(eClass);
-		}
-
-		if (modelImpl != null) {
-			for (EObject eObject : allContents()) {
-				for(EClass eClass : allOfKinds)
-				{
-					if (eClass.isInstance(eObject)) {
-						kindCache.put(eClass, eObject);
-					}
-				}
-				for(EClass eClass : allOfTypes)
-				{
-					if (eObject.eClass() == eClass){
-						typeCache.put(eClass, eObject);
-					}
-				}
-
-				boolean isAdapted = false;
-				for (Adapter adapter : eObject.eAdapters()) {
-					if (adapter instanceof ContainmentChangeAdapter) {
-						isAdapted = true;
-					}
-				}
-				if (!isAdapted){
-					eObject.eAdapters().add(new ContainmentChangeAdapter(eObject, eObject.eResource()));
-				}
-			}
-		}
-	}	
+//		
+//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
+//		{
+//			EClass eClass = null;
+//			try {
+//				eClass = classForName(mec.getElementName());
+//			} catch (EolModelElementTypeNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			allOfTypes.add(eClass);
+//			cachedTypes.add(eClass);
+//		}
+//
+//		if (modelImpl != null) {
+//			for (EObject eObject : allContents()) {
+//				for(EClass eClass : allOfKinds)
+//				{
+//					if (eClass.isInstance(eObject)) {
+//						kindCache.put(eClass, eObject);
+//					}
+//				}
+//				for(EClass eClass : allOfTypes)
+//				{
+//					if (eObject.eClass() == eClass){
+//						typeCache.put(eClass, eObject);
+//					}
+//				}
+//
+//				boolean isAdapted = false;
+//				for (Adapter adapter : eObject.eAdapters()) {
+//					if (adapter instanceof ContainmentChangeAdapter) {
+//						isAdapted = true;
+//					}
+//				}
+//				if (!isAdapted){
+//					eObject.eAdapters().add(new ContainmentChangeAdapter(eObject, eObject.eResource()));
+//				}
+//			}
+//		}
+//	}	
 	public void populateCaches() throws EolModelElementTypeNotFoundException
 	{
 		HashMap<EClass, List<EObject>> allOfKinds = new HashMap<EClass, List<EObject>>();
@@ -188,7 +188,6 @@ public class EmfSmartModel extends EmfModel{
 				}
 			}
 		}
-		
 	}
 	
 	public static void main(String[] args) throws URISyntaxException, Exception {
