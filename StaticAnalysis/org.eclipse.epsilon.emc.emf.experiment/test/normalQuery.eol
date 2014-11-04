@@ -1,13 +1,4 @@
 model DOM driver EMF {nsuri = "org.amma.dsl.jdt.dom"};
 
-var a:DOM!TypeDeclaration = DOM!TypeDeclaration.all.first();
+DOM.allContents().size().println();
 
-a.println();
-
-var b:DOM!MethodDeclaration = DOM!MethodDeclaration.all.first();
-
-b.println();
-
-var c:DOM!Block = DOM!Block.all.first();
-
-c.println();
