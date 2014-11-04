@@ -2,9 +2,12 @@ package metamodel.connectivity.util;
 
 
 
+import java.util.Set;
+
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 
 public class EcoreRegistryLoader {
 	
@@ -22,9 +25,6 @@ public class EcoreRegistryLoader {
 	{			
 		EPackage result = null;
 		result = EPackage.Registry.INSTANCE.getEPackage(packageURI);
-		if (result == null) {
-			throw new Exception("Cannot find EPackage with uri: " + packageURI);
-		}
 		return result;
 	}
 }

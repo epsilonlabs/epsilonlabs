@@ -61,9 +61,8 @@ public class EMFMetamodelDriver implements EMetamodelDriver{
 	{
 		ePackage = EcoreRegistryLoader.loadEPackageFromRetistry(sourceString);
 		if (ePackage == null) {
-			ePackage = EcoreRegistryLoader.loadEPackageFromRetistry(sourceString);
+			ePackage = EcoreFileLoader.loadEPackageFromFile(sourceString);
 		}
-		
 		if (ePackage == null) {
 			throw new Exception("Cannot load the package specified");
 		}
