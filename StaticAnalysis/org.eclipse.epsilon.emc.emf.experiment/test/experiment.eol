@@ -37,13 +37,15 @@ var eolQueryString = "";
 
 for(clazz in getPercent(counter, sum, 10))
 {
-	clazz.owningModel().println();
+	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
+	
 	clazz.name.print();
 	": ".print();
 	var val = counter.get(clazz);
 	val.println();
 }
 
+eolQueryString.println();
 
 
 
