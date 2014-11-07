@@ -108,7 +108,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/70percent.eol"));
+		eolModule.parse(new File("test/40percent.eol"));
 		
 		EmfSmartModel smartModel = new EmfSmartModel();
 		smartModel.setName("DOM");
@@ -156,7 +156,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/70percent.eol"));
+		eolModule.parse(new File("test/40percent.eol"));
 		
 		EmfModel normalModel = new EmfModel();
 		normalModel.setName("DOM");
@@ -189,7 +189,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/70percent.eol"));
+		eolModule.parse(new File("test/40percent.eol"));
 		
 		EmfGreedyModel normalModel = new EmfGreedyModel();
 		normalModel.setName("DOM");

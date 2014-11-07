@@ -35,7 +35,7 @@ size.println();
 
 var eolQueryString = "";
 
-for(clazz in getPercent(counter, sum, 70))
+for(clazz in getPercent(counter, sum, 90))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	
@@ -59,7 +59,7 @@ operation getPercent(counter: Map, size: Integer, percent : Integer)
 		var value = counter.get(k);
 		if(value < number)
 		{
-			if(value + sum < number and value + sum < number * 1.2)
+			if(value + sum <= number and value + sum < number * 1.2)
 			{
 				sum = sum + value;
 				result.add(k);
