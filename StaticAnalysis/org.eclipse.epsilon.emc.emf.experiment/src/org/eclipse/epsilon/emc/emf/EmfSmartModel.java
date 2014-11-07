@@ -30,15 +30,21 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 
 public class EmfSmartModel extends EmfModel{
 
-	protected ModelContainer modelContainer;
+	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();
+	//protected ModelContainer modelContainer;
 
-	public void setModelContainer(ModelContainer modelContainer) {
-		this.modelContainer = modelContainer;
+	public void addModelContainer(ModelContainer modelContainer)
+	{
+		modelContainers.add(modelContainer);
+	}
+	
+	public void setModelContainers(ArrayList<ModelContainer> modelContainers) {
+		this.modelContainers = modelContainers;
 	}
 	
 	public void loadModelFromUri() throws EolModelLoadingException {
 		super.loadModelFromUri();
-		if (modelContainer != null) {
+		if (modelContainers.size() != 0) {
 			try {
 				populateCaches_v2();
 			} catch (EolModelElementTypeNotFoundException e) {
@@ -107,70 +113,72 @@ public class EmfSmartModel extends EmfModel{
 //			}
 //		}
 //	}	
-	public void populateCaches() throws EolModelElementTypeNotFoundException
-	{
-		HashMap<EClass, List<EObject>> allOfKinds = new HashMap<EClass, List<EObject>>();
-		HashMap<EClass, List<EObject>> allOfTypes = new HashMap<EClass, List<EObject>>();
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
-		{
-			EClass eClass = classForName(mec.getElementName());
-			allOfKinds.put(eClass, new ArrayList<EObject>());
-		}
-		
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
-		{
-			EClass eClass = classForName(mec.getElementName());
-			allOfTypes.put(eClass, new ArrayList<EObject>());
-		}
-		
-		
-		for (EObject eObject : (Collection<EObject>)allContents()) {
-			for(EClass eClass : allOfKinds.keySet())
-			{
-				if (eClass.isInstance(eObject)) {
-					allOfKinds.get(eClass).add(eObject);
-				}
-			}
-			for(EClass eClass : allOfTypes.keySet())
-			{
-				if (eObject.eClass() == eClass){
-					allOfTypes.get(eClass).add(eObject);
-				}
-			}
-		}
-		
-		for(EClass eClass : allOfKinds.keySet())
-		{
-			kindCache.replaceValues(eClass, allOfKinds.get(eClass));
-			cachedKinds.add(eClass);
-		}
-		
-		for(EClass eClass : allOfTypes.keySet())
-		{
-			typeCache.replaceValues(eClass, allOfTypes.get(eClass));
-			cachedTypes.add(eClass);
-		}
-		
-	}
+//	public void populateCaches() throws EolModelElementTypeNotFoundException
+//	{
+//		HashMap<EClass, List<EObject>> allOfKinds = new HashMap<EClass, List<EObject>>();
+//		HashMap<EClass, List<EObject>> allOfTypes = new HashMap<EClass, List<EObject>>();
+//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
+//		{
+//			EClass eClass = classForName(mec.getElementName());
+//			allOfKinds.put(eClass, new ArrayList<EObject>());
+//		}
+//		
+//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
+//		{
+//			EClass eClass = classForName(mec.getElementName());
+//			allOfTypes.put(eClass, new ArrayList<EObject>());
+//		}
+//		
+//		
+//		for (EObject eObject : (Collection<EObject>)allContents()) {
+//			for(EClass eClass : allOfKinds.keySet())
+//			{
+//				if (eClass.isInstance(eObject)) {
+//					allOfKinds.get(eClass).add(eObject);
+//				}
+//			}
+//			for(EClass eClass : allOfTypes.keySet())
+//			{
+//				if (eObject.eClass() == eClass){
+//					allOfTypes.get(eClass).add(eObject);
+//				}
+//			}
+//		}
+//		
+//		for(EClass eClass : allOfKinds.keySet())
+//		{
+//			kindCache.replaceValues(eClass, allOfKinds.get(eClass));
+//			cachedKinds.add(eClass);
+//		}
+//		
+//		for(EClass eClass : allOfTypes.keySet())
+//		{
+//			typeCache.replaceValues(eClass, allOfTypes.get(eClass));
+//			cachedTypes.add(eClass);
+//		}
+//		
+//	}
 	
 	public void populateCaches_v2() throws EolModelElementTypeNotFoundException
 	{
 		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
 		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
 		
-		
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
+		for(ModelContainer mc: modelContainers)
 		{
-			EClass eClass = classForName(mec.getElementName());
-			allOfKinds.add(eClass);
-			cachedKinds.add(eClass);
-		}
-		
-		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
-		{
-			EClass eClass = classForName(mec.getElementName());
-			allOfTypes.add(eClass);
-			cachedTypes.add(eClass);
+			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			{
+				EClass eClass = classForName(mec.getElementName());
+				allOfKinds.add(eClass);
+				cachedKinds.add(eClass);
+			}
+			
+			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			{
+				EClass eClass = classForName(mec.getElementName());
+				allOfTypes.add(eClass);
+				cachedTypes.add(eClass);
+			}
 		}
 		
 		
@@ -218,7 +226,7 @@ public class EmfSmartModel extends EmfModel{
 		
 		LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
 		
-		smartModel.setModelContainer(loaContext.getModelContainers().get(0));
+		smartModel.setModelContainers(loaContext.getModelContainers());
 		
 		long init = System.nanoTime();
 

@@ -35,7 +35,7 @@ size.println();
 
 var eolQueryString = "";
 
-for(clazz in getPercent(counter, sum, 10))
+for(clazz in getPercent(counter, sum, 70))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	

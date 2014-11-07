@@ -108,7 +108,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/10percent.eol"));
+		eolModule.parse(new File("test/70percent.eol"));
 		
 		EmfSmartModel smartModel = new EmfSmartModel();
 		smartModel.setName("DOM");
@@ -134,7 +134,7 @@ public class Test_Harness {
 		
 		LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
 		
-		smartModel.setModelContainer(loaContext.getModelContainers().get(0));
+		smartModel.setModelContainers(loaContext.getModelContainers());
 		
 		long init = System.nanoTime();
 		smartModel.load();
@@ -156,7 +156,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/10percent.eol"));
+		eolModule.parse(new File("test/70percent.eol"));
 		
 		EmfModel normalModel = new EmfModel();
 		normalModel.setName("DOM");
@@ -189,7 +189,7 @@ public class Test_Harness {
 	{
 		ArrayList<Long> result = new ArrayList<Long>();
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/10percent.eol"));
+		eolModule.parse(new File("test/70percent.eol"));
 		
 		EmfGreedyModel normalModel = new EmfGreedyModel();
 		normalModel.setName("DOM");
