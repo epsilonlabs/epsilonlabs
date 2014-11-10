@@ -88,15 +88,15 @@ rule CopyICompilationUnit
  
 	t.`sourceRange` ::= s.`sourceRange`;
  
-	t.`primary` ::= s.`primary`;
- 
-	t.`ast` ::= s.`ast`;
- 
 	t.`allType` ::= s.`allType`;
  
 	t.`imports` ::= s.`imports`;
  
 	t.`types` ::= s.`types`;
+ 
+	t.`primary` ::= s.`primary`;
+ 
+	t.`ast` ::= s.`ast`;
 }
 rule CopyIClassFile
 	transform s : Source!`IClassFile`
@@ -287,9 +287,9 @@ rule CopyCompilationUnit
 	to t : Target!`CompilationUnit` {
 	
  
-	t.`package` ::= s.`package`;
- 
 	t.`comments` ::= s.`comments`;
+ 
+	t.`package` ::= s.`package`;
  
 	t.`imports` ::= s.`imports`;
  
@@ -380,13 +380,13 @@ rule CopyPackageDeclaration
 	to t : Target!`PackageDeclaration` {
 	
  
+	t.`annotations` ::= s.`annotations`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
  
 	t.`name` ::= s.`name`;
  
 	t.`binding` ::= s.`binding`;
- 
-	t.`annotations` ::= s.`annotations`;
 }
 rule CopyTagElement
 	transform s : Source!`TagElement`
@@ -420,6 +420,8 @@ rule CopyAnnotationTypeMemberDeclaration
 	to t : Target!`AnnotationTypeMemberDeclaration` {
 	
  
+	t.`modifiers` ::= s.`modifiers`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
  
 	t.`default` ::= s.`default`;
@@ -427,47 +429,45 @@ rule CopyAnnotationTypeMemberDeclaration
 	t.`name` ::= s.`name`;
  
 	t.`type` ::= s.`type`;
- 
-	t.`modifiers` ::= s.`modifiers`;
 }
 rule CopyEnumConstantDeclaration
 	transform s : Source!`EnumConstantDeclaration`
 	to t : Target!`EnumConstantDeclaration` {
 	
  
+	t.`modifiers` ::= s.`modifiers`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
+ 
+	t.`arguments` ::= s.`arguments`;
  
 	t.`anonymousClassDeclaration` ::= s.`anonymousClassDeclaration`;
  
 	t.`name` ::= s.`name`;
- 
-	t.`modifiers` ::= s.`modifiers`;
- 
-	t.`arguments` ::= s.`arguments`;
 }
 rule CopyFieldDeclaration
 	transform s : Source!`FieldDeclaration`
 	to t : Target!`FieldDeclaration` {
 	
  
-	t.`javadoc` ::= s.`javadoc`;
- 
-	t.`type` ::= s.`type`;
- 
 	t.`modifiers` ::= s.`modifiers`;
  
+	t.`javadoc` ::= s.`javadoc`;
+ 
 	t.`fragments` ::= s.`fragments`;
+ 
+	t.`type` ::= s.`type`;
 }
 rule CopyInitializer
 	transform s : Source!`Initializer`
 	to t : Target!`Initializer` {
 	
  
+	t.`modifiers` ::= s.`modifiers`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
  
 	t.`body` ::= s.`body`;
- 
-	t.`modifiers` ::= s.`modifiers`;
 }
 rule CopyMethodDeclaration
 	transform s : Source!`MethodDeclaration`
@@ -480,6 +480,8 @@ rule CopyMethodDeclaration
  
 	t.`varargs` := s.`varargs`;
  
+	t.`modifiers` ::= s.`modifiers`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
  
 	t.`body` ::= s.`body`;
@@ -488,15 +490,13 @@ rule CopyMethodDeclaration
  
 	t.`returnType` ::= s.`returnType`;
  
-	t.`binding` ::= s.`binding`;
- 
-	t.`modifiers` ::= s.`modifiers`;
- 
 	t.`parameters` ::= s.`parameters`;
  
 	t.`thrownExceptions` ::= s.`thrownExceptions`;
  
 	t.`typeParameters` ::= s.`typeParameters`;
+ 
+	t.`binding` ::= s.`binding`;
 }
 rule CopyAnnotationTypeDeclaration
 	transform s : Source!`AnnotationTypeDeclaration`
@@ -509,13 +509,13 @@ rule CopyAnnotationTypeDeclaration
  
 	t.`packageMemberTypeDeclaration` := s.`packageMemberTypeDeclaration`;
  
-	t.`javadoc` ::= s.`javadoc`;
- 
-	t.`name` ::= s.`name`;
- 
 	t.`modifiers` ::= s.`modifiers`;
  
+	t.`javadoc` ::= s.`javadoc`;
+ 
 	t.`bodyDeclarations` ::= s.`bodyDeclarations`;
+ 
+	t.`name` ::= s.`name`;
 }
 rule CopyEnumDeclaration
 	transform s : Source!`EnumDeclaration`
@@ -528,13 +528,13 @@ rule CopyEnumDeclaration
  
 	t.`packageMemberTypeDeclaration` := s.`packageMemberTypeDeclaration`;
  
-	t.`javadoc` ::= s.`javadoc`;
- 
-	t.`name` ::= s.`name`;
- 
 	t.`modifiers` ::= s.`modifiers`;
  
+	t.`javadoc` ::= s.`javadoc`;
+ 
 	t.`bodyDeclarations` ::= s.`bodyDeclarations`;
+ 
+	t.`name` ::= s.`name`;
  
 	t.`superInterfaceTypes` ::= s.`superInterfaceTypes`;
  
@@ -553,15 +553,15 @@ rule CopyTypeDeclaration
  
 	t.`interface` := s.`interface`;
  
+	t.`modifiers` ::= s.`modifiers`;
+ 
 	t.`javadoc` ::= s.`javadoc`;
+ 
+	t.`bodyDeclarations` ::= s.`bodyDeclarations`;
  
 	t.`name` ::= s.`name`;
  
 	t.`superclassType` ::= s.`superclassType`;
- 
-	t.`modifiers` ::= s.`modifiers`;
- 
-	t.`bodyDeclarations` ::= s.`bodyDeclarations`;
  
 	t.`superInterfaceTypes` ::= s.`superInterfaceTypes`;
  
@@ -616,11 +616,11 @@ rule CopyArrayCreation
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
+	t.`dimensions` ::= s.`dimensions`;
+ 
 	t.`initializer` ::= s.`initializer`;
  
 	t.`type` ::= s.`type`;
- 
-	t.`dimensions` ::= s.`dimensions`;
 }
 rule CopyArrayInitializer
 	transform s : Source!`ArrayInitializer`
@@ -644,7 +644,7 @@ rule CopyAssignment
  
 	t.`resolveUnboxing` := s.`resolveUnboxing`;
  
-	t.`operator` := s.`operator`;
+	// t.`operator` := s.`operator`;
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
@@ -706,13 +706,13 @@ rule CopyClassInstanceCreation
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
+	t.`arguments` ::= s.`arguments`;
+ 
 	t.`anonymousClassDeclaration` ::= s.`anonymousClassDeclaration`;
  
 	t.`expression` ::= s.`expression`;
  
 	t.`type` ::= s.`type`;
- 
-	t.`arguments` ::= s.`arguments`;
  
 	t.`typeArguments` ::= s.`typeArguments`;
 }
@@ -757,15 +757,15 @@ rule CopyInfixExpression
  
 	t.`resolveUnboxing` := s.`resolveUnboxing`;
  
-	t.`operator` := s.`operator`;
+	// t.`operator` := s.`operator`;
  
 	t.`typeBinding` ::= s.`typeBinding`;
+ 
+	t.`extendedOperands` ::= s.`extendedOperands`;
  
 	t.`leftOperand` ::= s.`leftOperand`;
  
 	t.`rightOperand` ::= s.`rightOperand`;
- 
-	t.`extendedOperands` ::= s.`extendedOperands`;
 }
 rule CopyInstanceofExpression
 	transform s : Source!`InstanceofExpression`
@@ -793,15 +793,15 @@ rule CopyMethodInvocation
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
+	t.`arguments` ::= s.`arguments`;
+ 
 	t.`expression` ::= s.`expression`;
  
 	t.`name` ::= s.`name`;
  
-	t.`methodBinding` ::= s.`methodBinding`;
- 
-	t.`arguments` ::= s.`arguments`;
- 
 	t.`typeArguments` ::= s.`typeArguments`;
+ 
+	t.`methodBinding` ::= s.`methodBinding`;
 }
 rule CopyNullLiteral
 	transform s : Source!`NullLiteral`
@@ -849,7 +849,7 @@ rule CopyPostfixExpression
  
 	t.`resolveUnboxing` := s.`resolveUnboxing`;
  
-	t.`operator` := s.`operator`;
+	// t.`operator` := s.`operator`;
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
@@ -864,7 +864,7 @@ rule CopyPrefixExpression
  
 	t.`resolveUnboxing` := s.`resolveUnboxing`;
  
-	t.`operator` := s.`operator`;
+	// t.`operator` := s.`operator`;
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
@@ -911,11 +911,11 @@ rule CopySuperMethodInvocation
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
+	t.`arguments` ::= s.`arguments`;
+ 
 	t.`name` ::= s.`name`;
  
 	t.`qualifier` ::= s.`qualifier`;
- 
-	t.`arguments` ::= s.`arguments`;
  
 	t.`typeArguments` ::= s.`typeArguments`;
 }
@@ -956,11 +956,11 @@ rule CopyVariableDeclarationExpression
  
 	t.`typeBinding` ::= s.`typeBinding`;
  
-	t.`type` ::= s.`type`;
- 
 	t.`fragments` ::= s.`fragments`;
  
 	t.`modifiers` ::= s.`modifiers`;
+ 
+	t.`type` ::= s.`type`;
 }
 rule CopyAssertStatement
 	transform s : Source!`AssertStatement`
@@ -1078,9 +1078,9 @@ rule CopySuperConstructorInvocation
 	to t : Target!`SuperConstructorInvocation` {
 	
  
-	t.`expression` ::= s.`expression`;
- 
 	t.`arguments` ::= s.`arguments`;
+ 
+	t.`expression` ::= s.`expression`;
  
 	t.`typeArguments` ::= s.`typeArguments`;
 }
@@ -1123,11 +1123,11 @@ rule CopyTryStatement
 	to t : Target!`TryStatement` {
 	
  
+	t.`catchClauses` ::= s.`catchClauses`;
+ 
 	t.`body` ::= s.`body`;
  
 	t.`finally` ::= s.`finally`;
- 
-	t.`catchClauses` ::= s.`catchClauses`;
 }
 rule CopyTypeDeclarationStatement
 	transform s : Source!`TypeDeclarationStatement`
@@ -1141,11 +1141,11 @@ rule CopyVariableDeclarationStatement
 	to t : Target!`VariableDeclarationStatement` {
 	
  
-	t.`type` ::= s.`type`;
- 
 	t.`fragments` ::= s.`fragments`;
  
 	t.`modifiers` ::= s.`modifiers`;
+ 
+	t.`type` ::= s.`type`;
 }
 rule CopyWhileStatement
 	transform s : Source!`WhileStatement`
