@@ -4,10 +4,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
-import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -42,6 +39,7 @@ public class EmfSmartModel extends EmfModel{
 		this.modelContainers = modelContainers;
 	}
 	
+	
 	public void loadModelFromUri() throws EolModelLoadingException {
 		super.loadModelFromUri();
 		if (modelContainers.size() != 0) {
@@ -50,40 +48,52 @@ public class EmfSmartModel extends EmfModel{
 			} catch (EolModelElementTypeNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}	
 		}
 	}
 	
+//	@Override
 //	public void setupContainmentChangeListeners() {
 //		// Add a notification adapter to all objects in the model
 //		// so that they get moved when their containment changes
 //		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
 //		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
-//
-//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
-//		{
-//			EClass eClass = null;
-//			try {
-//				eClass = classForName(mec.getElementName());
-//			} catch (EolModelElementTypeNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			allOfKinds.add(eClass);
-//			cachedKinds.add(eClass);
-//		}
 //		
-//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
+//		for(ModelContainer mc: modelContainers)
 //		{
-//			EClass eClass = null;
-//			try {
-//				eClass = classForName(mec.getElementName());
-//			} catch (EolModelElementTypeNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
+//			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+//			{
+//				EClass eClass = null;
+//				try {
+//					eClass = classForName(mec.getElementName());
+//				} catch (EolModelElementTypeNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				if (eClass != null) {
+//					allOfKinds.add(eClass);
+//					cachedKinds.add(eClass);	
+//				}
+//				else {
+//					System.out.println("eclass is null!");
+//				}
 //			}
-//			allOfTypes.add(eClass);
-//			cachedTypes.add(eClass);
+//			
+//			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+//			{
+//				EClass eClass = null;
+//				try {
+//					eClass = classForName(mec.getElementName());
+//				} catch (EolModelElementTypeNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				allOfTypes.add(eClass);
+//				cachedTypes.add(eClass);
+//			}
 //		}
 //
 //		if (modelImpl != null) {
@@ -113,6 +123,7 @@ public class EmfSmartModel extends EmfModel{
 //			}
 //		}
 //	}	
+	
 //	public void populateCaches() throws EolModelElementTypeNotFoundException
 //	{
 //		HashMap<EClass, List<EObject>> allOfKinds = new HashMap<EClass, List<EObject>>();
@@ -159,7 +170,98 @@ public class EmfSmartModel extends EmfModel{
 //		
 //	}
 	
-	public void populateCaches_v2() throws EolModelElementTypeNotFoundException
+//	@Override
+//	protected Collection<EObject> allContentsFromModel(){
+//		
+//		System.out.println("call too allContentsFromModel()");
+//		
+//		final List<EObject> allInstances = new ArrayList<EObject>();
+//		
+//		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
+//		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
+//		
+//		for(ModelContainer mc: modelContainers)
+//		{
+//			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+//			{
+//				EClass eClass = null;
+//				try {
+//					eClass = classForName(mec.getElementName());
+//				} catch (EolModelElementTypeNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				if (eClass != null) {
+//					allOfKinds.add(eClass);
+//					cachedKinds.add(eClass);	
+//				}
+//				else {
+//					System.out.println("eclass is null!");
+//				}
+//				
+//			}
+//			
+//			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+//			{
+//				EClass eClass = null;
+//				try {
+//					eClass = classForName(mec.getElementName());
+//				} catch (EolModelElementTypeNotFoundException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				allOfTypes.add(eClass);
+//				cachedTypes.add(eClass);
+//			}
+//		}
+//		
+//		for (Resource resource : getResources()) {
+//			Iterator<EObject> it = resource.getAllContents();
+//			while (it.hasNext()){
+//				EObject eObject = it.next();
+//				for(EClass eClass : allOfKinds)
+//				{
+//					if (eClass.isInstance(eObject)) {
+//						kindCache.put(eClass, eObject);
+//					}
+//				}
+//				for(EClass eClass : allOfTypes)
+//				{
+//					if (eObject.eClass() == eClass){
+//						typeCache.put(eClass, eObject);
+//					}
+//				}
+//				
+//
+//				allInstances.add(eObject);
+//			}
+//		}
+//		
+//		/*
+//		if (!expand) {
+//			Iterator<EObject> it = modelImpl.getAllContents();
+//			while (it.hasNext()){
+//				allInstances.add(it.next());
+//			}
+//		
+//		} else {
+//			final List<Resource> resources;
+//			
+//			if (modelImpl.getResourceSet() == null) {
+//				resources = new ArrayList<Resource>();
+//				resources.add(modelImpl);
+//			} else {
+//				resources = modelImpl.getResourceSet().getResources();
+//			}
+//				
+//			
+//		}*/
+//			
+//		return allInstances;
+//	}
+//
+//	
+	public void populateCaches_v2() throws Exception
 	{
 		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
 		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
@@ -169,8 +271,13 @@ public class EmfSmartModel extends EmfModel{
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 			{
 				EClass eClass = classForName(mec.getElementName());
-				allOfKinds.add(eClass);
-				cachedKinds.add(eClass);
+				if (eClass != null) {
+					allOfKinds.add(eClass);
+					cachedKinds.add(eClass);	
+				}
+				else {
+					System.out.println("eclass is null!");
+				}
 			}
 			
 			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
@@ -180,7 +287,6 @@ public class EmfSmartModel extends EmfModel{
 				cachedTypes.add(eClass);
 			}
 		}
-		
 		
 		for (EObject eObject : (Collection<EObject>)allContents()) {
 			for(EClass eClass : allOfKinds)
@@ -198,44 +304,99 @@ public class EmfSmartModel extends EmfModel{
 		}
 	}
 	
+	public void checkIntegrity() throws Exception
+	{
+		for(ModelContainer mc: modelContainers)
+		{
+			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			{
+				EClass eClass = classForName(mec.getElementName());
+				if (cachedKinds.contains(eClass)) {
+					if (kindCache.get(eClass) != null) {
+						if (kindCache.get(eClass).size() == 0) {
+							System.out.println("size is 0!");
+							throw new Exception();
+						}
+					}
+					else {
+						
+						System.out.println("returned null!");
+						throw new Exception();
+					}
+				}
+				else {
+					System.out.println("Does not contain!" + eClass.getName());
+					throw new Exception();
+				}
+			}
+			
+			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			{
+				EClass eClass = classForName(mec.getElementName());
+				if (cachedTypes.contains(eClass)) {
+					if (typeCache.get(eClass) != null) {
+						if (typeCache.get(eClass).size() == 0) {
+							System.out.println("size is 0!");
+							throw new Exception();
+						}
+					}
+					else {
+						System.out.println("returned null!");
+						throw new Exception();
+					}
+				}
+				else {
+					System.out.println("Does not contain!" + eClass.getName());
+					throw new Exception();
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) throws URISyntaxException, Exception {
-		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/grabats.eol"));
-		
-		EmfSmartModel smartModel = new EmfSmartModel();
-		smartModel.setName("DOM");
-		smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-		smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
-		//smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
-		
-		loadEPackageFromFile("test/JDTAST.ecore");
-		
-		Ast2EolContext ast2EolContext = new Ast2EolContext();
-		EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
-		
-		VariableResolver vr = new VariableResolver();
-		vr.run(dom);
-		
-		TypeResolver tr = new TypeResolver();
-		tr.getTypeResolutionContext().setModule(eolModule);
-		tr.run(dom);
-		
-		
-		LoadingOptimisationAnalyser loa = new LoadingOptimisationAnalyser();
-		loa.run(dom);
-		
-		LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
-		
-		smartModel.setModelContainers(loaContext.getModelContainers());
-		
-		long init = System.nanoTime();
+		for(int i = 0; i < 10; i++)
+		{
+			EolModule eolModule = new EolModule();
+			eolModule.parse(new File("test/set2_60percent.eol"));
+			
+			EmfSmartModel smartModel = new EmfSmartModel();
+			smartModel.setName("DOM");
+			smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+			//smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
+			
+			loadEPackageFromFile("test/JDTAST.ecore");
+			
+			Ast2EolContext ast2EolContext = new Ast2EolContext();
+			EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
+			
+			VariableResolver vr = new VariableResolver();
+			vr.run(dom);
+			
+			TypeResolver tr = new TypeResolver();
+			tr.getTypeResolutionContext().setModule(eolModule);
+			tr.run(dom);
+			
+			
+			LoadingOptimisationAnalyser loa = new LoadingOptimisationAnalyser();
+			loa.run(dom);
+			
+			LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
+			
+			smartModel.setModelContainers(loaContext.getModelContainers());
+			
+			long init = System.nanoTime();
 
-		smartModel.load();
-		
-		eolModule.getContext().getModelRepository().addModel(smartModel);
-		eolModule.execute();
-		System.out.println("(took ~" + (System.nanoTime() - init)
-				/ 1000000 + "ms to run)");
+			smartModel.load();
+			System.out.println("(took ~" + (System.nanoTime() - init) / 1000000 + "ms to load");
+			init = System.nanoTime();
+			
+			eolModule.getContext().getModelRepository().addModel(smartModel);
+			eolModule.execute();
+			System.out.println("(took ~" + (System.nanoTime() - init)
+					/ 1000000 + "ms to run)");
+			eolModule.getContext().getModelRepository().dispose();
+		}
 	}
 	
 	public static EPackage loadEPackageFromFile(String fileName)

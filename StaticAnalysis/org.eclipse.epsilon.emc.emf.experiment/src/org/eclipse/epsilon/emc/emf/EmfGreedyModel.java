@@ -104,7 +104,7 @@ public class EmfGreedyModel extends EmfModel{
 	
 	public static void main(String[] args) throws URISyntaxException, Exception {
 		EolModule eolModule = new EolModule();
-		eolModule.parse(new File("test/grabats.eol"));
+		eolModule.parse(new File("test/set2_50percent.eol"));
 		
 		EmfGreedyModel greedyModel = new EmfGreedyModel();
 		greedyModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
@@ -117,11 +117,13 @@ public class EmfGreedyModel extends EmfModel{
 		//greedyModel.setMetamodelUri("http://www.eclipse.org/emf/2002/Ecore");
 		greedyModel.load();
 		System.out.println("(took ~" + (System.nanoTime() - init)
-				/ 1000000 + "ms to run)");
-
-		
+				/ 1000000 + "ms to load)");
+		init = System.nanoTime();
 		eolModule.getContext().getModelRepository().addModel(greedyModel);
 		eolModule.execute();
+		System.out.println("(took ~" + (System.nanoTime() - init)
+				/ 1000000 + "ms to run)");
+
 	}
 
 
