@@ -55,6 +55,15 @@ public class EmfSmartModel extends EmfModel{
 		}
 	}
 	
+	@Override
+	protected ResourceSet createResourceSet() {
+		ResourceSet resourceSet = new EmfModelResourceSet();
+		SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
+		factory.setModelContainers(modelContainers); // <----------------------- point of change
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", factory);   // <----------------------- point of change
+		return resourceSet;
+	}
+	
 //	@Override
 //	public void setupContainmentChangeListeners() {
 //		// Add a notification adapter to all objects in the model

@@ -93,8 +93,8 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 15;
-		final int disregard = 5;
+		final int iteration = 5;
+		final int disregard = 0;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -327,6 +327,7 @@ public class Test_Harness {
 		
 		result.add(memoryConsumptionStart-memoryConsumptionEnd);
 		eolModule.getContext().getModelRepository().dispose();
+		
 		
 		return result;
 	}
