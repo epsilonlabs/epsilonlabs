@@ -29,37 +29,44 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 
 	
-	@Override
-	public void startElement(String uri, String localName, String name) {
-		// TODO Auto-generated method stub
-		if (isNeeded(name)) {
-		    if (documentRoot != null)
-		    {
-		      EObject eObject = objects.peekEObject();
-		      if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass())))
-		      {
-		        types.pop();
-		        objects.pop();
-		        mixedTargets.pop();
-		        documentRoot= null;
-		      }
-		    }
-			super.startElement(uri, localName, name);	
-		}
-	}
-	
-	@Override
-	public void endElement(String uri, String localName, String name) {
-		if (isNeeded(name)) {
-			super.endElement(uri, localName, name);
-		}
-	}
+//	@Override
+//	public void startElement(String uri, String localName, String name) {
+//		
+//		if (documentRoot != null) {
+//			if (isNeeded(name)) {
+//				EObject eObject = objects.peekEObject();
+//				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
+//					types.pop();
+//					objects.pop();
+//					mixedTargets.pop();
+//					documentRoot = null;
+//				}
+//			}
+//			
+//		}
+//		else {
+//			super.startElement(uri, localName, name);
+//		}
+//		if (isNeeded(name)) {
+//			super.startElement(uri, localName, name);
+//		}
+//		
+//		
+//	}
+//	
+//	@Override
+//	public void endElement(String uri, String localName, String name) {
+//		if (isNeeded(name)) {
+//			super.endElement(uri, localName, name);
+//		}
+//	}
 	
 	public boolean isNeeded(String name)
 	{
+		String localName = name;
 		int index = name.indexOf(':', 0);
 		if (index != -1) {
-			name = name.substring(index+1);
+			localName = name.substring(index+1);
 		}
 
 		for(ModelContainer mc: modelContainers)
@@ -67,7 +74,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 			{
 				String elementName = mec.getElementName();
-				if (name.equals(elementName)) {
+				if (localName.equals(elementName)) {
 					return true;
 				}
 			}
@@ -75,7 +82,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
 			{
 				String elementName = mec.getElementName();
-				if (name.equals(elementName)) {
+				if (localName.equals(elementName)) {
 					return true;
 				}
 			}
