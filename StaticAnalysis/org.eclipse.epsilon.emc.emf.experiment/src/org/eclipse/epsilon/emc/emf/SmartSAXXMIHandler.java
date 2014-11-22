@@ -14,6 +14,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 
+	protected ArrayList<String> elementStack = new ArrayList<String>();
+	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
@@ -29,37 +31,40 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 
 	
-//	@Override
-//	public void startElement(String uri, String localName, String name) {
-//		
-//		if (documentRoot != null) {
-//			if (isNeeded(name)) {
-//				EObject eObject = objects.peekEObject();
-//				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
-//					types.pop();
-//					objects.pop();
-//					mixedTargets.pop();
-//					documentRoot = null;
-//				}
-//			}
-//			
-//		}
-//		else {
-//			super.startElement(uri, localName, name);
-//		}
-//		if (isNeeded(name)) {
-//			super.startElement(uri, localName, name);
-//		}
-//		
-//		
-//	}
-//	
-//	@Override
-//	public void endElement(String uri, String localName, String name) {
-//		if (isNeeded(name)) {
-//			super.endElement(uri, localName, name);
-//		}
-//	}
+	@Override
+	public void startElement(String uri, String localName, String name) {
+		
+		if (documentRoot != null) {
+			if (isNeeded(name)) {
+				elementStack.add(name);
+				
+				EObject eObject = objects.peekEObject();
+				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
+					types.pop();
+					objects.pop();
+					mixedTargets.pop();
+					documentRoot = null;
+				}
+			}
+			
+		}
+		else {
+			super.startElement(uri, localName, name);
+			return;
+		}
+		if (isNeeded(name)) {
+			super.startElement(uri, localName, name);
+		}
+		
+		
+	}
+	
+	@Override
+	public void endElement(String uri, String localName, String name) {
+		if (isNeeded(name)) {
+			super.endElement(uri, localName, name);
+		}
+	}
 	
 	public boolean isNeeded(String name)
 	{
@@ -69,6 +74,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			localName = name.substring(index+1);
 		}
 
+		if (shouldContinue) {
+			return true;
+		}
 		for(ModelContainer mc: modelContainers)
 		{
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
