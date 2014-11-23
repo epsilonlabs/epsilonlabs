@@ -3,7 +3,12 @@ package org.eclipse.epsilon.emc.emf;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
@@ -31,53 +36,76 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 
 	
+//	@Override
+//	public void startElement(String uri, String localName, String name) {
+//		
+//		if (documentRoot != null) {
+//			if (isNeeded(name)) {
+//				elementStack.add(name);
+//				EObject eObject = objects.peekEObject();
+//				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
+//					types.pop();
+//					objects.pop();
+//					mixedTargets.pop();
+//					documentRoot = null;
+//				}
+//			}
+//			else if (elementStack.size() > 1) {
+//				EObject eObject = objects.peekEObject();
+//				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
+//					types.pop();
+//					objects.pop();
+//					mixedTargets.pop();
+//					documentRoot = null;
+//				}
+//			}
+//		}
+//		else {
+//			elementStack.add(name);
+//			super.startElement(uri, localName, name);
+//			return;
+//		}
+//		if (isNeeded(name) || elementStack.size() > 1) {
+//			super.startElement(uri, localName, name);
+//		}
+//		
+//		
+//	}
+//	
+//	@Override
+//	public void endElement(String uri, String localName, String name) {
+//		if (elementStack.size() > 1) {
+//			super.endElement(uri, localName, name);
+//			if (elementStack.size() > 1 && elementStack.get(elementStack.size()-1).equals(name)) {
+//				elementStack.remove(elementStack.size()-1);
+//			}
+//		}		
+//	}
+//	
 	@Override
-	public void startElement(String uri, String localName, String name) {
+	protected void handleFeature(String prefix, String name) {
+		EObject peek = (DynamicEObjectImpl) objects.peekEObject();
+		EObject beforePeek = objects.get(objects.indexOf(peek)-1);
 		
-		if (documentRoot != null) {
-			if (isNeeded(name)) {
-				elementStack.add(name);
-				EObject eObject = objects.peekEObject();
-				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
-					types.pop();
-					objects.pop();
-					mixedTargets.pop();
-					documentRoot = null;
-				}
-			}
-			else if (elementStack.size() > 1) {
-				EObject eObject = objects.peekEObject();
-				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
-					types.pop();
-					objects.pop();
-					mixedTargets.pop();
-					documentRoot = null;
-				}
-			}
+		if (peek.eClass() instanceof EPackage) {
+			super.handleFeature(prefix, name);	
 		}
-		else {
-			elementStack.add(name);
-			super.startElement(uri, localName, name);
-			return;
+		else if (isNeeded(peek.eClass().getName())) {
+			super.handleFeature(prefix, name);	
 		}
-		if (isNeeded(name) || elementStack.size() > 1) {
-			super.startElement(uri, localName, name);
-		}
-		
-		
 	}
 	
-	@Override
-	public void endElement(String uri, String localName, String name) {
-		if (elementStack.size() > 0 || isNeeded(name)) {
-			super.endElement(uri, localName, name);
-			if (elementStack.size() > 0 && elementStack.get(elementStack.size()-1).equals(name)) {
-				elementStack.remove(elementStack.size()-1);
-			}
-		}
-		
-	}
-	
+//	@Override
+//	protected void createObject(EObject peekObject, EStructuralFeature feature) {
+//		// TODO Auto-generated method stub
+//		if (peekObject instanceof DynamicEObjectImpl) {
+//			DynamicEObjectImpl peek = (DynamicEObjectImpl) peekObject;
+//			if (isNeeded(peek.eClass().getName())) {
+//				super.createObject(peekObject, feature);
+//			}
+//		}
+//		
+//	}
 	public boolean isNeeded(String name)
 	{
 		String localName = name;

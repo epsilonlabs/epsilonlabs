@@ -56,6 +56,21 @@ public class EmfSmartModel extends EmfModel{
 	}
 	
 	@Override
+	public void disposeModel() {
+		//modelImpl.unload();
+		//resourceMap.remove("platform:/resource" + relativeModelFile);
+		registry = null;
+		if (modelImpl != null) {
+			//modelImpl.unload();
+			SmartEmfModelResourceFactory.getInstance().removeCachedResource(modelImpl.getURI());
+			modelImpl = null;
+		}
+
+		eClassCache.clear();
+
+	}
+	
+	@Override
 	protected ResourceSet createResourceSet() {
 		ResourceSet resourceSet = new EmfModelResourceSet();
 		SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
