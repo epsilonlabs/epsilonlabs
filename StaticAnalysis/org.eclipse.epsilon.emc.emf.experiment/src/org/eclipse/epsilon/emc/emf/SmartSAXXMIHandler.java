@@ -37,7 +37,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		if (documentRoot != null) {
 			if (isNeeded(name)) {
 				elementStack.add(name);
-				
 				EObject eObject = objects.peekEObject();
 				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
 					types.pop();
@@ -46,13 +45,22 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 					documentRoot = null;
 				}
 			}
-			
+			else if (elementStack.size() > 1) {
+				EObject eObject = objects.peekEObject();
+				if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass()))) {
+					types.pop();
+					objects.pop();
+					mixedTargets.pop();
+					documentRoot = null;
+				}
+			}
 		}
 		else {
+			elementStack.add(name);
 			super.startElement(uri, localName, name);
 			return;
 		}
-		if (isNeeded(name)) {
+		if (isNeeded(name) || elementStack.size() > 1) {
 			super.startElement(uri, localName, name);
 		}
 		
@@ -61,9 +69,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	@Override
 	public void endElement(String uri, String localName, String name) {
-		if (isNeeded(name)) {
+		if (elementStack.size() > 0 || isNeeded(name)) {
 			super.endElement(uri, localName, name);
+			if (elementStack.size() > 0 && elementStack.get(elementStack.size()-1).equals(name)) {
+				elementStack.remove(elementStack.size()-1);
+			}
 		}
+		
 	}
 	
 	public boolean isNeeded(String name)
@@ -74,9 +86,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			localName = name.substring(index+1);
 		}
 
-		if (shouldContinue) {
-			return true;
-		}
 		for(ModelContainer mc: modelContainers)
 		{
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
