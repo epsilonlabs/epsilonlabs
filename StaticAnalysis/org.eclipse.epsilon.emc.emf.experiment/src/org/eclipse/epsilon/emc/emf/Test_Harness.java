@@ -59,16 +59,16 @@ public class Test_Harness {
 	
 	public static void runSet3() throws Exception
 	{
-//		Test_Harness.test("test/set3.xmi", "test/set3_10percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_10percent.eol");
 		Test_Harness.test("test/set3.xmi", "test/set3_20percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_30percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_40percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_50percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_60percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_70percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_80percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_90percent.eol");
-//		Test_Harness.test("test/set3.xmi", "test/set3_100percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_30percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_40percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_50percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_60percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_70percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_80percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_90percent.eol");
+		Test_Harness.test("test/set3.xmi", "test/set3_100percent.eol");
 	}
 	
 	public static void runSet4() throws Exception
@@ -93,7 +93,7 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 5;
+		final int iteration = 1;
 		final int disregard = 0;
 		
 		//run normal
