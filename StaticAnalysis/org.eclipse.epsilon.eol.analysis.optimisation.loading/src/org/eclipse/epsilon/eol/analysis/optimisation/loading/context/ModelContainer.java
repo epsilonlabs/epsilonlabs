@@ -9,6 +9,8 @@ public class ModelContainer {
 	protected ArrayList<ModelElementContainer> modelElementsAllOfType = new ArrayList<ModelElementContainer>();
 	protected ArrayList<ModelElementContainer> modelElementsAllOfKind = new ArrayList<ModelElementContainer>();
 	
+	protected ArrayList<String> hollowElements = new ArrayList<String>(); 
+	
 	public ModelContainer(String modelName)
 	{
 		this.modelName = modelName;
@@ -118,5 +120,17 @@ public class ModelContainer {
 		}
 		return false;
 	}
+	
+	public void addHollowElement(String elementName)
+	{
+		if (!hollowElements.contains(elementName)) {
+			hollowElements.add(elementName);
+		}
+	}
+	
+	public ArrayList<String> getHollowElements() {
+		return hollowElements;
+	}
+	
 
 }
