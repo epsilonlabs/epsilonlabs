@@ -27,7 +27,7 @@ public class LoadingOptimisationAnalyser {
 	public void run(EolElement eolElement)
 	{
 		controller.visit(eolElement, context);
-		context.print();
+		//context.print();
 	}
 	
 	public TypeResolutionContext getTypeResolutionContext()

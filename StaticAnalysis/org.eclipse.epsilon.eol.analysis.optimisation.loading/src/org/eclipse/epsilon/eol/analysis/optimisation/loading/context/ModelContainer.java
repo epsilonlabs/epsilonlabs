@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ModelContainer {
 
 	protected String modelName;
+	protected String nsuri;
 	protected ArrayList<ModelElementContainer> modelElementsAllOfType = new ArrayList<ModelElementContainer>();
 	protected ArrayList<ModelElementContainer> modelElementsAllOfKind = new ArrayList<ModelElementContainer>();
 	
@@ -13,8 +14,18 @@ public class ModelContainer {
 		this.modelName = modelName;
 	}
 	
+	public ModelContainer(String modelName, String nsuri)
+	{
+		this.modelName = modelName;
+		this.nsuri = nsuri;
+	}
+	
 	public String getModelName() {
 		return modelName;
+	}
+	
+	public String getNsuri() {
+		return nsuri;
 	}
 	
 	public ArrayList<ModelElementContainer> getModelElementsAllOfType() {
