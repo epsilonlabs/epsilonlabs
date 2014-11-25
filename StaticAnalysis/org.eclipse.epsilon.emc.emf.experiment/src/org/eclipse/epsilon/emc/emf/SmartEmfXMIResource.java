@@ -43,7 +43,7 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	    }
 	    else
 	    {
-	      return super.createXMLLoad(options);
+	      return createXMLLoad();
 	    }
 	}
 }

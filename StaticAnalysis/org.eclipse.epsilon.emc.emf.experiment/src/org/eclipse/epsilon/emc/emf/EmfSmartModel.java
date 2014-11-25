@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.emc.emf;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,9 +10,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
@@ -41,7 +44,41 @@ public class EmfSmartModel extends EmfModel{
 	
 	
 	public void loadModelFromUri() throws EolModelLoadingException {
-		super.loadModelFromUri();
+		ResourceSet resourceSet = createResourceSet();
+		
+        // Check if global package registry contains the EcorePackage
+		if (EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI) == null) {
+			EPackage.Registry.INSTANCE.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		}
+		
+		determinePackagesFrom(resourceSet);
+		
+		// Note that AbstractEmfModel#getPackageRegistry() is not usable yet, as modelImpl is not set
+		for (EPackage ep : packages) {
+			String nsUri = ep.getNsURI();
+			if (nsUri == null || nsUri.trim().length() == 0) {
+				nsUri = ep.getName();
+			}
+			resourceSet.getPackageRegistry().put(nsUri, ep);
+		}
+		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		
+		Resource model = resourceSet.createResource(modelUri);
+		if (this.readOnLoad) {
+			try {
+				model.load(null);
+				if (expand) {
+					EcoreUtil.resolveAll(model);
+				}
+			} catch (IOException e) {
+				// Unload the model, so it will not be wrongly cached as "loaded",
+				// causing the intermittent errors produced in bug #386255
+				model.unload();
+				throw new EolModelLoadingException(e, this);
+			}
+		}
+		modelImpl = model;
+
 		if (modelContainers.size() != 0) {
 			try {
 				populateCaches_v2();

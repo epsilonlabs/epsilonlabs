@@ -29,15 +29,17 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 
-	protected ArrayList<String> elementStack = new ArrayList<String>();
-	
-	protected ArrayList<EObject> recordedElements = new ArrayList<EObject>();
-	
-	protected EObject recordedElement;
+//	protected ArrayList<String> elementStack = new ArrayList<String>();
+//	
+//	protected ArrayList<EObject> recordedElements = new ArrayList<EObject>();
+//	
+//	protected EObject recordedElement;
 	protected int callCount = 0;
+//	
+//	protected boolean shouldStartProcessing;
+//	protected boolean shouldHold = false;
 	
-	protected boolean shouldStartProcessing;
-	protected boolean shouldHold = false;
+	protected ArrayList<EClass> load_ref_only_classes = new ArrayList<EClass>();
 	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
@@ -177,7 +179,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //		
 //	}
 	
-	
 	@Override
 	protected void validateCreateObjectFromFactory(EFactory factory,
 			String typeName, EObject newObject) {
@@ -188,20 +189,48 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		
 	}
 	
-	
 	@Override
-	@Deprecated
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
-		// TODO Auto-generated method stub
-		callCount++;
 		if (isNeeded(typeName, factory)) {
-			
-			return super.createObjectFromFactory(factory, typeName);	
+		    EObject newObject = null;
+
+		    if (factory != null)
+		    {
+		      newObject = helper.createObject(factory, typeName);
+
+		      if (newObject != null)
+		      {
+		        if (disableNotify)
+		          newObject.eSetDeliver(false);
+
+		        handleObjectAttribs(newObject);
+		      }
+		    }
+
+		    return newObject;
 		}
+		else {
+			if (isNeededOnlyForReference(typeName, factory)) {
+			    EObject newObject = null;
+
+			    if (factory != null)
+			    {
+			      newObject = helper.createObject(factory, typeName);
+
+			      if (newObject != null)
+			      {
+			        if (disableNotify)
+			          newObject.eSetDeliver(false);
+			      }
+			    }
+
+			    return newObject;
+
+			}
+		}
+		
 		return null;
 	}
-	
-	
 	
 	
 	@Override
@@ -255,6 +284,33 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	    System.err.println(callCount);
 	}
 	
+	
+	public boolean isNeededOnlyForReference(String name, EFactory factory)
+	{
+		
+		EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
+
+		if (load_ref_only_classes.contains(actual)) {
+			return true;
+		}
+		else {
+			for(EReference eRef: actual.getEAllReferences())
+			{
+				EClass eType = (EClass) eRef.getEType();
+				EFactory eFactory = eType.getEPackage().getEFactoryInstance();
+				if (isNeeded(eType.getName(), eFactory)) {
+					load_ref_only_classes.add(actual);
+					return true;
+				}
+				if(isNeededOnlyForReference(eType.getName(), eFactory))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+	
 	public boolean isNeeded(String name, EFactory factory)
 	{
 		String localName = name;
@@ -265,20 +321,22 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 		for(ModelContainer mc: modelContainers)
 		{
+			if (!factory.getEPackage().getName().equals(mc.getModelName())) {
+				continue;
+			}
 			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 			{
-				if (factory.getEPackage().getName().equals(mc.getModelName())) {
-					String elementName = mec.getElementName();
-					if (localName.equals(elementName)) {
-						return true;
-					}
-					
-					EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
-					EClass actual = (EClass) factory.getEPackage().getEClassifier(localName);
-					if (actual.getEAllSuperTypes().contains(kind)) {
-						return true;
-					}
+				String elementName = mec.getElementName();
+				if (localName.equals(elementName)) {
+					return true;
 				}
+				
+				EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
+				EClass actual = (EClass) factory.getEPackage().getEClassifier(localName);
+				if (actual.getEAllSuperTypes().contains(kind)) {
+					return true;
+				}
+
 			}
 			
 			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
