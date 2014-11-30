@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
@@ -39,7 +40,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //	protected boolean shouldStartProcessing;
 //	protected boolean shouldHold = false;
 	
-	protected ArrayList<EClass> load_ref_only_classes = new ArrayList<EClass>();
 	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
@@ -179,58 +179,60 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //		
 //	}
 	
-	@Override
-	protected void validateCreateObjectFromFactory(EFactory factory,
-			String typeName, EObject newObject) {
-		// TODO Auto-generated method stub
-		if (isNeeded(typeName, factory)) {
-			super.validateCreateObjectFromFactory(factory, typeName, newObject);	
-		}
-		
-	}
-	
-	@Override
-	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
-		if (isNeeded(typeName, factory)) {
-		    EObject newObject = null;
-
-		    if (factory != null)
-		    {
-		      newObject = helper.createObject(factory, typeName);
-
-		      if (newObject != null)
-		      {
-		        if (disableNotify)
-		          newObject.eSetDeliver(false);
-
-		        handleObjectAttribs(newObject);
-		      }
-		    }
-
-		    return newObject;
-		}
-		else {
-			if (isNeededOnlyForReference(typeName, factory)) {
-			    EObject newObject = null;
-
-			    if (factory != null)
-			    {
-			      newObject = helper.createObject(factory, typeName);
-
-			      if (newObject != null)
-			      {
-			        if (disableNotify)
-			          newObject.eSetDeliver(false);
-			      }
-			    }
-
-			    return newObject;
-
-			}
-		}
-		
-		return null;
-	}
+//	@Override
+//	protected void validateCreateObjectFromFactory(EFactory factory,
+//			String typeName, EObject newObject) {
+//		// TODO Auto-generated method stub
+//		if (isNeeded(typeName, factory) || isNeededOnlyForReference(typeName, factory)) {
+//			super.validateCreateObjectFromFactory(factory, typeName, newObject);	
+//		}
+//		
+//	}
+//	
+//	@Override
+//	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
+//		callCount++;
+//		System.out.println(typeName);
+//		if (isNeeded(typeName, factory)) {
+//		    EObject newObject = null;
+//
+//		    if (factory != null)
+//		    {
+//		      newObject = helper.createObject(factory, typeName);
+//
+//		      if (newObject != null)
+//		      {
+//		        if (disableNotify)
+//		          newObject.eSetDeliver(false);
+//
+//		        handleObjectAttribs(newObject);
+//		      }
+//		    }
+//
+//		    return newObject;
+//		}
+//		else {
+//			if (isNeededOnlyForReference(typeName, factory)) {
+//			    EObject newObject = null;
+//
+//			    if (factory != null)
+//			    {
+//			      newObject = helper.createObject(factory, typeName);
+//
+//			      if (newObject != null)
+//			      {
+//			        if (disableNotify)
+//			          newObject.eSetDeliver(false);
+//			      }
+//			    }
+//			    return newObject;
+//			}
+//			else {
+//				return null;
+//			}
+//		}
+//		
+//	}
 	
 	
 	@Override
@@ -287,69 +289,276 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	public boolean isNeededOnlyForReference(String name, EFactory factory)
 	{
-		
-		EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
-
-		if (load_ref_only_classes.contains(actual)) {
-			return true;
-		}
-		else {
-			for(EReference eRef: actual.getEAllReferences())
-			{
-				EClass eType = (EClass) eRef.getEType();
-				EFactory eFactory = eType.getEPackage().getEFactoryInstance();
-				if (isNeeded(eType.getName(), eFactory)) {
-					load_ref_only_classes.add(actual);
-					return true;
-				}
-				if(isNeededOnlyForReference(eType.getName(), eFactory))
+		for(ModelContainer mc: modelContainers)
+		{
+			if (factory.getEPackage().getName().equals(mc.getModelName())) {
+				for(String element: mc.getEmptyElements())
 				{
-					return true;
+					if (name.equals(element)) {
+						return true;
+					}
+
+					EClass kind = (EClass) factory.getEPackage().getEClassifier(element);
+					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+
 				}
 			}
-			return false;
 		}
+		return false;
 	}
 	
 	public boolean isNeeded(String name, EFactory factory)
 	{
-		String localName = name;
-		int index = name.indexOf(':', 0);
-		if (index != -1) {
-			localName = name.substring(index+1);
-		}
+//		String localName = name;
+//		int index = name.indexOf(':', 0);
+//		if (index != -1) {
+//			localName = name.substring(index+1);
+//		}
 
 		for(ModelContainer mc: modelContainers)
 		{
-			if (!factory.getEPackage().getName().equals(mc.getModelName())) {
-				continue;
-			}
-			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-			{
-				String elementName = mec.getElementName();
-				if (localName.equals(elementName)) {
-					return true;
+			if (factory.getEPackage().getName().equals(mc.getModelName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+					
+					EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
+					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+
 				}
 				
-				EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
-				EClass actual = (EClass) factory.getEPackage().getEClassifier(localName);
-				if (actual.getEAllSuperTypes().contains(kind)) {
-					return true;
-				}
-
-			}
-			
-			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-			{
-				String elementName = mec.getElementName();
-				if (localName.equals(elementName)) {
-					return true;
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
 				}
 			}
 		}
 		return false;
 	}
 
+	public boolean isNeeded(String prefix, String name)
+	{
+//		String localName = name;
+//		int index = name.indexOf(':', 0);
+//		if (index != -1) {
+//			localName = name.substring(index+1);
+//		}
+
+		for(ModelContainer mc: modelContainers)
+		{
+			if (prefix.equals(mc.getModelName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+					
+				}
+				
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	
+	@Override 
+	protected void createTopObject(String prefix, String name) {
+		// TODO Auto-generated method stub
+		if (prefix.equals("ecore") || isNeeded(prefix, name)) {
+			super.createTopObject(prefix, name);	
+		}
+		
+	}
+	
+	@Override
+	protected void handleFeature(String prefix, String name) {
+
+	    EObject peekObject = objects.peekEObject();
+	    if (peekObject == null)
+	    {
+	      types.push(ERROR_TYPE);
+	      error
+	        (new FeatureNotFoundException
+	          (name,
+	           null,
+	           getLocation(),
+	           getLineNumber(),
+	           getColumnNumber()));
+	      return;
+	    }
+
+	    if (peekObject instanceof DynamicEObjectImpl) {
+	    	
+	    	// This happens when processing an element with simple content that has elements content even though it shouldn't.
+		    //
+		    EStructuralFeature feature = getFeature(peekObject, prefix, name, true);
+
+	    	DynamicEObjectImpl lePeekObject = (DynamicEObjectImpl) peekObject;
+	    	
+	    	if (isNeededOnlyForReference(lePeekObject.eClass().getName(), lePeekObject.eClass().getEPackage().getEFactoryInstance())) {
+	    		if (feature != null)
+			    {
+	    			int kind = helper.getFeatureKind(feature);
+	    			if (kind == XMLHelper.DATATYPE_SINGLE || kind == XMLHelper.DATATYPE_IS_MANY)
+	    			{
+			        	objects.push(null);
+			        	mixedTargets.push(null);
+			        	types.push(null);
+			        	text = null;
+	    			}
+	    			else if (extendedMetaData != null)
+	    			{
+				        EReference eReference = (EReference)feature;
+				        if (eReference.getEType() instanceof EClass) {
+					        EClass eType = (EClass) eReference.getEType();
+					        if (isNeeded(eType.getName(), eType.getEPackage().getEFactoryInstance()) || isNeededOnlyForReference(eType.getName(), eType.getEPackage().getEFactoryInstance())) {
+					        	boolean isContainment = eReference.isContainment();
+						        if (!isContainment && !eReference.isResolveProxies() && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
+						        {
+						        	isIDREF = true;
+						        	objects.push(null);
+						        	mixedTargets.push(null);
+						        	types.push(feature);
+						        	text = new StringBuffer();
+						        }
+						        else
+						        {
+						        	createObject(peekObject, feature);
+						        	EObject childObject = objects.peekEObject();
+						        	if (childObject != null)
+						        	{
+						        		if (isContainment)
+						        		{
+						        			EStructuralFeature simpleFeature = extendedMetaData.getSimpleFeature(childObject.eClass());
+						        			if (simpleFeature != null)
+						        			{
+						        				isSimpleFeature = true;
+						        				isIDREF = simpleFeature instanceof EReference;
+						        				objects.push(null);
+						        				mixedTargets.push(null);
+						        				types.push(simpleFeature);
+						        				text = new StringBuffer();
+						        			}
+						        		}
+						        		else if (!childObject.eIsProxy())
+						        		{
+						        			text = new StringBuffer();
+						        		}
+						        	}
+						        }
+							}
+					        else {
+					        	objects.push(null);
+					        	mixedTargets.push(null);
+					        	types.push(null);
+					        	text = null;
+							}
+						}
+	    			}
+	    			else
+	    			{
+	    				System.err.println("THIS IS CALLEDDDDDDD");
+	    				createObject(peekObject, feature);
+	    			}
+			    }
+	    		else
+			    {
+			      // Try to get a general-content feature.
+			      // Use a pattern that's not possible any other way.
+			      //
+			      if (xmlMap != null && (feature = getFeature(peekObject, null, "", true)) != null)
+			      {
+
+			        EFactory eFactory = getFactoryForPrefix(prefix);
+
+			        // This is for the case for a local unqualified element that has been bound.
+			        //
+			        if (eFactory == null)
+			        {
+			          eFactory = feature.getEContainingClass().getEPackage().getEFactoryInstance();
+			        }
+
+			        EObject newObject = null;
+			        if (useNewMethods)
+			        {
+			          newObject = createObject(eFactory, helper.getType(eFactory, name), false);
+			        }
+			        else
+			        {
+			            newObject = createObjectFromFactory(eFactory, name);
+			        }
+			        newObject = validateCreateObjectFromFactory(eFactory, name, newObject, feature);
+			        if (newObject != null)
+			        {
+			          setFeatureValue(peekObject, feature, newObject);
+			        }
+			        processObject(newObject);
+			      }
+			      else
+			      {
+			        // This handles the case of a substitution group.
+			        //
+			        if (xmlMap != null)
+			        {
+			          EFactory eFactory = getFactoryForPrefix(prefix);
+			          EObject newObject = createObjectFromFactory(eFactory, name);
+			          validateCreateObjectFromFactory(eFactory, name, newObject);
+			          if (newObject != null)
+			          {
+			            for (EReference eReference : peekObject.eClass().getEAllReferences())
+			            {
+			              if (eReference.getEType().isInstance(newObject))
+			              {
+			                setFeatureValue(peekObject, eReference, newObject);
+			                processObject(newObject);
+			                return;
+			              }
+			            }
+			          }
+			        }
+
+			        handleUnknownFeature(prefix, name, true, peekObject, null);
+			      }
+			    }
+			}
+	    	else if (isNeeded(lePeekObject.eClass().getName(), lePeekObject.eClass().getEPackage().getEFactoryInstance())) {
+				super.handleFeature(prefix, name);
+			}
+	    	else
+	    	{
+	    		return;
+	    	}
+
+		}
+	    
+	  
+	}
 
 
 }

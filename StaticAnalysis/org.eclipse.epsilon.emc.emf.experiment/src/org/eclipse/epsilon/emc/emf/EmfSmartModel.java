@@ -6,10 +6,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -24,14 +28,18 @@ import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimis
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
+import org.eclipse.epsilon.eol.metamodel.EType;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
 public class EmfSmartModel extends EmfModel{
 
-	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();
-	//protected ModelContainer modelContainer;
+	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();	//protected ModelContainer modelContainer;
+	
+	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
 
 	public void addModelContainer(ModelContainer modelContainer)
 	{
@@ -52,7 +60,7 @@ public class EmfSmartModel extends EmfModel{
 		}
 		
 		determinePackagesFrom(resourceSet);
-		
+		populateEmptyObjects();
 		// Note that AbstractEmfModel#getPackageRegistry() is not usable yet, as modelImpl is not set
 		for (EPackage ep : packages) {
 			String nsUri = ep.getNsURI();
@@ -62,7 +70,7 @@ public class EmfSmartModel extends EmfModel{
 			resourceSet.getPackageRegistry().put(nsUri, ep);
 		}
 		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
-		
+				
 		Resource model = resourceSet.createResource(modelUri);
 		if (this.readOnLoad) {
 			try {
@@ -90,6 +98,133 @@ public class EmfSmartModel extends EmfModel{
 				e.printStackTrace();
 			}	
 		}
+	}
+	
+	public void populateEmptyObjects()
+	{
+		for(EPackage ePackage: packages)
+		{
+			for(EClassifier eClassifier: ePackage.getEClassifiers())
+			{
+				if (eClassifier instanceof EClass) {
+					EClass eClass = (EClass) eClassifier;
+					visitedClasses.clear();
+					visitEClass(eClass);
+				}
+			}
+		}
+	}
+	
+	public void insertHollowOjbects(EPackage ePackage, String name)
+	{
+		boolean inserted = false;
+		for(ModelContainer mc: modelContainers)
+		{
+			if (mc.getModelName().equals(ePackage.getName())) {
+				inserted = true;
+				mc.addEmptyElement(name);
+				break;
+			}
+		}
+		if (!inserted) {
+			ModelContainer newContainer = new ModelContainer(ePackage.getName());
+			newContainer.addEmptyElement(name);
+			modelContainers.add(newContainer);
+			
+		}
+	}
+	
+	
+	public void visitEClass(EClass eClass)
+	{
+		visitedClasses.add(EcoreUtil.copy(eClass));
+		for(EReference eReference: eClass.getEReferences())
+		{
+			if (!visitedEClass((EClass) eReference.getEType())) {
+				visitEClass((EClass) eReference.getEType());
+			}
+			
+			if (liveReference(eReference)) {
+				insertHollowOjbects(eClass.getEPackage(), eClass.getName());
+			}
+		}
+	}
+	
+	public boolean visitedEClass(EClass eClass)
+	{
+		for(EClass clazz: visitedClasses)
+		{
+			if (clazz.getName().equals(eClass.getName())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	
+	public boolean liveReference(EReference eReference)
+	{
+		//get the etype
+		if (eReference.isContainment()) {
+			EClassifier eClassifier = eReference.getEType();
+			EClass etype = (EClass) eClassifier;
+			if (liveClass(etype.getEPackage(), etype.getName())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean liveClass(EPackage ePackage, String name)
+	{
+		for(ModelContainer mc: modelContainers)
+		{
+			if (mc.getModelName().equals(ePackage.getName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+					
+					EClass kind = (EClass) ePackage.getEClassifier(elementName);
+					EClass actual = (EClass) ePackage.getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+				}
+				
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+				}
+				
+				for(String hollowElement: mc.getEmptyElements())
+				{
+
+					if (hollowElement.equals(name)) {
+						return true;
+					}
+					EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
+					EClass actual = (EClass) ePackage.getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+
+				}
+			}
+		}
+		return false;
 	}
 	
 	@Override
@@ -418,15 +553,15 @@ public class EmfSmartModel extends EmfModel{
 		for(int i = 0; i < 10; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/set2_60percent.eol"));
+			eolModule.parse(new File("test/test.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
-			smartModel.setName("DOM");
-			smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+			smartModel.setName("test");
+			smartModel.setModelFile(new File("test/test.model").getAbsolutePath());
+			smartModel.setMetamodelFile(new File("test/test.ecore").getAbsolutePath());
 			//smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
 			
-			loadEPackageFromFile("test/JDTAST.ecore");
+			loadEPackageFromFile("test/test.ecore");
 			
 			Ast2EolContext ast2EolContext = new Ast2EolContext();
 			EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
