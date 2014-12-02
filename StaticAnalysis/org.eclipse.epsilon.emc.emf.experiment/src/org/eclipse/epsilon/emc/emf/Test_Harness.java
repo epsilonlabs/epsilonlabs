@@ -39,7 +39,7 @@ public class Test_Harness {
 		Test_Harness.test("test/set1.xmi", "test/set1_60percent.eol");
 		Test_Harness.test("test/set1.xmi", "test/set1_70percent.eol");
 		Test_Harness.test("test/set1.xmi", "test/set1_80percent.eol");
-		Test_Harness.test("test/set1.xmi", "test/set1_95percent.eol");
+		Test_Harness.test("test/set1.xmi", "test/set1_90percent.eol");
 		Test_Harness.test("test/set1.xmi", "test/set1_100percent.eol");
 	}
 	
