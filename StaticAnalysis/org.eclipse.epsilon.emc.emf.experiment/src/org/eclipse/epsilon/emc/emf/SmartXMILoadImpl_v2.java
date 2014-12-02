@@ -2,69 +2,106 @@ package org.eclipse.epsilon.emc.emf;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.xml.stream.events.EndDocument;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.ExtendedMetaData;
-import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 
-public class SmartSAXXMIHandler extends SAXXMIHandler{
+public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 	
-//	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
+	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected ArrayList<String> elementStack = new ArrayList<String>();
+//	
+//	protected ArrayList<EObject> recordedElements = new ArrayList<EObject>();
+//	
+//	protected EObject recordedElement;
 	protected int callCount = 0;
 	protected boolean shouldHalt = false;
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
+//	
+//	protected boolean shouldStartProcessing;
+//	protected boolean shouldHold = false;
 	
-	public void setObjectsToLoad(
-			HashMap<String, ArrayList<String>> objectsToLoad) {
-		this.objectsToLoad = objectsToLoad;
-	}
 	
-	public void setEmptyObjectsToLoad(
-			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-		this.emptyObjectsToLoad = emptyObjectsToLoad;
-	}
-	
-	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
+	public SmartXMILoadImpl_v2(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
 	}
 	
-//	public void addModelContainer(ModelContainer modelContainer)
-//	{
-//		
-//		modelContainers.add(modelContainer);
-//	}
+	public void addModelContainer(ModelContainer modelContainer)
+	{
+		
+		modelContainers.add(modelContainer);
+	}
 	
-//	public void setModelContainers(ArrayList<ModelContainer> modelContainers) {
-//		this.modelContainers = modelContainers;
-//	}
+	public void setModelContainers(ArrayList<ModelContainer> modelContainers) {
+		this.modelContainers = modelContainers;
+	}
 
+//	@Override
+//	public void startElement(String uri, String localName, String name,
+//			Attributes attributes) throws SAXException {
+//		EFactory eFactory = getFactoryForPrefix(uri);
+//		System.out.println(eFactory);
+//		if (objects.size() != 0) {
+//			EClass eClass = objects.peekEObject().eClass();
+//			System.out.println(eClass);
+//		}
+//		
+//		if (documentRoot != null)
+//	    {
+//	      EObject eObject = objects.peekEObject();
+//	      if (eObject == documentRoot && (extendedMetaData == null || extendedMetaData.isDocumentRoot(eObject.eClass())))
+//	      {
+//	        types.pop();
+//	        objects.pop();
+//	        mixedTargets.pop();
+//	        documentRoot= null;
+//	      }
+//	    }
+//		if (name.equals("xmi:XMI")) {
+//			elementStack.add(name);
+//			super.startElement(uri, localName, name, attributes);
+//		}
+//		else if (name.equals("ecore:Epackage")) {
+//			elementStack.add(name);
+//			super.startElement(uri, localName, name, attributes);
+//		}
+//		else if (isNeeded(name)) {
+//			elementStack.add(name);
+//			super.startElement(uri, localName, name, attributes);
+//		}
+//		else {
+//			if(elementStack.size() > 0)
+//			{
+//				super.startElement(uri, localName, name, attributes);
+//			}
+//		}
+//	}
+//	
+//	
+//	
+//	@Override
+//	public void endElement(String uri, String localName, String name) {
+//		int size = elementStack.size();
+//		if (size > 0) {
+//			super.endElement(uri, localName, name);
+//			if (name.equals(elementStack.get(size-1))) {
+//				elementStack.remove(size-1);
+//			}
+//		}
+//	}
 	
 
 //	@Override
@@ -136,48 +173,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //		
 //	}
 	
-	@Override
-	protected void setFeatureValue(EObject object, EStructuralFeature feature,
-			Object value) {
-		// TODO Auto-generated method stub
-		String packageName = object.eClass().getEPackage().getName();
-		String eclassName = object.eClass().getName();
-		if (isNeeded(packageName, eclassName)) {
-			super.setFeatureValue(object, feature, value);
-		}
-		else if (isNeededOnlyForReference(packageName, eclassName)) {
-
-			if (feature instanceof EReference) {
-				EReference ref = (EReference) feature;
-				EClass eType = (EClass) ref.getEType();
-				String eTypePack = eType.getEPackage().getName();
-				String eTypeName = eType.getName();
-				if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
-					super.setFeatureValue(object, feature, value);
-				}
-//				else {
-//					System.out.println(eTypePack+ ":" +eTypeName + "-" + feature.getName());
-//				}
-			}
-//			else
-//			{
-//				System.out.println(feature.getName());
-//			}
-		
-		} 
-		else
-		{
-			System.out.println(packageName + ":" + eclassName);
-		}
-	}
+	
 	
 	@Override
 	protected void validateCreateObjectFromFactory(EFactory factory,
 			String typeName, EObject newObject) {
 		// TODO Auto-generated method stub
-		String epack = factory.getEPackage().getName();
-
-		if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
+		if (isNeeded(typeName, factory) || isNeededOnlyForReference(typeName, factory)) {
 			super.validateCreateObjectFromFactory(factory, typeName, newObject);	
 		}
 		
@@ -186,101 +188,117 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	@Override
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
 		callCount++;
-		String epack = factory.getEPackage().getName();
-		
-		if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
-			return super.createObjectFromFactory(factory, typeName);
-		}
-		else {
-			return null;
-		}
-		
-		
-	}
-	
-	
-	public boolean isNeededOnlyForReference(String packageName, String className)
-	{
+		if (isNeeded(typeName, factory)) {
+		    EObject newObject = null;
 
-		if (emptyObjectsToLoad.get(packageName) == null) {
-			return false;
+		    if (factory != null)
+		    {
+		      newObject = helper.createObject(factory, typeName);
+
+		      if (newObject != null)
+		      {
+		        if (disableNotify)
+		          newObject.eSetDeliver(false);
+
+		        handleObjectAttribs(newObject);
+		      }
+		    }
+
+		    return newObject;
 		}
 		else {
-			return emptyObjectsToLoad.get(packageName).contains(className);
+			if (isNeededOnlyForReference(typeName, factory)) {
+			    EObject newObject = null;
+
+			    if (factory != null)
+			    {
+			      newObject = helper.createObject(factory, typeName);
+
+			      if (newObject != null)
+			      {
+			        if (disableNotify)
+			          newObject.eSetDeliver(false);
+			        handleObjectAttribs(newObject);
+			      }
+			    }
+			    return newObject;
+			}
+			else {
+				return null;
+			}
 		}
+		
 	}
 	
-	public boolean isNeeded(String packageName, String className)
+	
+	
+	
+	public boolean isNeededOnlyForReference(String name, EFactory factory)
 	{
-		if (objectsToLoad.get(packageName) == null) {
-			return false;
+		for(ModelContainer mc: modelContainers)
+		{
+			if (factory.getEPackage().getName().equals(mc.getModelName())) {
+				for(String element: mc.getEmptyElements())
+				{
+					if (name.equals(element)) {
+						return true;
+					}
+
+					EClass kind = (EClass) factory.getEPackage().getEClassifier(element);
+					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+
+				}
+			}
 		}
-		else {
-			return objectsToLoad.get(packageName).contains(className);
-		}
+		return false;
 	}
 	
-//	public boolean isNeededOnlyForReference(String name, EFactory factory)
-//	{
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			if (factory.getEPackage().getName().equals(mc.getModelName())) {
-//				for(String element: mc.getEmptyElements())
-//				{
-//					if (name.equals(element)) {
-//						return true;
-//					}
-//
-//					EClass kind = (EClass) factory.getEPackage().getEClassifier(element);
-//					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
-//					for(EClass superClass: actual.getEAllSuperTypes())
-//					{
-//						if (kind.getName().equals(superClass.getName())) {
-//							return true;
-//						}
-//					}
-//
-//				}
-//			}
+	public boolean isNeeded(String name, EFactory factory)
+	{
+//		String localName = name;
+//		int index = name.indexOf(':', 0);
+//		if (index != -1) {
+//			localName = name.substring(index+1);
 //		}
-//		return false;
-//	}
-	
-//	public boolean isNeeded(String name, EFactory factory)
-//	{
-//
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			if (factory.getEPackage().getName().equals(mc.getModelName())) {
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//					
-//					EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
-//					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
-//					for(EClass superClass: actual.getEAllSuperTypes())
-//					{
-//						if (kind.getName().equals(superClass.getName())) {
-//							return true;
-//						}
-//					}
-//
-//				}
-//				
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
+
+		for(ModelContainer mc: modelContainers)
+		{
+			if (factory.getEPackage().getName().equals(mc.getModelName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+					
+					EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
+					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
+					for(EClass superClass: actual.getEAllSuperTypes())
+					{
+						if (kind.getName().equals(superClass.getName())) {
+							return true;
+						}
+					}
+
+				}
+				
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					String elementName = mec.getElementName();
+					if (name.equals(elementName)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 	@Override
 	public void endDocument() {
@@ -377,42 +395,41 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //	}
 	
 	
-//	
-//	@Override
-//	public void endElement(String uri, String localName, String name) {
-//		callCount ++;
-//		// TODO Auto-generated method stub
-//		
-//		if (shouldHalt && currentElementsSize != -1) {
-//			if (elements.size() >= currentElementsSize) {
-//				if (name.equals(currentName) && elements.size() == currentElementsSize) {
-//					shouldHalt = false;
-//					elements.pop();	
-//				}
-//				else {
-//					elements.pop();	
-//				}
-//			}
-//			else
-//			{
-//				shouldHalt = false;	
-//				//super.endElement(uri, localName, name);	
-//			}
-//		}
-//		else
-//		{
-//			super.endElement(uri, localName, name);	
-//		}
-//	}
-//	
-//	public void halt(String name)
-//	{
-//		currentElementsSize = elements.size();
-//		currentName = name;
-//		shouldHalt = true;
-//	}
-	
 	/*
+	@Override
+	public void endElement(String uri, String localName, String name) {
+		callCount ++;
+		// TODO Auto-generated method stub
+		
+		if (shouldHalt && currentElementsSize != -1) {
+			if (elements.size() >= currentElementsSize) {
+				if (name.equals(currentName) && elements.size() == currentElementsSize) {
+					shouldHalt = false;
+					elements.pop();	
+				}
+				else {
+					elements.pop();	
+				}
+			}
+			else
+			{
+				shouldHalt = false;	
+				//super.endElement(uri, localName, name);	
+			}
+		}
+		else
+		{
+			super.endElement(uri, localName, name);	
+		}
+	}
+	
+	public void halt(String name)
+	{
+		currentElementsSize = elements.size();
+		currentName = name;
+		shouldHalt = true;
+	}
+	
 	@Override
 	protected void handleFeature(String prefix, String name) {
 
@@ -764,6 +781,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //	    
 //	  
 //	}
+
+
 
 
 }

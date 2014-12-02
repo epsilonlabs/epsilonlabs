@@ -301,6 +301,10 @@ public class Test_Harness {
 		emfModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 		emfModel.setModelFile(new File(set).getAbsolutePath());
 		loadEPackageFromFile("test/JDTAST.ecore");
+		
+		if (type == 1) {
+			((EmfSmartModel)emfModel).preProcess();
+		}
 
 		System.out.println(modelType + " model prepared, loading...");
 		
