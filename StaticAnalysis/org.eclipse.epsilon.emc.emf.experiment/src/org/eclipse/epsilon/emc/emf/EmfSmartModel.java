@@ -340,7 +340,7 @@ public class EmfSmartModel extends EmfModel{
 	{
 		for(ModelContainer mc: modelContainers)
 		{
-			if (mc.getModelName().equals(ePackage.getName())) {
+			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
 				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 				{
 					String elementName = mec.getElementName();
@@ -722,14 +722,14 @@ public class EmfSmartModel extends EmfModel{
 		for(int i = 0; i < 10; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/test.eol"));
+			eolModule.parse(new File("test/oo.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
-			smartModel.setName("test");
-			smartModel.setModelFile(new File("test/test.model").getAbsolutePath());
-			smartModel.setMetamodelFile(new File("test/test.ecore").getAbsolutePath());
+			smartModel.setName("oo");
+			smartModel.setModelFile(new File("test/OOInstance.model").getAbsolutePath());
+			smartModel.setMetamodelFile(new File("test/OO.ecore").getAbsolutePath());
 			
-			loadEPackageFromFile("test/test.ecore");
+			loadEPackageFromFile("test/OO.ecore");
 			
 			Ast2EolContext ast2EolContext = new Ast2EolContext();
 			EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
@@ -748,7 +748,7 @@ public class EmfSmartModel extends EmfModel{
 			LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
 			
 			smartModel.setModelContainers(loaContext.getModelContainers());
-			
+			smartModel.preProcess();
 			long init = System.nanoTime();
 
 			smartModel.load();

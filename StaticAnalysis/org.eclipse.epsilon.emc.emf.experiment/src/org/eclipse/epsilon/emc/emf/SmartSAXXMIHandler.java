@@ -209,24 +209,35 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected void validateCreateObjectFromFactory(EFactory factory,
 			String typeName, EObject newObject) {
 		// TODO Auto-generated method stub
-		String epack = factory.getEPackage().getName();
+		if (factory != null) {
+			String epack = factory.getEPackage().getName();
 
-		if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
-			super.validateCreateObjectFromFactory(factory, typeName, newObject);	
+			if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
+				super.validateCreateObjectFromFactory(factory, typeName, newObject);	
+			}
+		}
+		else {
+			super.validateCreateObjectFromFactory(factory, typeName, newObject);
 		}
 		
 	}
 	
 	@Override
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
-		callCount++;
-		String epack = factory.getEPackage().getName();
-		
-		if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
-			return super.createObjectFromFactory(factory, typeName);
+		if (factory != null) {
+			callCount++;
+			String epack = factory.getEPackage().getName();
+			
+			if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
+				return super.createObjectFromFactory(factory, typeName);
+			}
+			else {
+				return null;
+			}
 		}
-		else {
-			return null;
+		else
+		{
+			return super.createObjectFromFactory(factory, typeName);
 		}
 		
 		
