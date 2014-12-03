@@ -6,16 +6,16 @@ var counter = new Map;
 
 for(a in allContents)
 {
-	getNumberOfContents(a).println();
+	var numOfElementsInvolved = getNumberOfContents(a) + 1;
 	var count = counter.get(a.type());
 	if(count.isDefined())
 	{
-		count = count + 1;
+		count = count + numOfElementsInvolved;
 		counter.put(a.type(), count);
 	}
 	else
 	{
-		counter.put(a.type(), 1);
+		counter.put(a.type(), numOfElementsInvolved);
 	}
 }
 
