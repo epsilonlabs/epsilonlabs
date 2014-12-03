@@ -37,7 +37,7 @@ size.println();
 
 var eolQueryString = "var size = 0;\n";
 
-for(clazz in getPercent(counter, sum, 30))
+for(clazz in getPercent(counter, sum, 100))
 {
 	//clazz.eAllStructuralFeatures.println();
 	//clazz.eAllReferences.size().println();
