@@ -728,7 +728,6 @@ public class EmfSmartModel extends EmfModel{
 			smartModel.setName("test");
 			smartModel.setModelFile(new File("test/test.model").getAbsolutePath());
 			smartModel.setMetamodelFile(new File("test/test.ecore").getAbsolutePath());
-			//smartModel.setMetamodelUri("org.amma.dsl.jdt.dom");
 			
 			loadEPackageFromFile("test/test.ecore");
 			
