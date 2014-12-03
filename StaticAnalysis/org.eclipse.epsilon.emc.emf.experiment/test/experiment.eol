@@ -6,7 +6,6 @@ var counter = new Map;
 
 for(a in allContents)
 {
-	getNumberOfContents(a).println();
 	var count = counter.get(a.type());
 	if(count.isDefined())
 	{
@@ -38,10 +37,10 @@ size.println();
 
 var eolQueryString = "var size = 0;\n";
 
-for(clazz in getPercent(counter, sum, 10))
+for(clazz in getPercent(counter, sum, 30))
 {
 	//clazz.eAllStructuralFeatures.println();
-	clazz.eAllReferences.size().println();
+	//clazz.eAllReferences.size().println();
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all.size();\n";
 		//eolQueryString = eolQueryString + clazz.name + ".all.size().println();\n";
