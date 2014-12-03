@@ -225,7 +225,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	@Override
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
 		if (factory != null) {
-			callCount++;
+//			callCount++;
 			String epack = factory.getEPackage().getName();
 			
 			if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
