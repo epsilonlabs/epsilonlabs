@@ -328,7 +328,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	@Override
 	public void endDocument() {
-		System.err.println(callCount);
+		//System.err.println(callCount);
 
 	    if (deferredExtent != null)
 	    {
