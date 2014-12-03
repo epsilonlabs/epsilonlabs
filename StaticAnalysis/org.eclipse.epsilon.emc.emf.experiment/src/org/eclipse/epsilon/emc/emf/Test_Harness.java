@@ -23,10 +23,12 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-		Test_Harness.runSet1();
+		//Test_Harness.runSet1();
 		//Test_Harness.runSet2();
 		//Test_Harness.runSet3();
 		//Test_Harness.runSet4();
+		
+		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
 	}
 	
 	public static void runSet1() throws Exception
