@@ -403,14 +403,19 @@ public class EmfSmartModel extends EmfModel{
 	public void disposeModel() {
 		//modelImpl.unload();
 		//resourceMap.remove("platform:/resource" + relativeModelFile);
-		registry = null;
-		if (modelImpl != null) {
-			//modelImpl.unload();
-			SmartEmfModelResourceFactory.getInstance().removeCachedResource(modelImpl.getURI());
-			modelImpl = null;
-		}
+		if (smartLoading) {
+			registry = null;
+			if (modelImpl != null) {
+				//modelImpl.unload();
+				SmartEmfModelResourceFactory.getInstance().removeCachedResource(modelImpl.getURI());
+				modelImpl = null;
+			}
 
-		eClassCache.clear();
+			eClassCache.clear();
+		}
+		else {
+			super.disposeModel();
+		}
 
 	}
 	

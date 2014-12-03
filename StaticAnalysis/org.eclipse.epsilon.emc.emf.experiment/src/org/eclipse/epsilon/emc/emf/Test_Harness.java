@@ -158,7 +158,7 @@ public class Test_Harness {
 		
 		//specify the iteration and disregard
 		final int iteration = 20;
-		final int disregard = 10;
+		final int disregard = 15;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
