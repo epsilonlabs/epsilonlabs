@@ -135,40 +135,74 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //	    }
 //		
 //	}
+
+	
+	@Override
+		protected void setAttribValue(EObject object, String name, String value) {
+			// TODO Auto-generated method stub
+			return;
+		}
+	
+//	@Override
+//	protected void setFeatureValue(EObject object, EStructuralFeature feature,
+//			Object value, int position) {
+//		// TODO Auto-generated method stub
+//		if (feature instanceof EReference) {
+//			EReference ref = (EReference) feature;
+//			EClass eType = (EClass) ref.getEType();
+//			String eTypePack = eType.getEPackage().getName();
+//			String eTypeName = eType.getName();
+//			if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
+//				super.setFeatureValue(object, feature, value);
+//			}
+//		}
+//	}
 	
 	@Override
 	protected void setFeatureValue(EObject object, EStructuralFeature feature,
 			Object value) {
 		// TODO Auto-generated method stub
-		String packageName = object.eClass().getEPackage().getName();
-		String eclassName = object.eClass().getName();
-		if (isNeeded(packageName, eclassName)) {
-			super.setFeatureValue(object, feature, value);
-		}
-		else if (isNeededOnlyForReference(packageName, eclassName)) {
-
-			if (feature instanceof EReference) {
-				EReference ref = (EReference) feature;
-				EClass eType = (EClass) ref.getEType();
-				String eTypePack = eType.getEPackage().getName();
-				String eTypeName = eType.getName();
-				if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
-					super.setFeatureValue(object, feature, value);
-				}
-//				else {
-//					System.out.println(eTypePack+ ":" +eTypeName + "-" + feature.getName());
-//				}
-			}
-//			else
-//			{
-//				System.out.println(feature.getName());
-//			}
+//		String packageName = object.eClass().getEPackage().getName();
+//		String eclassName = object.eClass().getName();
 		
-		} 
-		else
-		{
-			System.out.println(packageName + ":" + eclassName);
+		if (feature instanceof EReference) {
+			EReference ref = (EReference) feature;
+			EClass eType = (EClass) ref.getEType();
+			String eTypePack = eType.getEPackage().getName();
+			String eTypeName = eType.getName();
+			if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
+				super.setFeatureValue(object, feature, value);
+			}
 		}
+		
+		
+//		if (isNeeded(packageName, eclassName)) {
+//			super.setFeatureValue(object, feature, value);
+//		}
+//		else if (isNeededOnlyForReference(packageName, eclassName)) {
+//
+//			if (feature instanceof EReference) {
+//				EReference ref = (EReference) feature;
+//				EClass eType = (EClass) ref.getEType();
+//				String eTypePack = eType.getEPackage().getName();
+//				String eTypeName = eType.getName();
+//				if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
+//					super.setFeatureValue(object, feature, value);
+//				}
+////				else {
+////					System.out.println(eTypePack+ ":" +eTypeName + "-" + feature.getName());
+////				}
+//			}
+////			else
+////			{
+////				System.out.println(feature.getName());
+////			}
+//		
+//		} 
+//		else
+//		{
+//			System.out.println(packageName + ":" + eclassName);
+//		}
 	}
 	
 	@Override
@@ -201,7 +235,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	public boolean isNeededOnlyForReference(String packageName, String className)
 	{
-
 		if (emptyObjectsToLoad.get(packageName) == null) {
 			return false;
 		}

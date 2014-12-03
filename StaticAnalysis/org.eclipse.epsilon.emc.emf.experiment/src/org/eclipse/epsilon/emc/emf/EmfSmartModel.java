@@ -325,12 +325,12 @@ public class EmfSmartModel extends EmfModel{
 	public boolean liveReference(EReference eReference)
 	{
 		//get the etype
-		if (eReference.isContainment()) {
+//		if (eReference.isContainment()) {
 			EClassifier eClassifier = eReference.getEType();
 			EClass etype = (EClass) eClassifier;
 			if (liveClass(etype.getEPackage(), etype.getName())) {
 				return true;
-			}
+//			}
 		}
 		
 		return false;
@@ -350,12 +350,19 @@ public class EmfSmartModel extends EmfModel{
 					
 					EClass kind = (EClass) ePackage.getEClassifier(elementName);
 					EClass actual = (EClass) ePackage.getEClassifier(className);
-					for(EClass superClass: kind.getEAllSuperTypes())
+					if(actual.getEAllSuperTypes().contains(kind))
 					{
-						if (actual.getName().equals(superClass.getName())) {
-							return true;
-						}
+						return true;
 					}
+					if (kind.getEAllSuperTypes().contains(actual)) {
+						return true;
+					}
+//					for(EClass superClass: kind.getEAllSuperTypes())
+//					{
+//						if (actual.getName().equals(superClass.getName())) {
+//							return true;
+//						}
+//					}
 				}
 				
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
@@ -374,12 +381,12 @@ public class EmfSmartModel extends EmfModel{
 					}
 					EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
 					EClass actual = (EClass) ePackage.getEClassifier(className);
-					for(EClass superClass: actual.getEAllSuperTypes())
-					{
-						if (kind.getName().equals(superClass.getName())) {
-							return true;
-						}
+					if (actual.getEAllSuperTypes().contains(kind)) {
+						return true;
 					}
+//					if (kind.getEAllSuperTypes().contains(actual)) {
+//						return true;
+//					}
 
 				}
 			}
