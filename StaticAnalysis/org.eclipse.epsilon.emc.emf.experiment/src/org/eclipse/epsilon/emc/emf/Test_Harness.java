@@ -23,73 +23,133 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-		//Test_Harness.runSet1();
-		//Test_Harness.runSet2();
-		//Test_Harness.runSet3();
-		//Test_Harness.runSet4();
+		Test_Harness.runSet1();
+		Test_Harness.runSet2();
+		Test_Harness.runSet3();
+		Test_Harness.runSet4();
 		
-		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
+		Test_Harness.runSet1Smart();
+		Test_Harness.runSet2Smart();
+		Test_Harness.runSet3Smart();
+		Test_Harness.runSet4Smart();
+		
+//		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
 	}
 	
 	public static void runSet1() throws Exception
 	{
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_10percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_20percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_30percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_40percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_50percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_60percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_70percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_80percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_90percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_100percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_10percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_20percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_30percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_40percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_50percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_60percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_70percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_80percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_90percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_100percent.eol", "m", false);
 	}
 	
 	public static void runSet2() throws Exception
 	{
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_10percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_20percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_30percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_40percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_50percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_60percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_70percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_80percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_90percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_100percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_10percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_20percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_30percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_40percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_50percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_60percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_70percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_80percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_90percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_100percent.eol", "m", false);
 	}
-	
+		
 	public static void runSet3() throws Exception
 	{
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_10percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_20percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_30percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_40percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_50percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_60percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_70percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_80percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_90percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_100percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_10percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_20percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_30percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_40percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_50percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_60percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_70percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_80percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_90percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_100percent.eol", "m", false);
 	}
 	
 	public static void runSet4() throws Exception
 	{
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_100percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m", false);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_100percent.eol", "m", false);
 	}
 	
+	public static void runSet1Smart() throws Exception
+	{
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_10percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_20percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_30percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_40percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_50percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_60percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_70percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_80percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_90percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set1.xmi", "test/set1_100percent.eol", "m", true);
+	}
+	
+	public static void runSet2Smart() throws Exception
+	{
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_10percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_20percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_30percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_40percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_50percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_60percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_70percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_80percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_90percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set2.xmi", "test/set2_100percent.eol", "m", true);
+	}
+		
+	public static void runSet3Smart() throws Exception
+	{
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_10percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_20percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_30percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_40percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_50percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_60percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_70percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_80percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_90percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set3.xmi", "test/set3_100percent.eol", "m", true);
+	}
+	
+	public static void runSet4Smart() throws Exception
+	{
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m", true);
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_100percent.eol", "m", true);
+	}
 
 	
-	public static void test(String metamodel, String model, String eolFile, String modelName) throws Exception
+	public static void test(String metamodel, String model, String eolFile, String modelName, boolean smartLoading) throws Exception
 	{
 		//prepare data holders
 		ArrayList<ArrayList<Long>> normalData = new ArrayList<ArrayList<Long>>();
@@ -97,27 +157,27 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 5;
-		final int disregard = 0;
+		final int iteration = 20;
+		final int disregard = 10;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
 		{
-			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName));
+			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, smartLoading));
 			System.gc();
 		}
 
 		//run smart
 		for(int i = 0; i < iteration; i++)
 		{
-			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName));
+			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, smartLoading));
 			System.gc();
 		}
 		
 		//run greedy
 		for(int i = 0; i < iteration; i++)
 		{
-			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName));
+			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, smartLoading));
 			System.gc();
 		}
 		
@@ -207,7 +267,15 @@ public class Test_Harness {
 		
 		try
 		{
-		    FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
+			FileWriter writer = null;
+			if (smartLoading) {
+			     writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + "_smart.csv");
+
+			}
+			else {
+			     writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
+
+			}
 	 
 		    writer.append("Normal loading time");
 		    writer.append(',');
@@ -258,7 +326,7 @@ public class Test_Harness {
 	
 	}
 	
-	public static ArrayList<Long> testModel(String metamodel, String model, String eolFile, int type, String modelName) throws Exception
+	public static ArrayList<Long> testModel(String metamodel, String model, String eolFile, int type, String modelName, boolean smartLoading) throws Exception
 	{
 		//prepare result
 		ArrayList<Long> result = new ArrayList<Long>();
@@ -295,6 +363,7 @@ public class Test_Harness {
 			
 			LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
 			((EmfSmartModel)emfModel).setModelContainers(loaContext.getModelContainers());
+			((EmfSmartModel)emfModel).setSmartLoading(smartLoading);
 		}
 		if (type == 2) {
 			emfModel = new EmfGreedyModel();

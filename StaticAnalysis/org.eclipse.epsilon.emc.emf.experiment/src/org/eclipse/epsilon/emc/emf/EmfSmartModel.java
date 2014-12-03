@@ -45,9 +45,14 @@ public class EmfSmartModel extends EmfModel{
 	
 	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
 	
-	HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 
+	protected boolean smartLoading = false;
+	
+	public void setSmartLoading(boolean smartLoading) {
+		this.smartLoading = smartLoading;
+	}
 
 	public void addModelContainer(ModelContainer modelContainer)
 	{
@@ -411,13 +416,19 @@ public class EmfSmartModel extends EmfModel{
 	
 	@Override
 	protected ResourceSet createResourceSet() {
-		ResourceSet resourceSet = new EmfModelResourceSet();
-		SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
-		//factory.setModelContainers(modelContainers); // <----------------------- point of change
-		factory.setObjectsToLoad(objectsToLoad);
-		factory.setEmptyObjectsToLoad(emptyObjectsToLoad);
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", factory);   // <----------------------- point of change
-		return resourceSet;
+		if (smartLoading) {
+			ResourceSet resourceSet = new EmfModelResourceSet();
+			SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
+			//factory.setModelContainers(modelContainers); // <----------------------- point of change
+			factory.setObjectsToLoad(objectsToLoad);
+			factory.setEmptyObjectsToLoad(emptyObjectsToLoad);
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", factory);   // <----------------------- point of change
+			return resourceSet;
+		}
+		else {
+			return super.createResourceSet();
+		}
+		
 	}
 	
 //	@Override
