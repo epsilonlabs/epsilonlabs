@@ -9,7 +9,7 @@ public class ModelContainer {
 	protected ArrayList<ModelElementContainer> modelElementsAllOfType = new ArrayList<ModelElementContainer>();
 	protected ArrayList<ModelElementContainer> modelElementsAllOfKind = new ArrayList<ModelElementContainer>();
 	
-	protected ArrayList<String> hollowElements = new ArrayList<String>(); 
+	protected ArrayList<String> emptyElements = new ArrayList<String>(); 
 	
 	public ModelContainer(String modelName)
 	{
@@ -121,15 +121,15 @@ public class ModelContainer {
 		return false;
 	}
 	
-	public void addHollowElement(String elementName)
+	public void addEmptyElement(String elementName)
 	{
-		if (!hollowElements.contains(elementName)) {
-			hollowElements.add(elementName);
+		if (!emptyElements.contains(elementName)) {
+			emptyElements.add(elementName);
 		}
 	}
 	
-	public ArrayList<String> getHollowElements() {
-		return hollowElements;
+	public ArrayList<String> getEmptyElements() {
+		return emptyElements;
 	}
 	
 
