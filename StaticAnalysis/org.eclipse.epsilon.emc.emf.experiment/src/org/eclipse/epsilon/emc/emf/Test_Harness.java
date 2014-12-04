@@ -158,8 +158,8 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 15;
-		final int disregard = 5;
+		final int iteration = 2;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -184,7 +184,7 @@ public class Test_Harness {
 		
 		for(int i = 0; i < iteration; i++)
 		{
-			smartSmartData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, true));
+			smartSmartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true));
 			System.gc();
 		}
 		
@@ -316,6 +316,12 @@ public class Test_Harness {
 		    writer.append(',');
 		    writer.append("Smart memory consumption");
 		    writer.append(',');
+		    writer.append("SS loading time");
+		    writer.append(',');
+		    writer.append("SS execution time");
+		    writer.append(',');
+		    writer.append("SS consumption");
+		    writer.append(',');
 		    writer.append("Greedy loading time");
 		    writer.append(',');
 		    writer.append("Greedy execution time");
@@ -334,6 +340,12 @@ public class Test_Harness {
 		    writer.append(smartExecutionTime/(iteration-disregard)+"");
 		    writer.append(',');
 		    writer.append(smartMemoryConsumption/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartLoadTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartExecutionTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartMemoryConsumption/(iteration-disregard)+"");
 		    writer.append(',');
 		    writer.append(greedyLoadTime/(iteration-disregard)+"");
 		    writer.append(',');
