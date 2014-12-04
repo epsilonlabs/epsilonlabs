@@ -158,8 +158,8 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 2;
-		final int disregard = 1;
+		final int iteration = 15;
+		final int disregard = 5;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
