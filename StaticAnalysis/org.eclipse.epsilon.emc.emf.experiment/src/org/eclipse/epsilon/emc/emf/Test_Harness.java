@@ -281,6 +281,7 @@ public class Test_Harness {
 		System.out.println("Normal: " + normalResult);
 		System.out.println("Smart: " + smartResult);
 		System.out.println("Greedy: " + greedyResult);
+		System.out.println("Smart smart:" + smartSmartResult);
 		
 		System.out.println("normal loading time average: " + normalLoadTime/(iteration-disregard));
 		System.out.println("normal execution time average: " + normalExecutionTime/(iteration-disregard));
