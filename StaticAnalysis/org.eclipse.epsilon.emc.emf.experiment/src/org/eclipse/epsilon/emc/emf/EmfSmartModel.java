@@ -782,11 +782,11 @@ public class EmfSmartModel extends EmfModel{
 		for(int i = 0; i < 10; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/set2_100percent.eol"));
+			eolModule.parse(new File("test/set4_100percent.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
 			smartModel.setName("oo");
-			smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+			smartModel.setModelFile(new File("test/set4.xmi").getAbsolutePath());
 			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 			
 			loadEPackageFromFile("test/JDTAST.ecore");
