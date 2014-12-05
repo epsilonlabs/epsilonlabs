@@ -24,9 +24,9 @@ public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
 //		Test_Harness.runSet1();
-		Test_Harness.runSet2();
+//		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
-//		Test_Harness.runSet4();
+		Test_Harness.runSet4();
 		
 //		Test_Harness.runSet1Smart();
 //		Test_Harness.runSet2Smart();
@@ -80,15 +80,15 @@ public class Test_Harness {
 	
 	public static void runSet4() throws Exception
 	{
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m");
-		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m");
+//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m");
 		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_100percent.eol", "m");
 	}
 	

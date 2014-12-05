@@ -824,14 +824,14 @@ public class EmfSmartModel extends EmfModel{
 	}
 	
 	public static void main(String[] args) throws URISyntaxException, Exception {
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 1; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/set1_100percent.eol"));
+			eolModule.parse(new File("test/set4_100percent.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
 			smartModel.setName("oo");
-			smartModel.setModelFile(new File("test/set1.xmi").getAbsolutePath());
+			smartModel.setModelFile(new File("test/set4.xmi").getAbsolutePath());
 			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 			
 			loadEPackageFromFile("test/JDTAST.ecore");
