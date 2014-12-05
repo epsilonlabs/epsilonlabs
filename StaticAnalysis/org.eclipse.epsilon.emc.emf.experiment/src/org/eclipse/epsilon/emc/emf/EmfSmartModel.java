@@ -48,6 +48,10 @@ public class EmfSmartModel extends EmfModel{
 	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> emptyObjectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+
+	
 	protected boolean smartLoading = false;
 	
 	public void setSmartLoading(boolean smartLoading) {
@@ -321,16 +325,56 @@ public class EmfSmartModel extends EmfModel{
 //			insertHollowOjbects(eClass.getEPackage(), eClass);
 //		}
 		
-		for(EReference eReference: eClass.getEReferences())
+		if (liveClass(eClass.getEPackage(), eClass.getName())) {
+			addRef(eClass, null);
+		}
+		
+		for(EReference eReference: eClass.getEAllReferences())
 		{
 			if (!visitedEClass((EClass) eReference.getEType())) {
 				visitEClass((EClass) eReference.getEType());
 			}
 			
 			if (liveReference(eReference)) {
+				addRef(eClass, eReference);
 				insertHollowOjbects(eClass.getEPackage(), eClass);
 				if (emptyObject(eReference.getEType().getEPackage(), (EClass) eReference.getEType())) {
+					addRef((EClass) eReference.getEType(), null);
 					insertHollowOjbects(eReference.getEType().getEPackage(), (EClass) eReference.getEType());
+				}
+			}
+		}
+	}
+	
+	public void addRef(EClass eClass, EReference eReference)
+	{
+		String epackage = eClass.getEPackage().getName();
+		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+		if (subMap == null) {
+			subMap = new HashMap<String, ArrayList<String>>();
+			ArrayList<String> refs = new ArrayList<String>();
+			if (eReference != null) {
+				refs.add(eReference.getName());
+			}
+			subMap.put(eClass.getName(), refs);
+			objectsAndRefNamesToVisit.put(epackage, subMap);
+		}
+		else {
+			ArrayList<String> refs = subMap.get(eClass.getName());
+
+			if (refs == null) {
+				refs = new ArrayList<String>();
+				if(eReference != null)
+				{
+					refs.add(eReference.getName());
+				}
+				subMap.put(eClass.getName(), refs);
+			}
+			else {
+				if (eReference != null) {
+					if (!refs.contains(eReference.getName())) {
+						refs.add(eReference.getName());	
+					}
 				}
 			}
 		}
@@ -471,6 +515,7 @@ public class EmfSmartModel extends EmfModel{
 			//factory.setModelContainers(modelContainers); // <----------------------- point of change
 			factory.setObjectsToLoad(objectsToLoad);
 			factory.setEmptyObjectsToLoad(emptyObjectsToLoad);
+			factory.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", factory);   // <----------------------- point of change
 			return resourceSet;
 		}
@@ -782,11 +827,11 @@ public class EmfSmartModel extends EmfModel{
 		for(int i = 0; i < 10; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/set4_100percent.eol"));
+			eolModule.parse(new File("test/set1_100percent.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
 			smartModel.setName("oo");
-			smartModel.setModelFile(new File("test/set4.xmi").getAbsolutePath());
+			smartModel.setModelFile(new File("test/set1.xmi").getAbsolutePath());
 			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 			
 			loadEPackageFromFile("test/JDTAST.ecore");

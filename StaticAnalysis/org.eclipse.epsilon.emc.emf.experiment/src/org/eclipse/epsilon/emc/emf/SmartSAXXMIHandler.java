@@ -36,10 +36,17 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+
 	protected int callCount = 0;
 	protected boolean shouldHalt = false;
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
+	
+	public void setObjectsAndRefNamesToVisit(
+			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
+		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
+	}
 	
 	public void setObjectsToLoad(
 			HashMap<String, ArrayList<String>> objectsToLoad) {
@@ -56,8 +63,180 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		super(xmiResource, helper, options);
 	}
 	
+	@Override
+	protected void handleObjectAttribs(EObject obj) {
+    if (attribs != null)
+    {
+      InternalEObject internalEObject = (InternalEObject)obj;
+      for (int i = 0, size = attribs.getLength(); i < size; ++i)
+      {
+        String name = attribs.getQName(i);
+        if (name.equals(ID_ATTRIB))
+        {
+          xmlResource.setID(internalEObject, attribs.getValue(i));
+        }
+        else if (name.equals(hrefAttribute) && (!recordUnknownFeature || types.peek() != UNKNOWN_FEATURE_TYPE || obj.eClass() != anyType))
+        {
+          handleProxy(internalEObject, attribs.getValue(i));
+        }
+        else if (isNamespaceAware)
+        {
+          String namespace = attribs.getURI(i);
+          if (!ExtendedMetaData.XSI_URI.equals(namespace) && !notFeatures.contains(name))
+          {
+            //setAttribValue(obj, name, attribs.getValue(i));
+          }
+        }
+        else if (!name.startsWith(XMLResource.XML_NS) && !notFeatures.contains(name))
+        {
+          //setAttribValue(obj, name, attribs.getValue(i));
+        }
+      }
+    }
+  }
 
+@Override
+protected void setAttribValue(EObject object, String name, String value) {
+	return;
+}
 	
+	@Override
+		public void endDocument() {
+	    if (deferredExtent != null)
+	    {
+	      extent.addAll(deferredExtent);
+	    }
+
+	    // Pretend there is an xmlns="" because we really need to ensure that the null prefix
+	    // isn't used to denote something other than the null namespace.
+	    //
+	    if (usedNullNamespacePackage)
+	    {
+	      helper.addPrefix("", "");
+	    }
+	    helper.recordPrefixToURIMapping();
+	    helper.popContext();
+//	    handleForwardReferences(true);
+
+	    if (disableNotify)
+	    {
+	      for (Iterator<?> i = EcoreUtil.getAllContents(xmlResource.getContents(), false); i.hasNext(); )
+	      {
+	        EObject eObject = (EObject)i.next();
+	        eObject.eSetDeliver(true);
+	      }
+	    }
+
+	    if (extendedMetaData != null)
+	    {
+	      if (extent.size() == 1)
+	      {
+	        EObject root = extent.get(0);
+	        recordNamespacesSchemaLocations(root);
+	      }
+
+	      if (DEBUG_DEMANDED_PACKAGES)
+	      {
+	        // EATM temporary for debug purposes only.
+	        //
+	        Collection<EPackage> demandedPackages = EcoreUtil.copyAll(extendedMetaData.demandedPackages());
+	        for (EPackage ePackage : demandedPackages)
+	        {
+	          ePackage.setName(ePackage.getNsURI());
+	        }
+	        extent.addAll(demandedPackages);
+	      }
+	    }
+	  }
+	
+	@Override
+		public void startElement(String uri, String localName, String name) {
+			// TODO Auto-generated method stub
+
+		if (shouldHalt) {
+		    elements.push(name);
+		}
+		else {
+			if (objects.size() == 0) {
+				super.startElement(uri, localName, name);	
+			}
+			else {
+				EObject peekObject = objects.peekEObject();
+				if (peekObject instanceof DynamicEObjectImpl) {
+					EClass leClass = peekObject.eClass();
+					if (shouldProceed(leClass, name)) {
+						super.startElement(uri, localName, name);
+					}
+					else {
+						halt(name);
+					}
+				}
+				else {
+					super.startElement(uri, localName, name);
+				}
+			}
+		}
+	}
+	
+		
+	@Override
+	public void endElement(String uri, String localName, String name) {
+		callCount ++;
+		// TODO Auto-generated method stub
+		
+		if (shouldHalt && currentElementsSize != -1) {
+			if (elements.size() >= currentElementsSize) {
+				if (name.equals(currentName) && elements.size() == currentElementsSize) {
+					shouldHalt = false;
+					elements.pop();	
+				}
+				else {
+					elements.pop();	
+				}
+			}
+			else
+			{
+				shouldHalt = false;	
+				//super.endElement(uri, localName, name);	
+			}
+		}
+		else
+		{
+			super.endElement(uri, localName, name);	
+		}
+	}
+	
+	public void halt(String name)
+	{
+		currentElementsSize = elements.size();
+		currentName = name;
+		shouldHalt = true;
+	}
+	
+	
+	public boolean shouldProceed(EClass eClass, String name)
+	{
+		 String epackage = eClass.getEPackage().getName();
+		 String className = eClass.getName();
+		 HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+		 if (subMap != null) {
+			 ArrayList<String> features = subMap.get(className);
+			 if (features != null) {
+				if (features.contains(name)) {
+					return true;
+				}
+				if (features.size() == 0) {
+					return true;
+				}
+			}
+		 }
+		 return false;
+		 
+	}
+	
+	//=======================================================================================================================================================================================================================================================
+
+	/*
 	@Override
 		protected void handleObjectAttribs(EObject obj) {
 	    if (attribs != null)
@@ -412,13 +591,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	           getColumnNumber()));
 	      return;
 	    }
+	    EStructuralFeature feature = getFeature(peekObject, prefix, name, true);
 
 	    if (peekObject instanceof DynamicEObjectImpl) {
 	    	
-	    	// This happens when processing an element with simple content that has elements content even though it shouldn't.
-		    //
-		    EStructuralFeature feature = getFeature(peekObject, prefix, name, true);
-
 	    	DynamicEObjectImpl lePeekObject = (DynamicEObjectImpl) peekObject;
 	    	
 	    	if (isNeededOnlyForReference(lePeekObject.eClass().getEPackage().getName(), lePeekObject.eClass().getName())) {
@@ -564,5 +740,5 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 	//=======================================================================================================================================================================================================================================================
 
-
+*/
 }

@@ -22,7 +22,9 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 	
 	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
+	
 	public void setObjectsToLoad(
 			HashMap<String, ArrayList<String>> objectsToLoad) {
 		this.objectsToLoad = objectsToLoad;
@@ -31,6 +33,11 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 	public void setEmptyObjectsToLoad(
 			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
 		this.emptyObjectsToLoad = emptyObjectsToLoad;
+	}
+	
+	public void setObjectsAndRefNamesToVisit(
+			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
+		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
 	}
 	
 	public SmartXMILoadImpl(XMLHelper helper) {
@@ -44,6 +51,7 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 		//handler.setModelContainers(modelContainers); // <-------------------- point of change
 		handler.setObjectsToLoad(objectsToLoad);
 		handler.setEmptyObjectsToLoad(emptyObjectsToLoad);
+		handler.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 		return handler; // <-------------------- point of change
 		
 	}

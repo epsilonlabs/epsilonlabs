@@ -18,9 +18,15 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 
 	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	protected static SmartEmfModelResourceFactory instance;
 	protected HashMap<URI, Resource> resourceMap;
+	
+	public void setObjectsAndRefNamesToVisit(
+			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
+		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
+	}
 	
 	public void setObjectsToLoad(
 			HashMap<String, ArrayList<String>> objectsToLoad) {
@@ -71,6 +77,7 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 //				((SmartEmfXMIResource)resource).setModelContainers(modelContainers); // <------------------------------------- Point of Change
 				((SmartEmfXMIResource)resource).setObjectsToLoad(objectsToLoad);
 				((SmartEmfXMIResource)resource).setEmptyObjectsToLoad(emptyObjectsToLoad);
+				((SmartEmfXMIResource)resource).setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 			}
 			
 			if (resource instanceof XMLResource) {

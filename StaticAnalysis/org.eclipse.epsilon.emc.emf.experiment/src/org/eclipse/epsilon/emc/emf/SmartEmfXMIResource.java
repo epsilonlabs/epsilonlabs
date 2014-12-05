@@ -13,6 +13,7 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 
 	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	public void setObjectsToLoad(
 			HashMap<String, ArrayList<String>> objectsToLoad) {
@@ -22,6 +23,11 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	public void setEmptyObjectsToLoad(
 			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
 		this.emptyObjectsToLoad = emptyObjectsToLoad;
+	}
+	
+	public void setObjectsAndRefNamesToVisit(
+			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
+		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
 	}
 	
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
@@ -45,6 +51,7 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 //		xmiLoadImpl.setModelContainers(modelContainers);
 		xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
 		xmiLoadImpl.setObjectsToLoad(objectsToLoad);
+		xmiLoadImpl.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 		return xmiLoadImpl; // <----------------------- point of change
 	}
 	
