@@ -131,18 +131,18 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void populateEmptyObjects()
 	{
-		for(EPackage ePackage: packages)
-		{
-			for(EClassifier eClassifier: ePackage.getEClassifiers())
-			{
-				if (eClassifier instanceof EClass) {
-					EClass eClass = (EClass) eClassifier;
-					if (emptyObject(ePackage, eClass)) {
-						insertHollowOjbects(ePackage, eClass);
-					}
-				}
-			}
-		}
+//		for(EPackage ePackage: packages)
+//		{
+//			for(EClassifier eClassifier: ePackage.getEClassifiers())
+//			{
+//				if (eClassifier instanceof EClass) {
+//					EClass eClass = (EClass) eClassifier;
+//					if (emptyObject(ePackage, eClass)) {
+//						insertHollowOjbects(ePackage, eClass);
+//					}
+//				}
+//			}
+//		}
 		
 		for(EPackage ePackage: packages)
 		{
@@ -317,6 +317,10 @@ public class EmfSmartModel extends EmfModel{
 	public void visitEClass(EClass eClass)
 	{
 		visitedClasses.add(EcoreUtil.copy(eClass));
+//		if (liveClass(eClass.getEPackage(), eClass.getName())) {
+//			insertHollowOjbects(eClass.getEPackage(), eClass);
+//		}
+		
 		for(EReference eReference: eClass.getEReferences())
 		{
 			if (!visitedEClass((EClass) eReference.getEType())) {
@@ -325,6 +329,9 @@ public class EmfSmartModel extends EmfModel{
 			
 			if (liveReference(eReference)) {
 				insertHollowOjbects(eClass.getEPackage(), eClass);
+				if (emptyObject(eReference.getEType().getEPackage(), (EClass) eReference.getEType())) {
+					insertHollowOjbects(eReference.getEType().getEPackage(), (EClass) eReference.getEType());
+				}
 			}
 		}
 	}
@@ -404,10 +411,10 @@ public class EmfSmartModel extends EmfModel{
 					{
 						return true;
 					}
-//					if (kind.getEAllSuperTypes().contains(actual)) 
-//					{
-//						return true;
-//					}
+					if (kind.getEAllSuperTypes().contains(actual)) 
+					{
+						return true;
+					}
 				}
 				
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
