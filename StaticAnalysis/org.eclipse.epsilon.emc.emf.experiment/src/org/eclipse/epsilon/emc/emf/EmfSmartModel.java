@@ -137,11 +137,25 @@ public class EmfSmartModel extends EmfModel{
 			{
 				if (eClassifier instanceof EClass) {
 					EClass eClass = (EClass) eClassifier;
+					if (emptyObject(ePackage, eClass)) {
+						insertHollowOjbects(ePackage, eClass);
+					}
+				}
+			}
+		}
+		
+		for(EPackage ePackage: packages)
+		{
+			for(EClassifier eClassifier: ePackage.getEClassifiers())
+			{
+				if (eClassifier instanceof EClass) {
+					EClass eClass = (EClass) eClassifier;
 					visitedClasses.clear();
 					visitEClass(eClass);
 				}
 			}
 		}
+
 		
 //		for(ModelContainer mc: modelContainers)
 //		{	
@@ -260,7 +274,7 @@ public class EmfSmartModel extends EmfModel{
 		boolean inserted = false;
 		for(ModelContainer mc: modelContainers)
 		{
-			if (mc.getModelName().equals(ePackage.getName())) {
+			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
 				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 				{
 					if (mec.getElementName().equals(eClass.getName())) {
@@ -341,6 +355,37 @@ public class EmfSmartModel extends EmfModel{
 		return false;
 	}
 	
+	public boolean emptyObject(EPackage ePackage, EClass eClass)
+	{
+		for(ModelContainer mc: modelContainers)
+		{
+			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					String elementName = mec.getElementName();
+					
+					EClass kind = (EClass) ePackage.getEClassifier(elementName);
+					if(kind.getEAllSuperTypes().contains(eClass))
+					{
+						return true;
+					}
+				}
+				
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					String elementName = mec.getElementName();
+					EClass kind = (EClass) ePackage.getEClassifier(elementName);
+					if(kind.getEAllSuperTypes().contains(eClass))
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+
+	}
+	
 	public boolean liveClass(EPackage ePackage, String className)
 	{
 		for(ModelContainer mc: modelContainers)
@@ -359,14 +404,9 @@ public class EmfSmartModel extends EmfModel{
 					{
 						return true;
 					}
-					if (kind.getEAllSuperTypes().contains(actual)) {
-						return true;
-					}
-//					for(EClass superClass: kind.getEAllSuperTypes())
+//					if (kind.getEAllSuperTypes().contains(actual)) 
 //					{
-//						if (actual.getName().equals(superClass.getName())) {
-//							return true;
-//						}
+//						return true;
 //					}
 				}
 				
@@ -384,12 +424,9 @@ public class EmfSmartModel extends EmfModel{
 					if (hollowElement.equals(className)) {
 						return true;
 					}
-					EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
-					EClass actual = (EClass) ePackage.getEClassifier(className);
-					if (actual.getEAllSuperTypes().contains(kind)) {
-						return true;
-					}
-//					if (kind.getEAllSuperTypes().contains(actual)) {
+//					EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
+//					EClass actual = (EClass) ePackage.getEClassifier(className);
+//					if (actual.getEAllSuperTypes().contains(kind)) {
 //						return true;
 //					}
 
@@ -738,14 +775,14 @@ public class EmfSmartModel extends EmfModel{
 		for(int i = 0; i < 10; i++)
 		{
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/oo.eol"));
+			eolModule.parse(new File("test/set2_100percent.eol"));
 			
 			EmfSmartModel smartModel = new EmfSmartModel();
 			smartModel.setName("oo");
-			smartModel.setModelFile(new File("test/OOInstance.model").getAbsolutePath());
-			smartModel.setMetamodelFile(new File("test/OO.ecore").getAbsolutePath());
+			smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+			smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 			
-			loadEPackageFromFile("test/OO.ecore");
+			loadEPackageFromFile("test/JDTAST.ecore");
 			
 			Ast2EolContext ast2EolContext = new Ast2EolContext();
 			EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
@@ -765,6 +802,7 @@ public class EmfSmartModel extends EmfModel{
 			
 			smartModel.setModelContainers(loaContext.getModelContainers());
 			smartModel.preProcess();
+			smartModel.setSmartLoading(true);
 			long init = System.nanoTime();
 
 			smartModel.load();

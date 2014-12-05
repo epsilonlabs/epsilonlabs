@@ -138,10 +138,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	
 	@Override
-		protected void setAttribValue(EObject object, String name, String value) {
-			// TODO Auto-generated method stub
-			return;
-		}
+	protected void setAttribValue(EObject object, String name, String value) {
+		// TODO Auto-generated method stub
+		return;
+	}
 	
 //	@Override
 //	protected void setFeatureValue(EObject object, EStructuralFeature feature,
@@ -172,6 +172,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			String eTypeName = eType.getName();
 			if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
 				super.setFeatureValue(object, feature, value);
+			}
+			else
+			{
+				System.err.println(feature);
 			}
 		}
 		
@@ -328,7 +332,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	@Override
 	public void endDocument() {
-		//System.err.println(callCount);
+//		System.err.println(callCount);
 
 	    if (deferredExtent != null)
 	    {

@@ -23,10 +23,10 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-		Test_Harness.runSet1();
+//		Test_Harness.runSet1();
 		Test_Harness.runSet2();
-		Test_Harness.runSet3();
-		Test_Harness.runSet4();
+//		Test_Harness.runSet3();
+//		Test_Harness.runSet4();
 		
 //		Test_Harness.runSet1Smart();
 //		Test_Harness.runSet2Smart();
@@ -158,8 +158,8 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> greedyData = new ArrayList<ArrayList<Long>>();
 		
 		//specify the iteration and disregard
-		final int iteration = 15;
-		final int disregard = 5;
+		final int iteration = 1;
+		final int disregard = 0;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -414,7 +414,7 @@ public class Test_Harness {
 		emfModel.setModelFile(new File(model).getAbsolutePath());
 		loadEPackageFromFile(metamodel);
 		
-		if (type == 1) {
+		if (type == 1 && smartLoading) {
 			((EmfSmartModel)emfModel).preProcess();
 		}
 
