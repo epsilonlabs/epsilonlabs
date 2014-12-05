@@ -38,6 +38,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
+	
+	protected EClass currentClass;
+	protected ArrayList<String> currentFeatures;
+	
 	protected int callCount = 0;
 	protected boolean shouldHalt = false;
 	protected String currentName = "";
@@ -95,10 +99,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
     }
   }
 
-@Override
-protected void setAttribValue(EObject object, String name, String value) {
-	return;
-}
+	@Override
+	protected void setAttribValue(EObject object, String name, String value) {
+		return;
+	}
 	
 	@Override
 		public void endDocument() {
@@ -216,20 +220,33 @@ protected void setAttribValue(EObject object, String name, String value) {
 	
 	public boolean shouldProceed(EClass eClass, String name)
 	{
-		 String epackage = eClass.getEPackage().getName();
-		 String className = eClass.getName();
-		 HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
-		 if (subMap != null) {
-			 ArrayList<String> features = subMap.get(className);
-			 if (features != null) {
-				if (features.contains(name)) {
-					return true;
-				}
-				if (features.size() == 0) {
-					return true;
-				}
+		if (currentClass != null && currentClass.getName().equals(eClass.getName())) {
+			if (currentFeatures.contains(name)) {
+				return true;
 			}
-		 }
+			if (currentFeatures.size() == 0) {
+				return true;
+			}
+		}
+		else {
+			currentClass = eClass;
+			 String epackage = eClass.getEPackage().getName();
+			 String className = eClass.getName();
+			 HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+			 if (subMap != null) {
+				 ArrayList<String> features = subMap.get(className);
+				 if (features != null) {
+					 currentFeatures = features;
+					if (features.contains(name)) {
+						return true;
+					}
+					if (features.size() == 0) {
+						return true;
+					}
+				}
+			 }
+
+		}
 		 return false;
 		 
 	}
