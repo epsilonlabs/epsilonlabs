@@ -1,0 +1,10 @@
+@namespace(uri="filesystem", prefix="")
+package filesystem;
+
+class Filesystem {
+	
+}
+
+class File {
+	
+}
