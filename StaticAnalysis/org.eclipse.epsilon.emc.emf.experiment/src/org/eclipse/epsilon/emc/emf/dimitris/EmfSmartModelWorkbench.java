@@ -26,8 +26,8 @@ public class EmfSmartModelWorkbench {
 		model.load();
 		
 		System.out.println(model.allContents().size()); 
-		// I'd expect this to return 1 (only load the filesystem EPackage)
-		// but it seems to be loading everything instead
+		// I'd expect this to print 1 (only load the filesystem EPackage)
+		// but it prints 3 instead (seems to be loading everything)
 		
 	}
 	
