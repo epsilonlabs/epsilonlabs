@@ -177,12 +177,12 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				if (peekObject instanceof DynamicEObjectImpl) {
 					EClass leClass = peekObject.eClass();
 					if (shouldProceed(leClass, name)) {
-						if (shouldCreate(peekObject, name)) {
+//						if (shouldCreate(peekObject, name)) {
 							super.startElement(uri, localName, name);
-						}
-						else {
-							halt(name);
-						}
+//						}
+//						else {
+//							halt(name);
+//						}
 					}
 					else {
 						halt(name);
