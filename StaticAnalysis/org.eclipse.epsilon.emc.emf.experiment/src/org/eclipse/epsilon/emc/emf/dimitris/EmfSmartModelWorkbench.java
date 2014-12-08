@@ -22,6 +22,7 @@ public class EmfSmartModelWorkbench {
 		containers.add(container);
 		
 		model.setModelContainers(containers);
+		model.setSmartLoading(true);
 		model.load();
 		
 		System.out.println(model.allContents().size()); 
