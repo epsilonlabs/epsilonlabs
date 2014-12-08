@@ -20,7 +20,8 @@ public class EmfSmartModelWorkbench {
 		model.setModelFileUri(URI.createURI(EmfSmartModelWorkbench.class.getResource("filesystem.ecore").toString()));
 		
 		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
+//		container.addToModelElementsAllOfKind("EPackage");
+		container.addToModelElementsAllOfKind("EClassifier");
 		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
 		containers.add(container);
 		
