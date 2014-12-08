@@ -3,6 +3,8 @@ package org.eclipse.epsilon.emc.emf.dimitris;
 import java.util.ArrayList;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 
@@ -14,15 +16,17 @@ public class EmfSmartModelWorkbench {
 		
 		model.setName("M");
 		model.setReadOnLoad(true);
+		model.setMetamodelUri(EcorePackage.eNS_URI);
 		model.setModelFileUri(URI.createURI(EmfSmartModelWorkbench.class.getResource("filesystem.ecore").toString()));
 		
-		ModelContainer container = new ModelContainer("M");
+		ModelContainer container = new ModelContainer("ecore");
 		container.addToModelElementsAllOfKind("EPackage");
 		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
 		containers.add(container);
 		
 		model.setModelContainers(containers);
 		model.setSmartLoading(true);
+		model.preProcess();
 		model.load();
 		
 		System.out.println(model.allContents().size()); 

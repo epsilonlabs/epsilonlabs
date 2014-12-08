@@ -189,7 +189,24 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 					}
 				}
 				else {
-					super.startElement(uri, localName, name);
+					if (peekObject instanceof EPackage) {
+						EPackage ePack = (EPackage) peekObject;
+						if (shouldProceed(ePack, name)) {
+							super.startElement(uri, localName, name);
+						}
+						else {
+							halt(name);
+						}
+					}
+					else if (peekObject instanceof EClass) {
+						EClass leClass = (EClass) peekObject;
+						if (shouldProceed(leClass, name)) {
+							super.startElement(uri, localName, name);
+						}
+						else {
+							halt(name);
+						}
+					}
 				}
 			}
 		}
@@ -286,6 +303,26 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		}
 		return false;
 	}
+	
+	public boolean shouldProceed(EPackage ePack, String name)
+	{
+		String epackage = ePack.getName();
+		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+		//if submap is not null
+		if (subMap != null) {
+			//get the features of the submap
+			 ArrayList<String> features = subMap.get(name);
+			 //if features is not null
+			 if (features != null) {
+				return true;
+			 }
+			 else {
+				return false;
+			}
+		 }
+		return false;
+	}
+	
 	
 	public boolean shouldProceed(EClass eClass, String name)
 	{
