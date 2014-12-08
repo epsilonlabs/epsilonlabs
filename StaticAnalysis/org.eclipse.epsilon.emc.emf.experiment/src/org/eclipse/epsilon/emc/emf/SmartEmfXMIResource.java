@@ -11,23 +11,30 @@ import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContai
 
 public class SmartEmfXMIResource extends EmfXMIResource{
 
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
-	public void setObjectsToLoad(
-			HashMap<String, ArrayList<String>> objectsToLoad) {
-		this.objectsToLoad = objectsToLoad;
-	}
 	
-	public void setEmptyObjectsToLoad(
-			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-		this.emptyObjectsToLoad = emptyObjectsToLoad;
-	}
+//	public void setObjectsToLoad(
+//			HashMap<String, ArrayList<String>> objectsToLoad) {
+//		this.objectsToLoad = objectsToLoad;
+//	}
+//	
+//	public void setEmptyObjectsToLoad(
+//			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
+//		this.emptyObjectsToLoad = emptyObjectsToLoad;
+//	}
 	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
+	}
+	
+	public void setActualObjectsToLoad(
+			HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad) {
+		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
@@ -49,9 +56,10 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	protected XMLLoad createXMLLoad() {
 		SmartXMILoadImpl xmiLoadImpl = new SmartXMILoadImpl(createXMLHelper());
 //		xmiLoadImpl.setModelContainers(modelContainers);
-		xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
-		xmiLoadImpl.setObjectsToLoad(objectsToLoad);
+//		xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
+//		xmiLoadImpl.setObjectsToLoad(objectsToLoad);
 		xmiLoadImpl.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
+		xmiLoadImpl.setActualObjectsToLoad(actualObjectsToLoad);
 		return xmiLoadImpl; // <----------------------- point of change
 	}
 	
@@ -60,9 +68,11 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 		if (options != null && Boolean.TRUE.equals(options.get(OPTION_SUPPRESS_XMI)))
 	    {
 			SmartXMILoadImpl xmiLoadImpl = new SmartXMILoadImpl(new XMLHelperImpl(this));
+			xmiLoadImpl.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
+			xmiLoadImpl.setActualObjectsToLoad(actualObjectsToLoad);
 //			xmiLoadImpl.setModelContainers(modelContainers);
-			xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
-			xmiLoadImpl.setObjectsToLoad(objectsToLoad);
+//			xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
+//			xmiLoadImpl.setObjectsToLoad(objectsToLoad);
 
 			return xmiLoadImpl;
 	    }

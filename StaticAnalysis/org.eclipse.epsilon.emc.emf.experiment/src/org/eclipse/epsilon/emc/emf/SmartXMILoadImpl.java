@@ -20,24 +20,30 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 //		this.modelContainers = modelContainers;
 //	}
 	
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	
-	public void setObjectsToLoad(
-			HashMap<String, ArrayList<String>> objectsToLoad) {
-		this.objectsToLoad = objectsToLoad;
-	}
-	
-	public void setEmptyObjectsToLoad(
-			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-		this.emptyObjectsToLoad = emptyObjectsToLoad;
-	}
+//	public void setObjectsToLoad(
+//			HashMap<String, ArrayList<String>> objectsToLoad) {
+//		this.objectsToLoad = objectsToLoad;
+//	}
+//	
+//	public void setEmptyObjectsToLoad(
+//			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
+//		this.emptyObjectsToLoad = emptyObjectsToLoad;
+//	}
 	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
+	}
+
+	public void setActualObjectsToLoad(
+			HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad) {
+		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
 	public SmartXMILoadImpl(XMLHelper helper) {
@@ -49,9 +55,10 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 	protected DefaultHandler makeDefaultHandler() {
 		SmartSAXXMIHandler handler = new SmartSAXXMIHandler(resource, helper, options); // <-------------------- point of change
 		//handler.setModelContainers(modelContainers); // <-------------------- point of change
-		handler.setObjectsToLoad(objectsToLoad);
-		handler.setEmptyObjectsToLoad(emptyObjectsToLoad);
+//		handler.setObjectsToLoad(objectsToLoad);
+//		handler.setEmptyObjectsToLoad(emptyObjectsToLoad);
 		handler.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
+		handler.setActualObjectsToLoad(actualObjectsToLoad);
 		return handler; // <-------------------- point of change
 		
 	}

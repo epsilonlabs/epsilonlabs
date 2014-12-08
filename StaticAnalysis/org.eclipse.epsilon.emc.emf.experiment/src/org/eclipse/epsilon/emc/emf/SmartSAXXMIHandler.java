@@ -33,14 +33,17 @@ import org.xml.sax.SAXException;
 public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
-
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
-
+//	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	
-	protected EClass currentClass;
-	protected ArrayList<String> currentFeatures;
+	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
+
+	protected ArrayList<EClass> classStack = new ArrayList<EClass>();
+	protected ArrayList<String> create_features = new ArrayList<String>();
+	
+	protected EClass traversal_currentClass;
+	protected ArrayList<String> traversal_currentFeatures;
 	
 	protected int callCount = 0;
 	protected boolean shouldHalt = false;
@@ -52,15 +55,20 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
 	}
 	
-	public void setObjectsToLoad(
-			HashMap<String, ArrayList<String>> objectsToLoad) {
-		this.objectsToLoad = objectsToLoad;
+	public void setActualObjectsToLoad(
+			HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad) {
+		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
-	public void setEmptyObjectsToLoad(
-			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-		this.emptyObjectsToLoad = emptyObjectsToLoad;
-	}
+//	public void setObjectsToLoad(
+//			HashMap<String, ArrayList<String>> objectsToLoad) {
+//		this.objectsToLoad = objectsToLoad;
+//	}
+//	
+//	public void setEmptyObjectsToLoad(
+//			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
+//		this.emptyObjectsToLoad = emptyObjectsToLoad;
+//	}
 	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
@@ -169,7 +177,12 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				if (peekObject instanceof DynamicEObjectImpl) {
 					EClass leClass = peekObject.eClass();
 					if (shouldProceed(leClass, name)) {
-						super.startElement(uri, localName, name);
+						if (shouldCreate(peekObject, name)) {
+							super.startElement(uri, localName, name);
+						}
+						else {
+							halt(name);
+						}
 					}
 					else {
 						halt(name);
@@ -217,29 +230,96 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		shouldHalt = true;
 	}
 	
+//	public boolean shouldCreate(String featureName)
+//	{
+//		int stackSize = classStack.size();
+//		if (stackSize == 0) {
+//			return true;
+//		}
+//		else {
+//			EClass topClass = classStack.get(stackSize-1);
+//			for(EReference eReference : topClass.getEAllReferences())
+//			{
+//				if (eReference.getName().equals(featureName)) {
+//					EClass eType = (EClass) eReference.getEType();
+//					if (shouldCreateObjectForClass(eType)) {
+//						classStack.add(eType);
+//						return true;
+//					}
+//				}
+//			}
+//			classStack.remove(stackSize-1);
+//			return false;
+//		}
+//	}
+	
+	public boolean shouldCreate(EObject peekObject, String featureName)
+	{
+		EClass eClass = peekObject.eClass();
+		EClass eType = null;
+		for(EReference eReference : eClass.getEAllReferences())
+		{
+			if (eReference.getName().equals(featureName)) {
+				eType = (EClass) eReference.getEType();
+				if (shouldCreateObjectForClass(eType)) {
+					return true;
+				}
+			}
+		}
+		objects.add(eType.getEPackage().getEFactoryInstance().create(eType));
+
+		return false;
+
+	}
+
+	
+	public boolean shouldCreateObjectForClass(EClass eClass)
+	{
+		String epackage = eClass.getEPackage().getName();
+		HashMap<String, ArrayList<String>> subMap = actualObjectsToLoad.get(epackage);
+		if (subMap == null) {
+			return false;
+		}
+		
+		if (subMap.keySet().contains(eClass.getName())) {
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean shouldProceed(EClass eClass, String name)
 	{
-		if (currentClass != null && currentClass.getName().equals(eClass.getName())) {
-			if (currentFeatures.contains(name)) {
+		//if current class is not null and current class is equal to the class in question
+		if (traversal_currentClass != null && traversal_currentClass.getName().equals(eClass.getName())) {
+			if (traversal_currentFeatures.contains(name)) {
 				return true;
 			}
-			if (currentFeatures.size() == 0) {
+			if (traversal_currentFeatures.size() == 0) {
 				return true;
 			}
 		}
 		else {
-			currentClass = eClass;
-			 String epackage = eClass.getEPackage().getName();
-			 String className = eClass.getName();
-			 HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
-			 if (subMap != null) {
+			//set the current class to the eclass under question
+			traversal_currentClass = eClass;
+			//get epackage string
+			String epackage = eClass.getEPackage().getName();
+			//get classname string
+			String className = eClass.getName();
+			//get subMap
+			HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+			//if submap is not null
+			if (subMap != null) {
+				//get the features of the submap
 				 ArrayList<String> features = subMap.get(className);
+				 //if features is not null
 				 if (features != null) {
-					 currentFeatures = features;
+					//set the current features as features for caching 
+					traversal_currentFeatures = features;
+					//if features contains the feature name
 					if (features.contains(name)) {
 						return true;
 					}
+					//if features size is 0, should return true, too
 					if (features.size() == 0) {
 						return true;
 					}

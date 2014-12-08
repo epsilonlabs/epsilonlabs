@@ -45,11 +45,8 @@ public class EmfSmartModel extends EmfModel{
 	
 	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
 	
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
-
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
-	protected HashMap<String, HashMap<String, ArrayList<String>>> emptyObjectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	
 	protected boolean smartLoading = false;
@@ -152,7 +149,11 @@ public class EmfSmartModel extends EmfModel{
 		{
 			for(EClassifier eClassifier: ePackage.getEClassifiers())
 			{
+				
 				if (eClassifier instanceof EClass) {
+					if (actualObjectToLoad(ePackage, (EClass) eClassifier)) {
+						addActualObjectToLoad((EClass) eClassifier, null);
+					}
 					EClass eClass = (EClass) eClassifier;
 					visitedClasses.clear();
 					visitEClass(eClass);
@@ -180,97 +181,8 @@ public class EmfSmartModel extends EmfModel{
 //				System.out.println("	"+s);
 //			}
 //		}
-		generateHashMaps();
 	}
 	
-	public void generateHashMaps()
-	{
-		for(EPackage ePackage: packages)
-		{
-			if (objectsToLoad.get(ePackage.getName()) == null) {
-				objectsToLoad.put(ePackage.getName(), new ArrayList<String>());
-			}
-			if (emptyObjectsToLoad.get(ePackage.getName()) == null) {
-				emptyObjectsToLoad.put(ePackage.getName(), new ArrayList<String>());
-			}
-			
-			for(EClassifier eClassifier: ePackage.getEClassifiers())
-			{
-				if (eClassifier instanceof EClass) {
-					for(ModelContainer mc: modelContainers)
-					{
-						if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
-							loop1:
-							for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-							{
-								String eClassName = eClassifier.getName();
-								String elementName = mec.getElementName();
-								if (eClassName.equals(elementName)) {
-									String packageName = ePackage.getName();
-									if (!objectsToLoad.get(packageName).contains(eClassName)) {
-										objectsToLoad.get(packageName).add(eClassName);
-									}
-									break loop1;
-								}
-								
-								EClass kind = (EClass) ePackage.getEClassifier(elementName);
-								for(EClass superClass: ((EClass) eClassifier).getEAllSuperTypes())
-								{
-									if (superClass.getName().equals(kind.getName())) {
-										String packageName = ePackage.getName();
-										if (!objectsToLoad.get(packageName).contains(eClassifier.getName())) {
-											objectsToLoad.get(packageName).add(eClassifier.getName());
-										}
-										break loop1;
-									}
-								}
-							}
-							
-							loop2:
-							for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-							{
-								String eClassName = eClassifier.getName();
-								String elementName = mec.getElementName();
-								if (eClassName.equals(elementName)) {
-									String packageName = ePackage.getName();
-									if (!objectsToLoad.get(packageName).contains(elementName)) {
-										objectsToLoad.get(packageName).add(elementName);
-									}
-									break loop2;
-								}
-							}
-							
-							loop3:
-							for(String hollowElement: mc.getEmptyElements())
-							{
-
-								if (hollowElement.equals(eClassifier.getName())) {
-									String packageName = ePackage.getName();
-									if (!emptyObjectsToLoad.get(packageName).contains(hollowElement) && !objectsToLoad.get(packageName).contains(hollowElement)) {
-										emptyObjectsToLoad.get(packageName).add(hollowElement);
-									}
-									break loop3;
-
-								}
-								
-								EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
-								if((((EClass) eClassifier).getEAllSuperTypes().contains(kind))||
-										kind.getEAllSuperTypes().contains(eClassifier))
-								{
-									String packageName = ePackage.getName();
-									if (!emptyObjectsToLoad.get(packageName).contains(eClassifier.getName()) && !objectsToLoad.get(packageName).contains(eClassifier.getName())) {
-										emptyObjectsToLoad.get(packageName).add(eClassifier.getName());
-									}
-
-								}
-							}
-						}
-					}
-				}
-			}
-		
-		}
-	}
 	
 	
 	public void insertHollowOjbects(EPackage ePackage, EClass eClass)
@@ -320,13 +232,13 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void visitEClass(EClass eClass)
 	{
+		//add this class to the visited
 		visitedClasses.add(EcoreUtil.copy(eClass));
-//		if (liveClass(eClass.getEPackage(), eClass.getName())) {
-//			insertHollowOjbects(eClass.getEPackage(), eClass);
-//		}
 		
+		//if this one is a live class, should addRef()
 		if (liveClass(eClass.getEPackage(), eClass.getName())) {
 			addRef(eClass, null);
+			insertHollowOjbects(eClass.getEPackage(), eClass);
 		}
 		
 		for(EReference eReference: eClass.getEAllReferences())
@@ -338,30 +250,37 @@ public class EmfSmartModel extends EmfModel{
 			if (liveReference(eReference)) {
 				addRef(eClass, eReference);
 				insertHollowOjbects(eClass.getEPackage(), eClass);
-				if (emptyObject(eReference.getEType().getEPackage(), (EClass) eReference.getEType())) {
-					addRef((EClass) eReference.getEType(), null);
-					insertHollowOjbects(eReference.getEType().getEPackage(), (EClass) eReference.getEType());
-				}
 			}
 		}
 	}
 	
-	public void addRef(EClass eClass, EReference eReference)
+	public void addActualObjectToLoad(EClass eClass, EReference eReference)
 	{
+		//get the epackage name
 		String epackage = eClass.getEPackage().getName();
-		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+		//get the submap with the epackage name
+		HashMap<String, ArrayList<String>> subMap = actualObjectsToLoad.get(epackage);
+		//if sub map is null
 		if (subMap == null) {
+			//create new sub map
 			subMap = new HashMap<String, ArrayList<String>>();
+			//create new refs for the map
 			ArrayList<String> refs = new ArrayList<String>();
+			//if eReference is not null
 			if (eReference != null) {
+				//add the eReference to the ref
 				refs.add(eReference.getName());
 			}
+			//add the ref to the sub map
 			subMap.put(eClass.getName(), refs);
-			objectsAndRefNamesToVisit.put(epackage, subMap);
+			//add the sub map to objectsAndRefNamesToVisit
+			actualObjectsToLoad.put(epackage, subMap);
 		}
 		else {
+			//if sub map is not null, get the refs by class name
 			ArrayList<String> refs = subMap.get(eClass.getName());
 
+			//if refs is null, create new refs and add the ref and then add to sub map
 			if (refs == null) {
 				refs = new ArrayList<String>();
 				if(eReference != null)
@@ -370,6 +289,54 @@ public class EmfSmartModel extends EmfModel{
 				}
 				subMap.put(eClass.getName(), refs);
 			}
+			//if ref is not null, add the ref
+			else {
+				if (eReference != null) {
+					if (!refs.contains(eReference.getName())) {
+						refs.add(eReference.getName());	
+					}
+				}
+			}
+		}
+	}
+
+	
+	public void addRef(EClass eClass, EReference eReference)
+	{
+		//get the epackage name
+		String epackage = eClass.getEPackage().getName();
+		//get the submap with the epackage name
+		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get(epackage);
+		//if sub map is null
+		if (subMap == null) {
+			//create new sub map
+			subMap = new HashMap<String, ArrayList<String>>();
+			//create new refs for the map
+			ArrayList<String> refs = new ArrayList<String>();
+			//if eReference is not null
+			if (eReference != null) {
+				//add the eReference to the ref
+				refs.add(eReference.getName());
+			}
+			//add the ref to the sub map
+			subMap.put(eClass.getName(), refs);
+			//add the sub map to objectsAndRefNamesToVisit
+			objectsAndRefNamesToVisit.put(epackage, subMap);
+		}
+		else {
+			//if sub map is not null, get the refs by class name
+			ArrayList<String> refs = subMap.get(eClass.getName());
+
+			//if refs is null, create new refs and add the ref and then add to sub map
+			if (refs == null) {
+				refs = new ArrayList<String>();
+				if(eReference != null)
+				{
+					refs.add(eReference.getName());
+				}
+				subMap.put(eClass.getName(), refs);
+			}
+			//if ref is not null, add the ref
 			else {
 				if (eReference != null) {
 					if (!refs.contains(eReference.getName())) {
@@ -394,19 +361,16 @@ public class EmfSmartModel extends EmfModel{
 	
 	public boolean liveReference(EReference eReference)
 	{
-		//get the etype
-//		if (eReference.isContainment()) {
-			EClassifier eClassifier = eReference.getEType();
-			EClass etype = (EClass) eClassifier;
-			if (liveClass(etype.getEPackage(), etype.getName())) {
-				return true;
-//			}
+		EClassifier eClassifier = eReference.getEType();
+		EClass etype = (EClass) eClassifier;
+		if (liveClass(etype.getEPackage(), etype.getName())) {
+			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean emptyObject(EPackage ePackage, EClass eClass)
+	public boolean actualObjectToLoad(EPackage ePackage, EClass eClass)
 	{
 		for(ModelContainer mc: modelContainers)
 		{
@@ -414,10 +378,16 @@ public class EmfSmartModel extends EmfModel{
 				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 				{
 					String elementName = mec.getElementName();
+					if (elementName.equals(eClass.getName())) {
+						return true;
+					}
 					
 					EClass kind = (EClass) ePackage.getEClassifier(elementName);
-					if(kind.getEAllSuperTypes().contains(eClass))
+					if(eClass.getESuperTypes().contains(kind))
 					{
+						return true;
+					}
+					if (kind.getESuperTypes().contains(eClass)) {
 						return true;
 					}
 				}
@@ -425,9 +395,11 @@ public class EmfSmartModel extends EmfModel{
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
 				{
 					String elementName = mec.getElementName();
-					EClass kind = (EClass) ePackage.getEClassifier(elementName);
-					if(kind.getEAllSuperTypes().contains(eClass))
-					{
+					if (elementName.equals(eClass.getName())) {
+						return true;
+					}
+					EClass type = (EClass) ePackage.getEClassifier(elementName);
+					if (type.getESuperTypes().contains(eClass)) {
 						return true;
 					}
 				}
@@ -437,24 +409,37 @@ public class EmfSmartModel extends EmfModel{
 
 	}
 	
+	
+	/*
+	 * this method determines if a class is live for a eType of an eReference
+	 */
 	public boolean liveClass(EPackage ePackage, String className)
 	{
 		for(ModelContainer mc: modelContainers)
 		{
+			//get the package first
 			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
+				
+				//for all of kinds
 				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 				{
+					//the element n ame
 					String elementName = mec.getElementName();
+					//if name equals return true
 					if (className.equals(elementName)) {
 						return true;
 					}
 					
+					//get the eclass for the mec
 					EClass kind = (EClass) ePackage.getEClassifier(elementName);
+					//get the eclass for the current class under question
 					EClass actual = (EClass) ePackage.getEClassifier(className);
+					//if the current class under question is a sub class of the mec, should return true
 					if(actual.getEAllSuperTypes().contains(kind))
 					{
 						return true;
 					}
+					//if the current class under question is a super class of the mec, should also return true
 					if (kind.getEAllSuperTypes().contains(actual)) 
 					{
 						return true;
@@ -463,23 +448,41 @@ public class EmfSmartModel extends EmfModel{
 				
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
 				{
+					//the element n ame
 					String elementName = mec.getElementName();
+					//if name equals return true
 					if (className.equals(elementName)) {
 						return true;
 					}
+					
+					//get the eclass for the mec
+					EClass type = (EClass) ePackage.getEClassifier(elementName);
+					//get the eclass for the class under question
+					EClass actual = (EClass) ePackage.getEClassifier(className);
+					//if the class under question is a super class of the mec, should return true
+					if (type.getEAllSuperTypes().contains(actual)) 
+					{
+						return true;
+					}
+
 				}
 				
 				for(String hollowElement: mc.getEmptyElements())
 				{
-
+					//if the class under question is an "empty" class that is to be loaded, return true;
 					if (hollowElement.equals(className)) {
 						return true;
 					}
-//					EClass kind = (EClass) ePackage.getEClassifier(hollowElement);
-//					EClass actual = (EClass) ePackage.getEClassifier(className);
-//					if (actual.getEAllSuperTypes().contains(kind)) {
-//						return true;
-//					}
+					
+					//get the eclass for the mec
+					EClass type = (EClass) ePackage.getEClassifier(hollowElement);
+					//get the eclass for the class under question
+					EClass actual = (EClass) ePackage.getEClassifier(className);
+					//if the class under question is a super class of the mec, should return true
+					if (type.getEAllSuperTypes().contains(actual)) 
+					{
+						return true;
+					}
 
 				}
 			}
@@ -489,8 +492,6 @@ public class EmfSmartModel extends EmfModel{
 	
 	@Override
 	public void disposeModel() {
-		//modelImpl.unload();
-		//resourceMap.remove("platform:/resource" + relativeModelFile);
 		if (smartLoading) {
 			registry = null;
 			if (modelImpl != null) {
@@ -513,9 +514,8 @@ public class EmfSmartModel extends EmfModel{
 			ResourceSet resourceSet = new EmfModelResourceSet();
 			SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
 			//factory.setModelContainers(modelContainers); // <----------------------- point of change
-			factory.setObjectsToLoad(objectsToLoad);
-			factory.setEmptyObjectsToLoad(emptyObjectsToLoad);
 			factory.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
+			factory.setActualObjectsToLoad(actualObjectsToLoad);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", factory);   // <----------------------- point of change
 			return resourceSet;
 		}
@@ -525,212 +525,6 @@ public class EmfSmartModel extends EmfModel{
 		
 	}
 	
-//	@Override
-//	public void setupContainmentChangeListeners() {
-//		// Add a notification adapter to all objects in the model
-//		// so that they get moved when their containment changes
-//		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
-//		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
-//		
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//			{
-//				EClass eClass = null;
-//				try {
-//					eClass = classForName(mec.getElementName());
-//				} catch (EolModelElementTypeNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				if (eClass != null) {
-//					allOfKinds.add(eClass);
-//					cachedKinds.add(eClass);	
-//				}
-//				else {
-//					System.out.println("eclass is null!");
-//				}
-//			}
-//			
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//			{
-//				EClass eClass = null;
-//				try {
-//					eClass = classForName(mec.getElementName());
-//				} catch (EolModelElementTypeNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				allOfTypes.add(eClass);
-//				cachedTypes.add(eClass);
-//			}
-//		}
-//
-//		if (modelImpl != null) {
-//			for (EObject eObject : allContents()) {
-//				for(EClass eClass : allOfKinds)
-//				{
-//					if (eClass.isInstance(eObject)) {
-//						kindCache.put(eClass, eObject);
-//					}
-//				}
-//				for(EClass eClass : allOfTypes)
-//				{
-//					if (eObject.eClass() == eClass){
-//						typeCache.put(eClass, eObject);
-//					}
-//				}
-//
-//				boolean isAdapted = false;
-//				for (Adapter adapter : eObject.eAdapters()) {
-//					if (adapter instanceof ContainmentChangeAdapter) {
-//						isAdapted = true;
-//					}
-//				}
-//				if (!isAdapted){
-//					eObject.eAdapters().add(new ContainmentChangeAdapter(eObject, eObject.eResource()));
-//				}
-//			}
-//		}
-//	}	
-	
-//	public void populateCaches() throws EolModelElementTypeNotFoundException
-//	{
-//		HashMap<EClass, List<EObject>> allOfKinds = new HashMap<EClass, List<EObject>>();
-//		HashMap<EClass, List<EObject>> allOfTypes = new HashMap<EClass, List<EObject>>();
-//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfKind())
-//		{
-//			EClass eClass = classForName(mec.getElementName());
-//			allOfKinds.put(eClass, new ArrayList<EObject>());
-//		}
-//		
-//		for(ModelElementContainer mec: modelContainer.getModelElementsAllOfType())
-//		{
-//			EClass eClass = classForName(mec.getElementName());
-//			allOfTypes.put(eClass, new ArrayList<EObject>());
-//		}
-//		
-//		
-//		for (EObject eObject : (Collection<EObject>)allContents()) {
-//			for(EClass eClass : allOfKinds.keySet())
-//			{
-//				if (eClass.isInstance(eObject)) {
-//					allOfKinds.get(eClass).add(eObject);
-//				}
-//			}
-//			for(EClass eClass : allOfTypes.keySet())
-//			{
-//				if (eObject.eClass() == eClass){
-//					allOfTypes.get(eClass).add(eObject);
-//				}
-//			}
-//		}
-//		
-//		for(EClass eClass : allOfKinds.keySet())
-//		{
-//			kindCache.replaceValues(eClass, allOfKinds.get(eClass));
-//			cachedKinds.add(eClass);
-//		}
-//		
-//		for(EClass eClass : allOfTypes.keySet())
-//		{
-//			typeCache.replaceValues(eClass, allOfTypes.get(eClass));
-//			cachedTypes.add(eClass);
-//		}
-//		
-//	}
-	
-//	@Override
-//	protected Collection<EObject> allContentsFromModel(){
-//		
-//		System.out.println("call too allContentsFromModel()");
-//		
-//		final List<EObject> allInstances = new ArrayList<EObject>();
-//		
-//		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
-//		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
-//		
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//			{
-//				EClass eClass = null;
-//				try {
-//					eClass = classForName(mec.getElementName());
-//				} catch (EolModelElementTypeNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				if (eClass != null) {
-//					allOfKinds.add(eClass);
-//					cachedKinds.add(eClass);	
-//				}
-//				else {
-//					System.out.println("eclass is null!");
-//				}
-//				
-//			}
-//			
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//			{
-//				EClass eClass = null;
-//				try {
-//					eClass = classForName(mec.getElementName());
-//				} catch (EolModelElementTypeNotFoundException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				allOfTypes.add(eClass);
-//				cachedTypes.add(eClass);
-//			}
-//		}
-//		
-//		for (Resource resource : getResources()) {
-//			Iterator<EObject> it = resource.getAllContents();
-//			while (it.hasNext()){
-//				EObject eObject = it.next();
-//				for(EClass eClass : allOfKinds)
-//				{
-//					if (eClass.isInstance(eObject)) {
-//						kindCache.put(eClass, eObject);
-//					}
-//				}
-//				for(EClass eClass : allOfTypes)
-//				{
-//					if (eObject.eClass() == eClass){
-//						typeCache.put(eClass, eObject);
-//					}
-//				}
-//				
-//
-//				allInstances.add(eObject);
-//			}
-//		}
-//		
-//		/*
-//		if (!expand) {
-//			Iterator<EObject> it = modelImpl.getAllContents();
-//			while (it.hasNext()){
-//				allInstances.add(it.next());
-//			}
-//		
-//		} else {
-//			final List<Resource> resources;
-//			
-//			if (modelImpl.getResourceSet() == null) {
-//				resources = new ArrayList<Resource>();
-//				resources.add(modelImpl);
-//			} else {
-//				resources = modelImpl.getResourceSet().getResources();
-//			}
-//				
-//			
-//		}*/
-//			
-//		return allInstances;
-//	}
-//
-//	
 	public void populateCaches_v2() throws Exception
 	{
 		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();

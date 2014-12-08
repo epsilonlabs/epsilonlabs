@@ -16,9 +16,10 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 
-	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
+//	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
+	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	protected static SmartEmfModelResourceFactory instance;
 	protected HashMap<URI, Resource> resourceMap;
@@ -28,15 +29,20 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
 	}
 	
-	public void setObjectsToLoad(
-			HashMap<String, ArrayList<String>> objectsToLoad) {
-		this.objectsToLoad = objectsToLoad;
+	public void setActualObjectsToLoad(
+			HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad) {
+		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
-	public void setEmptyObjectsToLoad(
-			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-		this.emptyObjectsToLoad = emptyObjectsToLoad;
-	}
+//	public void setObjectsToLoad(
+//			HashMap<String, ArrayList<String>> objectsToLoad) {
+//		this.objectsToLoad = objectsToLoad;
+//	}
+//	
+//	public void setEmptyObjectsToLoad(
+//			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
+//		this.emptyObjectsToLoad = emptyObjectsToLoad;
+//	}
 	
 //	public void addModelContainer(ModelContainer modelContainer)
 //	{
@@ -75,9 +81,10 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 			else {
 				resource = new SmartEmfXMIResource(uri); // <------------------------------------- Point of Change
 //				((SmartEmfXMIResource)resource).setModelContainers(modelContainers); // <------------------------------------- Point of Change
-				((SmartEmfXMIResource)resource).setObjectsToLoad(objectsToLoad);
-				((SmartEmfXMIResource)resource).setEmptyObjectsToLoad(emptyObjectsToLoad);
+//				((SmartEmfXMIResource)resource).setObjectsToLoad(objectsToLoad);
+//				((SmartEmfXMIResource)resource).setEmptyObjectsToLoad(emptyObjectsToLoad);
 				((SmartEmfXMIResource)resource).setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
+				((SmartEmfXMIResource)resource).setActualObjectsToLoad(actualObjectsToLoad);
 			}
 			
 			if (resource instanceof XMLResource) {

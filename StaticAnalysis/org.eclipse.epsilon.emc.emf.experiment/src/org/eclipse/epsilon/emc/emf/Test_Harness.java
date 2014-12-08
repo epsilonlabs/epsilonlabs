@@ -23,10 +23,10 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-//		Test_Harness.runSet1();
+		Test_Harness.runSet1();
 //		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
-		Test_Harness.runSet4();
+//		Test_Harness.runSet4();
 		
 //		Test_Harness.runSet1Smart();
 //		Test_Harness.runSet2Smart();
@@ -80,15 +80,15 @@ public class Test_Harness {
 	
 	public static void runSet4() throws Exception
 	{
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m");
-//		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_10percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_20percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_30percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_40percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_50percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_60percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_70percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_80percent.eol", "m");
+		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_90percent.eol", "m");
 		Test_Harness.test("test/JDTAST.ecore", "test/set4.xmi", "test/set4_100percent.eol", "m");
 	}
 	
@@ -162,25 +162,25 @@ public class Test_Harness {
 		final int disregard = 0;
 		
 		//run normal
-		for(int i = 0; i < iteration; i++)
-		{
-			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false));
-			System.gc();
-		}
-
-		//run smart
-		for(int i = 0; i < iteration; i++)
-		{
-			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false));
-			System.gc();
-		}
-		
-		//run greedy
-		for(int i = 0; i < iteration; i++)
-		{
-			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false));
-			System.gc();
-		}
+//		for(int i = 0; i < iteration; i++)
+//		{
+//			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false));
+//			System.gc();
+//		}
+//
+//		//run smart
+//		for(int i = 0; i < iteration; i++)
+//		{
+//			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false));
+//			System.gc();
+//		}
+//		
+//		//run greedy
+//		for(int i = 0; i < iteration; i++)
+//		{
+//			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false));
+//			System.gc();
+//		}
 		
 		for(int i = 0; i < iteration; i++)
 		{
@@ -300,68 +300,68 @@ public class Test_Harness {
 		System.out.println("greedy execution time average: " + greedyExecutionTime/(iteration-disregard));
 		System.out.println("greedy memory consumption: " + greedyMemoryConsumption/(iteration-disregard));
 		
-		try
-		{
-			FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
-	 
-		    writer.append("Normal loading time");
-		    writer.append(',');
-		    writer.append("Normal execution time");
-		    writer.append(',');
-		    writer.append("Normal memory consumption");
-		    writer.append(',');
-		    writer.append("Smart loading time");
-		    writer.append(',');
-		    writer.append("Smart execution time");
-		    writer.append(',');
-		    writer.append("Smart memory consumption");
-		    writer.append(',');
-		    writer.append("SS loading time");
-		    writer.append(',');
-		    writer.append("SS execution time");
-		    writer.append(',');
-		    writer.append("SS consumption");
-		    writer.append(',');
-		    writer.append("Greedy loading time");
-		    writer.append(',');
-		    writer.append("Greedy execution time");
-		    writer.append(',');
-		    writer.append("Greedy memory consumption");
-		    writer.append('\n');
-		    
-		    writer.append(normalLoadTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(normalExecutionTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(normalMemoryConsumption/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartLoadTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartExecutionTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartMemoryConsumption/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartSmartLoadTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartSmartExecutionTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(smartSmartMemoryConsumption/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(greedyLoadTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(greedyExecutionTime/(iteration-disregard)+"");
-		    writer.append(',');
-		    writer.append(greedyMemoryConsumption/(iteration-disregard)+"");
-		    writer.append('\n');
-	 
-	 
-		    writer.flush();
-		    writer.close();
-		}
-		catch(IOException e)
-		{
-		     e.printStackTrace();
-		} 
+//		try
+//		{
+//			FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
+//	 
+//		    writer.append("Normal loading time");
+//		    writer.append(',');
+//		    writer.append("Normal execution time");
+//		    writer.append(',');
+//		    writer.append("Normal memory consumption");
+//		    writer.append(',');
+//		    writer.append("Smart loading time");
+//		    writer.append(',');
+//		    writer.append("Smart execution time");
+//		    writer.append(',');
+//		    writer.append("Smart memory consumption");
+//		    writer.append(',');
+//		    writer.append("SS loading time");
+//		    writer.append(',');
+//		    writer.append("SS execution time");
+//		    writer.append(',');
+//		    writer.append("SS consumption");
+//		    writer.append(',');
+//		    writer.append("Greedy loading time");
+//		    writer.append(',');
+//		    writer.append("Greedy execution time");
+//		    writer.append(',');
+//		    writer.append("Greedy memory consumption");
+//		    writer.append('\n');
+//		    
+//		    writer.append(normalLoadTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(normalExecutionTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(normalMemoryConsumption/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartLoadTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartExecutionTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartMemoryConsumption/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartSmartLoadTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartSmartExecutionTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(smartSmartMemoryConsumption/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(greedyLoadTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(greedyExecutionTime/(iteration-disregard)+"");
+//		    writer.append(',');
+//		    writer.append(greedyMemoryConsumption/(iteration-disregard)+"");
+//		    writer.append('\n');
+//	 
+//	 
+//		    writer.flush();
+//		    writer.close();
+//		}
+//		catch(IOException e)
+//		{
+//		     e.printStackTrace();
+//		} 
 	
 	}
 	
@@ -372,6 +372,8 @@ public class Test_Harness {
 		//prepare eolModule
 		EolModule eolModule = new EolModule();
 		eolModule.parse(new File(eolFile));
+		
+		loadEPackageFromFile(metamodel);
 		
 		//prepare model type
 		String modelType = "";
@@ -412,7 +414,7 @@ public class Test_Harness {
 		emfModel.setName(modelName);
 		emfModel.setMetamodelFile(new File(metamodel).getAbsolutePath());
 		emfModel.setModelFile(new File(model).getAbsolutePath());
-		loadEPackageFromFile(metamodel);
+		
 		
 		if (type == 1 && smartLoading) {
 			((EmfSmartModel)emfModel).preProcess();
