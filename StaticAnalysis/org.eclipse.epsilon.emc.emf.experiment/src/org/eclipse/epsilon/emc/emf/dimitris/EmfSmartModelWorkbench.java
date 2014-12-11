@@ -3,6 +3,7 @@ package org.eclipse.epsilon.emc.emf.dimitris;
 import java.util.ArrayList;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
@@ -21,7 +22,8 @@ public class EmfSmartModelWorkbench {
 		
 		ModelContainer container = new ModelContainer("ecore");
 //		container.addToModelElementsAllOfKind("EPackage");
-		container.addToModelElementsAllOfKind("EClassifier");
+//		container.addToModelElementsAllOfKind("EClassifier");
+		container.addToModelElementsAllOfKind("EAttribute");
 		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
 		containers.add(container);
 		
@@ -31,6 +33,10 @@ public class EmfSmartModelWorkbench {
 		model.load();
 		
 		System.out.println(model.allContents().size()); 
+		for(EObject obj: model.allContents())
+		{
+			System.out.println(obj);
+		}
 		// I'd expect this to print 1 (only load the filesystem EPackage)
 		// but it prints 3 instead (seems to be loading everything)
 		

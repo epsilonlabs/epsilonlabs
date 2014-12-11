@@ -144,7 +144,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			    		if (disableNotify)
 			    			newObject.eSetDeliver(false);
 
-			    		handleObjectAttribs(newObject);
+//			    		handleObjectAttribs(newObject);
 			    	}
 			    }
 		    return newObject;
@@ -250,7 +250,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	@Override
 	protected void setAttribValue(EObject object, String name, String value) {
-		return;
+		super.setAttribValue(object, name, value);
 	}
 	
 	@Override
@@ -336,24 +336,25 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 					}
 				}
 				else {
-					if (peekObject instanceof EPackage) {
-						EPackage ePack = (EPackage) peekObject;
-						if (shouldProceed(ePack, name)) {
-							super.startElement(uri, localName, name);
-						}
-						else {
-							halt(name);
-						}
-					}
-					else if (peekObject instanceof EClass) {
-						EClass leClass = (EClass) peekObject;
-						if (shouldProceed(leClass, name)) {
-							super.startElement(uri, localName, name);
-						}
-						else {
-							halt(name);
-						}
-					}
+					super.startElement(uri, localName, name);
+//					if (peekObject instanceof EPackage) {
+//						EPackage ePack = (EPackage) peekObject;
+//						if (shouldProceed(ePack, name)) {
+//							super.startElement(uri, localName, name);
+//						}
+//						else {
+//							halt(name);
+//						}
+//					}
+//					else if (peekObject instanceof EClass) {
+//						EClass leClass = (EClass) peekObject;
+//						if (shouldProceed(leClass, name)) {
+//							super.startElement(uri, localName, name);
+//						}
+//						else {
+//							halt(name);
+//						}
+//					}
 				}
 			}
 		}

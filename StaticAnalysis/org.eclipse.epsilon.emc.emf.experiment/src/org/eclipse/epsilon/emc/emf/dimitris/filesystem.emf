@@ -2,7 +2,7 @@
 package filesystem;
 
 class Filesystem {
-	
+	attr int num;
 }
 
 class File {
