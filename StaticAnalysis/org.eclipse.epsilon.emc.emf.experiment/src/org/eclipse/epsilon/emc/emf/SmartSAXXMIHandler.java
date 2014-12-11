@@ -237,12 +237,12 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
           String namespace = attribs.getURI(i);
           if (!ExtendedMetaData.XSI_URI.equals(namespace) && !notFeatures.contains(name))
           {
-            //setAttribValue(obj, name, attribs.getValue(i));
+            setAttribValue(obj, name, attribs.getValue(i));
           }
         }
         else if (!name.startsWith(XMLResource.XML_NS) && !notFeatures.contains(name))
         {
-          //setAttribValue(obj, name, attribs.getValue(i));
+          setAttribValue(obj, name, attribs.getValue(i));
         }
       }
     }
@@ -338,9 +338,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				else {
 					if (peekObject instanceof EPackage) {
 						EPackage ePack = (EPackage) peekObject;
-						if (!shouldCreateObjectForClass(ePack.eClass())) {
-							extent.remove(peekObject);
-						}
 						if (shouldProceed(ePack, name)) {
 							super.startElement(uri, localName, name);
 						}
@@ -349,9 +346,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 						}
 					}
 					else if (peekObject instanceof EClass) {
-						if (!shouldCreateObjectForClass((EClass) peekObject)) {
-							extent.remove(peekObject);
-						}
 						EClass leClass = (EClass) peekObject;
 						if (shouldProceed(leClass, name)) {
 							super.startElement(uri, localName, name);
