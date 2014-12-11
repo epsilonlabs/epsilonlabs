@@ -254,6 +254,59 @@ public class EmfSmartModel extends EmfModel{
 		}
 	}
 	
+	public ArrayList<String> getFeaturesForClassToLoad(EClass eClass)
+	{
+		EPackage ePackage = eClass.getEPackage();
+		ArrayList<String> result = new ArrayList<String>();
+		for(ModelContainer mc: modelContainers)
+		{
+			if (mc.getModelName().equals(ePackage.getName())) {
+				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				{
+					if (eClass.getName().equals(mec.getElementName())) {
+						result.addAll(mec.getAttributes());
+						result.addAll(mec.getReferences());
+					}
+					
+					EClass kind = (EClass) ePackage.getEClassifier(mec.getElementName());
+					if (eClass.getEAllSuperTypes().contains(kind)) {
+						result.addAll(mec.getAttributes());
+						result.addAll(mec.getReferences());
+					}
+				}
+				
+				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				{
+					if (eClass.getName().equals(mec.getElementName())) {
+						result.addAll(mec.getAttributes());
+						result.addAll(mec.getReferences());
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	public void addActualObjectToLoad(EClass eClass)
+	{
+		//get the epackage name
+		String epackage = eClass.getEPackage().getName();
+		//get the submap with the epackage name
+		HashMap<String, ArrayList<String>> subMap = actualObjectsToLoad.get(epackage);
+		//if sub map is null
+		if (subMap == null) {
+			//create new sub map
+			subMap = new HashMap<String, ArrayList<String>>();
+			//create new refs for the map
+			ArrayList<String> refs = getFeaturesForClassToLoad(eClass);
+			
+			//add the ref to the sub map
+			subMap.put(eClass.getName(), refs);
+			//add the sub map to objectsAndRefNamesToVisit
+			actualObjectsToLoad.put(epackage, subMap);
+		}
+	}
+	
 	public void addActualObjectToLoad(EClass eClass, EReference eReference)
 	{
 		//get the epackage name
@@ -387,9 +440,9 @@ public class EmfSmartModel extends EmfModel{
 					{
 						return true;
 					}
-					if (kind.getESuperTypes().contains(eClass)) {
-						return true;
-					}
+//					if (kind.getESuperTypes().contains(eClass)) {
+//						return true;
+//					}
 				}
 				
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
@@ -398,10 +451,10 @@ public class EmfSmartModel extends EmfModel{
 					if (elementName.equals(eClass.getName())) {
 						return true;
 					}
-					EClass type = (EClass) ePackage.getEClassifier(elementName);
-					if (type.getESuperTypes().contains(eClass)) {
-						return true;
-					}
+//					EClass type = (EClass) ePackage.getEClassifier(elementName);
+//					if (type.getESuperTypes().contains(eClass)) {
+//						return true;
+//					}
 				}
 			}
 		}

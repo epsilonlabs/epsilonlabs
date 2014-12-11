@@ -7,11 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.stream.events.EndDocument;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -30,12 +27,6 @@ import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
 import org.eclipse.emf.ecore.xml.type.SimpleAnyType;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 
 public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
