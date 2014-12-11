@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.stream.events.EndDocument;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
@@ -22,7 +24,10 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.ConfigurationCache;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
+import org.eclipse.emf.ecore.xml.type.SimpleAnyType;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
@@ -32,15 +37,18 @@ import org.xml.sax.SAXException;
 
 public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
-//	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
-//	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
-//	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
-	
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
-	protected ArrayList<EClass> classStack = new ArrayList<EClass>();
-	protected ArrayList<String> create_features = new ArrayList<String>();
+ 	protected HashMap<EClass, EObject> cache = new HashMap<EClass, EObject>();
+ 	
+ 	protected boolean handlingFeature = false;
+	
+//	protected EObject recordedObject = null;
+//	protected int currentStackSize = -1;
+	
+//	protected ArrayList<EClass> classStack = new ArrayList<EClass>();
+//	protected ArrayList<String> create_features = new ArrayList<String>();
 	
 	protected EClass traversal_currentClass;
 	protected ArrayList<String> traversal_currentFeatures;
@@ -49,6 +57,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected boolean shouldHalt = false;
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
+	
+	protected long measure = 0;
 	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
@@ -60,20 +70,123 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
-//	public void setObjectsToLoad(
-//			HashMap<String, ArrayList<String>> objectsToLoad) {
-//		this.objectsToLoad = objectsToLoad;
-//	}
-//	
-//	public void setEmptyObjectsToLoad(
-//			HashMap<String, ArrayList<String>> emptyObjectsToLoad) {
-//		this.emptyObjectsToLoad = emptyObjectsToLoad;
-//	}
 	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
 	}
+	
+	public boolean cached(EClass eClass)
+	{
+		return cache.containsKey(eClass);
+	}
+	
+	public EObject getCache(EClass eClass)
+	{
+		return cache.get(eClass);
+	}
+	
+	public void insertCache(EClass eClass, EObject eObject)
+	{
+		if (!cache.containsKey(eClass)) {
+			cache.put(eClass, eObject);	
+		}
+	}
+	
+	
+	
+	@Override
+	@Deprecated
+	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
+//		long init = System.nanoTime();
+		
+		EClass eClass = (EClass) factory.getEPackage().getEClassifier(typeName);
+		//if the an instance of the class should be created
+		if (shouldCreateObjectForClass(eClass)) {
+			//prepare newObject
+		    EObject newObject = null;
+		    //if factory != null
+		    if (factory != null)
+		    {
+		    	//create object
+		    	newObject = helper.createObject(factory, typeName);
+
+		    	//if object is not null, handle attributes and things
+		    	if (newObject != null)
+		    	{
+		    		if (disableNotify)
+		    			newObject.eSetDeliver(false);
+
+		    		handleObjectAttribs(newObject);
+		    	}
+		    }
+		    
+		    //if this one is not a feature but rather an independent top level object, add to extent
+		    if (!handlingFeature) {
+		    		extent.add(newObject);	
+			}
+		    
+		    //prepare result
+		    EObject result = null;
+		    //if cached, return cache
+//		    if (cached(eClass)) {
+//		    	result = getCache(eClass);
+//				if (disableNotify)
+//					newObject.eSetDeliver(false);
+//
+//	    		handleObjectAttribs(result);
+//			}
+		    //if not cached, create cache and return cache
+//		    else {
+			    if (factory != null)
+			    {
+//			    	result = EcoreUtil.copy(newObject);
+			    	result = helper.createObject(factory, typeName);
+
+			    	if (result != null)
+			    	{
+			    		if (disableNotify)
+			    			result.eSetDeliver(false);
+
+			    		handleObjectAttribs(result);
+			    	}
+			    }
+//			    insertCache(eClass, result);
+//			}
+//			measure += System.nanoTime()-init;
+		    return result;
+		}
+		else {
+			//if cached return cache, if not create object and return cache
+			EObject newObject = null;
+//			if (cached(eClass)) {
+//				newObject = getCache(eClass);
+//	    		if (disableNotify)
+//	    			newObject.eSetDeliver(false);
+//
+//	    		handleObjectAttribs(newObject);
+//			}
+//			else {
+			    if (factory != null)
+			    {
+			    	newObject = helper.createObject(factory, typeName);
+
+			    	if (newObject != null)
+			    	{
+			    		if (disableNotify)
+			    			newObject.eSetDeliver(false);
+
+			    		handleObjectAttribs(newObject);
+			    	}
+			    }
+//			    insertCache(eClass, newObject);
+//			}
+//			measure += System.nanoTime()-init;
+		    return newObject;
+		}
+
+	}
+		
 	
 	@Override
 	protected void handleObjectAttribs(EObject obj) {
@@ -114,6 +227,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	@Override
 		public void endDocument() {
+		
+		extent.remove(0);
+		System.out.println("time taken:" + measure/1000000);
 	    if (deferredExtent != null)
 	    {
 	      extent.addAll(deferredExtent);
@@ -159,6 +275,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	        extent.addAll(demandedPackages);
 	      }
 	    }
+	    System.out.println(extent.size());
 	  }
 	
 	@Override
@@ -174,9 +291,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			}
 			else {
 				EObject peekObject = objects.peekEObject();
+				
 				if (peekObject instanceof DynamicEObjectImpl) {
 					EClass leClass = peekObject.eClass();
 					if (shouldProceed(leClass, name)) {
+						if (!shouldCreateObjectForClass(leClass)) {
+							extent.remove(peekObject);
+						}
 //						if (shouldCreate(peekObject, name)) {
 							super.startElement(uri, localName, name);
 //						}
@@ -191,6 +312,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				else {
 					if (peekObject instanceof EPackage) {
 						EPackage ePack = (EPackage) peekObject;
+						if (!shouldCreateObjectForClass(ePack.eClass())) {
+							extent.remove(peekObject);
+						}
 						if (shouldProceed(ePack, name)) {
 							super.startElement(uri, localName, name);
 						}
@@ -199,6 +323,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 						}
 					}
 					else if (peekObject instanceof EClass) {
+						if (!shouldCreateObjectForClass((EClass) peekObject)) {
+							extent.remove(peekObject);
+						}
 						EClass leClass = (EClass) peekObject;
 						if (shouldProceed(leClass, name)) {
 							super.startElement(uri, localName, name);
@@ -215,8 +342,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		
 	@Override
 	public void endElement(String uri, String localName, String name) {
-		callCount ++;
-		// TODO Auto-generated method stub
 		
 		if (shouldHalt && currentElementsSize != -1) {
 			if (elements.size() >= currentElementsSize) {
@@ -231,7 +356,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			else
 			{
 				shouldHalt = false;	
-				//super.endElement(uri, localName, name);	
 			}
 		}
 		else
@@ -270,6 +394,26 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //		}
 //	}
 	
+	public boolean shouldHandleFeature(EObject object, String featureName)
+	{
+		EClass eClass = object.eClass();
+		String className = eClass.getName();
+		String packageName = eClass.getEPackage().getName();
+		HashMap<String, ArrayList<String>> subMap = actualObjectsToLoad.get(packageName);
+		if (subMap != null) {
+			ArrayList<String> features = subMap.get(className);
+			if (features != null && features.contains(featureName)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public boolean shouldCreate(EObject peekObject, String featureName)
 	{
 		EClass eClass = peekObject.eClass();
@@ -283,7 +427,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				}
 			}
 		}
-		objects.add(eType.getEPackage().getEFactoryInstance().create(eType));
+//		objects.add(eType.getEPackage().getEFactoryInstance().create(eType));
 
 		return false;
 
@@ -374,351 +518,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		 
 	}
 	
-	//=======================================================================================================================================================================================================================================================
-
-	/*
-	@Override
-		protected void handleObjectAttribs(EObject obj) {
-	    if (attribs != null)
-	    {
-	      InternalEObject internalEObject = (InternalEObject)obj;
-	      for (int i = 0, size = attribs.getLength(); i < size; ++i)
-	      {
-	        String name = attribs.getQName(i);
-	        if (name.equals(ID_ATTRIB))
-	        {
-	          xmlResource.setID(internalEObject, attribs.getValue(i));
-	        }
-	        else if (name.equals(hrefAttribute) && (!recordUnknownFeature || types.peek() != UNKNOWN_FEATURE_TYPE || obj.eClass() != anyType))
-	        {
-	          handleProxy(internalEObject, attribs.getValue(i));
-	        }
-	        else if (isNamespaceAware)
-	        {
-	          String namespace = attribs.getURI(i);
-	          if (!ExtendedMetaData.XSI_URI.equals(namespace) && !notFeatures.contains(name))
-	          {
-	            //setAttribValue(obj, name, attribs.getValue(i));
-	          }
-	        }
-	        else if (!name.startsWith(XMLResource.XML_NS) && !notFeatures.contains(name))
-	        {
-	          //setAttribValue(obj, name, attribs.getValue(i));
-	        }
-	      }
-	    }
-	  }
-	
-	@Override
-	protected void setAttribValue(EObject object, String name, String value) {
-		return;
-	}
-	
-	
-	@Override
-	protected void setFeatureValue(EObject object, EStructuralFeature feature,
-			Object value) {
-		if (feature instanceof EReference) {
-			EReference ref = (EReference) feature;
-			EClass eType = (EClass) ref.getEType();
-			String eTypePack = eType.getEPackage().getName();
-			String eTypeName = eType.getName();
-			if (isNeeded(eTypePack, eTypeName) || isNeededOnlyForReference(eTypePack, eTypeName)) {
-				super.setFeatureValue(object, feature, value);
-			}
-			else
-			{
-				System.err.println(feature);
-			}
-		}
-	}
-	
-	@Override
-	protected void validateCreateObjectFromFactory(EFactory factory,
-			String typeName, EObject newObject) {
-		// TODO Auto-generated method stub
-		if (factory != null) {
-			String epack = factory.getEPackage().getName();
-
-			if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
-				super.validateCreateObjectFromFactory(factory, typeName, newObject);	
-			}
-		}
-		else {
-			super.validateCreateObjectFromFactory(factory, typeName, newObject);
-		}
-		
-	}
-	
-	
-	@Override
-	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
-		if (factory != null) {
-//			callCount++;
-			String epack = factory.getEPackage().getName();
-			
-			if (isNeeded(epack, typeName) || isNeededOnlyForReference(epack, typeName)) {
-				return super.createObjectFromFactory(factory, typeName);
-			}
-			else {
-//				shouldHalt = true;
-				return null;
-			}
-		}
-		else
-		{
-			return super.createObjectFromFactory(factory, typeName);
-		}
-	}
-	
-	
-	public boolean isNeededOnlyForReference(String packageName, String className)
-	{
-		if (emptyObjectsToLoad.get(packageName) == null) {
-			return false;
-		}
-		else {
-			return emptyObjectsToLoad.get(packageName).contains(className);
-		}
-	}
-	
-	public boolean isNeeded(String packageName, String className)
-	{
-		if (objectsToLoad.get(packageName) == null) {
-			return false;
-		}
-		else {
-			return objectsToLoad.get(packageName).contains(className);
-		}
-	}
-	
-//	public boolean isNeededOnlyForReference(String name, EFactory factory)
-//	{
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			if (factory.getEPackage().getName().equals(mc.getModelName())) {
-//				for(String element: mc.getEmptyElements())
-//				{
-//					if (name.equals(element)) {
-//						return true;
-//					}
-//
-//					EClass kind = (EClass) factory.getEPackage().getEClassifier(element);
-//					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
-//					for(EClass superClass: actual.getEAllSuperTypes())
-//					{
-//						if (kind.getName().equals(superClass.getName())) {
-//							return true;
-//						}
-//					}
-//
-//				}
-//			}
-//		}
-//		return false;
-//	}
-	
-//	public boolean isNeeded(String name, EFactory factory)
-//	{
-//
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			if (factory.getEPackage().getName().equals(mc.getModelName())) {
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//					
-//					EClass kind = (EClass) factory.getEPackage().getEClassifier(elementName);
-//					EClass actual = (EClass) factory.getEPackage().getEClassifier(name);
-//					for(EClass superClass: actual.getEAllSuperTypes())
-//					{
-//						if (kind.getName().equals(superClass.getName())) {
-//							return true;
-//						}
-//					}
-//
-//				}
-//				
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
-
-	@Override
-	public void endDocument() {
-//		System.err.println(callCount);
-
-	    if (deferredExtent != null)
-	    {
-	      extent.addAll(deferredExtent);
-	    }
-
-	    // Pretend there is an xmlns="" because we really need to ensure that the null prefix
-	    // isn't used to denote something other than the null namespace.
-	    //
-	    if (usedNullNamespacePackage)
-	    {
-	      helper.addPrefix("", "");
-	    }
-	    helper.recordPrefixToURIMapping();
-	    helper.popContext();
-//	    handleForwardReferences(true);
-
-	    if (disableNotify)
-	    {
-	      for (Iterator<?> i = EcoreUtil.getAllContents(xmlResource.getContents(), false); i.hasNext(); )
-	      {
-	        EObject eObject = (EObject)i.next();
-	        eObject.eSetDeliver(true);
-	      }
-	    }
-
-	    if (extendedMetaData != null)
-	    {
-	      if (extent.size() == 1)
-	      {
-	        EObject root = extent.get(0);
-	        recordNamespacesSchemaLocations(root);
-	      }
-
-	      if (DEBUG_DEMANDED_PACKAGES)
-	      {
-	        // EATM temporary for debug purposes only.
-	        //
-	        Collection<EPackage> demandedPackages = EcoreUtil.copyAll(extendedMetaData.demandedPackages());
-	        for (EPackage ePackage : demandedPackages)
-	        {
-	          ePackage.setName(ePackage.getNsURI());
-	        }
-	        extent.addAll(demandedPackages);
-	      }
-	    }
-	  
-	}
-	
-//	public boolean isNeeded(String prefix, String name)
-//	{
-////		String localName = name;
-////		int index = name.indexOf(':', 0);
-////		if (index != -1) {
-////			localName = name.substring(index+1);
-////		}
-//
-//		for(ModelContainer mc: modelContainers)
-//		{
-//			if (prefix.equalsIgnoreCase(mc.getModelName())) {
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//					
-//				}
-//				
-//				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//				{
-//					String elementName = mec.getElementName();
-//					if (name.equals(elementName)) {
-//						return true;
-//					}
-//				}
-//			}
-//		}
-//		return false;
-//	}
-
-	
-	//=======================================================================================================================================================================================================================================================
-	
-	public boolean isNeededRoughly(String name)
-	{
-		for(ArrayList<String> arr: objectsToLoad.values())
-		{
-			for(String str : arr)
-			{
-				if (name.equals(str)) {
-					return true;
-				}
-			}
-		}
-		
-		for(ArrayList<String> arr: emptyObjectsToLoad.values())
-		{
-			for(String str : arr)
-			{
-				if (name.equals(str)) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-	@Override 
-	protected void createTopObject(String prefix, String name) {
-		// TODO Auto-generated method stub
-		System.out.println("call to createTopObject");
-		if (prefix.equals("ecore") || isNeededRoughly(name)) {
-			super.createTopObject(prefix, name);	
-		}
-		
-	}
-	
-	
-	
-	@Override
-	public void endElement(String uri, String localName, String name) {
-		callCount ++;
-		// TODO Auto-generated method stub
-		
-		if (shouldHalt && currentElementsSize != -1) {
-			if (elements.size() >= currentElementsSize) {
-				if (name.equals(currentName) && elements.size() == currentElementsSize) {
-					shouldHalt = false;
-					elements.pop();	
-				}
-				else {
-					elements.pop();	
-				}
-			}
-			else
-			{
-				shouldHalt = false;	
-				//super.endElement(uri, localName, name);	
-			}
-		}
-		else
-		{
-			super.endElement(uri, localName, name);	
-		}
-	}
-	
-	public void halt(String name)
-	{
-		currentElementsSize = elements.size();
-		currentName = name;
-		shouldHalt = true;
-	}
-	
-	
 	@Override
 	protected void handleFeature(String prefix, String name) {
-
-		if (shouldHalt) {
-			return;
-		}
+		
 	    EObject peekObject = objects.peekEObject();
+
+	    // This happens when processing an element with simple content that has elements content even though it shouldn't.
+	    //
 	    if (peekObject == null)
 	    {
 	      types.push(ERROR_TYPE);
@@ -731,154 +537,251 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	           getColumnNumber()));
 	      return;
 	    }
+
 	    EStructuralFeature feature = getFeature(peekObject, prefix, name, true);
+	    if (feature != null)
+	    {
+			long init = System.nanoTime();
 
-	    if (peekObject instanceof DynamicEObjectImpl) {
-	    	
-	    	DynamicEObjectImpl lePeekObject = (DynamicEObjectImpl) peekObject;
-	    	
-	    	if (isNeededOnlyForReference(lePeekObject.eClass().getEPackage().getName(), lePeekObject.eClass().getName())) {
-	    		if (feature != null)
-			    {
-	    			int kind = helper.getFeatureKind(feature);
-	    			if (kind == XMLHelper.DATATYPE_SINGLE || kind == XMLHelper.DATATYPE_IS_MANY)
-	    			{
-	    				halt(name);
-	    			}
-	    			else if (extendedMetaData != null)
-	    			{
-				        EReference eReference = (EReference)feature;
-				        if (eReference.getEType() instanceof EClass) {
-					        EClass eType = (EClass) eReference.getEType();
-					        if (isNeeded(eType.getEPackage().getName(), eType.getName()) || isNeededOnlyForReference(eType.getEPackage().getName(), eType.getName())) {
-					        	boolean isContainment = eReference.isContainment();
-						        if (!isContainment && !eReference.isResolveProxies() && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
-						        {
-						        	isIDREF = true;
-						        	objects.push(null);
-						        	mixedTargets.push(null);
-						        	types.push(feature);
-						        	text = new StringBuffer();
-						        }
-						        else
-						        {
-						        	createObject(peekObject, feature);
-						        	EObject childObject = objects.peekEObject();
-						        	if (childObject != null)
-						        	{
-						        		if (isContainment)
-						        		{
-						        			EStructuralFeature simpleFeature = extendedMetaData.getSimpleFeature(childObject.eClass());
-						        			if (simpleFeature != null)
-						        			{
-						        				isSimpleFeature = true;
-						        				isIDREF = simpleFeature instanceof EReference;
-						        				objects.push(null);
-						        				mixedTargets.push(null);
-						        				types.push(simpleFeature);
-						        				text = new StringBuffer();
-						        			}
-						        		}
-						        		else if (!childObject.eIsProxy())
-						        		{
-						        			text = new StringBuffer();
-						        		}
-						        	}
-						        }
-							}
-					        else {
-					        	halt(name);
-							}
-						}
-	    			}
-	    			else
-	    			{
-	    				EReference eReference = (EReference)feature;
-				        if (eReference.getEType() instanceof EClass) {
-					        EClass eType = (EClass) eReference.getEType();
-					        if (isNeeded(eType.getEPackage().getName(), eType.getName()) || isNeededOnlyForReference(eType.getEPackage().getName(), eType.getName())) {
-					        	createObject(peekObject, feature);
-					        }
-					        else {
-					        	halt(name);
-							}
-				        }
-	    			}
-			    }
-	    		else
-			    {
-			      // Try to get a general-content feature.
-			      // Use a pattern that's not possible any other way.
-			      //
-			      if (xmlMap != null && (feature = getFeature(peekObject, null, "", true)) != null)
-			      {
-
-			        EFactory eFactory = getFactoryForPrefix(prefix);
-
-			        // This is for the case for a local unqualified element that has been bound.
-			        //
-			        if (eFactory == null)
-			        {
-			          eFactory = feature.getEContainingClass().getEPackage().getEFactoryInstance();
-			        }
-
-			        EObject newObject = null;
-			        if (useNewMethods)
-			        {
-			          newObject = createObject(eFactory, helper.getType(eFactory, name), false);
-			        }
-			        else
-			        {
-			            newObject = createObjectFromFactory(eFactory, name);
-			        }
-			        newObject = validateCreateObjectFromFactory(eFactory, name, newObject, feature);
-			        if (newObject != null)
-			        {
-			          setFeatureValue(peekObject, feature, newObject);
-			        }
-			        processObject(newObject);
-			      }
-			      else
-			      {
-			        // This handles the case of a substitution group.
-			        //
-			        if (xmlMap != null)
-			        {
-			          EFactory eFactory = getFactoryForPrefix(prefix);
-			          EObject newObject = createObjectFromFactory(eFactory, name);
-			          validateCreateObjectFromFactory(eFactory, name, newObject);
-			          if (newObject != null)
-			          {
-			            for (EReference eReference : peekObject.eClass().getEAllReferences())
-			            {
-			              if (eReference.getEType().isInstance(newObject))
-			              {
-			                setFeatureValue(peekObject, eReference, newObject);
-			                processObject(newObject);
-			                return;
-			              }
-			            }
-			          }
-			        }
-
-			        handleUnknownFeature(prefix, name, true, peekObject, null);
-			      }
-			    }
+	    	if (shouldHandleFeature(peekObject, name)) {
+				peekObject = extent.get(extent.size()-1);
+				handlingFeature = true;
 			}
-	    	else if (isNeeded(lePeekObject.eClass().getEPackage().getName(), lePeekObject.eClass().getName())) {
-				super.handleFeature(prefix, name);
+	    	else {
+				handlingFeature = false;
 			}
-	    	else
-	    	{
-	    		halt(name);
-	    	}
 
-		}
-	    else {
-			super.handleFeature(prefix, name);
-		}
+	      int kind = helper.getFeatureKind(feature);
+	      if (kind == XMLHelper.DATATYPE_SINGLE || kind == XMLHelper.DATATYPE_IS_MANY)
+	      {
+	        objects.push(null);
+	        mixedTargets.push(null);
+	        types.push(feature);
+	        if (!isNull())
+	        {
+	          text = new StringBuffer();
+	        }
+	      }
+	      else if (extendedMetaData != null)
+	      {
+	        EReference eReference = (EReference)feature;
+	        boolean isContainment = eReference.isContainment();
+	        if (!isContainment && !eReference.isResolveProxies() && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
+	        {
+	          isIDREF = true;
+	          objects.push(null);
+	          mixedTargets.push(null);
+	          types.push(feature);
+	          text = new StringBuffer();
+	        }
+	        else
+	        {
+	          createObject(peekObject, feature);
+	          EObject childObject = objects.peekEObject();
+	          if (childObject != null)
+	          {
+	            if (isContainment)
+	            {
+	              EStructuralFeature simpleFeature = extendedMetaData.getSimpleFeature(childObject.eClass());
+	              if (simpleFeature != null)
+	              {
+	                isSimpleFeature = true;
+	                isIDREF = simpleFeature instanceof EReference;
+	                objects.push(null);
+	                mixedTargets.push(null);
+	                types.push(simpleFeature);
+	                text = new StringBuffer();
+	              }
+	            }
+	            else if (!childObject.eIsProxy())
+	            {
+	              text = new StringBuffer();
+	            }
+	          }
+	        }
+	      }
+	      else
+	      {
+	        createObject(peekObject, feature);
+	      }
+		    measure += System.nanoTime()-init;
+
+	    }
+	    else
+	    {
+	      // Try to get a general-content feature.
+	      // Use a pattern that's not possible any other way.
+	      //
+	      if (xmlMap != null && (feature = getFeature(peekObject, null, "", true)) != null)
+	      {
+
+	        EFactory eFactory = getFactoryForPrefix(prefix);
+
+	        // This is for the case for a local unqualified element that has been bound.
+	        //
+	        if (eFactory == null)
+	        {
+	          eFactory = feature.getEContainingClass().getEPackage().getEFactoryInstance();
+	        }
+
+	        EObject newObject = null;
+	        if (useNewMethods)
+	        {
+	          newObject = createObject(eFactory, helper.getType(eFactory, name), false);
+	        }
+	        else
+	        {
+	            newObject = createObjectFromFactory(eFactory, name);
+	        }
+	        newObject = validateCreateObjectFromFactory(eFactory, name, newObject, feature);
+	        if (newObject != null)
+	        {
+	          setFeatureValue(peekObject, feature, newObject);
+	        }
+	        processObject(newObject);
+	      }
+	      else
+	      {
+	        // This handles the case of a substitution group.
+	        //
+	        if (xmlMap != null)
+	        {
+	          EFactory eFactory = getFactoryForPrefix(prefix);
+	          EObject newObject = createObjectFromFactory(eFactory, name);
+	          validateCreateObjectFromFactory(eFactory, name, newObject);
+	          if (newObject != null)
+	          {
+	            for (EReference eReference : peekObject.eClass().getEAllReferences())
+	            {
+	              if (eReference.getEType().isInstance(newObject))
+	              {
+	                setFeatureValue(peekObject, eReference, newObject);
+	                processObject(newObject);
+	                return;
+	              }
+	            }
+	          }
+	        }
+
+	        handleUnknownFeature(prefix, name, true, peekObject, null);
+	      }
+	    }
+	  }
+
+	
+	
+	
+	@Override
+	protected EObject createDocumentRoot(String prefix, String uri,
+			String name, EFactory eFactory, boolean top) {
+
+	    if (extendedMetaData != null && eFactory != null)
+	    {
+	      EPackage ePackage = eFactory.getEPackage();
+	      EClass eClass = null;
+	      if (useConfigurationCache)
+	      {
+	        eClass = ConfigurationCache.INSTANCE.getDocumentRoot(ePackage);
+	        if (eClass == null)
+	        {
+	          eClass = extendedMetaData.getDocumentRoot(ePackage);
+	          ConfigurationCache.INSTANCE.putDocumentRoot(ePackage, eClass);
+	        }
+	      }
+	      else
+	      {
+	        eClass = extendedMetaData.getDocumentRoot(ePackage);
+	      }
+	      if (eClass != null)
+	      {
+	        // EATM Kind of hacky.
+	        String typeName = extendedMetaData.getName(eClass);
+	        @SuppressWarnings("deprecation") EObject newObject =
+	          useNewMethods ?
+	            createObject(eFactory, eClass, true) :
+	              helper.createObject(eFactory, typeName);
+	        validateCreateObjectFromFactory(eFactory, typeName, newObject);
+	        if (top)
+	        {
+	          if (suppressDocumentRoot)
+	          {
+	            // Set up a deferred extent so the document root we create definitely will not be added to the resource.
+	            //
+	            List<EObject> oldDeferredExtent = deferredExtent;
+	            try
+	            {
+	              deferredExtent = new ArrayList<EObject>();
+	              processTopObject(newObject);
+	            }
+	            finally
+	            {
+	              deferredExtent = oldDeferredExtent;
+	            }
+	            handleFeature(prefix, name);
+
+	            // Remove the document root's information from the top of the stacks.
+	            //
+	            objects.remove(0);
+	            mixedTargets.remove(0);
+	            types.remove(0);
+
+	            // Process the new root object if any.
+	            //
+	            EObject peekObject = objects.peek();
+	            if (peekObject == null)
+	            {
+	              // There's an EObject on the stack already.
+	              //
+	              if (objects.size() > 1)
+	              {
+	                // Excise the new root from the document root.
+	                //
+	                EcoreUtil.remove(peekObject = objects.get(0));
+	              }
+	              else
+	              {
+	                // If there is no root object, we're dealing with an EAttribute feature instead of an EReference feature.
+	                // So create an instance of simple any type and prepare it to handle the text content.
+	                //
+	                SimpleAnyType simpleAnyType = (SimpleAnyType)EcoreUtil.create(anySimpleType);
+	                simpleAnyType.setInstanceType(((EAttribute)types.peek()).getEAttributeType());
+	                objects.set(0, simpleAnyType);
+	                types.set(0, XMLTypePackage.Literals.SIMPLE_ANY_TYPE__RAW_VALUE);
+	                mixedTargets.set(0, simpleAnyType.getMixed());
+	                peekObject = simpleAnyType;
+	              }
+	            }
+	            else
+	            {
+	              // Excise the new root from the document root.
+	              //
+	              EcoreUtil.remove(peekObject);
+	            }
+	            // Do the extent processing that should have been done for the root but was actualljy done for the document root.
+	            //
+	            if (deferredExtent != null)
+	            {
+	              deferredExtent.add(peekObject);
+	            }
+	            else
+	            {
+//	              extent.addUnique(peekObject);
+	            }
+
+	            // The new root object is the actual new object since all sign of the document root will now have disappeared.
+	            //
+	            newObject = peekObject;
+	          }
+	          else
+	          {
+	            processTopObject(newObject);
+	            handleFeature(prefix, name);
+	          }
+	        }
+	        return newObject;
+	      }
+	    }
+	    return null;
+	  
 	}
-	//=======================================================================================================================================================================================================================================================
-
-*/
 }
