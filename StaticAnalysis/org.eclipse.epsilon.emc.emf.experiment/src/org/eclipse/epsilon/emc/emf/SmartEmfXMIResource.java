@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.emc.emf;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,11 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
+	@Override
+	public void load(Map<?, ?> options) throws IOException {
+		// TODO Auto-generated method stub
+		super.load(options);
+	}
 	
 //	public void setObjectsToLoad(
 //			HashMap<String, ArrayList<String>> objectsToLoad) {

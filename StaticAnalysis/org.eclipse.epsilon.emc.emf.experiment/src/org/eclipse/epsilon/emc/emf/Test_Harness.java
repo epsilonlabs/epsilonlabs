@@ -162,25 +162,25 @@ public class Test_Harness {
 		final int disregard = 0;
 		
 		//run normal
-//		for(int i = 0; i < iteration; i++)
-//		{
-//			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false));
-//			System.gc();
-//		}
-//
-//		//run smart
-//		for(int i = 0; i < iteration; i++)
-//		{
-//			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false));
-//			System.gc();
-//		}
-//		
-//		//run greedy
-//		for(int i = 0; i < iteration; i++)
-//		{
-//			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false));
-//			System.gc();
-//		}
+		for(int i = 0; i < iteration; i++)
+		{
+			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false));
+			System.gc();
+		}
+
+		//run smart
+		for(int i = 0; i < iteration; i++)
+		{
+			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false));
+			System.gc();
+		}
+		
+		//run greedy
+		for(int i = 0; i < iteration; i++)
+		{
+			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false));
+			System.gc();
+		}
 		
 		for(int i = 0; i < iteration; i++)
 		{

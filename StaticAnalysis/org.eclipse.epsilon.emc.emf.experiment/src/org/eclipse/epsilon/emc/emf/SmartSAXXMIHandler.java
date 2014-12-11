@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.xmi.impl.ConfigurationCache;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
 import org.eclipse.emf.ecore.xml.type.SimpleAnyType;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
@@ -43,12 +45,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
  	protected HashMap<EClass, EObject> cache = new HashMap<EClass, EObject>();
  	
  	protected boolean handlingFeature = false;
-	
-//	protected EObject recordedObject = null;
-//	protected int currentStackSize = -1;
-	
-//	protected ArrayList<EClass> classStack = new ArrayList<EClass>();
-//	protected ArrayList<String> create_features = new ArrayList<String>();
+ 	
+ 	protected ArrayList<Integer> extentIndexToDelete = new ArrayList<Integer>(); 
 	
 	protected EClass traversal_currentClass;
 	protected ArrayList<String> traversal_currentFeatures;
@@ -69,7 +67,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad) {
 		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
-	
 	
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
@@ -228,7 +225,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	@Override
 		public void endDocument() {
 		
-		extent.remove(0);
+		for(int index: extentIndexToDelete)
+		{
+			extent.remove(index);
+		}
 		System.out.println("time taken:" + measure/1000000);
 	    if (deferredExtent != null)
 	    {
@@ -784,4 +784,46 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	    return null;
 	  
 	}
+	
+	
+	
+	
+	@Override
+	protected void processTopObject(EObject object) {
+	    if (object != null)
+	    {
+	      if (deferredExtent != null)
+	      {
+	        deferredExtent.add(object);
+	      }
+	      else
+	      {
+	    	  extentIndexToDelete.add(extent.size());
+	        extent.addUnique(object);
+	      }
+
+	      if (extendedMetaData != null && !mixedTargets.isEmpty())
+	      {
+	        FeatureMap featureMap = mixedTargets.pop();
+	        EStructuralFeature target = extendedMetaData.getMixedFeature(object.eClass());
+	        if (target != null)
+	        {
+	          FeatureMap otherFeatureMap = (FeatureMap)object.eGet(target);
+	          for (FeatureMap.Entry entry : new ArrayList<FeatureMap.Entry>(featureMap))
+	          {
+	            // Ignore a whitespace only text entry at the beginning.
+	            //
+	            if (entry.getEStructuralFeature() !=  XMLTypePackage.Literals.XML_TYPE_DOCUMENT_ROOT__TEXT ||
+	                  !"".equals(XMLTypeUtil.normalize(entry.getValue().toString(), true)))
+	            {
+	              otherFeatureMap.add(entry.getEStructuralFeature(), entry.getValue());
+	            }
+	          }
+	        }
+	        text = null;
+	      }
+	    }
+
+	    processObject(object);
+	  }
 }
