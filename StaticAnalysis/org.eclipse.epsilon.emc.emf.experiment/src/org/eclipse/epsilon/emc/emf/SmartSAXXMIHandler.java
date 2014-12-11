@@ -51,7 +51,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected EClass traversal_currentClass;
 	protected ArrayList<String> traversal_currentFeatures;
 	
-	protected int callCount = 0;
 	protected boolean shouldHalt = false;
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
