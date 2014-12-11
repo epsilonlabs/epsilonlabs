@@ -56,8 +56,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
 	
-	protected long measure = 0;
-	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
@@ -90,11 +88,71 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		}
 	}
 	
-	
-	
 	@Override
 	@Deprecated
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
+		
+		EClass eClass = (EClass) factory.getEPackage().getEClassifier(typeName);
+		//if the an instance of the class should be created
+		if (shouldCreateObjectForClass(eClass)) {
+			//prepare newObject
+		    EObject newObject = null;
+		    //if factory != null
+		    if (factory != null)
+		    {
+		    	//create object
+		    	newObject = helper.createObject(factory, typeName);
+
+		    	//if object is not null, handle attributes and things
+		    	if (newObject != null)
+		    	{
+		    		if (disableNotify)
+		    			newObject.eSetDeliver(false);
+
+		    		handleObjectAttribs(newObject);
+		    	}
+		    }
+		    
+		    //if this one is not a feature but rather an independent top level object, add to extent
+		    if (!handlingFeature) {
+		    		extent.add(newObject);	
+			}
+		    
+		    EObject result = null;
+			    if (factory != null)
+			    {
+			    	result = helper.createObject(factory, typeName);
+
+			    	if (result != null)
+			    	{
+			    		if (disableNotify)
+			    			result.eSetDeliver(false);
+
+			    		handleObjectAttribs(result);
+			    	}
+			    }
+		    return result;
+		}
+		else {
+			EObject newObject = null;
+			    if (factory != null)
+			    {
+			    	newObject = helper.createObject(factory, typeName);
+
+			    	if (newObject != null)
+			    	{
+			    		if (disableNotify)
+			    			newObject.eSetDeliver(false);
+
+			    		handleObjectAttribs(newObject);
+			    	}
+			    }
+		    return newObject;
+		}
+	}
+	
+
+	protected EObject createObjectFromFactory_v2(EFactory factory, String typeName) {
 //		long init = System.nanoTime();
 		
 		EClass eClass = (EClass) factory.getEPackage().getEClassifier(typeName);
@@ -126,62 +184,35 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		    //prepare result
 		    EObject result = null;
 		    //if cached, return cache
-//		    if (cached(eClass)) {
-//		    	result = getCache(eClass);
-//				if (disableNotify)
-//					newObject.eSetDeliver(false);
-//
-//	    		handleObjectAttribs(result);
-//			}
+		    if (cached(eClass)) {
+		    	result = getCache(eClass);
+			}
 		    //if not cached, create cache and return cache
-//		    else {
+		    else {
 			    if (factory != null)
 			    {
-//			    	result = EcoreUtil.copy(newObject);
-			    	result = helper.createObject(factory, typeName);
-
-			    	if (result != null)
-			    	{
-			    		if (disableNotify)
-			    			result.eSetDeliver(false);
-
-			    		handleObjectAttribs(result);
-			    	}
+			    	result = EcoreUtil.copy(newObject);
 			    }
-//			    insertCache(eClass, result);
-//			}
-//			measure += System.nanoTime()-init;
+			    insertCache(eClass, result);
+			}
 		    return result;
 		}
 		else {
 			//if cached return cache, if not create object and return cache
 			EObject newObject = null;
-//			if (cached(eClass)) {
-//				newObject = getCache(eClass);
-//	    		if (disableNotify)
-//	    			newObject.eSetDeliver(false);
-//
-//	    		handleObjectAttribs(newObject);
-//			}
-//			else {
+			if (cached(eClass)) {
+				newObject = getCache(eClass);
+			}
+			else {
 			    if (factory != null)
 			    {
 			    	newObject = helper.createObject(factory, typeName);
 
-			    	if (newObject != null)
-			    	{
-			    		if (disableNotify)
-			    			newObject.eSetDeliver(false);
-
-			    		handleObjectAttribs(newObject);
-			    	}
 			    }
-//			    insertCache(eClass, newObject);
-//			}
-//			measure += System.nanoTime()-init;
+			    insertCache(eClass, newObject);
+			}
 		    return newObject;
 		}
-
 	}
 		
 	
@@ -229,15 +260,11 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		{
 			extent.remove(index);
 		}
-		System.out.println("time taken:" + measure/1000000);
 	    if (deferredExtent != null)
 	    {
 	      extent.addAll(deferredExtent);
 	    }
 
-	    // Pretend there is an xmlns="" because we really need to ensure that the null prefix
-	    // isn't used to denote something other than the null namespace.
-	    //
 	    if (usedNullNamespacePackage)
 	    {
 	      helper.addPrefix("", "");
@@ -275,7 +302,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	        extent.addAll(demandedPackages);
 	      }
 	    }
-	    System.out.println(extent.size());
 	  }
 	
 	@Override
@@ -604,8 +630,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	      {
 	        createObject(peekObject, feature);
 	      }
-		    measure += System.nanoTime()-init;
-
 	    }
 	    else
 	    {
