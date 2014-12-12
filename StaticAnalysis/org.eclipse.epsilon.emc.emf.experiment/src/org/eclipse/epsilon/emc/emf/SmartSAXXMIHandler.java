@@ -111,15 +111,15 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		    EObject result = null;
 			    if (factory != null)
 			    {
-			    	result = helper.createObject(factory, typeName);
-
-			    	if (result != null)
-			    	{
-			    		if (disableNotify)
-			    			result.eSetDeliver(false);
-
-			    		handleObjectAttribs(result);
-			    	}
+//			    	result = helper.createObject(factory, typeName);
+			    	result = EcoreUtil.copy(newObject);
+//			    	if (result != null)
+//			    	{
+//			    		if (disableNotify)
+//			    			result.eSetDeliver(false);
+//
+//			    		handleObjectAttribs(result);
+//			    	}
 			    }
 		    return result;
 		}
@@ -129,13 +129,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			    {
 			    	newObject = helper.createObject(factory, typeName);
 
-			    	if (newObject != null)
-			    	{
-			    		if (disableNotify)
-			    			newObject.eSetDeliver(false);
+//			    	if (newObject != null)
+//			    	{
+//			    		if (disableNotify)
+//			    			newObject.eSetDeliver(false);
 
 //			    		handleObjectAttribs(newObject);
-			    	}
+//			    	}
 			    }
 		    return newObject;
 		}
@@ -311,9 +311,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				if (peekObject instanceof DynamicEObjectImpl) {
 					EClass leClass = peekObject.eClass();
 					if (shouldProceed(leClass, name)) {
-						if (!shouldCreateObjectForClass(leClass)) {
-							extent.remove(peekObject);
-						}
+//						if (!shouldCreateObjectForClass(leClass)) {
+//							extent.remove(peekObject);
+//						}
 //						if (shouldCreate(peekObject, name)) {
 							super.startElement(uri, localName, name);
 //						}
@@ -807,8 +807,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	      }
 	      else
 	      {
-	    	  extentIndexToDelete.add(extent.size());
-	        extent.addUnique(object);
+//	    	  extentIndexToDelete.add(extent.size());
+//	    	  extent.addUnique(object);
 	      }
 
 	      if (extendedMetaData != null && !mixedTargets.isEmpty())
