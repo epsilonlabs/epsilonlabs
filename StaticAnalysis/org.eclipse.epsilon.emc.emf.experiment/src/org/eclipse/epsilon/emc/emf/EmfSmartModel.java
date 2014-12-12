@@ -152,7 +152,7 @@ public class EmfSmartModel extends EmfModel{
 				
 				if (eClassifier instanceof EClass) {
 					if (actualObjectToLoad(ePackage, (EClass) eClassifier)) {
-						addActualObjectToLoad((EClass) eClassifier, null);
+						addActualObjectToLoad((EClass) eClassifier);
 					}
 					EClass eClass = (EClass) eClassifier;
 					visitedClasses.clear();
@@ -256,30 +256,45 @@ public class EmfSmartModel extends EmfModel{
 	
 	public ArrayList<String> getFeaturesForClassToLoad(EClass eClass)
 	{
+		//get the package
 		EPackage ePackage = eClass.getEPackage();
+		//prepare the result
 		ArrayList<String> result = new ArrayList<String>();
+		
+		//for all model containers
 		for(ModelContainer mc: modelContainers)
 		{
+			//if the container is the container needed
 			if (mc.getModelName().equals(ePackage.getName())) {
+				//for elements all of kind
+				loop1:
 				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
 				{
+					//if class name equals, add all attributes and references
 					if (eClass.getName().equals(mec.getElementName())) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
+						break loop1;
 					}
 					
+					//if eclass is a sub class of the kind, add all attributes and references
 					EClass kind = (EClass) ePackage.getEClassifier(mec.getElementName());
 					if (eClass.getEAllSuperTypes().contains(kind)) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
+						break loop1;
 					}
 				}
 				
+				//for elements all of type
+				loop2:
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
 				{
+					//if class name equals, add all references and attributes
 					if (eClass.getName().equals(mec.getElementName())) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
+						break loop2;
 					}
 				}
 			}
@@ -304,6 +319,17 @@ public class EmfSmartModel extends EmfModel{
 			subMap.put(eClass.getName(), refs);
 			//add the sub map to objectsAndRefNamesToVisit
 			actualObjectsToLoad.put(epackage, subMap);
+		}
+		else
+		{
+			//if sub map is not null, get the refs by class name
+			ArrayList<String> refs = subMap.get(eClass.getName());
+
+			//if refs is null, create new refs and add the ref and then add to sub map
+			if (refs == null) {
+				refs = getFeaturesForClassToLoad(eClass);
+				subMap.put(eClass.getName(), refs);
+			}
 		}
 	}
 	

@@ -425,6 +425,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		}
 	}
 	
+	
+	
 	public boolean shouldCreate(EObject peekObject, String featureName)
 	{
 		EClass eClass = peekObject.eClass();
@@ -552,8 +554,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	    EStructuralFeature feature = getFeature(peekObject, prefix, name, true);
 	    if (feature != null)
 	    {
-			long init = System.nanoTime();
-
 	    	if (shouldHandleFeature(peekObject, name)) {
 				peekObject = extent.get(extent.size()-1);
 				handlingFeature = true;
