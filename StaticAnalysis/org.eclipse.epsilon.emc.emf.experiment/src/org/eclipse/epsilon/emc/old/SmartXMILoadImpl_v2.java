@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.emc.emf;
+package org.eclipse.epsilon.emc.old;
 
 import java.util.ArrayList;
 import java.util.Collection;

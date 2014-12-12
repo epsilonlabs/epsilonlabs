@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.emc.emf;
+package org.eclipse.epsilon.emc.old;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
