@@ -2,9 +2,10 @@
 package filesystem;
 
 class Filesystem {
-	attr int num;
+	val File[*]#filesystem files;
 }
 
 class File {
-	
+	ref Filesystem#files filesystem;
+	op void delete(boolean confirm);
 }

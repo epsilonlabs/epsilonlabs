@@ -22,8 +22,11 @@ public class EmfSmartModelWorkbench {
 		
 		ModelContainer container = new ModelContainer("ecore");
 //		container.addToModelElementsAllOfKind("EPackage");
-		container.addToModelElementsAllOfKind("EClassifier");
-		container.addReferenceToModelElement("EClassifier", "eStructuralFeatures");
+		//container.addToModelElementsAllOfKind("EClassifier");
+		//container.addReferenceToModelElement("EClassifier", "eStructuralFeatures");
+		container.addToModelElementsAllOfKind("EStructuralFeature");
+		container.addReferenceToModelElement("EStructuralFeature", "eType");
+		
 //		container.addToModelElementsAllOfKind("EAttribute");
 		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
 		containers.add(container);
@@ -36,7 +39,7 @@ public class EmfSmartModelWorkbench {
 		System.out.println(model.allContents().size()); 
 		for(EObject obj: model.allContents())
 		{
-			System.out.println(obj);
+			System.out.println(obj + " -> " + obj.eContents());
 		}
 		// I'd expect this to print 1 (only load the filesystem EPackage)
 		// but it prints 3 instead (seems to be loading everything)
