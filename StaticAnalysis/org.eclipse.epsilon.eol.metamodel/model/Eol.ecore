@@ -298,7 +298,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
         eType="#//StringExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="KeyValue" eSuperTypes="#//EolElement">
+  <eClassifiers xsi:type="ecore:EClass" name="KeyValue" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//Expression"
@@ -323,7 +323,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="executableAnnotations"
         upperBound="-1" eType="#//ExecutableAnnotation" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationParameter" eSuperTypes="#//EolElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ModelDeclarationParameter" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//StringExpression"
@@ -342,7 +342,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParameterExpression" eSuperTypes="#//VariableDeclarationExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionInitValue" abstract="true"
-      eSuperTypes="#//EolElement"/>
+      eSuperTypes="#//Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExprList" eSuperTypes="#//CollectionInitValue">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" lowerBound="1"
         upperBound="-1" eType="#//Expression" containment="true"/>

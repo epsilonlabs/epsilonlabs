@@ -323,7 +323,7 @@ class SimpleAnnotation extends Annotation {
   val StringExpression[*] values;
 }
 
-class KeyValue extends EolElement {
+class KeyValue extends Expression {
   val Expression[1] key;
   val Expression[1] value;
 }
@@ -350,7 +350,7 @@ class AnnotationBlock extends EolElement {
   val ExecutableAnnotation[*] executableAnnotations;
 }
 
-class ModelDeclarationParameter extends EolElement {
+class ModelDeclarationParameter extends Expression {
   val NameExpression[1] name;
   val StringExpression[1] value;
 }
@@ -370,7 +370,7 @@ class TransactionStatement extends Statement {
 class FormalParameterExpression extends VariableDeclarationExpression {
 }
 
-abstract class CollectionInitValue extends EolElement {
+abstract class CollectionInitValue extends Expression {
 }
 
 class ExprList extends CollectionInitValue {
