@@ -1,0 +1,7 @@
+@namespace(uri="default_name", prefix="default_name")
+package default_name;
+
+@web.pages(elements="//h2/following-sibling::ul/li/a")
+class Module {
+	attr String name;
+}

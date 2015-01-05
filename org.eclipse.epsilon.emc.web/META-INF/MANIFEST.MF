@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilon Web Model Support
+Bundle-SymbolicName: org.eclipse.epsilon.emc.web
+Bundle-Version: 1.2.0.qualifier
+Bundle-Vendor: Eclipse.org
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.epsilon.emc.emf,
+ org.eclipse.epsilon.eol.engine,
+ org.selenium.server.standalone_2.44.0;visibility:=reexport,
+ org.eclipse.emf.ecore
+Export-Package: org.eclipse.epsilon.emc.web,
+ org.eclipse.epsilon.emc.web.model,
+ org.eclipse.epsilon.emc.web.scrapers

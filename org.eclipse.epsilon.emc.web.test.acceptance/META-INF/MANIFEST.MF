@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Epsilon Web Model Support - Acceptance Tests
+Bundle-SymbolicName: org.eclipse.epsilon.emc.web.test.acceptance
+Bundle-Version: 1.2.0.qualifier
+Bundle-Vendor: Eclipse.org
+Require-Bundle: org.eclipse.epsilon.emc.web,
+ org.eclipse.epsilon.test.dependencies
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

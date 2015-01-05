@@ -1,0 +1,23 @@
+Use cases:
+	-- as a CS/1 student, when are my summative and formative assessments?
+	-- as a CS/2 student, how does my teaching and assessment timetable look for different module combinations?
+	-- as a lecturer, when are the deadline for the assessments that I am checking and setting?
+
+Next steps:
+	++ Pull out logic that inspects annotations from AttributeScraper and into ScraperFactory
+	++ Write tests that drive me towards functionality needed for other tests (e.g., web.regions)
+	-- Check that the examples still work
+	-- Move to EMF. Add rationale to paper: Ecore DSL, EObject supports good reflection, EObject proxies...
+		-- Need a class that can translate annotated ecore into a set of scrapers
+		-- Scrapers need to produce instances of EObject
+		-- Info carried by resource probably needs to be stored as annotations on EObjects instead
+	-- Write a subclass of AbstractEmfModel that uses the Web/Ecore metamodel and scrapers
+	-- Rewrite examples as EOL programs
+	-- try scraping assessments from module descriptors -- will likely lead to new requirements
+	-- lazy loading: scrape on demand
+	
+DSL:
+	-- "direct" vs "indirect" features?
+	-- package backed by >1 web app.
+	-- single resource backed by more than one page from the same web app? More than one page from different web apps? 
+	-- pagination
