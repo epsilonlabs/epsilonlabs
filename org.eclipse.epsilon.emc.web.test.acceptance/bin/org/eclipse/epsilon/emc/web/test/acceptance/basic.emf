@@ -3,6 +3,6 @@ package basic;
 
 @web.pages(elements="//h2/following-sibling::ul/li/a")
 class Module {
-	@web.pattern(regex="^(.*) -")
-	attr String name;
+	@web.element
+	attr String fullname;
 }

@@ -4,7 +4,6 @@ Use cases:
 	-- as a lecturer, when are the deadline for the assessments that I am checking and setting?
 
 Next steps:
-	++ Pull out logic that inspects annotations from AttributeScraper and into ScraperFactory
 	++ Write tests that drive me towards functionality needed for other tests (e.g., web.regions)
 	-- Check that the examples still work
 	-- Move to EMF. Add rationale to paper: Ecore DSL, EObject supports good reflection, EObject proxies...

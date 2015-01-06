@@ -10,6 +10,8 @@
  ******************************************************************************/
 package org.eclipse.epsilon.emc.web.test.acceptance;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EPackage;
@@ -24,6 +26,7 @@ import org.junit.Before;
 public class WebModelAcceptanceTest {
 
 	protected static ModelWithEolAssertions model;
+	private static List<EPackage> packages;
 	
 	@Before
 	public void setup() throws Exception {
@@ -50,12 +53,17 @@ public class WebModelAcceptanceTest {
 	
 	@AfterClass
 	public static void reset() {
+		model.dispose();
 		model = null;
+		
+		// Unregister metamodel
+		for (EPackage p : packages) {
+			EPackage.Registry.INSTANCE.remove(p.getNsURI());
+		}
 	}
 
-
 	private void registerMetamodel(final String metamodelFilename) throws Exception {
-		EmfUtil.register(URI.createFileURI(FileUtil.getPath(metamodelFilename, getClass())), EPackage.Registry.INSTANCE);
+		packages = EmfUtil.register(URI.createFileURI(FileUtil.getPath(metamodelFilename, getClass())), EPackage.Registry.INSTANCE);
 	}
 	
 	private boolean injectWebBaseAnnotation(final String nsUri) {

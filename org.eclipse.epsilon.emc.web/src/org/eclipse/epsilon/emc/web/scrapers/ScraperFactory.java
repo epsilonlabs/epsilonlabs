@@ -22,6 +22,9 @@ import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.emc.web.WebDriver;
+import org.eclipse.epsilon.emc.web.extractors.DefaultExtractor;
+import org.eclipse.epsilon.emc.web.extractors.IExtractor;
+import org.eclipse.epsilon.emc.web.extractors.RegexExtractor;
 import org.eclipse.epsilon.emc.web.scrapers.elements.AttributeScraper;
 import org.eclipse.epsilon.emc.web.scrapers.elements.IElementScraper;
 import org.eclipse.epsilon.emc.web.scrapers.elements.NullElementScraper;
@@ -68,8 +71,8 @@ public class ScraperFactory {
 	}
 
 	private IElementScraper createElementScraper(EStructuralFeature feature) {
-		if (feature instanceof EAttribute && isAnnotatedWith(feature, "web.pattern")) {
-			return new AttributeScraper((EAttribute)feature, driver);
+		if (feature instanceof EAttribute && isAnnotatedWith(feature, "web.element")) {
+			return new AttributeScraper((EAttribute)feature, driver, createExtractor(feature));
 		
 		} else if (feature instanceof EAttribute && "name".equals(feature.getName())) {
 			return new AttributeScraper((EAttribute)feature, driver);
@@ -79,9 +82,22 @@ public class ScraperFactory {
 		}
 	}
 
+	private IExtractor createExtractor(EStructuralFeature feature) {
+		if (hasAnnotationDetail(feature, "web.element", "pattern")) {
+			return new RegexExtractor(getAnnotationDetail(feature, "web.element", "pattern"));
+			
+		} else {
+			return new DefaultExtractor();
+		}
+	}
+
 	
 	private boolean isAnnotatedWith(EModelElement element, String source) {
 		return element.getEAnnotation(source) != null;
+	}
+	
+	private boolean hasAnnotationDetail(EModelElement element, String source, String detail) {
+		return element.getEAnnotation(source).getDetails().containsKey(detail);
 	}
 	
 	private String getAnnotationDetail(EModelElement element, String source, String detail) {

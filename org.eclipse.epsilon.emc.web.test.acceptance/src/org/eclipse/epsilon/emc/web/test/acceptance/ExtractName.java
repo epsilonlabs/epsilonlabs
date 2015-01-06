@@ -13,7 +13,7 @@ package org.eclipse.epsilon.emc.web.test.acceptance;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.junit.Test;
 
-public class Basic extends WebModelAcceptanceTest {
+public class ExtractName extends WebModelAcceptanceTest {
 
 	@Test
 	public void hasCorrectNumberOfElements() throws EolModelElementTypeNotFoundException {
@@ -21,13 +21,13 @@ public class Basic extends WebModelAcceptanceTest {
 	}
 	
 	@Test
-	public void elementsHaveCorrectNames() throws Throwable {
-		model.setVariable("names", "Module.all.fullname");
+	public void elementsHaveCorrectNames() throws EolModelElementTypeNotFoundException {
+		model.setVariable("names", "Module.all.name");
 		
-		model.assertTrue("names.includes('ADVT - Advanced Topics in Interactive Technologies')");
-		model.assertTrue("names.includes('FESC - Foundation in Electronics, Signals & Circuits')");
-		model.assertTrue("names.includes('SWIN - Swarm Intelligence')");
-		model.assertTrue("names.includes('TPOP - Theory & Practice of Programming')");
+		model.assertTrue("names.includes('ADVT')");
+		model.assertTrue("names.includes('FESC')");
+		model.assertTrue("names.includes('SWIN')");
+		model.assertTrue("names.includes('TPOP')");
 	}
 	
 }

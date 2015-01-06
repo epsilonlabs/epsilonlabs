@@ -5,10 +5,8 @@
     <eAnnotations source="web.pages">
       <details key="elements" value="//h2/following-sibling::ul/li/a"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="web.pattern">
-        <details key="regex" value="^(.*) -"/>
-      </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fullname" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="web.element"/>
     </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

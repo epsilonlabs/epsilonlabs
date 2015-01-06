@@ -1,0 +1,8 @@
+@namespace(uri="extract_name", prefix="extract_name")
+package extract_name;
+
+@web.pages(elements="//h2/following-sibling::ul/li/a")
+class Module {
+	@web.element(pattern="^(.*) -")
+	attr String name;
+}
