@@ -254,6 +254,7 @@
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//NewExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//NewExpression/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//NewExpression/expression"/>
     </genClasses>
     <genClasses ecoreClass="Eol.ecore#//SpecialAssignmentStatement"/>
     <genClasses ecoreClass="Eol.ecore#//ModelType">

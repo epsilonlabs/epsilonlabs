@@ -384,6 +384,7 @@ class ExpRange extends CollectionInitValue {
 
 class NewExpression extends Expression {
   val Expression[*] parameters;
+  val Expression[1] expression;
 }
 
 class SpecialAssignmentStatement extends AssignmentStatement {
