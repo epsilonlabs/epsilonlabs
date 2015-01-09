@@ -1,2 +1,13 @@
-var a = A.all.first;
-var b = B.`all`;
+var a = new Native("java.lang.String");
+//var b = new A!B;
+var c = new Sequence(1,2,4);
+
+a.println();
+c.println();
+
+var d = 15;
+
+while(d > 10)
+	d = d - 1;
+	
+d.println();
