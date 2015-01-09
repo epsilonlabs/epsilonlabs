@@ -5,6 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
+import org.eclipse.epsilon.eol.metamodel.ExpressionStatement;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
@@ -27,19 +28,37 @@ public class ExpressionOrStatementBlockCreator extends EolElementCreator{
 			body.setBlock((Block)context.getEolElementCreatorFactory().createDomElement(ast, body, context)); //process the body
 		}
 		else {
-			EolElement createdElement = context.getEolElementCreatorFactory().createDomElement(ast, body, context);
-			if (createdElement instanceof Expression) {
-				body.setExpression((Expression) createdElement);	
+			EolElement createdElement = context.getEolElementCreatorFactory().createStatement(ast, body, context);
+			
+			if (createdElement instanceof ExpressionStatement) {
+				context.getEolElementCreatorFactory().discardEolElement(createdElement);
+				createdElement = context.getEolElementCreatorFactory().createDomElement(ast, body, context);
+				if (createdElement instanceof Expression) {
+					body.setExpression((Expression) createdElement);	
+				}
+
 			}
 			else {
-				context.getEolElementCreatorFactory().discardEolElement(createdElement);
 				Block block = context.getEolFactory().createBlock();
 				setAssets(ast, block, body);
-				Statement stmt = context.getEolElementCreatorFactory().createStatement(ast, block, context);
-				block.getStatements().add(stmt);
-				setAssets(ast, stmt, block);
+				block.getStatements().add((Statement) createdElement);
+				setAssets(ast, createdElement, block);
 				body.setBlock(block);
 			}
+			
+//			EolElement createdElement = context.getEolElementCreatorFactory().createDomElement(ast, body, context);
+//			if (createdElement instanceof Expression) {
+//				body.setExpression((Expression) createdElement);	
+//			}
+//			else {
+//				context.getEolElementCreatorFactory().discardEolElement(createdElement);
+//				Block block = context.getEolFactory().createBlock();
+//				setAssets(ast, block, body);
+//				Statement stmt = context.getEolElementCreatorFactory().createStatement(ast, block, context);
+//				block.getStatements().add(stmt);
+//				setAssets(ast, stmt, block);
+//				body.setBlock(block);
+//			}
 			
 		}
 		return body;
