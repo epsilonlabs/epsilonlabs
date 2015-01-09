@@ -67,7 +67,7 @@ public class WhileStatementCreatorTest {
 		assertEquals(conditionRhs.getVal(), 10);
 		
 		ExpressionOrStatementBlock expressionOrStatementBlock = whileStatement.getBody();
-		assertEquals(expressionOrStatementBlock.getBlock(), null);
+		assertEquals(expressionOrStatementBlock.getExpression(), null);
 		
 	}
 
