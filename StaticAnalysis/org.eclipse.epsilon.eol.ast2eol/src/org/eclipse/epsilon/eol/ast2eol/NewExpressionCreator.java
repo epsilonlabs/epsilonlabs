@@ -26,16 +26,24 @@ public class NewExpressionCreator extends ExpressionCreator{
 		
 		AST typeAst = ast.getChild(0); //must have a type
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createDomElement(typeAst, expression, context)); //set resolved type to be the type
+		//expression.setExpression((Expression) context.getEolElementCreatorFactory().createDomElement(typeAst, expression, context));
 		
-		
-		if(ast.getNumberOfChildren() > 1) //if there are any siblings, means there are parameters
-		{
-			AST paramListAst = ast.getChild(1); //fetch parameter ast
-			for(AST parameterAst : paramListAst.getChildren()) //process parameters
+		if (typeAst.getNumberOfChildren() > 0) {
+			AST paramlistAst = typeAst.getChild(0);
+			for(AST parameterAst : paramlistAst.getChildren())
 			{
 				expression.getParameters().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context));
 			}
-		}	
+		}
+		
+//		if(ast.getNumberOfChildren() > 1) //if there are any siblings, means there are parameters
+//		{
+//			AST paramListAst = ast.getChild(1); //fetch parameter ast
+//			for(AST parameterAst : paramListAst.getChildren()) //process parameters
+//			{
+//				expression.getParameters().add((Expression) context.getEolElementCreatorFactory().createDomElement(parameterAst, expression, context));
+//			}
+//		}	
 		return expression;
 	}
 }

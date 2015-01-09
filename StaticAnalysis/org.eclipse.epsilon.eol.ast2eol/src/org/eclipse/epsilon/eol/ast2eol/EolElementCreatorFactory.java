@@ -165,7 +165,7 @@ public class EolElementCreatorFactory {
 		result.addAll(this.initiateOperatorExpressionPool());
 		result.add(new VariableDeclarationExpressionCreator());
 		result.add(new ModelExpressionCreator());
-		result.add(new NativeExpressionCreator());
+		//result.add(new NativeExpressionCreator());
 		
 		return result;
 	}

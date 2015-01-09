@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.eclipse.epsilon.eol.ast2eol
 Bundle-Version: 0.1.0
 Require-Bundle: org.eclipse.epsilon.eol.metamodel;visibility:=reexport,
  org.eclipse.epsilon.eol.engine;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.junit
 Export-Package: org.eclipse.epsilon.eol.ast2eol,
  org.eclipse.epsilon.eol.ast2eol.util
