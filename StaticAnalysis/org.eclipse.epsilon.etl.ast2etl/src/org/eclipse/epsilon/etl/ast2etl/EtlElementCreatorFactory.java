@@ -25,6 +25,7 @@ import org.eclipse.epsilon.eol.ast2eol.DeleteStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.DivideOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EnumerationLiteralExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreator;
+import org.eclipse.epsilon.eol.ast2eol.EolProgramCreator;
 import org.eclipse.epsilon.eol.ast2eol.EqualsOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExecutableAnnotationCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpRangeCreator;
@@ -55,7 +56,6 @@ import org.eclipse.epsilon.eol.ast2eol.ModelElementTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ModelExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.MultiplyOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NameExpressionCreator;
-import org.eclipse.epsilon.eol.ast2eol.NativeExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NativeTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.NegativeOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NewExpressionCreator;
@@ -237,6 +237,7 @@ public class EtlElementCreatorFactory {
 		result.add(new KeyValueCreator());
 		result.add(new ModelDeclarationParameterCreator());
 		result.add(new EtlProgramCreator());
+		result.add(new EolProgramCreator());
 		result.add(new OperationDefinitionCreator());
 		result.addAll(this.initiateStatementPool());
 		result.addAll(this.initiateTypePool());
@@ -271,7 +272,7 @@ public class EtlElementCreatorFactory {
 		result.addAll(this.initiateOperatorExpressionPool());
 		result.add(new VariableDeclarationExpressionCreator());
 		result.add(new ModelExpressionCreator());
-		result.add(new NativeExpressionCreator());
+		//result.add(new NativeExpressionCreator());
 		
 		return result;
 	}

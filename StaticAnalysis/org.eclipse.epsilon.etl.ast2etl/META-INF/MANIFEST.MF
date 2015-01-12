@@ -7,5 +7,6 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.eol.ast2eol;visibility:=reexport,
  org.eclipse.epsilon.etl.engine,
  org.eclipse.epsilon.etl.metamodel,
- org.eclipse.epsilon.erl.engine
+ org.eclipse.epsilon.erl.engine,
+ org.junit
 Export-Package: org.eclipse.epsilon.etl.ast2etl
