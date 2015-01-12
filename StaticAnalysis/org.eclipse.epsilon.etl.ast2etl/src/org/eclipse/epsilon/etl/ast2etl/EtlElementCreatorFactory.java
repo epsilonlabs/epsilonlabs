@@ -31,6 +31,7 @@ import org.eclipse.epsilon.eol.ast2eol.ExecutableAnnotationCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpRangeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExprListCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpressionCreator;
+import org.eclipse.epsilon.eol.ast2eol.ExpressionOrStatementBlockCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpressionStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.FOLMethodCallExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.FeatureCallExpressionCreator;
@@ -246,6 +247,7 @@ public class EtlElementCreatorFactory {
 		result.add(new PreBlockCreator());
 		result.add(new PostBlockCreator());
 		result.add(new GuardCreator());
+		result.add(new ExpressionOrStatementBlockCreator());
 
 		return result;
 	}
@@ -272,7 +274,6 @@ public class EtlElementCreatorFactory {
 		result.addAll(this.initiateOperatorExpressionPool());
 		result.add(new VariableDeclarationExpressionCreator());
 		result.add(new ModelExpressionCreator());
-		//result.add(new NativeExpressionCreator());
 		
 		return result;
 	}
