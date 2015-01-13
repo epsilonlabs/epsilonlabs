@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
@@ -29,7 +30,7 @@ public class GuardCreatorTest {
 		EolElement element = AST2EtlElementProducer.parseAST("rule A2D \n" +
 				"transform a: Source!A\n" +
 				"to e: Target!E {\n" +
-				"	guard: a <> null \n" +
+				"	guard: a = null \n" +
 				"	e.f = a.b.equivalents();\n" +
 				"}");
 		
@@ -61,10 +62,10 @@ public class GuardCreatorTest {
 		
 		Guard guard = rule1.getGuard();
 		assertEquals(guard.getCondition().getBlock(), null);
-		NotEqualsOperatorExpression notEqualsOperatorExpression = (NotEqualsOperatorExpression) guard.getCondition().getExpression();
-		NameExpression conditionLhs = (NameExpression) notEqualsOperatorExpression.getLhs();
+		EqualsOperatorExpression equalsOperatorExpression = (EqualsOperatorExpression) guard.getCondition().getExpression();
+		NameExpression conditionLhs = (NameExpression) equalsOperatorExpression.getLhs();
 		assertEquals(conditionLhs.getName(), "a");
-		NameExpression conditionRhs = (NameExpression) notEqualsOperatorExpression.getRhs();
+		NameExpression conditionRhs = (NameExpression) equalsOperatorExpression.getRhs();
 		assertEquals(conditionRhs.getName(), "null");
 		
 		assertEquals(rule1.getBody().getStatements().size(), 1);
