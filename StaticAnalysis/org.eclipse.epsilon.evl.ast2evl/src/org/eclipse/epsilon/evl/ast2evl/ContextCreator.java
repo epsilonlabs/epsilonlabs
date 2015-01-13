@@ -6,9 +6,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.AstUtilities;
-import org.eclipse.epsilon.eol.metamodel.Block;
+import org.eclipse.epsilon.eol.ast2eol.ExpressionOrStatementBlockCreator;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
-import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
@@ -41,15 +40,18 @@ public class ContextCreator extends EvlElementCreator{
 		
 		AST guardAST = AstUtilities.getChild(ast, EvlParser.GUARD);
 		if (guardAST != null) {
-			ExpressionOrStatementBlock guard = _context.getEolFactory().createExpressionOrStatementBlock();
-			this.setAssets(guardAST, guard, _theContext);
 			AST childAst = guardAST.getFirstChild();
-			if (childAst.getType() == EvlParser.BLOCK) {
-				guard.setBlock((Block)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
-			}
-			else {
-				guard.setExpression((Expression)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
-			}
+			ExpressionOrStatementBlock guard = (ExpressionOrStatementBlock) _context.getEvlElementCreatorFactory().createDomElement(childAst, _theContext, _context, ExpressionOrStatementBlockCreator.class);
+
+//			ExpressionOrStatementBlock guard = _context.getEolFactory().createExpressionOrStatementBlock();
+//			this.setAssets(guardAST, guard, _theContext);
+//			AST childAst = guardAST.getFirstChild();
+//			if (childAst.getType() == EvlParser.BLOCK) {
+//				guard.setBlock((Block)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
+//			}
+//			else {
+//				guard.setExpression((Expression)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
+//			}
 			
 			_theContext.setGuard(guard);
 		}

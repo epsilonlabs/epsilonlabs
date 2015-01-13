@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.AstUtilities;
-import org.eclipse.epsilon.eol.metamodel.Block;
+import org.eclipse.epsilon.eol.ast2eol.ExpressionOrStatementBlockCreator;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
-import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.evl.metamodel.Constraint;
@@ -38,50 +37,57 @@ public class ConstraintCreator extends InvariantCreator{
 		
 		AST guardAST = AstUtilities.getChild(ast, EvlParser.GUARD);
 		if (guardAST != null) {
-			ExpressionOrStatementBlock guard = _context.getEolFactory().createExpressionOrStatementBlock();
-			this.setAssets(guardAST, guard, constraint);
 			AST childAst = guardAST.getFirstChild();
-			if (childAst != null) {
-				if (childAst.getType() == EvlParser.BLOCK) {
-					guard.setBlock((Block)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
-				}
-				else {
-					guard.setExpression((Expression)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
-				}
-			}
+			ExpressionOrStatementBlock guard = (ExpressionOrStatementBlock) _context.getEvlElementCreatorFactory().createDomElement(childAst, constraint, _context, ExpressionOrStatementBlockCreator.class);
+//			ExpressionOrStatementBlock guard = _context.getEolFactory().createExpressionOrStatementBlock();
+//			this.setAssets(guardAST, guard, constraint);
+//			AST childAst = guardAST.getFirstChild();
+//			if (childAst != null) {
+//				if (childAst.getType() == EvlParser.BLOCK) {
+//					guard.setBlock((Block)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
+//				}
+//				else {
+//					guard.setExpression((Expression)_context.getEvlElementCreatorFactory().createDomElement(childAst, guard, _context));
+//				}
+//			}
 			constraint.setGuard(guard);
 		}
 		
 		AST checkAST = AstUtilities.getChild(ast, EvlParser.CHECK);
 		if (checkAST != null) {
-			ExpressionOrStatementBlock check = _context.getEolFactory().createExpressionOrStatementBlock();
-			this.setAssets(checkAST, check, constraint);
 			AST childAst = checkAST.getFirstChild();
-			if (childAst != null) {
-				if (childAst.getType() == EvlParser.BLOCK) {
-					check.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, check, _context));
-				}
-				else {
-					check.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, check, _context));
-				}
-			}
+
+			ExpressionOrStatementBlock check = (ExpressionOrStatementBlock) _context.getEvlElementCreatorFactory().createDomElement(childAst, constraint, _context, ExpressionOrStatementBlockCreator.class);
+//			ExpressionOrStatementBlock check = _context.getEolFactory().createExpressionOrStatementBlock();
+//			this.setAssets(checkAST, check, constraint);
+//			AST childAst = checkAST.getFirstChild();
+//			if (childAst != null) {
+//				if (childAst.getType() == EvlParser.BLOCK) {
+//					check.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, check, _context));
+//				}
+//				else {
+//					check.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, check, _context));
+//				}
+//			}
 			constraint.setCheck(check);
 			
 		}
 		
 		AST messageAst = AstUtilities.getChild(ast, EvlParser.MESSAGE);
 		if (messageAst != null) {
-			ExpressionOrStatementBlock message = _context.getEolFactory().createExpressionOrStatementBlock();
-			this.setAssets(messageAst, message, constraint);
 			AST childAst = messageAst.getFirstChild();
-			if (childAst != null) {
-				if (childAst.getType() == EvlParser.BLOCK) {
-					message.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, message, _context));
-				}
-				else {
-					message.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, message, _context));
-				}
-			}
+			ExpressionOrStatementBlock message = (ExpressionOrStatementBlock) _context.getEvlElementCreatorFactory().createDomElement(childAst, constraint, _context, ExpressionOrStatementBlockCreator.class);
+//			ExpressionOrStatementBlock message = _context.getEolFactory().createExpressionOrStatementBlock();
+//			this.setAssets(messageAst, message, constraint);
+//			AST childAst = messageAst.getFirstChild();
+//			if (childAst != null) {
+//				if (childAst.getType() == EvlParser.BLOCK) {
+//					message.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, message, _context));
+//				}
+//				else {
+//					message.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, message, _context));
+//				}
+//			}
 			constraint.setMessage(message);
 		}
 

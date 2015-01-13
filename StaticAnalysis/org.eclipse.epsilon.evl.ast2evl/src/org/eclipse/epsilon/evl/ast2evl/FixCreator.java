@@ -3,6 +3,7 @@ package org.eclipse.epsilon.evl.ast2evl;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.AstUtilities;
+import org.eclipse.epsilon.eol.ast2eol.ExpressionOrStatementBlockCreator;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -32,15 +33,17 @@ public class FixCreator extends EvlElementCreator{
 		if (titleAST!=null) {
 			AST childAst = titleAST.getFirstChild();
 			if (childAst != null) {
-				ExpressionOrStatementBlock title = _context.getEolFactory().createExpressionOrStatementBlock();
-				this.setAssets(childAst, title, fix);
-				if (childAst.getType() == EvlParser.BLOCK) {
-					title.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, title, _context));
-				}
-				else
-				{
-					title.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, title, _context));
-				}
+				ExpressionOrStatementBlock title = (ExpressionOrStatementBlock) _context.getEvlElementCreatorFactory().createDomElement(childAst, fix, _context, ExpressionOrStatementBlockCreator.class);
+
+//				ExpressionOrStatementBlock title = _context.getEolFactory().createExpressionOrStatementBlock();
+//				this.setAssets(childAst, title, fix);
+//				if (childAst.getType() == EvlParser.BLOCK) {
+//					title.setBlock((Block) _context.getEvlElementCreatorFactory().createDomElement(childAst, title, _context));
+//				}
+//				else
+//				{
+//					title.setExpression((Expression) _context.getEvlElementCreatorFactory().createDomElement(childAst, title, _context));
+//				}
 				fix.setTitle(title);
 			}
 		}

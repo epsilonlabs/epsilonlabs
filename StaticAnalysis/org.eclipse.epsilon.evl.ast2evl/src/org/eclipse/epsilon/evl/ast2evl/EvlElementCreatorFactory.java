@@ -28,6 +28,7 @@ import org.eclipse.epsilon.eol.ast2eol.ExecutableAnnotationCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpRangeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExprListCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpressionCreator;
+import org.eclipse.epsilon.eol.ast2eol.ExpressionOrStatementBlockCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExpressionStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.FOLMethodCallExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.FeatureCallExpressionCreator;
@@ -54,7 +55,6 @@ import org.eclipse.epsilon.eol.ast2eol.ModelElementTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ModelExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.MultiplyOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NameExpressionCreator;
-import org.eclipse.epsilon.eol.ast2eol.NativeExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NativeTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.NegativeOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NewExpressionCreator;
@@ -239,7 +239,7 @@ public class EvlElementCreatorFactory {
 		result.addAll(this.initiateStatementPool());
 		result.addAll(this.initiateTypePool());
 		result.addAll(initialiseEvlElementPool());
-
+		result.add(new ExpressionOrStatementBlockCreator());
 		return result;
 	}
 	
@@ -278,7 +278,7 @@ public class EvlElementCreatorFactory {
 		result.addAll(this.initiateOperatorExpressionPool());
 		result.add(new VariableDeclarationExpressionCreator());
 		result.add(new ModelExpressionCreator());
-		result.add(new NativeExpressionCreator());
+		//result.add(new NativeExpressionCreator());
 		
 		return result;
 	}
