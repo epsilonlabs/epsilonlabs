@@ -30,7 +30,8 @@ public class SwitchCaseExpressionCreator extends SwitchStatementCaseCreator{
 			((SwitchCaseExpressionStatement)statement).setExpression((Expression) context.getEolElementCreatorFactory().createDomElement(expressionAst, statement, context)); //set the Expression	
 		}
 		
-		AST blockAST = AstUtilities.getChild(ast, EolParser.BLOCK); //fetch the body AST for the switch case
+		//AST blockAST = AstUtilities.getChild(ast, EolParser.BLOCK); //fetch the body AST for the switch case
+		AST blockAST = expressionAst.getNextSibling();
 		if(blockAST != null)
 		{
 			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createDomElement(blockAST, statement, context, ExpressionOrStatementBlockCreator.class));
