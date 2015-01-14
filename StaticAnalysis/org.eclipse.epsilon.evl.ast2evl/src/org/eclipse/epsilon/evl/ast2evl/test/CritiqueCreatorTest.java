@@ -6,7 +6,9 @@ import java.io.File;
 import java.net.URL;
 
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
+import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
@@ -17,6 +19,7 @@ import org.eclipse.epsilon.evl.EvlModule;
 import org.eclipse.epsilon.evl.ast2evl.Ast2EvlContext;
 import org.eclipse.epsilon.evl.metamodel.Constraint;
 import org.eclipse.epsilon.evl.metamodel.Context;
+import org.eclipse.epsilon.evl.metamodel.Critique;
 import org.eclipse.epsilon.evl.metamodel.EvlProgram;
 import org.eclipse.epsilon.evl.metamodel.impl.EvlProgramImpl;
 import org.junit.Test;
@@ -49,33 +52,44 @@ public class CritiqueCreatorTest {
 		Context leContext = evlProgram.getContexts().get(0);
 		ModelElementType leContextType = leContext.getType();
 		assertEquals(leContextType.getModelName(), "OO");
-		assertEquals(leContextType.getElementName(), "NamedElement");
+		assertEquals(leContextType.getElementName(), "Feature");
 		
 		assertEquals(leContext.getGuard(), null);
 		assertEquals(leContext.getInvariants().size(), 1);
+	
+		Critique critique = (Critique) leContext.getInvariants().get(0);
+		assertEquals(critique.getName().getName(), "NameMustStartWithLowerCase");
 		
-		Constraint constraint = (Constraint) leContext.getInvariants().get(0);
-		assertEquals(constraint.getName().getName(), "HasName");
-		ExpressionOrStatementBlock check = constraint.getCheck();
+		ExpressionOrStatementBlock guard = critique.getGuard();
+		assertEquals(guard.getBlock(), null);
+		MethodCallExpression guardExpr = (MethodCallExpression) guard.getExpression();
+		NameExpression guarExprTarget = (NameExpression) guardExpr.getTarget();
+		assertEquals(guarExprTarget.getName(), "self");
+		assertEquals(guardExpr.getMethod().getName(), "satisfies");
+		StringExpression arg = (StringExpression) guardExpr.getArguments().get(0);
+		assertEquals(arg.getVal(), "HasName");
+		
+		ExpressionOrStatementBlock check = critique.getCheck();
 		assertEquals(check.getBlock(), null);
-		NotEqualsOperatorExpression notEqualsOperatorExpression = (NotEqualsOperatorExpression) check.getExpression();
-		PropertyCallExpression lhs = (PropertyCallExpression) notEqualsOperatorExpression.getLhs();
-		NameExpression target = (NameExpression) lhs.getTarget();
-		assertEquals(target.getName(), "self");
-		assertEquals(lhs.getProperty().getName(), "name");
-		StringExpression rhs = (StringExpression) notEqualsOperatorExpression.getRhs();
-		assertEquals(rhs.getVal(), "");
 		
-		ExpressionOrStatementBlock message = constraint.getMessage();
-		assertEquals(message.getBlock(), null);
-		PlusOperatorExpression plusOperatorExpression = (PlusOperatorExpression) message.getExpression();
-		PlusOperatorExpression innerPlusOperatorExpression = (PlusOperatorExpression) plusOperatorExpression.getLhs();
-		StringExpression innerLhs = (StringExpression) innerPlusOperatorExpression.getLhs();
-		assertEquals(innerLhs.getVal(), "Element ");
-		NameExpression innerRhs = (NameExpression) innerPlusOperatorExpression.getRhs();
-		assertEquals(innerRhs.getName(), "self");
-		StringExpression plusRhs = (StringExpression) plusOperatorExpression.getRhs();
-		assertEquals(plusRhs.getVal(), " must define a name");
+		EqualsOperatorExpression equalsOperatorExpression = (EqualsOperatorExpression) check.getExpression();
+		MethodCallExpression lhs = (MethodCallExpression) equalsOperatorExpression.getLhs();
+		PropertyCallExpression lhsTarget = (PropertyCallExpression) lhs.getTarget();
+		NameExpression lhsTargetTarget = (NameExpression) lhsTarget.getTarget();
+		assertEquals(lhsTargetTarget.getName(), "self");
+		assertEquals(lhsTarget.getProperty().getName(), "name");
+		assertEquals(lhs.getMethod().getName(), "substring");
+		assertEquals(lhs.getArguments().size(), 2);
+		
+		MethodCallExpression equalsRhs = (MethodCallExpression) equalsOperatorExpression.getRhs();
+		MethodCallExpression equalsRhsTarget = (MethodCallExpression) equalsRhs.getTarget();
+		PropertyCallExpression equalsRhsTargetTarget = (PropertyCallExpression) equalsRhsTarget.getTarget();
+		NameExpression equalsRhsTargetTargetTarget = (NameExpression) equalsRhsTargetTarget.getTarget();
+		assertEquals(equalsRhsTargetTargetTarget.getName(), "self");
+		assertEquals(equalsRhsTargetTarget.getProperty().getName(), "name");
+		assertEquals(equalsRhsTarget.getMethod().getName(), "substring");
+		assertEquals(equalsRhs.getMethod().getName(), "toLowerCase");
+		
 	}
 
 }
