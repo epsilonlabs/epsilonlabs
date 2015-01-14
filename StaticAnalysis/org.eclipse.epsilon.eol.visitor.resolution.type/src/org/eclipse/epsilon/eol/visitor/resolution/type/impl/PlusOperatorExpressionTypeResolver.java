@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PlusOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.context.TypeResolutionContext;
 
 public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVisitor<TypeResolutionContext, Object>{
@@ -61,6 +62,12 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 			else {
 				type = EcoreUtil.copy(lhsType);
 			}
+		}
+		else if (lhsType instanceof StringType && rhsType instanceof Type) {
+			type = EcoreUtil.copy(lhsType);
+		}
+		else if (rhsType instanceof StringType && lhsType instanceof Type) {
+			type = EcoreUtil.copy(rhsType);
 		}
 		
 		context.setAssets(type, plusOperatorExpression);
