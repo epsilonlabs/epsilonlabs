@@ -149,7 +149,6 @@ public class EmfSmartModel extends EmfModel{
 		{
 			for(EClassifier eClassifier: ePackage.getEClassifiers())
 			{
-				
 				if (eClassifier instanceof EClass) {
 					if (actualObjectToLoad(ePackage, (EClass) eClassifier)) {
 						addActualObjectToLoad((EClass) eClassifier);

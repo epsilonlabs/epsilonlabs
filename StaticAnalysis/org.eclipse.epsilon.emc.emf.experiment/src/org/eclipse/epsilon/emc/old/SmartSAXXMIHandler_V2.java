@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.emc.emf;
+package org.eclipse.epsilon.emc.old;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.xml.type.SimpleAnyType;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil;
 
-public class SmartSAXXMIHandler extends SAXXMIHandler{
+public class SmartSAXXMIHandler_V2 extends SAXXMIHandler{
 	
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
@@ -56,7 +56,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
-	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
+	public SmartSAXXMIHandler_V2(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
 	}
@@ -133,7 +133,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 //			    	{
 //			    		if (disableNotify)
 //			    			newObject.eSetDeliver(false);
-
+//
 //			    		handleObjectAttribs(newObject);
 //			    	}
 			    }
@@ -142,6 +142,68 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 	
 
+	protected EObject createObjectFromFactory_v2(EFactory factory, String typeName) {
+//		long init = System.nanoTime();
+		
+		EClass eClass = (EClass) factory.getEPackage().getEClassifier(typeName);
+		//if the an instance of the class should be created
+		if (shouldCreateObjectForClass(eClass)) {
+			//prepare newObject
+		    EObject newObject = null;
+		    //if factory != null
+		    if (factory != null)
+		    {
+		    	//create object
+		    	newObject = helper.createObject(factory, typeName);
+
+		    	//if object is not null, handle attributes and things
+		    	if (newObject != null)
+		    	{
+//		    		if (disableNotify)
+		    			newObject.eSetDeliver(false);
+
+		    		handleObjectAttribs(newObject);
+		    	}
+		    }
+		    
+		    //if this one is not a feature but rather an independent top level object, add to extent
+		    if (!handlingFeature) {
+		    		extent.add(newObject);	
+			}
+		    
+		    //prepare result
+		    EObject result = null;
+		    //if cached, return cache
+		    if (cached(eClass)) {
+		    	result = getCache(eClass);
+			}
+		    //if not cached, create cache and return cache
+		    else {
+			    if (factory != null)
+			    {
+			    	result = EcoreUtil.copy(newObject);
+			    }
+			    insertCache(eClass, result);
+			}
+		    return result;
+		}
+		else {
+			//if cached return cache, if not create object and return cache
+			EObject newObject = null;
+			if (cached(eClass)) {
+				newObject = getCache(eClass);
+			}
+			else {
+			    if (factory != null)
+			    {
+			    	newObject = helper.createObject(factory, typeName);
+
+			    }
+			    insertCache(eClass, newObject);
+			}
+		    return newObject;
+		}
+	}
 		
 	
 	@Override
@@ -178,38 +240,59 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	@Override
 	protected void setAttribValue(EObject object, String name, String value) {
-	    int index = name.indexOf(':', 0);
-
-	    // We use null here instead of "" because an attribute without a prefix is considered to have the null target namespace...
-	    String prefix = null;
-	    String localName = name;
-	    if (index != -1)
+		super.setAttribValue(object, name, value);
+	}
+	
+	@Override
+		public void endDocument() {
+		
+		for(int index: extentIndexToDelete)
+		{
+			extent.remove(index);
+		}
+	    if (deferredExtent != null)
 	    {
-	      prefix    = name.substring(0, index);
-	      localName = name.substring(index + 1);
+	      extent.addAll(deferredExtent);
 	    }
-	    EStructuralFeature feature = getFeature(object, prefix, localName, false);
-	    if (feature == null)
-	    {
-	      handleUnknownFeature(prefix, localName, false, object, value);
-	    }
-	    else
-	    {
-	      int kind = helper.getFeatureKind(feature);
 
-	      if (kind == XMLHelper.DATATYPE_SINGLE || kind == XMLHelper.DATATYPE_IS_MANY)
+	    if (usedNullNamespacePackage)
+	    {
+	      helper.addPrefix("", "");
+	    }
+	    helper.recordPrefixToURIMapping();
+	    helper.popContext();
+	    handleForwardReferences(false);
+
+	    if (disableNotify)
+	    {
+	      for (Iterator<?> i = EcoreUtil.getAllContents(xmlResource.getContents(), false); i.hasNext(); )
 	      {
-	        setFeatureValue(object, feature, value, -2);
+	        EObject eObject = (EObject)i.next();
+	        eObject.eSetDeliver(true);
 	      }
-	      else
+	    }
+
+	    if (extendedMetaData != null)
+	    {
+	      if (extent.size() == 1)
 	      {
-	    	  if (shouldHandleFeature(object, feature.getName())) {
-	  	        setValueFromId(object, (EReference)feature, value);
-			}
+	        EObject root = extent.get(0);
+	        recordNamespacesSchemaLocations(root);
+	      }
+
+	      if (DEBUG_DEMANDED_PACKAGES)
+	      {
+	        // EATM temporary for debug purposes only.
+	        //
+	        Collection<EPackage> demandedPackages = EcoreUtil.copyAll(extendedMetaData.demandedPackages());
+	        for (EPackage ePackage : demandedPackages)
+	        {
+	          ePackage.setName(ePackage.getNsURI());
+	        }
+	        extent.addAll(demandedPackages);
 	      }
 	    }
 	  }
-	
 	
 	@Override
 		public void startElement(String uri, String localName, String name) {

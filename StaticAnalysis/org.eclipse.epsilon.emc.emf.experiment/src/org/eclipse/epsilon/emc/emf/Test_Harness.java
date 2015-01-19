@@ -23,8 +23,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-		Test_Harness.runSet1();
-//		Test_Harness.runSet2();
+//		Test_Harness.runSet1();
+		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
@@ -300,68 +300,68 @@ public class Test_Harness {
 		System.out.println("greedy execution time average: " + greedyExecutionTime/(iteration-disregard));
 		System.out.println("greedy memory consumption: " + greedyMemoryConsumption/(iteration-disregard));
 		
-//		try
-//		{
-//			FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
-//	 
-//		    writer.append("Normal loading time");
-//		    writer.append(',');
-//		    writer.append("Normal execution time");
-//		    writer.append(',');
-//		    writer.append("Normal memory consumption");
-//		    writer.append(',');
-//		    writer.append("Smart loading time");
-//		    writer.append(',');
-//		    writer.append("Smart execution time");
-//		    writer.append(',');
-//		    writer.append("Smart memory consumption");
-//		    writer.append(',');
-//		    writer.append("SS loading time");
-//		    writer.append(',');
-//		    writer.append("SS execution time");
-//		    writer.append(',');
-//		    writer.append("SS consumption");
-//		    writer.append(',');
-//		    writer.append("Greedy loading time");
-//		    writer.append(',');
-//		    writer.append("Greedy execution time");
-//		    writer.append(',');
-//		    writer.append("Greedy memory consumption");
-//		    writer.append('\n');
-//		    
-//		    writer.append(normalLoadTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(normalExecutionTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(normalMemoryConsumption/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartLoadTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartExecutionTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartMemoryConsumption/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartSmartLoadTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartSmartExecutionTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(smartSmartMemoryConsumption/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(greedyLoadTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(greedyExecutionTime/(iteration-disregard)+"");
-//		    writer.append(',');
-//		    writer.append(greedyMemoryConsumption/(iteration-disregard)+"");
-//		    writer.append('\n');
-//	 
-//	 
-//		    writer.flush();
-//		    writer.close();
-//		}
-//		catch(IOException e)
-//		{
-//		     e.printStackTrace();
-//		} 
+		try
+		{
+			FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
+	 
+		    writer.append("Normal loading time");
+		    writer.append(',');
+		    writer.append("Normal execution time");
+		    writer.append(',');
+		    writer.append("Normal memory consumption");
+		    writer.append(',');
+		    writer.append("Smart loading time");
+		    writer.append(',');
+		    writer.append("Smart execution time");
+		    writer.append(',');
+		    writer.append("Smart memory consumption");
+		    writer.append(',');
+		    writer.append("SS loading time");
+		    writer.append(',');
+		    writer.append("SS execution time");
+		    writer.append(',');
+		    writer.append("SS consumption");
+		    writer.append(',');
+		    writer.append("Greedy loading time");
+		    writer.append(',');
+		    writer.append("Greedy execution time");
+		    writer.append(',');
+		    writer.append("Greedy memory consumption");
+		    writer.append('\n');
+		    
+		    writer.append(normalLoadTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(normalExecutionTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(normalMemoryConsumption/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartLoadTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartExecutionTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartMemoryConsumption/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartLoadTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartExecutionTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(smartSmartMemoryConsumption/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(greedyLoadTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(greedyExecutionTime/(iteration-disregard)+"");
+		    writer.append(',');
+		    writer.append(greedyMemoryConsumption/(iteration-disregard)+"");
+		    writer.append('\n');
+	 
+	 
+		    writer.flush();
+		    writer.close();
+		}
+		catch(IOException e)
+		{
+		     e.printStackTrace();
+		} 
 	
 	}
 	

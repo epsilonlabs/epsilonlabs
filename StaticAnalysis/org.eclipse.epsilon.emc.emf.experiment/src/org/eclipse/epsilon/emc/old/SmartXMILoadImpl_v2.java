@@ -261,11 +261,6 @@ public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 	
 	public boolean isNeeded(String name, EFactory factory)
 	{
-//		String localName = name;
-//		int index = name.indexOf(':', 0);
-//		if (index != -1) {
-//			localName = name.substring(index+1);
-//		}
 
 		for(ModelContainer mc: modelContainers)
 		{
