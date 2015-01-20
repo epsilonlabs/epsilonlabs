@@ -712,125 +712,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	  
 	}
 	
-	  protected EObject createObjectFromFeatureType(EObject peekObject, EStructuralFeature feature)
+	  protected void setFeatureValue(EObject object, EStructuralFeature feature, Object value)
 	  {
-	    String typeName = null;
-	    EFactory factory = null;
-	    EClassifier eType = null;
-	    EObject obj = null;
-
-	    if (feature != null && (eType = feature.getEType()) != null)
-	    {
-	      if (useNewMethods)
-	      {
-	        if (extendedMetaData != null && eType == EcorePackage.Literals.EOBJECT && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
-	        {
-	          eType = anyType;
-	          typeName = extendedMetaData.getName(anyType);
-	          factory = anyType.getEPackage().getEFactoryInstance();
-	        }
-	        else
-	        {
-	          factory = eType.getEPackage().getEFactoryInstance();
-	          typeName = extendedMetaData == null ? eType.getName() : extendedMetaData.getName(eType);
-	        }
-	        obj = createObject(factory, eType, false);
-	      }
-	      else
-	      {
-
-	        if (extendedMetaData != null && eType == EcorePackage.Literals.EOBJECT && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
-	        {
-	          typeName = extendedMetaData.getName(anyType);
-	          factory = anyType.getEPackage().getEFactoryInstance();
-	        }
-	        else
-	        {
-	          EClass eClass = (EClass)eType;
-	          typeName = extendedMetaData == null ? eClass.getName() : extendedMetaData.getName(eClass);
-	          factory = eClass.getEPackage().getEFactoryInstance();
-	        }
-	        obj = createObjectFromFactory(factory, typeName);
-	      }
-	    }
-
-	    obj = validateCreateObjectFromFactory(factory, typeName, obj, feature);
-
-	    if (obj != null)
-	    {
-	    	if (!cached(peekObject.eClass())) {
-	    		  setFeatureValue(peekObject, feature, obj);
-			}
-	    }
-
-	    processObject(obj);
-	    return obj;
+		  if (!cached(object.eClass())) {
+			  setFeatureValue(object, feature, value, -1);	
+		}
 	  }
-	
-	protected EObject createObjectFromTypeName(EObject peekObject, String typeQName, EStructuralFeature feature)
-	  {
-	    String typeName = null;
-	    String prefix = "";
-	    int index = typeQName.indexOf(':', 0);
-	    if (index > 0)
-	    {
-	      prefix = typeQName.substring(0, index);
-	      typeName = typeQName.substring(index + 1);
-	    }
-	    else
-	    {
-	      typeName = typeQName;
-	    }
 
-	    contextFeature = feature;
-	    EFactory eFactory = getFactoryForPrefix(prefix);
-	    contextFeature = null;
-
-	    if (eFactory == null && prefix.equals("") && helper.getURI(prefix) == null)
-	    {
-	      contextFeature = feature;
-	      EPackage ePackage = handleMissingPackage(null);
-	      contextFeature = null;
-	      if (ePackage == null)
-	      {
-	        error(new PackageNotFoundException(null, getLocation(), getLineNumber(), getColumnNumber()));
-	      }
-	      else
-	      {
-	        eFactory = ePackage.getEFactoryInstance();
-	      }
-	    }
-	    EObject obj = null;
-	    if (useNewMethods)
-	    {
-	      obj = createObject(eFactory, helper.getType(eFactory, typeName), false);
-	    }
-	    else
-	    {
-	      obj = createObjectFromFactory(eFactory, typeName);
-
-	    }
-	    obj = validateCreateObjectFromFactory(eFactory, typeName, obj, feature);
-
-	    if (obj != null)
-	    {
-	      if (contextFeature == null)
-	      {
-	    	  if (!cached(peekObject.eClass())) {
-	    		  setFeatureValue(peekObject, feature, obj);
-			}
-	      }
-	      else
-	      {
-	        contextFeature = null;
-	      }
-	    }
-
-	    processObject(obj);
-
-	    return obj;
-	  }
-	
 	
 	@Override
 	protected void processTopObject(EObject object) {

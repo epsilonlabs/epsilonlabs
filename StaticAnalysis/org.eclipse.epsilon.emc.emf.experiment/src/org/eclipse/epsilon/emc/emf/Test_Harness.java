@@ -24,8 +24,8 @@ public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
 //		Test_Harness.runSet1();
-		Test_Harness.runSet2();
-//		Test_Harness.runSet3();
+//		Test_Harness.runSet2();
+		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
 //		Test_Harness.runSet1Smart();
