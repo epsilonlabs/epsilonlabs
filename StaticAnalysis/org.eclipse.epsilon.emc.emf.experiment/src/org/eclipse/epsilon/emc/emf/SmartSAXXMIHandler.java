@@ -1,25 +1,26 @@
 package org.eclipse.epsilon.emc.emf;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.xmi.FeatureNotFoundException;
+import org.eclipse.emf.ecore.xmi.PackageNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.ConfigurationCache;
@@ -125,18 +126,18 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		}
 		else {
 			EObject newObject = null;
-			    if (factory != null)
-			    {
-			    	newObject = helper.createObject(factory, typeName);
-
-//			    	if (newObject != null)
-//			    	{
-//			    		if (disableNotify)
-//			    			newObject.eSetDeliver(false);
-
-//			    		handleObjectAttribs(newObject);
-//			    	}
-			    }
+			EClass class1 = (EClass) factory.getEPackage().getEClassifier(typeName);
+			if (cached(class1)) {
+				newObject = getCache(class1);
+			}
+			else {
+				newObject = helper.createObject(factory, typeName);
+				insertCache(class1, newObject);
+			}
+//			    if (factory != null)
+//			    {
+//			    	newObject = helper.createObject(factory, typeName);
+//			    }
 		    return newObject;
 		}
 	}
@@ -711,7 +712,124 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	  
 	}
 	
+	  protected EObject createObjectFromFeatureType(EObject peekObject, EStructuralFeature feature)
+	  {
+	    String typeName = null;
+	    EFactory factory = null;
+	    EClassifier eType = null;
+	    EObject obj = null;
+
+	    if (feature != null && (eType = feature.getEType()) != null)
+	    {
+	      if (useNewMethods)
+	      {
+	        if (extendedMetaData != null && eType == EcorePackage.Literals.EOBJECT && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
+	        {
+	          eType = anyType;
+	          typeName = extendedMetaData.getName(anyType);
+	          factory = anyType.getEPackage().getEFactoryInstance();
+	        }
+	        else
+	        {
+	          factory = eType.getEPackage().getEFactoryInstance();
+	          typeName = extendedMetaData == null ? eType.getName() : extendedMetaData.getName(eType);
+	        }
+	        obj = createObject(factory, eType, false);
+	      }
+	      else
+	      {
+
+	        if (extendedMetaData != null && eType == EcorePackage.Literals.EOBJECT && extendedMetaData.getFeatureKind(feature) != ExtendedMetaData.UNSPECIFIED_FEATURE)
+	        {
+	          typeName = extendedMetaData.getName(anyType);
+	          factory = anyType.getEPackage().getEFactoryInstance();
+	        }
+	        else
+	        {
+	          EClass eClass = (EClass)eType;
+	          typeName = extendedMetaData == null ? eClass.getName() : extendedMetaData.getName(eClass);
+	          factory = eClass.getEPackage().getEFactoryInstance();
+	        }
+	        obj = createObjectFromFactory(factory, typeName);
+	      }
+	    }
+
+	    obj = validateCreateObjectFromFactory(factory, typeName, obj, feature);
+
+	    if (obj != null)
+	    {
+	    	if (!cached(peekObject.eClass())) {
+	    		  setFeatureValue(peekObject, feature, obj);
+			}
+	    }
+
+	    processObject(obj);
+	    return obj;
+	  }
 	
+	protected EObject createObjectFromTypeName(EObject peekObject, String typeQName, EStructuralFeature feature)
+	  {
+	    String typeName = null;
+	    String prefix = "";
+	    int index = typeQName.indexOf(':', 0);
+	    if (index > 0)
+	    {
+	      prefix = typeQName.substring(0, index);
+	      typeName = typeQName.substring(index + 1);
+	    }
+	    else
+	    {
+	      typeName = typeQName;
+	    }
+
+	    contextFeature = feature;
+	    EFactory eFactory = getFactoryForPrefix(prefix);
+	    contextFeature = null;
+
+	    if (eFactory == null && prefix.equals("") && helper.getURI(prefix) == null)
+	    {
+	      contextFeature = feature;
+	      EPackage ePackage = handleMissingPackage(null);
+	      contextFeature = null;
+	      if (ePackage == null)
+	      {
+	        error(new PackageNotFoundException(null, getLocation(), getLineNumber(), getColumnNumber()));
+	      }
+	      else
+	      {
+	        eFactory = ePackage.getEFactoryInstance();
+	      }
+	    }
+	    EObject obj = null;
+	    if (useNewMethods)
+	    {
+	      obj = createObject(eFactory, helper.getType(eFactory, typeName), false);
+	    }
+	    else
+	    {
+	      obj = createObjectFromFactory(eFactory, typeName);
+
+	    }
+	    obj = validateCreateObjectFromFactory(eFactory, typeName, obj, feature);
+
+	    if (obj != null)
+	    {
+	      if (contextFeature == null)
+	      {
+	    	  if (!cached(peekObject.eClass())) {
+	    		  setFeatureValue(peekObject, feature, obj);
+			}
+	      }
+	      else
+	      {
+	        contextFeature = null;
+	      }
+	    }
+
+	    processObject(obj);
+
+	    return obj;
+	  }
 	
 	
 	@Override
