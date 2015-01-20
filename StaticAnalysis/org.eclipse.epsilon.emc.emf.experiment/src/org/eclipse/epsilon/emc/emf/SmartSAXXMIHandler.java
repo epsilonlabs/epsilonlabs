@@ -109,20 +109,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		    		extent.add(newObject);	
 			}
 		    
-		    EObject result = null;
-			    if (factory != null)
-			    {
-//			    	result = helper.createObject(factory, typeName);
-			    	result = EcoreUtil.copy(newObject);
-//			    	if (result != null)
-//			    	{
-//			    		if (disableNotify)
-//			    			result.eSetDeliver(false);
-//
-//			    		handleObjectAttribs(result);
-//			    	}
-			    }
-		    return result;
+		    return EcoreUtil.copy(newObject);
 		}
 		else {
 			EObject newObject = null;
@@ -131,13 +118,11 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				newObject = getCache(class1);
 			}
 			else {
-				newObject = helper.createObject(factory, typeName);
-				insertCache(class1, newObject);
+				if (factory != null) {
+					newObject = helper.createObject(factory, typeName);
+					insertCache(class1, newObject);	
+				}
 			}
-//			    if (factory != null)
-//			    {
-//			    	newObject = helper.createObject(factory, typeName);
-//			    }
 		    return newObject;
 		}
 	}
@@ -214,7 +199,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	@Override
 		public void startElement(String uri, String localName, String name) {
-			// TODO Auto-generated method stub
 
 		if (shouldHalt) {
 		    elements.push(name);
@@ -226,44 +210,18 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 			else {
 				EObject peekObject = objects.peekEObject();
 				
-				if (peekObject instanceof DynamicEObjectImpl) {
+//				if (peekObject instanceof DynamicEObjectImpl) {
 					EClass leClass = peekObject.eClass();
 					if (shouldProceed(leClass, name)) {
-//						if (!shouldCreateObjectForClass(leClass)) {
-//							extent.remove(peekObject);
-//						}
-//						if (shouldCreate(peekObject, name)) {
 							super.startElement(uri, localName, name);
-//						}
-//						else {
-//							halt(name);
-//						}
 					}
 					else {
 						halt(name);
 					}
-				}
-				else {
-					super.startElement(uri, localName, name);
-//					if (peekObject instanceof EPackage) {
-//						EPackage ePack = (EPackage) peekObject;
-//						if (shouldProceed(ePack, name)) {
-//							super.startElement(uri, localName, name);
-//						}
-//						else {
-//							halt(name);
-//						}
-//					}
-//					else if (peekObject instanceof EClass) {
-//						EClass leClass = (EClass) peekObject;
-//						if (shouldProceed(leClass, name)) {
-//							super.startElement(uri, localName, name);
-//						}
-//						else {
-//							halt(name);
-//						}
-//					}
-				}
+//				}
+//				else {
+//					super.startElement(uri, localName, name);
+//				}
 			}
 		}
 	}
@@ -299,30 +257,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		currentName = name;
 		shouldHalt = true;
 	}
-	
-//	public boolean shouldCreate(String featureName)
-//	{
-//		int stackSize = classStack.size();
-//		if (stackSize == 0) {
-//			return true;
-//		}
-//		else {
-//			EClass topClass = classStack.get(stackSize-1);
-//			for(EReference eReference : topClass.getEAllReferences())
-//			{
-//				if (eReference.getName().equals(featureName)) {
-//					EClass eType = (EClass) eReference.getEType();
-//					if (shouldCreateObjectForClass(eType)) {
-//						classStack.add(eType);
-//						return true;
-//					}
-//				}
-//			}
-//			classStack.remove(stackSize-1);
-//			return false;
-//		}
-//	}
-	
+		
 	public boolean shouldHandleFeature(EObject object, String featureName)
 	{
 		EClass eClass = object.eClass();
@@ -344,7 +279,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	}
 	
 	
-	
 	public boolean shouldCreate(EObject peekObject, String featureName)
 	{
 		EClass eClass = peekObject.eClass();
@@ -358,7 +292,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 				}
 			}
 		}
-//		objects.add(eType.getEPackage().getEFactoryInstance().create(eType));
 
 		return false;
 
