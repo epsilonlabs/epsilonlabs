@@ -23,6 +23,7 @@ public class EmfSmartModelWorkbench {
 		ModelContainer container = new ModelContainer("ecore");
 //		container.addToModelElementsAllOfKind("EPackage");
 		container.addToModelElementsAllOfKind("EClassifier");
+		container.addAttributeToModelElement("EClassifier", "name");
 //		container.addReferenceToModelElement("EClassifier", "eStructuralFeatures");
 		container.addToModelElementsAllOfKind("EStructuralFeature");
 		container.addReferenceToModelElement("EStructuralFeature", "eType");

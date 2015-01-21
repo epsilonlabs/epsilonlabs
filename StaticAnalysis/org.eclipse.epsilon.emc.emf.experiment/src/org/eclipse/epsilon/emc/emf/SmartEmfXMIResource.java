@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
@@ -114,9 +115,14 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 					String name = uriFragmentPath.get(1);
 					for(EObject obj: contents)
 					{
-						if (obj.eGet(obj.eClass().getEStructuralFeature("name")).equals(name)) {
+//						System.out.println(obj.eClass().getEStructuralFeature("name"));
+//						System.out.println(obj.eGet(obj.eClass().getEStructuralFeature("name")));
+						if (obj.eGet(obj.eClass().getEStructuralFeature("name")) != null && obj.eGet(obj.eClass().getEStructuralFeature("name")).equals(name)) {
 							eObject = obj;
 						}
+//						if (obj.eGet(obj.eClass().getEStructuralFeature("name")).equals(name)) {
+//							
+//						}
 					}
 				}
 				else {

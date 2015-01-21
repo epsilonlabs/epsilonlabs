@@ -6,6 +6,7 @@ class Filesystem {
 }
 
 class File {
+	attr String name;
 	ref Filesystem#files filesystem;
 	op void delete(boolean confirm);
 }
