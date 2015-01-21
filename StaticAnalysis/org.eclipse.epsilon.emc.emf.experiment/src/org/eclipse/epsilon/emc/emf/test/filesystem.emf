@@ -1,0 +1,12 @@
+@namespace(uri="filesystem", prefix="")
+package filesystem;
+
+class Filesystem {
+	val File[*]#filesystem files;
+}
+
+class File {
+	attr String name;
+	ref Filesystem#files filesystem;
+	op void delete(boolean confirm);
+}

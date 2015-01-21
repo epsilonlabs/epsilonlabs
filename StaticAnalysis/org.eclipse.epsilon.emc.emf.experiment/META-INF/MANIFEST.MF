@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.eol.ast2eol;bundle-version="0.1.0",
  org.eclipse.epsilon.eol.visitor.resolution.type.tier1;bundle-version="0.1.0",
  org.eclipse.epsilon.eol.visitor.resolution.variable;bundle-version="0.1.0",
- org.eclipse.epsilon.eol.analysis.optimisation.loading;bundle-version="0.1.0"
+ org.eclipse.epsilon.eol.analysis.optimisation.loading;bundle-version="0.1.0",
+ org.junit
