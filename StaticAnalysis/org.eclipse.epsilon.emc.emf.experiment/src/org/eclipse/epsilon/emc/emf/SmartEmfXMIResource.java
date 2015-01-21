@@ -3,12 +3,18 @@ package org.eclipse.epsilon.emc.emf;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
 public class SmartEmfXMIResource extends EmfXMIResource{
 
@@ -17,6 +23,8 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
+	protected boolean handleFlatObjects = false;
+	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
 		// TODO Auto-generated method stub
@@ -87,4 +95,70 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	      return createXMLLoad();
 	    }
 	}
+	
+	@Override
+	public EObject getEObject(String uriFragment) {
+		// TODO Auto-generated method stub
+		return super.getEObject(uriFragment);
+	}
+	
+	@Override
+	protected EObject getEObject(List<String> uriFragmentPath) {
+	    int size = uriFragmentPath.size();
+	    EObject eObject = getEObjectForURIFragmentRootSegment(size == 0 ? "" : uriFragmentPath.get(0));
+	    for (int i = 1; i < size; ++i)
+	    {
+	    	if (eObject == null) {
+				if (handleFlatObjects) {
+					List<EObject> contents = getContents();
+					String name = uriFragmentPath.get(1);
+					for(EObject obj: contents)
+					{
+						if (obj.eGet(obj.eClass().getEStructuralFeature("name")).equals(name)) {
+							eObject = obj;
+						}
+					}
+				}
+				else {
+					return null;
+				}
+			}
+	    	else{
+	  	      eObject = ((InternalEObject)eObject).eObjectForURIFragmentSegment(uriFragmentPath.get(i));
+			}
+	    }
+	    return eObject;
+    }
+	
+	@Override
+		protected EObject getEObjectForURIFragmentRootSegment(
+				String uriFragmentRootSegment) {
+		if (uriFragmentRootSegment.equals("")) {
+			handleFlatObjects = true;
+			return null;
+		}
+	    int position =  0;
+	    if (uriFragmentRootSegment.length() > 0)
+	    {
+	      try
+	      {
+	        position = Integer.parseInt(uriFragmentRootSegment);
+	      }
+	      catch (NumberFormatException exception)
+	      {
+	        throw new WrappedException(exception);
+	      }
+	    }
+
+	    List<EObject> contents = getContents();
+	    if (position < contents.size() && position >= 0)
+	    {
+	      return contents.get(position);
+	    }
+	    else
+	    {
+	      return null;
+	    }
+	  }
+	
 }
