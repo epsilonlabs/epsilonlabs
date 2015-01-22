@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.context;
 
 import java.util.ArrayList;
 
+
 public class ModelContainer {
 
 	protected String modelName;
@@ -38,21 +39,23 @@ public class ModelContainer {
 		return modelElementsAllOfKind;
 	}
 	
-	public void addToModelElementsAllOfType(String modelElement)
+	public ModelContainer addToModelElementsAllOfType(String modelElement)
 	{
 		if (!modelElementsAllOfTypeContains(modelElement)) {
 			modelElementsAllOfType.add(new ModelElementContainer(modelElement));
 		}
+		return this;
 	}
 	
-	public void addToModelElementsAllOfKind(String modelElement)
+	public ModelContainer addToModelElementsAllOfKind(String modelElement)
 	{
 		if (!modelElementsAllOfKindContains(modelElement)) {
 			modelElementsAllOfKind.add(new ModelElementContainer(modelElement));
 		}
+		return this;
 	}
 	
-	public void addAttributeToModelElement(String elementName, String attribute)
+	public ModelContainer addAttributeToModelElement(String elementName, String attribute)
 	{
 		ModelElementContainer mec = getFromModelElementsAllOfKind(elementName);
 		if (mec != null) {
@@ -62,9 +65,10 @@ public class ModelContainer {
 		if (mec != null) {
 			mec.addToAttributes(attribute);
 		}
+		return this;
 	}
 	
-	public void addReferenceToModelElement(String elementName, String reference)
+	public ModelContainer addReferenceToModelElement(String elementName, String reference)
 	{
 		ModelElementContainer mec = getFromModelElementsAllOfKind(elementName);
 		if (mec != null) {
@@ -74,6 +78,7 @@ public class ModelContainer {
 		if (mec != null) {
 			mec.addToReferences(reference);
 		}
+		return this;
 	}
 	
 	
