@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.impl.XMILoadImpl;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class SmartXMILoadImpl extends XMILoadImpl{

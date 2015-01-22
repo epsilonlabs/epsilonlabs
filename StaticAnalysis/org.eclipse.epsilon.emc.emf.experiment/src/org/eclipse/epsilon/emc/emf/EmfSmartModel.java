@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -30,12 +27,7 @@ import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimis
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
-import org.eclipse.epsilon.eol.metamodel.EType;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.breakAllStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.ifStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 

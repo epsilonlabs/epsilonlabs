@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Factory;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
 
 public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 

@@ -378,7 +378,6 @@ public class SmartSAXXMIHandler_FasterVersion extends SAXXMIHandler{
 	
 	public boolean shouldProceed(EPackage ePack, String name)
 	{
-		String epackage = "ecore";
 		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get("ecore");
 		//if submap is not null
 		if (subMap != null) {

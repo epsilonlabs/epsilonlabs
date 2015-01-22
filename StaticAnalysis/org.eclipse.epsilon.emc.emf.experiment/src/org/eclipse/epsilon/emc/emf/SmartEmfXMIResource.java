@@ -8,14 +8,10 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
 public class SmartEmfXMIResource extends EmfXMIResource{
 
