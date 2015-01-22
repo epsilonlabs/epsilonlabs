@@ -22,13 +22,19 @@ public class EmfSmartModelWorkbench {
 		
 		ModelContainer container = new ModelContainer("ecore");
 //		container.addToModelElementsAllOfKind("EPackage");
-		container.addToModelElementsAllOfKind("EClassifier");
-		container.addAttributeToModelElement("EClassifier", "name");
+//		container.addToModelElementsAllOfKind("EClass");
+//		container.addAttributeToModelElement("EClassifier", "name");
 //		container.addReferenceToModelElement("EClassifier", "eStructuralFeatures");
-		container.addToModelElementsAllOfKind("EStructuralFeature");
-		container.addReferenceToModelElement("EStructuralFeature", "eType");
-		
 //		container.addToModelElementsAllOfKind("EAttribute");
+//		container.addToModelElementsAllOfType("EReference");
+//		container.addReferenceToModelElement("EReference", "eType");
+//		
+//		container.addToModelElementsAllOfKind("EAttribute");
+		
+		container.addToModelElementsAllOfType("EClass");
+		container.addToModelElementsAllOfKind("EStructuralFeature");
+		container.addAttributeToModelElement("EClass", "eStructuralFeatures");
+		
 		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
 		containers.add(container);
 		

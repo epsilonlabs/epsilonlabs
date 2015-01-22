@@ -35,6 +35,30 @@ public class SmartEmfModelTests {
 		assertEquals(2, load(container).allContents().size());		
 	}
 	
+	@Test
+	public void testLoadAttribute() throws Exception {
+		// EClass.all.ePackage.name.println();
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EClass");
+		container.addReferenceToModelElement("EClass", "ePackage");
+		container.addAttributeToModelElement("EPackage", "name");
+		container.addToModelElementsAllOfKind("EPackage");
+		//container.addToModelElementsAllOfType("EAttribute");
+		//container.addAttributeToModelElement("EClassifier", "name");
+		
+		assertEquals(3, load(container).allContents().size());		
+	}
+	
+	@Test
+	public void testLoadReference() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfType("EClass");
+		container.addToModelElementsAllOfKind("EStructuralFeature");
+		container.addAttributeToModelElement("EClass", "eStructuralFeatures");
+		
+		assertEquals(5, load(container).allContents().size());		
+	}
+	
 	public EmfSmartModel load(ModelContainer container) throws EolModelLoadingException {
 		EmfSmartModel model = new EmfSmartModel();
 		
