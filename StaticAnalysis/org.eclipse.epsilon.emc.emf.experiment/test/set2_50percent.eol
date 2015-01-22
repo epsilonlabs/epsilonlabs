@@ -114,3 +114,4 @@ size = size + IJavaProject.all.size();
 var singleMemberAnnotation = SingleMemberAnnotation.all.first;
 size = size + SingleMemberAnnotation.all.size();
 size.println();
+m.allContents().size().println();

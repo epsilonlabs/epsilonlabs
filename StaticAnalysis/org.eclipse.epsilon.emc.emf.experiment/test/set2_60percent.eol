@@ -96,3 +96,4 @@ size = size + IImportDeclaration.all.size();
 var binaryPackageFragmentRoot = BinaryPackageFragmentRoot.all.first;
 size = size + BinaryPackageFragmentRoot.all.size();
 size.println();
+m.allContents().size().println();

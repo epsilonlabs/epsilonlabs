@@ -66,3 +66,4 @@ size = size + AnonymousClassDeclaration.all.size();
 var iJavaProject = IJavaProject.all.first;
 size = size + IJavaProject.all.size();
 size.println();
+m.allContents().size().println();

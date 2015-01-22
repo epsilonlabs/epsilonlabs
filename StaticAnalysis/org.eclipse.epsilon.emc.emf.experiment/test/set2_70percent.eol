@@ -144,3 +144,4 @@ size = size + CompilationUnit.all.size();
 var enhancedForStatement = EnhancedForStatement.all.first;
 size = size + EnhancedForStatement.all.size();
 size.println();
+m.allContents().size().println();

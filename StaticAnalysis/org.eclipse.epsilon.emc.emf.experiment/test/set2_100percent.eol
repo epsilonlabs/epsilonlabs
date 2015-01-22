@@ -178,3 +178,4 @@ size = size + TypeLiteral.all.size();
 var block = Block.all.first;
 size = size + Block.all.size();
 size.println();
+m.allContents().size().println();
