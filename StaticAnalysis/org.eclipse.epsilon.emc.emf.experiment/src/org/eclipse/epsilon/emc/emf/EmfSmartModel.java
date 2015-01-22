@@ -41,10 +41,15 @@ public class EmfSmartModel extends EmfModel{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	
-	protected boolean smartLoading = false;
+	protected boolean smartLoading = true;
+	protected boolean partialLoading = false;
 	
 	public void setSmartLoading(boolean smartLoading) {
 		this.smartLoading = smartLoading;
+	}
+	
+	public void setPartialLoading(boolean partialLoading) {
+		this.partialLoading = partialLoading;
 	}
 
 	public void addModelContainer(ModelContainer modelContainer)
@@ -83,7 +88,7 @@ public class EmfSmartModel extends EmfModel{
 //		long init = System.nanoTime();
 //		populateEmptyObjects();
 //		System.out.println((System.nanoTime()-init)/1000000);
-		// Note that AbstractEmfModel#getPackageRegistry() is not usable yet, as modelImpl is not set
+		
 		for (EPackage ep : packages) {
 			String nsUri = ep.getNsURI();
 			if (nsUri == null || nsUri.trim().length() == 0) {
@@ -111,7 +116,9 @@ public class EmfSmartModel extends EmfModel{
 
 		if (modelContainers.size() != 0) {
 			try {
-				populateCaches_v2();
+				if (smartLoading) {
+					populateCaches_v2();	
+				}
 			} catch (EolModelElementTypeNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,19 +131,6 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void populateEmptyObjects()
 	{
-//		for(EPackage ePackage: packages)
-//		{
-//			for(EClassifier eClassifier: ePackage.getEClassifiers())
-//			{
-//				if (eClassifier instanceof EClass) {
-//					EClass eClass = (EClass) eClassifier;
-//					if (emptyObject(ePackage, eClass)) {
-//						insertHollowOjbects(ePackage, eClass);
-//					}
-//				}
-//			}
-//		}
-		
 		for(EPackage ePackage: packages)
 		{
 			for(EClassifier eClassifier: ePackage.getEClassifiers())
@@ -151,27 +145,6 @@ public class EmfSmartModel extends EmfModel{
 				}
 			}
 		}
-
-		
-//		for(ModelContainer mc: modelContainers)
-//		{	
-//			System.out.println("for package:" + mc.getModelName());
-//			System.out.println("all of Kind");
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
-//			{
-//				System.out.println("	"+mec.getElementName());
-//			}
-//			System.out.println("all of Type");
-//			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
-//			{
-//				System.out.println("	"+mec.getElementName());
-//			}
-//			System.out.println("Empty objects");
-//			for(String s: mc.getEmptyElements())
-//			{
-//				System.out.println("	"+s);
-//			}
-//		}
 	}
 	
 	
@@ -457,9 +430,6 @@ public class EmfSmartModel extends EmfModel{
 					{
 						return true;
 					}
-//					if (kind.getESuperTypes().contains(eClass)) {
-//						return true;
-//					}
 				}
 				
 				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
@@ -468,10 +438,6 @@ public class EmfSmartModel extends EmfModel{
 					if (elementName.equals(eClass.getName())) {
 						return true;
 					}
-//					EClass type = (EClass) ePackage.getEClassifier(elementName);
-//					if (type.getESuperTypes().contains(eClass)) {
-//						return true;
-//					}
 				}
 			}
 		}
@@ -562,7 +528,7 @@ public class EmfSmartModel extends EmfModel{
 	
 	@Override
 	public void disposeModel() {
-		if (smartLoading) {
+		if (partialLoading) {
 			registry = null;
 			if (modelImpl != null) {
 				//modelImpl.unload();
@@ -580,7 +546,7 @@ public class EmfSmartModel extends EmfModel{
 	
 	@Override
 	protected ResourceSet createResourceSet() {
-		if (smartLoading) {
+		if (partialLoading) {
 			ResourceSet resourceSet = new EmfModelResourceSet();
 			SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
 			//factory.setModelContainers(modelContainers); // <----------------------- point of change

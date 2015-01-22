@@ -307,31 +307,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		}
 		return false;
 	}
-	
-//	public boolean shouldProceed(EPackage ePack, String name)
-//	{
-//		HashMap<String, ArrayList<String>> subMap = objectsAndRefNamesToVisit.get("ecore");
-//		//if submap is not null
-//		if (subMap != null) {
-//			//get the features of the submap
-//			 ArrayList<String> features = subMap.get("EPackage");
-//			 //if features is not null
-//			 if (features != null) {
-//				//set the current features as features for caching 
-//				traversal_currentFeatures = features;
-//				//if features contains the feature name
-//				if (features.contains(name)) {
-//					return true;
-//				}
-//				//if features size is 0, should return true, too
-//				if (features.size() == 0) {
-//					return true;
-//				}
-//			}
-//		 }
-//		return false;
-//	}
-	
+		
 	
 	public boolean shouldProceed(EClass eClass, String name)
 	{
