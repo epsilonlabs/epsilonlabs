@@ -122,4 +122,4 @@ size = size + PostfixExpression.all.size();
 var anonymousClassDeclaration = AnonymousClassDeclaration.all.first;
 size = size + AnonymousClassDeclaration.all.size();
 size.println();
-DOM.allContents.size().println();
+m.allContents().size().println();

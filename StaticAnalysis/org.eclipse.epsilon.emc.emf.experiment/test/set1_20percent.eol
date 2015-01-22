@@ -152,3 +152,4 @@ size = size + IImportDeclaration.all.size();
 var thisExpression = ThisExpression.all.first;
 size = size + ThisExpression.all.size();
 size.println();
+m.allContents().size().println();

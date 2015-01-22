@@ -132,3 +132,4 @@ size = size + CatchClause.all.size();
 var whileStatement = WhileStatement.all.first;
 size = size + WhileStatement.all.size();
 size.println();
+m.allContents().size().println();

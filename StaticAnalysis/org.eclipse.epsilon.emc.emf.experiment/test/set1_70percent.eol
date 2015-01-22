@@ -157,3 +157,4 @@ size = size + ICompilationUnit.all.size();
 var superMethodInvocation = SuperMethodInvocation.all.first;
 size = size + SuperMethodInvocation.all.size();
 size.println();
+m.allContents().size().println();

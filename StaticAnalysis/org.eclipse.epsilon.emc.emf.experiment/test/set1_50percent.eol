@@ -130,3 +130,4 @@ size = size + IInitializer.all.size();
 var typeLiteral = TypeLiteral.all.first;
 size = size + TypeLiteral.all.size();
 size.println();
+m.allContents().size().println();

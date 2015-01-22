@@ -158,3 +158,4 @@ size = size + WhileStatement.all.size();
 var synchronizedStatement = SynchronizedStatement.all.first;
 size = size + SynchronizedStatement.all.size();
 size.println();
+m.allContents().size().println();

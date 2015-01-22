@@ -142,3 +142,4 @@ size = size + SwitchStatement.all.size();
 var fieldAccess = FieldAccess.all.first;
 size = size + FieldAccess.all.size();
 size.println();
+m.allContents().size().println();

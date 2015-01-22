@@ -144,3 +144,4 @@ size = size + IJavaModel.all.size();
 var whileStatement = WhileStatement.all.first;
 size = size + WhileStatement.all.size();
 size.println();
+m.allContents().size().println();

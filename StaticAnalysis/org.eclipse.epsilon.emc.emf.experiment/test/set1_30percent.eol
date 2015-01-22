@@ -142,3 +142,4 @@ size = size + IInitializer.all.size();
 var iJavaModel = IJavaModel.all.first;
 size = size + IJavaModel.all.size();
 size.println();
+m.allContents().size().println();
