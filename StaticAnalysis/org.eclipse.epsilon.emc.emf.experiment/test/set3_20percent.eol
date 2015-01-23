@@ -118,3 +118,4 @@ size = size + DoStatement.all.size();
 var wildcardType = WildcardType.all.first;
 size = size + WildcardType.all.size();
 size.println();
+m.allContents().size().println();

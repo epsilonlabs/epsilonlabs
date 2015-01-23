@@ -152,5 +152,5 @@ size = size + PackageDeclaration.all.size();
 var assertStatement = AssertStatement.all.first;
 size = size + AssertStatement.all.size();
 size.println();
-
+m.allContents().size().println();
 

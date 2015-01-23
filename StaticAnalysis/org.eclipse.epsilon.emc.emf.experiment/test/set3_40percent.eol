@@ -134,3 +134,4 @@ size = size + SingleMemberAnnotation.all.size();
 var markerAnnotation = MarkerAnnotation.all.first;
 size = size + MarkerAnnotation.all.size();
 size.println();
+m.allContents().size().println();

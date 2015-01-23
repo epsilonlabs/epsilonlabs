@@ -134,4 +134,4 @@ size = size + SourcePackageFragmentRoot.all.size();
 var enumConstantDeclaration = EnumConstantDeclaration.all.first;
 size = size + EnumConstantDeclaration.all.size();
 size.println();
-
+m.allContents().size().println();

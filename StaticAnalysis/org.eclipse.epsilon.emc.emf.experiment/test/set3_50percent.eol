@@ -156,4 +156,4 @@ size = size + CharacterLiteral.all.size();
 var sourcePackageFragmentRoot = SourcePackageFragmentRoot.all.first;
 size = size + SourcePackageFragmentRoot.all.size();
 size.println();
-
+m.allContents().size().println();

@@ -92,3 +92,4 @@ size = size + AssertStatement.all.size();
 var enumDeclaration = EnumDeclaration.all.first;
 size = size + EnumDeclaration.all.size();
 size.println();
+m.allContents().size().println();

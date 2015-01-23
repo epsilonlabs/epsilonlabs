@@ -178,3 +178,4 @@ size = size + Javadoc.all.size();
 var qualifiedName = QualifiedName.all.first;
 size = size + QualifiedName.all.size();
 size.println();
+m.allContents().size().println();

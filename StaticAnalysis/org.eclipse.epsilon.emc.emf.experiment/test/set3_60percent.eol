@@ -166,4 +166,4 @@ size = size + MarkerAnnotation.all.size();
 var iPackageFragment = IPackageFragment.all.first;
 size = size + IPackageFragment.all.size();
 size.println();
-
+m.allContents().size().println();
