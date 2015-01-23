@@ -178,4 +178,4 @@ size = size + NullLiteral.all.size();
 var methodInvocation = MethodInvocation.all.first;
 size = size + MethodInvocation.all.size();
 size.println();
-
+m.allContents().size().println();

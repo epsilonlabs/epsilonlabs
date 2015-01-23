@@ -144,4 +144,4 @@ size = size + SingleMemberAnnotation.all.size();
 var typeParameter = TypeParameter.all.first;
 size = size + TypeParameter.all.size();
 size.println();
-
+m.allContents().size().println();

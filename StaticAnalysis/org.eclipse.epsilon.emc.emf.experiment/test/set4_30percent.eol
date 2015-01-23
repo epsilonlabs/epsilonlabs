@@ -120,4 +120,4 @@ size = size + IJavaModel.all.size();
 var typeDeclarationStatement = TypeDeclarationStatement.all.first;
 size = size + TypeDeclarationStatement.all.size();
 size.println();
-
+m.allContents().size().println();

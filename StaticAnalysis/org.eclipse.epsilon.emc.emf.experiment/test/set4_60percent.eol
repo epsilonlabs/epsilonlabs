@@ -168,4 +168,4 @@ size = size + MarkerAnnotation.all.size();
 var methodRef = MethodRef.all.first;
 size = size + MethodRef.all.size();
 size.println();
-
+m.allContents().size().println();

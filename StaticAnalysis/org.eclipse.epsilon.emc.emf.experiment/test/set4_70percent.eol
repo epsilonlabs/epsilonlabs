@@ -132,4 +132,4 @@ size = size + BinaryPackageFragmentRoot.all.size();
 var constructorInvocation = ConstructorInvocation.all.first;
 size = size + ConstructorInvocation.all.size();
 size.println();
-
+m.allContents().size().println();

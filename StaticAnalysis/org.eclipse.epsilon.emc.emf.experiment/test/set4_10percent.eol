@@ -70,4 +70,4 @@ size = size + TypeParameter.all.size();
 var enumDeclaration = EnumDeclaration.all.first;
 size = size + EnumDeclaration.all.size();
 size.println();
-
+m.allContents().size().println();
