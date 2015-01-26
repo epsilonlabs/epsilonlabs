@@ -496,7 +496,7 @@ public class EmfSmartModel extends EmfModel{
 					//get the eclass for the class under question
 					EClass actual = (EClass) ePackage.getEClassifier(className);
 					//if the class under question is a super class of the mec, should return true
-					if (type.getEAllSuperTypes().contains(actual)) 
+					if (type.getEAllSuperTypes() != null && type.getEAllSuperTypes().contains(actual)) 
 					{
 						return true;
 					}
