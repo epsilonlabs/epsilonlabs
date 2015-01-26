@@ -1,10 +1,11 @@
 package org.eclipse.epsilon.emc.emf.test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
 import org.eclipse.epsilon.emc.emf.SmartEmfModelResourceFactory;
@@ -47,6 +48,34 @@ public class SmartEmfModelTests {
 		//container.addAttributeToModelElement("EClassifier", "name");
 		
 		assertEquals(3, load(container).allContents().size());		
+	}
+	
+	@Test
+	public void testPackageClassifiers() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EPackage");
+		container.addToModelElementsAllOfKind("EClassifier");
+		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
+		// We haven't asked EmfSmartModel to link packages to their contained classifiers
+		assertTrue(ePackage.getEClassifiers().isEmpty());
+	}
+	
+	@Test
+	public void testEmptyClassifiers() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EPackage");
+		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
+		// We haven't asked EmfSmartModel to load package names so the following should return null
+		assertTrue(ePackage.getEClassifiers().isEmpty());
+	}
+	
+	@Test
+	public void testNullPackageNames() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EPackage");
+		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
+		// We haven't asked EmfSmartModel to load package names so the following should return null
+		assertNull(ePackage.getName());
 	}
 	
 	@Test
