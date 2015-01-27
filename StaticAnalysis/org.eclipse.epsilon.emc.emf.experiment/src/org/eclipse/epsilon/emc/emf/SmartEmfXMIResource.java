@@ -15,6 +15,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMLHelperImpl;
 
 public class SmartEmfXMIResource extends EmfXMIResource{
 
+	public boolean loadAllAttributes = true;
+
 //	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
 //	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
@@ -62,10 +64,15 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	public SmartEmfXMIResource(URI uri) {
 		super(uri);
 	}
+	
+	public void setLoadAllAttributes(boolean loadAllAttributes) {
+		this.loadAllAttributes = loadAllAttributes;
+	}
 
 	@Override
 	protected XMLLoad createXMLLoad() {
 		SmartXMILoadImpl xmiLoadImpl = new SmartXMILoadImpl(createXMLHelper());
+		xmiLoadImpl.setLoadAllAttributes(loadAllAttributes);
 //		xmiLoadImpl.setModelContainers(modelContainers);
 //		xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);
 //		xmiLoadImpl.setObjectsToLoad(objectsToLoad);
@@ -79,6 +86,7 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 		if (options != null && Boolean.TRUE.equals(options.get(OPTION_SUPPRESS_XMI)))
 	    {
 			SmartXMILoadImpl xmiLoadImpl = new SmartXMILoadImpl(new XMLHelperImpl(this));
+			xmiLoadImpl.setLoadAllAttributes(loadAllAttributes);
 			xmiLoadImpl.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 			xmiLoadImpl.setActualObjectsToLoad(actualObjectsToLoad);
 //			xmiLoadImpl.setModelContainers(modelContainers);

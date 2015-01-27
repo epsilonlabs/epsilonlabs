@@ -13,6 +13,9 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 
+	
+	public boolean loadAllAttributes = true;
+
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 
 //	protected HashMap<String, ArrayList<String>> objectsToLoad = new HashMap<String, ArrayList<String>>();
@@ -63,6 +66,10 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 		resourceMap = new HashMap<URI, Resource>();
 	}
 	
+	public void setLoadAllAttributes(boolean loadAllAttributes) {
+		this.loadAllAttributes = loadAllAttributes;
+	}
+	
 	@Override
 	public Resource createResource(URI uri) {
 		
@@ -79,6 +86,7 @@ public class SmartEmfModelResourceFactory extends XMIResourceFactoryImpl{
 			}
 			else {
 				resource = new SmartEmfXMIResource(uri); // <------------------------------------- Point of Change
+				((SmartEmfXMIResource)resource).setLoadAllAttributes(loadAllAttributes);
 //				((SmartEmfXMIResource)resource).setModelContainers(modelContainers); // <------------------------------------- Point of Change
 //				((SmartEmfXMIResource)resource).setObjectsToLoad(objectsToLoad);
 //				((SmartEmfXMIResource)resource).setEmptyObjectsToLoad(emptyObjectsToLoad);

@@ -43,6 +43,8 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	protected String currentName = "";
 	protected int currentElementsSize = -1;
 	
+	public boolean loadAllAttributes = true;
+	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
@@ -56,6 +58,10 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
+	}
+	
+	public void setLoadAllAttributes(boolean loadAllAttributes) {
+		this.loadAllAttributes = loadAllAttributes;
 	}
 	
 	public boolean cached(EClass eClass)
@@ -181,7 +187,15 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	      if (kind == XMLHelper.DATATYPE_SINGLE || kind == XMLHelper.DATATYPE_IS_MANY)
 	      {
-	        setFeatureValue(object, feature, value, -2);
+	    	  if (loadAllAttributes) {
+	    		  setFeatureValue(object, feature, value, -2);	
+	    	  }
+	    	  else {
+		    	  if (shouldHandleFeature(object, feature.getName())) {
+		    		  setFeatureValue(object, feature, value, -2);	
+		    	  }
+			}
+	        
 	      }
 	      else
 	      {

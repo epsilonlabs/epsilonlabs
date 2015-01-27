@@ -8,6 +8,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMILoadImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class SmartXMILoadImpl extends XMILoadImpl{
+	public boolean loadAllAttributes = true;
+	
 //	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
 //
 //	public void addModelContainer(ModelContainer modelContainer) // <-------------------- point of change
@@ -50,9 +52,14 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void setLoadAllAttributes(boolean loadAllAttributes) {
+		this.loadAllAttributes = loadAllAttributes;
+	}
+	
 	@Override
 	protected DefaultHandler makeDefaultHandler() {
 		SmartSAXXMIHandler handler = new SmartSAXXMIHandler(resource, helper, options); // <-------------------- point of change
+		handler.setLoadAllAttributes(loadAllAttributes);
 		//handler.setModelContainers(modelContainers); // <-------------------- point of change
 //		handler.setObjectsToLoad(objectsToLoad);
 //		handler.setEmptyObjectsToLoad(emptyObjectsToLoad);

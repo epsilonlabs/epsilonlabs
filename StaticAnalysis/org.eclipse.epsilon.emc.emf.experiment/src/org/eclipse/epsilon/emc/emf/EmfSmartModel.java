@@ -33,6 +33,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 
 public class EmfSmartModel extends EmfModel{
 
+
 	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();	//protected ModelContainer modelContainer;
 	
 	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
@@ -40,9 +41,13 @@ public class EmfSmartModel extends EmfModel{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
-	
+	protected boolean loadAllAttributes = false;
 	protected boolean smartLoading = true;
 	protected boolean partialLoading = false;
+	
+	public void setLoadAllAttributes(boolean loadAllAttributes) {
+		this.loadAllAttributes = loadAllAttributes;
+	}
 	
 	public void setSmartLoading(boolean smartLoading) {
 		this.smartLoading = smartLoading;
@@ -549,6 +554,7 @@ public class EmfSmartModel extends EmfModel{
 		if (partialLoading) {
 			ResourceSet resourceSet = new EmfModelResourceSet();
 			SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
+			factory.setLoadAllAttributes(loadAllAttributes);
 			//factory.setModelContainers(modelContainers); // <----------------------- point of change
 			factory.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
 			factory.setActualObjectsToLoad(actualObjectsToLoad);

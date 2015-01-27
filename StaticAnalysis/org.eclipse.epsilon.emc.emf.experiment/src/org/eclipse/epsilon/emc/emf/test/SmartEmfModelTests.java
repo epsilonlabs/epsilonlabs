@@ -102,6 +102,7 @@ public class SmartEmfModelTests {
 		model.setModelContainers(containers);
 		model.setSmartLoading(true);
 		model.setPartialLoading(true);
+		model.setLoadAllAttributes(false);
 		model.preProcess();
 		model.load();
 		
