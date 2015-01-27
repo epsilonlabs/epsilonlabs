@@ -67,7 +67,6 @@ public class TestParcialLoading {
 		String metamodel = new File("src/org/eclipse/epsilon/emc/emf/test/filesystem.ecore").getAbsolutePath();
 		model.setMetamodelFile(metamodel);
 		
-		//smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
 		URI modelPath = URI.createURI(TestParcialLoading.class.getResource("test_model.model").toString());
 		model.setModelFileUri(modelPath);
 		
