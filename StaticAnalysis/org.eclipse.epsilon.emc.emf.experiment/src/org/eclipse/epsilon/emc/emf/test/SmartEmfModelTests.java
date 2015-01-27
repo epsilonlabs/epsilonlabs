@@ -77,6 +77,24 @@ public class SmartEmfModelTests {
 		// We haven't asked EmfSmartModel to load package names so the following should return null
 		assertNull(ePackage.getName());
 	}
+
+	@Test
+	public void testNonNullPackageNames() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EPackage");
+		container.addAttributeToModelElement("EPackage", "name");
+		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
+		assertNotNull(ePackage.getName());
+	}
+	
+	@Test
+	public void testNonNullPackageNamesThroughENamedElement() throws Exception {
+		ModelContainer container = new ModelContainer("ecore");
+		container.addToModelElementsAllOfKind("EPackage");
+		container.addAttributeToModelElement("ENamedElement", "name");
+		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
+		assertNotNull(ePackage.getName());
+	}
 	
 	@Test
 	public void testLoadReference() throws Exception {
