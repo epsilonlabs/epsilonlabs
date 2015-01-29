@@ -14,8 +14,6 @@ import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
 public class TestParcialLoading {
 	
 	@Before
