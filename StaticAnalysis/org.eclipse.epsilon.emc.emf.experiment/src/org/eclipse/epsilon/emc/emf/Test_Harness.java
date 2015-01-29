@@ -238,31 +238,23 @@ public class Test_Harness {
 		//gc
 		System.gc();
 		
-		//set counter
-		int counter = 0;
 		
-		//normal results
-		String normalResult = "";
 		long normalLoadTime = 0;
 		long normalExecutionTime = 0;
 		long normalMemoryConsumption = 0;
 		
-		String smartResult = "";
 		long smartLoadTime = 0;
 		long smartExecutionTime = 0;
 		long smartMemoryConsumption = 0;
 
-		String partialResult = "";
 		long partialLoadTime = 0;
 		long partialExecutionTime = 0;
 		long partialMemoryConsumption = 0;
 
-		String smartPartialResult = "";
 		long smartPartialLoadTime = 0;
 		long smartPartialExecutionTime = 0;
 		long smartPartialMemoryConsumption = 0;
 		
-		String greedyResult = "";
 		long greedyLoadTime = 0;
 		long greedyExecutionTime = 0;
 		long greedyMemoryConsumption = 0;
@@ -354,12 +346,6 @@ public class Test_Harness {
 		result.add(greedyLoadTime);
 		result.add(greedyExecutionTime);
 		result.add(greedyMemoryConsumption);
-//		System.out.println("Normal: " + normalResult);
-//		System.out.println("Smart: " + smartResult);
-//		System.out.println("Partial: " + partialResult);
-//		System.out.println("Smart partial:" + smartPartialResult);
-//		System.out.println("Greedy: " + greedyResult);
-		
 		
 		System.out.println("normal loading time average: " + normalLoadTime);
 		System.out.println("normal execution time average: " + normalExecutionTime);
