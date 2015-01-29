@@ -19,6 +19,7 @@ import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOpti
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
@@ -35,38 +36,113 @@ public class Test_Harness {
 	
 	public static void runSet1() throws Exception
 	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
 		for(int i = 1; i <= 10; i++)
 		{
-			Test_Harness.test_v2("test/JDTAST.ecore", "test/set1.xmi", "test/set1_" + i + "0percent.eol", "m");	
+			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set1.xmi", "test/set1_" + i + "0percent.eol", "m"));	
 		}
+		Test_Harness.generateCSV(result, "set1");
 	}
 	
 	public static void runSet2() throws Exception
 	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+
 		for(int i = 1; i <= 10; i++)
 		{
-			Test_Harness.test_v2("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i + "0percent.eol", "m");
+			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i + "0percent.eol", "m"));
 		}
+		Test_Harness.generateCSV(result, "set2");
+
 	}
 		
 	public static void runSet3() throws Exception
 	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+
 		for(int i = 1; i <= 10; i++)
 		{
-			Test_Harness.test_v2("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i + "0percent.eol", "m");
+			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i + "0percent.eol", "m"));
 		}
+		
+		Test_Harness.generateCSV(result, "set3");
+
 	}
 	
 	public static void runSet4() throws Exception
 	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+
 		for(int i = 1; i <= 10; i++)
 		{
-			Test_Harness.test_v2("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i + "0percent.eol", "m");
+			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i + "0percent.eol", "m"));
 		}
+		Test_Harness.generateCSV(result, "set4");
+
 	}
 	
-	public static void test_v2(String metamodel, String model, String eolFile, String modelName) throws Exception
+	public static void generateCSV(ArrayList<ArrayList<Long>> input, String name)
 	{
+		
+		try
+		{
+			FileWriter writer = new FileWriter("test/"+name +".csv");
+	 
+		    writer.append("Normal loading time");
+		    writer.append(',');
+		    writer.append("Normal execution time");
+		    writer.append(',');
+		    writer.append("Normal memory consumption");
+		    writer.append(',');
+		    writer.append("Smart loading time");
+		    writer.append(',');
+		    writer.append("Smart execution time");
+		    writer.append(',');
+		    writer.append("Smart memory consumption");
+		    writer.append(',');
+		    writer.append("Partial loading time");
+		    writer.append(',');
+		    writer.append("Partial execution time");
+		    writer.append(',');
+		    writer.append("Partial memory consumption");
+		    writer.append(',');
+		    writer.append("Smart Partial loading time");
+		    writer.append(',');
+		    writer.append("Smart Partial execution time");
+		    writer.append(',');
+		    writer.append("Smart Partial memory consumption");
+		    writer.append(',');
+		    writer.append("Greedy loading time");
+		    writer.append(',');
+		    writer.append("Greedy execution time");
+		    writer.append(',');
+		    writer.append("Greedy memory consumption");
+		    writer.append('\n');
+		    
+		    for(int i = 0; i < 10; i++)
+		    {
+		    	ArrayList<Long> temp = input.get(i);
+		    	for(int j = 0; j < 14; j++)
+		    	{
+		    		writer.append(temp.get(j)+"");
+		    		writer.append(',');
+		    	}
+		    	writer.append(temp.get(14)+"\n");
+		    }	 
+	 
+		    writer.flush();
+		    writer.close();
+		}
+		catch(IOException e)
+		{
+		     e.printStackTrace();
+		} 
+	}
+	
+	public static ArrayList<Long> test_v2(String metamodel, String model, String eolFile, String modelName) throws Exception
+	{
+		ArrayList<Long> result = new ArrayList<Long>();
+		
 		//prepare data holders
 		ArrayList<Long> normalLoad = new ArrayList<Long>();
 		ArrayList<Long> normalExecute = new ArrayList<Long>();
@@ -94,8 +170,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 1;
-		final int disregard = 0;
+		final int iteration = 2;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -146,7 +222,6 @@ public class Test_Harness {
 			greedyMemory.add(tempResult.get(2));
 			System.gc();
 		}
-		
 		
 		//gc
 		System.gc();
@@ -248,6 +323,25 @@ public class Test_Harness {
 		}
 		
 				
+		result.add(normalLoadTime);
+		result.add(normalExecutionTime);
+		result.add(normalMemoryConsumption);
+		
+		result.add(smartLoadTime);
+		result.add(smartExecutionTime);
+		result.add(smartMemoryConsumption);
+		
+		result.add(partialLoadTime);
+		result.add(partialExecutionTime);
+		result.add(partialMemoryConsumption);
+		
+		result.add(smartPartialLoadTime);
+		result.add(smartPartialExecutionTime);
+		result.add(smartPartialMemoryConsumption);
+		
+		result.add(greedyLoadTime);
+		result.add(greedyExecutionTime);
+		result.add(greedyMemoryConsumption);
 //		System.out.println("Normal: " + normalResult);
 //		System.out.println("Smart: " + smartResult);
 //		System.out.println("Partial: " + partialResult);
@@ -353,6 +447,8 @@ public class Test_Harness {
 		{
 		     e.printStackTrace();
 		} 
+		
+		return result;
 	
 	}
 	
@@ -724,142 +820,142 @@ public class Test_Harness {
 		return result;
 	}
 
-	public static ArrayList<Long> testSmart(String set, String file) throws Exception
-	{
-		ArrayList<Long> result = new ArrayList<Long>();
-		EolModule eolModule = new EolModule();
-		eolModule.parse(new File(file));
-		//eolModule.parse(new File("test/set2_50percent.eol"));
-		
-		EmfSmartModel smartModel = new EmfSmartModel();
-		smartModel.setName("DOM");
-		smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
-		//smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-		smartModel.setModelFile(new File(set).getAbsolutePath());
-		
-		System.out.println("emf smart model prepared, loading...");
-		
-		loadEPackageFromFile("test/JDTAST.ecore");
-		
-		Ast2EolContext ast2EolContext = new Ast2EolContext();
-		EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
-		
-		VariableResolver vr = new VariableResolver();
-		vr.run(dom);
-		
-		TypeResolver tr = new TypeResolver();
-		tr.getTypeResolutionContext().setModule(eolModule);
-		tr.run(dom);
-		
-		LoadingOptimisationAnalyser loa = new LoadingOptimisationAnalyser();
-		loa.run(dom);
-		
-		LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
-		System.out.println(loaContext.getModelContainers().get(0).getModelElementsAllOfKind().size() +loaContext.getModelContainers().get(1).getModelElementsAllOfKind().size());
-		smartModel.setModelContainers(loaContext.getModelContainers());
-		
-		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
-		
-		long init = System.nanoTime();
-		smartModel.load();
-		long result1 = (System.nanoTime()-init)/1000000;
-		result.add(result1);
-		System.out.println("(took ~" + result1 + "ms to load)");
-		
-		init = System.nanoTime();
-		eolModule.getContext().getModelRepository().addModel(smartModel);
-		eolModule.execute();
-		long result2 = (System.nanoTime() - init)/1000000;
-		result.add(result2);
-		System.out.println("(took ~" + result2 + "ms to run)");
-		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
-		
-		result.add(memoryConsumptionStart-memoryConsumptionEnd);
-		eolModule.getContext().getModelRepository().dispose();
-		return result;
-	}
-	
-	public static ArrayList<Long> testNormal(String set, String file) throws Exception
-	{
-		ArrayList<Long> result = new ArrayList<Long>();
-		EolModule eolModule = new EolModule();
-		eolModule.parse(new File(file));
-		//eolModule.parse(new File("test/set2_50percent.eol"));
-		
-		EmfModel normalModel = new EmfModel();
-		normalModel.setName("DOM");
-		normalModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
-		normalModel.setModelFile(new File(set).getAbsolutePath());
-		//normalModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-		
-		loadEPackageFromFile("test/JDTAST.ecore");
-		
-		System.out.println("emf normal model prepared, loading...");
-		
-		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
-
-		long init = System.nanoTime();
-		normalModel.load();
-		
-		long result1 = (System.nanoTime()-init)/1000000;
-		result.add(result1);
-		System.out.println("(took ~" + result1 + "ms to load)");
-		
-		init = System.nanoTime();
-		eolModule.getContext().getModelRepository().addModel(normalModel);
-		eolModule.execute();
-		
-		long result2 = (System.nanoTime() - init)/1000000;
-		result.add(result2);
-		System.out.println("(took ~" + result2 + "ms to run)");
-		
-		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
-		
-		result.add(memoryConsumptionStart-memoryConsumptionEnd);
-
-		eolModule.getContext().getModelRepository().dispose();
-		return result;
-	}
-	
-	public static ArrayList<Long> testGreedy(String set, String file) throws Exception
-	{
-		ArrayList<Long> result = new ArrayList<Long>();
-		EolModule eolModule = new EolModule();
-		eolModule.parse(new File(file));
-		//eolModule.parse(new File("test/set2_50percent.eol"));
-		
-		EmfGreedyModel normalModel = new EmfGreedyModel();
-		normalModel.setName("DOM");
-		normalModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
-		normalModel.setModelFile(new File(set).getAbsolutePath());
-		//normalModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-		
-		loadEPackageFromFile("test/JDTAST.ecore");
-		
-		System.out.println("emf greedy model prepared, loading...");
-		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
-
-		long init = System.nanoTime();
-		normalModel.load();
-		
-		long result1 = (System.nanoTime()-init)/1000000;
-		result.add(result1);
-		System.out.println("(took ~" + result1 + "ms to load)");
-		
-		init = System.nanoTime();
-		eolModule.getContext().getModelRepository().addModel(normalModel);
-		eolModule.execute();
-		
-		long result2 = (System.nanoTime() - init)/1000000;
-		result.add(result2);
-		System.out.println("(took ~" + result2 + "ms to run)");
-		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
-		
-		result.add(memoryConsumptionStart-memoryConsumptionEnd);
-
-		eolModule.getContext().getModelRepository().dispose();
-		return result;
-	}
+//	public static ArrayList<Long> testSmart(String set, String file) throws Exception
+//	{
+//		ArrayList<Long> result = new ArrayList<Long>();
+//		EolModule eolModule = new EolModule();
+//		eolModule.parse(new File(file));
+//		//eolModule.parse(new File("test/set2_50percent.eol"));
+//		
+//		EmfSmartModel smartModel = new EmfSmartModel();
+//		smartModel.setName("DOM");
+//		smartModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+//		//smartModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+//		smartModel.setModelFile(new File(set).getAbsolutePath());
+//		
+//		System.out.println("emf smart model prepared, loading...");
+//		
+//		loadEPackageFromFile("test/JDTAST.ecore");
+//		
+//		Ast2EolContext ast2EolContext = new Ast2EolContext();
+//		EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
+//		
+//		VariableResolver vr = new VariableResolver();
+//		vr.run(dom);
+//		
+//		TypeResolver tr = new TypeResolver();
+//		tr.getTypeResolutionContext().setModule(eolModule);
+//		tr.run(dom);
+//		
+//		LoadingOptimisationAnalyser loa = new LoadingOptimisationAnalyser();
+//		loa.run(dom);
+//		
+//		LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
+//		System.out.println(loaContext.getModelContainers().get(0).getModelElementsAllOfKind().size() +loaContext.getModelContainers().get(1).getModelElementsAllOfKind().size());
+//		smartModel.setModelContainers(loaContext.getModelContainers());
+//		
+//		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
+//		
+//		long init = System.nanoTime();
+//		smartModel.load();
+//		long result1 = (System.nanoTime()-init)/1000000;
+//		result.add(result1);
+//		System.out.println("(took ~" + result1 + "ms to load)");
+//		
+//		init = System.nanoTime();
+//		eolModule.getContext().getModelRepository().addModel(smartModel);
+//		eolModule.execute();
+//		long result2 = (System.nanoTime() - init)/1000000;
+//		result.add(result2);
+//		System.out.println("(took ~" + result2 + "ms to run)");
+//		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
+//		
+//		result.add(memoryConsumptionStart-memoryConsumptionEnd);
+//		eolModule.getContext().getModelRepository().dispose();
+//		return result;
+//	}
+//	
+//	public static ArrayList<Long> testNormal(String set, String file) throws Exception
+//	{
+//		ArrayList<Long> result = new ArrayList<Long>();
+//		EolModule eolModule = new EolModule();
+//		eolModule.parse(new File(file));
+//		//eolModule.parse(new File("test/set2_50percent.eol"));
+//		
+//		EmfModel normalModel = new EmfModel();
+//		normalModel.setName("DOM");
+//		normalModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+//		normalModel.setModelFile(new File(set).getAbsolutePath());
+//		//normalModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+//		
+//		loadEPackageFromFile("test/JDTAST.ecore");
+//		
+//		System.out.println("emf normal model prepared, loading...");
+//		
+//		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
+//
+//		long init = System.nanoTime();
+//		normalModel.load();
+//		
+//		long result1 = (System.nanoTime()-init)/1000000;
+//		result.add(result1);
+//		System.out.println("(took ~" + result1 + "ms to load)");
+//		
+//		init = System.nanoTime();
+//		eolModule.getContext().getModelRepository().addModel(normalModel);
+//		eolModule.execute();
+//		
+//		long result2 = (System.nanoTime() - init)/1000000;
+//		result.add(result2);
+//		System.out.println("(took ~" + result2 + "ms to run)");
+//		
+//		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
+//		
+//		result.add(memoryConsumptionStart-memoryConsumptionEnd);
+//
+//		eolModule.getContext().getModelRepository().dispose();
+//		return result;
+//	}
+//	
+//	public static ArrayList<Long> testGreedy(String set, String file) throws Exception
+//	{
+//		ArrayList<Long> result = new ArrayList<Long>();
+//		EolModule eolModule = new EolModule();
+//		eolModule.parse(new File(file));
+//		//eolModule.parse(new File("test/set2_50percent.eol"));
+//		
+//		EmfGreedyModel normalModel = new EmfGreedyModel();
+//		normalModel.setName("DOM");
+//		normalModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+//		normalModel.setModelFile(new File(set).getAbsolutePath());
+//		//normalModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
+//		
+//		loadEPackageFromFile("test/JDTAST.ecore");
+//		
+//		System.out.println("emf greedy model prepared, loading...");
+//		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
+//
+//		long init = System.nanoTime();
+//		normalModel.load();
+//		
+//		long result1 = (System.nanoTime()-init)/1000000;
+//		result.add(result1);
+//		System.out.println("(took ~" + result1 + "ms to load)");
+//		
+//		init = System.nanoTime();
+//		eolModule.getContext().getModelRepository().addModel(normalModel);
+//		eolModule.execute();
+//		
+//		long result2 = (System.nanoTime() - init)/1000000;
+//		result.add(result2);
+//		System.out.println("(took ~" + result2 + "ms to run)");
+//		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
+//		
+//		result.add(memoryConsumptionStart-memoryConsumptionEnd);
+//
+//		eolModule.getContext().getModelRepository().dispose();
+//		return result;
+//	}
 
 	
 	public static EPackage loadEPackageFromFile(String fileName)
@@ -875,7 +971,6 @@ public class Test_Harness {
 			{
 				EPackage.Registry.INSTANCE.put(((EPackage) obj).getNsURI(), obj);
 				result = (EPackage) obj;
-				//break;
 			}
 		}
 		return result;
