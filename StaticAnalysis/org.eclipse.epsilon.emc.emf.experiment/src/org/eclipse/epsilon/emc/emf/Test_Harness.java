@@ -117,6 +117,18 @@ public class Test_Harness {
 		    writer.append("Greedy execution time");
 		    writer.append(',');
 		    writer.append("Greedy memory consumption");
+//		    writer.append(',');
+//		    writer.append("Normal Total");
+//		    writer.append(',');
+//		    writer.append("Smart Total");
+//		    writer.append(',');
+//		    writer.append("Partial Total");
+//		    writer.append(',');
+//		    writer.append("Smart Partial Total");
+//		    writer.append(',');
+//		    writer.append("Greedy Total");
+//		    writer.append(',');
+//		    writer.append("Greedy memory consumption");
 		    writer.append('\n');
 		    
 		    for(int i = 0; i < 10; i++)
