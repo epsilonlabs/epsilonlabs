@@ -25,19 +25,34 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//visit contents first
 		controller.visitContents(propertyCallExpression, context);
 		
+		//get the name of the proeprty
 		String propertyString = propertyCallExpression.getProperty().getName();
+		
+		//get the target expression
 		Expression target = propertyCallExpression.getTarget();
 		
+		//if target type is model element type
 		if (target.getResolvedType() instanceof ModelElementType) {
+			
+			//get the target type
 			ModelElementType targetType = (ModelElementType) target.getResolvedType();
+			
+			//get the model string
 			String modelString = targetType.getModelName();
+			
+			//get the element string
 			String elementString = targetType.getElementName();
+			
+			//get the driver
 			EMetamodelDriver driver = context.getMetaModel(modelString);
 
+			//get context
 			LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 			
+			//check if is keyword
 			if (isKeyword(propertyString)) {
 				if (target instanceof NameExpression) {
 					String targetString = ((NameExpression) target).getName();
