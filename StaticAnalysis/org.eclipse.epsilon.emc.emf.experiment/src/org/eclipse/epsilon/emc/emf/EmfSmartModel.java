@@ -41,7 +41,7 @@ public class EmfSmartModel extends EmfModel{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
-	protected boolean loadAllAttributes = false;
+	protected boolean loadAllAttributes = true;
 	protected boolean smartLoading = true;
 	protected boolean partialLoading = false;
 	
