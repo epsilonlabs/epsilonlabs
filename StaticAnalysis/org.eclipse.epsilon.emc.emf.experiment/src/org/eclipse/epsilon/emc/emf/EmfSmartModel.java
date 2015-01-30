@@ -43,6 +43,8 @@ public class EmfSmartModel extends EmfModel{
 	protected boolean smartLoading = true;
 	protected boolean partialLoading = false;
 	
+	protected SmartEmfModelResourceFactory f;
+	
 	public void clearCollections()
 	{
 		visitedClasses.clear();
@@ -51,8 +53,7 @@ public class EmfSmartModel extends EmfModel{
 		objectsAndRefNamesToVisit = null;
 		actualObjectsToLoad.clear();
 		actualObjectsToLoad = null;
-		SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance();
-		factory.clearCollections();
+		f.clearCollections();
 	}
 	
 	public void setLoadAllAttributes(boolean loadAllAttributes) {
@@ -143,7 +144,9 @@ public class EmfSmartModel extends EmfModel{
 			}	
 		}
 		
-		clearCollections();
+		if (partialLoading) {
+			clearCollections();
+		}
 	}
 	
 	public void populateEmptyObjects()
@@ -566,6 +569,7 @@ public class EmfSmartModel extends EmfModel{
 		if (partialLoading) {
 			ResourceSet resourceSet = new EmfModelResourceSet();
 			SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance(); // <----------------------- point of change
+			f = factory;
 			factory.setLoadAllAttributes(loadAllAttributes);
 			//factory.setModelContainers(modelContainers); // <----------------------- point of change
 			factory.setObjectsAndRefNamesToVisit(objectsAndRefNamesToVisit);
