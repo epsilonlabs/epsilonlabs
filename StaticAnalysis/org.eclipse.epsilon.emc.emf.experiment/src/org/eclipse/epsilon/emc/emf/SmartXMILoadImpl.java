@@ -25,7 +25,15 @@ public class SmartXMILoadImpl extends XMILoadImpl{
 //	protected HashMap<String, ArrayList<String>> emptyObjectsToLoad = new HashMap<String, ArrayList<String>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
-
+	
+	public void clearCollections()
+	{
+		objectsAndRefNamesToVisit.clear();
+		objectsAndRefNamesToVisit = null;
+		actualObjectsToLoad.clear();
+		actualObjectsToLoad = null;
+	}
+	
 	
 //	public void setObjectsToLoad(
 //			HashMap<String, ArrayList<String>> objectsToLoad) {

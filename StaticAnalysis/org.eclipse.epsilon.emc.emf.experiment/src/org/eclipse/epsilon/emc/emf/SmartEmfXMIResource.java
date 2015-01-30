@@ -23,6 +23,16 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	protected boolean handleFlatObjects = false;
+	protected SmartXMILoadImpl sxl;
+	
+	public void clearCollections()
+	{
+		objectsAndRefNamesToVisit.clear();
+		objectsAndRefNamesToVisit = null;
+		actualObjectsToLoad.clear();
+		actualObjectsToLoad = null;
+		sxl.clearCollections();
+	}
 	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
@@ -72,6 +82,7 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	@Override
 	protected XMLLoad createXMLLoad() {
 		SmartXMILoadImpl xmiLoadImpl = new SmartXMILoadImpl(createXMLHelper());
+		sxl = xmiLoadImpl;
 		xmiLoadImpl.setLoadAllAttributes(loadAllAttributes);
 //		xmiLoadImpl.setModelContainers(modelContainers);
 //		xmiLoadImpl.setEmptyObjectsToLoad(emptyObjectsToLoad);

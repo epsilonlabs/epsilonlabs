@@ -35,15 +35,25 @@ public class EmfSmartModel extends EmfModel{
 
 
 	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();	//protected ModelContainer modelContainer;
-	
 	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
-	
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
 
 	protected boolean loadAllAttributes = true;
 	protected boolean smartLoading = true;
 	protected boolean partialLoading = false;
+	
+	public void clearCollections()
+	{
+		visitedClasses.clear();
+		visitedClasses = null;
+		objectsAndRefNamesToVisit.clear();
+		objectsAndRefNamesToVisit = null;
+		actualObjectsToLoad.clear();
+		actualObjectsToLoad = null;
+		SmartEmfModelResourceFactory factory = SmartEmfModelResourceFactory.getInstance();
+		factory.clearCollections();
+	}
 	
 	public void setLoadAllAttributes(boolean loadAllAttributes) {
 		this.loadAllAttributes = loadAllAttributes;
@@ -132,6 +142,8 @@ public class EmfSmartModel extends EmfModel{
 				e.printStackTrace();
 			}	
 		}
+		
+		clearCollections();
 	}
 	
 	public void populateEmptyObjects()

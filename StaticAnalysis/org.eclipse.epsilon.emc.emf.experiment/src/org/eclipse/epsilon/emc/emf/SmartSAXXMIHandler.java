@@ -45,6 +45,20 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	public boolean loadAllAttributes = true;
 	
+	@Override
+	public void endDocument() {
+		// TODO Auto-generated method stub
+		objectsAndRefNamesToVisit.clear();
+		objectsAndRefNamesToVisit = null;
+		actualObjectsToLoad.clear();
+		actualObjectsToLoad = null;
+		cache.clear();
+		cache = null;
+		traversal_currentFeatures.clear();
+		traversal_currentFeatures = null;
+		super.endDocument();
+	}
+	
 	public void setObjectsAndRefNamesToVisit(
 			HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit) {
 		this.objectsAndRefNamesToVisit = objectsAndRefNamesToVisit;
