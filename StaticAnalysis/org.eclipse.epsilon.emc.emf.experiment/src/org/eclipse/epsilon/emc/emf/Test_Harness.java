@@ -18,6 +18,7 @@ import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOpti
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
 
@@ -180,8 +181,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 2;
-		final int disregard = 1;
+		final int iteration = 20;
+		final int disregard = 10;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -277,50 +278,64 @@ public class Test_Harness {
 		Collections.sort(greedyExecute);
 		Collections.sort(greedyMemory);
 		
-		for(int i = 0; i < iteration-disregard; i++)
+		int pivot;
+		if ((iteration - disregard)/2 == 0) {
+			pivot = 1;
+		}
+		else {
+			pivot = (iteration-disregard)/2;
+		}
+		
+		for(int i = 0; i < iteration; i++)
 		{
-			if (i > 0) {
-				normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
-				normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
-				normalMemoryConsumption = (normalMemoryConsumption + normalMemory.get(i))/2;
+			if (i < pivot) {
 				
-				smartLoadTime = (smartLoadTime + smartLoad.get(i))/2;
-				smartExecutionTime = (smartExecutionTime + smartExecute.get(i))/2;
-				smartMemoryConsumption = (smartMemoryConsumption + smartMemory.get(i))/2;
-				
-				partialLoadTime = (partialLoadTime + partialLoad.get(i))/2;
-				partialExecutionTime = (partialExecutionTime + partialExecute.get(i))/2;
-				partialMemoryConsumption = (partialMemoryConsumption + partialMemory.get(i))/2;
-				
-				smartPartialLoadTime = (smartPartialLoadTime + smartPartialLoad.get(i))/2;
-				smartPartialExecutionTime = (smartPartialExecutionTime + smartPartialExecute.get(i))/2;
-				smartPartialMemoryConsumption = (smartPartialMemoryConsumption + smartPartialMemory.get(i))/2;
-				
-				greedyLoadTime = (greedyLoadTime + greedyLoad.get(i))/2;
-				greedyExecutionTime = (greedyExecutionTime + greedyExecute.get(i))/2;
-				greedyMemoryConsumption = (greedyMemoryConsumption + greedyMemory.get(i))/2;
-
 			}
 			else {
-				normalLoadTime = normalLoad.get(i);
-				normalExecutionTime = normalExecute.get(i);
-				normalMemoryConsumption = normalMemory.get(i);
+				if (i > pivot) {
+					normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
+					normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
+					normalMemoryConsumption = (normalMemoryConsumption + normalMemory.get(i))/2;
+					
+					smartLoadTime = (smartLoadTime + smartLoad.get(i))/2;
+					smartExecutionTime = (smartExecutionTime + smartExecute.get(i))/2;
+					smartMemoryConsumption = (smartMemoryConsumption + smartMemory.get(i))/2;
+					
+					partialLoadTime = (partialLoadTime + partialLoad.get(i))/2;
+					partialExecutionTime = (partialExecutionTime + partialExecute.get(i))/2;
+					partialMemoryConsumption = (partialMemoryConsumption + partialMemory.get(i))/2;
+					
+					smartPartialLoadTime = (smartPartialLoadTime + smartPartialLoad.get(i))/2;
+					smartPartialExecutionTime = (smartPartialExecutionTime + smartPartialExecute.get(i))/2;
+					smartPartialMemoryConsumption = (smartPartialMemoryConsumption + smartPartialMemory.get(i))/2;
+					
+					greedyLoadTime = (greedyLoadTime + greedyLoad.get(i))/2;
+					greedyExecutionTime = (greedyExecutionTime + greedyExecute.get(i))/2;
+					greedyMemoryConsumption = (greedyMemoryConsumption + greedyMemory.get(i))/2;
 
-				smartLoadTime = smartLoad.get(i);
-				smartExecutionTime = smartExecute.get(i);
-				smartMemoryConsumption = smartMemory.get(i);
-				
-				partialLoadTime = partialLoad.get(i);
-				partialExecutionTime = partialExecute.get(i);
-				partialMemoryConsumption = partialMemory.get(i);
-				
-				smartPartialLoadTime = smartPartialLoad.get(i);
-				smartPartialExecutionTime = smartPartialExecute.get(i);
-				smartPartialMemoryConsumption = smartPartialMemory.get(i);
-				
-				greedyLoadTime = greedyLoad.get(i);
-				greedyExecutionTime = greedyExecute.get(i);
-				greedyMemoryConsumption = greedyMemory.get(i);
+				}
+				else {
+					normalLoadTime = normalLoad.get(i);
+					normalExecutionTime = normalExecute.get(i);
+					normalMemoryConsumption = normalMemory.get(i);
+
+					smartLoadTime = smartLoad.get(i);
+					smartExecutionTime = smartExecute.get(i);
+					smartMemoryConsumption = smartMemory.get(i);
+					
+					partialLoadTime = partialLoad.get(i);
+					partialExecutionTime = partialExecute.get(i);
+					partialMemoryConsumption = partialMemory.get(i);
+					
+					smartPartialLoadTime = smartPartialLoad.get(i);
+					smartPartialExecutionTime = smartPartialExecute.get(i);
+					smartPartialMemoryConsumption = smartPartialMemory.get(i);
+					
+					greedyLoadTime = greedyLoad.get(i);
+					greedyExecutionTime = greedyExecute.get(i);
+					greedyMemoryConsumption = greedyMemory.get(i);
+				}
+
 			}
 		}
 		
