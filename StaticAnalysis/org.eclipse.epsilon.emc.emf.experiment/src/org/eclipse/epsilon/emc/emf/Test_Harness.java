@@ -181,8 +181,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 20;
-		final int disregard = 10;
+		final int iteration = 5;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -738,6 +738,14 @@ public class Test_Harness {
 			boolean smartLoading, 
 			boolean partialLoading) throws Exception {
 		
+		Ast2EolContext ast2EolContext;
+		EolElement dom;
+		VariableResolver vr;
+		TypeResolver tr;
+		LoadingOptimisationAnalyser loa;
+		LoadingOptimisationAnalysisContext loaContext;
+
+		
 		//prepare result
 		ArrayList<Long> result = new ArrayList<Long>();
 		//prepare eolModule
@@ -769,20 +777,20 @@ public class Test_Harness {
 			}
 			
 			
-			Ast2EolContext ast2EolContext = new Ast2EolContext();
-			EolElement dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
+			ast2EolContext = new Ast2EolContext();
+			dom = ast2EolContext.getEolElementCreatorFactory().createDomElement(eolModule.getAst(), null, ast2EolContext);
 			
-			VariableResolver vr = new VariableResolver();
+			vr = new VariableResolver();
 			vr.run(dom);
 			
-			TypeResolver tr = new TypeResolver();
+			tr = new TypeResolver();
 			tr.getTypeResolutionContext().setModule(eolModule);
 			tr.run(dom);
 			
-			LoadingOptimisationAnalyser loa = new LoadingOptimisationAnalyser();
+			loa = new LoadingOptimisationAnalyser();
 			loa.run(dom);
 			
-			LoadingOptimisationAnalysisContext loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
+			loaContext = (LoadingOptimisationAnalysisContext) loa.getTypeResolutionContext();
 			((EmfSmartModel)emfModel).setModelContainers(loaContext.getModelContainers());
 			((EmfSmartModel)emfModel).setSmartLoading(smartLoading);
 			((EmfSmartModel)emfModel).setPartialLoading(partialLoading);
@@ -809,6 +817,15 @@ public class Test_Harness {
 		emfModel.load();
 		
 		long result1 = (System.nanoTime()-init)/1000000;
+		
+		if (type == 1) {
+			ast2EolContext = null;
+			dom = null;
+			vr = null;
+			tr = null;
+			loa = null;
+			loaContext = null;
+		}
 		
 		result.add(result1);
 		System.out.println("(took ~" + result1 + "ms to load)");
