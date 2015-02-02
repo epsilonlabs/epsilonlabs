@@ -818,14 +818,14 @@ public class Test_Harness {
 		
 		long result1 = (System.nanoTime()-init)/1000000;
 		
-		if (type == 1) {
-			ast2EolContext = null;
-			dom = null;
-			vr = null;
-			tr = null;
-			loa = null;
-			loaContext = null;
-		}
+//		if (type == 1) {
+//			ast2EolContext = null;
+//			dom = null;
+//			vr = null;
+//			tr = null;
+//			loa = null;
+//			loaContext = null;
+//		}
 		
 		result.add(result1);
 		System.out.println("(took ~" + result1 + "ms to load)");
