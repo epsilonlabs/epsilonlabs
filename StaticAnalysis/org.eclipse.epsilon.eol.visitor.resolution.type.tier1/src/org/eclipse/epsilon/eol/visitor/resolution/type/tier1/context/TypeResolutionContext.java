@@ -131,9 +131,9 @@ public class TypeResolutionContext {
 	}
 	
 	//put metamode in the metamode container
-	public String inputMetaModel(EMetamodelDriver metaModel)
+	public String addMetamodelDriver(EMetamodelDriver metaModel)
 	{
-		return container.inputMetaModel(metaModel);
+		return container.addMetamodelDriver(metaModel);
 	}
 			
 	public EMetamodelDriver getMetaModel(String name)
@@ -178,7 +178,7 @@ public class TypeResolutionContext {
 		
 	public boolean containsMetaClass(String metaClass)
 	{
-		for(EMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetamodelDrivers())
 		{
 			if(em.containsMetaClass(metaClass))
 			{
@@ -190,7 +190,7 @@ public class TypeResolutionContext {
 		
 	public EMetamodelDriver getMetaModelDefiningMetaClass(String metaClass)
 	{
-		for(EMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetamodelDrivers())
 		{
 			if ((!(em instanceof PlainXMLMetamodelDriver)) && em.containsMetaClass(metaClass)) {
 				return em;
@@ -207,7 +207,7 @@ public class TypeResolutionContext {
 	public int numberOfMetamodelsDefine(String metaClass, boolean includeXMLModels)
 	{
 		int result = 0;
-		for(EMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetamodelDrivers())
 		{
 			if (includeXMLModels) {
 				if (em.containsMetaClass(metaClass)) {
@@ -227,7 +227,7 @@ public class TypeResolutionContext {
 	public ArrayList<EMetamodelDriver> metamodelsDefine(String classString)
 	{
 		ArrayList<EMetamodelDriver> result = new ArrayList<EMetamodelDriver>();
-		for(EMetamodelDriver em: container.getMetaModels())
+		for(EMetamodelDriver em: container.getMetamodelDrivers())
 		{
 			if (em.containsMetaClass(classString)) {
 				result.add(em);
@@ -249,7 +249,7 @@ public class TypeResolutionContext {
 	{
 		int result = 0;
 		if (type.equals("XML")) {
-			for(EMetamodelDriver em: container.getMetaModels())
+			for(EMetamodelDriver em: container.getMetamodelDrivers())
 			{
 				if (em instanceof PlainXMLMetamodelDriver) {
 					result++;
@@ -258,7 +258,7 @@ public class TypeResolutionContext {
 			return result;
 		}
 		else if (type.equals("EMF")) {
-			for(EMetamodelDriver em: container.getMetaModels())
+			for(EMetamodelDriver em: container.getMetamodelDrivers())
 			{
 				if (em instanceof EMFMetamodelDriver) {
 					result++;

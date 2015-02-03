@@ -27,19 +27,29 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			//visit lhs to resolve type
 			controller.visit(lhs, context); 
 			
-			//if lhs is of type Any, allow 
-			if (lhs.getResolvedType() instanceof AnyType) {
+			Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs
+			Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
+
+			if (lhsType == null) {
+				context.getLogBook().addError(lhsType, "Expression does not have a type");
 			}
-			else {
-				Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs
-				Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
-				
-				//if rhs is of any type
-				if (rhsType instanceof AnyType) {
-					context.getLogBook().addWarning(rhs, "potential type mismatch");
+			
+			if (rhsType == null) {
+				context.getLogBook().addError(rhsType, "Expression does not have a type");
+			}
+			
+			if (lhsType != null && rhsType != null) {
+				//if lhs is of type Any, allow 
+				if (lhs.getResolvedType() instanceof AnyType) {
 				}
-				else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
-						context.getLogBook().addError(rhs, "Type mismatch");
+				else {
+					//if rhs is of any type
+					if (rhsType instanceof AnyType) {
+						context.getLogBook().addWarning(rhs, "potential type mismatch");
+					}
+					else if (!context.getTypeUtil().isEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
+							context.getLogBook().addError(rhs, "Type mismatch");
+					}
 				}
 			}
 		}

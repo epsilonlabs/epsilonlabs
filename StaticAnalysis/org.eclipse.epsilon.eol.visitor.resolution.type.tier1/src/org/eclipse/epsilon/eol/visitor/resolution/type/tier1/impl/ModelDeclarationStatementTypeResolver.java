@@ -80,7 +80,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 				}
 				
 				//put the metamodel in the context
-				String s = context.inputMetaModel(metaModel);
+				String s = context.addMetamodelDriver(metaModel);
 				if (!s.equals("")) {
 					context.getLogBook().addError(modelDeclarationStatement, s);
 				}
@@ -135,7 +135,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 				}
 				
 				//put the metamodel in the context
-				String s = context.inputMetaModel(metaModel);
+				String s = context.addMetamodelDriver(metaModel);
 				if (!s.equals("")) {
 					context.getLogBook().addError(modelDeclarationStatement, s);
 				}

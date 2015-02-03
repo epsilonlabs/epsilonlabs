@@ -31,7 +31,7 @@ public class ModelElementTypeTypeResolver extends ModelElementTypeVisitor<TypeRe
 		}
 		
 		//if no metamodel is declared, report error
-		if (context.getContainer().getMetaModels().size() == 0) {
+		if (context.getContainer().getMetamodelDrivers().size() == 0) {
 			context.getLogBook().addError(modelElementType, "No metamodel has been defined, please define metamodels");
 			return null;
 		}
