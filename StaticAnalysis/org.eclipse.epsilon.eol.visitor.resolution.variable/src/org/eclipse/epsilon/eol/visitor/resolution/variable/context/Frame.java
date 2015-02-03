@@ -7,8 +7,11 @@ import org.eclipse.epsilon.eol.metamodel.*;
 
 public class Frame {
 
+	//map to store variables by name
 	protected HashMap<String, Variable> storage;
+	//type of frame
 	protected FrameType type;
+	//the entry point of the frame
 	protected EolElement entryPoint;
 	
 	public Frame(EolElement entryPoint, boolean isUnprotected)

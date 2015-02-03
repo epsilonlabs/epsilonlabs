@@ -12,31 +12,66 @@ public class VariableDeclarationExpressionVariableResolver extends VariableDecla
 			VariableDeclarationExpression variableDeclarationExpression,
 			VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
-		//if there is already a variable in the current scope, report error
- 		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
-			context.getLogBook().addError(variableDeclarationExpression, context.VARIABLE_EXISTED + variableDeclarationExpression.getName().getName());
+		
+		
+		if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
+			context.getLogBook().addError(variableDeclarationExpression.getName(), context.RESERVED_KEYWORD);
 		}
 		else {
-			//if the name is a reserved keyword
-			if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
-				context.getLogBook().addError(variableDeclarationExpression.getName(), context.RESERVED_KEYWORD);
-			}
-			//else
-			else {
-				//put the variable
+	 		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
+				context.getLogBook().addError(variableDeclarationExpression, context.VARIABLE_EXISTED + variableDeclarationExpression.getName().getName());
+	 		}
+	 		else {
 				context.getStack().putVariable(variableDeclarationExpression, false);
-				//if the container of the var is an assignment statement and is the lhs of the assignment, add the stateement to the definition point
-				/*
-				if (variableDeclarationExpression.getContainer() instanceof AssignmentStatement) {
-					AssignmentStatement assignmentStatement = (AssignmentStatement) variableDeclarationExpression.getContainer();
-					if (assignmentStatement.getLhs().equals(variableDeclarationExpression)) {
-						variableDeclarationExpression.getDefinitionPoints().add(assignmentStatement);
-					}
-				}
-				*/
 			}
+
 		}
 		return null;
 	}
+	
+//	@Override
+//	public Object visit(
+//			VariableDeclarationExpression variableDeclarationExpression,
+//			VariableResolutionContext context,
+//			EolVisitorController<VariableResolutionContext, Object> controller) {
+//		
+//		
+//		if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
+//			context.getLogBook().addError(variableDeclarationExpression.getName(), context.RESERVED_KEYWORD);
+//		}
+//		else {
+//	 		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
+//				context.getLogBook().addError(variableDeclarationExpression, context.VARIABLE_EXISTED + variableDeclarationExpression.getName().getName());
+//	 		}
+//	 		else {
+//				context.getStack().putVariable(variableDeclarationExpression, false);
+//			}
+//
+//		}
+		//if there is already a variable in the current scope, report error
+// 		if (context.getStack().variableExistsInCurrentScope(variableDeclarationExpression.getName().getName())) {
+//			context.getLogBook().addError(variableDeclarationExpression, context.VARIABLE_EXISTED + variableDeclarationExpression.getName().getName());
+//		}
+//		else {
+			//if the name is a reserved keyword
+//			if (context.isKeyWordSimple(variableDeclarationExpression.getName().getName())) {
+//				context.getLogBook().addError(variableDeclarationExpression.getName(), context.RESERVED_KEYWORD);
+//			}
+//			else {
+				//put the variable
+//				context.getStack().putVariable(variableDeclarationExpression, false);
+				//if the container of the var is an assignment statement and is the lhs of the assignment, add the stateement to the definition point
+				
+//				if (variableDeclarationExpression.getContainer() instanceof AssignmentStatement) {
+//					AssignmentStatement assignmentStatement = (AssignmentStatement) variableDeclarationExpression.getContainer();
+//					if (assignmentStatement.getLhs().equals(variableDeclarationExpression)) {
+//						variableDeclarationExpression.getDefinitionPoints().add(assignmentStatement);
+//					}
+//				}
+//				
+//			}
+//		}
+//		return null;
+//	}
 
 }
