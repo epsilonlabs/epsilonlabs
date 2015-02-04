@@ -46,7 +46,7 @@ public class EmfSmartModel extends EmfModel{
 	protected SmartEmfModelResourceFactory f;
 	
 	public void clearCollections()
-	{
+	{		
 		visitedClasses.clear();
 		visitedClasses = null;
 		objectsAndRefNamesToVisit.clear();
@@ -147,6 +147,9 @@ public class EmfSmartModel extends EmfModel{
 		if (partialLoading) {
 			clearCollections();
 		}
+		
+		modelContainers.clear();
+		modelContainers = null;
 	}
 	
 	public void populateEmptyObjects()

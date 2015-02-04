@@ -57,8 +57,11 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		traversal_currentFeatures.clear();
 		traversal_currentFeatures = null;
 		objects.clear();
+		objects = null;
 		elements.clear();
+		elements = null;
 		mixedTargets.clear();
+		mixedTargets = null;
 		super.endDocument();
 	}
 	

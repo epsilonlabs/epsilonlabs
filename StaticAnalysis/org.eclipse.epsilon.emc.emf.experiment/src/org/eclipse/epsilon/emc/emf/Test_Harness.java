@@ -25,8 +25,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-		Test_Harness.runSet1();
-//		Test_Harness.runSet2();
+//		Test_Harness.runSet1();
+		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
@@ -181,12 +181,13 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 5;
-		final int disregard = 1;
+		final int iteration = 20;
+		final int disregard = 10;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false, false);
 			normalLoad.add(tempResult.get(0));
 			normalExecute.add(tempResult.get(1));
@@ -197,6 +198,7 @@ public class Test_Harness {
 		//run smart
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, false);
 			smartLoad.add(tempResult.get(0));
 			smartExecute.add(tempResult.get(1));
@@ -207,6 +209,7 @@ public class Test_Harness {
 		//run partial
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false, true);
 			partialLoad.add(tempResult.get(0));
 			partialExecute.add(tempResult.get(1));
@@ -217,6 +220,7 @@ public class Test_Harness {
 		//run smart partial
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, true);
 			smartPartialLoad.add(tempResult.get(0));
 			smartPartialExecute.add(tempResult.get(1));
@@ -227,6 +231,7 @@ public class Test_Harness {
 		//run greedy
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false, false);
 			greedyLoad.add(tempResult.get(0));
 			greedyExecute.add(tempResult.get(1));
@@ -292,50 +297,51 @@ public class Test_Harness {
 				
 			}
 			else {
-				if (i > pivot) {
-					normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
-					normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
-					normalMemoryConsumption = (normalMemoryConsumption + normalMemory.get(i))/2;
-					
-					smartLoadTime = (smartLoadTime + smartLoad.get(i))/2;
-					smartExecutionTime = (smartExecutionTime + smartExecute.get(i))/2;
-					smartMemoryConsumption = (smartMemoryConsumption + smartMemory.get(i))/2;
-					
-					partialLoadTime = (partialLoadTime + partialLoad.get(i))/2;
-					partialExecutionTime = (partialExecutionTime + partialExecute.get(i))/2;
-					partialMemoryConsumption = (partialMemoryConsumption + partialMemory.get(i))/2;
-					
-					smartPartialLoadTime = (smartPartialLoadTime + smartPartialLoad.get(i))/2;
-					smartPartialExecutionTime = (smartPartialExecutionTime + smartPartialExecute.get(i))/2;
-					smartPartialMemoryConsumption = (smartPartialMemoryConsumption + smartPartialMemory.get(i))/2;
-					
-					greedyLoadTime = (greedyLoadTime + greedyLoad.get(i))/2;
-					greedyExecutionTime = (greedyExecutionTime + greedyExecute.get(i))/2;
-					greedyMemoryConsumption = (greedyMemoryConsumption + greedyMemory.get(i))/2;
+				if (pivot < pivot+disregard) {
+					if (i > pivot) {
+						normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
+						normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
+						normalMemoryConsumption = (normalMemoryConsumption + normalMemory.get(i))/2;
+						
+						smartLoadTime = (smartLoadTime + smartLoad.get(i))/2;
+						smartExecutionTime = (smartExecutionTime + smartExecute.get(i))/2;
+						smartMemoryConsumption = (smartMemoryConsumption + smartMemory.get(i))/2;
+						
+						partialLoadTime = (partialLoadTime + partialLoad.get(i))/2;
+						partialExecutionTime = (partialExecutionTime + partialExecute.get(i))/2;
+						partialMemoryConsumption = (partialMemoryConsumption + partialMemory.get(i))/2;
+						
+						smartPartialLoadTime = (smartPartialLoadTime + smartPartialLoad.get(i))/2;
+						smartPartialExecutionTime = (smartPartialExecutionTime + smartPartialExecute.get(i))/2;
+						smartPartialMemoryConsumption = (smartPartialMemoryConsumption + smartPartialMemory.get(i))/2;
+						
+						greedyLoadTime = (greedyLoadTime + greedyLoad.get(i))/2;
+						greedyExecutionTime = (greedyExecutionTime + greedyExecute.get(i))/2;
+						greedyMemoryConsumption = (greedyMemoryConsumption + greedyMemory.get(i))/2;
 
+					}
+					else {
+						normalLoadTime = normalLoad.get(i);
+						normalExecutionTime = normalExecute.get(i);
+						normalMemoryConsumption = normalMemory.get(i);
+
+						smartLoadTime = smartLoad.get(i);
+						smartExecutionTime = smartExecute.get(i);
+						smartMemoryConsumption = smartMemory.get(i);
+						
+						partialLoadTime = partialLoad.get(i);
+						partialExecutionTime = partialExecute.get(i);
+						partialMemoryConsumption = partialMemory.get(i);
+						
+						smartPartialLoadTime = smartPartialLoad.get(i);
+						smartPartialExecutionTime = smartPartialExecute.get(i);
+						smartPartialMemoryConsumption = smartPartialMemory.get(i);
+						
+						greedyLoadTime = greedyLoad.get(i);
+						greedyExecutionTime = greedyExecute.get(i);
+						greedyMemoryConsumption = greedyMemory.get(i);
+					}
 				}
-				else {
-					normalLoadTime = normalLoad.get(i);
-					normalExecutionTime = normalExecute.get(i);
-					normalMemoryConsumption = normalMemory.get(i);
-
-					smartLoadTime = smartLoad.get(i);
-					smartExecutionTime = smartExecute.get(i);
-					smartMemoryConsumption = smartMemory.get(i);
-					
-					partialLoadTime = partialLoad.get(i);
-					partialExecutionTime = partialExecute.get(i);
-					partialMemoryConsumption = partialMemory.get(i);
-					
-					smartPartialLoadTime = smartPartialLoad.get(i);
-					smartPartialExecutionTime = smartPartialExecute.get(i);
-					smartPartialMemoryConsumption = smartPartialMemory.get(i);
-					
-					greedyLoadTime = greedyLoad.get(i);
-					greedyExecutionTime = greedyExecute.get(i);
-					greedyMemoryConsumption = greedyMemory.get(i);
-				}
-
 			}
 		}
 		
@@ -808,25 +814,18 @@ public class Test_Harness {
 		if (type == 1 && partialLoading) {
 			((EmfSmartModel)emfModel).preProcess();
 		}
-
-		System.out.println(modelType + " model prepared, loading...");
 		
+		System.out.println(modelType + " model prepared, loading...");
+		System.gc();
+		Runtime.getRuntime().gc();
+
 		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
 		long init = System.nanoTime();
 		
 		emfModel.load();
 		
 		long result1 = (System.nanoTime()-init)/1000000;
-		
-//		if (type == 1) {
-//			ast2EolContext = null;
-//			dom = null;
-//			vr = null;
-//			tr = null;
-//			loa = null;
-//			loaContext = null;
-//		}
-		
+				
 		result.add(result1);
 		System.out.println("(took ~" + result1 + "ms to load)");
 		
@@ -838,6 +837,8 @@ public class Test_Harness {
 		long result2 = (System.nanoTime() - init)/1000000;
 		result.add(result2);
 		System.out.println("(took ~" + result2 + "ms to run)");
+		System.gc();
+		Runtime.getRuntime().gc();
 		
 		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
 		
