@@ -9,10 +9,10 @@ import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 public class MetamodelContainer {
 
-	//array that contains the metamodels
+	//container for metamodel drivers
 	ArrayList<EMetamodelDriver> metaModelDrivers = new ArrayList<EMetamodelDriver>();
 	
-	//map that looks up an array of metamodels with a given alias
+	//map for alias and metamodel drivers
 	HashMap<String, ArrayList<EMetamodelDriver>> aliasLookUp = new HashMap<String, ArrayList<EMetamodelDriver>>();
 	
 	//metamodel name space

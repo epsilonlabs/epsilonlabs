@@ -11,8 +11,12 @@ public class ExpressionStatementTypeResolver extends ExpressionStatementVisitor<
 	public Object visit(ExpressionStatement expressionStatement,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
 		if (expressionStatement.getExpression() != null) {
 			controller.visit(expressionStatement.getExpression(), context);
+		}
+		else {
+			context.getLogBook().addError(expressionStatement, "Expression cannot be null");
 		}
 		return null;
 	}

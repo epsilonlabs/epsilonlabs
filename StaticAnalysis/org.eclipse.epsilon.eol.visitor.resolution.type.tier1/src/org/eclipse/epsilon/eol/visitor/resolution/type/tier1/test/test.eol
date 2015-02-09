@@ -1,0 +1,8 @@
+var a;
+var b = true;
+
+var c = a xor b;
+
+c.type().println();
+
+c.println();

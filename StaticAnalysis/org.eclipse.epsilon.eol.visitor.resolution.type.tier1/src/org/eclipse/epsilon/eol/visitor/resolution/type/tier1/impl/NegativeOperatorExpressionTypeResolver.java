@@ -12,6 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.NegativeOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpressionVisitor<TypeResolutionContext, Object>{
@@ -21,35 +22,38 @@ public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpr
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		controller.visit(negativeOperatorExpression.getExpr(), context);
-			
+		
+		
+		Type type = context.getEolFactory().createIntegerType(); //create an integer type
+		negativeOperatorExpression.setResolvedType(type);
+		context.setAssets(type, negativeOperatorExpression);
+
 		Expression expression = negativeOperatorExpression.getExpr(); //get the expression
 		Type exprType = expression.getResolvedType();
 		
-		if (exprType instanceof AnyType) {
-			negativeOperatorExpression.setResolvedType(context.getEolFactory().createIntegerType());
-		}
-		
-		else if (exprType instanceof PrimitiveType) {
-			if (exprType instanceof BooleanType) { //if expression is of type boolean
-				context.getLogBook().addError(expression, "Expression cannot be Boolean");
+		if (exprType != null) {
+			if (exprType instanceof AnyType) {
+				negativeOperatorExpression.setResolvedType(context.getEolFactory().createIntegerType());
 			}
-			
-			if (exprType instanceof StringType) { //if expression is of type string
-				//handle string
-				context.getLogBook().addError(expression, "Expression cannot be String");
+			else if (exprType instanceof PrimitiveType) {
+				if (exprType instanceof RealType) { //if expression is of type real
+					negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+				}	
+				else if (exprType instanceof IntegerType) {
+					negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+				}
+				else {
+					context.getLogBook().addError(expression, "Expression should be numeral");
+				}
 			}
-			
-			if (exprType instanceof RealType) { //if expression is of type real
-				negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
-			}	
-			if (exprType instanceof IntegerType) {
-				negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+			else {
+				context.getLogBook().addError(expression, "Expression should be numeral");
 			}
 		}
-		
 		else {
-			context.getLogBook().addError(expression, "Expression should be numeral");
+			context.getLogBook().addError(expression, "Expression does not have a type");
 		}
+		
 		
 		return null;
 	}

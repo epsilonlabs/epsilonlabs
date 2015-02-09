@@ -10,6 +10,8 @@ public class BlockTypeResolver extends BlockVisitor<TypeResolutionContext, Objec
 	@Override
 	public Object visit(Block block, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		//get statements then resolve one by one
 		for(Statement stmt: block.getStatements())
 		{
 			controller.visit(stmt, context);

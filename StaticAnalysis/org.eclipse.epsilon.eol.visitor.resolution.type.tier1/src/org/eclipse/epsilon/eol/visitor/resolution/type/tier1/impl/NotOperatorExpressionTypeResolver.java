@@ -12,23 +12,30 @@ public class NotOperatorExpressionTypeResolver extends NotOperatorExpressionVisi
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//get the expression
 		Expression expr = notOperatorExpression.getExpr();
 		
-		controller.visit(expr, context); //visit expr first
+		//visit expr first
+		controller.visit(expr, context); 
 		
-		Type exprType = expr.getResolvedType();
-		
-		Type type = context.getEolFactory().createBooleanType(); //set type first, this allows minor-error in expressions n statements
+		//set type first, this allows minor-error in expressions n statements
+		Type type = context.getEolFactory().createBooleanType(); 
 		notOperatorExpression.setResolvedType(type);
 		context.setAssets(type, notOperatorExpression); //set the type to the notOperatorExpression
+
+		Type exprType = expr.getResolvedType();
 		
-		if (exprType instanceof AnyType) {
-			return null;
+		if (exprType != null) {
+			if (exprType instanceof AnyType) {
+				return null;
+			}
+			if(!(exprType instanceof BooleanType))
+			{
+				context.getLogBook().addError(notOperatorExpression.getExpr(), "Expression should be boolean");
+			}
 		}
-		
-		if(!(exprType instanceof BooleanType))
-		{
-			context.getLogBook().addError(notOperatorExpression.getExpr(), "Expression is not of type Boolean");
+		else {
+			context.getLogBook().addError(expr, "Expression does not have a type");
 		}
 		
 		return null;

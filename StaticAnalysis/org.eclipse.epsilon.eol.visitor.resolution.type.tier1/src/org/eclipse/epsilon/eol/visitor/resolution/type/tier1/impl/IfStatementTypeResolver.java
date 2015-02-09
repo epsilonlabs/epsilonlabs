@@ -11,9 +11,13 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 	public Object visit(IfStatement ifStatement, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//visit condition
 		controller.visit(ifStatement.getCondition(), context);
+		
+		//visit if body
 		controller.visit(ifStatement.getIfBody(), context);
 		
+		//visit else body if there is one
 		if (ifStatement.getElseBody() != null) {
 			controller.visit(ifStatement.getElseBody(), context);
 

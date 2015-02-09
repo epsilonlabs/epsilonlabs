@@ -11,8 +11,13 @@ public class FormalParameterExpressionTypeResolver extends FormalParameterExpres
 	public Object visit(FormalParameterExpression formalParameterExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		//visit name first
 		controller.visit(formalParameterExpression.getName(), context);
+		
+		//visit resolved type
 		controller.visit(formalParameterExpression.getResolvedType(), context);
+		
 		return null;
 	}
 

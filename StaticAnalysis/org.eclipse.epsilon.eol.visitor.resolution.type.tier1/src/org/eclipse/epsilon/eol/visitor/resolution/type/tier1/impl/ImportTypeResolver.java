@@ -10,8 +10,15 @@ public class ImportTypeResolver extends ImportVisitor<TypeResolutionContext, Obj
 	@Override
 	public Object visit(Import _import, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		// TODO Auto-generated method stub
-		controller.visit(_import.getImportedProgram(), context);
+		
+		//visit the imported program
+		if (_import.getImportedProgram() != null) {
+			controller.visit(_import.getImportedProgram(), context);	
+		}
+		else {
+			context.getLogBook().addError(_import, "Imported program cannot be resolved");
+		}
+		
 		return null;
 	}
 

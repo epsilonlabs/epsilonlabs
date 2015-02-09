@@ -3,64 +3,103 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.BinaryOperatorExpressionVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.LogicalOperatorExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
-
-	@Override
-	public boolean appliesTo(BinaryOperatorExpression binaryOperatorExpression,
-			TypeResolutionContext context) {
-		return binaryOperatorExpression instanceof AndOperatorExpression ||
-				binaryOperatorExpression instanceof OrOperatorExpression ||
-				binaryOperatorExpression instanceof ImpliesOperatorExpression ||
-				binaryOperatorExpression instanceof XorOperatorExpression ||
-				binaryOperatorExpression instanceof GreaterThanOperatorExpression ||
-				binaryOperatorExpression instanceof GreaterThanOrEqualToOperatorExpression ||
-				binaryOperatorExpression instanceof EqualsOperatorExpression ||
-				binaryOperatorExpression instanceof NotEqualsOperatorExpression ||
-				binaryOperatorExpression instanceof LessThanOperatorExpression ||
-				binaryOperatorExpression instanceof LessThanOrEqualToOperatorExpression;				
+public class LogicalOperatorExpressionTypeResolver extends LogicalOperatorExpressionVisitor<TypeResolutionContext, Object>{	
+	
+	public boolean isLogicalOperator(BinaryOperatorExpression op)
+	{
+		boolean result = false;
+		if (op instanceof AndOperatorExpression ||
+				op instanceof OrOperatorExpression ||
+				op instanceof ImpliesOperatorExpression ||
+				op instanceof XorOperatorExpression) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean isComparativeOperator(BinaryOperatorExpression op)
+	{
+		boolean result = false;
+		if (op instanceof GreaterThanOperatorExpression ||
+				op instanceof GreaterThanOrEqualToOperatorExpression ||
+				//op instanceof EqualsOperatorExpression ||
+				//op instanceof NotEqualsOperatorExpression ||
+				op instanceof LessThanOperatorExpression ||
+				op instanceof LessThanOrEqualToOperatorExpression) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public boolean isEqualityComparisonOperator(BinaryOperatorExpression op)
+	{
+		boolean result = false;
+		if (op instanceof EqualsOperatorExpression ||
+				op instanceof NotEqualsOperatorExpression) {
+			result = true;
+		}
+		return result;
 	}
 
+
 	@Override
-	public Object visit(BinaryOperatorExpression binaryOperatorExpression,
+	public Object visit(LogicalOperatorExpression logicalOperatorExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		controller.visit(binaryOperatorExpression.getLhs(), context);
-		controller.visit(binaryOperatorExpression.getRhs(), context);
 		
-		BooleanType type = context.getEolFactory().createBooleanType(); //set type first, this allows minor-error in expressions n statements
-		binaryOperatorExpression.setResolvedType(type);
+		controller.visit(logicalOperatorExpression.getLhs(), context);
+		controller.visit(logicalOperatorExpression.getRhs(), context);
 		
-		Expression lhs = binaryOperatorExpression.getLhs();
-		Expression rhs = binaryOperatorExpression.getRhs();
+		//set type first, this allows minor-error in expressions and statements
+		BooleanType type = context.getEolFactory().createBooleanType(); 
 		
+		//set the resolved type first
+		logicalOperatorExpression.setResolvedType(type);
+		
+		//get lhs expr
+		Expression lhs = logicalOperatorExpression.getLhs();
+		//get rhs expr
+		Expression rhs = logicalOperatorExpression.getRhs();
+		
+		//get lhs type
 		Type lhsType = lhs.getResolvedType();
+		//get rhs type
 		Type rhsType = rhs.getResolvedType();
 		
-		if (isLogicalOperator(binaryOperatorExpression)) {
+		
+		if (lhsType == null) {
+			context.getLogBook().addError(lhs, "Expression does not have a type");
+			return null;
+		}
+		
+		if (rhsType == null) {
+			context.getLogBook().addError(rhs, "Expression does not have a type");
+			return null;
+		}
+		
+		if (isLogicalOperator(logicalOperatorExpression)) {
 			if (lhs.getResolvedType() instanceof AnyType || rhs.getResolvedType() instanceof AnyType) {
 				
 			}
 			else {
-				if(binaryOperatorExpression.getLhs().getResolvedType() instanceof BooleanType)
+				if(logicalOperatorExpression.getLhs().getResolvedType() instanceof BooleanType)
 				{
-					if (binaryOperatorExpression.getRhs().getResolvedType() instanceof BooleanType) {
+					if (logicalOperatorExpression.getRhs().getResolvedType() instanceof BooleanType) {
 						
 					}
 					else {
-						context.getLogBook().addError(binaryOperatorExpression.getRhs(), "Expression is not of type Boolean");
+						context.getLogBook().addError(logicalOperatorExpression.getRhs(), "Expression is not of type Boolean");
 					}
 				}
 				else {
-					context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression is not of type Boolean");
+					context.getLogBook().addError(logicalOperatorExpression.getLhs(), "Expression is not of type Boolean");
 				}
 			}
 		}
-		else if (isComparativeOperator(binaryOperatorExpression)) {
-			
-			
-			
+		else if (isComparativeOperator(logicalOperatorExpression)) {
 			if (lhsType instanceof AnyType || rhsType instanceof AnyType) {
 				
 			}
@@ -84,7 +123,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 				context.getLogBook().addError(lhs, "Expression should be of type Integer, Real or String");
 			}
 		}
-		else if(isEqualityComparisonOperator(binaryOperatorExpression))
+		else if(isEqualityComparisonOperator(logicalOperatorExpression))
 		{
 		
 			if (lhsType instanceof AnyType || rhsType instanceof AnyType) {
@@ -122,45 +161,8 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			}
 		}
 		
-		context.setAssets(type, binaryOperatorExpression);
+		context.setAssets(type, logicalOperatorExpression);
 		return null;
-	}
-	
-	
-	public boolean isLogicalOperator(BinaryOperatorExpression op)
-	{
-		boolean result = false;
-		if (op instanceof AndOperatorExpression ||
-				op instanceof OrOperatorExpression ||
-				op instanceof ImpliesOperatorExpression ||
-				op instanceof XorOperatorExpression) {
-			result = true;
-		}
-		return result;
-	}
-	
-	public boolean isComparativeOperator(BinaryOperatorExpression op)
-	{
-		boolean result = false;
-		if (op instanceof GreaterThanOperatorExpression ||
-				op instanceof GreaterThanOrEqualToOperatorExpression ||
-				//op instanceof EqualsOperatorExpression ||
-				//op instanceof NotEqualsOperatorExpression ||
-				op instanceof LessThanOperatorExpression ||
-				op instanceof LessThanOrEqualToOperatorExpression) {
-			result = true;
-		}
-		return result;
-	}
-	
-	public boolean isEqualityComparisonOperator(BinaryOperatorExpression op)
-	{
-		boolean result = false;
-		if (op instanceof EqualsOperatorExpression ||
-				op instanceof NotEqualsOperatorExpression) {
-			result = true;
-		}
-		return result;
 	}
 
 }

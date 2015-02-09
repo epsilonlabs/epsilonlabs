@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.BooleanType;
+import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.MinusOperatorExpression;
@@ -29,84 +30,99 @@ public class MinusOperatorExpressionTypeResolver extends MinusOperatorExpression
 		Type lhsType = lhs.getResolvedType();
 		Type rhsType = rhs.getResolvedType();
 		
-		Type type = context.getEolFactory().createIntegerType(); //create an integer type
+		Type type = context.getEolFactory().createAnyType(); //create an integer type
+		minusOperatorExpression.setResolvedType(type);
+		context.setAssets(type, minusOperatorExpression);
 		
-		if(lhsType == null){
-			context.getLogBook().addError(lhs, "type is not properly resolved");
+		if(lhsType == null)
+		{
+			context.getLogBook().addError(lhs, "Expression does not have a type");
+			return null;
 		}
 		
 		if(rhsType == null)
 		{
-			context.getLogBook().addError(rhs, "Cannot resolve type");
+			context.getLogBook().addError(rhs, "Expression does not have a type");
+			return null;
 		}
 		
 		if (lhsType instanceof AnyType) {
-			if (rhsType instanceof IntegerType || rhsType instanceof RealType) {
-				type = EcoreUtil.copy(rhsType);
-			}
-			else {
-				context.getLogBook().addError(rhs, "Expression should be numeral");
-			}
+			context.getLogBook().addError(rhs, "Expression is of type Any");
+			return null;
 		}
 		
 		if (rhsType instanceof AnyType) {
-			if (lhsType instanceof IntegerType || lhsType instanceof RealType) {
-				type = EcoreUtil.copy(lhsType);
-			}
-			else {
-				context.getLogBook().addError(lhs, "Expression should be numeral");
-			}
+			context.getLogBook().addError(rhs, "Expression is of type Any");
+			return null;
 		}
 		
 		if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
-			if(lhsType instanceof StringType)
-			{
-				context.getLogBook().addError(lhs, "Expression cannot be of type String");
+			if (lhsType instanceof IntegerType && rhsType instanceof IntegerType) {
+				type = context.getEolFactory().createIntegerType(); //create an integer type
+				minusOperatorExpression.setResolvedType(type);
+				context.setAssets(type, minusOperatorExpression);
+				return null;
 			}
-			
-			if(rhsType instanceof StringType)
-			{
-				context.getLogBook().addError(rhs, "Expression cannot be of type String");
+			else {
+				if (lhsType instanceof StringType || rhsType instanceof StringType) {
+					if(lhsType instanceof StringType)
+					{
+						context.getLogBook().addError(lhs, "Expression should be numeral");
+						return null;
+					}
+					
+					if(rhsType instanceof StringType)
+					{
+						context.getLogBook().addError(rhs, "Expression should be numeral");
+					}
+					return null;
+				}
+				if (lhsType instanceof BooleanType || rhsType instanceof BooleanType) {
+					if(lhsType instanceof BooleanType)
+					{
+						context.getLogBook().addError(lhs, "Expression should be numeral");
+					}
+					
+					if(rhsType instanceof BooleanType)
+					{
+						context.getLogBook().addError(rhs, "Expression should be numeral");
+					}
+					return null;
+				}
+				
+				if (lhsType instanceof IntegerType && rhsType instanceof RealType) {
+					type = context.getEolFactory().createRealType(); //if any is real, create a real type
+				}
+				
+				if (rhsType instanceof RealType && rhsType instanceof IntegerType) {
+					type = context.getEolFactory().createRealType(); //if any is real, create a real type
+				}
+				
+				if (rhsType instanceof RealType && rhsType instanceof RealType) {
+					type = context.getEolFactory().createRealType(); //if any is real, create a real type
+				}
+				return null;
 			}
-			
-			if(lhsType instanceof BooleanType)
-			{
-				context.getLogBook().addError(lhs, "Expression is of type Boolean");
 
-				//handle lhs boolean
-			}
-			
-			if(rhsType instanceof BooleanType)
-			{
-				context.getLogBook().addError(rhs, "Expression is of type Boolean");
-
-				//handle rhs boolean
-			}
-			
-			if (lhsType instanceof IntegerType && rhsType instanceof RealType) {
-				type = context.getEolFactory().createRealType(); //if any is real, create a real type
-			}
-			
-			if (rhsType instanceof RealType && rhsType instanceof IntegerType) {
-				type = context.getEolFactory().createRealType(); //if any is real, create a real type
-			}
-
+		}
+		else if (lhsType instanceof CollectionType && rhsType instanceof CollectionType) {
+			type = EcoreUtil.copy(lhsType);
+			minusOperatorExpression.setResolvedType(type);
+			context.setAssets(type, minusOperatorExpression);
+			return null;
 		}
 		else {
 			if(!(lhsType instanceof PrimitiveType))
 			{
-				context.getLogBook().addError(lhs, "Expression is not of primitive type");
-				
+				context.getLogBook().addError(lhs, "Expression should be numeral");
 			}
 			
 			if(!(rhsType instanceof PrimitiveType))
 			{
-				context.getLogBook().addError(rhs, "Expression is not of primitive type");
+				context.getLogBook().addError(rhs, "Expression should be numeral");
 			}
 		}
 				
-		context.setAssets(type, minusOperatorExpression); //set assets for the type
-		minusOperatorExpression.setResolvedType(type);
 		return null;
 	}
 

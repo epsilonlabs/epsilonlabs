@@ -13,18 +13,41 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 
+		//visit iterator
 		controller.visit(forStatement.getIterator(), context);
+		
+		//visit iterated
 		controller.visit(forStatement.getIterated(), context);
-		if (forStatement.getIterated().getResolvedType() instanceof CollectionType) {
-			CollectionType iteratedType = (CollectionType) forStatement.getIterated().getResolvedType();
-			Type contentType = null;
-			if (iteratedType.getContentType() != null) {
-				contentType = EcoreUtil.copy(iteratedType.getContentType());
-				forStatement.getIterator().setResolvedType(EcoreUtil.copy(contentType));
-			}	
+		
+		if (forStatement.getIterated().getResolvedType() != null) {
+			//if iterated is collection type
+			if (forStatement.getIterated().getResolvedType() instanceof CollectionType) {
+				
+				//get iterated type
+				CollectionType iteratedType = (CollectionType) forStatement.getIterated().getResolvedType();
+				
+				Type contentType = null;
+				
+				if (iteratedType.getContentType() != null) {
+					contentType = EcoreUtil.copy(iteratedType.getContentType());
+					forStatement.getIterator().setResolvedType(EcoreUtil.copy(contentType));
+				}
+				else {
+					//technically this should not happen
+					contentType = context.getEolFactory().createAnyType();
+					forStatement.getIterator().setResolvedType(EcoreUtil.copy(contentType));
+				}
+			}
+			else {
+				context.getLogBook().addError(forStatement.getIterated(), "Expression should be a Collection");
+			}
+			
+			controller.visit(forStatement.getBody(), context);
+		}
+		else {
+			context.getLogBook().addError(forStatement.getIterated(), "Expression does not have a type");
 		}
 		
-		controller.visit(forStatement.getBody(), context);
 		
 		return null;
 	}

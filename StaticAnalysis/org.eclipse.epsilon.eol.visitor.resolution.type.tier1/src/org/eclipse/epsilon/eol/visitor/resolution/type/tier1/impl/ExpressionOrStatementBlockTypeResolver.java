@@ -13,7 +13,9 @@ public class ExpressionOrStatementBlockTypeResolver extends ExpressionOrStatemen
 	public Object visit(ExpressionOrStatementBlock expressionOrStatementBlock,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		//get the expr
 		Expression expr = expressionOrStatementBlock.getExpression();
+		//get the block
 		Block block = expressionOrStatementBlock.getBlock();
 		
 		if (expr != null) {
@@ -22,6 +24,10 @@ public class ExpressionOrStatementBlockTypeResolver extends ExpressionOrStatemen
 		
 		if (block != null) {
 			controller.visit(block, context);
+		}
+		
+		if (expr == null && block == null) {
+			context.getLogBook().addError(expressionOrStatementBlock, "invalid ExpressionOrStatementBlock");
 		}
 		
 		return null;

@@ -27,7 +27,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			//visit lhs to resolve type
 			controller.visit(lhs, context); 
 			
-			Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs
+			Type lhsType = lhs.getResolvedType(); //get the resolved type of the lhs 
 			Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
 
 			if (lhsType == null) {

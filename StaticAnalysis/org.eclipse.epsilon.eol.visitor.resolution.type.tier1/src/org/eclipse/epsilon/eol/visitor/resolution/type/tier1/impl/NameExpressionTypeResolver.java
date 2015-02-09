@@ -115,21 +115,18 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					type = EcoreUtil.copy(content.getResolvedType());
 					if (type != null) {
 						nameExpression.setResolvedType(type);
+						context.setAssets(type, nameExpression); //set assets of the type
+						nameExpression.setResolvedType(type); //assign the var type to the name type
+					
 					}
 					else {
 						context.getLogBook().addError((EolElement) resolvedContent, "Expression does not have a type");
 					}
-					if (type != null) {
-						context.setAssets(type, nameExpression); //set assets of the type
-						nameExpression.setResolvedType(type); //assign the var type to the name type
-					}
 				}
 				else {
 					context.getLogBook().addError(nameExpression, "resolved content is not a variable declaraion or a formal parameter epression");
-					//should not happen...
 				}
 				return null;
-
 			}
 			
 			

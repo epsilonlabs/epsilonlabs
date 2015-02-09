@@ -29,44 +29,47 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//prepare target type
 		Type targetType = null;
+		//prepare arrow
 		boolean arrow = false;
-		ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
-		String methodName = methodCallExpression.getMethod().getName();  //get method name
+		//prepare argTypes
+		ArrayList<Type> argTypes = new ArrayList<Type>(); 
+		//get method name
+		String methodName = methodCallExpression.getMethod().getName();  
 		
+		for(Expression argument: methodCallExpression.getArguments()) //process arguments
+		{
+			controller.visit(argument, context); //resolve the type of the argument first
+			argTypes.add(EcoreUtil.copy(argument.getResolvedType())); //if is not any type, add to the argument list immediately
+		}
+
 
 		if (methodCallExpression.getTarget() == null) { //if the target is null
-			for(Expression argument: methodCallExpression.getArguments()) //process arguments
-			{
-				controller.visit(argument, context); //resolve the type of the argument first
-				argTypes.add(EcoreUtil.copy(argument.getResolvedType())); //if is not any type, add to the argument list immediately
-			}
 			targetType = context.getEolFactory().createAnyType(); //since the target is null, we create an AnyType
 			
 		}
 		else { //if the target is not null
 			controller.visit(methodCallExpression.getTarget(), context); //visit content first
 			
-			for(Expression argument: methodCallExpression.getArguments()) //process arguments
-			{
-				controller.visit(argument, context); //resolve the type of the argument first
-				argTypes.add(argument.getResolvedType()); //if is not any type, add to the argument list immediately
-			}
-			targetType = methodCallExpression.getTarget().getResolvedType(); //get target type
+			targetType = EcoreUtil.copy(methodCallExpression.getTarget().getResolvedType()); //get target type
 			
 			if (targetType == null) { //if target type is null
-				//note : this should be an error, but leave like this by now ==============================================================================
-				targetType = context.getEolFactory().createAnyType(); //there should be an error
+				context.getLogBook().addError(methodCallExpression.getTarget(), "Expression does not have a type");
+				targetType = context.getEolFactory().createAnyType(); 
 			}
-			
 			arrow = methodCallExpression.getIsArrow().isVal();
 		}
 		
 		OperationDefinition operationDefinition;
-		operationDefinition = context.getOperationDefinitionControl().getOperation(methodCallExpression, methodName, targetType, argTypes, arrow); //fetch operation definition using name, context type and arg types
+		//fetch operation definition using name, context type and arg types from the standard library and user defined operations
+		operationDefinition = context.getOperationDefinitionControl().getOperation(methodCallExpression, methodName, targetType, argTypes, arrow); 
 		
-		if (operationDefinition != null) { //if there is an operation	
-			for(int i = 0; i < operationDefinition.getParameters().size(); i++)//deals with parameter of type Type
+		//if an operation is found
+		if (operationDefinition != null) {
+			
+			//deals with parameter of type Type
+			for(int i = 0; i < operationDefinition.getParameters().size(); i++)
 			{
 				//if the parameter is keyword "Type"
 				if (operationDefinition.getParameters().get(i).getResolvedType().eClass().getName().equals("Type")) {
@@ -86,8 +89,14 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					}
 				}
 			}
-			Type contextType = operationDefinition.getContextType(); //get the context type of the operation
-			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) { //if target type and context type is generic
+			
+			//get the context type of the operation
+			Type contextType = operationDefinition.getContextType();
+			
+			//if target type and context type is generic
+			if (context.getTypeUtil().isEqualOrGeneric(targetType,contextType)) {
+				
+				//handle annotation block
 				if (operationDefinition.getAnnotationBlock() != null) {
 					AnnotationBlock annotationBlock = operationDefinition.getAnnotationBlock();
 					
@@ -158,56 +167,25 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 						else {
 							String methodcallName = methodCallExpression.getMethod().getName();
 							context.getLogBook().addError(targetType, "operation " + methodcallName + " can only be used on ModelElementTypes");
-							return null;
 						}
-						
-						
-												
-//						Expression rawTarget = methodCallExpression.getTarget(); //get targettype
-//						if(!(rawTarget instanceof NameExpression)) //if targettype is not a NameExpressioin
-//						{
-//							context.getLogBook().addError(rawTarget, "operation " + methodcallName + " can only be used on ModelElementTypes");
-//							return null;
-//						}
-//						else { //else
-//							NameExpression target = (NameExpression) rawTarget; //cast the target to NameExpression
-//							String targetname = target.getName();
-//							if (targetname.contains("!")) {
-//								targetname = targetname.substring(targetname.indexOf("!")+1, targetname.length());
-//							}
-//							if (context.numberOfMetamodelsDefine(targetname, true) > 0) { //if the NameExpression is a keyword in the metamodels
-//								Type rawTargetType = rawTarget.getResolvedType();
-//								
-//								if (!(rawTargetType instanceof ModelElementType)) {
-//									context.getLogBook().addError(rawTarget, "operation " + methodcallName + " can only be used on ModelElementTypes");
-//									return null;
-//								}
-//								else if (rawTargetType instanceof ModelElementType) {
-//									
-//									operationDefinition.setContextType(EcoreUtil.copy(rawTargetType));
-//									//CollectionType returnType = (CollectionType) result.getReturnType();
-//									//returnType.setContentType(EcoreUtil.copy(rawTargetType));
-//								}
-//							}
-//							else {
-//								context.getLogBook().addError(rawTarget, "Model Element Type " + target.getName() + " does not exist");
-//								return null;
-//							}
-//						}
 					}
 				}
-				else {
-//					if (targetIsNull) {
-//						context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
-//					}
+				
+				//if is self type
+				if (operationDefinition.getReturnType() instanceof SelfType) { 
+					//just copy the target type because the target type has been resolved
+					methodCallExpression.setResolvedType(EcoreUtil.copy(targetType));
+					//set the resolved type of the method
+					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetType));
+					//set resolved content
+					methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
 				}
-				if (operationDefinition.getReturnType() instanceof SelfType) { //if is self type
-					methodCallExpression.setResolvedType(EcoreUtil.copy(targetType));//just copy the target type because the target type has been resolved
-					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetType)); //set the resolved type of the method
-					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
-				}
-				else if (operationDefinition.getReturnType() instanceof SelfContentType) { //if is selfContentType
-					if (targetType instanceof CollectionType) { //if target type is of collection type
+				
+				//if is selfContentType
+				else if (operationDefinition.getReturnType() instanceof SelfContentType) {
+					
+					//if target type is of collection type
+					if (targetType instanceof CollectionType) {
 						Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
 						if (contentType != null) {
 							methodCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
@@ -221,15 +199,17 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 							//this should be Any i guess?
 							//handle content type null
 						}
-						
 					}
 					else {
+						context.getLogBook().addError(targetType, "To use SelfContentType, target is expected to be a Collection");
+						
 						AnyType tempAnyType = context.getEolFactory().createAnyType();
 						methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
 						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
-						//handle this
 					}
 				}
+				
+				//operationargtype is used to return the type of the argument in a method call
 				else if(operationDefinition.getReturnType() instanceof OperationArgType)
 				{
 					if(operationDefinition.getParameters().size() != 1)
@@ -239,37 +219,60 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					else
 					{
 						Type argType = methodCallExpression.getArguments().get(0).getResolvedType();
-						methodCallExpression.setResolvedType(EcoreUtil.copy(argType)); //set resolved type
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(argType)); //set method type
-						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+						if (argType != null) {
+							methodCallExpression.setResolvedType(EcoreUtil.copy(argType)); //set resolved type
+							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(argType)); //set method type
+							methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content	
+						}
+						else {
+							AnyType tempAnyType = context.getEolFactory().createAnyType();
+							methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+							context.getLogBook().addError(methodCallExpression.getArguments().get(0), "Expression does not have a type");
+						}
 					}
 				}
+				//selfinnermosttype returns the content type of the innermost collection
 				else if(operationDefinition.getReturnType() instanceof SelfInnermostType)
 				{
 					if (targetType instanceof CollectionType) { //if target type is of collection type============================
 						Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
-						while(contentType instanceof CollectionType) //while the contenttype is collection
-						{
-							contentType = ((CollectionType) contentType).getContentType(); //get content type
-						}
-						if (contentType != null) {
-							methodCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
-							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(contentType)); //set method type
-							methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+						if (contentType == null) {
+							AnyType tempAnyType = context.getEolFactory().createAnyType();
+							methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+							context.getLogBook().addError(methodCallExpression.getTarget(), "Expression does not have a content type");
 						}
 						else {
-							//this should be Any i guess?
-							//handle content type null
+							while(contentType instanceof CollectionType) //while the contenttype is collection
+							{
+								contentType = ((CollectionType) contentType).getContentType(); //get content type
+							}
+							if (contentType != null) {
+								methodCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
+								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(contentType)); //set method type
+								methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
+							}
+							else {
+								AnyType tempAnyType = context.getEolFactory().createAnyType();
+								methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+								context.getLogBook().addError(methodCallExpression.getTarget(), "Expression does not have a content type");
+							}
 						}
-						
 					}
 					else {
-						context.getLogBook().addError(operationDefinition.getReturnType(), "To target should be of type Collection");
+						AnyType tempAnyType = context.getEolFactory().createAnyType();
+						methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+						context.getLogBook().addError(methodCallExpression.getTarget(), "Expression should be a Collection");
 					}
 				}
+				
 				else if (operationDefinition.getReturnType() instanceof CollectionType && 
 						(((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfType || 
 						((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfContentType)) { //if the return type is collection type and its content type is either SelfType or SelfContentType ============================
+					
 					CollectionType returnType = (CollectionType) operationDefinition.getReturnType();
 					Type collectionContentType = returnType.getContentType();
 					if (collectionContentType instanceof SelfType) {
@@ -290,12 +293,17 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 								methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 							}
 							else {
-								//this should be Any i guess?
-								//handle content type null
+								AnyType tempAnyType = context.getEolFactory().createAnyType();
+								methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+								context.getLogBook().addError(methodCallExpression.getTarget(), "Expression does not have a content type");
 							}
 						}
 						else {
-							context.getLogBook().addError(operationDefinition.getReturnType(), "The target should be of type Collection");
+							AnyType tempAnyType = context.getEolFactory().createAnyType();
+							methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
+							context.getLogBook().addError(methodCallExpression.getTarget(), "Expression should be a Collection");
 						}
 					}
 				}
@@ -307,15 +315,9 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				}
 			}
 			else if (targetType instanceof AnyType) {
-//				if (targetIsNull) {
-//					context.getLogBook().addError(methodCallExpression, "Operation " + operationDefinition.getName().getName() + " requires a target");
-//					return null;
-//				}
-//				else {
 					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
 					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
-//				}
 			}
 			else {
 				//handle type incompatible
@@ -337,7 +339,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				context.getLogBook().addError(methodCallExpression.getTarget(), "Type mismatch for Operation: " + 
 				operationDefinition.getName().getName() + "()" + "; Expected type: " + expectedType + 
 				" , actual type: " + actualType);
-				
 			}
 		}
 		else {

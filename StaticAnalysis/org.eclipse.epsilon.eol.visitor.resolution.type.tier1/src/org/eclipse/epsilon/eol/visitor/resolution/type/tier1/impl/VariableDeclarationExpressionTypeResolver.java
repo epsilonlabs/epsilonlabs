@@ -15,19 +15,38 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		
+		//visit contents first
 		controller.visitContents(variableDeclarationExpression, context); 
 		
-		if (variableDeclarationExpression.getCreate() != null) { // if create is not null
-			boolean newExpression = variableDeclarationExpression.getCreate().isVal(); //get the value of the create
-			if (newExpression) { //if it is a new variable
-				Type rawType = variableDeclarationExpression.getResolvedType(); //get resolved type
-				if (rawType instanceof ModelElementType) { //we are interested in the model element types
-					ModelElementType modelElementType = (ModelElementType) rawType; //get the type
-					if (modelElementType.getEcoreType() instanceof EClass) { //if the model element type is a EClass in the meta model
-						EClass eClass = (EClass) modelElementType.getEcoreType(); //get the EClass
-						if (eClass.isAbstract() || eClass.isInterface()) { //check if the class is an interface or abstract
+		// if create is not null
+		if (variableDeclarationExpression.getCreate() != null) { 
+			
+			//get the value of the create
+			boolean newExpression = variableDeclarationExpression.getCreate().isVal();
+			
+			//if it is a new variable
+			if (newExpression) {
+				
+				//get resolved type
+				Type rawType = variableDeclarationExpression.getResolvedType();
+				
+				//we are interested in the model element types
+				if (rawType instanceof ModelElementType) {
+					
+					//get the type
+					ModelElementType modelElementType = (ModelElementType) rawType;
+					
+					//if the model element type is a EClass in the meta model
+					if (modelElementType.getEcoreType() instanceof EClass) {
+						
+						//get the EClass
+						EClass eClass = (EClass) modelElementType.getEcoreType();
+						
+						//check if the class is an interface or abstract
+						if (eClass.isAbstract() || eClass.isInterface()) {
+							
 							context.getLogBook().addError(modelElementType, "Model element type is not instantiable"); //throw error
+							
 						}
 					}
 				}

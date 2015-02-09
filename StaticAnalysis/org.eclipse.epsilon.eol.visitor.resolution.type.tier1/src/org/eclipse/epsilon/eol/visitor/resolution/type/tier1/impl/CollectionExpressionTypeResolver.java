@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.CollectionExpressionVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class CollectionExpressionTypeResolver extends CollectionExpressionVisitor<TypeResolutionContext, Object>{
@@ -12,10 +13,11 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 	public Object visit(CollectionExpression collectionExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		// TODO Auto-generated method stub
 		
+		//get the init value
 		CollectionInitValue initValue = collectionExpression.getParameterList();
 		
+		//if the init value is expRange
 		if (initValue instanceof ExpRange) {
 			IntegerType type = context.getEolFactory().createIntegerType();
 			CollectionType collType = (CollectionType) collectionExpression.getResolvedType();
@@ -25,14 +27,26 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 			Expression end = range.getEnd();
 			controller.visit(start, context);
 			controller.visit(end, context);
-			if (!(start.getResolvedType() instanceof IntegerType)) {
-				context.getLogBook().addError(start, "Expression should be integer type");
+			if (start.getResolvedType() != null) {
+				if (!(start.getResolvedType() instanceof IntegerType)) {
+					context.getLogBook().addError(start, "Expression should be integer type");
+				}	
 			}
-			if (!(end.getResolvedType() instanceof IntegerType)) {
-				context.getLogBook().addError(end, "Expression should be integer type");
+			else {
+				context.getLogBook().addError(start, "Expression does not have a type");
+			}
+			if (end.getResolvedType() != null) {
+				if (!(end.getResolvedType() instanceof IntegerType)) {
+					context.getLogBook().addError(end, "Expression should be integer type");
+				}	
+			}
+			else {
+				context.getLogBook().addError(end, "Expression does not have a type");
 			}
 		}
+		//if initvalue is exprlist
 		if (initValue instanceof ExprList) {
+			
 			ExprList list = (ExprList) initValue;
 			CollectionType collType = (CollectionType) collectionExpression.getResolvedType();
 			
@@ -47,6 +61,9 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 			}
 			else if (allString(list, controller, context)) {
 				collType.setContentType(EcoreUtil.copy(context.getEolFactory().createStringType()));
+			}
+			else {
+				collType.setContentType(context.getEolFactory().createAnyType());
 			}
 		}
 		

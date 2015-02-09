@@ -1,47 +1,46 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.AnyType;
-import org.eclipse.epsilon.eol.metamodel.BooleanType;
-import org.eclipse.epsilon.eol.metamodel.Expression;
-import org.eclipse.epsilon.eol.metamodel.IntegerType;
-import org.eclipse.epsilon.eol.metamodel.MultiplyOperatorExpression;
-import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
-import org.eclipse.epsilon.eol.metamodel.RealType;
-import org.eclipse.epsilon.eol.metamodel.StringType;
-import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.visitor.BinaryOperatorExpressionVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.MultiplyOperatorExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpressionVisitor<TypeResolutionContext, Object>{
+public class MultiplyOperatorExpressionTypeResolver_old extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
-	public Object visit(MultiplyOperatorExpression multiplyOperatorExpression,
+	public boolean appliesTo(BinaryOperatorExpression binaryOperatorExpression,
+			TypeResolutionContext context) {
+		return binaryOperatorExpression instanceof MultiplyOperatorExpression;
+	}
+	
+	@Override
+	public Object visit(BinaryOperatorExpression binaryOperatorExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		controller.visitContents(multiplyOperatorExpression, context);
+		controller.visitContents(binaryOperatorExpression, context);
 		
-		Expression lhs = multiplyOperatorExpression.getLhs();
-		Expression rhs = multiplyOperatorExpression.getRhs();
+		Expression lhs = binaryOperatorExpression.getLhs();
+		Expression rhs = binaryOperatorExpression.getRhs();
 		
 		Type lhsType = lhs.getResolvedType();
 		Type rhsType = rhs.getResolvedType();
 		
 		Type type = context.getEolFactory().createIntegerType();
-		multiplyOperatorExpression.setResolvedType(type);
-		context.setAssets(type, multiplyOperatorExpression);
+		binaryOperatorExpression.setResolvedType(type);
+		context.setAssets(type, binaryOperatorExpression);
 		
 		
 		if(lhsType == null){
-			context.getLogBook().addError(multiplyOperatorExpression.getLhs(), "Expression does not have a type");
+			context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression does not have a type");
 			return null;
 		}
 		
 		if(rhsType == null)
 		{
-			context.getLogBook().addError(multiplyOperatorExpression.getRhs(), "Expression does not have a type");
+			context.getLogBook().addError(binaryOperatorExpression.getRhs(), "Expression does not have a type");
 			return null;
 		}
 		
@@ -64,12 +63,12 @@ public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpr
 				if (lhsType instanceof StringType || rhsType instanceof StringType) {
 					if(lhsType instanceof StringType)
 					{
-						context.getLogBook().addError(multiplyOperatorExpression.getLhs(), "Expression should be numeral");
+						context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression should be numeral");
 					}
 					
 					if(rhsType instanceof StringType)
 					{
-						context.getLogBook().addError(multiplyOperatorExpression.getRhs(), "Expression should be numeral");
+						context.getLogBook().addError(binaryOperatorExpression.getRhs(), "Expression should be numeral");
 					}
 					return null;
 				}
@@ -77,12 +76,12 @@ public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpr
 				else if (lhsType instanceof BooleanType || rhsType instanceof BooleanType) {
 					if(lhsType instanceof BooleanType)
 					{
-						context.getLogBook().addError(multiplyOperatorExpression.getLhs(), "Expression should be numeral");
+						context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression should be numeral");
 					}
 					
 					if(rhsType instanceof BooleanType)
 					{
-						context.getLogBook().addError(multiplyOperatorExpression.getRhs(), "Expression should be numeral");
+						context.getLogBook().addError(binaryOperatorExpression.getRhs(), "Expression should be numeral");
 					}
 					return null;
 				}
@@ -99,8 +98,8 @@ public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpr
 					type = context.getEolFactory().createRealType(); //if any is real, create a real type
 				}
 				
-				context.setAssets(type, multiplyOperatorExpression);
-				multiplyOperatorExpression.setResolvedType(type);
+				context.setAssets(type, binaryOperatorExpression);
+				binaryOperatorExpression.setResolvedType(type);
 				return null;
 			}
 		}
@@ -108,32 +107,32 @@ public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpr
 			if (lhsType instanceof IntegerType || lhsType instanceof RealType) {
 				context.getLogBook().addError(rhs, "Expression should be numeral");
 				type = EcoreUtil.copy(lhsType);
-				context.setAssets(type, multiplyOperatorExpression);
-				multiplyOperatorExpression.setResolvedType(type);
+				context.setAssets(type, binaryOperatorExpression);
+				binaryOperatorExpression.setResolvedType(type);
 				return null;
 			}
 			
 			else if (rhsType instanceof IntegerType || rhsType instanceof RealType) {
 				context.getLogBook().addError(lhs, "Expression should be numeral");
 				type = EcoreUtil.copy(rhsType);
-				context.setAssets(type, multiplyOperatorExpression);
-				multiplyOperatorExpression.setResolvedType(type);
+				context.setAssets(type, binaryOperatorExpression);
+				binaryOperatorExpression.setResolvedType(type);
 				return null;
 			}
 			
 			if(!(lhsType instanceof PrimitiveType))
 			{
-				context.getLogBook().addError(multiplyOperatorExpression.getLhs(), "Expression should be numeral");
+				context.getLogBook().addError(binaryOperatorExpression.getLhs(), "Expression should be numeral");
 			}
 			
 			if(!(rhsType instanceof PrimitiveType))
 			{
-				context.getLogBook().addError(multiplyOperatorExpression.getRhs(), "Expression should be numeral");
+				context.getLogBook().addError(binaryOperatorExpression.getRhs(), "Expression should be numeral");
 			}
 		}
 		
-		context.setAssets(type, multiplyOperatorExpression);
-		multiplyOperatorExpression.setResolvedType(type);
+		context.setAssets(type, binaryOperatorExpression);
+		binaryOperatorExpression.setResolvedType(type);
 		return null;
 	}
 
