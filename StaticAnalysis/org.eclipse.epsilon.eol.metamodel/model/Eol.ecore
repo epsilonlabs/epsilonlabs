@@ -56,12 +56,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AndOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AndOperatorExpression" eSuperTypes="#//LogicalOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="LiteralExpression" abstract="true" eSuperTypes="#//Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanExpression" eSuperTypes="#//PrimitiveExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DivideOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DivideOperatorExpression" eSuperTypes="#//ArithmeticOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationLiteralExpression" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
@@ -70,7 +70,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="model" lowerBound="1" eType="#//ModelExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EqualsOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EqualsOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureCallExpression" abstract="true"
       eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Expression"
@@ -78,16 +78,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="isArrow" eType="#//BooleanExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GreaterThanOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GreaterThanOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="GreaterThanOrEqualToOperatorExpression"
-      eSuperTypes="#//BinaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ImpliesOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+      eSuperTypes="#//ComparisonOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ImpliesOperatorExpression" eSuperTypes="#//LogicalOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerExpression" eSuperTypes="#//PrimitiveExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="val" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LessThanOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LessThanOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="LessThanOrEqualToOperatorExpression"
-      eSuperTypes="#//BinaryOperatorExpression"/>
+      eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="MethodCallExpression" eSuperTypes="#//FeatureCallExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arguments" upperBound="-1"
         eType="#//Expression" containment="true"/>
@@ -96,8 +96,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedMethods" upperBound="-1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MinusOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MultiplyOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MinusOperatorExpression" eSuperTypes="#//ArithmeticOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MultiplyOperatorExpression" eSuperTypes="#//ArithmeticOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NameExpression" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="isType" lowerBound="1"
@@ -112,10 +112,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NegativeOperatorExpression" eSuperTypes="#//UnaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NotEqualsOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotEqualsOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NotOperatorExpression" eSuperTypes="#//UnaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OrOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PlusOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrOperatorExpression" eSuperTypes="#//LogicalOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PlusOperatorExpression" eSuperTypes="#//ArithmeticOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyCallExpression" eSuperTypes="#//FeatureCallExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
@@ -139,7 +139,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="XorOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XorOperatorExpression" eSuperTypes="#//LogicalOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//EolElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextType" eType="#//Type"
         containment="true"/>
@@ -398,4 +398,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicalOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComparisonOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ArithmeticOperatorExpression" eSuperTypes="#//BinaryOperatorExpression"/>
 </ecore:EPackage>

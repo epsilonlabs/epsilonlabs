@@ -285,5 +285,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/operations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Eol.ecore#//EolLibraryModule/name"/>
     </genClasses>
+    <genClasses ecoreClass="Eol.ecore#//LogicalOperatorExpression"/>
+    <genClasses ecoreClass="Eol.ecore#//ComparisonOperatorExpression"/>
+    <genClasses ecoreClass="Eol.ecore#//ArithmeticOperatorExpression"/>
   </genPackages>
 </genmodel:GenModel>

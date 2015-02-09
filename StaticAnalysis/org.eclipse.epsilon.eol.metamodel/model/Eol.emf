@@ -49,7 +49,7 @@ abstract class BinaryOperatorExpression extends OperatorExpression {
   val Expression[1] rhs;
 }
 
-class AndOperatorExpression extends BinaryOperatorExpression {
+class AndOperatorExpression extends LogicalOperatorExpression {
 }
 
 abstract class LiteralExpression extends Expression {
@@ -59,7 +59,7 @@ class BooleanExpression extends PrimitiveExpression {
   attr boolean ~val;
 }
 
-class DivideOperatorExpression extends BinaryOperatorExpression {
+class DivideOperatorExpression extends ArithmeticOperatorExpression {
 }
 
 class EnumerationLiteralExpression extends Expression {
@@ -68,7 +68,7 @@ class EnumerationLiteralExpression extends Expression {
   val ModelExpression[1] model;
 }
 
-class EqualsOperatorExpression extends BinaryOperatorExpression {
+class EqualsOperatorExpression extends ComparisonOperatorExpression {
 }
 
 abstract class FeatureCallExpression extends Expression {
@@ -76,23 +76,23 @@ abstract class FeatureCallExpression extends Expression {
   val BooleanExpression isArrow;
 }
 
-class GreaterThanOperatorExpression extends BinaryOperatorExpression {
+class GreaterThanOperatorExpression extends ComparisonOperatorExpression {
 }
 
-class GreaterThanOrEqualToOperatorExpression extends BinaryOperatorExpression {
+class GreaterThanOrEqualToOperatorExpression extends ComparisonOperatorExpression {
 }
 
-class ImpliesOperatorExpression extends BinaryOperatorExpression {
+class ImpliesOperatorExpression extends LogicalOperatorExpression {
 }
 
 class IntegerExpression extends PrimitiveExpression {
   attr int ~val;
 }
 
-class LessThanOperatorExpression extends BinaryOperatorExpression {
+class LessThanOperatorExpression extends ComparisonOperatorExpression {
 }
 
-class LessThanOrEqualToOperatorExpression extends BinaryOperatorExpression {
+class LessThanOrEqualToOperatorExpression extends ComparisonOperatorExpression {
 }
 
 class MethodCallExpression extends FeatureCallExpression {
@@ -101,10 +101,10 @@ class MethodCallExpression extends FeatureCallExpression {
   ref EObject[*] resolvedMethods;
 }
 
-class MinusOperatorExpression extends BinaryOperatorExpression {
+class MinusOperatorExpression extends ArithmeticOperatorExpression {
 }
 
-class MultiplyOperatorExpression extends BinaryOperatorExpression {
+class MultiplyOperatorExpression extends ArithmeticOperatorExpression {
 }
 
 class NameExpression extends Expression {
@@ -120,16 +120,16 @@ abstract class UnaryOperatorExpression extends OperatorExpression {
 class NegativeOperatorExpression extends UnaryOperatorExpression {
 }
 
-class NotEqualsOperatorExpression extends BinaryOperatorExpression {
+class NotEqualsOperatorExpression extends ComparisonOperatorExpression {
 }
 
 class NotOperatorExpression extends UnaryOperatorExpression {
 }
 
-class OrOperatorExpression extends BinaryOperatorExpression {
+class OrOperatorExpression extends LogicalOperatorExpression {
 }
 
-class PlusOperatorExpression extends BinaryOperatorExpression {
+class PlusOperatorExpression extends ArithmeticOperatorExpression {
 }
 
 class PropertyCallExpression extends FeatureCallExpression {
@@ -152,7 +152,7 @@ class VariableDeclarationExpression extends Expression {
   transient attr EJavaObject[*] definitionPoints;
 }
 
-class XorOperatorExpression extends BinaryOperatorExpression {
+class XorOperatorExpression extends LogicalOperatorExpression {
 }
 
 class OperationDefinition extends EolElement {
@@ -437,5 +437,14 @@ class EolLibraryModule extends EolElement {
   val Import[*] imports;
   val OperationDefinition[*] operations;
   val NameExpression name;
+}
+
+class LogicalOperatorExpression extends BinaryOperatorExpression {
+}
+
+class ComparisonOperatorExpression extends BinaryOperatorExpression {
+}
+
+class ArithmeticOperatorExpression extends BinaryOperatorExpression {
 }
 
