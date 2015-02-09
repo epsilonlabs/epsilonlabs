@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.printer.impl;
 
 import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.printer.context.PrinterContext;
@@ -13,6 +14,7 @@ public class EolPrinter {
 	
 	public EolPrinter()
 	{
+		controller.addDefaultVisitor(new EolDefaultVisitor<PrinterContext, Object>());
 		controller.addAbortStatementVisitor(new AbortStatementPrinter());
 		controller.addAndOperatorExpressionVisitor(new AndOperatorExpressionPrinter());
 		controller.addAnnotationBlockVisitor(new AnnotationBlockPrinter());
