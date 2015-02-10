@@ -32,7 +32,8 @@ public class TypeResolver {
 		controller.addPropertyCallExpressionVisitor(new PropertyCallExpressionTypeResolver());
 		controller.addMethodCallExpressionVisitor(new MethodCallExpressionTypeResolver());
 		
-		controller.addBinaryOperatorExpressionVisitor(new LogicalOperatorExpressionTypeResolver());
+		controller.addComparisonOperatorExpressionVisitor(new ComparisonOperatorExpressionTypeResolver());
+		controller.addLogicalOperatorExpressionVisitor(new LogicalOperatorExpressionTypeResolver());
 		controller.addPlusOperatorExpressionVisitor(new PlusOperatorExpressionTypeResolver());
 		controller.addMinusOperatorExpressionVisitor(new MinusOperatorExpressionTypeResolver());
 		controller.addMultiplyOperatorExpressionVisitor(new MultiplyOperatorExpressionTypeResolver());
