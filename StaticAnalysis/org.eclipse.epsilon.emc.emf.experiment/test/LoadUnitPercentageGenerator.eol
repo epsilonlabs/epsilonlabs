@@ -46,13 +46,14 @@ size.println();
 
 var eolQueryString = "var size = 0;\n";
 
-for(clazz in getPercent(counter, sum, 100))
+for(clazz in getPercent(counter, sum, 20))
 {
-	//clazz.eAllStructuralFeatures.println();
-	//clazz.eAllReferences.size().println();
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
+	for(feature in clazz.eStructuralFeatures)
+	{
+		eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all." + feature.name + ".size();\n";
+	}
 	eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all.size();\n";
-		//eolQueryString = eolQueryString + clazz.name + ".all.size().println();\n";
 	
 	clazz.name.print();
 	": ".print();
