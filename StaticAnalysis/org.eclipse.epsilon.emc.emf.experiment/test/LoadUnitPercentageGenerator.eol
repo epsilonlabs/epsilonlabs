@@ -4,15 +4,30 @@ var size = allContents.size();
 
 var counter = new Map;
 
+var oppositeRefs = new Set;
+
 for(a in allContents)
 {
 	var count = counter.get(a.type());
 	var featureCount = 1;
 	for(feature in a.type().eStructuralFeatures)
 	{
-		if(a.eGet(feature).isDefined())
+		if(a.eGet(feature).isDefined() and feature.derived = false)
 		{
-			featureCount = featureCount + 1;
+			var opposite = feature.opposite;
+			if(opposite.isDefined())
+			{
+				if(oppositeRefs.excludes(opposite))
+				{
+					oppositeRefs.add(opposite);
+					featureCount = featureCount + 1;
+				}
+			}
+			else
+			{
+				featureCount = featureCount + 1;
+			}
+			
 		}
 	}
 
