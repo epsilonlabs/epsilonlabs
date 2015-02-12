@@ -1,20 +1,24 @@
-//get all contents
 var allContents = m.allContents();
 
-//get the size of all contents
 var size = allContents.size();
 
-//create a map
 var counter = new Map;
 
 for(a in allContents)
 {
 	var count = counter.get(a.type());
-	a.type().name.println();
-	a.type().eStructuralFeatures.println();
+	var featureCount = 1;
+	for(feature in a.type().eStructuralFeatures)
+	{
+		if(a.eGet(feature).isDefined())
+		{
+			featureCount = featureCount + 1;
+		}
+	}
+
 	if(count.isDefined())
 	{
-		count = count + 1;
+		count = count + featureCount;
 		counter.put(a.type(), count);
 	}
 	else
