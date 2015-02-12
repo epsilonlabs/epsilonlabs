@@ -17,10 +17,10 @@ for(a in allContents)
 			var opposite = feature.opposite;
 			if(opposite.isDefined())
 			{
-				if(oppositeRefs.excludes(opposite))
+				if(oppositeRefs.excludes(feature))
 				{
 					oppositeRefs.add(opposite);
-					featureCount = featureCount + 1;
+					featureCount = featureCount + 2;
 				}
 			}
 			else
