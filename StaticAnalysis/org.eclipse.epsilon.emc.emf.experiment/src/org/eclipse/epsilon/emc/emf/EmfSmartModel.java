@@ -239,6 +239,26 @@ public class EmfSmartModel extends EmfModel{
 				insertHollowOjbects(eClass.getEPackage(), eClass);
 			}
 		}
+		
+		for(EClassifier every: eClass.getEPackage().getEClassifiers())
+		{
+			if (every instanceof EClass) {
+				EClass theClass = (EClass) every;
+				if (theClass.getEAllSuperTypes().contains(eClass)) {
+					for(EReference eReference: theClass.getEAllReferences())
+					{
+						if (!visitedEClass((EClass) eReference.getEType())) {
+							visitEClass((EClass) eReference.getEType());
+						}
+						
+						if (liveReference(eReference)) {
+							addRef(theClass, eReference);
+							insertHollowOjbects(theClass.getEPackage(), theClass);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public ArrayList<String> getFeaturesForClassToLoad(EClass eClass)

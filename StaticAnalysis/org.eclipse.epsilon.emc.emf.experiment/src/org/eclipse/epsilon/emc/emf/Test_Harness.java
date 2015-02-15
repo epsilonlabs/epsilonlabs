@@ -25,12 +25,23 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
+		Test_Harness.runSet0();
 //		Test_Harness.runSet1();
-		Test_Harness.runSet2();
+//		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
 //		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
+	}
+	
+	public static void runSet0() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		for(int i = 1; i <= 10; i++)
+		{
+			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i + "0percent.eol", "m"));	
+		}
+		Test_Harness.generateCSV(result, "set0");
 	}
 	
 	public static void runSet1() throws Exception
@@ -181,8 +192,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 20;
-		final int disregard = 10;
+		final int iteration = 2;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -297,7 +308,7 @@ public class Test_Harness {
 				
 			}
 			else {
-				if (pivot < pivot+disregard) {
+				if (i < pivot+disregard) {
 					if (i > pivot) {
 						normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
 						normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
@@ -816,16 +827,17 @@ public class Test_Harness {
 		}
 		
 		System.out.println(modelType + " model prepared, loading...");
-		System.gc();
+//		System.gc();
 		Runtime.getRuntime().gc();
 
 		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
 		long init = System.nanoTime();
 		
 		emfModel.load();
-		
 		long result1 = (System.nanoTime()-init)/1000000;
-				
+		
+		Runtime.getRuntime().gc();
+
 		result.add(result1);
 		System.out.println("(took ~" + result1 + "ms to load)");
 		
@@ -837,7 +849,7 @@ public class Test_Harness {
 		long result2 = (System.nanoTime() - init)/1000000;
 		result.add(result2);
 		System.out.println("(took ~" + result2 + "ms to run)");
-		System.gc();
+//		System.gc();
 		Runtime.getRuntime().gc();
 		
 		long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();

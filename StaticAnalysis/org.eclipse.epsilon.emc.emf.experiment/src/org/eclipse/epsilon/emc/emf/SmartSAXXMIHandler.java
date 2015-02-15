@@ -47,7 +47,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	@Override
 	public void endDocument() {
-		// TODO Auto-generated method stub
 		objectsAndRefNamesToVisit.clear();
 		objectsAndRefNamesToVisit = null;
 		actualObjectsToLoad.clear();
