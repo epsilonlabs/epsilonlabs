@@ -31,7 +31,7 @@ sequence = sequence.sortBy(x|-x.at(1));
 
 var sum = 0;
 
-/*
+
 for(k in counter.keySet())
 {
 	k.name.print();
@@ -40,7 +40,6 @@ for(k in counter.keySet())
 	sum = sum + val;
 	val.println();
 }
-*/
 
 sum.println();
 
@@ -60,6 +59,7 @@ for(clazz in getPercent(sequence, sum, 100))
 }
 
 eolQueryString = eolQueryString + "size.println();\n";
+eolQueryString = eolQueryString + "m.allContents().size().println();\n";
 eolQueryString.println();
 
 
