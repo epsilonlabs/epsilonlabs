@@ -14,13 +14,20 @@ for(a in allContents)
 	{
 		if(a.eGet(feature).isDefined() and feature.derived = false)
 		{
-			var opposite = feature.opposite;
-			if(opposite.isDefined())
+			if(feature.hasProperty("opposite"))
 			{
-				if(oppositeRefs.excludes(feature))
+				var opposite = feature.opposite;
+				if(opposite.isDefined())
 				{
-					oppositeRefs.add(opposite);
-					featureCount = featureCount + 2;
+					if(oppositeRefs.excludes(feature))
+					{
+						oppositeRefs.add(opposite);
+						featureCount = featureCount + 2;
+					}
+				}
+				else
+				{	
+					featureCount = featureCount + 1;
 				}
 			}
 			else
