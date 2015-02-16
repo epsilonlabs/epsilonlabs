@@ -73,11 +73,11 @@ for(k in counter.keySet())
 
 sum.println();
 
-size.println();
+//size.println();
 
 var eolQueryString = "model Core driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};\nmodel DOM driver EMF {nsuri = \"org.amma.dsl.jdt.dom\"};\nmodel PrimitiveTypes driver EMF {nsuri = \"org.amma.dsl.jdt.primitiveTypes\"};\nvar size = 0;\n";
 
-for(clazz in getPercent(sequence, sum, 20))
+for(clazz in getPercent(sequence, sum, 60))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	for(feature in clazz.eStructuralFeatures)
