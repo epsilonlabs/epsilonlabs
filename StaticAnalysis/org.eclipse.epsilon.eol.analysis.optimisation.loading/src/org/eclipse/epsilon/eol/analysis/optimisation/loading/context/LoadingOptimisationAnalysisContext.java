@@ -10,7 +10,6 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	
 	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();
 	
-	
 	public void addToModel(String modelName)
 	{
 		ModelContainer container = getModelContainer(modelName);
