@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
 import org.eclipse.emf.ecore.xml.type.SimpleAnyType;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
 public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
@@ -127,10 +128,16 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		    
 		    //if this one is not a feature but rather an independent top level object, add to extent
 		    if (!handlingFeature) {
-		    		extent.add(newObject);	
+		    	extent.add(newObject);	
 			}
 		    
-		    return EcoreUtil.copy(newObject);
+		    
+//		    if (handlingFeature) {
+//				handlingFeature = false;
+//			}
+		    
+		    return newObject;
+		    
 		}
 		else {
 			EObject newObject = null;
@@ -410,7 +417,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	    if (feature != null)
 	    {
 	    	if (shouldHandleFeature(peekObject, name)) {
-				peekObject = extent.get(extent.size()-1);
+				//peekObject = extent.get(extent.size()-1);
 				handlingFeature = true;
 			}
 	    	else {
@@ -651,9 +658,13 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	  protected void setFeatureValue(EObject object, EStructuralFeature feature, Object value)
 	  {
-		  if (!cached(object.eClass())) {
+		  if (shouldHandleFeature(object, feature.getName())) {
 			  setFeatureValue(object, feature, value, -1);	
 		}
+		  
+//		  if (!cached(object.eClass())) {
+//			  setFeatureValue(object, feature, value, -1);	
+//		}
 	  }
 
 	

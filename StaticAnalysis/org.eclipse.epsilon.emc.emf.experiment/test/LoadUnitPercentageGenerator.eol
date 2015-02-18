@@ -4,6 +4,22 @@ var size = allContents.size();
 
 var counter = new Map;
 
+var objectCounter = new Map;
+
+for(a in allContents)
+{
+	var count = objectCounter.get(a.type());
+	if(count.isDefined())
+	{
+		count = count + 1;
+		objectCounter.put(a.type(), count);
+	}
+	else
+	{
+		objectCounter.put(a.type(), 1);
+	}
+}
+
 var oppositeRefs = new Set;
 
 for(a in allContents)
@@ -77,7 +93,7 @@ sum.println();
 
 var eolQueryString = "model Core driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};\nmodel DOM driver EMF {nsuri = \"org.amma.dsl.jdt.dom\"};\nmodel PrimitiveTypes driver EMF {nsuri = \"org.amma.dsl.jdt.primitiveTypes\"};\nvar size = 0;\n";
 
-for(clazz in getPercent(sequence, sum, 60))
+for(clazz in getPercent(sequence, sum, 100))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	for(feature in clazz.eStructuralFeatures)
@@ -85,6 +101,14 @@ for(clazz in getPercent(sequence, sum, 60))
 		eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all." + feature.name + ".size();\n";
 	}
 	eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all.size();\n";
+	
+	for(feature in clazz.eReferences)
+	{
+		if(not feature.containment)
+		{
+			eolQueryString = eolQueryString + "size = size + " + feature.eType.name + ".all.size();\n"; 
+		}
+	}
 	
 	clazz.name.print();
 	": ".print();
@@ -100,17 +124,42 @@ eolQueryString.println();
 operation getPercent(seq: Sequence, size: Integer, percent : Integer)
 {
 	var result = new Set;
+	var temp = new Set;
 	var number = size*percent/100;
 	var sum = 0;
 	for(k in seq)
 	{
 		var value = k.at(1);
+		var clazz = k.at(0);
+		
+		var eType;
+		
+		for(feature in clazz.eReferences)
+		{
+			if(not feature.containment)
+			{
+				eType = feature.eType;
+				if(temp.includes(eType))
+				{
+					
+				}
+				else
+				{
+					var num = objectCounter.get(eType);
+					value = value + num;
+				}
+				
+			}
+		}
+	
+		
 		if(value < number)
 		{
 			if(value + sum <= number and value + sum < number * 1.05)
 			{
 				sum = sum + value;
 				result.add(k.at(0));
+				temp.add(eType);
 			}
 		}
 		if(sum > number)
@@ -121,3 +170,5 @@ operation getPercent(seq: Sequence, size: Integer, percent : Integer)
 	sum.errln();
 	return result;
 }
+
+

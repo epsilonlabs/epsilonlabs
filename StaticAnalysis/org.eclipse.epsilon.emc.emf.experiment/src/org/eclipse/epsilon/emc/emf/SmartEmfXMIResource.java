@@ -36,7 +36,6 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	
 	@Override
 	public void load(Map<?, ?> options) throws IOException {
-		// TODO Auto-generated method stub
 		super.load(options);
 	}
 	
@@ -112,9 +111,9 @@ public class SmartEmfXMIResource extends EmfXMIResource{
 	    }
 	}
 	
+	
 	@Override
 	public EObject getEObject(String uriFragment) {
-		// TODO Auto-generated method stub
 		return super.getEObject(uriFragment);
 	}
 	
