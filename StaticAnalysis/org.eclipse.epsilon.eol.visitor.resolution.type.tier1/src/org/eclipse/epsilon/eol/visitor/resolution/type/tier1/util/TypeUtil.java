@@ -95,6 +95,9 @@ public class TypeUtil {
 		boolean result = false;
 		EDataType dataType = (EDataType) obj;
 		String className = dataType.getInstanceClassName();
+		if (className == null) {
+			return false;
+		}
 		if(className.equals("boolean") ||
 				className.equals("java.lang.Boolean") ||
 				className.equals("int") ||

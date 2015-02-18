@@ -31,30 +31,46 @@ public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpr
 		Expression expression = negativeOperatorExpression.getExpr(); //get the expression
 		Type exprType = expression.getResolvedType();
 		
-		if (exprType != null) {
+		if (exprType == null) {
+			context.getLogBook().addError(expression, "Expression does not have a type");
+			return null;
+		}
+		else {
 			if (exprType instanceof AnyType) {
-				negativeOperatorExpression.setResolvedType(context.getEolFactory().createIntegerType());
+				context.getLogBook().addError(expression, "Expression is of type Any");
+				type = context.getEolFactory().createAnyType(); //create an integer type
+				negativeOperatorExpression.setResolvedType(type);
+				context.setAssets(type, negativeOperatorExpression);
+				return null;
 			}
 			else if (exprType instanceof PrimitiveType) {
 				if (exprType instanceof RealType) { //if expression is of type real
-					negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+					type = EcoreUtil.copy(exprType); //create an integer type
+					negativeOperatorExpression.setResolvedType(type);
+					context.setAssets(type, negativeOperatorExpression);
+					return null;
 				}	
 				else if (exprType instanceof IntegerType) {
-					negativeOperatorExpression.setResolvedType(EcoreUtil.copy(exprType));
+					type = EcoreUtil.copy(exprType); //create an integer type
+					negativeOperatorExpression.setResolvedType(type);
+					context.setAssets(type, negativeOperatorExpression);
+					return null;
 				}
 				else {
 					context.getLogBook().addError(expression, "Expression should be numeral");
+					type = context.getEolFactory().createAnyType(); //create an integer type
+					negativeOperatorExpression.setResolvedType(type);
+					context.setAssets(type, negativeOperatorExpression);
+					return null;
 				}
 			}
 			else {
 				context.getLogBook().addError(expression, "Expression should be numeral");
+				type = context.getEolFactory().createAnyType(); //create an integer type
+				negativeOperatorExpression.setResolvedType(type);
+				context.setAssets(type, negativeOperatorExpression);
+				return null;
 			}
 		}
-		else {
-			context.getLogBook().addError(expression, "Expression does not have a type");
-		}
-		
-		
-		return null;
 	}
 }
