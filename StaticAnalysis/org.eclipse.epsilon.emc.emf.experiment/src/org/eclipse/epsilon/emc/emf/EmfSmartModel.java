@@ -47,7 +47,6 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void clearCollections()
 	{		
-		System.out.println("Clear gets called");
 		visitedClasses.clear();
 		visitedClasses = null;
 		objectsAndRefNamesToVisit.clear();

@@ -43,7 +43,7 @@ public class Test_Harness {
 		{
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i*2 + "0percent_cu.eol", "m"));	
 		}
-		Test_Harness.generateCSV(result, "set0");
+		Test_Harness.generateCSV(result, "set0", 5);
 	}
 
 	
@@ -54,7 +54,7 @@ public class Test_Harness {
 		{
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i + "0percent.eol", "m"));	
 		}
-		Test_Harness.generateCSV(result, "set0");
+		Test_Harness.generateCSV(result, "set0", 10);
 	}
 	
 	public static void runSet1() throws Exception
@@ -64,7 +64,7 @@ public class Test_Harness {
 		{
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set1.xmi", "test/set1_" + i + "0percent.eol", "m"));	
 		}
-		Test_Harness.generateCSV(result, "set1");
+		Test_Harness.generateCSV(result, "set1", 10);
 	}
 	
 	public static void runSet2() throws Exception
@@ -75,7 +75,7 @@ public class Test_Harness {
 		{
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i + "0percent.eol", "m"));
 		}
-		Test_Harness.generateCSV(result, "set2");
+		Test_Harness.generateCSV(result, "set2", 10);
 
 	}
 		
@@ -88,7 +88,7 @@ public class Test_Harness {
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i + "0percent.eol", "m"));
 		}
 		
-		Test_Harness.generateCSV(result, "set3");
+		Test_Harness.generateCSV(result, "set3", 10);
 
 	}
 	
@@ -100,16 +100,24 @@ public class Test_Harness {
 		{
 			result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i + "0percent.eol", "m"));
 		}
-		Test_Harness.generateCSV(result, "set4");
+		Test_Harness.generateCSV(result, "set4", 10);
 
 	}
 	
-	public static void generateCSV(ArrayList<ArrayList<Long>> input, String name)
+	public static void generateCSV(ArrayList<ArrayList<Long>> input, String name, int entries)
 	{
 		
 		try
 		{
-			FileWriter writer = new FileWriter("test/"+name +".csv");
+			
+			FileWriter writer = null;
+			
+			if (entries == 10) {
+				writer = new FileWriter("test/"+name +".csv");
+			}
+			else {
+				writer = new FileWriter("test/"+name +"_CU.csv");
+			}
 	 
 		    writer.append("Normal loading time");
 		    writer.append(',');
@@ -154,7 +162,7 @@ public class Test_Harness {
 //		    writer.append("Greedy memory consumption");
 		    writer.append('\n');
 		    
-		    for(int i = 0; i < 10; i++)
+		    for(int i = 0; i < entries; i++)
 		    {
 		    	ArrayList<Long> temp = input.get(i);
 		    	for(int j = 0; j < 14; j++)
@@ -205,8 +213,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 2;
-		final int disregard = 1;
+		final int iteration = 20;
+		final int disregard = 10;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
