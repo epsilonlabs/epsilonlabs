@@ -25,16 +25,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-//		Test_Harness.runSet0();
+//		Test_Harness.runSet(0, 10);
+		
+		Test_Harness.runSet0();
 //		Test_Harness.runSet1();
 //		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
-		Test_Harness.runSet0CU();
+//		Test_Harness.runSet0CU();
 		
 //		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
 	}
+	
+	public static void runSet(int setNumber, int percentage) throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(Test_Harness.test_v2("test/JDTAST.ecore", "test/set"+ setNumber + ".xmi", "test/set"+ setNumber + "_" + percentage + "percent.eol", "m"));	
+	}
+
+	
 	
 	public static void runSet0CU() throws Exception
 	{
@@ -219,49 +229,53 @@ public class Test_Harness {
 		//run normal
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false, false);
 			normalLoad.add(tempResult.get(0));
 			normalExecute.add(tempResult.get(1));
 			normalMemory.add(tempResult.get(2));
-
+			System.gc();
 		}
-		System.gc();
 		//run smart
 		for(int i = 0; i < iteration; i++)
 		{		
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, false);
 			smartLoad.add(tempResult.get(0));
 			smartExecute.add(tempResult.get(1));
 			smartMemory.add(tempResult.get(2));
+			System.gc();
 		}
-		System.gc();
 		//run partial
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false, true);
 			partialLoad.add(tempResult.get(0));
 			partialExecute.add(tempResult.get(1));
 			partialMemory.add(tempResult.get(2));
+			System.gc();
 		}		
-		System.gc();
 		//run smart partial
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, true);
 			smartPartialLoad.add(tempResult.get(0));
 			smartPartialExecute.add(tempResult.get(1));
 			smartPartialMemory.add(tempResult.get(2));
+			System.gc();
 		}	
-		System.gc();
 		//run greedy
 		for(int i = 0; i < iteration; i++)
 		{
+			System.gc();
 			ArrayList<Long> tempResult = Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false, false);
 			greedyLoad.add(tempResult.get(0));
 			greedyExecute.add(tempResult.get(1));
 			greedyMemory.add(tempResult.get(2));
+			System.gc();
 		}
-		System.gc();
 		
 		long normalLoadTime = 0;
 		long normalExecutionTime = 0;
@@ -506,35 +520,30 @@ public class Test_Harness {
 		for(int i = 0; i < iteration; i++)
 		{
 			normalData.add(Test_Harness.testModel(metamodel, model, eolFile, 0, modelName, false, false));
-			System.gc();
 		}
 
 		//run smart
 		for(int i = 0; i < iteration; i++)
 		{
 			smartData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, false));
-			System.gc();
 		}
 		
 		//run partial
 		for(int i = 0; i < iteration; i++)
 		{
 			partialData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, false, true));
-			System.gc();
 		}		
 		
 		//run smart partial
 		for(int i = 0; i < iteration; i++)
 		{
 			smartPartialData.add(Test_Harness.testModel(metamodel, model, eolFile, 1, modelName, true, true));
-			System.gc();
 		}	
 		
 		//run greedy
 		for(int i = 0; i < iteration; i++)
 		{
 			greedyData.add(Test_Harness.testModel(metamodel, model, eolFile, 2, modelName, false, false));
-			System.gc();
 		}
 		
 		
@@ -844,12 +853,11 @@ public class Test_Harness {
 		loa = null;
 		loaContext = null;
 
-
+		System.gc();
 		System.out.println(modelType + " model prepared, loading...");
 
 		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
 		long init = System.nanoTime();
-		
 		emfModel.load();
 		long result1 = (System.nanoTime()-init)/1000000;
 
@@ -869,7 +877,7 @@ public class Test_Harness {
 		
 		result.add(memoryConsumptionStart-memoryConsumptionEnd);
 		eolModule.getContext().getModelRepository().dispose();
-		
+		System.gc();
 		
 		return result;
 	}
