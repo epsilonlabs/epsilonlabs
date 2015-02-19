@@ -26,12 +26,12 @@ public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
 //		Test_Harness.runSet0();
-		Test_Harness.runSet1();
+//		Test_Harness.runSet1();
 //		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
 		
-//		Test_Harness.runSet0CU();
+		Test_Harness.runSet0CU();
 		
 //		Test_Harness.test("test/OO.ecore", "test/OOInstance.model", "test/oo.eol", "oo");
 	}
@@ -221,8 +221,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 2;
-		final int disregard = 1;
+		final int iteration = 20;
+		final int disregard = 10;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)

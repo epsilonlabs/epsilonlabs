@@ -168,6 +168,24 @@ public class EmfSmartModel extends EmfModel{
 				}
 			}
 		}
+		
+		for(EPackage ePackage: packages)
+		{
+			for(EClassifier eClassifier: ePackage.getEClassifiers())
+			{
+				if (eClassifier instanceof EClass) {
+					EClass leClass = (EClass) eClassifier;
+					if (actualObjectToLoad(ePackage, (EClass) eClassifier)) {
+						
+						for(EReference eReference: leClass.getEAllReferences())
+						{
+							EClass eType = (EClass) eReference.getEType();
+							addActualObjectToLoad(eType);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	
