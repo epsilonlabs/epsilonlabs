@@ -25,10 +25,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
-//		Test_Harness.runSet(0, 10);
-		
-		Test_Harness.runSet0();
-//		Test_Harness.runSet1();
+//		Test_Harness.runSet0();
+		Test_Harness.runSet1();
 //		Test_Harness.runSet2();
 //		Test_Harness.runSet3();
 //		Test_Harness.runSet4();
@@ -223,8 +221,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 20;
-		final int disregard = 10;
+		final int iteration = 2;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -853,7 +851,6 @@ public class Test_Harness {
 		loa = null;
 		loaContext = null;
 
-		System.gc();
 		System.out.println(modelType + " model prepared, loading...");
 
 		long memoryConsumptionStart = Runtime.getRuntime().freeMemory();
@@ -877,7 +874,6 @@ public class Test_Harness {
 		
 		result.add(memoryConsumptionStart-memoryConsumptionEnd);
 		eolModule.getContext().getModelRepository().dispose();
-		System.gc();
 		
 		return result;
 	}

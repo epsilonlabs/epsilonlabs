@@ -26,7 +26,7 @@ for(a in allContents)
 {
 	var count = counter.get(a.type());
 	var featureCount = 1;
-	for(feature in a.type().eStructuralFeatures)
+	for(feature in a.type().eAllStructuralFeatures)
 	{
 		if(a.eGet(feature).isDefined() and feature.derived = false)
 		{
@@ -96,7 +96,7 @@ var eolQueryString = "model Core driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};
 for(clazz in getPercent(sequence, sum, 100))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
-	for(feature in clazz.eStructuralFeatures)
+	for(feature in clazz.eAllStructuralFeatures)
 	{
 		eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all." + feature.name + ".size();\n";
 	}
@@ -133,39 +133,44 @@ operation getPercent(seq: Sequence, size: Integer, percent : Integer)
 		var clazz = k.at(0);
 		
 		var eType;
-		
-		for(feature in clazz.eReferences)
+	
+		if(temp.includes(clazz))
 		{
-			if(not feature.containment)
-			{
-				eType = feature.eType;
-				if(temp.includes(eType))
-				{
-					
-				}
-				else
-				{
-					var num = objectCounter.get(eType);
-					value = value + num;
-				}
-				
-			}
+		
 		}
+		else
+		{
+			for(feature in clazz.eAllReferences)
+			{
+				if(not feature.containment)
+				{
+					eType = feature.eType;
+					if(temp.includes(eType))
+					{
+					}
+					else
+					{
+						var num = objectCounter.get(eType);
+						value = value + num + 1;
+					}
+				}
+			}
 	
 		
-		if(value < number)
-		{
-			if(value + sum <= number and value + sum < number * 1.05)
+			if(value < number)
 			{
-				sum = sum + value;
-				result.add(k.at(0));
-				temp.add(eType);
+				if(value + sum <= number and value + sum < number * 1.05)
+				{
+					sum = sum + value;
+					result.add(k.at(0));
+					temp.add(eType);
+				}
 			}
-		}
-		if(sum > number)
-		{
-			break;
-		}
+			if(sum > number)
+			{
+				break;
+			}
+		}	
 	}
 	sum.errln();
 	return result;
