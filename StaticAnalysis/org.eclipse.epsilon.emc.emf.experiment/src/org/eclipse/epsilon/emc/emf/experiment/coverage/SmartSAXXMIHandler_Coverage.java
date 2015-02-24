@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.emc.emf;
+package org.eclipse.epsilon.emc.emf.experiment.coverage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.emf.ecore.xml.type.util.XMLTypeUtil;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 
-public class SmartSAXXMIHandler extends SAXXMIHandler{
+public class SmartSAXXMIHandler_Coverage extends SAXXMIHandler{
 	
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
@@ -46,8 +46,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	
 	public boolean loadAllAttributes = true;
 	
-	protected int counter = 0;
-	protected int actualCounter = 0;
 	
 	@Override
 	public void endDocument() {
@@ -65,8 +63,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		elements = null;
 		mixedTargets.clear();
 		mixedTargets = null;
-		System.err.println(actualCounter);
-		System.err.println(counter);
 		super.endDocument();
 	}
 	
@@ -80,7 +76,7 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 		this.actualObjectsToLoad = actualObjectsToLoad;
 	}
 	
-	public SmartSAXXMIHandler(XMLResource xmiResource, XMLHelper helper,
+	public SmartSAXXMIHandler_Coverage(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
 	}
@@ -109,11 +105,9 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	@Override
 	@Deprecated
 	protected EObject createObjectFromFactory(EFactory factory, String typeName) {
-		counter++;
 		EClass eClass = (EClass) factory.getEPackage().getEClassifier(typeName);
 		//if the an instance of the class should be created
 		if (shouldCreateObjectForClass(eClass)) {
-			actualCounter++;
 			//prepare newObject
 		    EObject newObject = null;
 		    //if factory != null
@@ -198,7 +192,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 
 	@Override
 	protected void setAttribValue(EObject object, String name, String value) {
-		counter++;
 	    int index = name.indexOf(':', 0);
 
 	    // We use null here instead of "" because an attribute without a prefix is considered to have the null target namespace...
@@ -225,7 +218,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	    	  }
 	    	  else {
 		    	  if (shouldHandleFeature(object, feature.getName())) {
-		    		  actualCounter++;
 		    		  setFeatureValue(object, feature, value, -2);	
 		    	  }
 			}
@@ -234,7 +226,6 @@ public class SmartSAXXMIHandler extends SAXXMIHandler{
 	      else
 	      {
 	    	  if (shouldHandleFeature(object, feature.getName())) {
-	    		actualCounter++;
 	  	        setValueFromId(object, (EReference)feature, value);
 			}
 	      }

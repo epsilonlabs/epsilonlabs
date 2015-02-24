@@ -24,33 +24,44 @@ var oppositeRefs = new Set;
 
 for(a in allContents)
 {
-	var count = counter.get(a.type());
-	var featureCount = 1;
-	for(feature in a.type().eAllStructuralFeatures)
+	var count = counter.get(a.type()); //get the count by type
+	var featureCount = 1; //set feature value to 1
+	for(feature in a.type().eAllStructuralFeatures) //for all estructrual features
 	{
-		if(a.eGet(feature).isDefined() and feature.derived = false)
+		if(a.eGet(feature).isDefined()) //if the feature is defined
 		{
-			if(feature.hasProperty("opposite"))
+			var value = a.eGet(feature); //get the feature
+			
+			if(feature.derived = false)
 			{
-				var opposite = feature.opposite;
-				if(opposite.isDefined())
+				if(feature.hasProperty("eOpposite"))
 				{
-					if(oppositeRefs.excludes(feature))
+					var opposite = feature.eOpposite;
+					if(opposite.isDefined())
 					{
-						oppositeRefs.add(opposite);
-						featureCount = featureCount + 2;
+						if(oppositeRefs.excludes(feature))
+						{
+							oppositeRefs.add(opposite);
+							featureCount = featureCount + 1;
+						}
+					}
+					else
+					{	
+						featureCount = featureCount + 1;
 					}
 				}
 				else
-				{	
-					featureCount = featureCount + 1;
+				{
+					if(feature.isKindOf(Collection))
+					{
+						featureCount = featureCount + feature.size();
+					}
+					else
+					{
+						featureCount = featureCount + 1;
+					}
 				}
 			}
-			else
-			{
-				featureCount = featureCount + 1;
-			}
-			
 		}
 	}
 
@@ -76,14 +87,12 @@ sequence = sequence.sortBy(x|-x.at(1));
 
 var sum = 0;
 
-
-for(k in counter.keySet())
+for(seq in sequence)
 {
-	k.name.print();
+	seq.at(0).name.print();
 	": ".print();
-	var val = counter.get(k);
-	sum = sum + val;
-	val.println();
+	sum = sum + seq.at(1);
+	seq.at(1).println();
 }
 
 
@@ -93,7 +102,7 @@ sum.println();
 
 var eolQueryString = "model Core driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};\nmodel DOM driver EMF {nsuri = \"org.amma.dsl.jdt.dom\"};\nmodel PrimitiveTypes driver EMF {nsuri = \"org.amma.dsl.jdt.primitiveTypes\"};\nvar size = 0;\n";
 
-for(clazz in getPercent(sequence, sum, 100))
+for(clazz in getPercent(sequence, sum, 20))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
 	for(feature in clazz.eAllStructuralFeatures)
@@ -125,6 +134,7 @@ operation getPercent(seq: Sequence, size: Integer, percent : Integer)
 {
 	var result = new Set;
 	var temp = new Set;
+	var temp2 = new Set;
 	var number = size*percent/100;
 	var sum = 0;
 	for(k in seq)
@@ -152,6 +162,13 @@ operation getPercent(seq: Sequence, size: Integer, percent : Integer)
 					{
 						var num = objectCounter.get(eType);
 						value = value + num + 1;
+						for(entry in objectCounter.keySet())
+						{
+							if(entry.eAllSuperTypes.includes(eType) and entry <> eType)
+							{
+								value = value + objectCounter.get(entry);
+							}
+						}
 					}
 				}
 			}
