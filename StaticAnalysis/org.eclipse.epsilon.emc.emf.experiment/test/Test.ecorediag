@@ -13,7 +13,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_cWDFs3ZWEeSteZwb_OFk3w"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_cV8_EXZWEeSteZwb_OFk3w" fontColor="4210752" fontName=".Helvetica Neue DeskInterface" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="Test.ecore#//A"/>
+    <element xmi:type="ecore:EClass" href="Test.ecore#//ClassA"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cV8_EnZWEeSteZwb_OFk3w" x="252" y="36"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_c-eXoHZWEeSteZwb_OFk3w" type="1001">
@@ -29,7 +29,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_c-e-t3ZWEeSteZwb_OFk3w"/>
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_c-eXoXZWEeSteZwb_OFk3w" fontColor="4210752" fontName=".Helvetica Neue DeskInterface" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
-    <element xmi:type="ecore:EClass" href="Test.ecore#//B"/>
+    <element xmi:type="ecore:EClass" href="Test.ecore#//ClassB"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_c-eXonZWEeSteZwb_OFk3w" x="126" y="126"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_dYHmsHZWEeSteZwb_OFk3w" type="1001">
@@ -155,7 +155,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_g4ogEXZWEeSteZwb_OFk3w" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_g4ogEnZWEeSteZwb_OFk3w" fontColor="4210752" fontName=".Helvetica Neue DeskInterface" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Test.ecore#//A/b"/>
+    <element xmi:type="ecore:EReference" href="Test.ecore#//ClassA/b"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_g4ogE3ZWEeSteZwb_OFk3w" points="[-24, 20, 102, -70]$[-76, 89, 50, -1]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_hdKJcHZWEeSteZwb_OFk3w" type="3002" source="_c-eXoHZWEeSteZwb_OFk3w" target="_eqmiQHZWEeSteZwb_OFk3w">
@@ -167,7 +167,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_hdKJcXZWEeSteZwb_OFk3w" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_hdKJcnZWEeSteZwb_OFk3w" fontColor="4210752" fontName=".Helvetica Neue DeskInterface" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Test.ecore#//B/e"/>
+    <element xmi:type="ecore:EReference" href="Test.ecore#//ClassB/e"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hdKJc3ZWEeSteZwb_OFk3w" points="[16, 20, -77, -96]$[95, 128, 2, 12]"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hdOa4HZWEeSteZwb_OFk3w" id="(0.803921568627451,0.7142857142857143)"/>
   </edges>
@@ -194,7 +194,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_i5FU4XZWEeSteZwb_OFk3w" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_i5FU4nZWEeSteZwb_OFk3w" fontColor="4210752" fontName=".Helvetica Neue DeskInterface" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="Test.ecore#//A/c"/>
+    <element xmi:type="ecore:EReference" href="Test.ecore#//ClassA/c"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_i5FU43ZWEeSteZwb_OFk3w" points="[20, 20, -160, -142]$[176, 182, -4, 20]"/>
   </edges>
   <edges xmi:type="notation:Edge" xmi:id="_lIH_UHZWEeSteZwb_OFk3w" type="3002" source="_dpayEHZWEeSteZwb_OFk3w" target="_e-cEQHZWEeSteZwb_OFk3w">

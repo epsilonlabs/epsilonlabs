@@ -1,0 +1,120 @@
+delete m.allContents;
+
+var uni = new University;
+
+uni.name = "University of York";
+
+var cs = new Department;
+cs.name = "Computer Science";
+uni.departments.add(cs);
+
+var mdsd = new Module;
+mdsd.name = "MDSD";
+
+var page1 = new WebPage;
+page1.title = "Model Driven Software Development";
+
+mdsd.modulePages.add(page1);
+
+var mfcs = new Module;
+mfcs.name = "MFCS";
+
+var page2 = new WebPage;
+page2.title = "Mathematical Foundations of Computer Science";
+
+mfcs.modulePages.add(page2);
+
+var tpop = new Module;
+tpop.name = "TPOP";
+
+var page3 = new WebPage;
+page3.title = "Theory and Practice of Programming";
+
+tpop.modulePages.add(page3);
+
+cs.modules.add(mdsd);
+cs.modules.add(mfcs);
+cs.modules.add(tpop);
+
+
+var stu1 = new Student;
+stu1.first_name = 'Ran';
+stu1.last_name = 'Wei';
+
+var stu2 = new Student;
+stu2.first_name = 'Kostas';
+stu2.last_name = 'Barmpis';
+
+
+var staff1 = new Staff;
+staff1.first_name = 'Dimitris';
+staff1.last_name = 'Kolovos';
+
+var staff1Page = new WebPage;
+staff1Page.title = "Dimitris Kolovos";
+
+staff1.departmentalPage = staff1Page;
+
+cs.members.add(stu1);
+cs.members.add(stu2);
+cs.members.add(staff1);
+
+////////////////////////
+
+
+
+var cs = new Department;
+cs.name = "Electronics";
+uni.departments.add(cs);
+
+var mdsd = new Module;
+mdsd.name = "ELE00004C";
+
+var page1 = new WebPage;
+page1.title = "Analogue Electronics";
+
+mdsd.modulePages.add(page1);
+
+var mfcs = new Module;
+mfcs.name = "ELE00010C";
+
+var page2 = new WebPage;
+page2.title = "Computer Operating Systems and Interfacing";
+
+mfcs.modulePages.add(page2);
+
+var tpop = new Module;
+tpop.name = "ELE00005C";
+
+var page3 = new WebPage;
+page3.title = "Digital Electronics";
+
+tpop.modulePages.add(page3);
+
+cs.modules.add(mdsd);
+cs.modules.add(mfcs);
+cs.modules.add(tpop);
+
+
+var stu1 = new Student;
+stu1.first_name = 'John';
+stu1.last_name = 'Wick';
+
+var stu2 = new Student;
+stu2.first_name = 'Ian';
+stu2.last_name = 'Smith';
+
+
+var staff1 = new Staff;
+staff1.first_name = 'Steven';
+staff1.last_name = 'Johnson';
+
+var staff1Page = new WebPage;
+staff1Page.title = "Steven Johnson";
+
+staff1.departmentalPage = staff1Page;
+
+cs.members.add(stu1);
+cs.members.add(stu2);
+cs.members.add(staff1);
+

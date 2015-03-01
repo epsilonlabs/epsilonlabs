@@ -1,2 +1,2 @@
 Normal loading time,Normal execution time,Normal memory consumption,Smart loading time,Smart execution time,Smart memory consumption,Partial loading time,Partial execution time,Partial memory consumption,Smart Partial loading time,Smart Partial execution time,Smart Partial memory consumption,Greedy loading time,Greedy execution time,Greedy memory consumption
-629,7,128849120,645,1,161061432,293,3,64424624,295,1,64424544,788,3,273804600
+674,7,128849155,685,1,161169476,223,2,32212271,226,0,32212271,779,1,128849150
