@@ -8,53 +8,46 @@ model PrimitiveTypes driver EMF {nsuri = "org.amma.dsl.jdt.primitiveTypes"};
 	 * public methods (MethodDeclaration) whose return type is the same
 	 * class
 	 */
-var a:DOM!TypeDeclaration = DOM!TypeDeclaration.all.first();
-
-a.println();
-
 var matches:Set;
 
 "".println();
  
-matches.addAll(DOM!TypeDeclaration.all.collect(td:DOM!TypeDeclaration|td.bodyDeclarations.select(
-	md:DOM!MethodDeclaration|md.modifiers.exists(mod:DOM!Modifier|mod.public==true)
+matches.addAll(TypeDeclaration.all.collect(td:TypeDeclaration|td.bodyDeclarations.select(
+	md:MethodDeclaration|md.modifiers.exists(mod:Modifier|mod.public==true)
 	and 
-	md.modifiers.exists(mod:DOM!Modifier|mod.static==true)
+	md.modifiers.exists(mod:Modifier|mod.static==true)
 	and
-	md.returnType.isTypeOf(DOM!SimpleType)
+	md.returnType.isTypeOf(SimpleType)
 	and 
 	md.returnType.name.fullyQualifiedName == td.name.fullyQualifiedName
 	))
 .flatten()
-.collect(names:DOM!MethodDeclaration|names.returnType.name.fullyQualifiedName)
+.collect(names:MethodDeclaration|names.returnType.name.fullyQualifiedName)
 );
- 
-for(match in matches)
-{
-	match.println();
-}
-
-"".println();
-  	 
 
 
-var b:DOM!MethodDeclaration = DOM!MethodDeclaration.all.first();
+matches.size().println();
 
-b.println();
 
-var c:DOM!Block = DOM!Block.all.first();
 
-c.println();
+var bodydecl = BodyDeclaration.all.first;
+var abstractTypeDeclaration = AbstractTypeDeclaration.all;
+var typeDecl = TypeDeclaration.all.first;
+var typeBody = TypeDeclaration.all.bodyDeclarations;
+var typename = TypeDeclaration.all.name.fullyQualifiedName;
+var simpleName = SimpleName.all.first;
+var simpleNameQuali = SimpleName.all.fullyQualifiedName;
 
-var returnStatement: DOM!ReturnStatement = DOM!ReturnStatement.all.first();
-returnStatement.println();
+var methodDecl = MethodDeclaration.all.first;
+var methodDeclModi = MethodDeclaration.all.modifiers;
+var methodrt = MethodDeclaration.all.returnType;
 
-var singleVariableDeclaration : DOM!SingleVariableDeclaration = SingleVariableDeclaration.all.first();
-singleVariableDeclaration.println();
+var type = Type.all.first;
 
-var simpleName : DOM!SimpleName = DOM!SimpleName.all.first();
-simpleName.println();
-
-var qualifiedName : DOM!QualifiedName = DOM!QualifiedName.all.first();
-qualifiedName.println();
-
+var simpleType = SimpleType.all.first;
+var simpleTypeName = SimpleType.all.name;
+var name = Name.all.first;
+var namequali = Name.all.fullyQualifiedName;
+var modifier = Modifier.all.first;
+var modifierstatic = Modifier.all.static;
+var modifierpublic = Modifier.all.public;

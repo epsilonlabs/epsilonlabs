@@ -35,4 +35,4 @@ size = size + ImportDeclaration.all.size();
 var iImportDeclaration = IImportDeclaration.all.first;
 size = size + IImportDeclaration.all.size();
 size.println();
-
+m.allContents().size().println();

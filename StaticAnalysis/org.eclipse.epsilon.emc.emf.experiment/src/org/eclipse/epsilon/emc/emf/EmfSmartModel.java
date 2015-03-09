@@ -179,11 +179,30 @@ public class EmfSmartModel extends EmfModel{
 						
 						for(EReference eReference: leClass.getEAllReferences())
 						{
-							EClass eType = (EClass) eReference.getEType();
-							addActualObjectToLoad(eType);
+							if(actualObjectsToLoad.get(ePackage.getName()).get(eClassifier.getName()).contains(eReference.getName()))
+							{
+								EClass eType = (EClass) eReference.getEType();
+								addActualObjectToLoad(eType);
+							}
 						}
 					}
 				}
+			}
+		}
+		
+		for(ModelContainer mc: modelContainers)
+		{
+			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			{
+				ArrayList<String> features = actualObjectsToLoad.get(mc.getModelName()).get(mec.getElementName());
+				features.addAll(mec.getAttributes());
+				features.addAll(mec.getReferences());
+			}
+			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			{
+				ArrayList<String> features = actualObjectsToLoad.get(mc.getModelName()).get(mec.getElementName());
+				features.addAll(mec.getAttributes());
+				features.addAll(mec.getReferences());
 			}
 		}
 	}
@@ -465,13 +484,18 @@ public class EmfSmartModel extends EmfModel{
 	
 	public boolean liveReference(EReference eReference)
 	{
-		EClassifier eClassifier = eReference.getEType();
-		EClass etype = (EClass) eClassifier;
-		if (liveClass(etype.getEPackage(), etype.getName())) {
-			return true;
+		if(eReference.isContainment())
+		{
+			EClassifier eClassifier = eReference.getEType();
+			EClass etype = (EClass) eClassifier;
+			if (liveClass(etype.getEPackage(), etype.getName())) {
+				return true;
+			}
+			
+			return false;
 		}
-		
 		return false;
+		
 	}
 	
 	public boolean actualObjectToLoad(EPackage ePackage, EClass eClass)
@@ -510,6 +534,7 @@ public class EmfSmartModel extends EmfModel{
 	/*
 	 * this method determines if a class is live for a eType of an eReference
 	 */
+	
 	public boolean liveClass(EPackage ePackage, String className)
 	{
 		for(ModelContainer mc: modelContainers)

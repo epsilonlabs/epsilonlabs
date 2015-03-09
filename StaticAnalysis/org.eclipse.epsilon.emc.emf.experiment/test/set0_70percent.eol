@@ -7,3 +7,4 @@ size = size + IMethod.all.size();
 var parameter = Parameter.all.first;
 size = size + Parameter.all.size();
 size.println();
+m.allContents().size().println();

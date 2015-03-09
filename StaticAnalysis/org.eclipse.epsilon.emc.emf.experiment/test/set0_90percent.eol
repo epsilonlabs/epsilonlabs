@@ -11,3 +11,4 @@ size = size + Parameter.all.size();
 var iField = IField.all.first;
 size = size + IField.all.size();
 size.println();
+m.allContents().size().println();

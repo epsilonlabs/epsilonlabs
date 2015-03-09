@@ -24,6 +24,7 @@ page2.title = "Mathematical Foundations of Computer Science";
 
 mfcs.modulePages.add(page2);
 
+/*
 var tpop = new Module;
 tpop.name = "TPOP";
 
@@ -31,20 +32,22 @@ var page3 = new WebPage;
 page3.title = "Theory and Practice of Programming";
 
 tpop.modulePages.add(page3);
+*/
 
 cs.modules.add(mdsd);
 cs.modules.add(mfcs);
-cs.modules.add(tpop);
+//cs.modules.add(tpop);
 
 
 var stu1 = new Student;
 stu1.first_name = 'Ran';
 stu1.last_name = 'Wei';
+stu1.modules.add(mdsd);
 
 var stu2 = new Student;
 stu2.first_name = 'Kostas';
 stu2.last_name = 'Barmpis';
-
+stu2.modules.add(mfcs);
 
 var staff1 = new Staff;
 staff1.first_name = 'Dimitris';
@@ -62,7 +65,7 @@ cs.members.add(staff1);
 ////////////////////////
 
 
-
+/*
 var cs = new Department;
 cs.name = "Electronics";
 uni.departments.add(cs);
@@ -117,4 +120,4 @@ staff1.departmentalPage = staff1Page;
 cs.members.add(stu1);
 cs.members.add(stu2);
 cs.members.add(staff1);
-
+*/

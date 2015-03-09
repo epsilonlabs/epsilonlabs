@@ -26,15 +26,61 @@ public class Test_Harness {
 	
 	public static void main(String[] args) throws Exception {
 		Test_Harness test_Harness = new Test_Harness();
-		test_Harness.runSet0();
+//		test_Harness.runSet0();
 //		test_Harness.runSet1();
 //		test_Harness.runSet2();
 //		test_Harness.runSet3();
 //		test_Harness.runSet4();
 		
-//		Test_Harness.runSet0CU();
+		test_Harness.runSet0CU();
+		test_Harness.runSet1CU();
+		test_Harness.runSet2CU();
+		test_Harness.runSet3CU();
+		test_Harness.runSet4CU();
+		
+//		test_Harness.runSet0grabats();
+//		test_Harness.runSet1grabats();
+//		test_Harness.runSet2grabats();
+//		test_Harness.runSet3grabats();
+//		test_Harness.runSet4grabats();
 		
 	}
+	
+	public void runSet0grabats() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(test_v3("test/JDTAST.ecore", "test/set0.xmi", "test/grabats.eol", "m"));	
+		generateCSV_v2(result, "set0grab", 1);
+	}
+	
+	public void runSet1grabats() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(test_v3("test/JDTAST.ecore", "test/set1.xmi", "test/grabats.eol", "m"));	
+		generateCSV_v2(result, "set1grab", 1);
+	}
+	
+	public void runSet2grabats() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(test_v3("test/JDTAST.ecore", "test/set2.xmi", "test/grabats.eol", "m"));	
+		generateCSV_v2(result, "set2grab", 1);
+	}
+	
+	public void runSet3grabats() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(test_v3("test/JDTAST.ecore", "test/set3.xmi", "test/grabats.eol", "m"));	
+		generateCSV_v2(result, "set3grab", 1);
+	}
+	
+	public void runSet4grabats() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		result.add(test_v3("test/JDTAST.ecore", "test/set4.xmi", "test/grabats.eol", "m"));	
+		generateCSV_v2(result, "set4grab", 1);
+	}
+
 	
 	public void runSet(int setNumber, int percentage) throws Exception
 	{
@@ -49,41 +95,81 @@ public class Test_Harness {
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
 		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i*2 + "0percent_cu.eol", "m"));	
+			result.add(test_v3("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i*2 + "0percent_cu.eol", "m"));	
 		}
-		generateCSV(result, "set0", 5);
+		generateCSV_v2(result, "set0", 5);
+	}
+
+	public void runSet1CU() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		for(int i = 1; i <= 5; i++)
+		{
+			result.add(test_v3("test/JDTAST.ecore", "test/set1.xmi", "test/set0_" + i*2 + "0percent_cu.eol", "m"));	
+		}
+		generateCSV_v2(result, "set1", 5);
+	}
+	
+	public void runSet2CU() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		for(int i = 1; i <= 5; i++)
+		{
+			result.add(test_v3("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i*2 + "0percent_cu.eol", "m"));	
+		}
+		generateCSV_v2(result, "set2", 5);
+	}
+	
+	public void runSet3CU() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		for(int i = 1; i <= 5; i++)
+		{
+			result.add(test_v3("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i*2 + "0percent_cu.eol", "m"));	
+		}
+		generateCSV_v2(result, "set3", 5);
+	}
+
+	public void runSet4CU() throws Exception
+	{
+		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
+		for(int i = 1; i <= 5; i++)
+		{
+			result.add(test_v3("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i*2 + "0percent_cu.eol", "m"));	
+		}
+		generateCSV_v2(result, "set4", 5);
 	}
 
 	
 	public void runSet0() throws Exception
 	{
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
-		for(int i = 1; i <= 10; i++)
+		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i + "0percent.eol", "m"));	
+			result.add(test_v3("test/JDTAST.ecore", "test/set0.xmi", "test/set0_" + i*2 + "0percent.eol", "m"));	
 		}
-		generateCSV(result, "set0", 10);
+		generateCSV_v2(result, "set0", 5);
 	}
 	
 	public void runSet1() throws Exception
 	{
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
-		for(int i = 1; i <= 10; i++)
+		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set1.xmi", "test/set1_" + i + "0percent.eol", "m"));	
+			result.add(test_v3("test/JDTAST.ecore", "test/set1.xmi", "test/set1_" + i*2 + "0percent.eol", "m"));	
 		}
-		generateCSV(result, "set1", 10);
+		generateCSV_v2(result, "set1", 5);
 	}
 	
 	public void runSet2() throws Exception
 	{
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
 
-		for(int i = 1; i <= 10; i++)
+		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i + "0percent.eol", "m"));
+			result.add(test_v3("test/JDTAST.ecore", "test/set2.xmi", "test/set2_" + i*2 + "0percent.eol", "m"));
 		}
-		generateCSV(result, "set2", 10);
+		generateCSV_v2(result, "set2", 5);
 
 	}
 		
@@ -91,12 +177,12 @@ public class Test_Harness {
 	{
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
 
-		for(int i = 1; i <= 10; i++)
+		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i + "0percent.eol", "m"));
+			result.add(test_v3("test/JDTAST.ecore", "test/set3.xmi", "test/set3_" + i*2 + "0percent.eol", "m"));
 		}
 		
-		generateCSV(result, "set3", 10);
+		generateCSV_v2(result, "set3", 5);
 
 	}
 	
@@ -104,13 +190,74 @@ public class Test_Harness {
 	{
 		ArrayList<ArrayList<Long>> result = new ArrayList<ArrayList<Long>>();
 
-		for(int i = 1; i <= 10; i++)
+		for(int i = 1; i <= 5; i++)
 		{
-			result.add(test_v2("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i + "0percent.eol", "m"));
+			result.add(test_v3("test/JDTAST.ecore", "test/set4.xmi", "test/set4_" + i*2 + "0percent.eol", "m"));
 		}
-		generateCSV(result, "set4", 10);
+		generateCSV_v2(result, "set4", 5);
 
 	}
+	
+	public void generateCSV_v2(ArrayList<ArrayList<Long>> input, String name, int entries)
+	{
+		
+		try
+		{
+			
+			FileWriter writer = null;
+			
+			if (entries == 10) {
+				writer = new FileWriter("test/"+name +".csv");
+			}
+			else {
+				writer = new FileWriter("test/"+name +"CU.csv");
+			}
+	 
+		    writer.append("Normal loading time");
+		    writer.append(',');
+		    writer.append("Normal execution time");
+		    writer.append(',');
+		    writer.append("Normal memory consumption");
+		    writer.append(',');
+		    writer.append("Partial loading time");
+		    writer.append(',');
+		    writer.append("Partial execution time");
+		    writer.append(',');
+		    writer.append("Partial memory consumption");
+//		    writer.append(',');
+//		    writer.append("Normal Total");
+//		    writer.append(',');
+//		    writer.append("Smart Total");
+//		    writer.append(',');
+//		    writer.append("Partial Total");
+//		    writer.append(',');
+//		    writer.append("Smart Partial Total");
+//		    writer.append(',');
+//		    writer.append("Greedy Total");
+//		    writer.append(',');
+//		    writer.append("Greedy memory consumption");
+		    writer.append('\n');
+		    
+		    for(int i = 0; i < entries; i++)
+		    {
+		    	ArrayList<Long> temp = input.get(i);
+		    	for(int j = 0; j < 5; j++)
+		    	{
+		    		writer.append(temp.get(j)+"");
+		    		writer.append(',');
+		    	}
+		    	writer.append(temp.get(5)+"\n");
+		    }	 
+	 
+		    writer.flush();
+		    writer.close();
+		}
+		catch(IOException e)
+		{
+		     e.printStackTrace();
+		} 
+	}
+
 	
 	public void generateCSV(ArrayList<ArrayList<Long>> input, String name, int entries)
 	{
@@ -221,8 +368,8 @@ public class Test_Harness {
 
 
 		//specify the iteration and disregard
-		final int iteration = 20;
-		final int disregard = 10;
+		final int iteration = 2;
+		final int disregard = 1;
 		
 		//run normal
 		for(int i = 0; i < iteration; i++)
@@ -495,6 +642,159 @@ public class Test_Harness {
 		return result;
 	
 	}
+	
+	public ArrayList<Long> test_v3(String metamodel, String model, String eolFile, String modelName) throws Exception
+	{
+		ArrayList<Long> result = new ArrayList<Long>();
+		
+		//prepare data holders
+		ArrayList<Long> normalLoad = new ArrayList<Long>();
+		ArrayList<Long> normalExecute = new ArrayList<Long>();
+		ArrayList<Long> normalMemory = new ArrayList<Long>();
+		
+		ArrayList<Long> partialLoad = new ArrayList<Long>();
+		ArrayList<Long> partialExecute = new ArrayList<Long>();
+		ArrayList<Long> partialMemory = new ArrayList<Long>();
+
+		//specify the iteration and disregard
+		final int iteration = 2;
+		final int disregard = 1;
+		
+		//run normal
+		for(int i = 0; i < iteration; i++)
+		{
+			ArrayList<Long> tempResult = testModel(metamodel, model, eolFile, 0, modelName, false, false);
+			normalLoad.add(tempResult.get(0));
+			normalExecute.add(tempResult.get(1));
+			normalMemory.add(tempResult.get(2));
+			System.gc();
+		}
+		//run partial
+		for(int i = 0; i < iteration; i++)
+		{
+			ArrayList<Long> tempResult = testModel(metamodel, model, eolFile, 1, modelName, false, true);
+			partialLoad.add(tempResult.get(0));
+			partialExecute.add(tempResult.get(1));
+			partialMemory.add(tempResult.get(2));
+			System.gc();
+		}		
+		
+		long normalLoadTime = 0;
+		long normalExecutionTime = 0;
+		long normalMemoryConsumption = 0;
+		
+		long partialLoadTime = 0;
+		long partialExecutionTime = 0;
+		long partialMemoryConsumption = 0;
+
+		Collections.sort(normalLoad);
+		Collections.sort(normalExecute);
+		Collections.sort(normalMemory);
+		
+		Collections.sort(partialLoad);
+		Collections.sort(partialExecute);
+		Collections.sort(partialMemory);
+		
+		int pivot;
+		if ((iteration - disregard)/2 == 0) {
+			pivot = 1;
+		}
+		else {
+			pivot = (iteration-disregard)/2;
+		}
+		
+		for(int i = 0; i < iteration; i++)
+		{
+			if (i < pivot) {
+				
+			}
+			else {
+				if (i < pivot+disregard) {
+					if (i > pivot) {
+						normalLoadTime = (normalLoadTime + normalLoad.get(i))/2;
+						normalExecutionTime = (normalExecutionTime + normalExecute.get(i))/2;
+						normalMemoryConsumption = (normalMemoryConsumption + normalMemory.get(i))/2;
+						
+						partialLoadTime = (partialLoadTime + partialLoad.get(i))/2;
+						partialExecutionTime = (partialExecutionTime + partialExecute.get(i))/2;
+						partialMemoryConsumption = (partialMemoryConsumption + partialMemory.get(i))/2;
+						
+					}
+					else {
+						normalLoadTime = normalLoad.get(i);
+						normalExecutionTime = normalExecute.get(i);
+						normalMemoryConsumption = normalMemory.get(i);
+
+						partialLoadTime = partialLoad.get(i);
+						partialExecutionTime = partialExecute.get(i);
+						partialMemoryConsumption = partialMemory.get(i);
+						
+					}
+				}
+			}
+		}
+		
+				
+		result.add(normalLoadTime);
+		result.add(normalExecutionTime);
+		result.add(normalMemoryConsumption);
+		
+		result.add(partialLoadTime);
+		result.add(partialExecutionTime);
+		result.add(partialMemoryConsumption);
+		
+		System.out.println("normal loading time average: " + normalLoadTime);
+		System.out.println("normal execution time average: " + normalExecutionTime);
+		System.out.println("normal memory consumption: " + normalMemoryConsumption);
+		
+		System.out.println("partial loading time average: " + partialLoadTime);
+		System.out.println("partial execution time average: " + partialExecutionTime);
+		System.out.println("partial memory consumption: " + partialMemoryConsumption);
+		
+		
+		try
+		{
+			FileWriter writer = new FileWriter(eolFile.substring(0, eolFile.length()-4) + ".csv");
+	 
+		    writer.append("Normal loading time");
+		    writer.append(',');
+		    writer.append("Normal execution time");
+		    writer.append(',');
+		    writer.append("Normal memory consumption");
+		    writer.append(',');
+		    writer.append("Partial loading time");
+		    writer.append(',');
+		    writer.append("Partial execution time");
+		    writer.append(',');
+		    writer.append("Partial memory consumption");
+		    writer.append('\n');
+		    
+		    writer.append(normalLoadTime+"");
+		    writer.append(',');
+		    writer.append(normalExecutionTime+"");
+		    writer.append(',');
+		    writer.append(normalMemoryConsumption+"");
+		    writer.append(',');
+		    
+		    writer.append(partialLoadTime+"");
+		    writer.append(',');
+		    writer.append(partialExecutionTime+"");
+		    writer.append(',');
+		    writer.append(partialMemoryConsumption+"");
+		    writer.append(',');
+		    
+		    writer.flush();
+		    writer.close();
+		}
+		catch(IOException e)
+		{
+		     e.printStackTrace();
+		} 
+		
+		return result;
+	
+	}
+
 	
 	public void test(String metamodel, String model, String eolFile, String modelName) throws Exception
 	{
@@ -853,6 +1153,7 @@ public class Test_Harness {
 
 			result.add(result1);
 			System.out.println("(took ~" + result1 + "ms to load)");
+			long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
 			
 			init = System.nanoTime();
 			
@@ -863,7 +1164,6 @@ public class Test_Harness {
 			result.add(result2);
 			System.out.println("(took ~" + result2 + "ms to run)");
 			
-			long memoryConsumptionEnd = Runtime.getRuntime().freeMemory();
 			
 			result.add(memoryConsumptionStart-memoryConsumptionEnd);
 			eolModule.getContext().getModelRepository().dispose();

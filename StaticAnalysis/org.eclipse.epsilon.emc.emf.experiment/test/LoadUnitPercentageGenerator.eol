@@ -102,16 +102,16 @@ sum.println();
 
 var eolQueryString = "model Core driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};\nmodel DOM driver EMF {nsuri = \"org.amma.dsl.jdt.dom\"};\nmodel PrimitiveTypes driver EMF {nsuri = \"org.amma.dsl.jdt.primitiveTypes\"};\nvar size = 0;\n";
 
-for(clazz in getPercent(sequence, sum, 20))
+for(clazz in getPercent(sequence, sum, 80))
 {
 	eolQueryString = eolQueryString + "var " + clazz.name.firstToLowerCase() + " = " + clazz.name + ".all.first;\n";
-	for(feature in clazz.eAllStructuralFeatures)
+	for(feature in clazz.eAllAttributes)
 	{
 		eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all." + feature.name + ".size();\n";
 	}
 	eolQueryString = eolQueryString + "size = size + " + clazz.name + ".all.size();\n";
 	
-	for(feature in clazz.eReferences)
+	for(feature in clazz.eAllReferences)
 	{
 		if(not feature.containment)
 		{
