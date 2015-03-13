@@ -2,19 +2,19 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.context;
 
 import java.util.ArrayList;
 
-public class ModelElementContainer {
+public class EffectiveType {
 
-	protected String elementName;
+	protected String name;
 	protected ArrayList<String> attributes = new ArrayList<String>();
 	protected ArrayList<String> references = new ArrayList<String>();
 	
-	public ModelElementContainer(String elementName)
+	public EffectiveType(String name)
 	{
-		this.elementName = elementName;
+		this.name = name;
 	}
 	
-	public String getElementName() {
-		return elementName;
+	public String getName() {
+		return name;
 	}
 	
 	public ArrayList<String> getAttributes() {
@@ -35,7 +35,7 @@ public class ModelElementContainer {
 	public void addToReferences(String reference)
 	{
 		if (!references.contains(reference)) {
-			attributes.add(reference);	
+			references.add(reference);	
 		}
 	}
 }

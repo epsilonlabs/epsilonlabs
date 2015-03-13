@@ -8,8 +8,8 @@ import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
@@ -72,23 +72,23 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			}
 			else {
 				if (driver.containsEReference(elementString, propertyString)) {
-					ModelContainer mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
 					if (mc != null) {
-						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
+						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
 							mec.addToReferences(propertyString);
 						}
 						else {
-							mec = mc.getFromModelElementsAllOfKind(elementString);
+							mec = mc.getFromAllOfKind(elementString);
 							if (mec != null) {
 								mec.addToReferences(propertyString);
 							}
 							else {
 								EClass actualClass = driver.getMetaClass(elementString);
-								ArrayList<ModelElementContainer> containers = mc.getModelElementsAllOfKind();
-								for(ModelElementContainer container: containers)
+								ArrayList<EffectiveType> containers = mc.getAllOfKind();
+								for(EffectiveType container: containers)
 								{
-									String containerElementName = container.getElementName();
+									String containerElementName = container.getName();
 									EClass containerClass = driver.getMetaClass(containerElementName);
 									
 									if (actualClass.getESuperTypes().contains(containerClass)) {
@@ -100,22 +100,22 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 				}
 				if (driver.containsEAttribute(elementString, propertyString)) {
-					ModelContainer mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
 					if (mc != null) {
-						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
+						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
 							mec.addToAttributes(propertyString);
 						}
 						else {
-							mec = mc.getFromModelElementsAllOfKind(elementString);
+							mec = mc.getFromAllOfKind(elementString);
 							if (mec != null) {
 								mec.addToAttributes(propertyString);
 							}
 							else {
 								EClass actualClass = driver.getMetaClass(elementString);
-								for(ModelElementContainer container: mc.getModelElementsAllOfKind())
+								for(EffectiveType container: mc.getAllOfKind())
 								{
-									String containerElementName = container.getElementName();
+									String containerElementName = container.getName();
 									EClass containerClass = driver.getMetaClass(containerElementName);
 									if (actualClass.getESuperTypes().contains(containerClass)) {
 										container.addToAttributes(propertyString);
@@ -147,23 +147,23 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 				LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 
 				if (driver.containsEReference(elementString, propertyString)) {
-					ModelContainer mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
 					if (mc != null) {
-						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
+						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
 							mec.addToReferences(propertyString);
 						}
 						else {
-							mec = mc.getFromModelElementsAllOfKind(elementString);
+							mec = mc.getFromAllOfKind(elementString);
 							if (mec != null) {
 								mec.addToReferences(propertyString);
 							}
 							else {
 								EClass actualClass = driver.getMetaClass(elementString);
-								ArrayList<ModelElementContainer> containers = mc.getModelElementsAllOfKind();
-								for(ModelElementContainer container: containers)
+								ArrayList<EffectiveType> containers = mc.getAllOfKind();
+								for(EffectiveType container: containers)
 								{
-									String containerElementName = container.getElementName();
+									String containerElementName = container.getName();
 									EClass containerClass = driver.getMetaClass(containerElementName);
 									
 									if (actualClass.getESuperTypes().contains(containerClass)) {
@@ -175,22 +175,22 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 				}
 				if (driver.containsEAttribute(elementString, propertyString)) {
-					ModelContainer mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
 					if (mc != null) {
-						ModelElementContainer mec = mc.getFromModelElementsAllOfType(elementString);
+						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
 							mec.addToAttributes(propertyString);
 						}
 						else {
-							mec = mc.getFromModelElementsAllOfKind(elementString);
+							mec = mc.getFromAllOfKind(elementString);
 							if (mec != null) {
 								mec.addToAttributes(propertyString);
 							}
 							else {
 								EClass actualClass = driver.getMetaClass(elementString);
-								for(ModelElementContainer container: mc.getModelElementsAllOfKind())
+								for(EffectiveType container: mc.getAllOfKind())
 								{
-									String containerElementName = container.getElementName();
+									String containerElementName = container.getName();
 									EClass containerClass = driver.getMetaClass(containerElementName);
 									if (actualClass.getESuperTypes().contains(containerClass)) {
 										container.addToAttributes(propertyString);
