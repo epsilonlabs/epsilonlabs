@@ -21,8 +21,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
@@ -34,7 +34,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver
 public class EmfSmartModel extends EmfModel{
 
 
-	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>();	//protected ModelContainer modelContainer;
+	protected ArrayList<EffectiveMetamodel> modelContainers = new ArrayList<EffectiveMetamodel>();	//protected ModelContainer modelContainer;
 	protected ArrayList<EClass> visitedClasses = new ArrayList<EClass>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> objectsAndRefNamesToVisit = new HashMap<String, HashMap<String,ArrayList<String>>>();
 	protected HashMap<String, HashMap<String, ArrayList<String>>> actualObjectsToLoad = new HashMap<String, HashMap<String,ArrayList<String>>>();
@@ -68,12 +68,12 @@ public class EmfSmartModel extends EmfModel{
 		this.partialLoading = partialLoading;
 	}
 
-	public void addModelContainer(ModelContainer modelContainer)
+	public void addModelContainer(EffectiveMetamodel modelContainer)
 	{
 		modelContainers.add(modelContainer);
 	}
 	
-	public void setModelContainers(ArrayList<ModelContainer> modelContainers) {
+	public void setModelContainers(ArrayList<EffectiveMetamodel> modelContainers) {
 		this.modelContainers = modelContainers;
 	}
 	
@@ -190,17 +190,17 @@ public class EmfSmartModel extends EmfModel{
 			}
 		}
 		
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			for(EffectiveType mec: mc.getAllOfKind())
 			{
-				ArrayList<String> features = actualObjectsToLoad.get(mc.getModelName()).get(mec.getElementName());
+				ArrayList<String> features = actualObjectsToLoad.get(mc.getName()).get(mec.getName());
 				features.addAll(mec.getAttributes());
 				features.addAll(mec.getReferences());
 			}
-			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			for(EffectiveType mec: mc.getAllOfType())
 			{
-				ArrayList<String> features = actualObjectsToLoad.get(mc.getModelName()).get(mec.getElementName());
+				ArrayList<String> features = actualObjectsToLoad.get(mc.getName()).get(mec.getName());
 				features.addAll(mec.getAttributes());
 				features.addAll(mec.getReferences());
 			}
@@ -212,16 +212,16 @@ public class EmfSmartModel extends EmfModel{
 	public void insertHollowOjbects(EPackage ePackage, EClass eClass)
 	{
 		boolean inserted = false;
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
-				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			if (mc.getName().equalsIgnoreCase(ePackage.getName())) {
+				for(EffectiveType mec: mc.getAllOfKind())
 				{
-					if (mec.getElementName().equals(eClass.getName())) {
+					if (mec.getName().equals(eClass.getName())) {
 						inserted = true;
 						return;
 					}
-					EClass kind = (EClass) ePackage.getEClassifier(mec.getElementName());
+					EClass kind = (EClass) ePackage.getEClassifier(mec.getName());
 					for(EClass superClass: eClass.getEAllSuperTypes())
 					{
 						if (kind.getName().equals(superClass.getName())) {
@@ -231,9 +231,9 @@ public class EmfSmartModel extends EmfModel{
 					}
 
 				}
-				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				for(EffectiveType mec: mc.getAllOfType())
 				{
-					if (mec.getElementName().equals(eClass.getName())) {
+					if (mec.getName().equals(eClass.getName())) {
 						inserted = true;
 						return;
 					}
@@ -246,7 +246,7 @@ public class EmfSmartModel extends EmfModel{
 			}
 		}
 		if (!inserted) {
-			ModelContainer newContainer = new ModelContainer(ePackage.getName());
+			EffectiveMetamodel newContainer = new EffectiveMetamodel(ePackage.getName());
 			newContainer.addEmptyElement(eClass.getName());
 			modelContainers.add(newContainer);
 			
@@ -306,23 +306,23 @@ public class EmfSmartModel extends EmfModel{
 		ArrayList<String> result = new ArrayList<String>();
 		
 		//for all model containers
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
 			//if the container is the container needed
-			if (mc.getModelName().equals(ePackage.getName())) {
+			if (mc.getName().equals(ePackage.getName())) {
 				//for elements all of kind
 				loop1:
-				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				for(EffectiveType mec: mc.getAllOfKind())
 				{
 					//if class name equals, add all attributes and references
-					if (eClass.getName().equals(mec.getElementName())) {
+					if (eClass.getName().equals(mec.getName())) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
 						break loop1;
 					}
 					
 					//if eclass is a sub class of the kind, add all attributes and references
-					EClass kind = (EClass) ePackage.getEClassifier(mec.getElementName());
+					EClass kind = (EClass) ePackage.getEClassifier(mec.getName());
 					if (eClass.getEAllSuperTypes().contains(kind)) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
@@ -332,10 +332,10 @@ public class EmfSmartModel extends EmfModel{
 				
 				//for elements all of type
 				loop2:
-				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				for(EffectiveType mec: mc.getAllOfType())
 				{
 					//if class name equals, add all references and attributes
-					if (eClass.getName().equals(mec.getElementName())) {
+					if (eClass.getName().equals(mec.getName())) {
 						result.addAll(mec.getAttributes());
 						result.addAll(mec.getReferences());
 						break loop2;
@@ -500,12 +500,12 @@ public class EmfSmartModel extends EmfModel{
 	
 	public boolean actualObjectToLoad(EPackage ePackage, EClass eClass)
 	{
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
-				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			if (mc.getName().equalsIgnoreCase(ePackage.getName())) {
+				for(EffectiveType mec: mc.getAllOfKind())
 				{
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					if (elementName.equals(eClass.getName())) {
 						return true;
 					}
@@ -517,9 +517,9 @@ public class EmfSmartModel extends EmfModel{
 					}
 				}
 				
-				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				for(EffectiveType mec: mc.getAllOfType())
 				{
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					if (elementName.equals(eClass.getName())) {
 						return true;
 					}
@@ -537,16 +537,16 @@ public class EmfSmartModel extends EmfModel{
 	
 	public boolean liveClass(EPackage ePackage, String className)
 	{
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
 			//get the package first
-			if (mc.getModelName().equalsIgnoreCase(ePackage.getName())) {
+			if (mc.getName().equalsIgnoreCase(ePackage.getName())) {
 				
 				//for all of kinds
-				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+				for(EffectiveType mec: mc.getAllOfKind())
 				{
 					//the element n ame
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					//if name equals return true
 					if (className.equals(elementName)) {
 						return true;
@@ -568,10 +568,10 @@ public class EmfSmartModel extends EmfModel{
 					}
 				}
 				
-				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				for(EffectiveType mec: mc.getAllOfType())
 				{
 					//the element n ame
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					//if name equals return true
 					if (className.equals(elementName)) {
 						return true;
@@ -654,11 +654,11 @@ public class EmfSmartModel extends EmfModel{
 		ArrayList<EClass> allOfKinds = new ArrayList<EClass>();
 		ArrayList<EClass> allOfTypes = new ArrayList<EClass>();
 		
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			for(EffectiveType mec: mc.getAllOfKind())
 			{
-				EClass eClass = classForName(mec.getElementName());
+				EClass eClass = classForName(mec.getName());
 				if (eClass != null) {
 					allOfKinds.add(eClass);
 					cachedKinds.add(eClass);	
@@ -668,9 +668,9 @@ public class EmfSmartModel extends EmfModel{
 				}
 			}
 			
-			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			for(EffectiveType mec: mc.getAllOfType())
 			{
-				EClass eClass = classForName(mec.getElementName());
+				EClass eClass = classForName(mec.getName());
 				allOfTypes.add(eClass);
 				cachedTypes.add(eClass);
 			}
@@ -694,11 +694,11 @@ public class EmfSmartModel extends EmfModel{
 	
 	public void checkIntegrity() throws Exception
 	{
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			for(EffectiveType mec: mc.getAllOfKind())
 			{
-				EClass eClass = classForName(mec.getElementName());
+				EClass eClass = classForName(mec.getName());
 				if (cachedKinds.contains(eClass)) {
 					if (kindCache.get(eClass) != null) {
 						if (kindCache.get(eClass).size() == 0) {
@@ -718,9 +718,9 @@ public class EmfSmartModel extends EmfModel{
 				}
 			}
 			
-			for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+			for(EffectiveType mec: mc.getAllOfType())
 			{
-				EClass eClass = classForName(mec.getElementName());
+				EClass eClass = classForName(mec.getName());
 				if (cachedTypes.contains(eClass)) {
 					if (typeCache.get(eClass) != null) {
 						if (typeCache.get(eClass).size() == 0) {

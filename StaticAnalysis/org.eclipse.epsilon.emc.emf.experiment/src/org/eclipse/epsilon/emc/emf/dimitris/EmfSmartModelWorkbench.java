@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 
 public class EmfSmartModelWorkbench {
 	
@@ -19,7 +19,7 @@ public class EmfSmartModelWorkbench {
 		model.setMetamodelUri(EcorePackage.eNS_URI);
 		model.setModelFileUri(URI.createURI(EmfSmartModelWorkbench.class.getResource("filesystem.ecore").toString()));
 		
-		ModelContainer container = new ModelContainer("ecore");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
 //		container.addToModelElementsAllOfKind("EPackage");
 //		container.addToModelElementsAllOfKind("EClass");
 //		container.addAttributeToModelElement("EClassifier", "name");
@@ -30,11 +30,11 @@ public class EmfSmartModelWorkbench {
 //		
 //		container.addToModelElementsAllOfKind("EAttribute");
 		
-		container.addToModelElementsAllOfType("EClass");
-		container.addToModelElementsAllOfKind("EStructuralFeature");
+		container.addToAllOfType("EClass");
+		container.addToAllOfKind("EStructuralFeature");
 		container.addAttributeToModelElement("EClass", "eStructuralFeatures");
 		
-		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
+		ArrayList<EffectiveMetamodel> containers = new ArrayList<EffectiveMetamodel>();
 		containers.add(container);
 		
 		model.setModelContainers(containers);

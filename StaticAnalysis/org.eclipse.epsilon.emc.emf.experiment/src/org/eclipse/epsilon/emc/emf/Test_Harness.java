@@ -32,13 +32,13 @@ public class Test_Harness {
 //		test_Harness.runSet3();
 //		test_Harness.runSet4();
 		
-		test_Harness.runSet0CU();
-		test_Harness.runSet1CU();
-		test_Harness.runSet2CU();
-		test_Harness.runSet3CU();
-		test_Harness.runSet4CU();
+//		test_Harness.runSet0CU();
+//		test_Harness.runSet1CU();
+//		test_Harness.runSet2CU();
+//		test_Harness.runSet3CU();
+//		test_Harness.runSet4CU();
 		
-//		test_Harness.runSet0grabats();
+		test_Harness.runSet0grabats();
 //		test_Harness.runSet1grabats();
 //		test_Harness.runSet2grabats();
 //		test_Harness.runSet3grabats();

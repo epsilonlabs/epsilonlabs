@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 
 public class EmfSmartModelWorkbench {
 	
@@ -22,13 +22,13 @@ public class EmfSmartModelWorkbench {
 		URI modelPath = URI.createURI(TestParcialLoading.class.getResource("test_model.model").toString());
 		model.setModelFileUri(modelPath);
 		
-		ModelContainer container = new ModelContainer("filesystem");
-		container.addToModelElementsAllOfKind("File");
+		EffectiveMetamodel container = new EffectiveMetamodel("filesystem");
+		container.addToAllOfKind("File");
 //		container.addToModelElementsAllOfKind("Filesystem");
 //		container.addAttributeToModelElement("Filesystem", "files");
 
 		
-		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
+		ArrayList<EffectiveMetamodel> containers = new ArrayList<EffectiveMetamodel>();
 		containers.add(container);
 		
 		model.setModelContainers(containers);

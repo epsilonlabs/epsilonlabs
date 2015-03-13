@@ -4,7 +4,7 @@ package org.eclipse.epsilon.emc.emf;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 
 public class ExperimentGenerator {
@@ -16,8 +16,8 @@ public class ExperimentGenerator {
 
 	public void run()
 	{
-		ModelContainer container = new ModelContainer("DOM");
-		container.addToModelElementsAllOfKind("TypeDeclaration");
+		EffectiveMetamodel container = new EffectiveMetamodel("DOM");
+		container.addToAllOfKind("TypeDeclaration");
 		container.addAttributeToModelElement("TypeDeclaration", "*");
 		
 		try {
@@ -29,7 +29,7 @@ public class ExperimentGenerator {
 
 	}
 	
-	public EmfSmartModel load(ModelContainer container) throws EolModelLoadingException {
+	public EmfSmartModel load(EffectiveMetamodel container) throws EolModelLoadingException {
 		EmfSmartModel model = new EmfSmartModel();
 		
 		model.setName("M");
@@ -37,7 +37,7 @@ public class ExperimentGenerator {
 		model.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
 		model.setModelFile(new File("test/set0.xmi").getAbsolutePath());
 
-		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
+		ArrayList<EffectiveMetamodel> containers = new ArrayList<EffectiveMetamodel>();
 		containers.add(container);
 		
 		model.setModelContainers(containers);

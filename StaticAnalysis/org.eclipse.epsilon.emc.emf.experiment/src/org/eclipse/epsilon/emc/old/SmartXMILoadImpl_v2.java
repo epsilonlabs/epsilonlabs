@@ -13,12 +13,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelElementContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 
 public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 	
-	protected ArrayList<ModelContainer> modelContainers = new ArrayList<ModelContainer>(); // <-------------------- point of change
+	protected ArrayList<EffectiveMetamodel> modelContainers = new ArrayList<EffectiveMetamodel>(); // <-------------------- point of change
 
 //	protected ArrayList<String> elementStack = new ArrayList<String>();
 //	
@@ -39,13 +39,13 @@ public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 		super(xmiResource, helper, options);
 	}
 	
-	public void addModelContainer(ModelContainer modelContainer)
+	public void addModelContainer(EffectiveMetamodel modelContainer)
 	{
 		
 		modelContainers.add(modelContainer);
 	}
 	
-	public void setModelContainers(ArrayList<ModelContainer> modelContainers) {
+	public void setModelContainers(ArrayList<EffectiveMetamodel> modelContainers) {
 		this.modelContainers = modelContainers;
 	}
 
@@ -235,9 +235,9 @@ public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 	
 	public boolean isNeededOnlyForReference(String name, EFactory factory)
 	{
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			if (factory.getEPackage().getName().equals(mc.getModelName())) {
+			if (factory.getEPackage().getName().equals(mc.getName())) {
 				for(String element: mc.getEmptyElements())
 				{
 					if (name.equals(element)) {
@@ -262,12 +262,12 @@ public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 	public boolean isNeeded(String name, EFactory factory)
 	{
 
-		for(ModelContainer mc: modelContainers)
+		for(EffectiveMetamodel mc: modelContainers)
 		{
-			if (factory.getEPackage().getName().equals(mc.getModelName())) {
-				for(ModelElementContainer mec: mc.getModelElementsAllOfKind())
+			if (factory.getEPackage().getName().equals(mc.getName())) {
+				for(EffectiveType mec: mc.getAllOfKind())
 				{
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					if (name.equals(elementName)) {
 						return true;
 					}
@@ -283,9 +283,9 @@ public class SmartXMILoadImpl_v2 extends SAXXMIHandler{
 
 				}
 				
-				for(ModelElementContainer mec: mc.getModelElementsAllOfType())
+				for(EffectiveType mec: mc.getAllOfType())
 				{
-					String elementName = mec.getElementName();
+					String elementName = mec.getName();
 					if (name.equals(elementName)) {
 						return true;
 					}
