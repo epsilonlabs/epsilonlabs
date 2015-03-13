@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.emc.emf.EmfSmartModel;
 import org.eclipse.epsilon.emc.emf.SmartEmfModelResourceFactory;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.ModelContainer;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,15 +23,15 @@ public class SmartEmfModelTests {
 	
 	@Test
 	public void testLoadAllOfTypeEClassifier() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfType("EClassifier");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfType("EClassifier");
 		assertEquals(0, load(container).allContents().size());
 	}
 	
 	@Test
 	public void testLoadAllOfKindEClassifier() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EClassifier");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfKind("EClassifier");
 		
 		assertEquals(2, load(container).allContents().size());		
 	}
@@ -39,11 +39,11 @@ public class SmartEmfModelTests {
 	@Test
 	public void testLoadAttribute() throws Exception {
 		// EClass.all.ePackage.name.println();
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EClass");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfKind("EClass");
 		container.addReferenceToModelElement("EClass", "ePackage");
 		container.addAttributeToModelElement("EPackage", "name");
-		container.addToModelElementsAllOfKind("EPackage");
+		container.addToAllOfKind("EPackage");
 		//container.addToModelElementsAllOfType("EAttribute");
 		//container.addAttributeToModelElement("EClassifier", "name");
 		
@@ -52,9 +52,9 @@ public class SmartEmfModelTests {
 	
 	@Test
 	public void testPackageClassifiers() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
-		container.addToModelElementsAllOfKind("EClassifier");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfKind("EPackage");
+		container.addToAllOfKind("EClassifier");
 		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
 		// We haven't asked EmfSmartModel to link packages to their contained classifiers
 		assertTrue(ePackage.getEClassifiers().isEmpty());
@@ -62,8 +62,8 @@ public class SmartEmfModelTests {
 	
 	@Test
 	public void testEmptyClassifiers() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfKind("EPackage");
 		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
 		// We haven't asked EmfSmartModel to load package names so the following should return null
 		assertTrue(ePackage.getEClassifiers().isEmpty());
@@ -71,42 +71,24 @@ public class SmartEmfModelTests {
 	
 	@Test
 	public void testNullPackageNames() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfKind("EPackage");
 		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
 		// We haven't asked EmfSmartModel to load package names so the following should return null
 		assertNull(ePackage.getName());
 	}
-
-	@Test
-	public void testNonNullPackageNames() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
-		container.addAttributeToModelElement("EPackage", "name");
-		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
-		assertNotNull(ePackage.getName());
-	}
-	
-	@Test
-	public void testNonNullPackageNamesThroughENamedElement() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfKind("EPackage");
-		container.addAttributeToModelElement("ENamedElement", "name");
-		EPackage ePackage = (EPackage) load(container).getAllOfType("EPackage").iterator().next();
-		assertNotNull(ePackage.getName());
-	}
 	
 	@Test
 	public void testLoadReference() throws Exception {
-		ModelContainer container = new ModelContainer("ecore");
-		container.addToModelElementsAllOfType("EClass");
-		container.addToModelElementsAllOfKind("EStructuralFeature");
+		EffectiveMetamodel container = new EffectiveMetamodel("ecore");
+		container.addToAllOfType("EClass");
+		container.addToAllOfKind("EStructuralFeature");
 		container.addAttributeToModelElement("EClass", "eStructuralFeatures");
 		
 		assertEquals(5, load(container).allContents().size());		
 	}
 	
-	public EmfSmartModel load(ModelContainer container) throws EolModelLoadingException {
+	public EmfSmartModel load(EffectiveMetamodel container) throws EolModelLoadingException {
 		EmfSmartModel model = new EmfSmartModel();
 		
 		model.setName("M");
@@ -114,7 +96,7 @@ public class SmartEmfModelTests {
 		model.setMetamodelUri(EcorePackage.eNS_URI);
 		model.setModelFileUri(URI.createURI(SmartEmfModelTests.class.getResource("filesystem.ecore").toString()));
 		
-		ArrayList<ModelContainer> containers = new ArrayList<ModelContainer>();
+		ArrayList<EffectiveMetamodel> containers = new ArrayList<EffectiveMetamodel>();
 		containers.add(container);
 		
 		model.setModelContainers(containers);
