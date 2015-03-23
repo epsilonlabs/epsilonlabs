@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
+import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
@@ -65,14 +66,19 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 					
 					if (driver.containsMetaClass(elementString)) {
-						leContext.addToModelAllOfKind(modelString, targetString);
+						leContext.addToEffectiveMetamodelAllOfKind(modelString, targetString);
+						
+						AssignmentStatement currentAssignmentStatement = leContext.getCurrentAssignmentStatement();
+						
+						if (currentAssignmentStatement != null) {
+							
+						}
 					}
-
 				}
 			}
 			else {
 				if (driver.containsEReference(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
 					if (mc != null) {
 						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
@@ -100,7 +106,7 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 				}
 				if (driver.containsEAttribute(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
 					if (mc != null) {
 						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
@@ -147,7 +153,7 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 				LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 
 				if (driver.containsEReference(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
 					if (mc != null) {
 						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
@@ -175,7 +181,7 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 				}
 				if (driver.containsEAttribute(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getModelContainer(modelString);
+					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
 					if (mc != null) {
 						EffectiveType mec = mc.getFromAllOfType(elementString);
 						if (mec != null) {
@@ -219,6 +225,8 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 		}
 		
 	}
+	
+	
 	
 	public Type getInnermostType(Type t)
 	{

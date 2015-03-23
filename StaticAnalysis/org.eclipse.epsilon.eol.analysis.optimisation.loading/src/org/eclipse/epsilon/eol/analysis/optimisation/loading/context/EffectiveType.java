@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class EffectiveType {
 
 	protected String name;
-	protected ArrayList<String> attributes = new ArrayList<String>();
-	protected ArrayList<String> references = new ArrayList<String>();
+	protected ArrayList<EffectiveFeature> attributes = new ArrayList<EffectiveFeature>();
+	protected ArrayList<EffectiveFeature> references = new ArrayList<EffectiveFeature>();
 	
 	public EffectiveType(String name)
 	{
@@ -17,25 +17,67 @@ public class EffectiveType {
 		return name;
 	}
 	
-	public ArrayList<String> getAttributes() {
+	public ArrayList<EffectiveFeature> getAttributes() {
 		return attributes;
 	}
 	
-	public ArrayList<String> getReferences() {
+	public ArrayList<EffectiveFeature> getReferences() {
 		return references;
 	}
 	
 	public void addToAttributes(String attribute)
 	{
-		if (!attributes.contains(attribute)) {
-			attributes.add(attribute);
+		for(EffectiveFeature ef: attributes)
+		{
+			if (ef.getName().equals(attribute)) {
+				return;
+			}
 		}
+		
+		EffectiveFeature attr = new EffectiveFeature(attribute);
+		attributes.add(attr);
 	}
 	
 	public void addToReferences(String reference)
 	{
-		if (!references.contains(reference)) {
-			references.add(reference);	
+		for(EffectiveFeature ef: references)
+		{
+			if(ef.getName().equals(reference))
+			{
+				return;
+			}
 		}
+		EffectiveFeature ref = new EffectiveFeature(reference);
+		references.add(ref);
+	}
+	
+	public void increaseAttributeUsage(String attribute)
+	{
+		for(EffectiveFeature ef: attributes)
+		{
+			if (ef.getName().equals(attribute)) {
+				ef.increaseUsage();
+				return;
+			}
+		}
+	}
+	
+	public void increaseReferenceUsage(String reference)
+	{
+		for(EffectiveFeature ef: references)
+		{
+			if (ef.getName().equals(reference)) {
+				ef.increaseUsage();
+				return;
+			}
+		}
+	}
+	
+	public ArrayList<EffectiveFeature> getAllFeatures()
+	{
+		ArrayList<EffectiveFeature> result = new ArrayList<EffectiveFeature>();
+		result.addAll(attributes);
+		result.addAll(references);
+		return result;
 	}
 }

@@ -42,17 +42,13 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 					if (driver.containsMetaClass(elementString)) {
 						LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 						if (methodString.equals("allOfType")) {
-							leContext.addToModelAllOfType(modelString, targetString);
+							leContext.addToEffectiveMetamodelAllOfType(modelString, targetString);
 						}
 						else {
-							leContext.addToModelAllOfKind(modelString, targetString);
+							leContext.addToEffectiveMetamodelAllOfKind(modelString, targetString);
 						}
 					}
-
 				}
-				
-				
-
 			}
 		}
 		return null;

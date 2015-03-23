@@ -12,8 +12,6 @@ public class EffectiveMetamodel {
 	
 	protected ArrayList<EffectiveType> types = new ArrayList<EffectiveType>();
 	
-	protected ArrayList<String> emptyElements = new ArrayList<String>(); 
-	
 	public EffectiveMetamodel(String name)
 	{
 		this.name = name;
@@ -59,26 +57,26 @@ public class EffectiveMetamodel {
 	
 	public EffectiveMetamodel addAttributeToModelElement(String elementName, String attribute)
 	{
-		EffectiveType mec = getFromAllOfKind(elementName);
-		if (mec != null) {
-			mec.addToAttributes(attribute);
+		EffectiveType effectiveType = getFromAllOfKind(elementName);
+		if (effectiveType != null) {
+			effectiveType.addToAttributes(attribute);
 		}
-		mec = getFromAllOfType(elementName);
-		if (mec != null) {
-			mec.addToAttributes(attribute);
+		effectiveType = getFromAllOfType(elementName);
+		if (effectiveType != null) {
+			effectiveType.addToAttributes(attribute);
 		}
 		return this;
 	}
 	
 	public EffectiveMetamodel addReferenceToModelElement(String elementName, String reference)
 	{
-		EffectiveType mec = getFromAllOfKind(elementName);
-		if (mec != null) {
-			mec.addToReferences(reference);
+		EffectiveType effectiveType = getFromAllOfKind(elementName);
+		if (effectiveType != null) {
+			effectiveType.addToReferences(reference);
 		}
-		mec = getFromAllOfType(elementName);
-		if (mec != null) {
-			mec.addToReferences(reference);
+		effectiveType = getFromAllOfType(elementName);
+		if (effectiveType != null) {
+			effectiveType.addToReferences(reference);
 		}
 		return this;
 	}
@@ -86,10 +84,10 @@ public class EffectiveMetamodel {
 	
 	public EffectiveType getFromAllOfType(String elementName)
 	{
-		for(EffectiveType mec: allOfType)
+		for(EffectiveType ef: allOfType)
 		{
-			if (mec.getName().equals(elementName)) {
-				return mec;
+			if (ef.getName().equals(elementName)) {
+				return ef;
 			}
 		}
 		return null;
@@ -97,10 +95,10 @@ public class EffectiveMetamodel {
 	
 	public EffectiveType getFromAllOfKind(String elementName)
 	{
-		for(EffectiveType mec: allOfKind)
+		for(EffectiveType ef: allOfKind)
 		{
-			if (mec.getName().equals(elementName)) {
-				return mec;
+			if (ef.getName().equals(elementName)) {
+				return ef;
 			}
 		}
 		return null;
@@ -108,9 +106,9 @@ public class EffectiveMetamodel {
 	
 	public boolean allOfTypeContains(String modelElement)
 	{
-		for(EffectiveType mec: allOfType)
+		for(EffectiveType ef: allOfType)
 		{
-			if (mec.getName().equals(modelElement)) {
+			if (ef.getName().equals(modelElement)) {
 				return true;
 			}
 		}
@@ -119,25 +117,12 @@ public class EffectiveMetamodel {
 	
 	public boolean allOfKindContains(String modelElement)
 	{
-		for(EffectiveType mec: allOfKind)
+		for(EffectiveType ef: allOfKind)
 		{
-			if (mec.getName().equals(modelElement)) {
+			if (ef.getName().equals(modelElement)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	public void addEmptyElement(String elementName)
-	{
-		if (!emptyElements.contains(elementName)) {
-			emptyElements.add(elementName);
-		}
-	}
-	
-	public ArrayList<String> getEmptyElements() {
-		return emptyElements;
-	}
-	
-
 }
