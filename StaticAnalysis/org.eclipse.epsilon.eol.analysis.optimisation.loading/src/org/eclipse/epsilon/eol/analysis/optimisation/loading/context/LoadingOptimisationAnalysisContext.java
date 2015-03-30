@@ -303,8 +303,6 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 
 	public void print()
 	{
-		System.out.println(map.keySet());
-		System.out.println(map.values());
 		for(EffectiveMetamodel mc: effectiveMetamodels)
 		{
 			System.out.println("Model: " + mc.getName());

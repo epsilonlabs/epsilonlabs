@@ -1,5 +1,7 @@
 package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
@@ -27,6 +29,9 @@ public class OperationDefinitionLoadingOptimisationAnalyser extends OperationDef
 		VariableDeclarationExpression self = operationDefinition.getSelf();
 
 		OperationDefinitionNode node = leContext.getFromCallGraph(operationDefinition);
+		
+		ArrayList<MethodCallExpression> invokersToRemove = new ArrayList<MethodCallExpression>();
+		
 		if (node != null) {
 			for(MethodCallExpression methodCallExpression: node.getInvokers())
 			{
@@ -37,11 +42,19 @@ public class OperationDefinitionLoadingOptimisationAnalyser extends OperationDef
 						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent());
 						if (effectiveType != null) {
 							leContext.registerEffectiveTypeWithObject(self, effectiveType);
+							controller.visit(operationDefinition.getBody(), context);
+						}
+						else {
+							invokersToRemove.add(methodCallExpression);
 						}
 					}
 				}
+
 			}
 		}
+		
+		node.getInvokers().removeAll(invokersToRemove);
+		
 		
 //		if (getInnermostType(self.getResolvedType()) instanceof ModelElementType) {
 //			//get the model element type
@@ -69,7 +82,6 @@ public class OperationDefinitionLoadingOptimisationAnalyser extends OperationDef
 //		
 //		System.out.println(self.getResolvedType());
 //		
-		controller.visit(operationDefinition.getBody(), context);
 		
 		return null;
 	}
