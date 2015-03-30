@@ -103,42 +103,44 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 							//get the effective type
 							EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(iterator);
 							
-							//if driver is not null
-							if (driver != null) {
-								
-								//prepare surtype
-								EffectiveType sur_type = null;
-								
-								//prepare effective feature
-								EffectiveFeature effectiveFeature = null;
-								
-								//if meta class contains attributes
-								if (driver.containsEAttribute(elementString, propertyString)) {
-									effectiveFeature = effectiveType.addToAttributes(propertyString);
-								}
-								
-								//if driver contains reference, add reference
-								else if (driver.containsEReference(elementString, propertyString)) {
-									effectiveFeature = effectiveType.addToReferences(propertyString);
+							if (effectiveType != null) {
+								//if driver is not null
+								if (driver != null) {
 									
-									//get the eType of the reference
-									EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+									//prepare surtype
+									EffectiveType sur_type = null;
 									
-									//get the effective metamodel under question
-									EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+									//prepare effective feature
+									EffectiveFeature effectiveFeature = null;
 									
-									//add the eType to the types
-									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-										sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									//if meta class contains attributes
+									if (driver.containsEAttribute(elementString, propertyString)) {
+										effectiveFeature = effectiveType.addToAttributes(propertyString);
 									}
-									else {
-										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+									
+									//if driver contains reference, add reference
+									else if (driver.containsEReference(elementString, propertyString)) {
+										effectiveFeature = effectiveType.addToReferences(propertyString);
+										
+										//get the eType of the reference
+										EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+										
+										//get the effective metamodel under question
+										EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+										
+										//add the eType to the types
+										if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+											sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+										}
+										else {
+											sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+										}
 									}
+									
+									leContext.putToMap(leContext.getCurrentFolMethodCallExpression(), effectiveFeature);
+									
+									leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 								}
-								
-								leContext.putToMap(leContext.getCurrentFolMethodCallExpression(), effectiveFeature);
-								
-								leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 							}
 						}
 					}

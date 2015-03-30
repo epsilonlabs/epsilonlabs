@@ -17,6 +17,10 @@ public class OperationDefinitionNode {
 		containedOperationDefinition = operationDefinition;
 	}
 	
+	public OperationDefinition getContainedOperationDefinition() {
+		return containedOperationDefinition;
+	}
+	
 	public ArrayList<MethodCallExpression> getInvokers() {
 		return invokers;
 	}

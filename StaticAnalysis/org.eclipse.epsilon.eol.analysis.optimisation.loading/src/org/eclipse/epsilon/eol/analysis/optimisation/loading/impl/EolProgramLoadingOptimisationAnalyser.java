@@ -29,7 +29,9 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			leContext.
+			leContext.addToCallGraph(od); // <================================================
+			
+			
 			Type contextType = od.getContextType(); //get the contextType
 			ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
 			
@@ -53,7 +55,7 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 			controller.visit(od, context);
 		}
 		
-		
+		leContext.processMap();
 		
 		
 				

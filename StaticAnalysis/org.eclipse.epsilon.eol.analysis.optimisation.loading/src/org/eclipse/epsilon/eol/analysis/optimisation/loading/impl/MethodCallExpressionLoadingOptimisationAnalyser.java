@@ -2,13 +2,19 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.OperationDefinitionNode;
+import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
+import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
@@ -19,6 +25,8 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 	public Object visit(MethodCallExpression methodCallExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		
 				
 		//visit the contents first
 		controller.visitContents(methodCallExpression, context);
@@ -95,8 +103,22 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 					}
 				}
 				else {
+					
+					if (leContext.getEffectiveFeatureFromRegistry(nameExpression.getResolvedContent()) != null) {
+						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent());
+						leContext.registerEffectiveTypeWithObject(nameExpression, effectiveType);
+					}
 					//this should happen when user creates dynamic EClasses, we are not interested in these situations
 				}
+			}
+		}
+				
+		Object obj = methodCallExpression.getMethod().getResolvedContent();
+		if (obj instanceof OperationDefinition) {
+			OperationDefinition operationDefinition = (OperationDefinition) obj;
+			if (leContext.getFromCallGraph(operationDefinition) != null) {
+				OperationDefinitionNode node = leContext.getFromCallGraph(operationDefinition);
+				node.addInvoker(methodCallExpression);
 			}
 		}
 		
@@ -115,6 +137,22 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 			return false;
 		}
 		
+	}
+	
+	public Type getInnermostType(Type t)
+	{
+		if (t instanceof CollectionType) {
+			CollectionType collectionType = (CollectionType) t;
+			Type contentType = collectionType.getContentType();
+			while(contentType instanceof CollectionType)
+			{
+				contentType = ((CollectionType)contentType).getContentType();
+			}
+			return EcoreUtil.copy(contentType);
+		}
+		else {
+			return EcoreUtil.copy(t);
+		}
 	}
 
 

@@ -9,12 +9,10 @@ import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ForStatement;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
+import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.WhileStatement;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.newExpression_return;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 
@@ -38,8 +36,19 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	
 	public void addToCallGraph(OperationDefinition operationDefinition)
 	{
-		OperationDefinitionNode node = new OperationDefinitionNode();
-		
+		OperationDefinitionNode node = new OperationDefinitionNode(operationDefinition);
+		opCallGraph.add(node);
+	}
+	
+	public OperationDefinitionNode getFromCallGraph(OperationDefinition operationDefinition)
+	{
+		for(OperationDefinitionNode opNode : opCallGraph)
+		{
+			if (opNode.getContainedOperationDefinition().equals(operationDefinition)) {
+				return opNode;
+			}
+		}
+		return null;
 	}
 
 	
@@ -227,8 +236,51 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	{
 		for(FOLMethodCallExpression fol: map.keySet())
 		{
-			
+			EolElement element = getTrace(fol);
+			if (fol != null) {
+				if (element instanceof OperationDefinition) {
+					OperationDefinition operationDefinition = (OperationDefinition) element;
+					OperationDefinitionNode node = getFromCallGraph(operationDefinition);
+					if (node.getInvokers().size() > 1) {
+						for(int i = 1; i < node.getInvokers().size(); i++)
+						{
+							map.get(fol).increaseUsage();
+						}
+					}
+					else if (node.getInvokers().size() == 1) {
+						if (containedInLoop(node.getInvokers().get(0))) {
+							map.get(fol).increaseUsage();
+						}
+					}
+				}
+				if ((element instanceof ForStatement) ||
+						(element instanceof WhileStatement)) {
+					map.get(fol).increaseUsage();
+				}
+			}
 		}
+	}
+	
+	public boolean containedInLoop(MethodCallExpression methodCallExpression)
+	{
+		EolElement trace = methodCallExpression.getContainer();
+		while(trace != null)
+		{
+			if ((trace instanceof ForStatement) ||
+					(trace instanceof WhileStatement)) {
+				return true;
+			}
+			else if (trace instanceof OperationDefinition) {
+				OperationDefinition operationDefinition = (OperationDefinition) trace;
+				OperationDefinitionNode node = getFromCallGraph(operationDefinition);
+				for(MethodCallExpression call: node.getInvokers())
+				{
+					return containedInLoop(call);
+				}
+			}
+			trace = trace.getContainer();
+		}
+		return false;
 	}
 	
 	public EolElement getTrace(EolElement eolElement)

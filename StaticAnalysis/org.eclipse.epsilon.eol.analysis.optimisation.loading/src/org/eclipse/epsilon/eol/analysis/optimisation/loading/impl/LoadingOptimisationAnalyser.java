@@ -21,9 +21,10 @@ public class LoadingOptimisationAnalyser {
 
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementTypeResolver());
 		controller.addPropertyCallExpressionVisitor(new PropertyCallExpressionLoadingOptimisationAnalyser());
-		controller.addOperationDefinitionVisitor(new OperationDefinitionTypeResolver());
+		controller.addOperationDefinitionVisitor(new OperationDefinitionLoadingOptimisationAnalyser());
 		controller.addAssignmentStatementVisitor(new AssignmentStatementLoadingOptimisationAnalyser());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionLoadingOptimisationAnalyser());
+		
 	}
 	
 	public void run(EolElement eolElement)

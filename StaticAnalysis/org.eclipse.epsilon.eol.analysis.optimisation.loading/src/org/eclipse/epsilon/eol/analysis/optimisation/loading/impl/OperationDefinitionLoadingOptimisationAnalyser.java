@@ -1,0 +1,94 @@
+package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.OperationDefinitionNode;
+import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.OperationDefinitionVisitor;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+
+public class OperationDefinitionLoadingOptimisationAnalyser extends OperationDefinitionVisitor<TypeResolutionContext, Object>{
+
+	@Override
+	public Object visit(OperationDefinition operationDefinition,
+			TypeResolutionContext context,
+			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
+		
+		VariableDeclarationExpression self = operationDefinition.getSelf();
+
+		OperationDefinitionNode node = leContext.getFromCallGraph(operationDefinition);
+		if (node != null) {
+			for(MethodCallExpression methodCallExpression: node.getInvokers())
+			{
+				Expression target = methodCallExpression.getTarget();
+				if (target instanceof NameExpression) {
+					NameExpression nameExpression = (NameExpression) target;
+					if (nameExpression.getResolvedContent() != null) {
+						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent());
+						if (effectiveType != null) {
+							leContext.registerEffectiveTypeWithObject(self, effectiveType);
+						}
+					}
+				}
+			}
+		}
+		
+//		if (getInnermostType(self.getResolvedType()) instanceof ModelElementType) {
+//			//get the model element type
+//			ModelElementType modelElementType = (ModelElementType) getInnermostType(self.getResolvedType());
+//			
+//			//get the model string
+//			String modelString = modelElementType.getModelName();
+//			
+//			//get the element string
+//			String elementString = modelElementType.getElementName();
+//			
+//			//get the driver
+//			EMetamodelDriver driver = context.getMetaModel(modelString);
+//			
+//			EffectiveMetamodel effectiveMetamodel = leContext.addEffectiveMetamodel(modelString);
+//			//add the effective type
+//			EffectiveType effectiveType = effectiveMetamodel.addToAllOfKind(targetString);
+//			
+//			//register effectiveType
+//			leContext.registerEffectiveTypeWithObject(propertyCallExpression, effectiveType);
+//
+//		}
+//
+//		System.out.println(operationDefinition.getContextType());
+//		
+//		System.out.println(self.getResolvedType());
+//		
+		controller.visit(operationDefinition.getBody(), context);
+		
+		return null;
+	}
+	
+	public Type getInnermostType(Type t)
+	{
+		if (t instanceof CollectionType) {
+			CollectionType collectionType = (CollectionType) t;
+			Type contentType = collectionType.getContentType();
+			while(contentType instanceof CollectionType)
+			{
+				contentType = ((CollectionType)contentType).getContentType();
+			}
+			return EcoreUtil.copy(contentType);
+		}
+		else {
+			return EcoreUtil.copy(t);
+		}
+	}
+
+
+}
