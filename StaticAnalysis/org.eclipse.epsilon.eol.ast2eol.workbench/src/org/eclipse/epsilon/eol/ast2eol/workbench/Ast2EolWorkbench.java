@@ -26,7 +26,7 @@ public class Ast2EolWorkbench {
 	
 	public void run() throws Exception {
 		
-		URL url = getClass().getResource("testMethodCall.eol");
+		URL url = getClass().getResource("test1.eol");
 		System.out.println(url.toString());
 		EolModule eolModule = new EolModule();
 		try {
