@@ -12,6 +12,10 @@ public class EffectiveMetamodel {
 	
 	protected ArrayList<EffectiveType> types = new ArrayList<EffectiveType>();
 	
+	public ArrayList<EffectiveType> getTypes() {
+		return types;
+	}
+	
 	public EffectiveMetamodel(String name)
 	{
 		this.name = name;
@@ -39,46 +43,93 @@ public class EffectiveMetamodel {
 		return allOfKind;
 	}
 	
-	public EffectiveMetamodel addToAllOfType(String modelElement)
+	public EffectiveType addToAllOfType(String modelElement)
 	{
-		if (!allOfTypeContains(modelElement)) {
-			allOfType.add(new EffectiveType(modelElement));
+		for(EffectiveType et: allOfType)
+		{
+			if (et.getName().equals(modelElement)) {
+				return et;
+			}
 		}
-		return this;
+		
+		EffectiveType et = new EffectiveType(modelElement);
+		et.setEffectiveMetamodel(this);
+		allOfType.add(et);
+		return et;
 	}
 	
-	public EffectiveMetamodel addToAllOfKind(String modelElement)
+	public EffectiveType addToTypes(String modelElement)
 	{
-		if (!allOfKindContains(modelElement)) {
-			allOfKind.add(new EffectiveType(modelElement));
+		for(EffectiveType et: types)
+		{
+			if (et.getName().equals(modelElement)) {
+				return et;
+			}
 		}
-		return this;
+		EffectiveType et = new EffectiveType(modelElement);
+		et.setEffectiveMetamodel(this);
+		types.add(et);
+		return et;
+	}
+
+	
+	public EffectiveType addToAllOfKind(String modelElement)
+	{
+		for(EffectiveType et: allOfKind)
+		{
+			if (et.getName().equals(modelElement)) {
+				return et;
+			}
+		}
+		
+		EffectiveType et = new EffectiveType(modelElement);
+		et.setEffectiveMetamodel(this);
+		allOfKind.add(et);
+		return et;
 	}
 	
-	public EffectiveMetamodel addAttributeToModelElement(String elementName, String attribute)
+	public EffectiveFeature addAttributeToAllOfKind(String elementName, String attribute)
 	{
 		EffectiveType effectiveType = getFromAllOfKind(elementName);
 		if (effectiveType != null) {
-			effectiveType.addToAttributes(attribute);
+			EffectiveFeature effectiveFeature = new EffectiveFeature(attribute);
+			effectiveType.getAttributes().add(effectiveFeature);
+			return effectiveFeature;
 		}
-		effectiveType = getFromAllOfType(elementName);
-		if (effectiveType != null) {
-			effectiveType.addToAttributes(attribute);
-		}
-		return this;
+		return null;
 	}
 	
-	public EffectiveMetamodel addReferenceToModelElement(String elementName, String reference)
+	public EffectiveFeature addReferenceToAllOfKind(String elementName, String reference)
 	{
 		EffectiveType effectiveType = getFromAllOfKind(elementName);
 		if (effectiveType != null) {
-			effectiveType.addToReferences(reference);
+			EffectiveFeature effectiveFeature = new EffectiveFeature(reference);
+			effectiveType.getReferences().add(effectiveFeature);
+			return effectiveFeature;
 		}
-		effectiveType = getFromAllOfType(elementName);
+		return null;
+	}
+	
+	public EffectiveFeature addAttributeToAllOfType(String elementName, String attribute)
+	{
+		EffectiveType effectiveType = getFromAllOfType(elementName);
 		if (effectiveType != null) {
-			effectiveType.addToReferences(reference);
+			EffectiveFeature effectiveFeature = new EffectiveFeature(attribute);
+			effectiveType.getAttributes().add(effectiveFeature);
+			return effectiveFeature;
 		}
-		return this;
+		return null;
+	}
+	
+	public EffectiveFeature addReferenceToAllOfType(String elementName, String reference)
+	{
+		EffectiveType effectiveType = getFromAllOfType(elementName);
+		if (effectiveType != null) {
+			EffectiveFeature effectiveFeature = new EffectiveFeature(reference);
+			effectiveType.getReferences().add(effectiveFeature);
+			return effectiveFeature;
+		}
+		return null;
 	}
 	
 	
@@ -125,4 +176,5 @@ public class EffectiveMetamodel {
 		}
 		return false;
 	}
+	
 }

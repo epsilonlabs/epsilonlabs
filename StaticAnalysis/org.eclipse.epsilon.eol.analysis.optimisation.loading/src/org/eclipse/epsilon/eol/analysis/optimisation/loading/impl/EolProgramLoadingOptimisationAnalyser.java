@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 import java.util.ArrayList;
 
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolProgramVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
@@ -12,6 +13,9 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 	@Override
 	public Object visit(EolProgram program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
+
 		
 		for(Import import1: program.getImports())
 		{
@@ -25,7 +29,7 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			
+			leContext.
 			Type contextType = od.getContextType(); //get the contextType
 			ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
 			
@@ -48,6 +52,10 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 		{			
 			controller.visit(od, context);
 		}
+		
+		
+		
+		
 				
 		return null;
 	}

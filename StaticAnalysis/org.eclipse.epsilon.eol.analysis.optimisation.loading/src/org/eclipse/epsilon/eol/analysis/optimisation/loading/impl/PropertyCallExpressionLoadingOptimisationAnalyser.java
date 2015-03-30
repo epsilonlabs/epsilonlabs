@@ -1,22 +1,23 @@
 package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 
-import java.util.ArrayList;
-
 import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveFeature;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
-import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
+import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
@@ -32,186 +33,304 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 		//visit contents first
 		controller.visitContents(propertyCallExpression, context);
 		
-		//get the name of the proeprty
+		//get the name of the property
 		String propertyString = propertyCallExpression.getProperty().getName();
 		
 		//get the target expression
 		Expression target = propertyCallExpression.getTarget();
 		
-		//if target type is model element type
-		if (target.getResolvedType() instanceof ModelElementType) {
-			
-			//get the target type
-			ModelElementType targetType = (ModelElementType) target.getResolvedType();
-			
-			//get the model string
-			String modelString = targetType.getModelName();
-			
-			//get the element string
-			String elementString = targetType.getElementName();
-			
-			//get the driver
-			EMetamodelDriver driver = context.getMetaModel(modelString);
-
-			//get context
-			LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
-			
-			//check if is keyword
-			if (isKeyword(propertyString)) {
-				if (target instanceof NameExpression) {
-					String targetString = ((NameExpression) target).getName();
-					
-					if (targetString.contains("!")) {
-						targetString = targetString.substring(targetString.indexOf("!")+1, targetString.length());
-					}
-					
-					if (driver.containsMetaClass(elementString)) {
-						leContext.addToEffectiveMetamodelAllOfKind(modelString, targetString);
-						
-						AssignmentStatement currentAssignmentStatement = leContext.getCurrentAssignmentStatement();
-						
-						if (currentAssignmentStatement != null) {
-							
-						}
-					}
-				}
-			}
-			else {
-				if (driver.containsEReference(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
-					if (mc != null) {
-						EffectiveType mec = mc.getFromAllOfType(elementString);
-						if (mec != null) {
-							mec.addToReferences(propertyString);
-						}
-						else {
-							mec = mc.getFromAllOfKind(elementString);
-							if (mec != null) {
-								mec.addToReferences(propertyString);
-							}
-							else {
-								EClass actualClass = driver.getMetaClass(elementString);
-								ArrayList<EffectiveType> containers = mc.getAllOfKind();
-								for(EffectiveType container: containers)
-								{
-									String containerElementName = container.getName();
-									EClass containerClass = driver.getMetaClass(containerElementName);
-									
-									if (actualClass.getESuperTypes().contains(containerClass)) {
-										container.addToReferences(propertyString);
-									}
-								}
-							}
-						}
-					}
-				}
-				if (driver.containsEAttribute(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
-					if (mc != null) {
-						EffectiveType mec = mc.getFromAllOfType(elementString);
-						if (mec != null) {
-							mec.addToAttributes(propertyString);
-						}
-						else {
-							mec = mc.getFromAllOfKind(elementString);
-							if (mec != null) {
-								mec.addToAttributes(propertyString);
-							}
-							else {
-								EClass actualClass = driver.getMetaClass(elementString);
-								for(EffectiveType container: mc.getAllOfKind())
-								{
-									String containerElementName = container.getName();
-									EClass containerClass = driver.getMetaClass(containerElementName);
-									if (actualClass.getESuperTypes().contains(containerClass)) {
-										container.addToAttributes(propertyString);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 		
-		if (target.getResolvedType() instanceof CollectionType) {
-			CollectionType rawCollectionType = (CollectionType) target.getResolvedType(); //prepare collection type
-			
-			if (getInnermostType(rawCollectionType) instanceof ModelElementType) 
-			{
-				ModelElementType resultContentType = (ModelElementType) getInnermostType(rawCollectionType); //prepare result content type
-
+		if (target instanceof NameExpression) {
+			NameExpression nameExpression = (NameExpression) target;
+			if (target.getResolvedType() instanceof ModelElementType) {
+				
+				//get the target type
+				ModelElementType targetType = (ModelElementType) target.getResolvedType();
+				
 				//get the model string
-				String modelString = resultContentType.getModelName();
+				String modelString = targetType.getModelName();
 				
 				//get the element string
-				String elementString = resultContentType.getElementName();
+				String elementString = targetType.getElementName();
 				
 				//get the driver
 				EMetamodelDriver driver = context.getMetaModel(modelString);
-
-				LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
-
-				if (driver.containsEReference(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
-					if (mc != null) {
-						EffectiveType mec = mc.getFromAllOfType(elementString);
-						if (mec != null) {
-							mec.addToReferences(propertyString);
+				
+				
+				//if there is no resolved content, it should be a Model Element name
+				if (nameExpression.getResolvedContent() == null) {
+					
+					//if property is keyword(all or allInstances)
+					if (isKeyword(propertyString)) {
+						
+						//get the target name
+						String targetString = nameExpression.getName();
+						
+						//if target contains "!" get the type name only
+						if (targetString.contains("!")) {
+							targetString = targetString.substring(targetString.indexOf("!")+1, targetString.length());
 						}
-						else {
-							mec = mc.getFromAllOfKind(elementString);
-							if (mec != null) {
-								mec.addToReferences(propertyString);
-							}
-							else {
-								EClass actualClass = driver.getMetaClass(elementString);
-								ArrayList<EffectiveType> containers = mc.getAllOfKind();
-								for(EffectiveType container: containers)
-								{
-									String containerElementName = container.getName();
-									EClass containerClass = driver.getMetaClass(containerElementName);
-									
-									if (actualClass.getESuperTypes().contains(containerClass)) {
-										container.addToReferences(propertyString);
-									}
-								}
+						
+						//if driver is not null
+						if (driver != null) {
+							
+							//if driver contains the type
+							if (driver.containsMetaClass(elementString)) {
+								
+								//add the effective metamodel
+								EffectiveMetamodel effectiveMetamodel = leContext.addEffectiveMetamodel(modelString);
+								//add the effective type
+								EffectiveType effectiveType = effectiveMetamodel.addToAllOfKind(targetString);
+								
+								//register effectiveType
+								leContext.registerEffectiveTypeWithObject(propertyCallExpression, effectiveType);
+								
 							}
 						}
 					}
 				}
-				if (driver.containsEAttribute(elementString, propertyString)) {
-					EffectiveMetamodel mc = leContext.getEffectiveMetamodel(modelString);
-					if (mc != null) {
-						EffectiveType mec = mc.getFromAllOfType(elementString);
-						if (mec != null) {
-							mec.addToAttributes(propertyString);
-						}
-						else {
-							mec = mc.getFromAllOfKind(elementString);
-							if (mec != null) {
-								mec.addToAttributes(propertyString);
-							}
-							else {
-								EClass actualClass = driver.getMetaClass(elementString);
-								for(EffectiveType container: mc.getAllOfKind())
-								{
-									String containerElementName = container.getName();
-									EClass containerClass = driver.getMetaClass(containerElementName);
-									if (actualClass.getESuperTypes().contains(containerClass)) {
-										container.addToAttributes(propertyString);
+				else {
+					//if resolved content is a formal parameter expression (as an iterator in an FOLMethodCallExpression)
+					if (nameExpression.getResolvedContent() instanceof FormalParameterExpression) {
+						
+						//get the resolved content
+						FormalParameterExpression iterator = (FormalParameterExpression) nameExpression.getResolvedContent();
+						
+						//if the resolved contennt is the current iterator
+						if (leContext.getCurrentIterator().equals(iterator)) {
+							
+							//get the effective type
+							EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(iterator);
+							
+							//if driver is not null
+							if (driver != null) {
+								
+								//prepare surtype
+								EffectiveType sur_type = null;
+								
+								//prepare effective feature
+								EffectiveFeature effectiveFeature = null;
+								
+								//if meta class contains attributes
+								if (driver.containsEAttribute(elementString, propertyString)) {
+									effectiveFeature = effectiveType.addToAttributes(propertyString);
+								}
+								
+								//if driver contains reference, add reference
+								else if (driver.containsEReference(elementString, propertyString)) {
+									effectiveFeature = effectiveType.addToReferences(propertyString);
+									
+									//get the eType of the reference
+									EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+									
+									//get the effective metamodel under question
+									EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+									
+									//add the eType to the types
+									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+										sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									}
+									else {
+										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
 									}
 								}
+								
+								leContext.putToMap(leContext.getCurrentFolMethodCallExpression(), effectiveFeature);
+								
+								leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 							}
+						}
+					}
+					//this should happen when user creates dynamic EClasses, we are not interested in these situations
+				}
+			}
+			//if the target is a collection
+			else if (target.getResolvedType() instanceof CollectionType) {
+				
+				//get the collection type
+				CollectionType collectionType = (CollectionType) target.getResolvedType();
+				
+				//if the content type of the collection is model element type
+				if (collectionType.getContentType() != null && getInnermostType(collectionType) instanceof ModelElementType) {
+					
+					//get the model element type
+					ModelElementType modelElementType = (ModelElementType) getInnermostType(collectionType);
+					
+					//get the model string
+					String modelString = modelElementType.getModelName();
+					
+					//get the element string
+					String elementString = modelElementType.getElementName();
+					
+					//get the driver
+					EMetamodelDriver driver = context.getMetaModel(modelString);
+					
+					//name expression has a resolved content and it is a variable declaration
+					if (nameExpression.getResolvedContent() instanceof VariableDeclarationExpression) {
+						
+						//get the variable declaration
+						VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) nameExpression.getResolvedContent();
+						
+						//get the effective type if it the variable declaration is registered
+						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(variableDeclarationExpression);
+						
+						//if registered
+						if (effectiveType != null) {
+							//if driver is not null
+							if (driver != null) {
+								
+								EffectiveType sur_type = null;
+								//if driver contains attribute, add attribute
+								if (driver.containsEAttribute(elementString, propertyString)) {
+									effectiveType.addToAttributes(propertyString);
+								}
+								
+								//if driver contains reference, add reference
+								else if (driver.containsEReference(elementString, propertyString)) {
+									effectiveType.addToReferences(propertyString);
+									
+									//get the eType of the reference
+									EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+									
+									//get the effective metamodel under question
+									EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+									
+									//add the eType to the types
+									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+										sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									}
+									else {
+										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+									}
+									
+								}
+								//else it could be "first" or "second", we are not considering these two cases
+								else {
+									
+								}
+								leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
+							}
+						}
+					}
+					else {
+						
+					}
+				}
+				else {
+//					if (collectionType.getContentType() != null && collectionType.getContentType() instanceof CollectionType) {
+//						CollectionType contentType = (CollectionType) collectionType.getContentType();
+//						if (contentType.getContentType() instanceof ModelElementType) {
+//							
+//						}
+//						//if a reference is multi valued
+//					}
+				}
+			}
+		}
+		else if (target instanceof PropertyCallExpression) {
+			PropertyCallExpression targetPropertyCallExpression = (PropertyCallExpression) target;
+			if (targetPropertyCallExpression.getResolvedType() instanceof CollectionType) {
+				CollectionType targetType = (CollectionType) targetPropertyCallExpression.getResolvedType();
+				if (getInnermostType(targetType) instanceof ModelElementType) {
+					
+					//get the model element type
+					ModelElementType modelElementType = (ModelElementType) getInnermostType(targetType);
+					
+					//get the model string
+					String modelString = modelElementType.getModelName();
+					
+					//get the element string
+					String elementString = modelElementType.getElementName();
+					
+					//get the driver
+					EMetamodelDriver driver = context.getMetaModel(modelString);
+					
+					if (driver != null) {
+						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(targetPropertyCallExpression);
+						if (effectiveType != null) {
+							EffectiveType sur_type = null;
+
+							if (driver.containsEAttribute(elementString, propertyString)) {
+								effectiveType.addToAttributes(propertyString);
+							}
+							else if (driver.containsEReference(elementString, propertyString)) {
+								effectiveType.addToReferences(propertyString);
+								
+								//get the eType of the reference
+								EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+								
+								//get the effective metamodel under question
+								EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+								
+								//add the eType to the types
+								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+									sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+								}
+								else {
+									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+								}
+							}
+							leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
+						}
+						
+					}
+				}
+			}
+			
+		}
+		else if (target instanceof MethodCallExpression) {
+			MethodCallExpression methodCallExpression = (MethodCallExpression) target;
+			
+			if (methodCallExpression.getResolvedType() instanceof CollectionType) {
+
+				CollectionType targetType = (CollectionType) methodCallExpression.getResolvedType();
+				if (getInnermostType(targetType) instanceof ModelElementType) {
+					
+					//get the model element type
+					ModelElementType modelElementType = (ModelElementType) targetType.getContentType();
+					
+					//get the model string
+					String modelString = modelElementType.getModelName();
+					
+					//get the element string
+					String elementString = modelElementType.getElementName();
+					
+					//get the driver
+					EMetamodelDriver driver = context.getMetaModel(modelString);
+					
+					if (driver != null) {
+						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(methodCallExpression);
+						if (effectiveType != null) {
+							EffectiveType sur_type = null;
+
+							if (driver.containsEAttribute(elementString, propertyString)) {
+								effectiveType.addToAttributes(propertyString);
+							}
+							else if (driver.containsEReference(elementString, propertyString)) {
+								effectiveType.addToReferences(propertyString);
+								
+								//get the eType of the reference
+								EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
+								
+								//get the effective metamodel under question
+								EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
+								
+								//add the eType to the types
+								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+									sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+								}
+								else {
+									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+								}
+							}
+							leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 						}
 					}
 				}
 			}
 		}
-		
-		
 		return null;
-		
 	}
 	
 	public boolean isKeyword(String s)
@@ -223,8 +342,9 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 		else {
 			return false;
 		}
-		
 	}
+	
+	
 	
 	
 	
