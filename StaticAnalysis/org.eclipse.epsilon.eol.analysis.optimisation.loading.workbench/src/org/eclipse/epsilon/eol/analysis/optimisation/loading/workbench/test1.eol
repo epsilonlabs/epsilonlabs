@@ -1,0 +1,48 @@
+model U driver EMF {nsuri = "http://university/1.0"};
+
+var a: OrderedSet(University) = University.all;
+
+1.to(5).select(i|a.select(u|u.name = "i" + i));
+
+var b: OrderedSet(University);
+
+a.foo();
+
+Book.all.select(b|b.authors.includes(author));
+
+//if (true) {
+//	b = University.all;
+//}
+
+for(i in Sequence{1..100})
+{
+	//University.all.bar();
+	//b.foo();
+	//var e = a.exists(u|u.name = "York").println();
+}
+
+//a.foo();
+
+//while(true)
+//{
+//	a.bar();
+//}
+
+
+
+
+//var b: OrderedSet(University) = new OrderedSet(University);
+//var e = b.exists(u|u.name = "York");
+//b.foo();
+//b.bar();
+
+operation foo ()
+{
+	University.all.bar();
+}
+
+operation OrderedSet(University) bar()
+{
+	self.exist(u|u.name = 'York').println();
+}
+
