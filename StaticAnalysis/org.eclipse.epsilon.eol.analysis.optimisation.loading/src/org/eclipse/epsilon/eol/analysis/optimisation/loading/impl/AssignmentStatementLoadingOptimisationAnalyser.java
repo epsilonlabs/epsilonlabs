@@ -12,11 +12,16 @@ public class AssignmentStatementLoadingOptimisationAnalyser extends AssignmentSt
 	public Object visit(AssignmentStatement assignmentStatement,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		//cast context
 		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 		
+		//set current assignment statement
 		leContext.setCurrentAssignmentStatement(assignmentStatement);
 		
+		//visit contents
 		controller.visitContents(assignmentStatement, context);
+		
 		return null;
 	}
 
