@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:university="http://university/1.0">
+  <university:University name="u1">
+    <departments name="d1"/>
+    <departments name="d2"/>
+    <departments name="d3"/>
+    <departments name="d4"/>
+    <departments name="d5"/>
+    <departments name="d6"/>
+  </university:University>
+  <university:University name="u2"/>
+  <university:University name="u3"/>
+  <university:University name="u4"/>
+  <university:University name="u5"/>
+  <university:University name="u6"/>
+</xmi:XMI>

@@ -1,0 +1,38 @@
+var u1 = new University;
+u1.name = "u1";
+
+var u2 = new University;
+u2.name = "u2";
+
+var u3 = new University;
+u3.name = "u3";
+
+var u4 = new University;
+u4.name = "u4";
+
+var u5 = new University;
+u5.name = "u5";
+
+var u6 = new University;
+u6.name = "u6";
+
+var d1 = new Department;
+d1.name = "d1";
+var d2 = new Department;
+d2.name = "d2";
+var d3 = new Department;
+d3.name = "d3";
+var d4 = new Department;
+d4.name = "d4";
+var d5 = new Department;
+d5.name = "d5";
+var d6 = new Department;
+d6.name = "d6";
+
+
+u1.departments.add(d1);
+u1.departments.add(d2);
+u1.departments.add(d3);
+u1.departments.add(d4);
+u1.departments.add(d5);
+u1.departments.add(d6);

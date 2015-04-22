@@ -11,10 +11,10 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
+import org.eclipse.epsilon.eol.dom.Import;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
@@ -38,7 +38,7 @@ public class Workbench {
 			e.printStackTrace();
 		}
 
-		for(EolImport imp: eolModule.getImports())
+		for(Import imp: eolModule.getImports())
 		{
 			System.out.println(imp.getModule().getAst().toStringTree());
 		}
