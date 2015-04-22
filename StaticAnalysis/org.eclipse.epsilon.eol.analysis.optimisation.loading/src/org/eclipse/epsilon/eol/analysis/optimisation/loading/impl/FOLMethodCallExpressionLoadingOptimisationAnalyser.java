@@ -1,8 +1,8 @@
 package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
@@ -13,7 +13,6 @@ import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
-import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.elseStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class FOLMethodCallExpressionLoadingOptimisationAnalyser extends FOLMethodCallExpressionVisitor<TypeResolutionContext, Object>{
@@ -23,17 +22,18 @@ public class FOLMethodCallExpressionLoadingOptimisationAnalyser extends FOLMetho
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		//visit the target first
-		controller.visit(fOLMethodCallExpression.getTarget(), context);
-		
 		//get the context
 		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 		
-		//set the current iterator =================================================================
+		//push the current iterator =================================================================
 		leContext.setCurrentIterator(fOLMethodCallExpression.getIterator());
 
+		//push the current fol method call
 		leContext.setCurrentFolMethodCallExpression(fOLMethodCallExpression);
 		
+		//visit the target first
+		controller.visit(fOLMethodCallExpression.getTarget(), context);
+
 		//get the target
 		Expression target = fOLMethodCallExpression.getTarget();
 		
@@ -93,8 +93,8 @@ public class FOLMethodCallExpressionLoadingOptimisationAnalyser extends FOLMetho
 			}
 		}
 		
-		else if(target instanceof FOLMethodCallExpression)
-		{
+//		else if(target instanceof FOLMethodCallExpression)
+//		{
 //			FOLMethodCallExpression folMethodCallExpression2 = (FOLMethodCallExpression) target;
 //
 //			EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(folMethodCallExpression2);
@@ -102,7 +102,7 @@ public class FOLMethodCallExpressionLoadingOptimisationAnalyser extends FOLMetho
 //				leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression.getIterator(), effectiveType);;
 //				leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression, effectiveType);
 //			}
-		}
+//		}
 
 		controller.visit(fOLMethodCallExpression.getCondition(), context);
 		leContext.popCurrentFOLMethodCallExpression();

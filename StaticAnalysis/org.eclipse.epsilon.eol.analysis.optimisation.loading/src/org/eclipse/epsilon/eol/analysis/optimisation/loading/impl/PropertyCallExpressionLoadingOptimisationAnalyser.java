@@ -5,21 +5,26 @@ import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveFeature;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveFeature;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EolElement;
+import org.eclipse.epsilon.eol.metamodel.EqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{
@@ -30,8 +35,8 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		//visit contents first
-		controller.visitContents(propertyCallExpression, context);
+		//visit target first
+		controller.visit(propertyCallExpression.getTarget(), context);
 		
 		//get the name of the property
 		String propertyString = propertyCallExpression.getProperty().getName();
@@ -39,6 +44,7 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 		//get the target expression
 		Expression target = propertyCallExpression.getTarget();
 		
+		//cast context
 		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 		
 		if (target instanceof NameExpression) {
@@ -116,11 +122,25 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 									//if meta class contains attributes
 									if (driver.containsEAttribute(elementString, propertyString)) {
 										effectiveFeature = effectiveType.addToAttributes(propertyString);
+										
+										if (leContext.getCurrentFolMethodCallExpressionsCount() > 1) {
+											FOLMethodCallExpression previous = leContext.getPreviousFolMethodCallExpression();
+											if (previous.getCondition().equals(leContext.getCurrentFolMethodCallExpression())) {
+												effectiveFeature.increaseUsage();
+											}
+										}
 									}
 									
 									//if driver contains reference, add reference
 									else if (driver.containsEReference(elementString, propertyString)) {
 										effectiveFeature = effectiveType.addToReferences(propertyString);
+										
+										if (leContext.getCurrentFolMethodCallExpressionsCount() > 1) {
+											FOLMethodCallExpression previous = leContext.getPreviousFolMethodCallExpression();
+											if (previous.getCondition().equals(leContext.getCurrentFolMethodCallExpression())) {
+												effectiveFeature.increaseUsage();
+											}
+										}
 										
 										//get the eType of the reference
 										EClass eClass = (EClass) driver.getEReference(elementString, propertyString).getEType();
@@ -130,7 +150,21 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 										
 										//add the eType to the types
 										if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-											sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+											//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+											for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+											{
+												if (et.getName().equals(eClass.getName())) {
+													sur_type = et;
+													break;
+												}
+											}
+											for(EffectiveType et: effectiveMetamodel.getAllOfType())
+											{
+												if (et.getName().equals(eClass.getName())) {
+													sur_type = et;
+													break;
+												}
+											}
 										}
 										else {
 											sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
@@ -200,7 +234,21 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 									
 									//add the eType to the types
 									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-										sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+										//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+										for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+										{
+											if (et.getName().equals(eClass.getName())) {
+												sur_type = et;
+												break;
+											}
+										}
+										for(EffectiveType et: effectiveMetamodel.getAllOfType())
+										{
+											if (et.getName().equals(eClass.getName())) {
+												sur_type = et;
+												break;
+											}
+										}
 									}
 									else {
 										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
@@ -267,7 +315,21 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 								
 								//add the eType to the types
 								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-									sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+									{
+										if (et.getName().equals(eClass.getName())) {
+											sur_type = et;
+											break;
+										}
+									}
+									for(EffectiveType et: effectiveMetamodel.getAllOfType())
+									{
+										if (et.getName().equals(eClass.getName())) {
+											sur_type = et;
+											break;
+										}
+									}
 								}
 								else {
 									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
@@ -279,7 +341,6 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 					}
 				}
 			}
-			
 		}
 		else if (target instanceof MethodCallExpression) {
 			MethodCallExpression methodCallExpression = (MethodCallExpression) target;
@@ -320,7 +381,21 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 								
 								//add the eType to the types
 								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-									sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+									{
+										if (et.getName().equals(eClass.getName())) {
+											sur_type = et;
+											break;
+										}
+									}
+									for(EffectiveType et: effectiveMetamodel.getAllOfType())
+									{
+										if (et.getName().equals(eClass.getName())) {
+											sur_type = et;
+											break;
+										}
+									}
 								}
 								else {
 									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
@@ -365,6 +440,28 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 			return EcoreUtil.copy(t);
 		}
 	}
+	
+	
+//	public boolean isLegitimate(PropertyCallExpression propertyCallExpression)
+//	{
+//		EolElement container = propertyCallExpression.getContainer();
+//		while(container != null)
+//		{
+//			if (container instanceof EqualsOperatorExpression) {
+//				return true;
+//			}
+//			else if (container instanceof NotEqualsOperatorExpression) {
+//				return true;
+//			}
+//			else if (container instanceof MethodCallExpression) {
+//				MethodCallExpression methodCallExpression = (MethodCallExpression) container;
+//				
+//			}
+//			
+//			container = container.getContainer();
+//		}
+//		return false;
+//	}
 
 
 }

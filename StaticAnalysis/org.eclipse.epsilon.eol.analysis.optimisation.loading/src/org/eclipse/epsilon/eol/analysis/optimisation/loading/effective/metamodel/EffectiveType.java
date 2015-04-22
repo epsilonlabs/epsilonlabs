@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.analysis.optimisation.loading.context;
+package org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel;
 
 import java.util.ArrayList;
 

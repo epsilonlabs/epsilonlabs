@@ -4,42 +4,54 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveFeature;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ForStatement;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.WhileStatement;
+import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 
 public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	
+	//effectivetype registry, use to register EOL elements with effective types
 	protected HashMap<Object, EffectiveType> effectiveTypeRegistry = new HashMap<Object, EffectiveType>();
-	protected HashMap<Object, EffectiveFeature> effectiveFeatureRegistry = new HashMap<Object, EffectiveFeature>();
 	
+	//effective metamodels
 	protected ArrayList<EffectiveMetamodel> effectiveMetamodels = new ArrayList<EffectiveMetamodel>();
 	
+	//current assignment statement
 	protected AssignmentStatement currentAssignmentStatement = null;
 	
-	protected FOLMethodCallExpression currentFolMethodCallExpression = null;
-	
+	//stack to hold fol method calls
 	protected Stack<FOLMethodCallExpression> currentFolMethodCallExpressions = new Stack<FOLMethodCallExpression>();
+	
+	//stack to hold iterators of fol method calls
 	protected Stack<FormalParameterExpression> currentIterators = new Stack<FormalParameterExpression>();
 
+	//map that maps fol method calls with effective features
 	protected HashMap<FOLMethodCallExpression, EffectiveFeature> map = new HashMap<FOLMethodCallExpression, EffectiveFeature>();
 	
+	//operationdefinition call graph
 	protected ArrayList<OperationDefinitionNode> opCallGraph = new ArrayList<OperationDefinitionNode>();
 	
+	//add an operationdefinition to the call graph
 	public void addToCallGraph(OperationDefinition operationDefinition)
 	{
 		OperationDefinitionNode node = new OperationDefinitionNode(operationDefinition);
 		opCallGraph.add(node);
 	}
 	
+	//get an operation definition node from the call graph
 	public OperationDefinitionNode getFromCallGraph(OperationDefinition operationDefinition)
 	{
 		for(OperationDefinitionNode opNode : opCallGraph)
@@ -50,76 +62,82 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 		}
 		return null;
 	}
-
 	
+	//push an folmethodcallexpression to the stack
 	public void setCurrentFolMethodCallExpression(
 			FOLMethodCallExpression currentFolMethodCallExpression) {
 		currentFolMethodCallExpressions.push(currentFolMethodCallExpression);
 	}
 	
+	//get the current fol method call expression
 	public FOLMethodCallExpression getCurrentFolMethodCallExpression() {
 		return currentFolMethodCallExpressions.peek();
 	}
 	
+	//get the previous method call expression
+	public FOLMethodCallExpression getPreviousFolMethodCallExpression()
+	{
+		return currentFolMethodCallExpressions.get(currentFolMethodCallExpressions.size()-2);
+	}
+	
+	//get the fol method call expressoin count
+	public int getCurrentFolMethodCallExpressionsCount()
+	{
+		return currentFolMethodCallExpressions.size();
+	}
+	
+	//pop the current fol method call expression
 	public void popCurrentFOLMethodCallExpression()
 	{
 		currentFolMethodCallExpressions.pop();
 	}
 	
-	
+	//get an effective feature from the map
 	public EffectiveFeature getFromMap(FOLMethodCallExpression folMethodCallExpression)
 	{
 		return map.get(folMethodCallExpression);
 	}
 	
+	//put a pair to the map
 	public void putToMap(FOLMethodCallExpression folMethodCallExpression, EffectiveFeature effectiveFeature)
 	{
 		map.put(folMethodCallExpression, effectiveFeature);
 	}
 	
-	
-	
-	
+	//push an iterator to the stack
 	public void setCurrentIterator(FormalParameterExpression currentIterator) {
 		currentIterators.push(currentIterator);
 	}
 	
+	//get the current iterator
 	public FormalParameterExpression getCurrentIterator() {
 		return currentIterators.peek();
 	}
 	
+	//pop the iterator
 	public void popCurrentIterator()
 	{
 		currentIterators.pop();
 	}
 	
+	//get the current assignment statement
 	public AssignmentStatement getCurrentAssignmentStatement() {
 		return currentAssignmentStatement;
 	}
 	
+	//set the current assignment statement
 	public void setCurrentAssignmentStatement(
 			AssignmentStatement currentAssignmentStatement) {
 		this.currentAssignmentStatement = currentAssignmentStatement;
 	}
 	
-	public EffectiveFeature getEffectiveFeatureFromRegistry(Object object)
-	{
-		return effectiveFeatureRegistry.get(object);
-	}
-	
-	public void registerEffectiveFeature(Object object, EffectiveFeature effectiveFeature)
-	{
-		if(!effectiveFeatureRegistry.containsValue(effectiveFeature))
-		{
-			effectiveFeatureRegistry.put(object, effectiveFeature);
-		}
-	}
-
+	//get the effective type from registry with an object
 	public EffectiveType getEffectiveTypeFromRegistry(Object object)
 	{
 		return effectiveTypeRegistry.get(object);
 	}
 	
+	//register an effective type with an object
 	public void registerEffectiveType(Object object, EffectiveType effectiveType)
 	{
 		effectiveTypeRegistry.put(object, effectiveType);
@@ -139,46 +157,25 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	//add effective type to existing metamodel's allOfType, if metamodel does not exist return null;
 	public EffectiveType addEffectiveTypeToAllOfType(EffectiveMetamodel em, String effectiveType)
 	{
-		if (em.getAllOfType().contains(effectiveType)) {
-			return em.addToAllOfType(effectiveType);
-		}
-		return null;
+		return em.addToAllOfType(effectiveType);
+		
 	}
 	
 	//add effective type to existing metamodel's allOfKind, if metamodel does not exist return null;
-		public EffectiveType addEffectiveTypeToAllOfKind(EffectiveMetamodel em, String effectiveType)
-		{
-			if (em.getAllOfKind().contains(effectiveType)) {
-				return em.addToAllOfKind(effectiveType);
-			}
-			return null;
-		}
+	public EffectiveType addEffectiveTypeToAllOfKind(EffectiveMetamodel em, String effectiveType)
+	{
+		return em.addToAllOfKind(effectiveType);
+	}
 	
 	
 	public EffectiveType addToEffectiveMetamodelAllOfType(String modelName, String effectiveType)
 	{
-		EffectiveMetamodel effectiveMetamodel = getEffectiveMetamodel(modelName);
-		if (effectiveMetamodel != null) {
-			return effectiveMetamodel.addToAllOfType(effectiveType);
-		}
-		else {
-			effectiveMetamodel = new EffectiveMetamodel(modelName);
-			effectiveMetamodels.add(effectiveMetamodel);
-			return effectiveMetamodel.addToAllOfType(effectiveType);
-		}
+		return addEffectiveMetamodel(modelName).addToAllOfType(effectiveType);
 	}
 	
 	public EffectiveType addToEffectiveMetamodelAllOfKind(String modelName, String elementName)
 	{
-		EffectiveMetamodel effectiveMetamodel = getEffectiveMetamodel(modelName);
-		if (effectiveMetamodel != null) {
-			return effectiveMetamodel.addToAllOfKind(elementName);
-		}
-		else {
-			effectiveMetamodel = new EffectiveMetamodel(modelName);
-			effectiveMetamodels.add(effectiveMetamodel);
-			return effectiveMetamodel.addToAllOfKind(elementName);
-		}
+		return addEffectiveMetamodel(modelName).addToAllOfKind(elementName);
 	}
 	
 	public EffectiveMetamodel getEffectiveMetamodel(String modelName)
@@ -196,36 +193,64 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 		return effectiveMetamodels;
 	}
 	
-	public boolean isKeywordAllOfKind(String keyword)
-	{
-		if (keyword.equals("all") ||
-				keyword.equals("allInstances") ||
-				keyword.equals("allOfKind")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public boolean isKeywordAllOfType(String keyword)
-	{
-		if (keyword.equals("allOfType")) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+//	public boolean isKeywordAllOfKind(String keyword)
+//	{
+//		if (keyword.equals("all") ||
+//				keyword.equals("allInstances") ||
+//				keyword.equals("allOfKind")) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
+//	
+//	public boolean isKeywordAllOfType(String keyword)
+//	{
+//		if (keyword.equals("allOfType")) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
 	
 	public void registerEffectiveTypeWithObject(Object object, EffectiveType effectiveType)
 	{
+		//get the current assignment statement
 		AssignmentStatement currentAssignmentStatement = getCurrentAssignmentStatement();
-		if (currentAssignmentStatement.getRhs().equals(object) && 
-				currentAssignmentStatement.getLhs() instanceof VariableDeclarationExpression) {
-			VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) currentAssignmentStatement.getLhs();
-			registerEffectiveType(variableDeclarationExpression, effectiveType);
+		
+		//if the rhs of the current assignment is the object provided
+		if (currentAssignmentStatement.getRhs().equals(object))
+		{
+			//if the lhs of the current assignment is a variable declaration expression
+			if(currentAssignmentStatement.getLhs() instanceof VariableDeclarationExpression)
+			{
+				//get the variable declaration expression
+				VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) currentAssignmentStatement.getLhs();
+				
+				//register the effective type with the variable declaration expression
+				registerEffectiveType(variableDeclarationExpression, effectiveType);
+			}
+			
+			//if the lhs of the current assignment is a name expression
+			else if (currentAssignmentStatement.getLhs() instanceof NameExpression) {
+				//get the name expression
+				NameExpression nameExpression = (NameExpression) currentAssignmentStatement.getLhs();
+				
+				//if the name expression has a resolved content and the resolved content is a variable declaration expression
+				if (nameExpression.getResolvedContent() != null && nameExpression.getResolvedContent() instanceof VariableDeclarationExpression) {
+					
+					//get the resolved content
+					VariableDeclarationExpression originalVariableDeclarationExpression = (VariableDeclarationExpression) nameExpression.getResolvedContent();
+					//register the effective type with the resolved content
+					registerEffectiveType(originalVariableDeclarationExpression, effectiveType);
+				}
+			}
+			
 		}
+		
+		//if it is not involved in the current assignment, register the effective type with the object
 		else {
 			registerEffectiveType(object, effectiveType);
 		}
@@ -234,24 +259,62 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	
 	public void processMap()
 	{
+		//for each fol
 		for(FOLMethodCallExpression fol: map.keySet())
 		{
+			//get trace
 			EolElement element = getTrace(fol);
-			if (fol != null) {
+			
+			//if fol is not null
+			if (element != null) {
+				
+				//if element is operation definition
 				if (element instanceof OperationDefinition) {
+					
+					//get the node in opcallgraph
 					OperationDefinition operationDefinition = (OperationDefinition) element;
 					OperationDefinitionNode node = getFromCallGraph(operationDefinition);
-					if (node.getInvokers().size() > 1) {
-						for(int i = 1; i < node.getInvokers().size(); i++)
-						{
-							map.get(fol).increaseUsage();
+					EffectiveFeature feature = map.get(fol);
+
+					
+					for(int i = 0; i < node.getInvokers().size(); i++)
+					{
+						MethodCallExpression invoker = node.getInvokers().get(i);
+						
+						OperationDefinition op = getContainingOperationDefinition(invoker);
+						if (op != null) {
+							OperationDefinitionNode node2 = getFromCallGraph(op);
+							if (node != null) {
+								ArrayList<MethodCallExpression> invokersToRemove = new ArrayList<MethodCallExpression>();
+								for(MethodCallExpression methodCallExpression : node2.getInvokers())
+								{
+									if (containedInLoop(methodCallExpression)) {
+										feature.increaseUsage();
+										invokersToRemove.add(methodCallExpression);
+									}
+								}
+								node2.getInvokers().removeAll(invokersToRemove);
+							}
+						}
+						else {
+							if (containedInLoop(invoker)) {
+								feature.increaseUsage();
+							}
 						}
 					}
-					else if (node.getInvokers().size() == 1) {
-						if (containedInLoop(node.getInvokers().get(0))) {
-							map.get(fol).increaseUsage();
-						}
-					}
+					
+
+//					if (node.getInvokers().size() > 1) {
+//						for(int i = 1; i < node.getInvokers().size(); i++)
+//						{
+//							map.get(fol).increaseUsage();
+//						}
+//					}
+//					else if (node.getInvokers().size() == 1) {
+//						if (containedInLoop(node.getInvokers().get(0))) {
+//							map.get(fol).increaseUsage();
+//						}
+//					}
 				}
 				if ((element instanceof ForStatement) ||
 						(element instanceof WhileStatement)) {
@@ -261,28 +324,61 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 		}
 	}
 	
+	//returns true if the methodCallExpression is contained in a loop
 	public boolean containedInLoop(MethodCallExpression methodCallExpression)
 	{
+		boolean result = false;
+		//get the container
 		EolElement trace = methodCallExpression.getContainer();
+		
+		//while container is not null
 		while(trace != null)
 		{
+			//if trace is for or while loop, return true
 			if ((trace instanceof ForStatement) ||
 					(trace instanceof WhileStatement)) {
-				return true;
+				result =  true;
 			}
+			
+			//if trace is an operation definition
 			else if (trace instanceof OperationDefinition) {
+				
+				//get the operation definition
 				OperationDefinition operationDefinition = (OperationDefinition) trace;
+				
+				//get the opCallNode from the opCallGraph
 				OperationDefinitionNode node = getFromCallGraph(operationDefinition);
+				
+				//for each invoker, return true if the invoker is contained in a loop
 				for(MethodCallExpression call: node.getInvokers())
 				{
-					return containedInLoop(call);
+					result = containedInLoop(call);
 				}
+			}
+			
+			//otherwise trace one level up
+			trace = trace.getContainer();
+		}
+		
+		//return false if not contained in loop at all
+		return result;
+	}
+	
+	
+	public OperationDefinition getContainingOperationDefinition(EolElement eolElement)
+	{
+		EolElement trace = eolElement.getContainer();
+		while(trace != null)
+		{
+			if (trace instanceof OperationDefinition) {
+				return (OperationDefinition) trace;
 			}
 			trace = trace.getContainer();
 		}
-		return false;
+		return null;
 	}
 	
+	//go up through the containment chain return forstatement, whilestatement or operationdefinition if they are encountered
 	public EolElement getTrace(EolElement eolElement)
 	{
 		EolElement trace = eolElement.getContainer();
@@ -301,6 +397,7 @@ public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{
 	}
 	
 
+	//print the effective metamodels
 	public void print()
 	{
 		for(EffectiveMetamodel mc: effectiveMetamodels)

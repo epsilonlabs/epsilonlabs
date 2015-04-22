@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.analysis.optimisation.loading.context;
+package org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel;
 
 import java.util.ArrayList;
 
@@ -60,6 +60,13 @@ public class EffectiveMetamodel {
 	
 	public EffectiveType addToTypes(String modelElement)
 	{
+		for(EffectiveType et: allOfKind)
+		{
+			if (et.getName().equals(modelElement)) {
+				return et;
+			}
+		}
+		
 		for(EffectiveType et: types)
 		{
 			if (et.getName().equals(modelElement)) {

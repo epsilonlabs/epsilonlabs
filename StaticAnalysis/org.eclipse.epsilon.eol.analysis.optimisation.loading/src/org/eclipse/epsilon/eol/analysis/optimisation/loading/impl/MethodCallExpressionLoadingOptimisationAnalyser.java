@@ -3,10 +3,10 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveMetamodel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.EffectiveType;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.OperationDefinitionNode;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
+import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
@@ -26,10 +26,10 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		
-				
 		//visit the contents first
-		controller.visitContents(methodCallExpression, context);
+		if (methodCallExpression.getTarget() != null) {
+			controller.visit(methodCallExpression.getTarget(), context);
+		}
 		
 		//get the method name
 		String methodString = methodCallExpression.getMethod().getName();
@@ -104,7 +104,7 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 				}
 				else {
 					
-					if (leContext.getEffectiveFeatureFromRegistry(nameExpression.getResolvedContent()) != null) {
+					if (leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent()) != null) {
 						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent());
 						leContext.registerEffectiveTypeWithObject(nameExpression, effectiveType);
 					}
@@ -116,6 +116,7 @@ public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallE
 		Object obj = methodCallExpression.getMethod().getResolvedContent();
 		if (obj instanceof OperationDefinition) {
 			OperationDefinition operationDefinition = (OperationDefinition) obj;
+			
 			if (leContext.getFromCallGraph(operationDefinition) != null) {
 				OperationDefinitionNode node = leContext.getFromCallGraph(operationDefinition);
 				node.addInvoker(methodCallExpression);

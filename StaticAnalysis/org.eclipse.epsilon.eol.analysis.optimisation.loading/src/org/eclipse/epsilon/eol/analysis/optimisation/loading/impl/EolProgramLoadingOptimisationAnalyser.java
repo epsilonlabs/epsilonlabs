@@ -14,22 +14,26 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 	public Object visit(EolProgram program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//get the context
 		LoadingOptimisationAnalysisContext leContext = (LoadingOptimisationAnalysisContext) context;
 
-		
+		//visit imports
 		for(Import import1: program.getImports())
 		{
 			controller.visit(import1, context);
 		}
 		
-		for(ModelDeclarationStatement mds: program.getModelDeclarations()) //process each model declaration statement
+		//visit model declarations
+		for(ModelDeclarationStatement mds: program.getModelDeclarations()) 
 		{
 			controller.visit(mds, context);
 		}
 		
+		//process operation definitions
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			leContext.addToCallGraph(od); // <================================================
+			//add to call graph
+			leContext.addToCallGraph(od); 
 			
 			
 			Type contextType = od.getContextType(); //get the contextType
@@ -48,17 +52,19 @@ public class EolProgramLoadingOptimisationAnalyser extends EolProgramVisitor<Typ
 			
 		}
 		
+		//visit the block
 		controller.visitContents(program.getBlock(), context); //process statement block
 
+		
+		//visit each operation definition
 		for(OperationDefinition od: program.getOperations())
 		{			
 			controller.visit(od, context);
 		}
 		
+		//process the map
 		leContext.processMap();
 		
-		
-				
 		return null;
 	}
 

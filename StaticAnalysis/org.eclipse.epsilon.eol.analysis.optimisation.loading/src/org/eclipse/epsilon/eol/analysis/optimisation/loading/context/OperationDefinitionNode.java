@@ -9,7 +9,9 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 public class OperationDefinitionNode {
 
 	protected OperationDefinition containedOperationDefinition = null;
+	
 	protected ArrayList<MethodCallExpression> invokers = new ArrayList<MethodCallExpression>();
+	
 	protected ArrayList<FOLMethodCallExpression> containedFolMethodCallExpressions = new ArrayList<FOLMethodCallExpression>();
 	
 	public OperationDefinitionNode(OperationDefinition operationDefinition)
