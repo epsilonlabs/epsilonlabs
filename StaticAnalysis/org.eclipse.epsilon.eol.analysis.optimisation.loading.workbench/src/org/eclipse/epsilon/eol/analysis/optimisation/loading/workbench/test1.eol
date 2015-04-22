@@ -2,13 +2,13 @@ model U driver EMF {nsuri = "http://university/1.0"};
 
 var a: OrderedSet(University) = University.all;
 
-//1.to(5).select(i|a.select(u|u.name = "i" + i));
+1.to(5).select(i|a.select(u|u.name = "i" + i));
 var b: OrderedSet(University);
 
 var department : department = Department.all.first;
 for(n in 1.to(20))
 {
-	//a.select(a|a.departments.includes(department)).println();
+	a.select(a|a.departments.includes(department)).println();
 }
 
 
@@ -18,10 +18,10 @@ if (true) {
 
 for(i in Sequence{1..100})
 {
-	//University.all.bar();
+	University.all.bar();
 	foo();
-	//var e = a.exists(u|u.name = "York").println();
-	//a.select(a|a.departments.includes(department)).println();
+	var e = a.exists(u|u.name = "York").println();
+	a.select(a|a.departments.includes(department)).println();
 }
 
 foo();
@@ -30,7 +30,7 @@ b.bar();
 
 while(true)
 {
-	//a.bar();
+	a.bar();
 }
 
 
