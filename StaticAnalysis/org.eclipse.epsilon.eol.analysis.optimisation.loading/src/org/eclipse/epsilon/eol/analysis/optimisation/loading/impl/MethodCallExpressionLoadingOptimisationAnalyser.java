@@ -5,8 +5,6 @@ import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.OperationDefinitionNode;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
@@ -18,6 +16,8 @@ import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveMetamodel;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveType;
 
 public class MethodCallExpressionLoadingOptimisationAnalyser extends MethodCallExpressionVisitor<TypeResolutionContext, Object>{
 

@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.static.analysis.problem.log;bundle-version="0.1.0",
  org.eclipse.epsilon.eol.dom.metamodel.connectivity;bundle-version="0.1.0",
  org.eclipse.epsilon.eol.engine;bundle-version="1.1.0",
- org.eclipse.epsilon.eol.visitor.resolution.type.tier1;bundle-version="0.1.0"
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1;bundle-version="0.1.0",
+ org.eclipse.epsilon.labs.effectivemetamodel;bundle-version="0.1.0"
 Export-Package: org.eclipse.epsilon.eol.analysis.optimisation.loading.context,
  org.eclipse.epsilon.eol.analysis.optimisation.loading.impl

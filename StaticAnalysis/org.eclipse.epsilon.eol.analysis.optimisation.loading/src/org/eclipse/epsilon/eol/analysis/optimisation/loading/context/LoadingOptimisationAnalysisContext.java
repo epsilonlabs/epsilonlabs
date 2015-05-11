@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
 
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveFeature;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
@@ -19,6 +16,9 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.WhileStatement;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveFeature;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveMetamodel;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveType;
 
 
 public class LoadingOptimisationAnalysisContext extends TypeResolutionContext{

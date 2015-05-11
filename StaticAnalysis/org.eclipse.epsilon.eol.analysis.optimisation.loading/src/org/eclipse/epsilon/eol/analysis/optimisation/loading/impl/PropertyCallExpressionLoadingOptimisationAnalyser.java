@@ -6,9 +6,6 @@ import metamodel.connectivity.abstractmodel.EMetamodelDriver;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveFeature;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveMetamodel;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.EqualsOperatorExpression;
@@ -26,6 +23,9 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.returnStatement_return;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveFeature;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveMetamodel;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveType;
 
 public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyCallExpressionVisitor<TypeResolutionContext, Object>{
 
@@ -148,27 +148,29 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 										//get the effective metamodel under question
 										EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
 										
-										//add the eType to the types
-										if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-											//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
-											for(EffectiveType et: effectiveMetamodel.getAllOfKind())
-											{
-												if (et.getName().equals(eClass.getName())) {
-													sur_type = et;
-													break;
-												}
-											}
-											for(EffectiveType et: effectiveMetamodel.getAllOfType())
-											{
-												if (et.getName().equals(eClass.getName())) {
-													sur_type = et;
-													break;
-												}
-											}
-										}
-										else {
-											sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
-										}
+										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+
+//										//add the eType to the types
+//										if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+//											//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+//											for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+//											{
+//												if (et.getName().equals(eClass.getName())) {
+//													sur_type = et;
+//													break;
+//												}
+//											}
+//											for(EffectiveType et: effectiveMetamodel.getAllOfType())
+//											{
+//												if (et.getName().equals(eClass.getName())) {
+//													sur_type = et;
+//													break;
+//												}
+//											}
+//										}
+//										else {
+//											sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+//										}
 									}
 									
 									leContext.putToMap(leContext.getCurrentFolMethodCallExpression(), effectiveFeature);
@@ -232,27 +234,29 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 									//get the effective metamodel under question
 									EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
 									
-									//add the eType to the types
-									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-										//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
-										for(EffectiveType et: effectiveMetamodel.getAllOfKind())
-										{
-											if (et.getName().equals(eClass.getName())) {
-												sur_type = et;
-												break;
-											}
-										}
-										for(EffectiveType et: effectiveMetamodel.getAllOfType())
-										{
-											if (et.getName().equals(eClass.getName())) {
-												sur_type = et;
-												break;
-											}
-										}
-									}
-									else {
-										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
-									}
+									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+									
+//									//add the eType to the types
+//									if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+//										//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+//										for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+//										{
+//											if (et.getName().equals(eClass.getName())) {
+//												sur_type = et;
+//												break;
+//											}
+//										}
+//										for(EffectiveType et: effectiveMetamodel.getAllOfType())
+//										{
+//											if (et.getName().equals(eClass.getName())) {
+//												sur_type = et;
+//												break;
+//											}
+//										}
+//									}
+//									else {
+//										sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+//									}
 									
 								}
 								//else it could be "first" or "second", we are not considering these two cases
@@ -313,27 +317,29 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 								//get the effective metamodel under question
 								EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
 								
-								//add the eType to the types
-								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
-									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
-									{
-										if (et.getName().equals(eClass.getName())) {
-											sur_type = et;
-											break;
-										}
-									}
-									for(EffectiveType et: effectiveMetamodel.getAllOfType())
-									{
-										if (et.getName().equals(eClass.getName())) {
-											sur_type = et;
-											break;
-										}
-									}
-								}
-								else {
-									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
-								}
+								sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+
+//								//add the eType to the types
+//								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+//									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+//									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+//									{
+//										if (et.getName().equals(eClass.getName())) {
+//											sur_type = et;
+//											break;
+//										}
+//									}
+//									for(EffectiveType et: effectiveMetamodel.getAllOfType())
+//									{
+//										if (et.getName().equals(eClass.getName())) {
+//											sur_type = et;
+//											break;
+//										}
+//									}
+//								}
+//								else {
+//									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+//								}
 							}
 							leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 						}
@@ -379,27 +385,29 @@ public class PropertyCallExpressionLoadingOptimisationAnalyser extends PropertyC
 								//get the effective metamodel under question
 								EffectiveMetamodel effectiveMetamodel = effectiveType.getEffectiveMetamodel();
 								
-								//add the eType to the types
-								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
-									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
-									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
-									{
-										if (et.getName().equals(eClass.getName())) {
-											sur_type = et;
-											break;
-										}
-									}
-									for(EffectiveType et: effectiveMetamodel.getAllOfType())
-									{
-										if (et.getName().equals(eClass.getName())) {
-											sur_type = et;
-											break;
-										}
-									}
-								}
-								else {
-									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
-								}
+								sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+
+//								//add the eType to the types
+//								if (effectiveMetamodel.allOfKindContains(eClass.getName()) || effectiveMetamodel.allOfTypeContains(eClass.getName())) {
+//									//sur_type = effectiveMetamodel.addToTypes(eClass.getName());
+//									for(EffectiveType et: effectiveMetamodel.getAllOfKind())
+//									{
+//										if (et.getName().equals(eClass.getName())) {
+//											sur_type = et;
+//											break;
+//										}
+//									}
+//									for(EffectiveType et: effectiveMetamodel.getAllOfType())
+//									{
+//										if (et.getName().equals(eClass.getName())) {
+//											sur_type = et;
+//											break;
+//										}
+//									}
+//								}
+//								else {
+//									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
+//								}
 							}
 							leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 						}

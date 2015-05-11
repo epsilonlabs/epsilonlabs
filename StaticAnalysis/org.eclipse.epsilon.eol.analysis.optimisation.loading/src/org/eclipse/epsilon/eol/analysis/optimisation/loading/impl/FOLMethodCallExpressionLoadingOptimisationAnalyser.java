@@ -2,7 +2,6 @@ package org.eclipse.epsilon.eol.analysis.optimisation.loading.impl;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.context.LoadingOptimisationAnalysisContext;
-import org.eclipse.epsilon.eol.analysis.optimisation.loading.effective.metamodel.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
@@ -14,6 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.labs.effectivemetamodel.impl.EffectiveType;
 
 public class FOLMethodCallExpressionLoadingOptimisationAnalyser extends FOLMethodCallExpressionVisitor<TypeResolutionContext, Object>{
 
