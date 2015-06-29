@@ -69,6 +69,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			{
 				ModelElementType targetType = (ModelElementType) propertyCallExpression.getTarget().getResolvedType(); //get the type
 				EMetamodelDriver mm = context.getMetaModel(targetType.getModelName()); //get the metamodel
+				String metamoedlName = targetType.getModelName();
 				String metaClassString = targetType.getElementName(); //get metaclass string
 				String propertyString = propertyCallExpression.getProperty().getName(); //get property string
 				
@@ -127,7 +128,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							else { //if type is not EDatatype
 								contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
 								((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-								((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
+								((ModelElementType) contentType).setModelName(metamoedlName); //model name
 								((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
 							}
 
@@ -185,7 +186,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							else { //if the property is not data type, then it should be model element type
 								ModelElementType callType = context.getEolFactory().createModelElementType();
 								callType.setEcoreType(propertyType);
-								callType.setModelName(mm.getMetamodelName());
+								callType.setModelName(metamoedlName);
 								callType.setElementName(propertyType.getName());
 								propertyCallExpression.getProperty().setResolvedType(callType);
 								context.setAssets(callType, propertyCallExpression.getProperty());
@@ -219,6 +220,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 					if (getInnermostType(rawCollectionType) instanceof ModelElementType) 
 					{ //if contentType is ModelElementType
 						ModelElementType resultContentType = (ModelElementType) getInnermostType(rawCollectionType); //prepare result content type
+						String metamoedlName = resultContentType.getModelName();
 						EMetamodelDriver mm = context.getMetaModel(resultContentType.getModelName()); //get the metamodel
 						if(mm != null) //if meta model exists
 						{
@@ -247,7 +249,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 									else { //if type is not EDatatype
 										contentType = context.getEolFactory().createModelElementType(); //assign a ModelElementType to contentType 
 										((ModelElementType) contentType).setEcoreType(propertyType); //setEcoreType
-										((ModelElementType) contentType).setModelName(mm.getMetamodelName()); //model name
+										((ModelElementType) contentType).setModelName(metamoedlName); //model name
 										((ModelElementType) contentType).setElementName(propertyType.getName()); //element name
 									}
 
@@ -313,7 +315,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 									else { //if the property is not data type, then it should be model element type
 										ModelElementType callType = context.getEolFactory().createModelElementType();
 										callType.setEcoreType(propertyType);
-										callType.setModelName(mm.getMetamodelName());
+										callType.setModelName(metamoedlName);
 										callType.setElementName(propertyType.getName());
 										propertyCallExpression.getProperty().setResolvedType(callType);
 										context.setAssets(callType, propertyCallExpression.getProperty());
