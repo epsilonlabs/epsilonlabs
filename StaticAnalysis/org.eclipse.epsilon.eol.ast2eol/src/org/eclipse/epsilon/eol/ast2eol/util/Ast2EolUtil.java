@@ -17,18 +17,18 @@ public class Ast2EolUtil {
 	public AST generateAst(Class<?> clazz, String s)
 	{
 		URL temp = clazz.getResource(s);
-		URL url = null;
-		try {
-			url = FileLocator.toFileURL(temp);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			System.err.println("errrrrrr");
-		}
+//		URL url = null;
+//		try {
+//			url = FileLocator.toFileURL(temp);
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//			System.err.println("errrrrrr");
+//		}
 		//System.out.println(url.toString());
 		EolModule eolModule = new EolModule();
 		try {
-			eolModule.parse(new File(url.getPath()));
+			eolModule.parse(new File(temp.getPath()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

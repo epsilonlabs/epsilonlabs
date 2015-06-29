@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.common.util.AstUtil;
-import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.*;
@@ -54,7 +53,7 @@ public class Ast2EolWorkbench {
 		//eolModule.buildModel();
 
 		
-		for(EolImport imp: eolModule.getImports())
+		for(org.eclipse.epsilon.eol.dom.Import imp: eolModule.getImports())
 		{
 			System.out.println(imp.getModule().getAst().toStringTree());
 		}

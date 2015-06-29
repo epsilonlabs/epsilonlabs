@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.epsilon.common.dt.editor.AbstractModuleEditor;
 import org.eclipse.epsilon.common.dt.editor.outline.EditorSelection;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
@@ -24,7 +25,6 @@ import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.Eol_EolParserRules.statement_return;
-import org.eclipse.epsilon.eol.performance.analysis.impl.PerformanceAnalyser;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.TypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier2.impl.TypeResolver_T2;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
@@ -42,7 +42,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 public class EolxOutlinePage extends ModuleContentOutlinePage{
 
 	public EolxOutlinePage(IDocumentProvider documentProvider,
-			ITextEditor editor, ILabelProvider labelProvider) {
+			AbstractModuleEditor editor, ILabelProvider labelProvider) {
 		super(documentProvider, editor, labelProvider);
 	}
 	

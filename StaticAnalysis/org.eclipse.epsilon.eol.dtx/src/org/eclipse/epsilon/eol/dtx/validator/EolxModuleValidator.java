@@ -11,7 +11,6 @@ import org.eclipse.epsilon.common.parse.Region;
 import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.analysis.optimisation.loading.impl.LoadingOptimisationAnalyser;
-import org.eclipse.epsilon.eol.analysis.suboptimal.performance.detection.impl.ProgramPerformanceAnalyser;
 import org.eclipse.epsilon.eol.ast2eol.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.coverage.analysis.impl.CoverageAnalyser;
@@ -108,25 +107,25 @@ public class EolxModuleValidator implements IModuleValidator{
 			
 			//PerformanceAnalyser o = new PerformanceAnalyser();
 			//o.getOptimisationContext().setDirectoryPathString(directoryPathString);
-			ProgramPerformanceAnalyser ppa = new ProgramPerformanceAnalyser();
-			ppa.visit((EolProgram) dom);
-			
-			for(log.Error error: ppa.getContext().getLogBook().getErrors())
-			{
-				TextRegion textRegion = error.getDomElement().getRegion();
-				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
-				markers.add(marker);
-			}
-			
-			for(log.Warning warning: ppa.getContext().getLogBook().getWarnings())
-			{
-				TextRegion textRegion = warning.getDomElement().getRegion();
-				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
-
-				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
-				markers.add(marker);
-			}
+//			ProgramPerformanceAnalyser ppa = new ProgramPerformanceAnalyser();
+//			ppa.visit((EolProgram) dom);
+//			
+//			for(log.Error error: ppa.getContext().getLogBook().getErrors())
+//			{
+//				TextRegion textRegion = error.getDomElement().getRegion();
+//				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+//				ModuleMarker marker = new ModuleMarker(null, region, error.getMessage(), Severity.Error);
+//				markers.add(marker);
+//			}
+//			
+//			for(log.Warning warning: ppa.getContext().getLogBook().getWarnings())
+//			{
+//				TextRegion textRegion = warning.getDomElement().getRegion();
+//				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
+//
+//				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+//				markers.add(marker);
+//			}
 //			
 //			CoverageAnalyser ca = new CoverageAnalyser();
 //			ca.run(dom);

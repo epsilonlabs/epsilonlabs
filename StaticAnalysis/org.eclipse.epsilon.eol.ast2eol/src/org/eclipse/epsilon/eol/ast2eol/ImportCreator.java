@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.eol.ast2eol;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.metamodel.EolElement;
 import org.eclipse.epsilon.eol.metamodel.EolProgram;
 import org.eclipse.epsilon.eol.metamodel.Import;
@@ -21,15 +20,25 @@ public class ImportCreator extends EolElementCreator{
 		AST importedStringAST = ast.getFirstChild(); //obtain the imported string AST
 		if(importedStringAST != null)
 		{
-			for(EolImport leImport: context.getModule().getImports())
+			for(org.eclipse.epsilon.eol.dom.Import import_ : context.getModule().getImports())
 			{
-				if (leImport.getAst().equals(ast)) {
-					EolProgram importedProgram = (EolProgram) context.getEolElementCreatorFactory().createDomElement(leImport.getModule().getAst(), imp, context);
+				if(import_.equals(ast))
+				{
+					EolProgram importedProgram = (EolProgram) context.getEolElementCreatorFactory().createDomElement(import_.getModule().getAst(), imp, context);
 					if (importedProgram != null) {
 						imp.setImportedProgram(importedProgram);
 					}
 				}
 			}
+//			for(EolImport leImport: context.getModule().getImports())
+//			{
+//				if (leImport.getAst().equals(ast)) {
+//					EolProgram importedProgram = (EolProgram) context.getEolElementCreatorFactory().createDomElement(leImport.getModule().getAst(), imp, context);
+//					if (importedProgram != null) {
+//						imp.setImportedProgram(importedProgram);
+//					}
+//				}
+//			}
 			imp.setImported((StringExpression)context.getEolElementCreatorFactory().createDomElement(importedStringAST, imp, context)); //create an StringExpression for the imported string
 		}
 
