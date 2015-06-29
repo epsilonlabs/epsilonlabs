@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.epsilon.common.dt.editor.AbstractModuleEditor;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
@@ -29,7 +30,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 public class EvlxOutlinePage extends ModuleContentOutlinePage{
 
 	public EvlxOutlinePage(IDocumentProvider documentProvider,
-			ITextEditor editor, ILabelProvider labelProvider) {
+			AbstractModuleEditor editor, ILabelProvider labelProvider) {
 		super(documentProvider, editor, labelProvider);
 	}
 	
