@@ -22,6 +22,7 @@ for(i in Sequence{1..100})
 	foo();
 	var e = a.exists(u|u.name = "York").println();
 	a.select(a|a.departments.includes(department)).println();
+	a.departments.modules.println();
 }
 
 foo();
