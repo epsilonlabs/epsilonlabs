@@ -3046,13 +3046,13 @@ public interface EolPackage extends EPackage {
 	int NAME_EXPRESSION__NAME = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Resolved Contents</b></em>' attribute list.
+	 * The feature id for the '<em><b>Resolved Content</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NAME_EXPRESSION__RESOLVED_CONTENTS = EXPRESSION_FEATURE_COUNT + 1;
+	int NAME_EXPRESSION__RESOLVED_CONTENT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Is Type</b></em>' attribute.
@@ -9666,15 +9666,15 @@ public interface EolPackage extends EPackage {
 	EAttribute getNameExpression_Name();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContents <em>Resolved Contents</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContent <em>Resolved Content</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Resolved Contents</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContents()
+	 * @return the meta object for the attribute '<em>Resolved Content</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContent()
 	 * @see #getNameExpression()
 	 * @generated
 	 */
-	EAttribute getNameExpression_ResolvedContents();
+	EAttribute getNameExpression_ResolvedContent();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.NameExpression#isIsType <em>Is Type</em>}'.
@@ -11930,12 +11930,12 @@ public interface EolPackage extends EPackage {
 		EAttribute NAME_EXPRESSION__NAME = eINSTANCE.getNameExpression_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Resolved Contents</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Resolved Content</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute NAME_EXPRESSION__RESOLVED_CONTENTS = eINSTANCE.getNameExpression_ResolvedContents();
+		EAttribute NAME_EXPRESSION__RESOLVED_CONTENT = eINSTANCE.getNameExpression_ResolvedContent();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Type</b></em>' attribute feature.

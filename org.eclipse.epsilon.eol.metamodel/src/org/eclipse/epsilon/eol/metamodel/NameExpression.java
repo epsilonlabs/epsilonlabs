@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContents <em>Resolved Contents</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContent <em>Resolved Content</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.NameExpression#isIsType <em>Is Type</em>}</li>
  * </ul>
  * </p>
@@ -50,20 +50,30 @@ public interface NameExpression extends Expression {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Resolved Contents</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * Returns the value of the '<em><b>Resolved Content</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Resolved Contents</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Resolved Content</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resolved Contents</em>' attribute list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getNameExpression_ResolvedContents()
+	 * @return the value of the '<em>Resolved Content</em>' attribute.
+	 * @see #setResolvedContent(Object)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getNameExpression_ResolvedContent()
 	 * @model
 	 * @generated
 	 */
-	EList<Object> getResolvedContents();
+	Object getResolvedContent();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.NameExpression#getResolvedContent <em>Resolved Content</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Resolved Content</em>' attribute.
+	 * @see #getResolvedContent()
+	 * @generated
+	 */
+	void setResolvedContent(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Is Type</b></em>' attribute.

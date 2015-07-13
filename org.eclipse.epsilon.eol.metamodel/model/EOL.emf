@@ -151,7 +151,7 @@ class FormalParameterExpression extends VariableDeclarationExpression {
 
 class NameExpression extends Expression {
   attr String[1] name;
-  attr EJavaObject[*] resolvedContents;
+  attr EJavaObject resolvedContent;
   attr boolean[1] isType;
 }
 

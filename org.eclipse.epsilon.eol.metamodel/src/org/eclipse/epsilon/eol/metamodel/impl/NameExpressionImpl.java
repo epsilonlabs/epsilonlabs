@@ -25,7 +25,7 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#getResolvedContents <em>Resolved Contents</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#getResolvedContent <em>Resolved Content</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#isIsType <em>Is Type</em>}</li>
  * </ul>
  * </p>
@@ -54,14 +54,24 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getResolvedContents() <em>Resolved Contents</em>}' attribute list.
+	 * The default value of the '{@link #getResolvedContent() <em>Resolved Content</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResolvedContents()
+	 * @see #getResolvedContent()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Object> resolvedContents;
+	protected static final Object RESOLVED_CONTENT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getResolvedContent() <em>Resolved Content</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResolvedContent()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object resolvedContent = RESOLVED_CONTENT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isIsType() <em>Is Type</em>}' attribute.
@@ -128,11 +138,20 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getResolvedContents() {
-		if (resolvedContents == null) {
-			resolvedContents = new EDataTypeUniqueEList<Object>(Object.class, this, EolPackage.NAME_EXPRESSION__RESOLVED_CONTENTS);
-		}
-		return resolvedContents;
+	public Object getResolvedContent() {
+		return resolvedContent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResolvedContent(Object newResolvedContent) {
+		Object oldResolvedContent = resolvedContent;
+		resolvedContent = newResolvedContent;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.NAME_EXPRESSION__RESOLVED_CONTENT, oldResolvedContent, resolvedContent));
 	}
 
 	/**
@@ -166,8 +185,8 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 		switch (featureID) {
 			case EolPackage.NAME_EXPRESSION__NAME:
 				return getName();
-			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENTS:
-				return getResolvedContents();
+			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENT:
+				return getResolvedContent();
 			case EolPackage.NAME_EXPRESSION__IS_TYPE:
 				return isIsType();
 		}
@@ -186,9 +205,8 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 			case EolPackage.NAME_EXPRESSION__NAME:
 				setName((String)newValue);
 				return;
-			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENTS:
-				getResolvedContents().clear();
-				getResolvedContents().addAll((Collection<? extends Object>)newValue);
+			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENT:
+				setResolvedContent(newValue);
 				return;
 			case EolPackage.NAME_EXPRESSION__IS_TYPE:
 				setIsType((Boolean)newValue);
@@ -208,8 +226,8 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 			case EolPackage.NAME_EXPRESSION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENTS:
-				getResolvedContents().clear();
+			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENT:
+				setResolvedContent(RESOLVED_CONTENT_EDEFAULT);
 				return;
 			case EolPackage.NAME_EXPRESSION__IS_TYPE:
 				setIsType(IS_TYPE_EDEFAULT);
@@ -228,8 +246,8 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 		switch (featureID) {
 			case EolPackage.NAME_EXPRESSION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENTS:
-				return resolvedContents != null && !resolvedContents.isEmpty();
+			case EolPackage.NAME_EXPRESSION__RESOLVED_CONTENT:
+				return RESOLVED_CONTENT_EDEFAULT == null ? resolvedContent != null : !RESOLVED_CONTENT_EDEFAULT.equals(resolvedContent);
 			case EolPackage.NAME_EXPRESSION__IS_TYPE:
 				return isType != IS_TYPE_EDEFAULT;
 		}
@@ -248,8 +266,8 @@ public class NameExpressionImpl extends ExpressionImpl implements NameExpression
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", resolvedContents: ");
-		result.append(resolvedContents);
+		result.append(", resolvedContent: ");
+		result.append(resolvedContent);
 		result.append(", isType: ");
 		result.append(isType);
 		result.append(')');

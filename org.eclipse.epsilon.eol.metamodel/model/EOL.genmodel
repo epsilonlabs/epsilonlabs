@@ -98,7 +98,7 @@
     <genClasses ecoreClass="EOL.ecore#//FormalParameterExpression"/>
     <genClasses ecoreClass="EOL.ecore#//NameExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//NameExpression/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//NameExpression/resolvedContents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//NameExpression/resolvedContent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//NameExpression/isType"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EOL.ecore#//FeatureCallExpression">

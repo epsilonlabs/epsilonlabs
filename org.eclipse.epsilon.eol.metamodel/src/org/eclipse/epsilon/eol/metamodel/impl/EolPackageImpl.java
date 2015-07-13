@@ -1682,7 +1682,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getNameExpression_ResolvedContents() {
+	public EAttribute getNameExpression_ResolvedContent() {
 		return (EAttribute)nameExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -3150,7 +3150,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		nameExpressionEClass = createEClass(NAME_EXPRESSION);
 		createEAttribute(nameExpressionEClass, NAME_EXPRESSION__NAME);
-		createEAttribute(nameExpressionEClass, NAME_EXPRESSION__RESOLVED_CONTENTS);
+		createEAttribute(nameExpressionEClass, NAME_EXPRESSION__RESOLVED_CONTENT);
 		createEAttribute(nameExpressionEClass, NAME_EXPRESSION__IS_TYPE);
 
 		featureCallExpressionEClass = createEClass(FEATURE_CALL_EXPRESSION);
@@ -3638,7 +3638,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(nameExpressionEClass, NameExpression.class, "NameExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNameExpression_Name(), ecorePackage.getEString(), "name", null, 1, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getNameExpression_ResolvedContents(), ecorePackage.getEJavaObject(), "resolvedContents", null, 0, -1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNameExpression_ResolvedContent(), ecorePackage.getEJavaObject(), "resolvedContent", null, 0, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNameExpression_IsType(), ecorePackage.getEBoolean(), "isType", null, 1, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureCallExpressionEClass, FeatureCallExpression.class, "FeatureCallExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
