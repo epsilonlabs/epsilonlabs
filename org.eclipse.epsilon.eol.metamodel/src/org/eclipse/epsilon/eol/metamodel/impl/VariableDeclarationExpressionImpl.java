@@ -34,7 +34,6 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#isIsCreate <em>Is Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getDefinitionPoints <em>Definition Points</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
@@ -81,16 +80,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * @ordered
 	 */
 	protected EList<Expression> parameters;
-
-	/**
-	 * The cached value of the '{@link #getDefinitionPoints() <em>Definition Points</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDefinitionPoints()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Object> definitionPoints;
 
 	/**
 	 * The cached value of the '{@link #getReferences() <em>References</em>}' reference list.
@@ -202,18 +191,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getDefinitionPoints() {
-		if (definitionPoints == null) {
-			definitionPoints = new EDataTypeUniqueEList<Object>(Object.class, this, EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS);
-		}
-		return definitionPoints;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<NameExpression> getReferences() {
 		if (references == null) {
 			references = new EObjectResolvingEList<NameExpression>(NameExpression.class, this, EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
@@ -251,8 +228,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return getName();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
 				return getParameters();
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
-				return getDefinitionPoints();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				return getReferences();
 		}
@@ -277,10 +252,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
 				getParameters().clear();
 				getParameters().addAll((Collection<? extends Expression>)newValue);
-				return;
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
-				getDefinitionPoints().clear();
-				getDefinitionPoints().addAll((Collection<? extends Object>)newValue);
 				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				getReferences().clear();
@@ -307,9 +278,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
 				getParameters().clear();
 				return;
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
-				getDefinitionPoints().clear();
-				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				getReferences().clear();
 				return;
@@ -331,8 +299,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return name != null;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
-				return definitionPoints != null && !definitionPoints.isEmpty();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				return references != null && !references.isEmpty();
 		}
@@ -351,8 +317,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (isCreate: ");
 		result.append(isCreate);
-		result.append(", definitionPoints: ");
-		result.append(definitionPoints);
 		result.append(')');
 		return result.toString();
 	}

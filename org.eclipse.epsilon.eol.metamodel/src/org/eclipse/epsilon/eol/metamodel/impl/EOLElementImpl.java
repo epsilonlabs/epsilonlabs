@@ -4,6 +4,7 @@ package org.eclipse.epsilon.eol.metamodel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -23,7 +24,6 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getContainer <em>Container</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getUri <em>Uri</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getTextRegion <em>Text Region</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getRegion <em>Region</em>}</li>
  * </ul>
  * </p>
@@ -62,17 +62,7 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 	protected String uri = URI_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getTextRegion() <em>Text Region</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTextRegion()
-	 * @generated
-	 * @ordered
-	 */
-	protected TextRegion textRegion;
-
-	/**
-	 * The cached value of the '{@link #getRegion() <em>Region</em>}' reference.
+	 * The cached value of the '{@link #getRegion() <em>Region</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRegion()
@@ -164,53 +154,7 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TextRegion getTextRegion() {
-		if (textRegion != null && textRegion.eIsProxy()) {
-			InternalEObject oldTextRegion = (InternalEObject)textRegion;
-			textRegion = (TextRegion)eResolveProxy(oldTextRegion);
-			if (textRegion != oldTextRegion) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.EOL_ELEMENT__TEXT_REGION, oldTextRegion, textRegion));
-			}
-		}
-		return textRegion;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TextRegion basicGetTextRegion() {
-		return textRegion;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTextRegion(TextRegion newTextRegion) {
-		TextRegion oldTextRegion = textRegion;
-		textRegion = newTextRegion;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EOL_ELEMENT__TEXT_REGION, oldTextRegion, textRegion));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TextRegion getRegion() {
-		if (region != null && region.eIsProxy()) {
-			InternalEObject oldRegion = (InternalEObject)region;
-			region = (TextRegion)eResolveProxy(oldRegion);
-			if (region != oldRegion) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.EOL_ELEMENT__REGION, oldRegion, region));
-			}
-		}
 		return region;
 	}
 
@@ -219,8 +163,14 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TextRegion basicGetRegion() {
-		return region;
+	public NotificationChain basicSetRegion(TextRegion newRegion, NotificationChain msgs) {
+		TextRegion oldRegion = region;
+		region = newRegion;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.EOL_ELEMENT__REGION, oldRegion, newRegion);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -229,10 +179,31 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 	 * @generated
 	 */
 	public void setRegion(TextRegion newRegion) {
-		TextRegion oldRegion = region;
-		region = newRegion;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EOL_ELEMENT__REGION, oldRegion, region));
+		if (newRegion != region) {
+			NotificationChain msgs = null;
+			if (region != null)
+				msgs = ((InternalEObject)region).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_ELEMENT__REGION, null, msgs);
+			if (newRegion != null)
+				msgs = ((InternalEObject)newRegion).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_ELEMENT__REGION, null, msgs);
+			msgs = basicSetRegion(newRegion, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EOL_ELEMENT__REGION, newRegion, newRegion));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.EOL_ELEMENT__REGION:
+				return basicSetRegion(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -248,12 +219,8 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 				return basicGetContainer();
 			case EolPackage.EOL_ELEMENT__URI:
 				return getUri();
-			case EolPackage.EOL_ELEMENT__TEXT_REGION:
-				if (resolve) return getTextRegion();
-				return basicGetTextRegion();
 			case EolPackage.EOL_ELEMENT__REGION:
-				if (resolve) return getRegion();
-				return basicGetRegion();
+				return getRegion();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -271,9 +238,6 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 				return;
 			case EolPackage.EOL_ELEMENT__URI:
 				setUri((String)newValue);
-				return;
-			case EolPackage.EOL_ELEMENT__TEXT_REGION:
-				setTextRegion((TextRegion)newValue);
 				return;
 			case EolPackage.EOL_ELEMENT__REGION:
 				setRegion((TextRegion)newValue);
@@ -296,9 +260,6 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 			case EolPackage.EOL_ELEMENT__URI:
 				setUri(URI_EDEFAULT);
 				return;
-			case EolPackage.EOL_ELEMENT__TEXT_REGION:
-				setTextRegion((TextRegion)null);
-				return;
 			case EolPackage.EOL_ELEMENT__REGION:
 				setRegion((TextRegion)null);
 				return;
@@ -318,8 +279,6 @@ public class EOLElementImpl extends EObjectImpl implements EOLElement {
 				return container != null;
 			case EolPackage.EOL_ELEMENT__URI:
 				return URI_EDEFAULT == null ? uri != null : !URI_EDEFAULT.equals(uri);
-			case EolPackage.EOL_ELEMENT__TEXT_REGION:
-				return textRegion != null;
 			case EolPackage.EOL_ELEMENT__REGION:
 				return region != null;
 		}

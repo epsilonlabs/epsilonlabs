@@ -5,8 +5,7 @@ package eol;
 class EOLElement {
   ref EOLElement container;
   attr String uri;
-  ref TextRegion textRegion;
-  ref TextRegion region;
+  val TextRegion region;
 }
 
 class IModel extends EOLElement {
@@ -143,7 +142,6 @@ class VariableDeclarationExpression extends Expression {
   attr boolean[1] isCreate;
   val NameExpression[1] name;
   val Expression[*] parameters;
-  transient attr EJavaObject[*] definitionPoints;
   ref NameExpression[*] references;
 }
 
@@ -152,7 +150,7 @@ class FormalParameterExpression extends VariableDeclarationExpression {
 
 class NameExpression extends Expression {
   attr String[1] name;
-  attr EJavaObject resolvedContent;
+  transient attr EJavaObject resolvedContent;
   attr boolean[1] isType;
 }
 

@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getContainer <em>Container</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getUri <em>Uri</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getTextRegion <em>Text Region</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}</li>
  * </ul>
  * </p>
@@ -77,52 +76,26 @@ public interface EOLElement extends EObject {
 	void setUri(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Text Region</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Text Region</em>' reference.
-	 * @see #setTextRegion(TextRegion)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLElement_TextRegion()
-	 * @model
-	 * @generated
-	 */
-	TextRegion getTextRegion();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getTextRegion <em>Text Region</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Text Region</em>' reference.
-	 * @see #getTextRegion()
-	 * @generated
-	 */
-	void setTextRegion(TextRegion value);
-
-	/**
-	 * Returns the value of the '<em><b>Region</b></em>' reference.
+	 * Returns the value of the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Region</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Region</em>' reference.
+	 * @return the value of the '<em>Region</em>' containment reference.
 	 * @see #setRegion(TextRegion)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLElement_Region()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	TextRegion getRegion();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Region</em>' reference.
+	 * @param value the new value of the '<em>Region</em>' containment reference.
 	 * @see #getRegion()
 	 * @generated
 	 */

@@ -1016,17 +1016,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEOLElement_TextRegion() {
-		return (EReference)eolElementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getEOLElement_Region() {
-		return (EReference)eolElementEClass.getEStructuralFeatures().get(3);
+		return (EReference)eolElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1646,17 +1637,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariableDeclarationExpression_DefinitionPoints() {
-		return (EAttribute)variableDeclarationExpressionEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getVariableDeclarationExpression_References() {
-		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(4);
+		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3049,7 +3031,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		eolElementEClass = createEClass(EOL_ELEMENT);
 		createEReference(eolElementEClass, EOL_ELEMENT__CONTAINER);
 		createEAttribute(eolElementEClass, EOL_ELEMENT__URI);
-		createEReference(eolElementEClass, EOL_ELEMENT__TEXT_REGION);
 		createEReference(eolElementEClass, EOL_ELEMENT__REGION);
 
 		iModelEClass = createEClass(IMODEL);
@@ -3153,7 +3134,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__IS_CREATE);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__NAME);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__PARAMETERS);
-		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
 
 		formalParameterExpressionEClass = createEClass(FORMAL_PARAMETER_EXPRESSION);
@@ -3538,8 +3518,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(eolElementEClass, EOLElement.class, "EOLElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEOLElement_Container(), this.getEOLElement(), null, "container", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEOLElement_Uri(), ecorePackage.getEString(), "uri", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEOLElement_TextRegion(), this.getTextRegion(), null, "textRegion", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEOLElement_Region(), this.getTextRegion(), null, "region", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEOLElement_Region(), this.getTextRegion(), null, "region", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iModelEClass, IModel.class, "IModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIModel_NsURI(), ecorePackage.getEString(), "nsURI", null, 0, 1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3642,14 +3621,13 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getVariableDeclarationExpression_IsCreate(), ecorePackage.getEBoolean(), "isCreate", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Name(), this.getNameExpression(), null, "name", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getVariableDeclarationExpression_DefinitionPoints(), ecorePackage.getEJavaObject(), "definitionPoints", null, 0, -1, VariableDeclarationExpression.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_References(), this.getNameExpression(), null, "references", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formalParameterExpressionEClass, FormalParameterExpression.class, "FormalParameterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nameExpressionEClass, NameExpression.class, "NameExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNameExpression_Name(), ecorePackage.getEString(), "name", null, 1, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getNameExpression_ResolvedContent(), ecorePackage.getEJavaObject(), "resolvedContent", null, 0, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getNameExpression_ResolvedContent(), ecorePackage.getEJavaObject(), "resolvedContent", null, 0, 1, NameExpression.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getNameExpression_IsType(), ecorePackage.getEBoolean(), "isType", null, 1, 1, NameExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureCallExpressionEClass, FeatureCallExpression.class, "FeatureCallExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

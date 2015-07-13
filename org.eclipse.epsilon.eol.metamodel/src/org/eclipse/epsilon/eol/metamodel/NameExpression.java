@@ -60,7 +60,7 @@ public interface NameExpression extends Expression {
 	 * @return the value of the '<em>Resolved Content</em>' attribute.
 	 * @see #setResolvedContent(Object)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getNameExpression_ResolvedContent()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	Object getResolvedContent();

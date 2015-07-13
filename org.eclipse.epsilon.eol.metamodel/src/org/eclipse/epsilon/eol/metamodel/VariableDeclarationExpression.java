@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isIsCreate <em>Is Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters <em>Parameters</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getDefinitionPoints <em>Definition Points</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
@@ -92,22 +91,6 @@ public interface VariableDeclarationExpression extends Expression {
 	 * @generated
 	 */
 	EList<Expression> getParameters();
-
-	/**
-	 * Returns the value of the '<em><b>Definition Points</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Definition Points</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Definition Points</em>' attribute list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getVariableDeclarationExpression_DefinitionPoints()
-	 * @model transient="true"
-	 * @generated
-	 */
-	EList<Object> getDefinitionPoints();
 
 	/**
 	 * Returns the value of the '<em><b>References</b></em>' reference list.

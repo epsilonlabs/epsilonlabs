@@ -85,22 +85,13 @@ public interface EolPackage extends EPackage {
 	int EOL_ELEMENT__URI = 1;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_ELEMENT__TEXT_REGION = 2;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EOL_ELEMENT__REGION = 3;
+	int EOL_ELEMENT__REGION = 2;
 
 	/**
 	 * The number of structural features of the '<em>EOL Element</em>' class.
@@ -109,7 +100,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_ELEMENT_FEATURE_COUNT = 4;
+	int EOL_ELEMENT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IModelImpl <em>IModel</em>}' class.
@@ -140,16 +131,7 @@ public interface EolPackage extends EPackage {
 	int IMODEL__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMODEL__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -222,16 +204,7 @@ public interface EolPackage extends EPackage {
 	int TEXT_REGION__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -295,16 +268,7 @@ public interface EolPackage extends EPackage {
 	int TEXT_POSITION__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -368,16 +332,7 @@ public interface EolPackage extends EPackage {
 	int EOL_LIBRARY_MODULE__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EOL_LIBRARY_MODULE__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -468,16 +423,7 @@ public interface EolPackage extends EPackage {
 	int EOL_PROGRAM__URI = EOL_LIBRARY_MODULE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EOL_PROGRAM__TEXT_REGION = EOL_LIBRARY_MODULE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -577,16 +523,7 @@ public interface EolPackage extends EPackage {
 	int IMPORT__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPORT__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -650,16 +587,7 @@ public interface EolPackage extends EPackage {
 	int BLOCK__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BLOCK__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -714,16 +642,7 @@ public interface EolPackage extends EPackage {
 	int ANNOTATION_BLOCK__URI = BLOCK__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_BLOCK__TEXT_REGION = BLOCK__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -778,16 +697,7 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION_OR_STATEMENT_BLOCK__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_OR_STATEMENT_BLOCK__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -851,16 +761,7 @@ public interface EolPackage extends EPackage {
 	int OPERATION_DEFINITION__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPERATION_DEFINITION__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -987,16 +888,7 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1051,16 +943,7 @@ public interface EolPackage extends EPackage {
 	int OPERATOR_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPERATOR_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1115,16 +998,7 @@ public interface EolPackage extends EPackage {
 	int UNARY_OPERATOR_EXPRESSION__URI = OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR_EXPRESSION__TEXT_REGION = OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1188,16 +1062,7 @@ public interface EolPackage extends EPackage {
 	int NOT_OPERATOR_EXPRESSION__URI = UNARY_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_OPERATOR_EXPRESSION__TEXT_REGION = UNARY_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1261,16 +1126,7 @@ public interface EolPackage extends EPackage {
 	int NEGATIVE_OPERATOR_EXPRESSION__URI = UNARY_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEGATIVE_OPERATOR_EXPRESSION__TEXT_REGION = UNARY_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1334,16 +1190,7 @@ public interface EolPackage extends EPackage {
 	int BINARY_OPERATOR_EXPRESSION__URI = OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR_EXPRESSION__TEXT_REGION = OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1416,16 +1263,7 @@ public interface EolPackage extends EPackage {
 	int LOGICAL_OPERATOR_EXPRESSION__URI = BINARY_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOGICAL_OPERATOR_EXPRESSION__TEXT_REGION = BINARY_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1498,16 +1336,7 @@ public interface EolPackage extends EPackage {
 	int AND_OPERATOR_EXPRESSION__URI = LOGICAL_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_OPERATOR_EXPRESSION__TEXT_REGION = LOGICAL_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1580,16 +1409,7 @@ public interface EolPackage extends EPackage {
 	int XOR_OPERATOR_EXPRESSION__URI = LOGICAL_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int XOR_OPERATOR_EXPRESSION__TEXT_REGION = LOGICAL_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1662,16 +1482,7 @@ public interface EolPackage extends EPackage {
 	int OR_OPERATOR_EXPRESSION__URI = LOGICAL_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_OPERATOR_EXPRESSION__TEXT_REGION = LOGICAL_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1744,16 +1555,7 @@ public interface EolPackage extends EPackage {
 	int IMPLIES_OPERATOR_EXPRESSION__URI = LOGICAL_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLIES_OPERATOR_EXPRESSION__TEXT_REGION = LOGICAL_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1826,16 +1628,7 @@ public interface EolPackage extends EPackage {
 	int ARITHMETIC_OPERATOR_EXPRESSION__URI = BINARY_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ARITHMETIC_OPERATOR_EXPRESSION__TEXT_REGION = BINARY_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1908,16 +1701,7 @@ public interface EolPackage extends EPackage {
 	int DIVIDE_OPERATOR_EXPRESSION__URI = ARITHMETIC_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIVIDE_OPERATOR_EXPRESSION__TEXT_REGION = ARITHMETIC_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1990,16 +1774,7 @@ public interface EolPackage extends EPackage {
 	int MULTIPLY_OPERATOR_EXPRESSION__URI = ARITHMETIC_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MULTIPLY_OPERATOR_EXPRESSION__TEXT_REGION = ARITHMETIC_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2072,16 +1847,7 @@ public interface EolPackage extends EPackage {
 	int MINUS_OPERATOR_EXPRESSION__URI = ARITHMETIC_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS_OPERATOR_EXPRESSION__TEXT_REGION = ARITHMETIC_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2154,16 +1920,7 @@ public interface EolPackage extends EPackage {
 	int PLUS_OPERATOR_EXPRESSION__URI = ARITHMETIC_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS_OPERATOR_EXPRESSION__TEXT_REGION = ARITHMETIC_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2236,16 +1993,7 @@ public interface EolPackage extends EPackage {
 	int COMPARISON_OPERATOR_EXPRESSION__URI = BINARY_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION = BINARY_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2318,16 +2066,7 @@ public interface EolPackage extends EPackage {
 	int GREATER_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2400,16 +2139,7 @@ public interface EolPackage extends EPackage {
 	int GREATER_THAN_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_THAN_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2482,16 +2212,7 @@ public interface EolPackage extends EPackage {
 	int LESS_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2564,16 +2285,7 @@ public interface EolPackage extends EPackage {
 	int LESS_THAN_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_THAN_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2646,16 +2358,7 @@ public interface EolPackage extends EPackage {
 	int NOT_EQUALS_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUALS_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2728,16 +2431,7 @@ public interface EolPackage extends EPackage {
 	int EQUALS_OPERATOR_EXPRESSION__URI = COMPARISON_OPERATOR_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUALS_OPERATOR_EXPRESSION__TEXT_REGION = COMPARISON_OPERATOR_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2810,16 +2504,7 @@ public interface EolPackage extends EPackage {
 	int VARIABLE_DECLARATION_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DECLARATION_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2864,22 +2549,13 @@ public interface EolPackage extends EPackage {
 	int VARIABLE_DECLARATION_EXPRESSION__PARAMETERS = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Definition Points</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS = EXPRESSION_FEATURE_COUNT + 3;
-
-	/**
 	 * The feature id for the '<em><b>References</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION__REFERENCES = EXPRESSION_FEATURE_COUNT + 4;
+	int VARIABLE_DECLARATION_EXPRESSION__REFERENCES = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Variable Declaration Expression</em>' class.
@@ -2888,7 +2564,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 5;
+	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl <em>Formal Parameter Expression</em>}' class.
@@ -2919,16 +2595,7 @@ public interface EolPackage extends EPackage {
 	int FORMAL_PARAMETER_EXPRESSION__URI = VARIABLE_DECLARATION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FORMAL_PARAMETER_EXPRESSION__TEXT_REGION = VARIABLE_DECLARATION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2971,15 +2638,6 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int FORMAL_PARAMETER_EXPRESSION__PARAMETERS = VARIABLE_DECLARATION_EXPRESSION__PARAMETERS;
-
-	/**
-	 * The feature id for the '<em><b>Definition Points</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FORMAL_PARAMETER_EXPRESSION__DEFINITION_POINTS = VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS;
 
 	/**
 	 * The feature id for the '<em><b>References</b></em>' reference list.
@@ -3028,16 +2686,7 @@ public interface EolPackage extends EPackage {
 	int NAME_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAME_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3119,16 +2768,7 @@ public interface EolPackage extends EPackage {
 	int FEATURE_CALL_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_CALL_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3201,16 +2841,7 @@ public interface EolPackage extends EPackage {
 	int METHOD_CALL_EXPRESSION__URI = FEATURE_CALL_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int METHOD_CALL_EXPRESSION__TEXT_REGION = FEATURE_CALL_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3310,16 +2941,7 @@ public interface EolPackage extends EPackage {
 	int PROPERTY_CALL_EXPRESSION__URI = FEATURE_CALL_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_CALL_EXPRESSION__TEXT_REGION = FEATURE_CALL_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3410,16 +3032,7 @@ public interface EolPackage extends EPackage {
 	int FOL_METHOD_CALL_EXPRESSION__URI = FEATURE_CALL_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOL_METHOD_CALL_EXPRESSION__TEXT_REGION = FEATURE_CALL_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3528,16 +3141,7 @@ public interface EolPackage extends EPackage {
 	int KEY_VALUE_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int KEY_VALUE_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3610,16 +3214,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_DECLARATION_PARAMETER__URI = KEY_VALUE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_DECLARATION_PARAMETER__TEXT_REGION = KEY_VALUE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3692,16 +3287,7 @@ public interface EolPackage extends EPackage {
 	int NEW_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEW_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3774,16 +3360,7 @@ public interface EolPackage extends EPackage {
 	int MAP_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAP_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3847,16 +3424,7 @@ public interface EolPackage extends EPackage {
 	int COLLECTION_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COLLECTION_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3929,16 +3497,7 @@ public interface EolPackage extends EPackage {
 	int PRIMITIVE_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIMITIVE_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3993,16 +3552,7 @@ public interface EolPackage extends EPackage {
 	int COMPARABLE_EXPRESSION__URI = PRIMITIVE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPARABLE_EXPRESSION__TEXT_REGION = PRIMITIVE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4057,16 +3607,7 @@ public interface EolPackage extends EPackage {
 	int SUMMABLE_EXPRESSION__URI = PRIMITIVE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUMMABLE_EXPRESSION__TEXT_REGION = PRIMITIVE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4121,16 +3662,7 @@ public interface EolPackage extends EPackage {
 	int STRING_EXPRESSION__URI = COMPARABLE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_EXPRESSION__TEXT_REGION = COMPARABLE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4194,16 +3726,7 @@ public interface EolPackage extends EPackage {
 	int BOOLEAN_EXPRESSION__URI = PRIMITIVE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BOOLEAN_EXPRESSION__TEXT_REGION = PRIMITIVE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4267,16 +3790,7 @@ public interface EolPackage extends EPackage {
 	int REAL_EXPRESSION__URI = COMPARABLE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REAL_EXPRESSION__TEXT_REGION = COMPARABLE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4340,16 +3854,7 @@ public interface EolPackage extends EPackage {
 	int INTEGER_EXPRESSION__URI = COMPARABLE_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTEGER_EXPRESSION__TEXT_REGION = COMPARABLE_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4413,16 +3918,7 @@ public interface EolPackage extends EPackage {
 	int BAG_EXPRESSION__URI = COLLECTION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BAG_EXPRESSION__TEXT_REGION = COLLECTION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4495,16 +3991,7 @@ public interface EolPackage extends EPackage {
 	int UNIQUE_COLLECTION__URI = COLLECTION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_COLLECTION__TEXT_REGION = COLLECTION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4577,16 +4064,7 @@ public interface EolPackage extends EPackage {
 	int SET_EXPRESSION__URI = UNIQUE_COLLECTION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPRESSION__TEXT_REGION = UNIQUE_COLLECTION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4659,16 +4137,7 @@ public interface EolPackage extends EPackage {
 	int ORDERED_COLLECTION__URI = COLLECTION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDERED_COLLECTION__TEXT_REGION = COLLECTION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4741,16 +4210,7 @@ public interface EolPackage extends EPackage {
 	int ORDERED_SET_EXPRESSION__URI = ORDERED_COLLECTION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDERED_SET_EXPRESSION__TEXT_REGION = ORDERED_COLLECTION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4823,16 +4283,7 @@ public interface EolPackage extends EPackage {
 	int SEQUENCE_EXPRESSION__URI = ORDERED_COLLECTION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SEQUENCE_EXPRESSION__TEXT_REGION = ORDERED_COLLECTION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4905,16 +4356,7 @@ public interface EolPackage extends EPackage {
 	int ENUMERATION_LITERAL_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ENUMERATION_LITERAL_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5005,16 +4447,7 @@ public interface EolPackage extends EPackage {
 	int COLLECTION_INITIALISATION_EXPRESSION__URI = EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COLLECTION_INITIALISATION_EXPRESSION__TEXT_REGION = EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5069,16 +4502,7 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION_RANGE__URI = COLLECTION_INITIALISATION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_RANGE__TEXT_REGION = COLLECTION_INITIALISATION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5151,16 +4575,7 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION_LIST__URI = COLLECTION_INITIALISATION_EXPRESSION__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_LIST__TEXT_REGION = COLLECTION_INITIALISATION_EXPRESSION__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5224,16 +4639,7 @@ public interface EolPackage extends EPackage {
 	int STATEMENT__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5279,16 +4685,7 @@ public interface EolPackage extends EPackage {
 	int TRANSACTION_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRANSACTION_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5352,16 +4749,7 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5416,16 +4804,7 @@ public interface EolPackage extends EPackage {
 	int SWITCH_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5498,16 +4877,7 @@ public interface EolPackage extends EPackage {
 	int SWITCH_CASE_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_CASE_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5562,16 +4932,7 @@ public interface EolPackage extends EPackage {
 	int SWITCH_CASE_DEFAULT_STATEMENT__URI = SWITCH_CASE_STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_CASE_DEFAULT_STATEMENT__TEXT_REGION = SWITCH_CASE_STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5626,16 +4987,7 @@ public interface EolPackage extends EPackage {
 	int SWITCH_CASE_EXPRESSION_STATEMENT__URI = SWITCH_CASE_STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_CASE_EXPRESSION_STATEMENT__TEXT_REGION = SWITCH_CASE_STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5699,16 +5051,7 @@ public interface EolPackage extends EPackage {
 	int IF_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5781,16 +5124,7 @@ public interface EolPackage extends EPackage {
 	int FOR_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5863,16 +5197,7 @@ public interface EolPackage extends EPackage {
 	int WHILE_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5936,16 +5261,7 @@ public interface EolPackage extends EPackage {
 	int RETURN_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6000,16 +5316,7 @@ public interface EolPackage extends EPackage {
 	int THROW_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int THROW_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6064,16 +5371,7 @@ public interface EolPackage extends EPackage {
 	int DELETE_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DELETE_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6128,16 +5426,7 @@ public interface EolPackage extends EPackage {
 	int ASSIGNMENT_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6201,16 +5490,7 @@ public interface EolPackage extends EPackage {
 	int SPECIAL_ASSIGNMENT_STATEMENT__URI = ASSIGNMENT_STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SPECIAL_ASSIGNMENT_STATEMENT__TEXT_REGION = ASSIGNMENT_STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6274,16 +5554,7 @@ public interface EolPackage extends EPackage {
 	int CONTINUE_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6329,16 +5600,7 @@ public interface EolPackage extends EPackage {
 	int ABORT_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABORT_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6384,16 +5646,7 @@ public interface EolPackage extends EPackage {
 	int BREAK_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6439,16 +5692,7 @@ public interface EolPackage extends EPackage {
 	int BREAK_ALL_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_ALL_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6494,16 +5738,7 @@ public interface EolPackage extends EPackage {
 	int ANNOTATION_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6558,16 +5793,7 @@ public interface EolPackage extends EPackage {
 	int SIMPLE_ANNOTATION_STATEMENT__URI = ANNOTATION_STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_ANNOTATION_STATEMENT__TEXT_REGION = ANNOTATION_STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6631,16 +5857,7 @@ public interface EolPackage extends EPackage {
 	int EXECUTABLE_ANNOTATION_STATEMENT__URI = ANNOTATION_STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXECUTABLE_ANNOTATION_STATEMENT__TEXT_REGION = ANNOTATION_STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6704,16 +5921,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_DECLARATION_STATEMENT__URI = STATEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_DECLARATION_STATEMENT__TEXT_REGION = STATEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6804,16 +6012,7 @@ public interface EolPackage extends EPackage {
 	int TYPE__URI = EOL_ELEMENT__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE__TEXT_REGION = EOL_ELEMENT__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6859,16 +6058,7 @@ public interface EolPackage extends EPackage {
 	int ANY_TYPE__URI = TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANY_TYPE__TEXT_REGION = TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6932,16 +6122,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7014,16 +6195,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_ELEMENT_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODEL_ELEMENT_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7132,16 +6304,7 @@ public interface EolPackage extends EPackage {
 	int PSEUDO_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PSEUDO_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7205,16 +6368,7 @@ public interface EolPackage extends EPackage {
 	int SELF_TYPE__URI = PSEUDO_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_TYPE__TEXT_REGION = PSEUDO_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7278,16 +6432,7 @@ public interface EolPackage extends EPackage {
 	int SELF_CONTENT_TYPE__URI = PSEUDO_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__TEXT_REGION = PSEUDO_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7351,16 +6496,7 @@ public interface EolPackage extends EPackage {
 	int SELF_INNERMOST_CONTENT_TYPE__URI = PSEUDO_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__TEXT_REGION = PSEUDO_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7424,16 +6560,7 @@ public interface EolPackage extends EPackage {
 	int OPERATION_ARGUMENT_TYPE__URI = PSEUDO_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPERATION_ARGUMENT_TYPE__TEXT_REGION = PSEUDO_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7497,16 +6624,7 @@ public interface EolPackage extends EPackage {
 	int MAP_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAP_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7588,16 +6706,7 @@ public interface EolPackage extends EPackage {
 	int NATIVE_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NATIVE_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7670,16 +6779,7 @@ public interface EolPackage extends EPackage {
 	int VOID_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VOID_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7743,16 +6843,7 @@ public interface EolPackage extends EPackage {
 	int INVALID_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INVALID_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7816,16 +6907,7 @@ public interface EolPackage extends EPackage {
 	int COLLECTION_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COLLECTION_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7898,16 +6980,7 @@ public interface EolPackage extends EPackage {
 	int BAG_TYPE__URI = COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BAG_TYPE__TEXT_REGION = COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7980,16 +7053,7 @@ public interface EolPackage extends EPackage {
 	int ORDERED_COLLECTION_TYPE__URI = COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDERED_COLLECTION_TYPE__TEXT_REGION = COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8062,16 +7126,7 @@ public interface EolPackage extends EPackage {
 	int UNIQUE_COLLECTION_TYPE__URI = COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_COLLECTION_TYPE__TEXT_REGION = COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8144,16 +7199,7 @@ public interface EolPackage extends EPackage {
 	int SET_TYPE__URI = UNIQUE_COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_TYPE__TEXT_REGION = UNIQUE_COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8226,16 +7272,7 @@ public interface EolPackage extends EPackage {
 	int ORDERED_SET_TYPE__URI = UNIQUE_COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDERED_SET_TYPE__TEXT_REGION = UNIQUE_COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8308,16 +7345,7 @@ public interface EolPackage extends EPackage {
 	int SEQUENCE_TYPE__URI = ORDERED_COLLECTION_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SEQUENCE_TYPE__TEXT_REGION = ORDERED_COLLECTION_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8390,16 +7418,7 @@ public interface EolPackage extends EPackage {
 	int PRIMITIVE_TYPE__URI = ANY_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRIMITIVE_TYPE__TEXT_REGION = ANY_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8463,16 +7482,7 @@ public interface EolPackage extends EPackage {
 	int COMPARABLE_PRIMITIVE_TYPE__URI = PRIMITIVE_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPARABLE_PRIMITIVE_TYPE__TEXT_REGION = PRIMITIVE_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8536,16 +7546,7 @@ public interface EolPackage extends EPackage {
 	int SUMMABLE_PRIMITIVE_TYPE__URI = PRIMITIVE_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUMMABLE_PRIMITIVE_TYPE__TEXT_REGION = PRIMITIVE_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8609,16 +7610,7 @@ public interface EolPackage extends EPackage {
 	int BOOLEAN_TYPE__URI = PRIMITIVE_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BOOLEAN_TYPE__TEXT_REGION = PRIMITIVE_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8682,16 +7674,7 @@ public interface EolPackage extends EPackage {
 	int REAL_TYPE__URI = COMPARABLE_PRIMITIVE_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REAL_TYPE__TEXT_REGION = COMPARABLE_PRIMITIVE_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8755,16 +7738,7 @@ public interface EolPackage extends EPackage {
 	int INTEGER_TYPE__URI = REAL_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTEGER_TYPE__TEXT_REGION = REAL_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8828,16 +7802,7 @@ public interface EolPackage extends EPackage {
 	int STRING_TYPE__URI = COMPARABLE_PRIMITIVE_TYPE__URI;
 
 	/**
-	 * The feature id for the '<em><b>Text Region</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_TYPE__TEXT_REGION = COMPARABLE_PRIMITIVE_TYPE__TEXT_REGION;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' reference.
+	 * The feature id for the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8906,21 +7871,10 @@ public interface EolPackage extends EPackage {
 	EAttribute getEOLElement_Uri();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getTextRegion <em>Text Region</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Text Region</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.EOLElement#getTextRegion()
-	 * @see #getEOLElement()
-	 * @generated
-	 */
-	EReference getEOLElement_TextRegion();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Region</em>'.
+	 * @return the meta object for the containment reference '<em>Region</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion()
 	 * @see #getEOLElement()
 	 * @generated
@@ -9640,17 +8594,6 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getVariableDeclarationExpression_Parameters();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getDefinitionPoints <em>Definition Points</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Definition Points</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getDefinitionPoints()
-	 * @see #getVariableDeclarationExpression()
-	 * @generated
-	 */
-	EAttribute getVariableDeclarationExpression_DefinitionPoints();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}'.
@@ -11295,15 +10238,7 @@ public interface EolPackage extends EPackage {
 		EAttribute EOL_ELEMENT__URI = eINSTANCE.getEOLElement_Uri();
 
 		/**
-		 * The meta object literal for the '<em><b>Text Region</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EOL_ELEMENT__TEXT_REGION = eINSTANCE.getEOLElement_TextRegion();
-
-		/**
-		 * The meta object literal for the '<em><b>Region</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Region</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -11921,14 +10856,6 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VARIABLE_DECLARATION_EXPRESSION__PARAMETERS = eINSTANCE.getVariableDeclarationExpression_Parameters();
-
-		/**
-		 * The meta object literal for the '<em><b>Definition Points</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS = eINSTANCE.getVariableDeclarationExpression_DefinitionPoints();
 
 		/**
 		 * The meta object literal for the '<em><b>References</b></em>' reference list feature.

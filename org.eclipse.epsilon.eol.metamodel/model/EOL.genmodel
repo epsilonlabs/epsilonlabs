@@ -10,8 +10,7 @@
     <genClasses ecoreClass="EOL.ecore#//EOLElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLElement/container"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//EOLElement/uri"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLElement/textRegion"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLElement/region"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLElement/region"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//IModel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IModel/nsURI"/>
@@ -93,7 +92,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//VariableDeclarationExpression/isCreate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/parameters"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//VariableDeclarationExpression/definitionPoints"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/references"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//FormalParameterExpression"/>
