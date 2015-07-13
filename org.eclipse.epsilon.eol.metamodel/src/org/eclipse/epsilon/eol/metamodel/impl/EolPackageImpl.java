@@ -1655,6 +1655,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getVariableDeclarationExpression_References() {
+		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFormalParameterExpression() {
 		return formalParameterExpressionEClass;
 	}
@@ -3145,6 +3154,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__NAME);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__PARAMETERS);
 		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS);
+		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
 
 		formalParameterExpressionEClass = createEClass(FORMAL_PARAMETER_EXPRESSION);
 
@@ -3633,6 +3643,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getVariableDeclarationExpression_Name(), this.getNameExpression(), null, "name", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVariableDeclarationExpression_DefinitionPoints(), ecorePackage.getEJavaObject(), "definitionPoints", null, 0, -1, VariableDeclarationExpression.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVariableDeclarationExpression_References(), this.getNameExpression(), null, "references", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formalParameterExpressionEClass, FormalParameterExpression.class, "FormalParameterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

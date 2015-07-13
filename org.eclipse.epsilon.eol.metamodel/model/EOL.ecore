@@ -136,6 +136,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="definitionPoints" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"
         transient="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="references" upperBound="-1"
+        eType="#//NameExpression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FormalParameterExpression" eSuperTypes="#//VariableDeclarationExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="NameExpression" eSuperTypes="#//Expression">

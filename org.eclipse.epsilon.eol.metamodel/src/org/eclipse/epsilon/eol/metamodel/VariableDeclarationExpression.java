@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getDefinitionPoints <em>Definition Points</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
  *
@@ -107,5 +108,21 @@ public interface VariableDeclarationExpression extends Expression {
 	 * @generated
 	 */
 	EList<Object> getDefinitionPoints();
+
+	/**
+	 * Returns the value of the '<em><b>References</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.NameExpression}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>References</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>References</em>' reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getVariableDeclarationExpression_References()
+	 * @model
+	 * @generated
+	 */
+	EList<NameExpression> getReferences();
 
 } // VariableDeclarationExpression

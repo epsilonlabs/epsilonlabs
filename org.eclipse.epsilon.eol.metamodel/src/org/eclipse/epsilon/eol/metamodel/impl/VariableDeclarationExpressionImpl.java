@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
@@ -34,6 +35,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getDefinitionPoints <em>Definition Points</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
  *
@@ -89,6 +91,16 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * @ordered
 	 */
 	protected EList<Object> definitionPoints;
+
+	/**
+	 * The cached value of the '{@link #getReferences() <em>References</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferences()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NameExpression> references;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -202,6 +214,18 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<NameExpression> getReferences() {
+		if (references == null) {
+			references = new EObjectResolvingEList<NameExpression>(NameExpression.class, this, EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
+		}
+		return references;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -229,6 +253,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return getParameters();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
 				return getDefinitionPoints();
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
+				return getReferences();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -256,6 +282,10 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				getDefinitionPoints().clear();
 				getDefinitionPoints().addAll((Collection<? extends Object>)newValue);
 				return;
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
+				getReferences().clear();
+				getReferences().addAll((Collection<? extends NameExpression>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -280,6 +310,9 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
 				getDefinitionPoints().clear();
 				return;
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
+				getReferences().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -300,6 +333,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return parameters != null && !parameters.isEmpty();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS:
 				return definitionPoints != null && !definitionPoints.isEmpty();
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
+				return references != null && !references.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

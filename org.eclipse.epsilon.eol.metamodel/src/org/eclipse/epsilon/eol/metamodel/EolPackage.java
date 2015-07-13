@@ -2873,13 +2873,22 @@ public interface EolPackage extends EPackage {
 	int VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>References</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DECLARATION_EXPRESSION__REFERENCES = EXPRESSION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Variable Declaration Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
+	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl <em>Formal Parameter Expression</em>}' class.
@@ -2971,6 +2980,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int FORMAL_PARAMETER_EXPRESSION__DEFINITION_POINTS = VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS;
+
+	/**
+	 * The feature id for the '<em><b>References</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAL_PARAMETER_EXPRESSION__REFERENCES = VARIABLE_DECLARATION_EXPRESSION__REFERENCES;
 
 	/**
 	 * The number of structural features of the '<em>Formal Parameter Expression</em>' class.
@@ -9635,6 +9653,17 @@ public interface EolPackage extends EPackage {
 	EAttribute getVariableDeclarationExpression_DefinitionPoints();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>References</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences()
+	 * @see #getVariableDeclarationExpression()
+	 * @generated
+	 */
+	EReference getVariableDeclarationExpression_References();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.FormalParameterExpression <em>Formal Parameter Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11900,6 +11929,14 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VARIABLE_DECLARATION_EXPRESSION__DEFINITION_POINTS = eINSTANCE.getVariableDeclarationExpression_DefinitionPoints();
+
+		/**
+		 * The meta object literal for the '<em><b>References</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference VARIABLE_DECLARATION_EXPRESSION__REFERENCES = eINSTANCE.getVariableDeclarationExpression_References();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl <em>Formal Parameter Expression</em>}' class.

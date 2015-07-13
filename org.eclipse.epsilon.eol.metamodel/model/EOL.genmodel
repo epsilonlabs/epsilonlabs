@@ -94,6 +94,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/parameters"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//VariableDeclarationExpression/definitionPoints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/references"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//FormalParameterExpression"/>
     <genClasses ecoreClass="EOL.ecore#//NameExpression">
