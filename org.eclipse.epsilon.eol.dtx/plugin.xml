@@ -9,8 +9,15 @@
             default="true"
             extensions="eol, eunit"
             icon="icons/eol.gif"
-            id="org.eclipse.epsilon.eol.dtx.editor.EolEditor"
-            name="Epsilon Object Language Editor X"/>
+            id="org.eclipse.epsilon.eol.dtx.editor.EolxEditor"
+            name="Epsilon Object Language Editor X">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.epsilon.common.dt.moduleValidator">
+      <moduleValidator
+            class="org.eclipse.epsilon.eol.dtx.validator.EolxModuleValidator">
+      </moduleValidator>
    </extension>
 
 </plugin>

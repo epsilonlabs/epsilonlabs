@@ -1,27 +1,21 @@
 package org.eclipse.epsilon.eol.dtx.editor;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleElementLabelProvider;
-import org.eclipse.epsilon.eol.dom.DomElement;
-import org.eclipse.epsilon.eol.dt.EolPlugin;
 import org.eclipse.epsilon.eol.dt.editor.EolEditor;
-import org.eclipse.epsilon.eol.dtx.EolxPlugin;
-import org.eclipse.epsilon.eol.dtx.editor.outline.DomOutlineElement;
-import org.eclipse.epsilon.eol.dtx.editor.outline.EolxOutlinePage;
+import org.eclipse.epsilon.eol.dtx.EolXPlugin;
+import org.eclipse.epsilon.eol.dtx.editor.outline.EolXOutlinePage;
 import org.eclipse.swt.graphics.Image;
 
 public class EolxEditor extends EolEditor {
-	
+
 	@Override
 	public ModuleContentOutlinePage createOutlinePage() {
-		EolxOutlinePage outline = new EolxOutlinePage(
-				this.getDocumentProvider(), 
-				this, 
-				createModuleElementLabelProvider());
+		EolXOutlinePage outlinePage = new EolXOutlinePage(this.getDocumentProvider(), this, createModuleElementLabelProvider());
 		
-		addModuleParsedListener(outline);
-		return outline;
+		addModuleParsedListener(outlinePage);
+		
+		return outlinePage;
 	}
 	
 	@Override
@@ -35,9 +29,9 @@ public class EolxEditor extends EolEditor {
 			
 			@Override
 			public Image getImage(Object element) {
-				return EolxPlugin.getDefault().createImage("icons/element.gif");
+				return EolXPlugin.getDefault().createImage("icons/element.gif");
 			}
 		};
 	}
-	
+
 }
