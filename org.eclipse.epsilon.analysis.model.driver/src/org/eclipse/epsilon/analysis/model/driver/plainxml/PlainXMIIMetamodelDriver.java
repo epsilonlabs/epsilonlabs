@@ -63,19 +63,24 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public void addAlias(String alias) {
-		aliases.add(alias);
+		if (!aliases.add(alias)) {
+			for(VariableDeclarationExpression var: modelDeclarationStatement.getAlias())
+			{
+				if (var.getName().getName().equals(alias)) {
+					logBook.addWarning(var, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.DUPLICATE_ALIAS, var.getName().getName()));
+				}
+			}
+		}
 	}
 
 	@Override
 	public IPackageDriver getIPackageDriver(String packageName) {
-		// TODO Auto-generated method stub
-		return null;
+		return packages.get(packageName);
 	}
 
 	@Override
 	public boolean containsIPackage(String packageName) {
-		// TODO Auto-generated method stub
-		return false;
+		return packages.containsKey(packageName);
 	}
 
 	@Override
@@ -90,14 +95,13 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public ModelDeclarationStatement getModelDeclarationStatement() {
-		// TODO Auto-generated method stub
-		return null;
+		return modelDeclarationStatement;
 	}
 
 	@Override
 	public void setModelDeclarationStatement(
 			ModelDeclarationStatement modelDeclarationStatement) {
-		// TODO Auto-generated method stub
+		this.modelDeclarationStatement = modelDeclarationStatement;
 		
 	}
 

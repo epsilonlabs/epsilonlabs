@@ -74,8 +74,14 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public void addAlias(String alias) {
-		aliases.add(alias);
-		
+		if (!aliases.add(alias)) {
+			for(VariableDeclarationExpression var: modelDeclarationStatement.getAlias())
+			{
+				if (var.getName().getName().equals(alias)) {
+					logBook.addWarning(var, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.DUPLICATE_ALIAS, var.getName().getName()));
+				}
+			}
+		}
 	}
 
 	@Override
