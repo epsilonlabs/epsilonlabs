@@ -22,4 +22,6 @@ public interface IMetamodelDriver {
 	
 	public ModelDeclarationStatement getModelDeclarationStatement();
 	public void setModelDeclarationStatement(ModelDeclarationStatement modelDeclarationStatement);
+	
+	public void reconcileEolLibraryModule();
 }

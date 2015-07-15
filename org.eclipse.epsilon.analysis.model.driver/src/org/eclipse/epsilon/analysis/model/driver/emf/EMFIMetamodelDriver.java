@@ -10,7 +10,17 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.analysis.model.driver.util.EcoreFileLoader;
 import org.eclipse.epsilon.analysis.model.driver.util.EcoreRegistryLoader;
+import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.IModel;
+import org.eclipse.epsilon.eol.metamodel.IPackage;
+import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
@@ -46,6 +56,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		}
 		
 	}
+		
 
 	@Override
 	public String getName() {
@@ -97,6 +108,46 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 	public void setModelDeclarationStatement(
 			ModelDeclarationStatement modelDeclarationStatement) {
 		this.modelDeclarationStatement = modelDeclarationStatement;
+	}
+
+	@Override
+	public void reconcileEolLibraryModule() {
+		IModel iModel = EolFactory.eINSTANCE.createIModel();
+		iModel.setName(modelDeclarationStatement.getName().getName());
+		iModel.setDriver(modelDeclarationStatement.getDriver());
+		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
+		{
+			iModel.getAliases().add(alias.getName());
+		}
+		
+		for(String key: packages.keySet())
+		{
+			IPackage iPackage = EolFactory.eINSTANCE.createIPackage();
+			EMFIPackageDriver emfiPackageDriver = packages.get(key);
+			iPackage.setName(emfiPackageDriver.getPackageName());
+			iPackage.setNsPrefix(emfiPackageDriver.getPackageNSPrefix());
+			for(KeyValueExpression keyValue: modelDeclarationStatement.getParameters())
+			{
+				Expression _key = keyValue.getKey();
+				if (_key instanceof NameExpression) {
+					NameExpression __key = (NameExpression) _key;
+					if (__key.getName().equals("nsURI")) {
+						Expression _value = keyValue.getValue();
+						StringExpression __value = (StringExpression) _value;
+						iPackage.setNsURI(__value);
+					}
+				}
+			}
+			iPackage.setIPackageDriver(emfiPackageDriver);
+		}
+		
+		EOLElement tracer = modelDeclarationStatement;
+		while(tracer != null && !(tracer instanceof EOLLibraryModule))
+		{
+			tracer = tracer.getContainer();
+		}
+		EOLLibraryModule module = (EOLLibraryModule) tracer;
+		module.getIModels().add(iModel);
 	}
 
 }

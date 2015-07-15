@@ -34,7 +34,7 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getImports <em>Imports</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getModels <em>Models</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getIModels <em>IModels</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getModelDeclarations <em>Model Declarations</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getOperations <em>Operations</em>}</li>
  * </ul>
@@ -74,14 +74,14 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	protected EList<Import> imports;
 
 	/**
-	 * The cached value of the '{@link #getModels() <em>Models</em>}' reference list.
+	 * The cached value of the '{@link #getIModels() <em>IModels</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModels()
+	 * @see #getIModels()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IModel> models;
+	protected EList<IModel> iModels;
 
 	/**
 	 * The cached value of the '{@link #getModelDeclarations() <em>Model Declarations</em>}' containment reference list.
@@ -160,11 +160,11 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<IModel> getModels() {
-		if (models == null) {
-			models = new EObjectResolvingEList<IModel>(IModel.class, this, EolPackage.EOL_LIBRARY_MODULE__MODELS);
+	public EList<IModel> getIModels() {
+		if (iModels == null) {
+			iModels = new EObjectResolvingEList<IModel>(IModel.class, this, EolPackage.EOL_LIBRARY_MODULE__IMODELS);
 		}
-		return models;
+		return iModels;
 	}
 
 	/**
@@ -221,8 +221,8 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 				return getName();
 			case EolPackage.EOL_LIBRARY_MODULE__IMPORTS:
 				return getImports();
-			case EolPackage.EOL_LIBRARY_MODULE__MODELS:
-				return getModels();
+			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
+				return getIModels();
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				return getModelDeclarations();
 			case EolPackage.EOL_LIBRARY_MODULE__OPERATIONS:
@@ -247,9 +247,9 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 				getImports().clear();
 				getImports().addAll((Collection<? extends Import>)newValue);
 				return;
-			case EolPackage.EOL_LIBRARY_MODULE__MODELS:
-				getModels().clear();
-				getModels().addAll((Collection<? extends IModel>)newValue);
+			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
+				getIModels().clear();
+				getIModels().addAll((Collection<? extends IModel>)newValue);
 				return;
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				getModelDeclarations().clear();
@@ -277,8 +277,8 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 			case EolPackage.EOL_LIBRARY_MODULE__IMPORTS:
 				getImports().clear();
 				return;
-			case EolPackage.EOL_LIBRARY_MODULE__MODELS:
-				getModels().clear();
+			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
+				getIModels().clear();
 				return;
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				getModelDeclarations().clear();
@@ -302,8 +302,8 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case EolPackage.EOL_LIBRARY_MODULE__IMPORTS:
 				return imports != null && !imports.isEmpty();
-			case EolPackage.EOL_LIBRARY_MODULE__MODELS:
-				return models != null && !models.isEmpty();
+			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
+				return iModels != null && !iModels.isEmpty();
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				return modelDeclarations != null && !modelDeclarations.isEmpty();
 			case EolPackage.EOL_LIBRARY_MODULE__OPERATIONS:

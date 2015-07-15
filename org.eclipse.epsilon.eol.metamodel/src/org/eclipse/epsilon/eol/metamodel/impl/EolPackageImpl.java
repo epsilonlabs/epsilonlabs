@@ -1213,7 +1213,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEOLLibraryModule_Models() {
+	public EReference getEOLLibraryModule_IModels() {
 		return (EReference)eolLibraryModuleEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -3128,7 +3128,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		eolLibraryModuleEClass = createEClass(EOL_LIBRARY_MODULE);
 		createEAttribute(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__NAME);
 		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__IMPORTS);
-		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__MODELS);
+		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__IMODELS);
 		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__MODEL_DECLARATIONS);
 		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__OPERATIONS);
 
@@ -3624,7 +3624,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(eolLibraryModuleEClass, EOLLibraryModule.class, "EOLLibraryModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEOLLibraryModule_Name(), ecorePackage.getEString(), "name", null, 1, 1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_Imports(), this.getImport(), null, "imports", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEOLLibraryModule_Models(), this.getIModel(), null, "models", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEOLLibraryModule_IModels(), this.getIModel(), null, "iModels", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_ModelDeclarations(), this.getModelDeclarationStatement(), null, "modelDeclarations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_Operations(), this.getOperationDefinition(), null, "operations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

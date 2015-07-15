@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getImports <em>Imports</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getModels <em>Models</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels <em>IModels</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getModelDeclarations <em>Model Declarations</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getOperations <em>Operations</em>}</li>
  * </ul>
@@ -68,20 +68,20 @@ public interface EOLLibraryModule extends EOLElement {
 	EList<Import> getImports();
 
 	/**
-	 * Returns the value of the '<em><b>Models</b></em>' reference list.
+	 * Returns the value of the '<em><b>IModels</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.IModel}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Models</em>' reference list isn't clear,
+	 * If the meaning of the '<em>IModels</em>' reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Models</em>' reference list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLLibraryModule_Models()
+	 * @return the value of the '<em>IModels</em>' reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLLibraryModule_IModels()
 	 * @model
 	 * @generated
 	 */
-	EList<IModel> getModels();
+	EList<IModel> getIModels();
 
 	/**
 	 * Returns the value of the '<em><b>Model Declarations</b></em>' containment reference list.

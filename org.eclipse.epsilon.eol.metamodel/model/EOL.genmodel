@@ -36,7 +36,7 @@
     <genClasses ecoreClass="EOL.ecore#//EOLLibraryModule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//EOLLibraryModule/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLLibraryModule/imports"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLLibraryModule/models"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLLibraryModule/iModels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLLibraryModule/modelDeclarations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLLibraryModule/operations"/>
     </genClasses>
