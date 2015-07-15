@@ -58,6 +58,7 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 		switch (eClass.getClassifierID()) {
 			case EolPackage.EOL_ELEMENT: return createEOLElement();
 			case EolPackage.IMODEL: return createIModel();
+			case EolPackage.IPACKAGE: return createIPackage();
 			case EolPackage.TEXT_REGION: return createTextRegion();
 			case EolPackage.TEXT_POSITION: return createTextPosition();
 			case EolPackage.EOL_LIBRARY_MODULE: return createEOLLibraryModule();
@@ -169,6 +170,16 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	public IModel createIModel() {
 		IModelImpl iModel = new IModelImpl();
 		return iModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IPackage createIPackage() {
+		IPackageImpl iPackage = new IPackageImpl();
+		return iPackage;
 	}
 
 	/**

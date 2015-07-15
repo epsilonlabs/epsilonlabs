@@ -9,9 +9,18 @@ class EOLElement {
 }
 
 class IModel extends EOLElement {
-  attr String nsURI;
-  val NameExpression[1] name;
+  ref NameExpression[1] name;
   ref NameExpression[*] aliases;
+  ref NameExpression[1] driver;
+  attr EJavaObject iMetamodelDriver;
+  val IPackage[*] iPackages;
+}
+
+class IPackage extends EOLElement {
+  ref StringExpression[1] name;
+  ref StringExpression nsURI;
+  ref StringExpression nsPrefix;
+  attr EJavaObject iPackageDriver;
 }
 
 class TextRegion extends EOLElement {

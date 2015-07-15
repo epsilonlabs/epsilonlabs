@@ -13,9 +13,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//EOLElement/region"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//IModel">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IModel/nsURI"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/aliases"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/driver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IModel/iMetamodelDriver"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/iPackages"/>
+    </genClasses>
+    <genClasses ecoreClass="EOL.ecore#//IPackage">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/nsURI"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/nsPrefix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IPackage/iPackageDriver"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//TextRegion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//TextRegion/start"/>

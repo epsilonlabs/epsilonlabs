@@ -40,6 +40,15 @@ public interface EolFactory extends EFactory {
 	IModel createIModel();
 
 	/**
+	 * Returns a new object of class '<em>IPackage</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>IPackage</em>'.
+	 * @generated
+	 */
+	IPackage createIPackage();
+
+	/**
 	 * Returns a new object of class '<em>Text Region</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
