@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
+package org.eclipse.epsilon.eol.problem.imessages;
 
 public class IMessage_VariableResolution {
 

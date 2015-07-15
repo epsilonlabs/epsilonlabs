@@ -1,9 +1,9 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.VariableDeclarationExpressionVisitor;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.context.IMessage_VariableResolution;
+import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
 public class VariableDeclarationExpressionVariableResolver extends VariableDeclarationExpressionVisitor<VariableResolutionContext, Object>{

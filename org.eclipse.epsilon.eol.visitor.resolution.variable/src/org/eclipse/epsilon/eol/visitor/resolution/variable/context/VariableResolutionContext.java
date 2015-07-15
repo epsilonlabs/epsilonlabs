@@ -8,6 +8,7 @@ import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
+import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 
 
 public class VariableResolutionContext {
