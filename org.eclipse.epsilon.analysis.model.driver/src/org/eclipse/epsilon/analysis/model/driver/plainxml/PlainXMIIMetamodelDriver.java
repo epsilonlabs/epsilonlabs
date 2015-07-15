@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.analysis.model.driver.emf;
+package org.eclipse.epsilon.analysis.model.driver.plainxml;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,6 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
-import org.eclipse.epsilon.analysis.model.driver.util.EcoreFileLoader;
-import org.eclipse.epsilon.analysis.model.driver.util.EcoreRegistryLoader;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
@@ -24,38 +22,29 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
-public class EMFIMetamodelDriver implements IMetamodelDriver{
+public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
-	protected HashMap<String, EMFIPackageDriver> packages = new HashMap<String, EMFIPackageDriver>();
+	protected HashMap<String, PlainXMIIpackageDriver> packages = new HashMap<String, PlainXMIIpackageDriver>();
 	protected String name;
 	protected HashSet<String> aliases = new HashSet<String>();
 	protected ModelDeclarationStatement modelDeclarationStatement = null;
 	protected LogBook logBook = null;
-	
+	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
+
 	@Override
-	public void loadModel(String pathOrNSURI) throws Exception {
+	public void loadModel(String URIorPath) throws Exception {
 		ArrayList<EPackage> result = new ArrayList<EPackage>();
-		result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
+		result.add(util.translatePlainXML2EPackage(URIorPath));
 		if (result.size() > 0) {
 			for(EPackage ePackage: result)
 			{
-				packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+				packages.put(ePackage.getName(), new PlainXMIIpackageDriver(ePackage));
 			}
 		}
 		else {
-			result.addAll(EcoreFileLoader.loadEPackageFromFile(pathOrNSURI));
-			if (result.size() > 0) {
-				for(EPackage ePackage: result)
-				{
-					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
-				}
-			}
-			else {
-				logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
-			}
+			logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
 		}
 	}
-		
 
 	@Override
 	public String getName() {
@@ -75,17 +64,18 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 	@Override
 	public void addAlias(String alias) {
 		aliases.add(alias);
-		
 	}
 
 	@Override
 	public IPackageDriver getIPackageDriver(String packageName) {
-		return packages.get(packageName);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean containsIPackage(String packageName) {
-		return packages.containsKey(packageName);
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -100,13 +90,15 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public ModelDeclarationStatement getModelDeclarationStatement() {
-		return modelDeclarationStatement;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void setModelDeclarationStatement(
 			ModelDeclarationStatement modelDeclarationStatement) {
-		this.modelDeclarationStatement = modelDeclarationStatement;
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -122,9 +114,9 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		for(String key: packages.keySet())
 		{
 			IPackage iPackage = EolFactory.eINSTANCE.createIPackage();
-			EMFIPackageDriver emfiPackageDriver = packages.get(key);
-			iPackage.setName(emfiPackageDriver.getPackageName());
-			iPackage.setNsPrefix(emfiPackageDriver.getPackageNSPrefix());
+			PlainXMIIpackageDriver planxmliPackageDriver = packages.get(key);
+			iPackage.setName(planxmliPackageDriver.getPackageName());
+			iPackage.setNsPrefix(planxmliPackageDriver.getPackageNSPrefix());
 			for(KeyValueExpression keyValue: modelDeclarationStatement.getParameters())
 			{
 				Expression _key = keyValue.getKey();
@@ -137,7 +129,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 					}
 				}
 			}
-			iPackage.setIPackageDriver(emfiPackageDriver);
+			iPackage.setIPackageDriver(planxmliPackageDriver);
 		}
 		
 		EOLElement tracer = modelDeclarationStatement;
