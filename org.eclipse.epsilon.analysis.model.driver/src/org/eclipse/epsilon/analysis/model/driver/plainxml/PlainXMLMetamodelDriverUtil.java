@@ -56,6 +56,16 @@ public class PlainXMLMetamodelDriverUtil {
 		}
 	}
 	
+	public String removeTag(String fullName)
+	{
+		if (isXMLSyntax(fullName)) {
+			return fullName.substring(2, fullName.length());
+		}
+		else {
+			return fullName;
+		}
+	}
+	
 	public EDataType getEDataTypeByName(String s)
 	{
 		if (s.startsWith("b_")) {

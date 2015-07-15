@@ -9,45 +9,102 @@ import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
+import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
+import org.eclipse.epsilon.eol.problem.LogBook;
 
 public class PlainXMIIpackageDriver implements IPackageDriver{
 	
 	protected EPackage ePackage;
+	protected EClass root;
+	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
+	
+	protected LogBook logBook = null;
+	
+	protected EOLElement currentEolElement = null;
+
 	
 	public PlainXMIIpackageDriver(EPackage ePackage)
 	{
 		this.ePackage = ePackage;
 	}
 	
+	public EClass getRoot() {
+		return root;
+	}
+	
+	public void setRoot(EClass root) {
+		this.root = root;
+	}
+	
+	public LogBook getLogBook() {
+		return logBook;
+	}
+	
+	public void setLogBook(LogBook logBook) {
+		this.logBook = logBook;
+	}
+	
+	public EOLElement getCurrentEolElement() {
+		return currentEolElement;
+	}
+	
+	public void setCurrentEolElement(EOLElement currentEolElement) {
+		this.currentEolElement = currentEolElement;
+	}
+	
 	@Override
 	public String getPackageName() {
-		// TODO Auto-generated method stub
-		return null;
+		return ePackage.getName();
 	}
 
 	@Override
 	public String getPackageNSURI() {
-		// TODO Auto-generated method stub
-		return null;
+		return ePackage.getNsURI();
 	}
 
 	@Override
 	public String getPackageNSPrefix() {
-		// TODO Auto-generated method stub
-		return null;
+		return ePackage.getNsPrefix();
 	}
 
 	@Override
 	public boolean containsMetaElement(String elementName) {
-		// TODO Auto-generated method stub
+		if (elementName.startsWith("t_") || elementName.equals("root")) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public EClassifier getMetaElement(String elementName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (elementName.equals("root")) {
+			if (root != null) {
+				return root;
+			}
+			else {
+				return null;
+			}
+		}
+		else if (elementName.startsWith("t_")) {
+			String escapedName = util.removeTag(elementName);
+			EClass result = (EClass) ePackage.getEClassifier(escapedName);
+			if (result != null) {
+				return result; 
+			}
+			else {
+				result = EcoreFactory.eINSTANCE.createEClass();
+				result.setName(escapedName);
+				ePackage.getEClassifiers().add(result);
+				return result;
+			}
+		}
+		else {
+			return null;
+		}
 	}
 
 	@Override
