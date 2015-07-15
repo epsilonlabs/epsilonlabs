@@ -1096,8 +1096,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIPackage_Name() {
-		return (EReference)iPackageEClass.getEStructuralFeatures().get(0);
+	public EAttribute getIPackage_Name() {
+		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1106,15 +1106,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * @generated
 	 */
 	public EReference getIPackage_NsURI() {
-		return (EReference)iPackageEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getIPackage_NsPrefix() {
 		return (EReference)iPackageEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1123,8 +1114,17 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIPackage_IPackageDriver() {
+	public EAttribute getIPackage_NsPrefix() {
 		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIPackage_IPackageDriver() {
+		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3112,10 +3112,10 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEReference(iModelEClass, IMODEL__IPACKAGES);
 
 		iPackageEClass = createEClass(IPACKAGE);
-		createEReference(iPackageEClass, IPACKAGE__NAME);
-		createEReference(iPackageEClass, IPACKAGE__NS_URI);
-		createEReference(iPackageEClass, IPACKAGE__NS_PREFIX);
 		createEAttribute(iPackageEClass, IPACKAGE__IPACKAGE_DRIVER);
+		createEAttribute(iPackageEClass, IPACKAGE__NAME);
+		createEReference(iPackageEClass, IPACKAGE__NS_URI);
+		createEAttribute(iPackageEClass, IPACKAGE__NS_PREFIX);
 
 		textRegionEClass = createEClass(TEXT_REGION);
 		createEReference(textRegionEClass, TEXT_REGION__START);
@@ -3608,10 +3608,10 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getIModel_IPackages(), this.getIPackage(), null, "iPackages", null, 0, -1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iPackageEClass, IPackage.class, "IPackage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIPackage_Name(), this.getStringExpression(), null, "name", null, 1, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIPackage_NsURI(), this.getStringExpression(), null, "nsURI", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIPackage_NsPrefix(), this.getStringExpression(), null, "nsPrefix", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIPackage_IPackageDriver(), ecorePackage.getEJavaObject(), "iPackageDriver", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIPackage_Name(), ecorePackage.getEString(), "name", null, 1, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIPackage_NsURI(), this.getStringExpression(), null, "nsURI", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIPackage_NsPrefix(), ecorePackage.getEString(), "nsPrefix", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(textRegionEClass, TextRegion.class, "TextRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTextRegion_Start(), this.getTextPosition(), null, "start", null, 1, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

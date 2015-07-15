@@ -17,10 +17,10 @@ class IModel extends EOLElement {
 }
 
 class IPackage extends EOLElement {
-  ref StringExpression[1] name;
-  ref StringExpression nsURI;
-  ref StringExpression nsPrefix;
   attr EJavaObject iPackageDriver;
+  attr String[1] name;
+  ref StringExpression nsURI;
+  attr String nsPrefix;
 }
 
 class TextRegion extends EOLElement {

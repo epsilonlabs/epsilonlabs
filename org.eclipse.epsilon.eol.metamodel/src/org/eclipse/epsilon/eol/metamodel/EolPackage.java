@@ -231,13 +231,22 @@ public interface EolPackage extends EPackage {
 	int IPACKAGE__REGION = EOL_ELEMENT__REGION;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' reference.
+	 * The feature id for the '<em><b>IPackage Driver</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IPACKAGE__NAME = EOL_ELEMENT_FEATURE_COUNT + 0;
+	int IPACKAGE__IPACKAGE_DRIVER = EOL_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IPACKAGE__NAME = EOL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Ns URI</b></em>' reference.
@@ -246,25 +255,16 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IPACKAGE__NS_URI = EOL_ELEMENT_FEATURE_COUNT + 1;
+	int IPACKAGE__NS_URI = EOL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Ns Prefix</b></em>' reference.
+	 * The feature id for the '<em><b>Ns Prefix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IPACKAGE__NS_PREFIX = EOL_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>IPackage Driver</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IPACKAGE__IPACKAGE_DRIVER = EOL_ELEMENT_FEATURE_COUNT + 3;
+	int IPACKAGE__NS_PREFIX = EOL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>IPackage</em>' class.
@@ -8057,15 +8057,15 @@ public interface EolPackage extends EPackage {
 	EClass getIPackage();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Name</em>'.
+	 * @return the meta object for the attribute '<em>Name</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.IPackage#getName()
 	 * @see #getIPackage()
 	 * @generated
 	 */
-	EReference getIPackage_Name();
+	EAttribute getIPackage_Name();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getNsURI <em>Ns URI</em>}'.
@@ -8079,15 +8079,15 @@ public interface EolPackage extends EPackage {
 	EReference getIPackage_NsURI();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getNsPrefix <em>Ns Prefix</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getNsPrefix <em>Ns Prefix</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Ns Prefix</em>'.
+	 * @return the meta object for the attribute '<em>Ns Prefix</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.IPackage#getNsPrefix()
 	 * @see #getIPackage()
 	 * @generated
 	 */
-	EReference getIPackage_NsPrefix();
+	EAttribute getIPackage_NsPrefix();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}'.
@@ -10482,12 +10482,12 @@ public interface EolPackage extends EPackage {
 		EClass IPACKAGE = eINSTANCE.getIPackage();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IPACKAGE__NAME = eINSTANCE.getIPackage_Name();
+		EAttribute IPACKAGE__NAME = eINSTANCE.getIPackage_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Ns URI</b></em>' reference feature.
@@ -10498,12 +10498,12 @@ public interface EolPackage extends EPackage {
 		EReference IPACKAGE__NS_URI = eINSTANCE.getIPackage_NsURI();
 
 		/**
-		 * The meta object literal for the '<em><b>Ns Prefix</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Ns Prefix</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IPACKAGE__NS_PREFIX = eINSTANCE.getIPackage_NsPrefix();
+		EAttribute IPACKAGE__NS_PREFIX = eINSTANCE.getIPackage_NsPrefix();
 
 		/**
 		 * The meta object literal for the '<em><b>IPackage Driver</b></em>' attribute feature.

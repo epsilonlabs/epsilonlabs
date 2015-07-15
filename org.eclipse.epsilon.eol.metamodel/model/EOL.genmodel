@@ -20,10 +20,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IModel/iPackages"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//IPackage">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/nsURI"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/nsPrefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IPackage/iPackageDriver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IPackage/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//IPackage/nsURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//IPackage/nsPrefix"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//TextRegion">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//TextRegion/start"/>
