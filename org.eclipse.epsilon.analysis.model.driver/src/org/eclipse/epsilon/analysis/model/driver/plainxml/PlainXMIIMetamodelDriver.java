@@ -24,7 +24,7 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
 public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
-	protected HashMap<String, PlainXMIIpackageDriver> packages = new HashMap<String, PlainXMIIpackageDriver>();
+	protected HashMap<String, PlainXMLIpackageDriver> packages = new HashMap<String, PlainXMLIpackageDriver>();
 	protected String name;
 	protected HashSet<String> aliases = new HashSet<String>();
 	protected ModelDeclarationStatement modelDeclarationStatement = null;
@@ -33,12 +33,15 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public void loadModel(String URIorPath) throws Exception {
-		ArrayList<EPackage> result = new ArrayList<EPackage>();
+		ArrayList<XML2EcoreTranslator> result = new ArrayList<XML2EcoreTranslator>();
 		result.add(util.translatePlainXML2EPackage(URIorPath));
 		if (result.size() > 0) {
-			for(EPackage ePackage: result)
+			for(XML2EcoreTranslator translator: result)
 			{
-				packages.put(ePackage.getName(), new PlainXMIIpackageDriver(ePackage));
+				EPackage ePackage = translator.getEPackage();
+				PlainXMLIpackageDriver driver = new PlainXMLIpackageDriver(ePackage);
+				driver.setRoot(translator.get_root());
+				packages.put(ePackage.getName(), driver);
 			}
 		}
 		else {
@@ -118,7 +121,7 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 		for(String key: packages.keySet())
 		{
 			IPackage iPackage = EolFactory.eINSTANCE.createIPackage();
-			PlainXMIIpackageDriver planxmliPackageDriver = packages.get(key);
+			PlainXMLIpackageDriver planxmliPackageDriver = packages.get(key);
 			iPackage.setName(planxmliPackageDriver.getPackageName());
 			iPackage.setNsPrefix(planxmliPackageDriver.getPackageNSPrefix());
 			for(KeyValueExpression keyValue: modelDeclarationStatement.getParameters())

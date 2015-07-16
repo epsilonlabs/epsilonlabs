@@ -38,6 +38,10 @@ public interface IPackageDriver {
 	public abstract EReference getReference(String elementName, String referenceName);
 	public abstract EStructuralFeature getFeature(String elementName, String featureName);
 	
+	public abstract EAttribute getAttribute(EClass metaElement, String attributeName);
+	public abstract EReference getReference(EClass metaElement, String referenceName);
+	public abstract EStructuralFeature getFeature(EClass metaElement, String featureName);
+	
 	public abstract EDataType getTypeForAttribute(EClass metaElement, String attributeName);
 	public abstract EClass getTypeForReference(EClass metaElement, String referenceName);
 	public abstract EClassifier getTypeForFeature(EClass metaElement, String featureName);

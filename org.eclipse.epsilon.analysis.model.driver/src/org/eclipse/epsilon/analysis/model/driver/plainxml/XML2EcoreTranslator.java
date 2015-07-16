@@ -2,12 +2,15 @@ package org.eclipse.epsilon.analysis.model.driver.plainxml;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Stack;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -15,6 +18,10 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -28,10 +35,12 @@ public class XML2EcoreTranslator {
 	protected Document document;
 	protected EcoreFactory ecoreFactory = EcoreFactory.eINSTANCE;
 	protected EPackage ePackage = ecoreFactory.createEPackage();
+	protected EClass _root;
+	protected Stack<EClass> classStack = new Stack<EClass>();
 	
 	protected HashMap<String, EClass> metaElementMap = new HashMap<String, EClass>();
 	
-	public Node getRoot()
+	protected Node getRoot()
 	{
 		return document.getFirstChild();
 	}
@@ -40,7 +49,7 @@ public class XML2EcoreTranslator {
 		return ePackage;
 	}
 	
-	public void setRoot(Node node)
+	protected void setRoot(Node node)
 	{
 		Node oldRoot = getRoot();
 		if (oldRoot != null) {
@@ -49,16 +58,36 @@ public class XML2EcoreTranslator {
 		}
 	}
 	
+	public EClass get_root() {
+		return _root;
+	}
+	
 	public EClass createEClass(Element element)
 	{
-		String className = element.getNodeName();
+		String className = "t_" + element.getNodeName();
 		
 		EClass cls = getEClass(className);//get class, if exist, retrieve from epackage, if not, create one and put into epackage
+		classStack.push(cls);
 		
 		NamedNodeMap attrs = element.getAttributes(); //get the attributes of the node
 		
 		HashMap<String, EAttribute> attributeMap = new HashMap<String, EAttribute>(); //initialise attribute map
+
+		String attributeName = "tagName"; //get the attr name
+		EAttribute tagName = getEAttribute(className, attributeName); //retrieve attr if exist, if not create one
 		
+		
+		if (element.getTextContent().split("\n").length == 1) {
+			String attrName = "text"; //get the attr name
+			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one
+			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
+				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+			}
+			else {
+				attributeMap.put(attrName, attr); 
+			}
+		}
+
 		for(int i = 0; i < attrs.getLength(); i++) //for each attribute
 		{
 			String attrName = attrs.item(i).getNodeName(); //get the attr name
@@ -75,34 +104,23 @@ public class XML2EcoreTranslator {
 		for (int i=0; i<children.getLength(); i++) { //for each node
 			Object o = children.item(i); //get object
 			if (o instanceof Element) { //if object is an element
-				if (isComplexElement((Element) o)) { //if is complex element
-					EClass referenceNode = createEClass((Element) o); // create reference node
-					EReference reference = getEReference(className, referenceNode); //get eRef if exist, if not create one
-					if (referenceMap.containsKey(reference.getName())) { // if reference map contains key
-						if (reference.getUpperBound() == EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
-							
-						}
-						else {
-							reference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	 //set upperbound to be multiple
-						}
+				 //if is complex element
+				EClass referenceNode = createEClass((Element) o); // create reference node
+				EReference reference = getEReference(className, referenceNode, ((Element)o).getTagName()); //get eRef if exist, if not create one
+				if (referenceMap.containsKey(reference.getName())) { // if reference map contains key
+					if (reference.getUpperBound() == EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
+						
 					}
 					else {
-						referenceMap.put(reference.getName(), reference); //put reference in the map
+						reference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	 //set upperbound to be multiple
 					}
 				}
-				else { //if is not complex element
-					String attrName = ((Element)o).getNodeName(); //get attr name
-					EAttribute attr = getEAttribute(className, attrName); //get attr if exists, if not create one
-					if (attributeMap.containsKey(attrName)) { 
-						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY); //if exists set upperbound to be multiple
-
-					}
-					else {
-						attributeMap.put(attrName, attr);
-					}
+				else {
+					referenceMap.put(reference.getName(), reference); //put reference in the map
 				}
 			}
 		}
+		classStack.pop();
 		return cls;
 	}
 	
@@ -117,6 +135,9 @@ public class XML2EcoreTranslator {
 			result.setName(name);
 			metaElementMap.put(name, result);
 			ePackage.getEClassifiers().add(result);
+		}
+		if (classStack.size() > 0) {
+			EReference reference = getEReference(name, classStack.peek(), "parentNode"); //get eRef if exist, if not create one
 		}
 		return result;
 	}
@@ -141,12 +162,11 @@ public class XML2EcoreTranslator {
 		return result;
 	}
 	
-	public EReference getEReference(String className, EClass referredClass)
+	public EReference getEReference(String className, EClass referredClass, String referenceName)
 	{
 		EReference result = null;
 		if (metaElementMap.containsKey(className)) {
 			EClass cls = metaElementMap.get(className);
-			String referenceName = referredClass.getName();
 			if (cls.getEStructuralFeature(referenceName) == null) {
 				result = ecoreFactory.createEReference();
 				result.setName(referenceName);
@@ -193,12 +213,37 @@ public class XML2EcoreTranslator {
 		ePackage.setName(packageName);
 		ePackage.setNsPrefix(prefix);
 		ePackage.setNsURI(nsURI);
-		NodeList childNodes = getRoot().getChildNodes();
-		for (int i=0; i<childNodes.getLength(); i++) {
-			Object o = childNodes.item(i);
-			if (o instanceof Element) {
-				createEClass((Element) o);
-			}
-		}
+		_root = createEClass((Element) getRoot());
 	}
+	
+	public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+		new XML2EcoreTranslator().testParse();
+	}
+
+	public void testParse() throws ParserConfigurationException, SAXException, IOException
+	{
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+		URL url = getClass().getResource("library.xml");
+		File file = new File(url.getPath());
+		
+		document = documentBuilder.parse(file);
+		String packageName = getRoot().getNodeName();
+		String prefix = packageName.toLowerCase();
+		String nsURI = "http://" + packageName + "/1.0";
+		ePackage.setName(packageName);
+		ePackage.setNsPrefix(prefix);
+		ePackage.setNsURI(nsURI);
+		createEClass((Element) getRoot());
+		
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());
+		Resource resource = resourceSet.createResource(URI.createFileURI(new File("library.ecore").getAbsolutePath()));
+		resource.getContents().add(ePackage);
+		System.out.println(resourceSet.getPackageRegistry().toString());
+		System.out.println(EPackage.Registry.INSTANCE.toString());
+		resource.save(null);	
+	}
+
 }

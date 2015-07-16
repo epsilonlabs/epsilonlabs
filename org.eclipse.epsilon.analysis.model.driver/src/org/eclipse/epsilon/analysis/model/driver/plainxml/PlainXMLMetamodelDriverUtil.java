@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.xml.sax.SAXException;
@@ -24,7 +23,7 @@ public class PlainXMLMetamodelDriverUtil {
 		return EcorePackage.eINSTANCE;
 	}
 	
-	public EPackage translatePlainXML2EPackage(String URIorPath)
+	public XML2EcoreTranslator translatePlainXML2EPackage(String URIorPath)
 	{
 		try {
 			xml2EcoreTranslator.translatePlainXMLFromFile(URIorPath);
@@ -39,7 +38,7 @@ public class PlainXMLMetamodelDriverUtil {
 			e.printStackTrace();
 		}
 		
-		return xml2EcoreTranslator.getEPackage();
+		return xml2EcoreTranslator;
 	}
 	
 	public boolean isXMLSyntax(String fullName)

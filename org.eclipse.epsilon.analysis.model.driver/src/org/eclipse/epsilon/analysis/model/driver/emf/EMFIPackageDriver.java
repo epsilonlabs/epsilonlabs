@@ -287,4 +287,27 @@ public class EMFIPackageDriver implements IPackageDriver{
 		}
 	}
 
+	@Override
+	public EAttribute getAttribute(EClass metaElement, String attributeName) {
+		EStructuralFeature feature = metaElement.getEStructuralFeature(attributeName);
+		if (feature != null && feature instanceof EAttribute) {
+			return (EAttribute) feature;
+		}
+		return null;
+	}
+
+	@Override
+	public EReference getReference(EClass metaElement, String referenceName) {
+		EStructuralFeature feature = metaElement.getEStructuralFeature(referenceName);
+		if (feature != null && feature instanceof EReference) {
+			return (EReference) feature;
+		}
+		return null;
+	}
+
+	@Override
+	public EStructuralFeature getFeature(EClass metaElement, String featureName) {
+		return metaElement.getEStructuralFeature(featureName);
+	}
+
 }
