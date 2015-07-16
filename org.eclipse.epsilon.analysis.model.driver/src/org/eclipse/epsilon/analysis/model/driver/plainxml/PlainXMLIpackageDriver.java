@@ -458,6 +458,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						}
 						else {
 							//should issue warning
+							logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 							EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
 							attribute.setName(attributeName);
 							attribute.setUpperBound(1);
@@ -486,6 +487,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 								return null;
 							}
 							else {
+								logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 								attribute = EcoreFactory.eINSTANCE.createEAttribute();
 								attribute.setName(escapedAttrName);
 								attribute.setUpperBound(1);
@@ -579,6 +581,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 							return null;
 						}
 						else {
+							logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
 							EClass otherEnd = getClass("t_"+escapedReferenceName);
 							EReference eReference = EcoreFactory.eINSTANCE.createEReference();
 							eReference.setName(escapedReferenceName);
@@ -684,6 +687,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				}
 				else {
 					//should issue warning
+					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 					EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
 					attribute.setName(attributeName);
 					attribute.setUpperBound(1);
@@ -712,6 +716,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						return null;
 					}
 					else {
+						logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 						attribute = EcoreFactory.eINSTANCE.createEAttribute();
 						attribute.setName(escapedAttrName);
 						attribute.setUpperBound(1);
@@ -794,6 +799,8 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					return null;
 				}
 				else {
+					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
+
 					EClass otherEnd = getClass("t_"+escapedReferenceName);
 					EReference eReference = EcoreFactory.eINSTANCE.createEReference();
 					eReference.setName(escapedReferenceName);

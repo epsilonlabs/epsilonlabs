@@ -7,6 +7,8 @@ public class IMessage_IMetamodelDriver {
 	public static final String DUPLICATE_ALIAS = "Duplicated alias: %s";
 	
 	public static final String METACLASS_MAY_NOT_EXIST = "Element may not exist";
+	public static final String ATTRIBUTE_MAY_NOT_EXIST = "Attribute: %s may not exist";
+	public static final String REFERENCE_MAY_NOT_EXIST = "Reference: %s may not exist";
 
 	public static final String DATATYPE_NOT_SUPPORTED = "DataType is not supported by plain XML driver";
 	public static final String ENUMERATION_NOT_SUPPORTED = "Enumeration is not supported by plain XML driver";

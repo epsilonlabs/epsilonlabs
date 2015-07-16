@@ -74,7 +74,7 @@ public class XML2EcoreTranslator {
 		HashMap<String, EAttribute> attributeMap = new HashMap<String, EAttribute>(); //initialise attribute map
 
 		String attributeName = "tagName"; //get the attr name
-		EAttribute tagName = getEAttribute(className, attributeName); //retrieve attr if exist, if not create one
+		getEAttribute(className, attributeName); //retrieve attr if exist, if not create one
 		
 		
 		if (element.getTextContent().split("\n").length == 1) {
@@ -137,7 +137,7 @@ public class XML2EcoreTranslator {
 			ePackage.getEClassifiers().add(result);
 		}
 		if (classStack.size() > 0) {
-			EReference reference = getEReference(name, classStack.peek(), "parentNode"); //get eRef if exist, if not create one
+			getEReference(name, classStack.peek(), "parentNode"); //get eRef if exist, if not create one
 		}
 		return result;
 	}

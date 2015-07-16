@@ -5,23 +5,12 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.xml.sax.SAXException;
 
 public class PlainXMLMetamodelDriverUtil {
 
 	protected XML2EcoreTranslator xml2EcoreTranslator = new XML2EcoreTranslator();
-	
-	public EcoreFactory getEcoreFactory()
-	{
-		return EcoreFactory.eINSTANCE;
-	}
-	
-	public EcorePackage getEcorePackage()
-	{
-		return EcorePackage.eINSTANCE;
-	}
 	
 	public XML2EcoreTranslator translatePlainXML2EPackage(String URIorPath)
 	{
