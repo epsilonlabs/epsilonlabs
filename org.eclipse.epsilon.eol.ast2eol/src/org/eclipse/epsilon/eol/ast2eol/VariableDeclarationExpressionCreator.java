@@ -58,7 +58,7 @@ public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 		}
 		
 		boolean isCreate = ast.getText().equals("new") ? true : false;
-		declaration.setIsCreate(isCreate); //set the isCreate of the VariableDeclaratoin
+		declaration.setCreate(isCreate); //set the isCreate of the VariableDeclaratoin
 		
 		return declaration;
 	}

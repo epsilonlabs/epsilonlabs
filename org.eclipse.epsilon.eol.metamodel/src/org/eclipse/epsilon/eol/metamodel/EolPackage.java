@@ -2622,13 +2622,13 @@ public interface EolPackage extends EPackage {
 	int VARIABLE_DECLARATION_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Create</b></em>' attribute.
+	 * The feature id for the '<em><b>Create</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION__IS_CREATE = EXPRESSION_FEATURE_COUNT + 0;
+	int VARIABLE_DECLARATION_EXPRESSION__CREATE = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -2713,13 +2713,13 @@ public interface EolPackage extends EPackage {
 	int FORMAL_PARAMETER_EXPRESSION__RESOLVED_TYPE = VARIABLE_DECLARATION_EXPRESSION__RESOLVED_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is Create</b></em>' attribute.
+	 * The feature id for the '<em><b>Create</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FORMAL_PARAMETER_EXPRESSION__IS_CREATE = VARIABLE_DECLARATION_EXPRESSION__IS_CREATE;
+	int FORMAL_PARAMETER_EXPRESSION__CREATE = VARIABLE_DECLARATION_EXPRESSION__CREATE;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' containment reference.
@@ -8739,15 +8739,15 @@ public interface EolPackage extends EPackage {
 	EClass getVariableDeclarationExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isIsCreate <em>Is Create</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isCreate <em>Create</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Create</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isIsCreate()
+	 * @return the meta object for the attribute '<em>Create</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isCreate()
 	 * @see #getVariableDeclarationExpression()
 	 * @generated
 	 */
-	EAttribute getVariableDeclarationExpression_IsCreate();
+	EAttribute getVariableDeclarationExpression_Create();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getName <em>Name</em>}'.
@@ -11068,12 +11068,12 @@ public interface EolPackage extends EPackage {
 		EClass VARIABLE_DECLARATION_EXPRESSION = eINSTANCE.getVariableDeclarationExpression();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Create</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Create</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute VARIABLE_DECLARATION_EXPRESSION__IS_CREATE = eINSTANCE.getVariableDeclarationExpression_IsCreate();
+		EAttribute VARIABLE_DECLARATION_EXPRESSION__CREATE = eINSTANCE.getVariableDeclarationExpression_Create();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.

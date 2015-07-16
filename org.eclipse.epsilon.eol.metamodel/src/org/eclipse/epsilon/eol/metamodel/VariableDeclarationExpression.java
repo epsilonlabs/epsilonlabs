@@ -12,7 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isIsCreate <em>Is Create</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isCreate <em>Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}</li>
@@ -25,30 +25,30 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface VariableDeclarationExpression extends Expression {
 	/**
-	 * Returns the value of the '<em><b>Is Create</b></em>' attribute.
+	 * Returns the value of the '<em><b>Create</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Is Create</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Create</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Is Create</em>' attribute.
-	 * @see #setIsCreate(boolean)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getVariableDeclarationExpression_IsCreate()
+	 * @return the value of the '<em>Create</em>' attribute.
+	 * @see #setCreate(boolean)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getVariableDeclarationExpression_Create()
 	 * @model required="true"
 	 * @generated
 	 */
-	boolean isIsCreate();
+	boolean isCreate();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isIsCreate <em>Is Create</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isCreate <em>Create</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Create</em>' attribute.
-	 * @see #isIsCreate()
+	 * @param value the new value of the '<em>Create</em>' attribute.
+	 * @see #isCreate()
 	 * @generated
 	 */
-	void setIsCreate(boolean value);
+	void setCreate(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' containment reference.

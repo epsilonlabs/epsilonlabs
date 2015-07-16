@@ -31,7 +31,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#isIsCreate <em>Is Create</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#isCreate <em>Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getReferences <em>References</em>}</li>
@@ -42,24 +42,24 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  */
 public class VariableDeclarationExpressionImpl extends ExpressionImpl implements VariableDeclarationExpression {
 	/**
-	 * The default value of the '{@link #isIsCreate() <em>Is Create</em>}' attribute.
+	 * The default value of the '{@link #isCreate() <em>Create</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsCreate()
+	 * @see #isCreate()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_CREATE_EDEFAULT = false;
+	protected static final boolean CREATE_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsCreate() <em>Is Create</em>}' attribute.
+	 * The cached value of the '{@link #isCreate() <em>Create</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsCreate()
+	 * @see #isCreate()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isCreate = IS_CREATE_EDEFAULT;
+	protected boolean create = CREATE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
@@ -115,8 +115,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsCreate() {
-		return isCreate;
+	public boolean isCreate() {
+		return create;
 	}
 
 	/**
@@ -124,11 +124,11 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsCreate(boolean newIsCreate) {
-		boolean oldIsCreate = isCreate;
-		isCreate = newIsCreate;
+	public void setCreate(boolean newCreate) {
+		boolean oldCreate = create;
+		create = newCreate;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.VARIABLE_DECLARATION_EXPRESSION__IS_CREATE, oldIsCreate, isCreate));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.VARIABLE_DECLARATION_EXPRESSION__CREATE, oldCreate, create));
 	}
 
 	/**
@@ -222,8 +222,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__IS_CREATE:
-				return isIsCreate();
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__CREATE:
+				return isCreate();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				return getName();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
@@ -243,8 +243,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__IS_CREATE:
-				setIsCreate((Boolean)newValue);
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__CREATE:
+				setCreate((Boolean)newValue);
 				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				setName((NameExpression)newValue);
@@ -269,8 +269,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__IS_CREATE:
-				setIsCreate(IS_CREATE_EDEFAULT);
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__CREATE:
+				setCreate(CREATE_EDEFAULT);
 				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				setName((NameExpression)null);
@@ -293,8 +293,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__IS_CREATE:
-				return isCreate != IS_CREATE_EDEFAULT;
+			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__CREATE:
+				return create != CREATE_EDEFAULT;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				return name != null;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
@@ -315,8 +315,8 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isCreate: ");
-		result.append(isCreate);
+		result.append(" (create: ");
+		result.append(create);
 		result.append(')');
 		return result.toString();
 	}

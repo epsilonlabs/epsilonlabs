@@ -1681,7 +1681,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getVariableDeclarationExpression_IsCreate() {
+	public EAttribute getVariableDeclarationExpression_Create() {
 		return (EAttribute)variableDeclarationExpressionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -3210,7 +3210,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		equalsOperatorExpressionEClass = createEClass(EQUALS_OPERATOR_EXPRESSION);
 
 		variableDeclarationExpressionEClass = createEClass(VARIABLE_DECLARATION_EXPRESSION);
-		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__IS_CREATE);
+		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__CREATE);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__NAME);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__PARAMETERS);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
@@ -3706,7 +3706,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(equalsOperatorExpressionEClass, EqualsOperatorExpression.class, "EqualsOperatorExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(variableDeclarationExpressionEClass, VariableDeclarationExpression.class, "VariableDeclarationExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getVariableDeclarationExpression_IsCreate(), ecorePackage.getEBoolean(), "isCreate", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVariableDeclarationExpression_Create(), ecorePackage.getEBoolean(), "create", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Name(), this.getNameExpression(), null, "name", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_References(), this.getNameExpression(), null, "references", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

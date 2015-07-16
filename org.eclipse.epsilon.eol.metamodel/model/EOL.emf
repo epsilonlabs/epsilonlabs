@@ -148,7 +148,7 @@ class EqualsOperatorExpression extends ComparisonOperatorExpression {
 }
 
 class VariableDeclarationExpression extends Expression {
-  attr boolean[1] isCreate;
+  attr boolean[1] create;
   val NameExpression[1] name;
   val Expression[*] parameters;
   ref NameExpression[*] references;

@@ -136,7 +136,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NotEqualsOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="EqualsOperatorExpression" eSuperTypes="#//ComparisonOperatorExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="VariableDeclarationExpression" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isCreate" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="create" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>

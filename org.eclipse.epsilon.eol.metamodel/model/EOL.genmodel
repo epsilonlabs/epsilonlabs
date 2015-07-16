@@ -97,7 +97,7 @@
     <genClasses ecoreClass="EOL.ecore#//NotEqualsOperatorExpression"/>
     <genClasses ecoreClass="EOL.ecore#//EqualsOperatorExpression"/>
     <genClasses ecoreClass="EOL.ecore#//VariableDeclarationExpression">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//VariableDeclarationExpression/isCreate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//VariableDeclarationExpression/create"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//VariableDeclarationExpression/references"/>
