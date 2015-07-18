@@ -22,7 +22,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
-public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
+public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 
 	protected HashMap<String, PlainXMLIpackageDriver> packages = new HashMap<String, PlainXMLIpackageDriver>();
 	protected String name;
