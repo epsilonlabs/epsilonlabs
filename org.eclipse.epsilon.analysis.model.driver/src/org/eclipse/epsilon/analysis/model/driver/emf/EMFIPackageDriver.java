@@ -1,23 +1,42 @@
 package org.eclipse.epsilon.analysis.model.driver.emf;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.IPackage;
+import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
 
 public class EMFIPackageDriver implements IPackageDriver{
 
 	protected EPackage ePackage;
+	protected HashMap<String, EMFIPackageDriver> subPackages = new HashMap<String, EMFIPackageDriver>();
+
 	
 	public EMFIPackageDriver(EPackage ePackage)
 	{
 		this.ePackage = ePackage;
+		for(EObject subEPackage: ePackage.eContents())
+		{
+			if (subEPackage instanceof EPackage) {
+				subPackages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+			}
+		}
+		reconcileIPackageDriver();
 	}
 	
 	@Override
@@ -308,6 +327,31 @@ public class EMFIPackageDriver implements IPackageDriver{
 	@Override
 	public EStructuralFeature getFeature(EClass metaElement, String featureName) {
 		return metaElement.getEStructuralFeature(featureName);
+	}
+
+	@Override
+	public IPackageDriver getSubPackageDriver(String name) {
+		return subPackages.get(name);
+	}
+
+	@Override
+	public ArrayList<IPackageDriver> getSubPackageDrivers() {
+		ArrayList<IPackageDriver> drivers = new ArrayList<IPackageDriver>();
+		drivers.addAll(subPackages.values());
+		return drivers;
+	}
+	
+	public void reconcileIPackageDriver()
+	{
+		for(String key: subPackages.keySet())
+		{
+			IPackage iPackage = EolFactory.eINSTANCE.createIPackage();
+			EMFIPackageDriver emfiPackageDriver = subPackages.get(key);
+			iPackage.setName(emfiPackageDriver.getPackageName());
+			iPackage.setNsPrefix(emfiPackageDriver.getPackageNSPrefix());
+
+			iPackage.setIPackageDriver(emfiPackageDriver);
+		}
 	}
 
 }

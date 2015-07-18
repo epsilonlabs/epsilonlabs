@@ -1,5 +1,7 @@
 package org.eclipse.epsilon.analysis.model.driver.plainxml;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -831,6 +833,18 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 		else {
 			return getReference(metaElement, featureName);
 		}
+	}
+
+	@Override
+	public IPackageDriver getSubPackageDriver(String name) {
+		//not supported
+		return null;
+	}
+
+	@Override
+	public ArrayList<IPackageDriver> getSubPackageDrivers() {
+		//not supported
+		return null;
 	}
 
 }

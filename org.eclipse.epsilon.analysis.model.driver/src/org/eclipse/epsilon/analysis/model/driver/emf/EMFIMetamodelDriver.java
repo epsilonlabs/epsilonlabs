@@ -35,16 +35,15 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 	@Override
 	public boolean loadModel(String pathOrNSURI) {
 		ArrayList<EPackage> result = new ArrayList<EPackage>();
-		try {
-			result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
-		} catch (Exception e) {
-			logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.METAMODEL_NOT_IN_REGISTRY);
-		}
+		
+		result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
+
 		if (result.size() > 0) {
 			for(EPackage ePackage: result)
 			{
 				packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
 			}
+			reconcileEolLibraryModule();
 			return true;
 		}
 		else {
@@ -54,6 +53,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				{
 					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
 				}
+				reconcileEolLibraryModule();
 				return true;
 			}
 			else {
@@ -160,6 +160,14 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		}
 		EOLLibraryModule module = (EOLLibraryModule) tracer;
 		module.getIModels().add(iModel);
+	}
+
+
+	@Override
+	public ArrayList<IPackageDriver> getIPackageDrivers() {
+		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
+		result.addAll(packages.values());
+		return result;
 	}
 
 }

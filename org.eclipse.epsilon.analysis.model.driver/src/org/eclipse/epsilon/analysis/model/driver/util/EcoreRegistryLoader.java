@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.EPackage;
 
 public class EcoreRegistryLoader {
 
-	public static ArrayList<EPackage> loadEPackageFromRegistry(String nsURI) throws Exception
+	public static ArrayList<EPackage> loadEPackageFromRegistry(String nsURI)
 	{
 		ArrayList<EPackage> result = new ArrayList<EPackage>();
 		result.add(EPackage.Registry.INSTANCE.getEPackage(nsURI));

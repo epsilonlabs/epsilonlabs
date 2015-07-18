@@ -12,6 +12,8 @@ public class IMessage_TypeResolution {
 	public static final String MODEL_DECL_NO_DRIVER = "Model Declaration MUST have a driver";
 	public static final String MODEL_DECL_DRIVER_NOT_SUPPORTED = "Model driver %s is not supported";
 	
+	public static final String TYPE_CANNOT_BE_RESOLVED = "%s cannot be resolved to a type";
+	
 	
 	public static String bindMessage(String message, Object value)
 	{

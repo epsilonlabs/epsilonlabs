@@ -150,4 +150,11 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 		module.getIModels().add(iModel);
 	}
 
+	@Override
+	public ArrayList<IPackageDriver> getIPackageDrivers() {
+		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
+		result.addAll(packages.values());
+		return result;
+	}
+
 }

@@ -1,5 +1,7 @@
 package org.eclipse.epsilon.analysis.model.driver;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -49,4 +51,7 @@ public interface IPackageDriver {
 	public abstract EDataType getTypeForAttribute(String elementName, String attributeName);
 	public abstract EClass getTypeForReference(String elementName, String referenceName);
 	public abstract EClassifier getTypeForFeature(String elementName, String featureName);
+	
+	public IPackageDriver getSubPackageDriver(String name);
+	public ArrayList<IPackageDriver> getSubPackageDrivers();
 }

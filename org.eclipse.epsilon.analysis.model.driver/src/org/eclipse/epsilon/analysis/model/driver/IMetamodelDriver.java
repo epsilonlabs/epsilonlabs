@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.analysis.model.driver;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
@@ -16,6 +17,8 @@ public interface IMetamodelDriver {
 	
 	public IPackageDriver getIPackageDriver(String packageName);
 	public boolean containsIPackage(String packageName);
+	
+	public ArrayList<IPackageDriver> getIPackageDrivers();
 	
 	public LogBook getLogBook();
 	public void setLogBook(LogBook logBook);
