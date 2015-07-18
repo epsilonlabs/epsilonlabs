@@ -2,13 +2,18 @@
  */
 package org.eclipse.epsilon.eol.metamodel.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
@@ -24,6 +29,7 @@ import org.eclipse.epsilon.eol.metamodel.StringExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getNsURI <em>Ns URI</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getNsPrefix <em>Ns Prefix</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getSubPackages <em>Sub Packages</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,6 +105,16 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 	 * @ordered
 	 */
 	protected String nsPrefix = NS_PREFIX_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getSubPackages() <em>Sub Packages</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSubPackages()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<IPackage> subPackages;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -204,6 +220,32 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<IPackage> getSubPackages() {
+		if (subPackages == null) {
+			subPackages = new EObjectContainmentEList<IPackage>(IPackage.class, this, EolPackage.IPACKAGE__SUB_PACKAGES);
+		}
+		return subPackages;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.IPACKAGE__SUB_PACKAGES:
+				return ((InternalEList<?>)getSubPackages()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object getIPackageDriver() {
 		return iPackageDriver;
 	}
@@ -237,6 +279,8 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 				return basicGetNsURI();
 			case EolPackage.IPACKAGE__NS_PREFIX:
 				return getNsPrefix();
+			case EolPackage.IPACKAGE__SUB_PACKAGES:
+				return getSubPackages();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -246,6 +290,7 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -260,6 +305,10 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 				return;
 			case EolPackage.IPACKAGE__NS_PREFIX:
 				setNsPrefix((String)newValue);
+				return;
+			case EolPackage.IPACKAGE__SUB_PACKAGES:
+				getSubPackages().clear();
+				getSubPackages().addAll((Collection<? extends IPackage>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -285,6 +334,9 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 			case EolPackage.IPACKAGE__NS_PREFIX:
 				setNsPrefix(NS_PREFIX_EDEFAULT);
 				return;
+			case EolPackage.IPACKAGE__SUB_PACKAGES:
+				getSubPackages().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -305,6 +357,8 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 				return nsURI != null;
 			case EolPackage.IPACKAGE__NS_PREFIX:
 				return NS_PREFIX_EDEFAULT == null ? nsPrefix != null : !NS_PREFIX_EDEFAULT.equals(nsPrefix);
+			case EolPackage.IPACKAGE__SUB_PACKAGES:
+				return subPackages != null && !subPackages.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

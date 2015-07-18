@@ -21,6 +21,7 @@ class IPackage extends EOLElement {
   attr String[1] name;
   ref StringExpression nsURI;
   attr String nsPrefix;
+  val IPackage[*] subPackages;
 }
 
 class TextRegion extends EOLElement {

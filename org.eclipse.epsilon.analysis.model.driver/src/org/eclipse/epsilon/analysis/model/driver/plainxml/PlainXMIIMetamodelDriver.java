@@ -30,6 +30,7 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 	protected ModelDeclarationStatement modelDeclarationStatement = null;
 	protected LogBook logBook = null;
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
+	protected IModel iModel = null;
 
 	@Override
 	public boolean loadModel(String URIorPath) {
@@ -112,7 +113,7 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public void reconcileEolLibraryModule() {
-		IModel iModel = EolFactory.eINSTANCE.createIModel();
+		iModel = EolFactory.eINSTANCE.createIModel();
 		iModel.setName(modelDeclarationStatement.getName().getName());
 		iModel.setDriver(modelDeclarationStatement.getDriver());
 		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
@@ -139,6 +140,7 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 				}
 			}
 			iPackage.setIPackageDriver(planxmliPackageDriver);
+			iModel.getIPackages().add(iPackage);
 		}
 		
 		EOLElement tracer = modelDeclarationStatement;
@@ -155,6 +157,11 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
 		result.addAll(packages.values());
 		return result;
+	}
+
+	@Override
+	public IModel getIModel() {
+		return iModel;
 	}
 
 }

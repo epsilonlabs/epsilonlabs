@@ -3,6 +3,7 @@ package org.eclipse.epsilon.analysis.model.driver;
 import java.util.ArrayList;
 import java.util.Set;
 
+import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.problem.LogBook;
 
@@ -27,4 +28,6 @@ public interface IMetamodelDriver {
 	public void setModelDeclarationStatement(ModelDeclarationStatement modelDeclarationStatement);
 	
 	public void reconcileEolLibraryModule();
+	
+	public IModel getIModel();
 }

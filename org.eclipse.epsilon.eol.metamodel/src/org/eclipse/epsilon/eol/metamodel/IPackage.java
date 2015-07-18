@@ -2,6 +2,8 @@
  */
 package org.eclipse.epsilon.eol.metamodel;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,7 @@ package org.eclipse.epsilon.eol.metamodel;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IPackage#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IPackage#getNsURI <em>Ns URI</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IPackage#getNsPrefix <em>Ns Prefix</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.IPackage#getSubPackages <em>Sub Packages</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,6 +103,22 @@ public interface IPackage extends EOLElement {
 	 * @generated
 	 */
 	void setNsPrefix(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Sub Packages</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.IPackage}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Sub Packages</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Sub Packages</em>' containment reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIPackage_SubPackages()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<IPackage> getSubPackages();
 
 	/**
 	 * Returns the value of the '<em><b>IPackage Driver</b></em>' attribute.

@@ -1123,6 +1123,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getIPackage_SubPackages() {
+		return (EReference)iPackageEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getIPackage_IPackageDriver() {
 		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(0);
 	}
@@ -3116,6 +3125,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEAttribute(iPackageEClass, IPACKAGE__NAME);
 		createEReference(iPackageEClass, IPACKAGE__NS_URI);
 		createEAttribute(iPackageEClass, IPACKAGE__NS_PREFIX);
+		createEReference(iPackageEClass, IPACKAGE__SUB_PACKAGES);
 
 		textRegionEClass = createEClass(TEXT_REGION);
 		createEReference(textRegionEClass, TEXT_REGION__START);
@@ -3612,6 +3622,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getIPackage_Name(), ecorePackage.getEString(), "name", null, 1, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIPackage_NsURI(), this.getStringExpression(), null, "nsURI", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIPackage_NsPrefix(), ecorePackage.getEString(), "nsPrefix", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIPackage_SubPackages(), this.getIPackage(), null, "subPackages", null, 0, -1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(textRegionEClass, TextRegion.class, "TextRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTextRegion_Start(), this.getTextPosition(), null, "start", null, 1, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

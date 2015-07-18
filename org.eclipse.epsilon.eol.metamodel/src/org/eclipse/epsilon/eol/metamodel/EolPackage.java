@@ -267,13 +267,22 @@ public interface EolPackage extends EPackage {
 	int IPACKAGE__NS_PREFIX = EOL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Sub Packages</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IPACKAGE__SUB_PACKAGES = EOL_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>IPackage</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IPACKAGE_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 4;
+	int IPACKAGE_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl <em>Text Region</em>}' class.
@@ -8090,6 +8099,17 @@ public interface EolPackage extends EPackage {
 	EAttribute getIPackage_NsPrefix();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getSubPackages <em>Sub Packages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Sub Packages</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IPackage#getSubPackages()
+	 * @see #getIPackage()
+	 * @generated
+	 */
+	EReference getIPackage_SubPackages();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10504,6 +10524,14 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute IPACKAGE__NS_PREFIX = eINSTANCE.getIPackage_NsPrefix();
+
+		/**
+		 * The meta object literal for the '<em><b>Sub Packages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IPACKAGE__SUB_PACKAGES = eINSTANCE.getIPackage_SubPackages();
 
 		/**
 		 * The meta object literal for the '<em><b>IPackage Driver</b></em>' attribute feature.
