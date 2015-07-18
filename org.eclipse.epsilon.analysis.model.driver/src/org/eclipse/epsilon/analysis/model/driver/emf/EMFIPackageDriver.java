@@ -15,11 +15,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
-import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
-import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
-import org.eclipse.epsilon.eol.metamodel.NameExpression;
-import org.eclipse.epsilon.eol.metamodel.StringExpression;
 
 public class EMFIPackageDriver implements IPackageDriver{
 

@@ -14,6 +14,12 @@ public class IMessage_TypeResolution {
 	
 	public static final String TYPE_CANNOT_BE_RESOLVED = "%s cannot be resolved to a type";
 	
+	public static final String INVALID_XML_TYPE_NOTATION = "prefix %s cannot be used to denote an XML type";
+	
+	public static final String MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS = "Model element %s is defined in more than one metamodels";
+	
+	public static final String ELEMENT_TYPE_CANNOT_BE_NULL = "Element type cannot be null";
+	
 	
 	public static String bindMessage(String message, Object value)
 	{
