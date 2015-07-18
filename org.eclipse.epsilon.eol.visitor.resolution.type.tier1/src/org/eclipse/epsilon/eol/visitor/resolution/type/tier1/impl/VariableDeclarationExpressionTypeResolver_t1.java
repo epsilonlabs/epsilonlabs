@@ -1,0 +1,62 @@
+package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
+
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.metamodel.visitor.VariableDeclarationExpressionVisitor;
+import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+
+public class VariableDeclarationExpressionTypeResolver_t1 extends VariableDeclarationExpressionVisitor<TypeResolutionContext, Object>{
+
+	@Override
+	public Object visit(
+			VariableDeclarationExpression variableDeclarationExpression,
+			TypeResolutionContext context,
+			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
+		//visit contents first
+		controller.visit(variableDeclarationExpression.getResolvedType(), context);
+		for(Expression param: variableDeclarationExpression.getParameters())
+		{
+			controller.visit(param, context);
+		}
+		
+		//get the value of the create
+		boolean newExpression = variableDeclarationExpression.isCreate();
+		
+		//if it is a new variable
+		if (newExpression) {
+			
+			//get resolved type
+			Type rawType = variableDeclarationExpression.getResolvedType();
+			
+			//we are interested in the model element types
+			if (rawType instanceof ModelElementType) {
+				
+				//get the type
+				ModelElementType modelElementType = (ModelElementType) rawType;
+				
+				//if the model element type is a EClass in the meta model
+				if (modelElementType.getModelType() instanceof EClass) {
+					
+					//get the EClass
+					EClass eClass = (EClass) modelElementType.getModelType();
+					
+					//check if the class is an interface or abstract
+					if (eClass.isAbstract() || eClass.isInterface()) {
+						
+						context.getLogBook().addError(modelElementType,
+								IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_NOT_INSTANTIABLE, eClass.getName())); //throw error
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+}

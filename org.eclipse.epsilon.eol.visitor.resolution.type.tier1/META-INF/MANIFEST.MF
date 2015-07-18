@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.eol.visitor.resolution.type.tier1
+Bundle-SymbolicName: org.eclipse.epsilon.eol.visitor.resolution.type.tier1; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.epsilon.eol.metamodel,
+ org.eclipse.epsilon.eol.metamodel.visitor,
+ org.eclipse.epsilon.analysis.model.driver,
+ org.eclipse.epsilon.eol.problem
