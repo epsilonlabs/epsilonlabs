@@ -7,7 +7,7 @@ import org.eclipse.epsilon.eol.problem.LogBook;
 
 public interface IMetamodelDriver {
 
-	public abstract void loadModel(String URIorPath) throws Exception;
+	public abstract boolean loadModel(String URIorPath);
 	
 	public abstract String getName();
 	public void setName(String name);

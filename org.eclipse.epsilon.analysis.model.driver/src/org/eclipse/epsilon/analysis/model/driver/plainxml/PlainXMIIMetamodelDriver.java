@@ -32,7 +32,7 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
 
 	@Override
-	public void loadModel(String URIorPath) throws Exception {
+	public boolean loadModel(String URIorPath) {
 		ArrayList<XML2EcoreTranslator> result = new ArrayList<XML2EcoreTranslator>();
 		result.add(util.translatePlainXML2EPackage(URIorPath));
 		if (result.size() > 0) {
@@ -43,9 +43,11 @@ public class PlainXMIIMetamodelDriver implements IMetamodelDriver{
 				driver.setRoot(translator.get_root());
 				packages.put(ePackage.getName(), driver);
 			}
+			return true;
 		}
 		else {
 			logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+			return false;
 		}
 	}
 

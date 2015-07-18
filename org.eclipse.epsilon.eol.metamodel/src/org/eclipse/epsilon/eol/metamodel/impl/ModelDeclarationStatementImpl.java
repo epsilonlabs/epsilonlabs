@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
@@ -91,7 +92,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<KeyValueExpression> parameters;
+	protected EList<ModelDeclarationParameter> parameters;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,9 +259,9 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<KeyValueExpression> getParameters() {
+	public EList<ModelDeclarationParameter> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectResolvingEList<KeyValueExpression>(KeyValueExpression.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS);
+			parameters = new EObjectResolvingEList<ModelDeclarationParameter>(ModelDeclarationParameter.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS);
 		}
 		return parameters;
 	}
@@ -331,7 +332,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				getParameters().clear();
-				getParameters().addAll((Collection<? extends KeyValueExpression>)newValue);
+				getParameters().addAll((Collection<? extends ModelDeclarationParameter>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

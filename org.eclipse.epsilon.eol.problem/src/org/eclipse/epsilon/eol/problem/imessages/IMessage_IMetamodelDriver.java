@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.problem.imessages;
 public class IMessage_IMetamodelDriver {
 
 	public static final String UNABLE_TO_LOAD_METAMODEL = "Unable to load metamodel";
+	public static final String METAMODEL_NOT_IN_REGISTRY = "Metamodel is not registered in the EPackage Registry";
 	public static final String METAMODEL_NAME_EXISTS = "Metamodel named %s already exists";
 	public static final String DUPLICATE_ALIAS = "Duplicated alias: %s";
 	

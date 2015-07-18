@@ -33,14 +33,19 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 	protected LogBook logBook = null;
 	
 	@Override
-	public void loadModel(String pathOrNSURI) throws Exception {
+	public boolean loadModel(String pathOrNSURI) {
 		ArrayList<EPackage> result = new ArrayList<EPackage>();
-		result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
+		try {
+			result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
+		} catch (Exception e) {
+			logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.METAMODEL_NOT_IN_REGISTRY);
+		}
 		if (result.size() > 0) {
 			for(EPackage ePackage: result)
 			{
 				packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
 			}
+			return true;
 		}
 		else {
 			result.addAll(EcoreFileLoader.loadEPackageFromFile(pathOrNSURI));
@@ -49,9 +54,11 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				{
 					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
 				}
+				return true;
 			}
 			else {
 				logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+				return false;
 			}
 		}
 	}

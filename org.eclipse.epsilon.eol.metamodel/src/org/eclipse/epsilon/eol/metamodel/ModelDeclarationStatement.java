@@ -121,7 +121,7 @@ public interface ModelDeclarationStatement extends Statement {
 
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.KeyValueExpression}.
+	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
@@ -133,6 +133,6 @@ public interface ModelDeclarationStatement extends Statement {
 	 * @model
 	 * @generated
 	 */
-	EList<KeyValueExpression> getParameters();
+	EList<ModelDeclarationParameter> getParameters();
 
 } // ModelDeclarationStatement
