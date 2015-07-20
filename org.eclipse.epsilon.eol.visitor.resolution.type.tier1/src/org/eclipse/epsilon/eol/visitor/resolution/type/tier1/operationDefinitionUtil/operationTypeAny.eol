@@ -66,4 +66,4 @@ operation Any format() : String{} //done --------------------------- ===========
 
 operation Any format(pattern: String) : String{} //done ---------------------------
 
-operation Any asType(Type) : OperationArgType {} //done ---------------------------
+operation Any asType(Type) : OperationArgumentType {} //done ---------------------------

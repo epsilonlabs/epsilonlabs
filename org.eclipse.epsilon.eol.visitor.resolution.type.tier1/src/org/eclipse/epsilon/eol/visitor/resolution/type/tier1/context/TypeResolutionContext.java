@@ -5,6 +5,7 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.problem.LogBook;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
@@ -18,9 +19,12 @@ public class TypeResolutionContext {
 	protected TypeUtil typeUtil = new TypeUtil();
 	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
+	protected OperationDefinitionManager operationDefinitionManager = null;
+	
 	public TypeResolutionContext()
 	{
 		typeUtil.setContext(this);
+		operationDefinitionManager = new OperationDefinitionManager(this);
 	}
 	
 	public TypeUtil getTypeUtil() {
@@ -41,6 +45,10 @@ public class TypeResolutionContext {
 	}
 	public IMetamodelManager getiMetamodelManager() {
 		return iMetamodelManager;
+	}
+	
+	public OperationDefinitionManager getOperationDefinitionManager() {
+		return operationDefinitionManager;
 	}
 	
 	public void copyLocation(EOLElement created, EOLElement targetLocation)

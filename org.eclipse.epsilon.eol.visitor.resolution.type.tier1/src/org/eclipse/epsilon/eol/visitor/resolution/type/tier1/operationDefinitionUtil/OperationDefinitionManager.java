@@ -8,15 +8,16 @@ import org.eclipse.epsilon.eol.metamodel.SelfContentType;
 import org.eclipse.epsilon.eol.metamodel.SelfType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 
-public class OperationDefinitionControl {
+public class OperationDefinitionManager {
 
 	protected UserDefinedOperationDefinitionContainer userDefinedOperations; //used to store user defined oeprations
 	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations; //used to store standard library operations
 	protected TypeResolutionContext context;
 	protected OperationDefinitionHandlerFactory handlerFactory;
 	
-	public OperationDefinitionControl(TypeResolutionContext context)
+	public OperationDefinitionManager(TypeResolutionContext context)
 	{
 		
 		userDefinedOperations = new UserDefinedOperationDefinitionContainer(context.getTypeUtil());

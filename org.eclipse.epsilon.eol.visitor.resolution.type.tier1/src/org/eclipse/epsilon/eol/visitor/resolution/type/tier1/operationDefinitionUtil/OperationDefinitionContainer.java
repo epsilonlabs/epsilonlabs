@@ -110,6 +110,36 @@ public class OperationDefinitionContainer {
 		}
 	}
 	
+	public OperationDefinition getOperation(String name, ArrayList<Type> argTypes)
+	{
+		boolean compare = false;
+		for(OperationDefinition op: operations)
+		{
+			if (op.getName().getName().equals(name)) {
+				if (op.getParameters().size() == argTypes.size()) {
+					if (op.getParameters().size() == 0) {
+						return op;
+					}
+					else {
+						for (int i = 0; i < op.getParameters().size(); i++) {
+							
+							Type a = argTypes.get(i);
+							Type b = op.getParameters().get(i).getResolvedType();
+							compare = typeUtil.isTypeEqualOrGeneric(a, b);
+							if (!compare) {
+								break;
+							}
+						}
+						if (compare) {
+							return op;
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void putOperation(OperationDefinition op)
 	{
 		operations.add(op);
