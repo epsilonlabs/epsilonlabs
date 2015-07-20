@@ -20,6 +20,9 @@ public class IMessage_TypeResolution {
 	
 	public static final String ELEMENT_TYPE_CANNOT_BE_NULL = "Element type cannot be null";
 	
+	public static final String EXPRESSION_DOES_NOT_HAVE_A_TYPE = "Expression does not have a type";
+	
+	public static final String RESOLVED_CONTENT_NOT_VAR = "resolved content is not a variable declaraion or a formal parameter epression";
 	
 	public static String bindMessage(String message, Object value)
 	{

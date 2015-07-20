@@ -1,9 +1,11 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.problem.LogBook;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
 
@@ -13,7 +15,17 @@ public class TypeResolutionContext {
 	protected LogBook logBook = new LogBook();
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	
+	protected TypeUtil typeUtil = new TypeUtil();
 	protected final String[] supportedDrivers = {"EMF", "XML"};
+	
+	public TypeResolutionContext()
+	{
+		typeUtil.setContext(this);
+	}
+	
+	public TypeUtil getTypeUtil() {
+		return typeUtil;
+	}
 	
 	public LogBook getLogBook() {
 		return logBook;
@@ -29,6 +41,17 @@ public class TypeResolutionContext {
 	}
 	public IMetamodelManager getiMetamodelManager() {
 		return iMetamodelManager;
+	}
+	
+	public void copyLocation(EOLElement created, EOLElement targetLocation)
+	{
+		created.setRegion(EcoreUtil.copy(targetLocation.getRegion()));
+	}
+	
+	public void setAssets(EOLElement obj, EOLElement container)
+	{
+		obj.setRegion(EcoreUtil.copy(container.getRegion()));
+		obj.setContainer(container);
 	}
 	
 }

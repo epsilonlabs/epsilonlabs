@@ -13,6 +13,11 @@ public class Ast2EolUtil {
 	
 	Ast2EolContext context = null;
 	
+	public Ast2EolUtil()
+	{
+		this.context = new Ast2EolContext();
+	}
+	
 	public Ast2EolUtil(Ast2EolContext context) {
 		this.context = context;
 	}
@@ -20,35 +25,6 @@ public class Ast2EolUtil {
 	public Ast2EolContext getContext() {
 		return context;
 	}
-
-//	public AST generateAst(Class<?> clazz, String s)
-//	{
-//		EolModule eolModule = new EolModule();
-//		
-//		try {
-//			eolModule.parse(new File(clazz.getProtectionDomain().getCodeSource().getLocation().getPath()));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return null;
-//		}
-//
-//		AST ast = eolModule.getAst();
-//		return ast;
-//	}
-//	
-//	public EOLProgram generateProgram(AST ast)
-//	{
-//		EOLProgram result = null;
-//		Ast2EolContext context = new Ast2EolContext();
-//		result = (EOLProgram) context.getEolElementCreatorFactory().createDomElement(ast, null, context);
-//		return result;
-//	}
-//	
-//	public EOLProgram generate(Class<?> clazz, String s)
-//	{
-//		return generateProgram(generateAst(clazz, s));
-//	}
-	
 	
 	public EOLProgram createEOLProgramFromPath(String path)
 	{

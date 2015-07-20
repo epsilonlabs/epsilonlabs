@@ -59,7 +59,7 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 						ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
 						for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
 						{
-							if (iMetamodelContainsMetaElement(modelElementType, iMetamodelDriver2, context, modelString, elementString)) {
+							if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, modelString, elementString)) {
 								iMetamodelDriversFound.add(iMetamodelDriver2);
 							}
 						}
@@ -94,7 +94,7 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 				ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
 				for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
 				{
-					if (iMetamodelContainsMetaElement(modelElementType, iMetamodelDriver2, context, "", elementString)) {
+					if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, "", elementString)) {
 						iMetamodelDriversFound.add(iMetamodelDriver2);
 					}
 				}
@@ -112,77 +112,6 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 			
 			
 		return null;
-	}
-	
-	public boolean iMetamodelContainsMetaElement(ModelElementType modelElementType, IMetamodelDriver iMetamodelDriver, TypeResolutionContext context, String modelString, String elementString)
-	{
-		String[] identifiers = elementString.split("::");
-		
-		if (iMetamodelDriver instanceof EMFIMetamodelDriver) {
-			
-			if (identifiers.length == 1) {
-				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
-					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
-					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
-						return true;
-					}
-					else {
-						return false;
-					}				
-				}
-				else {
-					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
-					{
-						if (iPackageDriver.containsMetaElement(identifiers[0])) {
-							return true;
-						}
-					}
-					return false;
-				}
-			}
-			else {
-				IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDriver(identifiers[0]);
-				
-				for(int i = 1; i < identifiers.length-1; i++)
-				{
-					iPackageDriver = iPackageDriver.getSubPackageDriver(identifiers[i]);
-				}	
-				if (iPackageDriver.getMetaElement(identifiers[identifiers.length-2]) != null) {
-					return true;
-				}
-				else {
-					return false;
-				}
-			}
-		}
-		
-		else if (iMetamodelDriver instanceof PlainXMLIMetamodelDriver) {
-			if (!elementString.startsWith("t_")) {
-				return false;
-			}
-			else {
-
-				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
-					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
-					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
-						return true;
-					}
-					else {
-						return false;
-					}				
-				}
-				else {
-					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
-					{
-						if (iPackageDriver.containsMetaElement(identifiers[0])) {
-							return true;
-						}
-					}
-					return false;
-				}			
-			}
-		}
-		return false;
 	}
 	
 	public void handleTypeWithIMetamodelDriver(ModelElementType modelElementType, IMetamodelDriver iMetamodelDriver, TypeResolutionContext context, String modelString, String elementString)
@@ -207,7 +136,7 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 				}
 				else {
 					boolean found = false;
-					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
+					for(IPackageDriver iPackageDriver : context.getTypeUtil().getAllIPackageDrivers(iMetamodelDriver))
 					{
 						if (iPackageDriver.containsMetaElement(identifiers[0])) {
 							found = true;
@@ -262,7 +191,7 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 				}
 				else {
 					boolean found = false;
-					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
+					for(IPackageDriver iPackageDriver : context.getTypeUtil().getAllIPackageDrivers(iMetamodelDriver))
 					{
 						if (iPackageDriver.containsMetaElement(identifiers[0])) {
 							found = true;
@@ -280,25 +209,8 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 		}
 	}
 	
-	public ArrayList<IPackageDriver> getAllIPackageDrivers(IMetamodelDriver iMetamodelDriver)
-	{
-		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
-		for(IPackageDriver iPackageDriver: iMetamodelDriver.getIPackageDrivers())
-		{
-			getAllSubPackageDrivers(iPackageDriver, result);
-		}
-		return result;
-	}
+
 	
-	public void getAllSubPackageDrivers(IPackageDriver iPackageDriver, ArrayList<IPackageDriver> result)
-	{
-		if (!result.contains(iPackageDriver)) {
-			result.add(iPackageDriver);
-		}
-		for(IPackageDriver driver: iPackageDriver.getSubPackageDrivers())
-		{
-			getAllSubPackageDrivers(driver, result);
-		}
-	}
+
 
 }
