@@ -374,7 +374,6 @@ public class TypeUtil {
 				elementName = s;
 				((ModelElementType)result).setElementName(elementName);
 			}
-			
 		}
 		return result;
 	}
@@ -392,12 +391,9 @@ public class TypeUtil {
 			modelString = names[0];
 			elementString = names[1];
 		}
-		
 		if (modelString != null) {
-			
 			//if elementString is not null
 			if (elementString != null) {
-				
 				IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelString);
 				if (iMetamodelDriver != null) {
 					return iMetamodelContainsMetaElement(iMetamodelDriver, modelString, elementString);
@@ -465,6 +461,137 @@ public class TypeUtil {
 			}
 		}
 		return false;
+	}
+	
+	public ArrayList<IMetamodelDriver> getIMetamodelDrivers(String modelName, String elementName)
+	{
+		ArrayList<IMetamodelDriver> result = new ArrayList<IMetamodelDriver>();
+		
+		String modelString = modelName;
+		String elementString = elementName;
+		
+		if (modelString != null) {
+			
+			//if elementString is not null
+			if (elementString != null) {
+				
+				IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelString);
+				if (iMetamodelDriver != null) {
+					if(iMetamodelContainsMetaElement(iMetamodelDriver, modelString, elementString))
+					{
+						result.add(iMetamodelDriver);
+					}
+				}
+				else {
+					HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelString);
+					for(IMetamodelDriver imd: iMetamodelDrivers)
+					{
+						if (iMetamodelContainsMetaElement(imd, modelString, elementString)) {
+							result.add(imd);
+						}
+					}
+				}
+			}
+			else {
+				return result;
+			}
+		}
+		
+		//if model string is null
+		else {
+			
+			ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
+			for(IMetamodelDriver imd: iMetamodelDrivers)
+			{
+				if (iMetamodelContainsMetaElement(imd, modelString, elementString)) {
+					result.add(imd);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public IMetamodelDriver getIMetamodelDriver(String modelString, String elementString)
+	{
+		for(IMetamodelDriver iMetamodelDriver: getIMetamodelDrivers(modelString, elementString))
+		{
+			if (iMetamodelContainsMetaElement(iMetamodelDriver, modelString, elementString)) {
+				return iMetamodelDriver;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<IPackageDriver> getIPackageDriver(IMetamodelDriver iMetamodelDriver, String modelName, String elementName)
+	{
+		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
+		String[] identifiers = elementName.split("::");
+		if (iMetamodelDriver instanceof EMFIMetamodelDriver) {
+			if (identifiers.length == 1) {
+				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
+					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
+					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
+						result.add(iPackageDriver);
+						return result;
+					}
+					else {
+						return result;
+					}				
+				}
+				else {
+					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
+					{
+						if (iPackageDriver.containsMetaElement(identifiers[0])) {
+							result.add(iPackageDriver);
+						}
+					}
+					return result;
+				}
+			}
+			else {
+				IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDriver(identifiers[0]);
+				
+				for(int i = 1; i < identifiers.length-1; i++)
+				{
+					iPackageDriver = iPackageDriver.getSubPackageDriver(identifiers[i]);
+				}	
+				if (iPackageDriver.getMetaElement(identifiers[identifiers.length-2]) != null) {
+					result.add(iPackageDriver);
+					return result;
+				}
+				else {
+					return result;
+				}
+			}
+		}
+		else if (iMetamodelDriver instanceof PlainXMLIMetamodelDriver) {
+			if (!elementName.startsWith("t_")) {
+				return result;
+			}
+			else {
+
+				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
+					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
+					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
+						result.add(iPackageDriver);
+						return result;
+					}
+					else {
+						return result;
+					}				
+				}
+				else {
+					for(IPackageDriver iPackageDriver : getAllIPackageDrivers(iMetamodelDriver))
+					{
+						if (iPackageDriver.containsMetaElement(identifiers[0])) {
+							result.add(iPackageDriver);
+						}
+					}
+					return result;
+				}			
+			}
+		}
+		return result;
 	}
 	
 	public boolean iMetamodelContainsMetaElement(IMetamodelDriver iMetamodelDriver, String modelString, String elementString)

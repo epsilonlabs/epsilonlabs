@@ -24,6 +24,8 @@ public class IMessage_TypeResolution {
 	
 	public static final String RESOLVED_CONTENT_NOT_VAR = "resolved content is not a variable declaraion or a formal parameter epression";
 	
+	public static final String ENUM_CANNOT_BE_RESOLVED = "Enumeration cannot be resolved";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());
