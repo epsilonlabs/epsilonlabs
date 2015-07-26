@@ -9,7 +9,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.ForStatementVisitor;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolutionContext, Object>{
+public class ForStatementTypeResolver_T1 extends ForStatementVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(ForStatement forStatement,

@@ -5,7 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.SequenceTypeVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class SequenceTypeTypeResolver_t1 extends SequenceTypeVisitor<TypeResolutionContext, Object>{
+public class SequenceTypeTypeResolver_T1 extends SequenceTypeVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(SequenceType sequenceType,

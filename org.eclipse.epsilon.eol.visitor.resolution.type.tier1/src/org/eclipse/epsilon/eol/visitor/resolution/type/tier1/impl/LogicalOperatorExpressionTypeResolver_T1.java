@@ -23,7 +23,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
+public class LogicalOperatorExpressionTypeResolver_T1 extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public boolean appliesTo(BinaryOperatorExpression binaryOperatorExpression,

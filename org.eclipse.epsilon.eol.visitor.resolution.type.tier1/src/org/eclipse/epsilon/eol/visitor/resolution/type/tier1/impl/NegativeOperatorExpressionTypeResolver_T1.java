@@ -12,7 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.NegativeOperatorExpressionVisit
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpressionVisitor<TypeResolutionContext, Object>{
+public class NegativeOperatorExpressionTypeResolver_T1 extends NegativeOperatorExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(NegativeOperatorExpression negativeOperatorExpression,

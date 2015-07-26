@@ -1,16 +1,16 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
-import org.eclipse.epsilon.eol.metamodel.Import;
+import org.eclipse.epsilon.eol.metamodel.SetType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
-import org.eclipse.epsilon.eol.metamodel.visitor.ImportVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.SetTypeVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ImportTypeResolver extends ImportVisitor<TypeResolutionContext, Object>{
+public class SetTypeTypeResolver_T1 extends SetTypeVisitor<TypeResolutionContext, Object>{
 
 	@Override
-	public Object visit(Import _import, TypeResolutionContext context,
+	public Object visit(SetType setType, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		controller.visit(_import.getImportedModule(), context);
+		controller.visit(setType.getContentType(), context);
 		return null;
 	}
 

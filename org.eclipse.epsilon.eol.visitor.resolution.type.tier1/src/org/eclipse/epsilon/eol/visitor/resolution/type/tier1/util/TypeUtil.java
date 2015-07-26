@@ -13,6 +13,7 @@ import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriv
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.BagType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OrderedSetType;
@@ -25,6 +26,11 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 public class TypeUtil {
 
 	protected TypeResolutionContext context;
+	
+	protected boolean isInstanceofAnyType(EOLElement eolElement)
+	{
+		return eolElement.getClass().getSimpleName().equals("AnyTypeImpl");
+	}
 	
 	public void setContext(TypeResolutionContext context) {
 		this.context = context;
