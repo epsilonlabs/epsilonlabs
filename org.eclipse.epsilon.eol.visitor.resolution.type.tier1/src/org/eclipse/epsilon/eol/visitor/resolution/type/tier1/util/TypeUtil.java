@@ -463,6 +463,40 @@ public class TypeUtil {
 		return false;
 	}
 	
+	public boolean iMetamodelExists(String modelName) {
+		IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelName);
+		if (iMetamodelDriver != null) {
+			return true;
+		}
+		else {
+			HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
+			if (iMetamodelDrivers.size() > 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
+	
+	public ArrayList<IMetamodelDriver> getIMetamodelDriverByName(String modelName)
+	{
+		ArrayList<IMetamodelDriver> result = new ArrayList<IMetamodelDriver>();
+		IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelName);
+		if (iMetamodelDriver != null) {
+			result.add(iMetamodelDriver);
+			return result;
+		}
+		else {
+			HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
+			for(IMetamodelDriver imd: iMetamodelDrivers)
+			{
+				result.add(imd);
+			}
+		}
+		return result;
+	}
+	
 	public ArrayList<IMetamodelDriver> getIMetamodelDrivers(String modelName, String elementName)
 	{
 		ArrayList<IMetamodelDriver> result = new ArrayList<IMetamodelDriver>();
@@ -522,7 +556,7 @@ public class TypeUtil {
 		return null;
 	}
 	
-	public ArrayList<IPackageDriver> getIPackageDriver(IMetamodelDriver iMetamodelDriver, String modelName, String elementName)
+	public ArrayList<IPackageDriver> getIPackageDrivers(IMetamodelDriver iMetamodelDriver, String modelName, String elementName)
 	{
 		ArrayList<IPackageDriver> result = new ArrayList<IPackageDriver>();
 		String[] identifiers = elementName.split("::");

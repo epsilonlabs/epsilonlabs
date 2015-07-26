@@ -21,13 +21,13 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
 		//get the string for model
-		String modelString = modelElementType.getModelName();
+		String modelName = modelElementType.getModelName();
 		
 		//get the string for element
-		String elementString = modelElementType.getElementName(); 
+		String elementName = modelElementType.getElementName(); 
 		
 		//if keyword _ModelElementType_ is found, then return null, do nothing
-		if (modelString == null && elementString.equals("_ModelElementType_")) { 
+		if (modelName == null && elementName.equals("_ModelElementType_")) { 
 			return null;
 		}
 		
@@ -38,45 +38,50 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 		
 		
 		//if model name is not null
-		if (modelString != null) {
+		if (modelName != null) {
 			
-			//if elementString is not null
-			if (elementString != null) {
-				
-				IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelString);
-				if (iMetamodelDriver != null) {
-					handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriver, context, modelString, elementString);
-				}
-				else {
-					HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelString);
-					if (iMetamodelDrivers.size() == 0) {
-						context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
-					}
-					else if (iMetamodelDrivers.size() == 1) {
-						handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriver, context, modelString, elementString);
-					}
-					else if (iMetamodelDrivers.size() > 1) {
-						ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
-						for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
-						{
-							if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, modelString, elementString)) {
-								iMetamodelDriversFound.add(iMetamodelDriver2);
-							}
-						}
-						if (iMetamodelDriversFound.size() == 0) {
-							context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
-						}
-						else if (iMetamodelDriversFound.size() > 1) {
-							context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, modelString+"!"+elementString));
-						}
-						else {
-							handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, modelString, elementString);
-						}
-					}
-				}
+			if (context.getTypeUtil().getIMetamodelDriverByName(modelName).size() == 0) {
+				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_NOT_FOUND, modelName));
 			}
 			else {
-				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.ELEMENT_TYPE_CANNOT_BE_NULL);
+				//if elementString is not null
+				if (elementName != null) {
+					
+					IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelName);
+					if (iMetamodelDriver != null) {
+						handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriver, context, modelName, elementName);
+					}
+					else {
+						HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
+						if (iMetamodelDrivers.size() == 0) {
+							context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
+						}
+						else if (iMetamodelDrivers.size() == 1) {
+							handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriver, context, modelName, elementName);
+						}
+						else if (iMetamodelDrivers.size() > 1) {
+							ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
+							for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
+							{
+								if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, modelName, elementName)) {
+									iMetamodelDriversFound.add(iMetamodelDriver2);
+								}
+							}
+							if (iMetamodelDriversFound.size() == 0) {
+								context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
+							}
+							else if (iMetamodelDriversFound.size() > 1) {
+								context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, modelName+"!"+elementName));
+							}
+							else {
+								handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, modelName, elementName);
+							}
+						}
+					}
+				}
+				else {
+					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.ELEMENT_TYPE_CANNOT_BE_NULL);
+				}
 			}
 		}
 		
@@ -85,27 +90,27 @@ public class ModelElementTypeResolver_t1 extends ModelElementTypeVisitor<TypeRes
 			
 			ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
 			if (iMetamodelDrivers.size() == 0) {
-				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementString));
+				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
 			}
 			else if (iMetamodelDrivers.size() == 1) {
-				handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDrivers.get(0), context, "", elementString);
+				handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDrivers.get(0), context, "", elementName);
 			}
 			else if (iMetamodelDrivers.size() > 1) {
 				ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
 				for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
 				{
-					if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, "", elementString)) {
+					if (context.getTypeUtil().iMetamodelContainsMetaElement(iMetamodelDriver2, "", elementName)) {
 						iMetamodelDriversFound.add(iMetamodelDriver2);
 					}
 				}
 				if (iMetamodelDriversFound.size() == 0) {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementString));
+					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
 				}
 				else if (iMetamodelDriversFound.size() > 1) {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, "!"+elementString));
+					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, "!"+elementName));
 				}
 				else {
-					handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, "", elementString);
+					handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, "", elementName);
 				}
 			}
 		}
