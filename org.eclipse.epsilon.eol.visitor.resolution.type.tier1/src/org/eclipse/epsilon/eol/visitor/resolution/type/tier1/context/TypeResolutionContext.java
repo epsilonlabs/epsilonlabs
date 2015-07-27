@@ -10,29 +10,34 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
 
+	private static TypeResolutionContext instance = null;
+	
 	protected EOLLibraryModule currentProgram = null;
 	protected EOLElement currentEOLElement = null;
 	
-	protected LogBook logBook = new LogBook();
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
-	
-	protected TypeUtil typeUtil = new TypeUtil();
 	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
 	protected OperationDefinitionManager operationDefinitionManager = null;
 	
-	public TypeResolutionContext()
+	protected TypeResolutionContext()
 	{
-		typeUtil.setContext(this);
-		operationDefinitionManager = new OperationDefinitionManager(this);
+	}
+	
+	public static TypeResolutionContext getInstance()
+	{
+		if (instance == null) {
+			instance = new TypeResolutionContext();
+		}
+		return instance;
 	}
 	
 	public TypeUtil getTypeUtil() {
-		return typeUtil;
+		return TypeUtil.getInstance();
 	}
 	
 	public LogBook getLogBook() {
-		return logBook;
+		return LogBook.getInstance();
 	}
 	
 	public void addIMetamodelDriver(IMetamodelDriver iMetamodelDriver)

@@ -8,14 +8,11 @@ import org.eclipse.epsilon.eol.metamodel.EOLProgram;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class StandardLibraryOperationDefinitionContainer extends OperationDefinitionContainer{
 
 	protected Ast2EolUtil ast2EolUtil = new Ast2EolUtil();
-	public StandardLibraryOperationDefinitionContainer(TypeUtil typeUtil) {
-		super(typeUtil);
+	public StandardLibraryOperationDefinitionContainer() {
 		init();
 	}
 	
@@ -58,10 +55,9 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	}
 	
 	public static void main(String[] args) {
-		TypeResolutionContext context = new TypeResolutionContext();
-		TypeUtil typeUtil = new TypeUtil();
-		typeUtil.setContext(context);
-		StandardLibraryOperationDefinitionContainer a = new StandardLibraryOperationDefinitionContainer(typeUtil);
+		//TypeResolutionContext context = TypeResolutionContext.getInstance();
+		
+		StandardLibraryOperationDefinitionContainer a = new StandardLibraryOperationDefinitionContainer();
 		System.out.println(a.getOperations().size());
 	}
 	

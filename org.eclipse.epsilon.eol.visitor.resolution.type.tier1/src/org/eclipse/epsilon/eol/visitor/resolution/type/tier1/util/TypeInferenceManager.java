@@ -1,21 +1,37 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
+import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
-import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class TypeInferenceManager {
+	
+	private static TypeInferenceManager instance = null;
 
+	public TypeInferenceManager()
+	{
+		
+	}
+	
+	public static TypeInferenceManager getInstance()
+	{
+		if (instance == null) {
+			instance = new TypeInferenceManager();
+		}
+		return instance;
+	}
+	
 	public static void main(String[] args) {
 		Type t1 = EolFactory.eINSTANCE.createRealType();
 		Type t2 = EolFactory.eINSTANCE.createIntegerType();
@@ -25,22 +41,11 @@ public class TypeInferenceManager {
 		System.out.println(t2.eClass());
 		System.out.println(t3.eClass());
 		
-//		Class<?> c;
-//		try {
-//			c = Class.forName("java.lang.String");
-//			System.out.println(c);
-//			System.out.println(c.getDeclaredMethods().length);
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
 		if (t1.eClass().isSuperTypeOf(t2.eClass())) {
 			System.out.println("trueeeeeeee");
 		}
 		
 		System.out.println(t3.eClass().isSuperTypeOf(t1.eClass()));
-		
 		
 		TypeInferenceManager typeInferenceManager = new TypeInferenceManager();
 		System.out.println(typeInferenceManager.getLeastCommonTypeOf(t2.eClass(), t1.eClass()));
@@ -51,18 +56,24 @@ public class TypeInferenceManager {
 		Type result = null;
 		for(Type t: anyType.getDynamicTypes())
 		{
-			
+			result = getLeastCommonType(result, t);
 		}
 		
 		if (result == null) {
 			return anyType;
 		}
+		else {
+			return result;
+		}
+	}
+	
+	public Type inferType(AnyType anyType, String property)
+	{
 		return null;
 	}
 	
 	public Type getLeastCommonType(Type t1, Type t2)
 	{
-		Type result = null;
 		if (t1 == null) {
 			return EcoreUtil.copy(t2);
 		}
@@ -84,7 +95,7 @@ public class TypeInferenceManager {
 			}
 		}
 		else if (t1 instanceof ModelElementType && t2 instanceof ModelElementType) {
-			
+			return getLeastCommonModelElementType((ModelElementType)t1, (ModelElementType)t2);
 		}
 		return null;
 	}
@@ -101,12 +112,28 @@ public class TypeInferenceManager {
 			return EcoreUtil.copy(t2);
 		}
 		else {
-			if(getLeastCommonTypeOf(eClass1, eClass2) != null)
+			EClass result = getLeastCommonTypeOf(eClass1, eClass2);
+			if(result != null)
 			{
-				
+				TypeResolutionContext context = TypeResolutionContext.getInstance();
+				for(IMetamodelDriver iMetamodelDriver : context.getiMetamodelManager().getiMetamodelDrivers())
+				{
+					for(IPackageDriver iPackageDriver: iMetamodelDriver.getIPackageDrivers()) {
+						if (iPackageDriver.getClass(result.getName()).equals(result)) {
+							ModelElementType modelElementType = EolFactory.eINSTANCE.createModelElementType();
+							modelElementType.setModelType(result);
+							modelElementType.setElementName(result.getName());
+							modelElementType.setModelName(iMetamodelDriver.getName());
+							return modelElementType;
+						}
+					}
+				}
+				return null;
+			}
+			else {
+				return null;
 			}
 		}
-		return null;
 	}
 	
 	public Type getLeastCommonPrimitiveType(PrimitiveType t1, PrimitiveType t2)
@@ -118,9 +145,8 @@ public class TypeInferenceManager {
 			return EcoreUtil.copy(t2);
 		}
 		else {
-			
+			return null;
 		}
-		return null;
 	}
 	
 	public HashSet<EClass> getCommonTypesOf(EClass t1, EClass t2)
@@ -155,8 +181,8 @@ public class TypeInferenceManager {
 		for(EClass commonType: getCommonTypesOf(t1, t2))
 		{
 			int temp = 0;
-			temp = shortestDistanceBetweenClass(t1, commonType);
-			temp = shortestDistanceBetweenClass(t2, commonType);
+			temp = TypeUtil.getInstance().shortestDistanceBetweenClass(t1, commonType);
+			temp = TypeUtil.getInstance().shortestDistanceBetweenClass(t2, commonType);
 			result.put(commonType, temp);
 		}
 		EClass least = null;
@@ -171,58 +197,5 @@ public class TypeInferenceManager {
 		}
 		return least;
 	}
-
-	
-	
-	protected boolean isInstanceofAnyType(EOLElement eolElement)
-	{
-		return eolElement.getClass().getSimpleName().equals("AnyTypeImpl");
-	}
-	
-	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
-	{
-		int result = -1;
-		if (subClass.getEPackage().equals(superClass.getEPackage())) {	//if the class share the same EPackage		
-			if(subClass.getEAllSuperTypes().contains(superClass)) //if the superClass is an ancestor of the subClass
-			{
-				ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>(); //create unvisited list 
-				ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>(); //create visited list
-				result = 0; //set result to 0
-				for(EClass cls: subClass.getEAllSuperTypes()) //for all of the super classes of the subClass
-				{
-					MetaClassNode node = new MetaClassNode(cls); //create a Node
-					node.setWeight(100000); //set weight to be infinite
-					unvisited.add(node); //add node to unvisited
-				}
-				MetaClassNode current = new MetaClassNode(subClass); //set the current node to be the one that contains subClass
-				current.setWeight(0); //set the weight to be 0
-				unvisited.add(current); //add the current to the unvisited
-				
-				while(unvisited.size() != 0) //if there are remaining unvisited nodes
-				{
-					MetaClassNode min = current.extractMin(unvisited); //get the node with the smallest weight
-					if (min.getEClass().equals(superClass)) { //stop when sub = super
-						break;
-					}
-					visited.add(min); //add the node with the minimum weight to the visited list
-					for(MetaClassNode n: current.getNeighbours(min, unvisited)) //get the neighbours for the current node
-					{
-						if (n.getWeight() > min.getWeight() + 1) { //if the weight of the node is greater than the min node + 1
-							n.setWeight(min.getWeight() + 1); //set the weight to be min node's weight + 1
-							n.setPrevious(min); //set the previous of the node to be min
-						}
-					}
-				}
-				result = visited.size();
-				
-			}
-			else if(subClass.equals(superClass))
-			{
-				result = 0;
-			}
-		}
-		return result;
-	}
-
 
 }

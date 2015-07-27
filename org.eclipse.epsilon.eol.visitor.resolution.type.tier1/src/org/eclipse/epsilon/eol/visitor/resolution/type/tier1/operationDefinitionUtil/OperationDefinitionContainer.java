@@ -11,10 +11,10 @@ public class OperationDefinitionContainer {
 	protected ArrayList<OperationDefinition> operations;
 	protected TypeUtil typeUtil;
 	
-	public OperationDefinitionContainer(TypeUtil typeUtil)
+	public OperationDefinitionContainer()
 	{
 		operations = new ArrayList<OperationDefinition>();
-		this.typeUtil = typeUtil;
+		typeUtil = TypeUtil.getInstance();
 	}
 	
 	//returns true if there is one operationdefinition which has exactly the same context type and name, and (vague) parameter types

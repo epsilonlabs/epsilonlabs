@@ -5,23 +5,20 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class OperationDefinitionHandlerFactory {
 
-	protected TypeResolutionContext context;
 	protected ArrayList<OperationDefinitionHandler> handlers;
 	
-	public OperationDefinitionHandlerFactory(TypeResolutionContext context)
+	public OperationDefinitionHandlerFactory()
 	{
-		this.context = context;
 		handlers = new ArrayList<OperationDefinitionHandler>();
 		initTypeHandlers();
 	}
 	
 	public void initTypeHandlers()
 	{
-		handlers.add(new IfUndefinedHandler(context));
+		handlers.add(new IfUndefinedHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

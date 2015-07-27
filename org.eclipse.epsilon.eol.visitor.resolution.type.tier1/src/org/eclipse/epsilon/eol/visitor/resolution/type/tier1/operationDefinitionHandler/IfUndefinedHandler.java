@@ -14,10 +14,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 
 public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 
-	public IfUndefinedHandler(TypeResolutionContext context) {
-		super(context);
-	}
-
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
 		return name.equals("ifUndefined") && argTypes.size() == 1;
@@ -27,7 +23,7 @@ public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
-		StandardLibraryOperationDefinitionContainer manager = context.getOperationDefinitionManager().getStandardLibraryOperationDefinitionContainer();
+		StandardLibraryOperationDefinitionContainer manager = TypeResolutionContext.getInstance().getOperationDefinitionManager().getStandardLibraryOperationDefinitionContainer();
 		
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		

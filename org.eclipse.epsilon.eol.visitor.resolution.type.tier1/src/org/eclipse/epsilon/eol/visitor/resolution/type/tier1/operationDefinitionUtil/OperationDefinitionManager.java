@@ -7,23 +7,29 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.SelfContentType;
 import org.eclipse.epsilon.eol.metamodel.SelfType;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 
 public class OperationDefinitionManager {
 
+	private static OperationDefinitionManager instance = null;
 	protected UserDefinedOperationDefinitionContainer userDefinedOperations; //used to store user defined oeprations
 	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations; //used to store standard library operations
-	protected TypeResolutionContext context;
 	protected OperationDefinitionHandlerFactory handlerFactory;
 	
-	public OperationDefinitionManager(TypeResolutionContext context)
+	protected OperationDefinitionManager()
 	{
 		
-		userDefinedOperations = new UserDefinedOperationDefinitionContainer(context.getTypeUtil());
-		standardLibraryOperations = new StandardLibraryOperationDefinitionContainer(context.getTypeUtil());
-		this.context = context;
-		handlerFactory = new OperationDefinitionHandlerFactory(context);
+		userDefinedOperations = new UserDefinedOperationDefinitionContainer();
+		standardLibraryOperations = new StandardLibraryOperationDefinitionContainer();
+		handlerFactory = new OperationDefinitionHandlerFactory();
+	}
+	
+	public static OperationDefinitionManager getInstance()
+	{
+		if (instance == null) {
+			instance = new OperationDefinitionManager();
+		}
+		return instance;
 	}
 	
 	public OperationDefinitionHandlerFactory getHandlerFactory()

@@ -25,21 +25,28 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 
 public class TypeUtil {
 
+	private static TypeUtil instance = null;
+	
 	protected TypeResolutionContext context;
+	
+	protected TypeUtil()
+	{
+		//context = TypeResolutionContext.getInstance();
+	}
+	
+	public static TypeUtil getInstance()
+	{
+		if (instance == null) {
+			instance = new TypeUtil();
+		}
+		return instance;
+	}
 	
 	protected boolean isInstanceofAnyType(EOLElement eolElement)
 	{
 		return eolElement.getClass().getSimpleName().equals("AnyTypeImpl");
 	}
 	
-	public void setContext(TypeResolutionContext context) {
-		this.context = context;
-	}
-	
-	public TypeResolutionContext getContext() {
-		return context;
-	}
-		
 	public boolean isEDataType(EObject eObject) {
 		return eObject instanceof EDataType;
 	}
