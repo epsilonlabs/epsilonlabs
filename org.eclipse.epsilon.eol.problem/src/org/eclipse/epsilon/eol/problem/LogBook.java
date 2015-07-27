@@ -6,6 +6,8 @@ import org.eclipse.epsilon.eol.metamodel.EOLElement;
 
 public class LogBook {
 
+	private static LogBook instance = null;
+	
 	protected ArrayList<EOLWarning> warnings;
 	protected ArrayList<EOLError> errors;
 	
@@ -13,6 +15,14 @@ public class LogBook {
 	{
 		warnings = new ArrayList<EOLWarning>();
 		errors = new ArrayList<EOLError>();
+	}
+	
+	public static LogBook getInstance()
+	{
+		if (instance == null) {
+			instance = new LogBook();
+		}
+		return instance;
 	}
 
 	public ArrayList<EOLWarning> getWarnings() {

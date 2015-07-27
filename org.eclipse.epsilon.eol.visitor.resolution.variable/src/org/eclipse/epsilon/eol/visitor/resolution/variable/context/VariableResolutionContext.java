@@ -18,7 +18,7 @@ public class VariableResolutionContext {
 	protected ArrayList<String> keywordPool = new ArrayList<String>();
 	
 	protected FrameStack stack = new FrameStack(); //the frameStack
-	protected LogBook logBook = new LogBook(); //logbook for storing warnings and errors
+	protected LogBook logBook = LogBook.getInstance(); //logbook for storing warnings and errors
 	
 	protected ArrayList<AssignmentStatement> assignmentsToAvoid = new ArrayList<AssignmentStatement>();
 	
