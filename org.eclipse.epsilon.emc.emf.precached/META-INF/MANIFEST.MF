@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.epsilon.emc.emf.precached
+Bundle-SymbolicName: org.eclipse.epsilon.emc.emf.precached; singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Require-Bundle: org.eclipse.emf.ecore,
+ org.eclipse.epsilon.eol.engine,
+ org.eclipse.epsilon.labs.effectivemetamodel,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.epsilon.emc.emf,
+ org.eclipse.epsilon.eol.ast2eol,
+ org.eclipse.epsilon.eol.visitor.resolution.variable,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1,
+ org.eclipse.epsilon.eol.analysis.optimisation.loading
