@@ -2,31 +2,36 @@ package org.eclipse.epsilon.eol.ast2eol;
 
 import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
-import org.eclipse.epsilon.eol.ast2eol.util.AstUtilities;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
-public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
+public class SwitchCaseExpressionStatementCreator extends SwitchStatementCaseCreator{
 
 	@Override
 	public boolean appliesTo(AST ast) {
-		if(ast.getType() == EolParser.DEFAULT)
+		if(ast.getType() == EolParser.CASE)
 		{
 			return true;
 		}
 		else {
 			return false;
-		}
+		} 
 	}
 
 	@Override
 	public EOLElement create(AST ast, EOLElement container,
 			Ast2EolContext context) {
 
-		SwitchCaseDefaultStatement statement = (SwitchCaseDefaultStatement) context.getEolFactory().createSwitchCaseDefaultStatement(); //create a SwitchCaseDefaultStatment
+		SwitchCaseExpressionStatement statement = (SwitchCaseExpressionStatement) context.getEolFactory().createSwitchCaseExpressionStatement(); //create a SwitchCaseExpressionStatement
 		this.setAssets(ast, statement, container);
 		
-		AST blockAST = AstUtilities.getChild(ast, EolParser.BLOCK); //fetch the body AST for the switch case, there is always a block
+		AST expressionAst = ast.getFirstChild();
+		if(expressionAst != null)
+		{
+			((SwitchCaseExpressionStatement)statement).setExpression((Expression) context.getEolElementCreatorFactory().createEOLElement(expressionAst, statement, context)); //set the Expression	
+		}
+		
+		AST blockAST = expressionAst.getNextSibling();
 		if(blockAST != null)
 		{
 			statement.setBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(blockAST, statement, context, ExpressionOrStatementBlockCreator.class));
@@ -35,4 +40,5 @@ public class SwitchCaseDefaultCreator extends SwitchStatementCaseCreator{
 		
 		return statement;
 	}
+
 }
