@@ -8,6 +8,7 @@ import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.VariableDeclarationExpressionVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
@@ -50,7 +51,7 @@ public class VariableDeclarationExpressionTypeResolver_T1 extends VariableDeclar
 					//check if the class is an interface or abstract
 					if (eClass.isAbstract() || eClass.isInterface()) {
 						
-						context.getLogBook().addError(modelElementType,
+						LogBook.getInstance().addError(modelElementType,
 								IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_NOT_INSTANTIABLE, eClass.getName())); //throw error
 					}
 				}

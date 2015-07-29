@@ -31,7 +31,6 @@ public class TypeUtil {
 	
 	protected TypeUtil()
 	{
-		//context = TypeResolutionContext.getInstance();
 	}
 	
 	public static TypeUtil getInstance()
@@ -42,7 +41,7 @@ public class TypeUtil {
 		return instance;
 	}
 	
-	protected boolean isInstanceofAnyType(EOLElement eolElement)
+	public boolean isInstanceofAnyType(EOLElement eolElement)
 	{
 		return eolElement.getClass().getSimpleName().equals("AnyTypeImpl");
 	}
@@ -118,6 +117,10 @@ public class TypeUtil {
 		if (t1 == null && t2 == null) {
 			return true;
 		}
+		else if (t1 == null || t2 == null) {
+			return false;
+		}
+		
 		Type a = null;
 		Type b = null;
 		

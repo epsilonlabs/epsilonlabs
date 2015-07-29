@@ -19,9 +19,8 @@ public class TypeInferenceManager {
 	
 	private static TypeInferenceManager instance = null;
 
-	public TypeInferenceManager()
+	protected TypeInferenceManager()
 	{
-		
 	}
 	
 	public static TypeInferenceManager getInstance()
@@ -51,6 +50,28 @@ public class TypeInferenceManager {
 		System.out.println(typeInferenceManager.getLeastCommonTypeOf(t2.eClass(), t1.eClass()));
 	}
 	
+	public boolean containsDynamicType(AnyType anyType, EClass typeUnderQuestion)
+	{
+		for(Type dynType: anyType.getDynamicTypes())
+		{
+			if (typeUnderQuestion.isSuperTypeOf(dynType.eClass()) || typeUnderQuestion.equals(dynType.eClass())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Type getDynamicType(AnyType anyType, EClass typeUnderQuestion)
+	{
+		for(Type dynType: anyType.getDynamicTypes())
+		{
+			if (typeUnderQuestion.isSuperTypeOf(dynType.eClass()) || typeUnderQuestion.equals(dynType.eClass())) {
+				return dynType;
+			}
+		}
+		return null;
+	}
+	
 	public Type inferType(AnyType anyType)
 	{
 		Type result = null;
@@ -65,6 +86,17 @@ public class TypeInferenceManager {
 		else {
 			return result;
 		}
+	}
+	
+	public boolean isRightCompatibleToLeft(Type left, AnyType right)
+	{
+		for(Type t : right.getDynamicTypes())
+		{
+			if (TypeUtil.getInstance().isTypeEqualOrGeneric(t, left)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public Type inferType(AnyType anyType, String property)

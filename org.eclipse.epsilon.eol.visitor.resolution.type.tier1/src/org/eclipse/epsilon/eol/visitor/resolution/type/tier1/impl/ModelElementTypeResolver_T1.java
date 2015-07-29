@@ -10,6 +10,7 @@ import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriv
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
@@ -32,7 +33,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 		}
 		
 		if (context.getiMetamodelManager().getiMetamodelDrivers().size() == 0) {
-			context.getLogBook().addError(modelElementType, IMessage_TypeResolution.MODEL_DECL_NO_MODEL_DECLARED);
+			LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.MODEL_DECL_NO_MODEL_DECLARED);
 			return null;
 		}
 		
@@ -41,7 +42,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 		if (modelName != null) {
 			
 			if (context.getTypeUtil().getIMetamodelDriverByName(modelName).size() == 0) {
-				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_NOT_FOUND, modelName));
+				LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_NOT_FOUND, modelName));
 			}
 			else {
 				//if elementString is not null
@@ -54,7 +55,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 					else {
 						HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
 						if (iMetamodelDrivers.size() == 0) {
-							context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
+							LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
 						}
 						else if (iMetamodelDrivers.size() == 1) {
 							handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriver, context, modelName, elementName);
@@ -68,10 +69,10 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 								}
 							}
 							if (iMetamodelDriversFound.size() == 0) {
-								context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
+								LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelName+"!"+elementName));
 							}
 							else if (iMetamodelDriversFound.size() > 1) {
-								context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, modelName+"!"+elementName));
+								LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, modelName+"!"+elementName));
 							}
 							else {
 								handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, modelName, elementName);
@@ -80,7 +81,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 					}
 				}
 				else {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.ELEMENT_TYPE_CANNOT_BE_NULL);
+					LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.ELEMENT_TYPE_CANNOT_BE_NULL);
 				}
 			}
 		}
@@ -90,7 +91,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 			
 			ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
 			if (iMetamodelDrivers.size() == 0) {
-				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
+				LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
 			}
 			else if (iMetamodelDrivers.size() == 1) {
 				handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDrivers.get(0), context, "", elementName);
@@ -104,10 +105,10 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 					}
 				}
 				if (iMetamodelDriversFound.size() == 0) {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
+					LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, "!"+elementName));
 				}
 				else if (iMetamodelDriversFound.size() > 1) {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, "!"+elementName));
+					LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_ELEMENT_DEFINED_IN_MULTIPLE_METAMODELS, "!"+elementName));
 				}
 				else {
 					handleTypeWithIMetamodelDriver(modelElementType, iMetamodelDriversFound.get(0), context, "", elementName);
@@ -136,7 +137,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 						return;
 					}
 					else {
-						context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
+						LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
 					}				
 				}
 				else {
@@ -152,7 +153,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 						}
 					}
 					if (!found) {
-						context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
+						LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
 					}
 				}
 			}
@@ -170,14 +171,14 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 					return;
 				}
 				else {
-					context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
+					LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
 				}
 			}
 		}
 		
 		else if (iMetamodelDriver instanceof PlainXMLIMetamodelDriver) {
 			if (!elementString.startsWith("t_")) {
-				context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.INVALID_XML_TYPE_NOTATION, elementString.substring(0, 2)));
+				LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.INVALID_XML_TYPE_NOTATION, elementString.substring(0, 2)));
 				return;
 			}
 			else {
@@ -191,7 +192,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 						return;
 					}
 					else {
-						context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
+						LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
 					}				
 				}
 				else {
@@ -207,7 +208,7 @@ public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeRes
 						}
 					}
 					if (!found) {
-						context.getLogBook().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
+						LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, modelString+"!"+elementString));
 					}
 				}			
 			}

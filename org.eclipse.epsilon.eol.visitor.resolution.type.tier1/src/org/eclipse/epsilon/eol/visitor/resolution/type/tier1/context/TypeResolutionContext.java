@@ -18,8 +18,6 @@ public class TypeResolutionContext {
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
-	protected OperationDefinitionManager operationDefinitionManager = null;
-	
 	protected TypeResolutionContext()
 	{
 	}
@@ -53,7 +51,7 @@ public class TypeResolutionContext {
 	}
 	
 	public OperationDefinitionManager getOperationDefinitionManager() {
-		return operationDefinitionManager;
+		return OperationDefinitionManager.getInstance();
 	}
 	
 	public void copyLocation(EOLElement created, EOLElement targetLocation)
@@ -67,4 +65,9 @@ public class TypeResolutionContext {
 		obj.setContainer(container);
 	}
 	
+	public static void main(String[] args) {
+		System.out.println("Initialising type resolution context...");
+		TypeResolutionContext context = TypeResolutionContext.getInstance();
+		System.out.println("...Type resolution context initialised");
+	}
 }

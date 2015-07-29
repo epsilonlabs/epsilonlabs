@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
@@ -32,7 +33,7 @@ public class NameExpressionTypeResolver_T1 extends NameExpressionVisitor<TypeRes
 		if (context.getTypeUtil().isKeyWord(nameString)) { //if name expression is keyword then resolve type immediately
 			AnyType type = context.getTypeUtil().createType(nameString);
 			if (type == null) {
-				context.getLogBook().addError(nameExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED,  nameString));
+				LogBook.getInstance().addError(nameExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED,  nameString));
 			}
 			else {
 				nameExpression.setResolvedType(context.getTypeUtil().createType(nameString));
@@ -124,11 +125,11 @@ public class NameExpressionTypeResolver_T1 extends NameExpressionVisitor<TypeRes
 						context.setAssets(type, nameExpression); //set assets of the type
 					}
 					else {
-						context.getLogBook().addError((EOLElement) resolvedContent, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+						LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 					}
 				}
 				else {
-					context.getLogBook().addError((EOLElement) resolvedContent, IMessage_TypeResolution.RESOLVED_CONTENT_NOT_VAR);
+					LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.RESOLVED_CONTENT_NOT_VAR);
 				}
 				return null;
 			}

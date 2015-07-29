@@ -19,8 +19,7 @@ public class ExpressionOrStatementBlockTypeResolver_T1 extends ExpressionOrState
 		if (expression != null) {
 			controller.visit(expression, context);
 		}
-		
-		if (block != null) {
+		else if (block != null) {
 			controller.visit(block, context);
 		}
 		

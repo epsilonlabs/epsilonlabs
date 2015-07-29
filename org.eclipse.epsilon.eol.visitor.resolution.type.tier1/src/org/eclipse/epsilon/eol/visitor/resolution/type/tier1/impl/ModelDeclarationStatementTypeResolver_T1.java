@@ -8,6 +8,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
@@ -38,7 +39,7 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 				
 				//if no nsuri is defined, it should report error and return
 				if (sourceParameter == null) {
-					context.getLogBook().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
+					LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
 					return null;
 				}
 				else {
@@ -48,7 +49,7 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 					
 					//create a new MetaModel
 					IMetamodelDriver iMetamodelDriver = new EMFIMetamodelDriver(); 
-					iMetamodelDriver.setLogBook(context.getLogBook());
+					iMetamodelDriver.setLogBook(LogBook.getInstance());
 					
 					boolean loaded = iMetamodelDriver.loadModel(sourceString);
 					
@@ -67,7 +68,7 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 				
 				//if no nsuri is defined, it should report error and return
 				if (sourceParameter == null) {
-					context.getLogBook().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
+					LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
 					return null;
 				}
 				else {
@@ -77,7 +78,7 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 					
 					//create a new XMLMetaModel
 					PlainXMLIMetamodelDriver iMetamodelDriver = new PlainXMLIMetamodelDriver();
-					iMetamodelDriver.setLogBook(context.getLogBook());
+					iMetamodelDriver.setLogBook(LogBook.getInstance());
 
 					boolean loaded = iMetamodelDriver.loadModel(sourceString);
 					
@@ -124,11 +125,11 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 	private boolean validStatement(ModelDeclarationStatement statement, TypeResolutionContext context)
 	{
 		if (statement.getName() == null) {
-			context.getLogBook().addError(statement, IMessage_TypeResolution.MODEL_DECL_NO_NAME);
+			LogBook.getInstance().addError(statement, IMessage_TypeResolution.MODEL_DECL_NO_NAME);
 			return false;
 		}
 		if (statement.getDriver() == null) {
-			context.getLogBook().addError(statement, IMessage_TypeResolution.MODEL_DECL_NO_DRIVER);
+			LogBook.getInstance().addError(statement, IMessage_TypeResolution.MODEL_DECL_NO_DRIVER);
 			return false;
 		}
 		else {
@@ -142,7 +143,7 @@ public class ModelDeclarationStatementTypeResolver_T1 extends ModelDeclarationSt
 				}
 			}
 			if (!supported) {
-				context.getLogBook().addError(statement.getDriver(), IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_DECL_DRIVER_NOT_SUPPORTED, driver));
+				LogBook.getInstance().addError(statement.getDriver(), IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_DECL_DRIVER_NOT_SUPPORTED, driver));
 				return false;
 			}
 		}
