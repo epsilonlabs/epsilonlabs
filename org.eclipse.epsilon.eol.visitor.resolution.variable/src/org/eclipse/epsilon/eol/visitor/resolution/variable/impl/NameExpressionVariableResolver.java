@@ -6,6 +6,7 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.PluralVariable;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.SimpleVariable;
@@ -50,7 +51,7 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 				
 			}
 			else {
-				context.getLogBook().addError(nameExpression, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_NOT_DEFINED, nameExpression.getName()));	
+				LogBook.getInstance().addError(nameExpression, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_NOT_DEFINED, nameExpression.getName()));	
 			}
 			
 		}

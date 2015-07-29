@@ -5,6 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
@@ -23,18 +24,18 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 			context.putModelName(name.getName().getName());
 		}
 		else {
-			context.getLogBook().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_NAME);
+			LogBook.getInstance().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_NAME);
 		}
 		
 		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
 		{
 			if (context.isReservedWord(alias.getName().getName())) {
-				context.getLogBook().addError(alias.getName(), IMessage_VariableResolution.RESERVED_KEYWORD);
+				LogBook.getInstance().addError(alias.getName(), IMessage_VariableResolution.RESERVED_KEYWORD);
 			}
 			else {
 				String aliasName = alias.getName().getName();
 				if (context.nameDefinedInModelNames(aliasName)) {
-					context.getLogBook().addError(alias, IMessage_VariableResolution.MODEL_ALIAS_NAME_TAKEN);
+					LogBook.getInstance().addError(alias, IMessage_VariableResolution.MODEL_ALIAS_NAME_TAKEN);
 				}
 				else {
 					context.getStack().putVariable(alias, true);	
@@ -46,7 +47,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 		if (driver != null) {
 		}
 		else {
-			context.getLogBook().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_DRIVER);
+			LogBook.getInstance().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_DRIVER);
 		}
 		
 		return null;
