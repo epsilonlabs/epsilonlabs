@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 
 public class Ast2DomWorkbench {
 
@@ -39,7 +39,7 @@ public class Ast2DomWorkbench {
 		
 		System.err.println(context.getEolElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");
 		
-		VariableResolver app = new VariableResolver();
+		EOLVariableResolver app = new EOLVariableResolver();
 		app.run(dom);
 				
 		ResourceSet resourceSet = new ResourceSetImpl();

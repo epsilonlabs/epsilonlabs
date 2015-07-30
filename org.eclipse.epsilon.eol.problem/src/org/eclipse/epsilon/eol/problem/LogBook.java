@@ -96,7 +96,7 @@ public class LogBook {
 		return result;
 	}
 	
-	public EOLLibraryModule getEolLibraryModule(EOLElement eolElement)
+	protected EOLLibraryModule getEolLibraryModule(EOLElement eolElement)
 	{
 		EOLElement trace = eolElement.getContainer();
 		while(trace != null && !(trace instanceof EOLLibraryModule))

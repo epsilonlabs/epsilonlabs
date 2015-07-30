@@ -9,7 +9,7 @@ import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.context.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.VariableResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -34,7 +34,7 @@ public class EolXOutlinePage extends ModuleContentOutlinePage{
 		EolElementCreatorFactory factory = context.getEolElementCreatorFactory();
 		EOLElement eolElement = factory.createEOLElement(module.getAst(), null, context);
 		
-		VariableResolver variableResolver = new VariableResolver();
+		EOLVariableResolver variableResolver = new EOLVariableResolver();
 		variableResolver.run(eolElement);
 		
 		return new EOLOutlineElement(eolElement);

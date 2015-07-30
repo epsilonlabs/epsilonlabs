@@ -5,12 +5,13 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
-public class VariableResolver {
+public class EOLVariableResolver {
+	
 
 	protected EolVisitorController<VariableResolutionContext, Object> controller = new EolVisitorController<VariableResolutionContext, Object>();
 	protected VariableResolutionContext context = new VariableResolutionContext();
 	
-	public VariableResolver()
+	public EOLVariableResolver()
 	{
 		controller.addAbortStatementVisitor(new AbortStatementVariableResolver());
 		controller.addAssignmentStatementVisitor(new AssignmentStatementVariableResolver());
