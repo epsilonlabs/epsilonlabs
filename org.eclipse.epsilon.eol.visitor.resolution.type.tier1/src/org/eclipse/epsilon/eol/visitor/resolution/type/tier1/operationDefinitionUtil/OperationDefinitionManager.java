@@ -11,25 +11,16 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 
 public class OperationDefinitionManager {
 
-	private static OperationDefinitionManager instance = null;
 	protected UserDefinedOperationDefinitionContainer userDefinedOperations; //used to store user defined oeprations
 	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations; //used to store standard library operations
 	protected OperationDefinitionHandlerFactory handlerFactory;
 	
-	protected OperationDefinitionManager()
+	public OperationDefinitionManager()
 	{
 		
 		userDefinedOperations = new UserDefinedOperationDefinitionContainer();
 		standardLibraryOperations = new StandardLibraryOperationDefinitionContainer();
 		handlerFactory = new OperationDefinitionHandlerFactory();
-	}
-	
-	public static OperationDefinitionManager getInstance()
-	{
-		if (instance == null) {
-			instance = new OperationDefinitionManager();
-		}
-		return instance;
 	}
 	
 	public OperationDefinitionHandlerFactory getHandlerFactory()

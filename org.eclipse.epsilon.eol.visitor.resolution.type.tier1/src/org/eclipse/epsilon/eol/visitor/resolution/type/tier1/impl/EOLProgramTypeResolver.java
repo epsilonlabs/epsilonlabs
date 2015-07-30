@@ -50,8 +50,8 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 				controller.visit(v, context);
 				argTypes.add(v.getResolvedType()); //resolve and collect argument types
 			}
-			if (!OperationDefinitionManager.getInstance().containsOperation(od.getName().getName(), contextType, argTypes)) { //check if operation with the same name and arg list exists
-				OperationDefinitionManager.getInstance().putOperationDefinition(od);
+			if (!context.getOperationDefinitionManager().containsOperation(od.getName().getName(), contextType, argTypes)) { //check if operation with the same name and arg list exists
+				context.getOperationDefinitionManager().putOperationDefinition(od);
 			}
 			else {
 				LogBook.getInstance().addError(od, IMessage_TypeResolution.OPERATION_SIGNATURE_EXISTS);

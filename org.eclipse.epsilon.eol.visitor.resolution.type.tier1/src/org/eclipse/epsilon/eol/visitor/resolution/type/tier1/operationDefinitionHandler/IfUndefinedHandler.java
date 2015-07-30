@@ -19,11 +19,12 @@ public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 		return name.equals("ifUndefined") && argTypes.size() == 1;
 	}
 
+
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
-		StandardLibraryOperationDefinitionContainer manager = TypeResolutionContext.getInstance().getOperationDefinitionManager().getStandardLibraryOperationDefinitionContainer();
+			ArrayList<Type> argTypes, TypeResolutionContext context) {
+		StandardLibraryOperationDefinitionContainer manager = context.getOperationDefinitionManager().getStandardLibraryOperationDefinitionContainer();
 		
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		

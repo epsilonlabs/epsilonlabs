@@ -4,12 +4,12 @@ import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class TypeResolver {
+public class EOLTypeResolver {
 
 	protected EolVisitorController<TypeResolutionContext, Object> controller = new EolVisitorController<TypeResolutionContext, Object>();
-	protected TypeResolutionContext context = TypeResolutionContext.getInstance();
+	protected TypeResolutionContext context = new TypeResolutionContext();
 	
-	public TypeResolver()
+	public EOLTypeResolver()
 	{
 	}
 	

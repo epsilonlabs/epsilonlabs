@@ -9,8 +9,6 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
-
-	private static TypeResolutionContext instance = null;
 	
 	protected EOLLibraryModule currentProgram = null;
 	protected EOLElement currentEOLElement = null;
@@ -18,17 +16,7 @@ public class TypeResolutionContext {
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
-	protected TypeResolutionContext()
-	{
-	}
-	
-	public static TypeResolutionContext getInstance()
-	{
-		if (instance == null) {
-			instance = new TypeResolutionContext();
-		}
-		return instance;
-	}
+	protected OperationDefinitionManager operationDefinitionManager = new OperationDefinitionManager();
 	
 	public TypeUtil getTypeUtil() {
 		return TypeUtil.getInstance();
@@ -51,7 +39,7 @@ public class TypeResolutionContext {
 	}
 	
 	public OperationDefinitionManager getOperationDefinitionManager() {
-		return OperationDefinitionManager.getInstance();
+		return operationDefinitionManager;
 	}
 	
 	public void copyLocation(EOLElement created, EOLElement targetLocation)
@@ -65,9 +53,4 @@ public class TypeResolutionContext {
 		obj.setContainer(container);
 	}
 	
-	public static void main(String[] args) {
-		System.out.println("Initialising type resolution context...");
-		TypeResolutionContext context = TypeResolutionContext.getInstance();
-		System.out.println("...Type resolution context initialised");
-	}
 }

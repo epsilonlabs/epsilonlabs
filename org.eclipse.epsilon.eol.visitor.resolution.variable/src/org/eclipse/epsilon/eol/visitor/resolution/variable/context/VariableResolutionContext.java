@@ -13,6 +13,8 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 
 public class VariableResolutionContext {
 	
+	public static VariableResolutionContext instance = null;
+	
 	protected HashSet<VariableDeclarationExpression> variables = new HashSet<VariableDeclarationExpression>();
 	
 	protected ArrayList<String> keywordPool = new ArrayList<String>();
@@ -27,6 +29,32 @@ public class VariableResolutionContext {
 
 	protected ArrayList<String> modelNames = new ArrayList<String>();
 
+	protected VariableResolutionContext()
+	{
+		
+	}
+	
+	public static VariableResolutionContext getInstance(){
+		if (instance == null) {
+			instance = new VariableResolutionContext();
+		}
+		return instance;
+	}
+	
+	public static VariableResolutionContext getInstance(boolean initialise)
+	{
+		if (initialise) {
+			instance = new VariableResolutionContext();
+			return instance;
+		}
+		else {
+			if (instance == null) {
+				instance = new VariableResolutionContext();
+			}
+			return instance;	
+		}
+	}
+	
 	public FrameStack getStack()
 	{
 		return stack;

@@ -9,7 +9,7 @@ public class EOLVariableResolver {
 	
 
 	protected EolVisitorController<VariableResolutionContext, Object> controller = new EolVisitorController<VariableResolutionContext, Object>();
-	protected VariableResolutionContext context = new VariableResolutionContext();
+	protected VariableResolutionContext context = VariableResolutionContext.getInstance(true);
 	
 	public EOLVariableResolver()
 	{
