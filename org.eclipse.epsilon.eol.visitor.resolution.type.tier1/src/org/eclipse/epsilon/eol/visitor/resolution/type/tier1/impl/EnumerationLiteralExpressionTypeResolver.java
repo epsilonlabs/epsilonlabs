@@ -14,7 +14,7 @@ import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class EnumerationLiteralExpressionTypeResolver_T1 extends EnumerationLiteralExpressionVisitor<TypeResolutionContext, Object>{
+public class EnumerationLiteralExpressionTypeResolver extends EnumerationLiteralExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(

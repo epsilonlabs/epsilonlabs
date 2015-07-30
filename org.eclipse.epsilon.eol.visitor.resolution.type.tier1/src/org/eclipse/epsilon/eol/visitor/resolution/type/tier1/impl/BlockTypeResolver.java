@@ -6,7 +6,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.BlockVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class BlockTypeResolver_T1 extends BlockVisitor<TypeResolutionContext, Object>{
+public class BlockTypeResolver extends BlockVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(Block block, TypeResolutionContext context,

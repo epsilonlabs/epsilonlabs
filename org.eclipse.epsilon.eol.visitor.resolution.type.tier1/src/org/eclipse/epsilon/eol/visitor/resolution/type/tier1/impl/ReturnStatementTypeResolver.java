@@ -11,7 +11,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.ReturnStatementVisitor;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ReturnStatementTypeResolver_T1 extends ReturnStatementVisitor<TypeResolutionContext, Object>{
+public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(ReturnStatement returnStatement,

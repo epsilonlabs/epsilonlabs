@@ -14,7 +14,7 @@ import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ModelElementTypeResolver_T1 extends ModelElementTypeVisitor<TypeResolutionContext, Object>{
+public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(ModelElementType modelElementType,

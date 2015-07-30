@@ -30,7 +30,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class LogicalOperatorExpressionTypeResolver_T1 extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
+public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public boolean appliesTo(BinaryOperatorExpression binaryOperatorExpression,

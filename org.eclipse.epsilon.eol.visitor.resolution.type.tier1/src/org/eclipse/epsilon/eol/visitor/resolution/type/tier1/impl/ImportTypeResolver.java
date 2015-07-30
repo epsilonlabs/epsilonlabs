@@ -5,7 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ImportVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ImportTypeResolver_T1 extends ImportVisitor<TypeResolutionContext, Object>{
+public class ImportTypeResolver extends ImportVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(Import _import, TypeResolutionContext context,

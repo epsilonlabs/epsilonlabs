@@ -7,7 +7,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ExpressionOrStatementBlockVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class ExpressionOrStatementBlockTypeResolver_T1 extends ExpressionOrStatementBlockVisitor<TypeResolutionContext, Object>{
+public class ExpressionOrStatementBlockTypeResolver extends ExpressionOrStatementBlockVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(ExpressionOrStatementBlock expressionOrStatementBlock,

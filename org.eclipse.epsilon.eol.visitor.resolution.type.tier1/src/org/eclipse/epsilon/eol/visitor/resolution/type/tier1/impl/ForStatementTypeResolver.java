@@ -16,7 +16,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class ForStatementTypeResolver_T1 extends ForStatementVisitor<TypeResolutionContext, Object>{
+public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(ForStatement forStatement,

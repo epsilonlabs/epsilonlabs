@@ -15,7 +15,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class NegativeOperatorExpressionTypeResolver_T1 extends NegativeOperatorExpressionVisitor<TypeResolutionContext, Object>{
+public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(NegativeOperatorExpression negativeOperatorExpression,

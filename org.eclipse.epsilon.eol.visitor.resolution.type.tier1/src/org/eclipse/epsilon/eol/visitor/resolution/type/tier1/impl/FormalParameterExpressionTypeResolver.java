@@ -5,7 +5,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FormalParameterExpressionVisitor;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
-public class FormalParameterExpressionTypeResolver_T1 extends FormalParameterExpressionVisitor<TypeResolutionContext, Object>{
+public class FormalParameterExpressionTypeResolver extends FormalParameterExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(FormalParameterExpression formalParameterExpression,
