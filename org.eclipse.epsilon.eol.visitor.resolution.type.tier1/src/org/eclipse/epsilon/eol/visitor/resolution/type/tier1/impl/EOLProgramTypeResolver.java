@@ -34,7 +34,6 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
-			
 			if (od.getContextType() != null) {
 				controller.visit(od.getContextType(), context); //resolve context type	
 			}
@@ -57,13 +56,12 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 			else {
 				LogBook.getInstance().addError(od, IMessage_TypeResolution.OPERATION_SIGNATURE_EXISTS);
 			}
-			
 		}
 		
 		controller.visitContents(program.getBlock(), context); //process statement block
 
 		for(OperationDefinition od: program.getOperations())
-		{			
+		{
 			controller.visit(od, context);
 		}
 				

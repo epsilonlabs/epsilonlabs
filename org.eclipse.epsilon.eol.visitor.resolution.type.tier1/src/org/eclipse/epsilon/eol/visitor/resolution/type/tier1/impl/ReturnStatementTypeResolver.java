@@ -1,15 +1,16 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
-import org.eclipse.epsilon.eol.metamodel.AnyType;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.ReturnStatement;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.metamodel.VoidType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ReturnStatementVisitor;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeResolutionContext, Object>{
 
@@ -25,46 +26,31 @@ public class ReturnStatementTypeResolver extends ReturnStatementVisitor<TypeReso
 		}
 		
 		if (rawContainer == null) {
-			context.getLogBook().addError(returnStatement, IMessage_TypeResolution.RETURN_STATEMENT_NOT_IN_OP);
+			LogBook.getInstance().addError(returnStatement, IMessage_TypeResolution.RETURN_STATEMENT_NOT_IN_OP);
 		}
 		
 		else {
-			if (rawContainer instanceof OperationDefinition) {
-				 //check again if the container is an operationdefinition
-				OperationDefinition container = (OperationDefinition) rawContainer; //cast 
-				Type returnType = container.getReturnType(); //get return type of the operation
+
+			OperationDefinition container = (OperationDefinition) rawContainer; //cast 
+			Type returnType = container.getReturnType(); //get return type of the operation
+			
+			if (returnType == null) {
 				
-				if (returnType == null) {
-					
+			}
+			else {
+				Type returnedType = returnStatement.getExpression().getResolvedType();
+				if (returnedType == null) {
+					LogBook.getInstance().addError(returnStatement.getExpression(), IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 				}
 				else {
-					Type returnedType = returnStatement.getExpression().getResolvedType(); //get the returned type of the operation
-					if (returnedType == null) {
-						if (returnType instanceof VoidType) {
-							
-						}
-						else {
-							context.getLogBook().addError(returnStatement, "expecting return type" + returnType.eClass().getName());
-						}
+					OperationDefinition op = (OperationDefinition) rawContainer;
+
+					if (TypeUtil.getInstance().isInstanceofAnyType(op.getReturnType())) {
+						op.setReturnType(EcoreUtil.copy(returnedType));
 					}
 					else {
-						if (returnedType.eClass().getName().equals("AnyTypeImpl")) {
-							AnyType leType = (AnyType) returnedType;
-							if (leType.isDeclared()) {
-								
-							}
-							else {
-								
-							}
-
-						}
-						else if (!context.getTypeUtil().isEqualOrGeneric(returnedType, returnType)) {
-							if (returnType instanceof VoidType || returnedType instanceof AnyType) {
-								
-							}
-							else {
-								context.getLogBook().addError(returnStatement, "OperationDefinition " + container.getName().getName() + " requires return type: " + returnType.getClass().getSimpleName());
-							}					
+						if (!TypeUtil.getInstance().isTypeEqualOrGeneric(returnedType, op.getReturnType())) {
+							LogBook.getInstance().addError(returnStatement.getExpression(), IMessage_TypeResolution.TYPE_MISMATCH);
 						}
 					}
 				}
