@@ -33,6 +33,9 @@ public class FrameStack {
 	
 	public Frame getTop()
 	{
+		if (frames.size() == 0) {
+			return null;
+		}
 		return frames.getLast();
 	}
 	
@@ -85,6 +88,9 @@ public class FrameStack {
 	public boolean variableExistsInCurrentScope(String name)
 	{
 		boolean result = false;
+		if (frames.size() == 0) {
+			return false;
+		}
 		Frame frame = frames.getLast();
 		if(frame.contains(name))
 		{

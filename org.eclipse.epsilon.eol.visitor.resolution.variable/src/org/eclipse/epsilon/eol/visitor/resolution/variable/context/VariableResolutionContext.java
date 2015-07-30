@@ -18,7 +18,6 @@ public class VariableResolutionContext {
 	protected ArrayList<String> keywordPool = new ArrayList<String>();
 	
 	protected FrameStack stack = new FrameStack(); //the frameStack
-	protected LogBook logBook = LogBook.getInstance(); //logbook for storing warnings and errors
 	
 	protected ArrayList<AssignmentStatement> assignmentsToAvoid = new ArrayList<AssignmentStatement>();
 	
@@ -31,11 +30,6 @@ public class VariableResolutionContext {
 	public FrameStack getStack()
 	{
 		return stack;
-	}
-	
-	public LogBook getLogBook()
-	{
-		return logBook;
 	}
 	
 	public void setMainProgram(EOLLibraryModule p)
@@ -65,6 +59,7 @@ public class VariableResolutionContext {
 				s.equals("post") ||
 				s.equals("_ModelElementType_") ||
 				s.equalsIgnoreCase("model") ||
+				s.equalsIgnoreCase("import") ||
 				s.equalsIgnoreCase("switch") ||
 				s.equalsIgnoreCase("abort") ||
 				s.equalsIgnoreCase("native") ||
@@ -190,7 +185,7 @@ public class VariableResolutionContext {
 		for(VariableDeclarationExpression vde: variables)
 		{
 			if (vde.getReferences().size() == 0) {
-				getLogBook().addWarning(vde, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_UNUSED, vde.getName().getName()));
+				LogBook.getInstance().addWarning(vde, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_UNUSED, vde.getName().getName()));
 			}
 		}
 	}
