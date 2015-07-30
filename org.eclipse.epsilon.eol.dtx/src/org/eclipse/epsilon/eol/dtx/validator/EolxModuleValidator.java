@@ -12,6 +12,7 @@ import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.context.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.eol.problem.EOLError;
 import org.eclipse.epsilon.eol.problem.EOLWarning;
@@ -35,7 +36,7 @@ public class EolxModuleValidator implements IModuleValidator {
 			VariableResolver variableResolver = new VariableResolver();
 			variableResolver.run(eolElement);
 			
-			for(EOLWarning warning: LogBook.getInstance().getWarnings())
+			for(EOLWarning warning: LogBook.getInstance().getWarnings((EOLLibraryModule) eolElement))
 			{
 				TextRegion textRegion = warning.getEolElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
@@ -43,7 +44,7 @@ public class EolxModuleValidator implements IModuleValidator {
 				markers.add(marker);
 			}
 			
-			for(EOLError error: LogBook.getInstance().getErrors())
+			for(EOLError error: LogBook.getInstance().getErrors((EOLLibraryModule) eolElement))
 			{
 				TextRegion textRegion = error.getEolElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());

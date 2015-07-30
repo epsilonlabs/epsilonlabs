@@ -1,20 +1,23 @@
 package org.eclipse.epsilon.eol.problem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 
 public class LogBook {
 
 	private static LogBook instance = null;
 	
-	protected ArrayList<EOLWarning> warnings;
-	protected ArrayList<EOLError> errors;
+	protected HashMap<EOLLibraryModule, HashSet<EOLWarning>> warnings;
+	protected HashMap<EOLLibraryModule, HashSet<EOLError>> errors;
 	
 	public LogBook()
 	{
-		warnings = new ArrayList<EOLWarning>();
-		errors = new ArrayList<EOLError>();
+		warnings = new HashMap<EOLLibraryModule, HashSet<EOLWarning>>();
+		errors = new HashMap<EOLLibraryModule, HashSet<EOLError>>();
 	}
 	
 	public static LogBook getInstance()
@@ -24,31 +27,86 @@ public class LogBook {
 		}
 		return instance;
 	}
-
-	public ArrayList<EOLWarning> getWarnings() {
-		return warnings;
+	
+	public HashSet<EOLWarning> getAllWarnings()
+	{
+		HashSet<EOLWarning> result = new HashSet<EOLWarning>();
+		for(HashSet<EOLWarning> value: warnings.values())
+		{
+			result.addAll(value);
+		}
+		return result;
 	}
 	
-	public ArrayList<EOLError> getErrors() {
-		return errors;
+	public HashSet<EOLError> getAllErrors()
+	{
+		HashSet<EOLError> result = new HashSet<EOLError>();
+		for(HashSet<EOLError> value: errors.values())
+		{
+			result.addAll(value);
+		}
+		return result;
+	}
+
+	public HashSet<EOLWarning> getWarnings(EOLLibraryModule eolLibraryModule) {
+		if (warnings.containsKey(eolLibraryModule)) {
+			return warnings.get(eolLibraryModule);
+		}
+		else {
+			HashSet<EOLWarning> newWarnings = new HashSet<EOLWarning>();
+			warnings.put(eolLibraryModule, newWarnings);
+			return newWarnings;
+		}
+	}
+	
+	public HashSet<EOLError> getErrors(EOLLibraryModule eolLibraryModule) {
+		if (errors.containsKey(eolLibraryModule)) {
+			return errors.get(eolLibraryModule);
+		}
+		else {
+			HashSet<EOLError> newErrors = new HashSet<EOLError>();
+			errors.put(eolLibraryModule, newErrors);
+			return newErrors;
+		}
 	}
 	
 	public void addWarning(EOLElement eolElement, String message)
 	{
-		warnings.add(new EOLWarning(eolElement, message));
+		getWarnings(getEolLibraryModule(eolElement)).add(new EOLWarning(eolElement, message));
 	}
 	
 	public void addError(EOLElement eolElement, String message)
 	{
-		errors.add(new EOLError(eolElement, message));
+		getErrors(getEolLibraryModule(eolElement)).add(new EOLError(eolElement, message));
 	}
 	
-	public ArrayList<EOLProblem> getProblems()
+	public HashSet<EOLProblem> getAllProblems()
+	{
+		HashSet<EOLProblem> problems = new HashSet<EOLProblem>();
+		problems.addAll(getAllWarnings());
+		problems.addAll(getAllErrors());
+		return problems;
+	}
+	
+	public ArrayList<EOLProblem> getProblems(EOLLibraryModule eolLibraryModule)
 	{
 		ArrayList<EOLProblem> result = new ArrayList<EOLProblem>();
-		result.addAll(warnings);
-		result.addAll(errors);
+		result.addAll(getWarnings(eolLibraryModule));
+		result.addAll(getErrors(eolLibraryModule));
 		return result;
+	}
+	
+	public EOLLibraryModule getEolLibraryModule(EOLElement eolElement)
+	{
+		EOLElement trace = eolElement.getContainer();
+		while(trace != null && !(trace instanceof EOLLibraryModule))
+		{
+			trace = trace.getContainer();
+		}
+		if (trace != null) {
+			return (EOLLibraryModule) trace;
+		}
+		return null;
 	}
 	
 }
