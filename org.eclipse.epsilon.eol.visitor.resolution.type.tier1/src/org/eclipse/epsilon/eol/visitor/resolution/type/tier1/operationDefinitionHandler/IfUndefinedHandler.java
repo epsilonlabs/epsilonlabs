@@ -9,7 +9,7 @@ import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 
 public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
@@ -23,8 +23,8 @@ public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes, TypeResolutionContext context) {
-		StandardLibraryOperationDefinitionContainer manager = context.getOperationDefinitionManager().getStandardLibraryOperationDefinitionContainer();
+			ArrayList<Type> argTypes) {
+		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
 		
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		

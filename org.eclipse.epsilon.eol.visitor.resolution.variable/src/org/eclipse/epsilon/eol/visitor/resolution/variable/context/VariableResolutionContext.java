@@ -45,6 +45,7 @@ public class VariableResolutionContext {
 	{
 		if (initialise) {
 			instance = new VariableResolutionContext();
+			LogBook.getInstance(true);
 			return instance;
 		}
 		else {

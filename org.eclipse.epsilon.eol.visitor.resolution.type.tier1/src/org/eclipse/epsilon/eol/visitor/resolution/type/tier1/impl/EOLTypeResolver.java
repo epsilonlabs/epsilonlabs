@@ -7,7 +7,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolut
 public class EOLTypeResolver {
 
 	protected EolVisitorController<TypeResolutionContext, Object> controller = new EolVisitorController<TypeResolutionContext, Object>();
-	protected TypeResolutionContext context = new TypeResolutionContext();
+	protected TypeResolutionContext context = TypeResolutionContext.getInstance(true);
 	
 	public EOLTypeResolver()
 	{

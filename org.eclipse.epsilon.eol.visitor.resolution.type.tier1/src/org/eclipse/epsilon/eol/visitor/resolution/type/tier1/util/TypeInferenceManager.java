@@ -147,7 +147,7 @@ public class TypeInferenceManager {
 			EClass result = getLeastCommonTypeOf(eClass1, eClass2);
 			if(result != null)
 			{
-				TypeResolutionContext context = TypeResolutionContext.getInstance();
+				TypeResolutionContext context = TypeResolutionContext.getInstanace();
 				for(IMetamodelDriver iMetamodelDriver : context.getiMetamodelManager().getiMetamodelDrivers())
 				{
 					for(IPackageDriver iPackageDriver: iMetamodelDriver.getIPackageDrivers()) {

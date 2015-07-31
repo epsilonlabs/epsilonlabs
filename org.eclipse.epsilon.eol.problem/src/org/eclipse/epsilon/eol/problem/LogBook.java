@@ -14,7 +14,7 @@ public class LogBook {
 	protected HashMap<EOLLibraryModule, HashSet<EOLWarning>> warnings;
 	protected HashMap<EOLLibraryModule, HashSet<EOLError>> errors;
 	
-	public LogBook()
+	protected LogBook()
 	{
 		warnings = new HashMap<EOLLibraryModule, HashSet<EOLWarning>>();
 		errors = new HashMap<EOLLibraryModule, HashSet<EOLError>>();
@@ -26,6 +26,17 @@ public class LogBook {
 			instance = new LogBook();
 		}
 		return instance;
+	}
+	
+	public static LogBook getInstance(boolean initilise)
+	{
+		if (initilise) {
+			instance = new LogBook();
+			return instance;
+		}
+		else {
+			return getInstance();
+		}
 	}
 	
 	public HashSet<EOLWarning> getAllWarnings()

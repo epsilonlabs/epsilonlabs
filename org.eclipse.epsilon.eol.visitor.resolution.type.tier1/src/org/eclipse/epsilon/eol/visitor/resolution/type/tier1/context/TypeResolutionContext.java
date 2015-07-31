@@ -10,13 +10,38 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
 	
+	protected static TypeResolutionContext instance = null;
+	
+	protected final String[] supportedDrivers = {"EMF", "XML"};
+	
 	protected EOLLibraryModule currentProgram = null;
 	protected EOLElement currentEOLElement = null;
 	
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
-	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
-	protected OperationDefinitionManager operationDefinitionManager = new OperationDefinitionManager();
+	protected TypeResolutionContext()
+	{}
+	
+	public static TypeResolutionContext getInstanace()
+	{
+		if (instance == null) {
+			instance = new TypeResolutionContext();
+		}
+		return instance;
+	}
+	
+	public static TypeResolutionContext getInstance(boolean initialise)
+	{
+		if (initialise) {
+			instance = new TypeResolutionContext();
+			OperationDefinitionManager.getInstance(true);
+			LogBook.getInstance(true);
+			return instance;
+		}
+		else {
+			return getInstanace();
+		}
+	}
 	
 	public TypeUtil getTypeUtil() {
 		return TypeUtil.getInstance();
@@ -39,7 +64,7 @@ public class TypeResolutionContext {
 	}
 	
 	public OperationDefinitionManager getOperationDefinitionManager() {
-		return operationDefinitionManager;
+		return OperationDefinitionManager.getInstance();
 	}
 	
 	public void copyLocation(EOLElement created, EOLElement targetLocation)
