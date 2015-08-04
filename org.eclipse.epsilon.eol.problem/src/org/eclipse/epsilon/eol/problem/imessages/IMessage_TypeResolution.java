@@ -41,6 +41,8 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_CANNOT_BE_CAST_TO_TYPE = "Expression cannot be cast to type: %s";
 	public static final String EXPRESSION_SHOULD_BE_COMPARABLE = "Expression should be of type Comparable";
 	
+	public static final String EXPRESSION_SHOULD_BE_TYPE = "Expression should be a TYPE";
+	
 	public static final String RESOLVED_CONTENT_NOT_VAR = "Resolved content is not a variable declaraion or a formal parameter epression";
 	
 	public static final String ENUM_CANNOT_BE_RESOLVED = "Enumeration cannot be resolved";
