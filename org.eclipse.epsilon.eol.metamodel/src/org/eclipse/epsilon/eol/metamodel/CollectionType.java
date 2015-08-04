@@ -29,12 +29,12 @@ public interface CollectionType extends AnyType {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Content Type</em>' containment reference.
-	 * @see #setContentType(AnyType)
+	 * @see #setContentType(Type)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getCollectionType_ContentType()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	AnyType getContentType();
+	Type getContentType();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.CollectionType#getContentType <em>Content Type</em>}' containment reference.
@@ -44,6 +44,6 @@ public interface CollectionType extends AnyType {
 	 * @see #getContentType()
 	 * @generated
 	 */
-	void setContentType(AnyType value);
+	void setContentType(Type value);
 
 } // CollectionType

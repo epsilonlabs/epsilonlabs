@@ -266,7 +266,6 @@
     <genClasses ecoreClass="EOL.ecore#//SelfType"/>
     <genClasses ecoreClass="EOL.ecore#//SelfContentType"/>
     <genClasses ecoreClass="EOL.ecore#//SelfInnermostContentType"/>
-    <genClasses ecoreClass="EOL.ecore#//OperationArgumentType"/>
     <genClasses ecoreClass="EOL.ecore#//MapType">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/keyType"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/valueType"/>

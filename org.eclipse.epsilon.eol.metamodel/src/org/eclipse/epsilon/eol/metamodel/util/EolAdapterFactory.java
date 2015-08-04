@@ -448,10 +448,6 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 				return createSelfInnermostContentTypeAdapter();
 			}
 			@Override
-			public Adapter caseOperationArgumentType(OperationArgumentType object) {
-				return createOperationArgumentTypeAdapter();
-			}
-			@Override
 			public Adapter caseMapType(MapType object) {
 				return createMapTypeAdapter();
 			}
@@ -1870,20 +1866,6 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSelfInnermostContentTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.OperationArgumentType <em>Operation Argument Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.eol.metamodel.OperationArgumentType
-	 * @generated
-	 */
-	public Adapter createOperationArgumentTypeAdapter() {
 		return null;
 	}
 

@@ -803,13 +803,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass operationArgumentTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass mapTypeEClass = null;
 
 	/**
@@ -2878,15 +2871,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getOperationArgumentType() {
-		return operationArgumentTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getMapType() {
 		return mapTypeEClass;
 	}
@@ -3412,8 +3396,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		selfInnermostContentTypeEClass = createEClass(SELF_INNERMOST_CONTENT_TYPE);
 
-		operationArgumentTypeEClass = createEClass(OPERATION_ARGUMENT_TYPE);
-
 		mapTypeEClass = createEClass(MAP_TYPE);
 		createEReference(mapTypeEClass, MAP_TYPE__KEY_TYPE);
 		createEReference(mapTypeEClass, MAP_TYPE__VALUE_TYPE);
@@ -3581,7 +3563,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		selfTypeEClass.getESuperTypes().add(this.getPseudoType());
 		selfContentTypeEClass.getESuperTypes().add(this.getPseudoType());
 		selfInnermostContentTypeEClass.getESuperTypes().add(this.getPseudoType());
-		operationArgumentTypeEClass.getESuperTypes().add(this.getPseudoType());
 		mapTypeEClass.getESuperTypes().add(this.getAnyType());
 		nativeTypeEClass.getESuperTypes().add(this.getAnyType());
 		voidTypeEClass.getESuperTypes().add(this.getAnyType());
@@ -3909,8 +3890,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(selfInnermostContentTypeEClass, SelfInnermostContentType.class, "SelfInnermostContentType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(operationArgumentTypeEClass, OperationArgumentType.class, "OperationArgumentType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(mapTypeEClass, MapType.class, "MapType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMapType_KeyType(), this.getAnyType(), null, "keyType", null, 0, 1, MapType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapType_ValueType(), this.getAnyType(), null, "valueType", null, 0, 1, MapType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3923,7 +3902,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(invalidTypeEClass, InvalidType.class, "InvalidType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(collectionTypeEClass, CollectionType.class, "CollectionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCollectionType_ContentType(), this.getAnyType(), null, "contentType", null, 1, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCollectionType_ContentType(), this.getType(), null, "contentType", null, 1, 1, CollectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(bagTypeEClass, BagType.class, "BagType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

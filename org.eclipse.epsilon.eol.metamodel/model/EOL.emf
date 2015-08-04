@@ -401,9 +401,6 @@ class SelfContentType extends PseudoType {
 class SelfInnermostContentType extends PseudoType {
 }
 
-class OperationArgumentType extends PseudoType {
-}
-
 class MapType extends AnyType {
   ref AnyType keyType;
   ref AnyType valueType;
@@ -420,7 +417,7 @@ class InvalidType extends AnyType {
 }
 
 class CollectionType extends AnyType {
-  val AnyType[1] contentType;
+  val Type[1] contentType;
 }
 
 class BagType extends CollectionType {

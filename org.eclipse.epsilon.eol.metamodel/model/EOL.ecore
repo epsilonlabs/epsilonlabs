@@ -378,7 +378,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="SelfType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfContentType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfInnermostContentType" eSuperTypes="#//PseudoType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OperationArgumentType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="MapType" eSuperTypes="#//AnyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyType" eType="#//AnyType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//AnyType"/>
@@ -391,7 +390,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="InvalidType" eSuperTypes="#//AnyType"/>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionType" eSuperTypes="#//AnyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentType" lowerBound="1"
-        eType="#//AnyType" containment="true"/>
+        eType="#//Type" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BagType" eSuperTypes="#//CollectionType"/>
   <eClassifiers xsi:type="ecore:EClass" name="OrderedCollectionType" abstract="true"

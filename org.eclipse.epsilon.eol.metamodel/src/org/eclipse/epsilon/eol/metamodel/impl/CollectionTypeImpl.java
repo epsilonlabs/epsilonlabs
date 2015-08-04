@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.Type;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +37,7 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	 * @generated
 	 * @ordered
 	 */
-	protected AnyType contentType;
+	protected Type contentType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -62,7 +63,7 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyType getContentType() {
+	public Type getContentType() {
 		return contentType;
 	}
 
@@ -71,8 +72,8 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetContentType(AnyType newContentType, NotificationChain msgs) {
-		AnyType oldContentType = contentType;
+	public NotificationChain basicSetContentType(Type newContentType, NotificationChain msgs) {
+		Type oldContentType = contentType;
 		contentType = newContentType;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.COLLECTION_TYPE__CONTENT_TYPE, oldContentType, newContentType);
@@ -86,7 +87,7 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContentType(AnyType newContentType) {
+	public void setContentType(Type newContentType) {
 		if (newContentType != contentType) {
 			NotificationChain msgs = null;
 			if (contentType != null)
@@ -137,7 +138,7 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EolPackage.COLLECTION_TYPE__CONTENT_TYPE:
-				setContentType((AnyType)newValue);
+				setContentType((Type)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -152,7 +153,7 @@ public class CollectionTypeImpl extends AnyTypeImpl implements CollectionType {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EolPackage.COLLECTION_TYPE__CONTENT_TYPE:
-				setContentType((AnyType)null);
+				setContentType((Type)null);
 				return;
 		}
 		super.eUnset(featureID);

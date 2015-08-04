@@ -909,16 +909,6 @@ public class EolSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EolPackage.OPERATION_ARGUMENT_TYPE: {
-				OperationArgumentType operationArgumentType = (OperationArgumentType)theEObject;
-				T result = caseOperationArgumentType(operationArgumentType);
-				if (result == null) result = casePseudoType(operationArgumentType);
-				if (result == null) result = caseAnyType(operationArgumentType);
-				if (result == null) result = caseType(operationArgumentType);
-				if (result == null) result = caseEOLElement(operationArgumentType);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case EolPackage.MAP_TYPE: {
 				MapType mapType = (MapType)theEObject;
 				T result = caseMapType(mapType);
@@ -2530,21 +2520,6 @@ public class EolSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSelfInnermostContentType(SelfInnermostContentType object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Operation Argument Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Operation Argument Type</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseOperationArgumentType(OperationArgumentType object) {
 		return null;
 	}
 

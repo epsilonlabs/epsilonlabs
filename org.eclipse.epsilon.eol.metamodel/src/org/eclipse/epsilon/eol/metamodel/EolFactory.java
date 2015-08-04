@@ -715,15 +715,6 @@ public interface EolFactory extends EFactory {
 	SelfInnermostContentType createSelfInnermostContentType();
 
 	/**
-	 * Returns a new object of class '<em>Operation Argument Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Operation Argument Type</em>'.
-	 * @generated
-	 */
-	OperationArgumentType createOperationArgumentType();
-
-	/**
 	 * Returns a new object of class '<em>Map Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

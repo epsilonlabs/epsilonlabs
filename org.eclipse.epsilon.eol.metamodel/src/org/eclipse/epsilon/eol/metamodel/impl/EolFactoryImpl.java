@@ -133,7 +133,6 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 			case EolPackage.SELF_TYPE: return createSelfType();
 			case EolPackage.SELF_CONTENT_TYPE: return createSelfContentType();
 			case EolPackage.SELF_INNERMOST_CONTENT_TYPE: return createSelfInnermostContentType();
-			case EolPackage.OPERATION_ARGUMENT_TYPE: return createOperationArgumentType();
 			case EolPackage.MAP_TYPE: return createMapType();
 			case EolPackage.NATIVE_TYPE: return createNativeType();
 			case EolPackage.VOID_TYPE: return createVoidType();
@@ -920,16 +919,6 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	public SelfInnermostContentType createSelfInnermostContentType() {
 		SelfInnermostContentTypeImpl selfInnermostContentType = new SelfInnermostContentTypeImpl();
 		return selfInnermostContentType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OperationArgumentType createOperationArgumentType() {
-		OperationArgumentTypeImpl operationArgumentType = new OperationArgumentTypeImpl();
-		return operationArgumentType;
 	}
 
 	/**
