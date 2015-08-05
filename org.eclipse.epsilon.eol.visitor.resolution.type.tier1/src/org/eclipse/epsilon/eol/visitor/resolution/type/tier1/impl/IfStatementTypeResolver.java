@@ -10,12 +10,17 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 	@Override
 	public Object visit(IfStatement ifStatement, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		context.getTypeRegistry().pushContainer(ifStatement.getIfBody());//////////
+		
 		controller.visit(ifStatement.getCondition(), context);
-
+		
 		controller.visit(ifStatement.getIfBody(), context);
+		context.getTypeRegistry().popContainer();//////////
 		
 		if (ifStatement.getElseBody() != null) {
+			context.getTypeRegistry().pushContainer(ifStatement.getElseBody());
 			controller.visit(ifStatement.getElseBody(), context);
+			context.getTypeRegistry().popContainer();
 		}
 		return null;
 	}

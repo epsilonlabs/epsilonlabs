@@ -41,7 +41,10 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_CANNOT_BE_CAST_TO_TYPE = "Expression cannot be cast to type: %s";
 	public static final String EXPRESSION_SHOULD_BE_COMPARABLE = "Expression should be of type Comparable";
 	
-	public static final String EXPRESSION_SHOULD_BE_TYPE = "Expression should be a TYPE";
+	
+	public static final String EXPRESSION_SHOULD_BE_TYPE = "Expression should be a type";
+	public static final String EXPRESSION_SHOULD_BE_MODELELEMENT_TYPE = "Expression should be a model element type";
+	public static final String EXPRESSION_SHOULD_BE_COLLECTION_TYPE = "Expression should be a collection type";
 	
 	public static final String RESOLVED_CONTENT_NOT_VAR = "Resolved content is not a variable declaraion or a formal parameter epression";
 	
@@ -65,10 +68,13 @@ public class IMessage_TypeResolution {
 	
 	
 	public static final String EXPECTED_TYPE = "Expected type: %s";
+	public static final String EXPECTED_CONTENT_TYPE = "Expected content type: %s";
 	
 	public static final String DIVISION_BY_ZERO = "Division by 0";
 	
 	public static final String OPERATION_SIGNATURE_EXISTS = "Operation with same signature has already been defined";
+	
+	public static final String OPERATION_REQUIRES_TARGET ="Operation requires a target for it to be invoked";
 	
 	public static String bindMessage(String message, Object value)
 	{

@@ -1,74 +1,79 @@
-@_sysParam checkCollectionArgSingle, modifier
-operation Collection add(item: Any) : SelfType {} //done ---------------------------
+operation Collection add(item: Any) : Boolean {} //done ---------------------------/
 
-@_sysParam checkCollectionArgCollection, modifier
-operation Collection addAll(col: Collection) : SelfType {} //done ---------------------------
+operation Collection addAll(col: Collection) : Boolean {} //done ---------------------------/
 
-@_sysParam checkCollectionArgSingle, modifier
-operation Collection remove(item: Any) : SelfType {} //done ---------------------------
-
-@_sysParam checkCollectionArgCollection, modifier
-operation Collection removeAll(col: Collection) : SelfType{} //done ---------------------------
-
-@_sysParam modifier
 operation Collection clear() : SelfType{} //done ---------------------------
-
-operation Collection includes(item: Any) : Boolean{} //done ---------------------------
-
-operation Collection excludes(item: Any) : Boolean{} //done ---------------------------
-
-operation Collection includesAll(col: Collection) : Boolean{} //done ---------------------------
-
-operation Collection excludesAll(col: Collection) : Boolean{} //done ---------------------------
-
-@_sysParam checkCollectionArgSingle
-operation Collection including(item: Any) : SelfType{} //done ---------------------------
-
-@_sysParam checkCollectionArgSingle
-operation Collection excluding(item: Any) : SelfType{} //done ---------------------------
-
-@_sysParam checkCollectionArgCollection
-operation Collection includingAll(col: Collection) : SelfType{} //done ---------------------------
-
-@_sysParam checkCollectionArgCollection
-operation Collection excludingAll(col: Collection) : SelfType{} //done ---------------------------
-
-@_sysParam returnInnermostType
-operation Collection flatten() : Sequence {} //done ---------------------------
-
-operation Collection count(item: Any) : Integer {} //done ---------------------------
-
-operation Collection size() : Integer {} //simple ---------------------------
-
-operation Collection isEmpty() : Boolean {} //simple ---------------------------
-
-operation Collection random() : SelfContentType {} //done ---------------------------
 
 operation Collection clone() : SelfType {} //done ---------------------------
 
 operation Collection concat() : String {} //simple ---------------------------
 
-operation Collection concat(separator: String) : String {} //done ---------------------------
+operation Collection concat(separator: String) : String {} //done ---------------------------/
+
+operation Collection count(item: Any) : Integer {} //done ---------------------------/
+
+operation Collection excludes(item: Any) : Boolean{} //done ---------------------------/
+
+operation Collection excludesAll(col: Collection) : Boolean{} //done ---------------------------/
+
+operation Collection excludingAll(col: Collection) : SelfType{} //done ---------------------------/
+
+operation Collection flatten() : Sequence {} //done ---------------------------
+
+operation Collection excluding(item: Any) : SelfType{} //done ---------------------------
+
+operation Collection includes(item: Any) : Boolean{} //done ---------------------------
+
+operation Collection includesAll(col: Collection) : Boolean{} //done ---------------------------
+
+operation Collection including(item: Any) : SelfType{} //done ---------------------------
+
+operation Collection includingAll(col: Collection) : SelfType{} //done ---------------------------/
+
+operation Collection isEmpty() : Boolean {} //simple ---------------------------/
+
+
+operation Collection random() : SelfContentType {} //done ---------------------------
+
+operation Collection remove(item: Any) : SelfType {} //done ---------------------------
+
+operation Collection removeAll(col: Collection) : SelfType{} //done ---------------------------
+
+operation Collection product() : Real {} //simple ---------------------------
+
+operation Collection size() : Integer {} //simple ---------------------------
+
+operation Collection sum() : Real {} //simple ---------------------------
 
 -- operations for Sequence and OrderedSet types
+
+operation Sequence at(index: Integer) : SelfContentType {} // ---------------------------
+
+operation OrderedSet at(index: Integer) : SelfContentType {} // ---------------------------
 
 operation Sequence first() : SelfContentType {} //done ---------------------------
 
 operation OrderedSet first() : SelfContentType {} //done ---------------------------
 
+operation Sequence second() : SelfContentType {} //done ---------------------------
+
+operation OrderedSet second() : SelfContentType {} //done ---------------------------
+
+operation Sequence third() : SelfContentType {} //done ---------------------------
+
+operation OrderedSet third() : SelfContentType {} //done ---------------------------
+
+operation Sequence fourth() : SelfContentType {} //done ---------------------------
+
+operation OrderedSet fourth() : SelfContentType {} //done ---------------------------
+
 operation Sequence last() : SelfContentType {} //done ---------------------------
 
 operation OrderedSet last() : SelfContentType {} //done ---------------------------
 
-operation Sequence at(index: Integer) : SelfContentType {} // ---------------------------
 
-@_sysParam checkNonNegArg
-operation OrderedSet at(index: Integer) : SelfContentType {} // ---------------------------
-
-@_sysParam checkNonNegArg
 operation Sequence removeAt(index: Integer) : SelfContentType {} // ---------------------------
 
-@_sysParam checkNonNegArg
 operation OrderedSet removeAt(index : Integer) : SelfContentType {} // ---------------------------
 
 operation Sequence indexOf(item: Any) : Integer {} //done Does this return -1? ==========================================
@@ -103,10 +108,27 @@ operation Collection sortBy(iterator: Any) : SelfType {}
 
 -- operations of type Map
 
-operation Map put(key: Any, value: Any) {}
-
-operation Map get(key: Any) : Any {}
+operation Map clear() : SelfType {}
 
 operation Map containsKey(key: Any) : Boolean {}
 
+operation Map containsValue(value: Any) : Boolean {}
+
+operation Map get(key: Any) : Any {}
+
+operation Map isEmpty() : Boolean {}
+
 operation Map keySet(): Set {}
+
+operation Map put(key: Any, value: Any): SelfType {}
+
+operation Map putAll(map: Map) : SelfType{}
+
+operation Map remove(key: Any) : Any {}
+
+operation Map size(): Integer {}
+
+operation Map values() : Bag{}
+
+
+

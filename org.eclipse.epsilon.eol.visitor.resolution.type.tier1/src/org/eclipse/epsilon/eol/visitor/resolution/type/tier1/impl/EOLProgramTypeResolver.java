@@ -21,6 +21,10 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 	public Object visit(EOLProgram program, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		if (context.getTypeRegistry().getBaseContainer() == null) {
+			context.getTypeRegistry().pushContainer(program);
+		}
+		
 		for(Import import1: program.getImports())
 		{
 			controller.visit(import1, context);
@@ -63,7 +67,13 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 		{
 			controller.visit(od, context);
 		}
-				
+		
+		if (context.getTypeRegistry().getCurrentContainer().getPreviousContainer() == null) {
+			
+		}
+		else {
+			System.err.println("This is wrong!");
+		}
 		return null;
 	}
 

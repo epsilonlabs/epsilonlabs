@@ -19,6 +19,8 @@ public class TypeResolutionContext {
 	
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	
+	protected TypeRegistry typeRegistry = new TypeRegistry();
+	
 	protected TypeResolutionContext()
 	{}
 	
@@ -76,6 +78,10 @@ public class TypeResolutionContext {
 	{
 		obj.setRegion(EcoreUtil.copy(container.getRegion()));
 		obj.setContainer(container);
+	}
+	
+	public TypeRegistry getTypeRegistry() {
+		return typeRegistry;
 	}
 	
 }

@@ -1,11 +1,10 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.SelfContentType;
-import org.eclipse.epsilon.eol.metamodel.SelfType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 
@@ -17,12 +16,29 @@ public class OperationDefinitionManager {
 	protected StandardLibraryOperationDefinitionContainer standardLibraryOperations; //used to store standard library operations
 	protected OperationDefinitionHandlerFactory handlerFactory;
 	
+	protected HashSet<OperationDefinition> handledOperationDefinitions;
+	
 	protected OperationDefinitionManager()
 	{
 		
 		userDefinedOperations = new UserDefinedOperationDefinitionContainer();
 		standardLibraryOperations = new StandardLibraryOperationDefinitionContainer();
 		handlerFactory = new OperationDefinitionHandlerFactory();
+		handledOperationDefinitions = new HashSet<OperationDefinition>();
+	}
+	
+	public HashSet<OperationDefinition> getHandledOperationDefinitions() {
+		return handledOperationDefinitions;
+	}
+	
+	public boolean handled(OperationDefinition operationDefinition)
+	{
+		return handledOperationDefinitions.contains(operationDefinition);
+	}
+	
+	public void registerHandledOperationDefinition(OperationDefinition operationDefinition)
+	{
+		handledOperationDefinitions.add(operationDefinition);
 	}
 	
 	public static OperationDefinitionManager getInstance()
@@ -67,54 +83,25 @@ public class OperationDefinitionManager {
 		if (!priority) { //if priority is given to the userdefined operations
 			operation = userDefinedOperations.getOperation(name, contextType, argTypes); //get operation from the user defined opeartions
 			if (operation == null) { //if there is no operation in the user defined operations
-				if (name.equals("equivalent") || name.equals("equivalents")) {
-					operation = standardLibraryOperations.getOperation(name, contextType, new ArrayList<Type>()); //look for standard library
-				}
-				else {
-					operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
-				}
-				
+				operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
 				if (operation != null) { //if there's an operation in the standard library
-					if ((operation.getReturnType() instanceof SelfType) || (operation.getReturnType() instanceof SelfContentType)) {
-						//if it's selfType or SelfContentType, it is handled automatically
-					}
-					else { //otherwise it should be handled by the handler
-						OperationDefinition temp = handlerFactory.handle(methodCallExpression, name, contextType, argTypes);
-						if (temp != null) {
-							operation = temp;
-						}
-						else {
-							//operation = null;
-						}
-
+					OperationDefinition temp = handlerFactory.handle(methodCallExpression, name, contextType, argTypes);
+					if (temp != null) {
+						operation = temp;
 					}
 				}
 			}
 		}
 		else { //if priority is given to the standard library
-			if (name.equals("equivalent") || name.equals("equivalents")) {
-				operation = standardLibraryOperations.getOperation(name, contextType, new ArrayList<Type>()); //look for standard library
-			}
-			else {
-				operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
-			}
-
+			operation = standardLibraryOperations.getOperation(name, contextType, argTypes); //look for standard library
+			
 			if (operation == null) { //if there is no operation in the standard library
 				operation = userDefinedOperations.getOperation(name, contextType, argTypes); //assign operation
 			}
 			else { //if there is operation in the standard library, proceed as before
-				if ((operation.getReturnType() instanceof SelfType) || (operation.getReturnType() instanceof SelfContentType)) {
-					
-				}
-				else {
-					OperationDefinition temp = handlerFactory.handle(methodCallExpression, name, contextType, argTypes);
-					if (temp != null) {
-						operation = temp;
-					}
-					else
-					{
-						operation = null;
-					}
+				OperationDefinition temp = handlerFactory.handle(methodCallExpression, name, contextType, argTypes);
+				if (temp != null) {
+					operation = temp;
 				}
 			}
 		}

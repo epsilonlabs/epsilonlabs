@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -43,21 +44,36 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			}
 			
 			if (lhsType != null && rhsType != null) {
+				
 				//if lhs is of type Any, allow 
 				if (TypeUtil.getInstance().isInstanceofAnyType(lhsType)) {
-					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
-						for(Type t: ((AnyType)rhsType).getDynamicTypes())
-						{
-							((AnyType)lhsType).getDynamicTypes().add(t);
+					if (lhs instanceof NameExpression) {
+						NameExpression name = (NameExpression) lhs;
+						if (name.getResolvedContent() instanceof VariableDeclarationExpression) {
+							VariableDeclarationExpression var = (VariableDeclarationExpression) name.getResolvedContent();
+							context.getTypeRegistry().pushVariable(var, rhsType);
 						}
 					}
-					else {
-						((AnyType)lhsType).getDynamicTypes().add(rhsType);
+					else if (lhs instanceof VariableDeclarationExpression) {
+						VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
+						context.getTypeRegistry().pushVariable(var, rhsType);
 					}
+					//Type assignedRhsType = EcoreUtil.copy(rhsType);
+					//lhs.setResolvedType(assignedRhsType);
+					//context.setAssets(assignedRhsType, lhs);
+//					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
+//						for(Type t: ((AnyType)rhsType).getDynamicTypes())
+//						{
+//							((AnyType)lhsType).getDynamicTypes().add(t);
+//						}
+//					}
+//					else {
+//						((AnyType)lhsType).getDynamicTypes().add(rhsType);
+//					}
 				}
 				else {
 					//if rhs is of any type
-					if (rhsType instanceof AnyType) {
+					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
 						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
 							LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH);
 						}

@@ -3,31 +3,24 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitio
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
-import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
-import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.SequenceType;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
+public class FlattenHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("ifUndefined") && argTypes.size() == 1;
+		return name.equals("flatten") && argTypes.size() == 0;
 	}
-
 
 	@Override
 	public OperationDefinition handle(
@@ -38,6 +31,7 @@ public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
 		if (result != null) {
+			
 			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
 			
 			Expression target = featureCallExpression.getTarget();
@@ -45,34 +39,42 @@ public class IfUndefinedHandler extends AnyOperationDefinitionHandler{
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
 			}
 			else {
-				Type targetType = target.getResolvedType();	
-				
-				Type argType = argTypes.get(0);
-				
-				if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
-					AnyType ct = (AnyType) EcoreUtil.copy(targetType);
-					if (!TypeInferenceManager.getInstance().containsDynamicType(ct, argType.eClass())) {
-						ct.getDynamicTypes().add(EcoreUtil.copy(argType));
-						if (target instanceof NameExpression) {
-							if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-								VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-								TypeResolutionContext.getInstanace().getTypeRegistry().pushVariable(var, ct);
-							}
-						}
+				if (target.getResolvedType() instanceof CollectionType) {
+					CollectionType targetType = (CollectionType) target.getResolvedType();	
+					Type innermostType = getInnermostType(targetType);
+					Type returnType = result.getReturnType();
+					if (returnType instanceof SequenceType) {
+						SequenceType rt = (SequenceType) returnType;
+						rt.setContentType(EcoreUtil.copy(innermostType));
+						featureCallExpression.setResolvedType(EcoreUtil.copy(rt));
+						return result;
 					}
 				}
 				else {
-					AnyType ct = EolFactory.eINSTANCE.createAnyType();
-					ct.getDynamicTypes().add(targetType);
-					ct.getDynamicTypes().add(argType);
-					result.setReturnType(ct);
-					TypeResolutionContext.getInstanace().copyLocation(ct, result);
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
 				}
+				
 			}
 		}
+		
 		return result;
 	}
-
+	
+	public Type getInnermostType(Type t)
+	{
+		if (t instanceof CollectionType) {
+			CollectionType collectionType = (CollectionType) t;
+			Type contentType = collectionType.getContentType();
+			while(contentType instanceof CollectionType)
+			{
+				contentType = ((CollectionType)contentType).getContentType();
+			}
+			return EcoreUtil.copy(contentType);
+		}
+		else {
+			return EcoreUtil.copy(t);
+		}
+	}
 
 
 }

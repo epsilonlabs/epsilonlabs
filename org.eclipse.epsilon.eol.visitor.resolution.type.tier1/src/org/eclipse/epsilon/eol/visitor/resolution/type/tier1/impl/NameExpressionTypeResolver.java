@@ -18,6 +18,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.NameExpressionVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolutionContext, Object>{
 
@@ -82,56 +83,70 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				nameExpression.setResolvedType(modelType);
 				return null;
 			}
-			
-			//if variable is defined in model declaration statement
-			if(definedInModelDeclarationStatement((EOLElement) resolvedContent)) {
-				
-				//if single
-				if (resolvedContent instanceof VariableDeclarationExpression) {
-					
-					//create model type
-					ModelType modelType = EolFactory.eINSTANCE.createModelType();
-					
-					//get the containing model declaration
-					ModelDeclarationStatement stmt = getContainingModelDeclarationStatement((EOLElement) resolvedContent);
-					
-					//set the location
-					context.copyLocation(modelType, nameExpression); 
-					
-					//add the model to the model type
-					modelType.setResolvedIModel(stmt.getImodel());
-					
-					//set resolved type
-					nameExpression.setResolvedType(modelType); 
-					return null;
-				}
-				else {
-					//this should not happen
-					return null;
-				}
-			}
-			//if variable is defined elsewhere rather than model declaration
 			else {
-				//if resolvedContent is a var
-				if(nameExpression.getResolvedContent() instanceof VariableDeclarationExpression ||
-						nameExpression.getResolvedContent() instanceof FormalParameterExpression) 
-				{
-					VariableDeclarationExpression content = (VariableDeclarationExpression) resolvedContent;
-					Type type = null;
+				//if variable is defined in model declaration statement
+				if(definedInModelDeclarationStatement((EOLElement) resolvedContent)) {
 					
-					type = EcoreUtil.copy(content.getResolvedType());
-					if (type != null) {
-						nameExpression.setResolvedType(type);
-						context.setAssets(type, nameExpression); //set assets of the type
+					//if single
+					if (resolvedContent instanceof VariableDeclarationExpression) {
+						
+						//create model type
+						ModelType modelType = EolFactory.eINSTANCE.createModelType();
+						
+						//get the containing model declaration
+						ModelDeclarationStatement stmt = getContainingModelDeclarationStatement((EOLElement) resolvedContent);
+						
+						//set the location
+						context.copyLocation(modelType, nameExpression); 
+						
+						//add the model to the model type
+						modelType.setResolvedIModel(stmt.getImodel());
+						
+						//set resolved type
+						nameExpression.setResolvedType(modelType); 
+						return null;
 					}
 					else {
-						LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+						//this should not happen
+						return null;
 					}
 				}
+				//if variable is defined elsewhere rather than model declaration
 				else {
-					LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.RESOLVED_CONTENT_NOT_VAR);
+					//if resolvedContent is a var
+					if(nameExpression.getResolvedContent() instanceof VariableDeclarationExpression ||
+							nameExpression.getResolvedContent() instanceof FormalParameterExpression) 
+					{
+						VariableDeclarationExpression content = (VariableDeclarationExpression) resolvedContent;
+						
+						//if variable is of anytype
+						if (TypeUtil.getInstance().isInstanceofAnyType(content.getResolvedType())) {
+							//get the types in the type registry
+							ArrayList<Type> types = context.getTypeRegistry().getTypeForVariable(content);
+							//get the resolved type
+							AnyType anyType = (AnyType) content.getResolvedType();
+							//clear recorded dynamic types and add types recorded in the type registry
+							anyType.getDynamicTypes().clear();
+							anyType.getDynamicTypes().addAll(types);
+						}
+						else {
+							Type type = null;
+							
+							type = EcoreUtil.copy(content.getResolvedType());
+							if (type != null) {
+								nameExpression.setResolvedType(type);
+								context.setAssets(type, nameExpression); //set assets of the type
+							}
+							else {
+								LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+							}
+						}
+					}
+					else {
+						LogBook.getInstance().addError((EOLElement) resolvedContent, IMessage_TypeResolution.RESOLVED_CONTENT_NOT_VAR);
+					}
+					return null;
 				}
-				return null;
 			}
 		}
 		return null;

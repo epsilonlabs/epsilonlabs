@@ -23,6 +23,9 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 
+		context.getTypeRegistry().pushContainer(forStatement);//////////
+		
+		
 		controller.visit(forStatement.getIterator(), context);
 		controller.visit(forStatement.getCondition(), context);
 		
@@ -60,7 +63,11 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			LogBook.getInstance().addError(condition, IMessage_TypeResolution.FOR_STMT_CONDITION_NOT_COLLECTION_TYPE);
 		}
 		
+		
 		controller.visit(forStatement.getBody(), context);
+		
+		context.getTypeRegistry().popContainer();//////////
+		
 
 		return null;
 	}

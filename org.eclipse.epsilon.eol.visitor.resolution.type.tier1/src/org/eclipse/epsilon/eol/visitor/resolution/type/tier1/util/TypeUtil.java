@@ -818,45 +818,45 @@ public class TypeUtil {
 	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
 	{
 		int result = -1;
-		if (subClass.getEPackage().equals(superClass.getEPackage())) {	//if the class share the same EPackage		
-			if(subClass.getEAllSuperTypes().contains(superClass)) //if the superClass is an ancestor of the subClass
+		//if the class share the same EPackage		
+		if(subClass.getEAllSuperTypes().contains(superClass)) //if the superClass is an ancestor of the subClass
+		{
+			ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>(); //create unvisited list 
+			ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>(); //create visited list
+			result = 0; //set result to 0
+			for(EClass cls: subClass.getEAllSuperTypes()) //for all of the super classes of the subClass
 			{
-				ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>(); //create unvisited list 
-				ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>(); //create visited list
-				result = 0; //set result to 0
-				for(EClass cls: subClass.getEAllSuperTypes()) //for all of the super classes of the subClass
-				{
-					MetaClassNode node = new MetaClassNode(cls); //create a Node
-					node.setWeight(100000); //set weight to be infinite
-					unvisited.add(node); //add node to unvisited
-				}
-				MetaClassNode current = new MetaClassNode(subClass); //set the current node to be the one that contains subClass
-				current.setWeight(0); //set the weight to be 0
-				unvisited.add(current); //add the current to the unvisited
-				
-				while(unvisited.size() != 0) //if there are remaining unvisited nodes
-				{
-					MetaClassNode min = current.extractMin(unvisited); //get the node with the smallest weight
-					if (min.getEClass().equals(superClass)) { //stop when sub = super
-						break;
-					}
-					visited.add(min); //add the node with the minimum weight to the visited list
-					for(MetaClassNode n: current.getNeighbours(min, unvisited)) //get the neighbours for the current node
-					{
-						if (n.getWeight() > min.getWeight() + 1) { //if the weight of the node is greater than the min node + 1
-							n.setWeight(min.getWeight() + 1); //set the weight to be min node's weight + 1
-							n.setPrevious(min); //set the previous of the node to be min
-						}
-					}
-				}
-				result = visited.size();
-				
+				MetaClassNode node = new MetaClassNode(cls); //create a Node
+				node.setWeight(100000); //set weight to be infinite
+				unvisited.add(node); //add node to unvisited
 			}
-			else if(subClass.equals(superClass))
+			MetaClassNode current = new MetaClassNode(subClass); //set the current node to be the one that contains subClass
+			current.setWeight(0); //set the weight to be 0
+			unvisited.add(current); //add the current to the unvisited
+			
+			while(unvisited.size() != 0) //if there are remaining unvisited nodes
 			{
-				result = 0;
+				MetaClassNode min = current.extractMin(unvisited); //get the node with the smallest weight
+				if (min.getEClass().equals(superClass)) { //stop when sub = super
+					break;
+				}
+				visited.add(min); //add the node with the minimum weight to the visited list
+				for(MetaClassNode n: current.getNeighbours(min, unvisited)) //get the neighbours for the current node
+				{
+					if (n.getWeight() > min.getWeight() + 1) { //if the weight of the node is greater than the min node + 1
+						n.setWeight(min.getWeight() + 1); //set the weight to be min node's weight + 1
+						n.setPrevious(min); //set the previous of the node to be min
+					}
+				}
 			}
+			result = visited.size();
+			
 		}
+		else if(subClass.equals(superClass))
+		{
+			result = 0;
+		}
+	
 		return result;
 	}
 
@@ -866,55 +866,55 @@ public class TypeUtil {
 		EClass subClass = subObj.eClass(); //get the eclass of subObj
 		EClass superClass = superObj.eClass(); //get the eclass of superObj 
 
-		if (subClass.getEPackage().equals(superClass.getEPackage())) { //if these two classes are in the same epackage
-			if (subObj instanceof ModelElementType && superObj instanceof ModelElementType) { //if both of the parameters are model element types
-				subClass = (EClass) ((ModelElementType)subObj).getModelType(); //get the ecoretype
-				
-				superClass = (EClass) ((ModelElementType)superObj).getModelType(); //get the ecore type
-				if (subClass == null || superClass == null) { //if ecore type is null, return null
-					return -1;
+		 //if these two classes are in the same epackage
+		if (subObj instanceof ModelElementType && superObj instanceof ModelElementType) { //if both of the parameters are model element types
+			subClass = (EClass) ((ModelElementType)subObj).getModelType(); //get the ecoretype
+			
+			superClass = (EClass) ((ModelElementType)superObj).getModelType(); //get the ecore type
+			if (subClass == null || superClass == null) { //if ecore type is null, return null
+				return -1;
+			}
+		}
+		
+		if(subClass.getEAllSuperTypes().contains(superClass))
+		{
+			ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>();
+			ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>();
+			result = 0;
+			for(EClass cls: subClass.getEAllSuperTypes())
+			{
+				MetaClassNode node = new MetaClassNode(cls);
+				node.setWeight(100000);
+				unvisited.add(node);
+			}
+			MetaClassNode current = new MetaClassNode(subClass);
+			current.setWeight(0);
+			unvisited.add(current);
+			
+			while(unvisited.size() != 0)
+			{
+				MetaClassNode min = current.extractMin(unvisited);
+				if (min.getEClass().equals(superClass)) {
+					break;
+				}
+				visited.add(min);
+				for(MetaClassNode n: current.getNeighbours(min, unvisited))
+				{
+					if (n.getWeight() > min.getWeight() + 1) {
+						n.setWeight(min.getWeight() + 1);
+						n.setPrevious(min);
+					}
 				}
 			}
 			
-			if(subClass.getEAllSuperTypes().contains(superClass))
-			{
-				ArrayList<MetaClassNode> unvisited = new ArrayList<MetaClassNode>();
-				ArrayList<MetaClassNode> visited = new ArrayList<MetaClassNode>();
-				result = 0;
-				for(EClass cls: subClass.getEAllSuperTypes())
-				{
-					MetaClassNode node = new MetaClassNode(cls);
-					node.setWeight(100000);
-					unvisited.add(node);
-				}
-				MetaClassNode current = new MetaClassNode(subClass);
-				current.setWeight(0);
-				unvisited.add(current);
-				
-				while(unvisited.size() != 0)
-				{
-					MetaClassNode min = current.extractMin(unvisited);
-					if (min.getEClass().equals(superClass)) {
-						break;
-					}
-					visited.add(min);
-					for(MetaClassNode n: current.getNeighbours(min, unvisited))
-					{
-						if (n.getWeight() > min.getWeight() + 1) {
-							n.setWeight(min.getWeight() + 1);
-							n.setPrevious(min);
-						}
-					}
-				}
-				
-				result = visited.size();
-				
-			}
-			else if(subClass.equals(superClass))
-			{
-				result = 0;
-			}
+			result = visited.size();
+			
 		}
+		else if(subClass.equals(superClass))
+		{
+			result = 0;
+		}
+	
 		return result;
 	}
 	
