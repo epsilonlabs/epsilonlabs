@@ -7,6 +7,7 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.analysis.model.driver.emf.EMFIMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
+import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelElementTypeVisitor;
@@ -134,6 +135,13 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 						modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
 						modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
+						for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+						{
+							if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+								modelElementType.setResolvedIPackage(iPackage);
+								break;
+							}
+						}
 						return;
 					}
 					else {
@@ -149,6 +157,13 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 							modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 							modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
 							modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
+							for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+							{
+								if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+									modelElementType.setResolvedIPackage(iPackage);
+									break;
+								}
+							}
 							return;
 						}
 					}
@@ -168,6 +183,13 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 					modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 					modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
 					modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
+					for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+					{
+						if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+							modelElementType.setResolvedIPackage(iPackage);
+							break;
+						}
+					}
 					return;
 				}
 				else {
@@ -189,6 +211,13 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 						modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
 						modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
+						for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+						{
+							if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+								modelElementType.setResolvedIPackage(iPackage);
+								break;
+							}
+						}
 						return;
 					}
 					else {
@@ -204,6 +233,13 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 							modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 							modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
 							modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
+							for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+							{
+								if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+									modelElementType.setResolvedIPackage(iPackage);
+									break;
+								}
+							}
 							return;
 						}
 					}

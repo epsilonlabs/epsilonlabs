@@ -44,7 +44,6 @@ public class EolVisitorController<T, R> {
 	protected List<SelfTypeVisitor<T, R>> selfTypeVisitors = new ArrayList<SelfTypeVisitor<T, R>>();
 	protected List<SelfContentTypeVisitor<T, R>> selfContentTypeVisitors = new ArrayList<SelfContentTypeVisitor<T, R>>();
 	protected List<SelfInnermostContentTypeVisitor<T, R>> selfInnermostContentTypeVisitors = new ArrayList<SelfInnermostContentTypeVisitor<T, R>>();
-	protected List<OperationArgumentTypeVisitor<T, R>> operationArgumentTypeVisitors = new ArrayList<OperationArgumentTypeVisitor<T, R>>();
 	protected List<BagTypeVisitor<T, R>> bagTypeVisitors = new ArrayList<BagTypeVisitor<T, R>>();
 	protected List<OrderedCollectionTypeVisitor<T, R>> orderedCollectionTypeVisitors = new ArrayList<OrderedCollectionTypeVisitor<T, R>>();
 	protected List<UniqueCollectionTypeVisitor<T, R>> uniqueCollectionTypeVisitors = new ArrayList<UniqueCollectionTypeVisitor<T, R>>();
@@ -362,13 +361,6 @@ public class EolVisitorController<T, R> {
 			for (SelfInnermostContentTypeVisitor<T, R> visitor : selfInnermostContentTypeVisitors) {
 				if (visitor.appliesTo((SelfInnermostContentType) o, context)) {
 					return visitor.visit((SelfInnermostContentType) o, context, this);
-				}
-			}
-		}
-		if (o instanceof OperationArgumentType && !operationArgumentTypeVisitors.isEmpty()) {
-			for (OperationArgumentTypeVisitor<T, R> visitor : operationArgumentTypeVisitors) {
-				if (visitor.appliesTo((OperationArgumentType) o, context)) {
-					return visitor.visit((OperationArgumentType) o, context, this);
 				}
 			}
 		}
@@ -1276,16 +1268,6 @@ public class EolVisitorController<T, R> {
 			for (SelfInnermostContentTypeVisitor<T, R> visitor : selfInnermostContentTypeVisitors) {
 				if (visitor.appliesTo((SelfInnermostContentType) selfInnermostContentType, context)) {
 					return visitor.visit((SelfInnermostContentType) selfInnermostContentType, context, this);
-				}
-			}
-		}
-		return null;
-	}
-	public R visitAsOperationArgumentType(OperationArgumentType operationArgumentType, T context) {
-		if (!operationArgumentTypeVisitors.isEmpty()) {
-			for (OperationArgumentTypeVisitor<T, R> visitor : operationArgumentTypeVisitors) {
-				if (visitor.appliesTo((OperationArgumentType) operationArgumentType, context)) {
-					return visitor.visit((OperationArgumentType) operationArgumentType, context, this);
 				}
 			}
 		}
@@ -2218,10 +2200,6 @@ public class EolVisitorController<T, R> {
 		return this.selfInnermostContentTypeVisitors.add(selfInnermostContentTypeVisitor);
 	}
 	
-	public boolean addOperationArgumentTypeVisitor(OperationArgumentTypeVisitor<T, R> operationArgumentTypeVisitor) {
-		return this.operationArgumentTypeVisitors.add(operationArgumentTypeVisitor);
-	}
-	
 	public boolean addBagTypeVisitor(BagTypeVisitor<T, R> bagTypeVisitor) {
 		return this.bagTypeVisitors.add(bagTypeVisitor);
 	}
@@ -2673,10 +2651,6 @@ public class EolVisitorController<T, R> {
 	
 	public boolean removeSelfInnermostContentTypeVisitor(SelfInnermostContentTypeVisitor<T, R> selfInnermostContentTypeVisitor) {
 		return this.selfInnermostContentTypeVisitors.remove(selfInnermostContentTypeVisitor);
-	}
-	
-	public boolean removeOperationArgumentTypeVisitor(OperationArgumentTypeVisitor<T, R> operationArgumentTypeVisitor) {
-		return this.operationArgumentTypeVisitors.remove(operationArgumentTypeVisitor);
 	}
 	
 	public boolean removeBagTypeVisitor(BagTypeVisitor<T, R> bagTypeVisitor) {

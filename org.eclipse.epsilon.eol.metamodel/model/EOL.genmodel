@@ -261,6 +261,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelElementType/resolvedIModel"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelElementType/resolvedModelDeclaration"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//ModelElementType/modelType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelElementType/resolvedIPackage"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EOL.ecore#//PseudoType"/>
     <genClasses ecoreClass="EOL.ecore#//SelfType"/>

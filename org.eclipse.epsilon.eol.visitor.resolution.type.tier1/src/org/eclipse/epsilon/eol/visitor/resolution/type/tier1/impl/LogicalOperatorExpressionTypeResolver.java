@@ -106,7 +106,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						if (t instanceof BooleanType) {
 							//try if there exists a type in lhs that is equal to t
 							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
-								LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+								//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 								match = true;
 							}
 						}
@@ -135,7 +135,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					if (rhsType instanceof ComparablePrimitiveType) {
 						//if lhs is compatable to rhs
 						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, rhsType.eClass())) {
-							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+							//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 							return null;
 						}
 						else {
@@ -153,7 +153,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 								if (t instanceof ComparablePrimitiveType) {
 									//if lhstype contains t
 									if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, t.eClass())) {
-										LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+										//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 										match = true;
 									}
 								}
@@ -173,7 +173,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					if (lhsType instanceof ComparablePrimitiveType) {
 						//if rhs contains lhs
 						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
-							LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+							//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 						}
 						else {
 							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));	
@@ -188,8 +188,9 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							{
 								if (t instanceof ComparablePrimitiveType) {
 									if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, t.eClass())) {
-										LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+										//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 										match = true;
+										break;
 									}
 								}
 							}
@@ -246,7 +247,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						{
 							//try if there exists a type in lhs that is equal to t
 							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
-								LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+								//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 								match = true;
 							}
 						}
@@ -257,7 +258,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					else {
 						//try if there exists a type in lhs that is equal to rhs
 						if (TypeUtil.getInstance().isTypeEqual(rhsType, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, rhsType.eClass()))) {
-							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+							//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 						}
 						else {
 							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
@@ -274,7 +275,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						{
 							//try if there exists a type in rhs that is equal to t
 							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) rhsType, t.eClass()))) {
-								LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+								//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 								match = true;
 							}
 						}
@@ -285,7 +286,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					else {
 						//try if there exists a type in rhs that is equalt to lhs
 						if (TypeUtil.getInstance().isTypeEqual(lhsType, TypeInferenceManager.getInstance().getDynamicType((AnyType) rhsType, lhsType.eClass()))) {
-							LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+							//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 						}
 						else {
 							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));	

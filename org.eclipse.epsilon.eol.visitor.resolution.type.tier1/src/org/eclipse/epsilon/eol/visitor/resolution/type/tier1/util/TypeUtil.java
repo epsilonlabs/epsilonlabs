@@ -12,6 +12,7 @@ import org.eclipse.epsilon.analysis.model.driver.emf.EMFIMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.BagType;
+import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
@@ -27,7 +28,7 @@ public class TypeUtil {
 
 	private static TypeUtil instance = null;
 	
-	protected TypeResolutionContext context;
+	protected TypeResolutionContext context = TypeResolutionContext.getInstanace();
 	
 	protected TypeUtil()
 	{
@@ -39,6 +40,16 @@ public class TypeUtil {
 			instance = new TypeUtil();
 		}
 		return instance;
+	}
+	
+	
+	public static void main(String[] args) {
+		AnyType anyType = EolFactory.eINSTANCE.createAnyType();
+		
+		BooleanType booleanType = EolFactory.eINSTANCE.createBooleanType();
+		
+		System.out.println(TypeUtil.getInstance().isInstanceofAnyType(anyType));
+		System.out.println(TypeUtil.getInstance().isInstanceofAnyType(booleanType));
 	}
 	
 	public boolean isInstanceofAnyType(EOLElement eolElement)
@@ -144,7 +155,7 @@ public class TypeUtil {
 		}
 		
 		//if a and b are both of type Any then return true
-		if (a instanceof AnyType && b instanceof AnyType) {
+		if (isInstanceofAnyType(a) && isInstanceofAnyType(b)) {
 			return true;
 		}
 		//if a and b are both of type PrimitiveType and they are of the same class return true, else return false
@@ -450,29 +461,31 @@ public class TypeUtil {
 		//if model string is null
 		else {
 			
-			ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
-			if (iMetamodelDrivers.size() == 0) {
-				return false;
-			}
-			else if (iMetamodelDrivers.size() == 1) {
-				return iMetamodelContainsMetaElement(iMetamodelDrivers.get(0), "", elementString);
-			}
-			else if (iMetamodelDrivers.size() > 1) {
-				ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
-				for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
-				{
-					if (iMetamodelContainsMetaElement(iMetamodelDriver2, "", elementString)) {
-						iMetamodelDriversFound.add(iMetamodelDriver2);
-					}
-				}
-				if (iMetamodelDriversFound.size() == 0) {
+			if (context.getiMetamodelManager().getiMetamodelDrivers() != null) {
+				ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
+				if (iMetamodelDrivers.size() == 0) {
 					return false;
 				}
-				else if (iMetamodelDriversFound.size() > 1) {
-					return true;
+				else if (iMetamodelDrivers.size() == 1) {
+					return iMetamodelContainsMetaElement(iMetamodelDrivers.get(0), "", elementString);
 				}
-				else {
-					return iMetamodelContainsMetaElement(iMetamodelDriversFound.get(0), "", elementString);
+				else if (iMetamodelDrivers.size() > 1) {
+					ArrayList<IMetamodelDriver> iMetamodelDriversFound = new ArrayList<IMetamodelDriver>();
+					for(IMetamodelDriver iMetamodelDriver2: iMetamodelDrivers)
+					{
+						if (iMetamodelContainsMetaElement(iMetamodelDriver2, "", elementString)) {
+							iMetamodelDriversFound.add(iMetamodelDriver2);
+						}
+					}
+					if (iMetamodelDriversFound.size() == 0) {
+						return false;
+					}
+					else if (iMetamodelDriversFound.size() > 1) {
+						return true;
+					}
+					else {
+						return iMetamodelContainsMetaElement(iMetamodelDriversFound.get(0), "", elementString);
+					}
 				}
 			}
 		}
@@ -765,7 +778,7 @@ public class TypeUtil {
 			return true;
 		}
 		
-		if (b instanceof AnyType) {
+		if (isInstanceofAnyType(b)) {
 			return true;
 		}
 		
@@ -817,7 +830,7 @@ public class TypeUtil {
 	//returns the number of ancestors between the subClass and the superClass, returns -1 if they are not inherently related
 	public int shortestDistanceBetweenClass(EClass subClass, EClass superClass)
 	{
-		int result = -1;
+		int result = 999;
 		//if the class share the same EPackage		
 		if(subClass.getEAllSuperTypes().contains(superClass)) //if the superClass is an ancestor of the subClass
 		{
@@ -872,7 +885,7 @@ public class TypeUtil {
 			
 			superClass = (EClass) ((ModelElementType)superObj).getModelType(); //get the ecore type
 			if (subClass == null || superClass == null) { //if ecore type is null, return null
-				return -1;
+				return 10000;
 			}
 		}
 		

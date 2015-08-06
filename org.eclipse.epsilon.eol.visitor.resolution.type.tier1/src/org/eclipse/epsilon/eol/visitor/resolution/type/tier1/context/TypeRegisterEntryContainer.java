@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
@@ -27,6 +28,11 @@ public class TypeRegisterEntryContainer {
 		return subContainers;
 	}
 	
+	public void setPreviousContainer(
+			TypeRegisterEntryContainer previousContainer) {
+		this.previousContainer = previousContainer;
+	}
+	
 	public TypeRegisterEntryContainer getPreviousContainer() {
 		return previousContainer;
 	}
@@ -34,10 +40,10 @@ public class TypeRegisterEntryContainer {
 	public void assignType(VariableDeclarationExpression variableDeclarationExpression, Type type)
 	{
 		if (typeMap.containsKey(variableDeclarationExpression)) {
-			typeMap.put(variableDeclarationExpression, type);
+			typeMap.put(variableDeclarationExpression, EcoreUtil.copy(type));
 		}
 		else {
-			typeMap.put(variableDeclarationExpression, type);
+			typeMap.put(variableDeclarationExpression, EcoreUtil.copy(type));
 		}
 		
 		HashSet<TypeRegisterEntryContainer> temp = new HashSet<TypeRegisterEntryContainer>();

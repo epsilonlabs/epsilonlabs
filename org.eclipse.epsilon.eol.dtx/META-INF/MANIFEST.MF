@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.ui.ide,
  org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.ui.editors
+ org.eclipse.ui.editors,
+ org.eclipse.epsilon.eol.visitor.resolution.type.tier1;bundle-version="0.1.0"
 Bundle-Activator: org.eclipse.epsilon.eol.dtx.EolXPlugin
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

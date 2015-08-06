@@ -2835,6 +2835,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getModelElementType_ResolvedIPackage() {
+		return (EReference)modelElementTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPseudoType() {
 		return pseudoTypeEClass;
 	}
@@ -3387,6 +3396,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_IMODEL);
 		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION);
 		createEAttribute(modelElementTypeEClass, MODEL_ELEMENT_TYPE__MODEL_TYPE);
+		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE);
 
 		pseudoTypeEClass = createEClass(PSEUDO_TYPE);
 
@@ -3881,6 +3891,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getModelElementType_ResolvedIModel(), this.getIModel(), null, "resolvedIModel", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelElementType_ResolvedModelDeclaration(), this.getModelDeclarationStatement(), null, "resolvedModelDeclaration", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelElementType_ModelType(), ecorePackage.getEJavaObject(), "modelType", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelElementType_ResolvedIPackage(), this.getIPackage(), null, "resolvedIPackage", null, 0, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pseudoTypeEClass, PseudoType.class, "PseudoType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

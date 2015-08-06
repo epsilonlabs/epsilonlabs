@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -86,6 +87,16 @@ public class TypeInferenceManager {
 		else {
 			return result;
 		}
+	}
+	
+	public Type inferType(ArrayList<Type> types)
+	{
+		Type result = null;
+		for(Type t: types)
+		{
+			result = getLeastCommonType(result, t);
+		}
+		return result;
 	}
 	
 	public boolean isRightCompatibleToLeft(Type left, AnyType right)

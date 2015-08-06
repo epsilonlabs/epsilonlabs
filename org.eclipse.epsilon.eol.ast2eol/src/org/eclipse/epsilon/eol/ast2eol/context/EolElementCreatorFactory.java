@@ -60,7 +60,6 @@ import org.eclipse.epsilon.eol.ast2eol.NegativeOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NewExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NotEqualsOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.NotOperatorExpressionCreator;
-import org.eclipse.epsilon.eol.ast2eol.OperationArgumentTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.OperationDefinitionCreator;
 import org.eclipse.epsilon.eol.ast2eol.OperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.OrOperatorExpressionCreator;
@@ -92,7 +91,9 @@ import org.eclipse.epsilon.eol.ast2eol.TypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.VariableDeclarationExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.WhileStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.XorOperatorExpressionCreator;
-import org.eclipse.epsilon.eol.metamodel.*;
+import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
 public class EolElementCreatorFactory {
@@ -204,7 +205,6 @@ public class EolElementCreatorFactory {
 		
 		result.add(new SelfTypeCreator());
 		result.add(new SelfContentTypeCreator());
-		result.add(new OperationArgumentTypeCreator());
 		result.add(new SelfInnerMostContentTypeCreator());
 		
 		return result;

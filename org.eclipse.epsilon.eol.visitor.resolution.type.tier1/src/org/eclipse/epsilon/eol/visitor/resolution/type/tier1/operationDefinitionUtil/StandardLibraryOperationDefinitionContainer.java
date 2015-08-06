@@ -1,8 +1,10 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.epsilon.eol.ast2eol.util.Ast2EolUtil;
 import org.eclipse.epsilon.eol.metamodel.EOLProgram;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
@@ -18,9 +20,16 @@ public class StandardLibraryOperationDefinitionContainer extends OperationDefini
 	
 	public void registerOperation(String filename)
 	{
+		
 		URL path = this.getClass().getResource(filename);
-		System.out.println(path.getPath());
-		EOLProgram program = ast2EolUtil.createEOLProgramFromPath(path.getPath());
+		URL absolutePath = null;
+		try {
+			absolutePath = FileLocator.toFileURL(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		EOLProgram program = ast2EolUtil.createEOLProgramFromPath(absolutePath.getPath());
 		for(OperationDefinition operationDefinition : program.getOperations())
 		{
 			Type contextType = operationDefinition.getContextType(); //get the contextType

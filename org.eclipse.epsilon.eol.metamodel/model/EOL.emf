@@ -387,6 +387,7 @@ class ModelElementType extends AnyType {
   ref IModel[1] resolvedIModel;
   ref ModelDeclarationStatement[1] resolvedModelDeclaration;
   attr EJavaObject[1] modelType;
+  ref IPackage resolvedIPackage;
 }
 
 abstract class PseudoType extends AnyType {

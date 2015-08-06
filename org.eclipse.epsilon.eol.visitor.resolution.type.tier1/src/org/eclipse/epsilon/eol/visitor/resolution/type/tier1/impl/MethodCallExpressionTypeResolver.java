@@ -3,7 +3,6 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
@@ -14,9 +13,6 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.SelfContentType;
 import org.eclipse.epsilon.eol.metamodel.SelfType;
-import org.eclipse.epsilon.eol.metamodel.SimpleAnnotationStatement;
-import org.eclipse.epsilon.eol.metamodel.Statement;
-import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
@@ -75,45 +71,46 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		//if an operation is found
 		if (operationDefinition != null) {
 			
-			//if target is null, check operation definition declares context type
-			if (target == null) {
-				if (TypeUtil.getInstance().isInstanceofAnyType(operationDefinition.getContextType())) {
-					AnyType contextType = (AnyType) operationDefinition.getContextType();
-					if (contextType.isDeclared()) {
-						LogBook.getInstance().addError(methodCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-						return null;
-					}
-				}
-			}
-			
-			
-			//deals with parameter of type "Type"
-			for(int i = 0; i < operationDefinition.getParameters().size(); i++)
-			{
-				//if the parameter is keyword "Type"
-				if (operationDefinition.getParameters().get(i).getResolvedType().eClass().getName().equals("Type")) {
-					//if the argument is an name expression
-					if(methodCallExpression.getArguments().get(i) instanceof NameExpression)
-					{
-						NameExpression arg = (NameExpression) methodCallExpression.getArguments().get(i);
-						if (context.getTypeUtil().isKeyWord(arg.getName())) {
-							
-						}
-						else {
-							context.getLogBook().addError(arg, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
-						}
-					}
-					else {
-						context.getLogBook().addError(methodCallExpression.getArguments().get(i), IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
-					}
-				}
-			}
-			
 			//get the context type of the operation
 			Type contextType = operationDefinition.getContextType();
 			
 			//if target type and context type is generic
 			if (context.getTypeUtil().isTypeEqualOrGeneric(targetType,contextType)) {
+				
+				//if target is null, check operation definition declares context type
+				if (target == null) {
+					if (TypeUtil.getInstance().isInstanceofAnyType(operationDefinition.getContextType())) {
+						AnyType ct = (AnyType) contextType;
+						if (ct.isDeclared()) {
+							LogBook.getInstance().addError(methodCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
+							return null;
+						}
+					}
+				}
+				
+				
+				//deals with parameter of type "Type"
+				for(int i = 0; i < operationDefinition.getParameters().size(); i++)
+				{
+					//if the parameter is keyword "Type"
+					if (operationDefinition.getParameters().get(i).getResolvedType().eClass().getName().equals("Type")) {
+						//if the argument is an name expression
+						if(methodCallExpression.getArguments().get(i) instanceof NameExpression)
+						{
+							NameExpression arg = (NameExpression) methodCallExpression.getArguments().get(i);
+							if (context.getTypeUtil().isKeyWord(arg.getName())) {
+								
+							}
+							else {
+								context.getLogBook().addError(arg, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+							}
+						}
+						else {
+							context.getLogBook().addError(methodCallExpression.getArguments().get(i), IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+						}
+					}
+				}
+				
 				
 				if (OperationDefinitionManager.getInstance().handled(operationDefinition)) {
 					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
@@ -123,6 +120,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
 				}
 				else {
+					
 					//if is self type
 					if (operationDefinition.getReturnType() instanceof SelfType) { 
 						//just copy the target type because the target type has been resolved
@@ -148,12 +146,11 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 								AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
 								methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
 								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
-								//this should be Any i guess?
 								//handle content type null
 							}
 						}
 						else {
-							context.getLogBook().addError(targetType, "To use SelfContentType, target is expected to be a Collection");
+							LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
 							
 							AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
 							methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
@@ -165,14 +162,12 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 							(((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfType)) { //if the return type is collection type and its content type is SelfType ============================
 						
 						CollectionType returnType = (CollectionType) operationDefinition.getReturnType();
-						Type collectionContentType = returnType.getContentType();
-						if (collectionContentType instanceof SelfType) {
-							CollectionType resultType = EcoreUtil.copy(returnType);
-							resultType.setContentType(EcoreUtil.copy(targetType));
-							methodCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set the type of the method call
-							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
-							methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
-						}
+						
+						CollectionType resultType = EcoreUtil.copy(returnType);
+						resultType.setContentType(EcoreUtil.copy(targetType));
+						methodCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set the type of the method call
+						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
+						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 					}
 					
 					else {
@@ -184,7 +179,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				
 				
 			}
-			else if (targetType instanceof AnyType) {
+			else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
 					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
 					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
@@ -206,9 +201,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				else {
 					actualType = targetType.getClass().toString();
 				}
-				context.getLogBook().addError(methodCallExpression.getTarget(), "Type mismatch for Operation: " + 
-				operationDefinition.getName().getName() + "()" + "; Expected type: " + expectedType + 
-				" , actual type: " + actualType);
+				LogBook.getInstance().addError(target, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.OPERATION_CONTEXT_TYPE_MISMATCH, methodName, expectedType, actualType));
 			}
 		}
 		else {
@@ -223,33 +216,9 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					argString.concat(", ");
 				}
 			}
-			context.getLogBook().addError(methodCallExpression, "OperationDefinition: " + methodName + "("+ argString +") " + "cannot be found");
+			
+			LogBook.getInstance().addError(methodCallExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.OPERATION_NOT_FOUND, methodName, argString));
 		}
 		return null;
 	}
-
-	public boolean annotationContains(AnnotationBlock block, String s)
-	{
-		boolean result = false;
-		for(Statement stmt: block.getStatements())
-		{
-			if (stmt instanceof SimpleAnnotationStatement) {
-				SimpleAnnotationStatement annot = (SimpleAnnotationStatement) stmt;
-				
-				if (annot.getName().getName().equals("_sysParam")) {
-					for(StringExpression str : annot.getValues())
-					{
-						if (str.getValue().equals(s)) {
-							result = true;
-							return result;
-						}
-					}
-					
-				}
-			}
-			
-		}
-		return result;
-	}
-	
 }

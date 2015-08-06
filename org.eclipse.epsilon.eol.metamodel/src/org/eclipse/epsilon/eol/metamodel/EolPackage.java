@@ -6376,13 +6376,22 @@ public interface EolPackage extends EPackage {
 	int MODEL_ELEMENT_TYPE__MODEL_TYPE = ANY_TYPE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Resolved IPackage</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE = ANY_TYPE_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Model Element Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_ELEMENT_TYPE_FEATURE_COUNT = ANY_TYPE_FEATURE_COUNT + 5;
+	int MODEL_ELEMENT_TYPE_FEATURE_COUNT = ANY_TYPE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.PseudoTypeImpl <em>Pseudo Type</em>}' class.
@@ -10048,6 +10057,17 @@ public interface EolPackage extends EPackage {
 	EAttribute getModelElementType_ModelType();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage <em>Resolved IPackage</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resolved IPackage</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage()
+	 * @see #getModelElementType()
+	 * @generated
+	 */
+	EReference getModelElementType_ResolvedIPackage();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.PseudoType <em>Pseudo Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12154,6 +12174,14 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute MODEL_ELEMENT_TYPE__MODEL_TYPE = eINSTANCE.getModelElementType_ModelType();
+
+		/**
+		 * The meta object literal for the '<em><b>Resolved IPackage</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE = eINSTANCE.getModelElementType_ResolvedIPackage();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.PseudoTypeImpl <em>Pseudo Type</em>}' class.

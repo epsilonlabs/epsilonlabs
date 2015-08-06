@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -22,6 +21,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 	public Object visit(AssignmentStatement assignmentStatement,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		
 		Expression lhs = assignmentStatement.getLhs(); //get lhs expression
 		Expression rhs = assignmentStatement.getRhs(); //get rhs expression
 		

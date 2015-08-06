@@ -118,6 +118,11 @@ public class OperationDefinitionManager {
 		return userDefinedOperations.getOperation(name, contextType, argTypes);
 	}
 	
+	public boolean isStandardLibraryOperationDefinition(OperationDefinition operationDefinition)
+	{
+		return standardLibraryOperations.getOperations().contains(operationDefinition);
+	}
+	
 	
 	
 }

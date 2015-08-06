@@ -16,6 +16,7 @@ package org.eclipse.epsilon.eol.metamodel;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel <em>Resolved IModel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedModelDeclaration <em>Resolved Model Declaration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getModelType <em>Model Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage <em>Resolved IPackage</em>}</li>
  * </ul>
  * </p>
  *
@@ -153,5 +154,31 @@ public interface ModelElementType extends AnyType {
 	 * @generated
 	 */
 	void setModelType(Object value);
+
+	/**
+	 * Returns the value of the '<em><b>Resolved IPackage</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Resolved IPackage</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Resolved IPackage</em>' reference.
+	 * @see #setResolvedIPackage(IPackage)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelElementType_ResolvedIPackage()
+	 * @model
+	 * @generated
+	 */
+	IPackage getResolvedIPackage();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage <em>Resolved IPackage</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Resolved IPackage</em>' reference.
+	 * @see #getResolvedIPackage()
+	 * @generated
+	 */
+	void setResolvedIPackage(IPackage value);
 
 } // ModelElementType

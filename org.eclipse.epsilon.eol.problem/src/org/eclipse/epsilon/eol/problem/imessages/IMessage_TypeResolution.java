@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.problem.imessages;
 
+
 public class IMessage_TypeResolution {
 
 	public static final String TYPE_NOT_INSTANTIABLE = "Type %s is not instantiable";
@@ -76,9 +77,22 @@ public class IMessage_TypeResolution {
 	
 	public static final String OPERATION_REQUIRES_TARGET ="Operation requires a target for it to be invoked";
 	
+	public static final String OPERATION_CONTEXT_TYPE_MISMATCH = "Type mismatch for Operation: %s(), expected type: %s, actual type: %s.";
+	public static final String OPERATION_NOT_FOUND = "Operation definition: %s(%s) cannot be found";
+	
+	public static final String ELEMENT_DOES_NOT_CONTAIN_PROPERTY = "Element %s does not contain property %s";
+	
+	public static final String PROPERTY_NOT_FOUND = "Property not found";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());
+		return result;
+	}
+	
+	public static String bindMessage(String message, Object... values)
+	{
+		String result = String.format(message, values.toString());
 		return result;
 	}
 }

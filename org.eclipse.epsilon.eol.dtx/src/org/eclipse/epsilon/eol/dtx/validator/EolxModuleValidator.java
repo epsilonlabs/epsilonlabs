@@ -17,6 +17,7 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.eol.problem.EOLError;
 import org.eclipse.epsilon.eol.problem.EOLWarning;
 import org.eclipse.epsilon.eol.problem.LogBook;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.EOLTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 
 public class EolxModuleValidator implements IModuleValidator {
@@ -35,6 +36,9 @@ public class EolxModuleValidator implements IModuleValidator {
 			
 			EOLVariableResolver variableResolver = new EOLVariableResolver();
 			variableResolver.run(eolElement);
+			
+			EOLTypeResolver typeResolver = new EOLTypeResolver();
+			typeResolver.run(eolElement);
 			
 			for(EOLWarning warning: LogBook.getInstance().getWarnings((EOLLibraryModule) eolElement))
 			{

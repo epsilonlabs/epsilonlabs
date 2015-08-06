@@ -118,7 +118,6 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							nameExpression.getResolvedContent() instanceof FormalParameterExpression) 
 					{
 						VariableDeclarationExpression content = (VariableDeclarationExpression) resolvedContent;
-						
 						//if variable is of anytype
 						if (TypeUtil.getInstance().isInstanceofAnyType(content.getResolvedType())) {
 							//get the types in the type registry
@@ -128,6 +127,8 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							//clear recorded dynamic types and add types recorded in the type registry
 							anyType.getDynamicTypes().clear();
 							anyType.getDynamicTypes().addAll(types);
+							//nameExpression.setResolvedType(anyType);
+							nameExpression.setResolvedType(EcoreUtil.copy(anyType));
 						}
 						else {
 							Type type = null;

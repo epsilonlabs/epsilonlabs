@@ -1,9 +1,14 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
+import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
@@ -20,6 +25,8 @@ public class TypeResolutionContext {
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	
 	protected TypeRegistry typeRegistry = new TypeRegistry();
+	
+	protected HashMap<Expression, HashSet<Type>> expressionTypeRegistry = new HashMap<Expression, HashSet<Type>>();
 	
 	protected TypeResolutionContext()
 	{}
@@ -82,6 +89,16 @@ public class TypeResolutionContext {
 	
 	public TypeRegistry getTypeRegistry() {
 		return typeRegistry;
+	}
+	
+	public void registerExpressionWithTypes(Expression expression, HashSet<Type> types)
+	{
+		expressionTypeRegistry.put(expression, types);
+	}
+	
+	public HashSet<Type> getTypesOfExpression(Expression expression)
+	{
+		return expressionTypeRegistry.get(expression);
 	}
 	
 }

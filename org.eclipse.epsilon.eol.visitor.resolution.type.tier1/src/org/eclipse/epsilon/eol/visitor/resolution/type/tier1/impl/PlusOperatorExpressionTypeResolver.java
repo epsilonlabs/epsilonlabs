@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -92,8 +93,10 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 					if (t instanceof RealType || t instanceof StringType) {
 						//try if there exists a type in lhs that is equal to t
 						if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
-							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+							type = EcoreUtil.copy(t);
+							// LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 							match = true;
+							break;
 						}
 					}
 				}

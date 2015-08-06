@@ -85,25 +85,25 @@ operation Sequence invert() : SelfType {} //done ---------------------------
 operation OrderedSet invert() : SelfType {} //done ---------------------------
 
 -- First-order logic operations - cannot be described using EOL 
-@_sysParam iteratorOp
+@need handle
 operation Collection select(iterator: Any) : SelfType {} //context
-@_sysParam iteratorOp
+@need handle
 operation Collection selectOne(iterator: Any) : SelfContentType {}
-@_sysParam iteratorOp
+@need handle
 operation Collection reject(iterator: Any) : SelfType {}
-@_sysParam iteratorOp, returnContentIsArgType
+@need handle
 operation Collection collect(expression: Any) : SelfType {}
-@_sysParam iteratorOp
+@need handle
 operation Collection closure(iterator: Any) : SelfType {}
-@_sysParam iteratorOp
+@need handle
 operation Collection aggregate(iterator: Any) : Map {}
-@_sysParam iteratorOp
+@need handle
 operation Collection one(iterator: Any) : Boolean {}
-@_sysParam iteratorOp
+@need handle
 operation Collection exists(iterator: Any) : Boolean {}
-@_sysParam iteratorOp
+@need handle
 operation Collection forAll(iterator: Any) : Boolean {}
-@_sysParam iteratorOp
+@need handle
 operation Collection sortBy(iterator: Any) : SelfType {}
 
 -- operations of type Map
@@ -120,6 +120,7 @@ operation Map isEmpty() : Boolean {}
 
 operation Map keySet(): Set {}
 
+@need handle
 operation Map put(key: Any, value: Any): SelfType {}
 
 operation Map putAll(map: Map) : SelfType{}

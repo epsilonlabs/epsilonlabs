@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IModel;
+import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 
@@ -26,6 +27,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIModel <em>Resolved IModel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedModelDeclaration <em>Resolved Model Declaration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getModelType <em>Model Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIPackage <em>Resolved IPackage</em>}</li>
  * </ul>
  * </p>
  *
@@ -111,6 +113,16 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * @ordered
 	 */
 	protected Object modelType = MODEL_TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getResolvedIPackage() <em>Resolved IPackage</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResolvedIPackage()
+	 * @generated
+	 * @ordered
+	 */
+	protected IPackage resolvedIPackage;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -275,6 +287,44 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public IPackage getResolvedIPackage() {
+		if (resolvedIPackage != null && resolvedIPackage.eIsProxy()) {
+			InternalEObject oldResolvedIPackage = (InternalEObject)resolvedIPackage;
+			resolvedIPackage = (IPackage)eResolveProxy(oldResolvedIPackage);
+			if (resolvedIPackage != oldResolvedIPackage) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE, oldResolvedIPackage, resolvedIPackage));
+			}
+		}
+		return resolvedIPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IPackage basicGetResolvedIPackage() {
+		return resolvedIPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResolvedIPackage(IPackage newResolvedIPackage) {
+		IPackage oldResolvedIPackage = resolvedIPackage;
+		resolvedIPackage = newResolvedIPackage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE, oldResolvedIPackage, resolvedIPackage));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -290,6 +340,9 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				return basicGetResolvedModelDeclaration();
 			case EolPackage.MODEL_ELEMENT_TYPE__MODEL_TYPE:
 				return getModelType();
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE:
+				if (resolve) return getResolvedIPackage();
+				return basicGetResolvedIPackage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -316,6 +369,9 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__MODEL_TYPE:
 				setModelType(newValue);
+				return;
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE:
+				setResolvedIPackage((IPackage)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -344,6 +400,9 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 			case EolPackage.MODEL_ELEMENT_TYPE__MODEL_TYPE:
 				setModelType(MODEL_TYPE_EDEFAULT);
 				return;
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE:
+				setResolvedIPackage((IPackage)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -366,6 +425,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				return resolvedModelDeclaration != null;
 			case EolPackage.MODEL_ELEMENT_TYPE__MODEL_TYPE:
 				return MODEL_TYPE_EDEFAULT == null ? modelType != null : !MODEL_TYPE_EDEFAULT.equals(modelType);
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE:
+				return resolvedIPackage != null;
 		}
 		return super.eIsSet(featureID);
 	}
