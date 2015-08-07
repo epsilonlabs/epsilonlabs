@@ -50,9 +50,9 @@ public class TypeRegistry {
 		currentContainer.assignType(variableDeclarationExpression, type);
 	}
 	
-	public ArrayList<Type> getTypeForVariable(VariableDeclarationExpression variableDeclarationExpression)
+	public HashSet<Type> getTypeForVariable(VariableDeclarationExpression variableDeclarationExpression)
 	{
-		ArrayList<Type> result = new ArrayList<Type>();
+		HashSet<Type> result = new HashSet<Type>();
 		HashSet<TypeRegisterEntryContainer> containersToIgnore = currentContainer.getContainersToDisregard(variableDeclarationExpression);
 		for(TypeRegisterEntryContainer container : currentContainer.getSubContainers())
 		{
@@ -62,7 +62,8 @@ public class TypeRegistry {
 				}
 			}
 			if (container.getType(variableDeclarationExpression) != null) {
-				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
+				result.add(container.getType(variableDeclarationExpression));
+//				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
 			}
 			
 		}
@@ -79,13 +80,15 @@ public class TypeRegistry {
 					}
 				}
 				if (c.getType(variableDeclarationExpression) != null) {
-					result.add(EcoreUtil.copy(c.getType(variableDeclarationExpression)));	
+					result.add(c.getType(variableDeclarationExpression));
+//					result.add(EcoreUtil.copy(c.getType(variableDeclarationExpression)));	
 				}
 				
 			}
 			
 			if (container.getType(variableDeclarationExpression) != null) {
-				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
+				result.add(container.getType(variableDeclarationExpression));
+//				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
 			}
 			container = container.getPreviousContainer();
 		}

@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
@@ -121,7 +122,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						//if variable is of anytype
 						if (TypeUtil.getInstance().isInstanceofAnyType(content.getResolvedType())) {
 							//get the types in the type registry
-							ArrayList<Type> types = context.getTypeRegistry().getTypeForVariable(content);
+							HashSet<Type> types = context.getTypeRegistry().getTypeForVariable(content);
 							//get the resolved type
 							AnyType anyType = (AnyType) content.getResolvedType();
 							//clear recorded dynamic types and add types recorded in the type registry

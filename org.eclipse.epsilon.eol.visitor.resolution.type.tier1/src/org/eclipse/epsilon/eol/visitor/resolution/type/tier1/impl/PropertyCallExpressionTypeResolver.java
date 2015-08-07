@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -68,7 +69,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 				//if resolved content is not null and is a variable declaration
 				if (resolvedContent != null && resolvedContent instanceof VariableDeclarationExpression) {
 					//get the inferred types
-					ArrayList<Type> types = context.getTypeRegistry().getTypeForVariable((VariableDeclarationExpression) resolvedContent);
+					HashSet<Type> types = context.getTypeRegistry().getTypeForVariable((VariableDeclarationExpression) resolvedContent);
 					//infer the types to get a least common type
 					Type inferredType = typeInferenceManager.inferType(types);
 					//if inferred type is not null
@@ -81,23 +82,26 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								targetType = inferredType;
 							}
 							else {
-								propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-								context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
-								return null;
+								targetType = inferredType;
+//								propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
+//								context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+//								return null;
 							}
 						}
 						else if (inferredType instanceof CollectionType) {
 							Type contentType = ((CollectionType)inferredType).getContentType();
 							if (contentType instanceof ModelElementType) {
-								ModelElementType met = (ModelElementType) inferredType;
+								ModelElementType met = (ModelElementType) contentType;
 								IPackageDriver iPackageDriver = (IPackageDriver) met.getResolvedIPackage().getIPackageDriver();
 								if (iPackageDriver.containsFeature(met.getElementName(), propertyString)) {
 									targetType = inferredType;
 								}
 								else {
-									propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-									context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
-									return null;
+									targetType = inferredType;
+
+//									propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
+//									context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+//									return null;
 								}
 							}
 							else {
@@ -118,9 +122,11 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						return null;
 					}
 				}
-				propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-				context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
-				return null;
+				else {
+					propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
+					context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+					return null;
+				}
 			}
 		}
 

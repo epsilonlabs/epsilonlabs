@@ -6,6 +6,7 @@ import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriv
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
+import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
@@ -45,11 +46,13 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 				else {
 					
 					//if nsuri or the uri is found, get it 
-					sourceString = ((NameExpression)sourceParameter.getValue()).getName();
+					sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
 					
 					//create a new MetaModel
 					IMetamodelDriver iMetamodelDriver = new EMFIMetamodelDriver(); 
 					iMetamodelDriver.setLogBook(LogBook.getInstance());
+					iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
+					
 					
 					boolean loaded = iMetamodelDriver.loadModel(sourceString);
 					

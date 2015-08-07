@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -89,7 +88,7 @@ public class TypeInferenceManager {
 		}
 	}
 	
-	public Type inferType(ArrayList<Type> types)
+	public Type inferType(HashSet<Type> types)
 	{
 		Type result = null;
 		for(Type t: types)
@@ -130,15 +129,56 @@ public class TypeInferenceManager {
 			return getLeastCommonPrimitiveType((PrimitiveType)t1, (PrimitiveType)t2);
 		}
 		else if (t1 instanceof CollectionType && t2 instanceof CollectionType) {
-			if (t1.eClass().equals(t2.eClass())) {
-				return EcoreUtil.copy(t1);
-			}
-			else {
-				return null;
-			}
+			return getLeastCommonCollectionType((CollectionType)t1, (CollectionType)t2);
 		}
 		else if (t1 instanceof ModelElementType && t2 instanceof ModelElementType) {
 			return getLeastCommonModelElementType((ModelElementType)t1, (ModelElementType)t2);
+		}
+		return null;
+	}
+	
+	public Type getLeastCommonCollectionType(CollectionType t1, CollectionType t2)
+	{
+		if (t1.getClass().equals(t2.getClass())) {
+			if (t1.getContentType() != null) {
+				if (t2.getContentType() != null) {
+					Type c1 = t1.getContentType();
+					Type c2 = t2.getContentType();
+					if (c1 instanceof PrimitiveType && c2 instanceof PrimitiveType) {
+						Type contentType = getLeastCommonPrimitiveType((PrimitiveType)c1, (PrimitiveType)c2);
+						if (contentType != null) {
+							CollectionType returnType = EcoreUtil.copy(t1);
+							returnType.setContentType(EcoreUtil.copy(contentType));
+							return returnType;
+						}
+					}
+					else if (c1 instanceof ModelElementType && c2 instanceof ModelElementType) {
+						Type contentType = getLeastCommonModelElementType((ModelElementType)c1, (ModelElementType)c2);
+						if (contentType != null) {
+							CollectionType returnType = EcoreUtil.copy(t1);
+							returnType.setContentType(EcoreUtil.copy(contentType));
+							return returnType;
+						}
+					}
+					else if (c1 instanceof CollectionType && c2 instanceof CollectionType) {
+						Type t = getLeastCommonCollectionType((CollectionType)c1, (CollectionType)c2);
+						if (t!= null) {
+							
+						}
+						CollectionType returnType = EcoreUtil.copy(t1);
+						returnType.setContentType(EcoreUtil.copy(t));
+						return returnType;
+					}
+				}
+				else {
+					return EcoreUtil.copy(t1);
+				}
+			}
+			else {
+				if (t2.getContentType() != null) {
+					return EcoreUtil.copy(t2);
+				}
+			}
 		}
 		return null;
 	}

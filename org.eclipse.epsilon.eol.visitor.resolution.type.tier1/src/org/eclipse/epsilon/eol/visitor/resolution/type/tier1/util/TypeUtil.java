@@ -885,7 +885,7 @@ public class TypeUtil {
 			
 			superClass = (EClass) ((ModelElementType)superObj).getModelType(); //get the ecore type
 			if (subClass == null || superClass == null) { //if ecore type is null, return null
-				return 10000;
+				return -1;
 			}
 		}
 		
