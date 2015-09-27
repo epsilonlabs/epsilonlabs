@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.analysis.model.driver.core;
+package org.eclipse.epsilon.analysis.model.driver.core_deprecated;
 
 import java.util.ArrayList;
 import java.util.List;
