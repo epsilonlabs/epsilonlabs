@@ -11,10 +11,9 @@ public class NewExpressionTypeResolver extends NewExpressionVisitor<TypeResoluti
 	public Object visit(NewExpression newExpression,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
-		for(Expression expr: newExpression.getParameters())
-		{
-			controller.visit(expr, context);
-		}
+		
+		controller.visit(newExpression.getResolvedType(), context);
+
 		return null;
 	}
 

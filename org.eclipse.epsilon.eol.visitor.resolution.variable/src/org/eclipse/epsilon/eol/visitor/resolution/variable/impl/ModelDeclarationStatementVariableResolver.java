@@ -27,7 +27,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 			LogBook.getInstance().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_NAME);
 		}
 		
-		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
+		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAliases())
 		{
 			if (context.isReservedWord(alias.getName().getName())) {
 				LogBook.getInstance().addError(alias.getName(), IMessage_VariableResolution.RESERVED_KEYWORD);

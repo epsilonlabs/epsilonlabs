@@ -133,9 +133,9 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
 					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
-						modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
+						modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
 						modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
-						for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+						for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
 						{
 							if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
 								modelElementType.setResolvedIPackage(iPackage);
@@ -155,9 +155,9 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 						if (iPackageDriver.containsMetaElement(identifiers[0])) {
 							found = true;
 							modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
-							modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
+							modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
 							modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
-							for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+							for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
 							{
 								if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
 									modelElementType.setResolvedIPackage(iPackage);
@@ -181,9 +181,9 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 				}	
 				if (iPackageDriver.getMetaElement(identifiers[identifiers.length-2]) != null) {
 					modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
-					modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
+					modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
 					modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
-					for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+					for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
 					{
 						if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
 							modelElementType.setResolvedIPackage(iPackage);
@@ -209,9 +209,9 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
 					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
-						modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
+						modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
 						modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
-						for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+						for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
 						{
 							if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
 								modelElementType.setResolvedIPackage(iPackage);
@@ -231,9 +231,9 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 						if (iPackageDriver.containsMetaElement(identifiers[0])) {
 							found = true;
 							modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
-							modelElementType.setResolvedIModel(iMetamodelDriver.getIModel());
+							modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
 							modelElementType.setResolvedModelDeclaration(iMetamodelDriver.getModelDeclarationStatement());
-							for(IPackage iPackage: iMetamodelDriver.getIModel().getIPackages())
+							for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
 							{
 								if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
 									modelElementType.setResolvedIPackage(iPackage);

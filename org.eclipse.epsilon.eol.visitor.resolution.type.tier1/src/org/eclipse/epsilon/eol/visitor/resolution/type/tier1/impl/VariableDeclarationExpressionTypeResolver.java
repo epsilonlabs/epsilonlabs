@@ -2,7 +2,6 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
@@ -22,10 +21,6 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 		
 		//visit contents first
 		controller.visit(variableDeclarationExpression.getResolvedType(), context);
-		for(Expression param: variableDeclarationExpression.getParameters())
-		{
-			controller.visit(param, context);
-		}
 		
 		//get the value of the create
 		boolean newExpression = variableDeclarationExpression.isCreate();

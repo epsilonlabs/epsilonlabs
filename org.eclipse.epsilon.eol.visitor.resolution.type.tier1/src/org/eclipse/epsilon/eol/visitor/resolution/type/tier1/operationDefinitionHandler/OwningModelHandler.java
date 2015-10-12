@@ -6,7 +6,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
-import org.eclipse.epsilon.eol.metamodel.IModel;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.ModelType;
@@ -41,10 +41,10 @@ public class OwningModelHandler extends AnyOperationDefinitionHandler{
 		else {
 			if (target.getResolvedType() instanceof ModelElementType) {
 				ModelElementType targetType = (ModelElementType) target.getResolvedType();
-				IModel iModel = targetType.getResolvedIModel();
-				if (iModel != null) {
+				IMetamodel iMetamodel = targetType.getResolvedIMetamodel();
+				if (iMetamodel != null) {
 					ModelType modelType = EolFactory.eINSTANCE.createModelType();
-					modelType.setResolvedIModel(iModel);
+					modelType.setResolvedIMetamodel(iMetamodel);
 					TypeResolutionContext.getInstanace().copyLocation(modelType, featureCallExpression);
 					featureCallExpression.setResolvedType(EcoreUtil.copy(modelType));
 					result.setReturnType(EcoreUtil.copy(modelType));

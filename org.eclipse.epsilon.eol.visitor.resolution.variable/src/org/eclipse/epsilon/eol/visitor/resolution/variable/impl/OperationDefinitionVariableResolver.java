@@ -19,8 +19,8 @@ public class OperationDefinitionVariableResolver extends OperationDefinitionVisi
 			context.getStack().putVariable(operationDefinition.getSelf(), false); //put 'self'
 		}
 		//put result into the frame
-		if (operationDefinition.getResult() != null) {
-			context.getStack().putVariable(operationDefinition.getResult(), false); //put "_result"
+		if (operationDefinition.get_result() != null) {
+			context.getStack().putVariable(operationDefinition.get_result(), false); //put "_result"
 		}
 		//visit annotation block 
 		if(operationDefinition.getAnnotationBlock()!= null)
