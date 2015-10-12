@@ -38,7 +38,7 @@ class TextPosition extends EOLElement {
 class EOLLibraryModule extends EOLElement {
   attr String[1] name;
   val Import[*] imports;
-  val IMetamodel[*] iModels;
+  ref IMetamodel[*] iModels;
   val ModelDeclarationStatement[*] modelDeclarations;
   val OperationDefinition[*] operations;
 }

@@ -68,7 +68,7 @@ public interface EOLLibraryModule extends EOLElement {
 	EList<Import> getImports();
 
 	/**
-	 * Returns the value of the '<em><b>IModels</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>IModels</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.IMetamodel}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -76,9 +76,9 @@ public interface EOLLibraryModule extends EOLElement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>IModels</em>' containment reference list.
+	 * @return the value of the '<em>IModels</em>' reference list.
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLLibraryModule_IModels()
-	 * @model containment="true"
+	 * @model
 	 * @generated
 	 */
 	EList<IMetamodel> getIModels();

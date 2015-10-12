@@ -75,7 +75,7 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	protected EList<Import> imports;
 
 	/**
-	 * The cached value of the '{@link #getIModels() <em>IModels</em>}' containment reference list.
+	 * The cached value of the '{@link #getIModels() <em>IModels</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIModels()
@@ -163,7 +163,7 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	 */
 	public EList<IMetamodel> getIModels() {
 		if (iModels == null) {
-			iModels = new EObjectContainmentEList<IMetamodel>(IMetamodel.class, this, EolPackage.EOL_LIBRARY_MODULE__IMODELS);
+			iModels = new EObjectResolvingEList<IMetamodel>(IMetamodel.class, this, EolPackage.EOL_LIBRARY_MODULE__IMODELS);
 		}
 		return iModels;
 	}
@@ -202,8 +202,6 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 		switch (featureID) {
 			case EolPackage.EOL_LIBRARY_MODULE__IMPORTS:
 				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
-			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
-				return ((InternalEList<?>)getIModels()).basicRemove(otherEnd, msgs);
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				return ((InternalEList<?>)getModelDeclarations()).basicRemove(otherEnd, msgs);
 			case EolPackage.EOL_LIBRARY_MODULE__OPERATIONS:

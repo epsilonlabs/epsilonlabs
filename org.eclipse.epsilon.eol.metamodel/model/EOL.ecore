@@ -50,7 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iModels" upperBound="-1"
-        eType="#//IMetamodel" containment="true"/>
+        eType="#//IMetamodel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
         eType="#//ModelDeclarationStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"

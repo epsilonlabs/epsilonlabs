@@ -477,7 +477,7 @@ public interface EolPackage extends EPackage {
 	int EOL_LIBRARY_MODULE__IMPORTS = EOL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>IModels</b></em>' containment reference list.
+	 * The feature id for the '<em><b>IModels</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -568,7 +568,7 @@ public interface EolPackage extends EPackage {
 	int EOL_PROGRAM__IMPORTS = EOL_LIBRARY_MODULE__IMPORTS;
 
 	/**
-	 * The feature id for the '<em><b>IModels</b></em>' containment reference list.
+	 * The feature id for the '<em><b>IModels</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8164,10 +8164,10 @@ public interface EolPackage extends EPackage {
 	EReference getEOLLibraryModule_Imports();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels <em>IModels</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels <em>IModels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>IModels</em>'.
+	 * @return the meta object for the reference list '<em>IModels</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels()
 	 * @see #getEOLLibraryModule()
 	 * @generated
@@ -10565,7 +10565,7 @@ public interface EolPackage extends EPackage {
 		EReference EOL_LIBRARY_MODULE__IMPORTS = eINSTANCE.getEOLLibraryModule_Imports();
 
 		/**
-		 * The meta object literal for the '<em><b>IModels</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>IModels</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
