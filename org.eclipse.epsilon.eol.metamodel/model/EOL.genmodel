@@ -135,7 +135,6 @@
     <genClasses ecoreClass="EOL.ecore#//ModelDeclarationParameter"/>
     <genClasses ecoreClass="EOL.ecore#//NewExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//NewExpression/typeName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//NewExpression/parameters"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//MapExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//MapExpression/keyValues"/>
