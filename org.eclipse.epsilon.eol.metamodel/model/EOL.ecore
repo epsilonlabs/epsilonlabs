@@ -346,7 +346,7 @@
         eType="#//NameExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aliases" upperBound="-1"
         eType="#//VariableDeclarationExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imetamodel" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iMetamodel" lowerBound="1"
         eType="#//IMetamodel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ModelDeclarationParameter"/>

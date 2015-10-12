@@ -6048,7 +6048,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_DECLARATION_STATEMENT__ALIASES = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Imetamodel</b></em>' containment reference.
+	 * The feature id for the '<em><b>IMetamodel</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9878,15 +9878,15 @@ public interface EolPackage extends EPackage {
 	EReference getModelDeclarationStatement_Aliases();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel <em>Imetamodel</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getIMetamodel <em>IMetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Imetamodel</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel()
+	 * @return the meta object for the containment reference '<em>IMetamodel</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getIMetamodel()
 	 * @see #getModelDeclarationStatement()
 	 * @generated
 	 */
-	EReference getModelDeclarationStatement_Imetamodel();
+	EReference getModelDeclarationStatement_IMetamodel();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters <em>Parameters</em>}'.
@@ -12019,12 +12019,12 @@ public interface EolPackage extends EPackage {
 		EReference MODEL_DECLARATION_STATEMENT__ALIASES = eINSTANCE.getModelDeclarationStatement_Aliases();
 
 		/**
-		 * The meta object literal for the '<em><b>Imetamodel</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>IMetamodel</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_DECLARATION_STATEMENT__IMETAMODEL = eINSTANCE.getModelDeclarationStatement_Imetamodel();
+		EReference MODEL_DECLARATION_STATEMENT__IMETAMODEL = eINSTANCE.getModelDeclarationStatement_IMetamodel();
 
 		/**
 		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.

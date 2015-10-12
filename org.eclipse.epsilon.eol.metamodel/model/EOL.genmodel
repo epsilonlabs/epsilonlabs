@@ -243,7 +243,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/driver"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/aliases"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/imetamodel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/iMetamodel"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//ModelDeclarationStatement/parameters"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//Type"/>

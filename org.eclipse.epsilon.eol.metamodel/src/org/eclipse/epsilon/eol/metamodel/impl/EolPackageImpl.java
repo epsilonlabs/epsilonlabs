@@ -2701,7 +2701,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelDeclarationStatement_Imetamodel() {
+	public EReference getModelDeclarationStatement_IMetamodel() {
 		return (EReference)modelDeclarationStatementEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -3863,7 +3863,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getModelDeclarationStatement_Name(), this.getVariableDeclarationExpression(), null, "name", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelDeclarationStatement_Driver(), this.getNameExpression(), null, "driver", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelDeclarationStatement_Aliases(), this.getVariableDeclarationExpression(), null, "aliases", null, 0, -1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelDeclarationStatement_Imetamodel(), this.getIMetamodel(), null, "imetamodel", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelDeclarationStatement_IMetamodel(), this.getIMetamodel(), null, "iMetamodel", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelDeclarationStatement_Parameters(), this.getModelDeclarationParameter(), null, "parameters", null, 0, -1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

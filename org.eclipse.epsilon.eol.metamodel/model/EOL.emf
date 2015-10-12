@@ -364,7 +364,7 @@ class ModelDeclarationStatement extends Statement {
   val VariableDeclarationExpression[1] name;
   val NameExpression[1] driver;
   val VariableDeclarationExpression[*] aliases;
-  val IMetamodel[1] imetamodel;
+  val IMetamodel[1] iMetamodel;
   ref ModelDeclarationParameter[*] parameters;
 }
 

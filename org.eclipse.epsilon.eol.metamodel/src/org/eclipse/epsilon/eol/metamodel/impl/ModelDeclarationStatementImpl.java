@@ -37,7 +37,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getDriver <em>Driver</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getAliases <em>Aliases</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getImetamodel <em>Imetamodel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getIMetamodel <em>IMetamodel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -76,14 +76,14 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	protected EList<VariableDeclarationExpression> aliases;
 
 	/**
-	 * The cached value of the '{@link #getImetamodel() <em>Imetamodel</em>}' containment reference.
+	 * The cached value of the '{@link #getIMetamodel() <em>IMetamodel</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImetamodel()
+	 * @see #getIMetamodel()
 	 * @generated
 	 * @ordered
 	 */
-	protected IMetamodel imetamodel;
+	protected IMetamodel iMetamodel;
 
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
@@ -217,8 +217,8 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IMetamodel getImetamodel() {
-		return imetamodel;
+	public IMetamodel getIMetamodel() {
+		return iMetamodel;
 	}
 
 	/**
@@ -226,11 +226,11 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetImetamodel(IMetamodel newImetamodel, NotificationChain msgs) {
-		IMetamodel oldImetamodel = imetamodel;
-		imetamodel = newImetamodel;
+	public NotificationChain basicSetIMetamodel(IMetamodel newIMetamodel, NotificationChain msgs) {
+		IMetamodel oldIMetamodel = iMetamodel;
+		iMetamodel = newIMetamodel;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, oldImetamodel, newImetamodel);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, oldIMetamodel, newIMetamodel);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -241,18 +241,18 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setImetamodel(IMetamodel newImetamodel) {
-		if (newImetamodel != imetamodel) {
+	public void setIMetamodel(IMetamodel newIMetamodel) {
+		if (newIMetamodel != iMetamodel) {
 			NotificationChain msgs = null;
-			if (imetamodel != null)
-				msgs = ((InternalEObject)imetamodel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
-			if (newImetamodel != null)
-				msgs = ((InternalEObject)newImetamodel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
-			msgs = basicSetImetamodel(newImetamodel, msgs);
+			if (iMetamodel != null)
+				msgs = ((InternalEObject)iMetamodel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
+			if (newIMetamodel != null)
+				msgs = ((InternalEObject)newIMetamodel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
+			msgs = basicSetIMetamodel(newIMetamodel, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, newImetamodel, newImetamodel));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, newIMetamodel, newIMetamodel));
 	}
 
 	/**
@@ -282,7 +282,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
 				return ((InternalEList<?>)getAliases()).basicRemove(otherEnd, msgs);
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
-				return basicSetImetamodel(null, msgs);
+				return basicSetIMetamodel(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -302,7 +302,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
 				return getAliases();
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
-				return getImetamodel();
+				return getIMetamodel();
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				return getParameters();
 		}
@@ -329,7 +329,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				getAliases().addAll((Collection<? extends VariableDeclarationExpression>)newValue);
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
-				setImetamodel((IMetamodel)newValue);
+				setIMetamodel((IMetamodel)newValue);
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				getParameters().clear();
@@ -357,7 +357,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				getAliases().clear();
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
-				setImetamodel((IMetamodel)null);
+				setIMetamodel((IMetamodel)null);
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				getParameters().clear();
@@ -381,7 +381,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
 				return aliases != null && !aliases.isEmpty();
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
-				return imetamodel != null;
+				return iMetamodel != null;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
 		}
