@@ -12,7 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
-import org.eclipse.epsilon.eol.metamodel.IModel;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
@@ -30,7 +30,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 	protected ModelDeclarationStatement modelDeclarationStatement = null;
 	protected LogBook logBook = null;
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
-	protected IModel iModel = null;
+	protected IMetamodel iMetamodel = null;
 
 	@Override
 	public boolean loadModel(String URIorPath) {
@@ -70,7 +70,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 	@Override
 	public void addAlias(String alias) {
 		if (!aliases.add(alias)) {
-			for(VariableDeclarationExpression var: modelDeclarationStatement.getAlias())
+			for(VariableDeclarationExpression var: modelDeclarationStatement.getAliases())
 			{
 				if (var.getName().getName().equals(alias)) {
 					logBook.addWarning(var, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.DUPLICATE_ALIAS, var.getName().getName()));
@@ -113,12 +113,12 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public void reconcileEolLibraryModule() {
-		iModel = EolFactory.eINSTANCE.createIModel();
-		iModel.setName(modelDeclarationStatement.getName().getName());
-		iModel.setDriver(modelDeclarationStatement.getDriver());
-		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAlias())
+		iMetamodel = EolFactory.eINSTANCE.createIMetamodel();
+		iMetamodel.setName(modelDeclarationStatement.getName().getName());
+		iMetamodel.setDriver(modelDeclarationStatement.getDriver());
+		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAliases())
 		{
-			iModel.getAliases().add(alias.getName());
+			iMetamodel.getAliases().add(alias.getName());
 		}
 		
 		for(String key: packages.keySet())
@@ -140,7 +140,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 				}
 			}
 			iPackage.setIPackageDriver(planxmliPackageDriver);
-			iModel.getIPackages().add(iPackage);
+			iMetamodel.getIPackages().add(iPackage);
 		}
 		
 		EOLElement tracer = modelDeclarationStatement;
@@ -149,7 +149,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 			tracer = tracer.getContainer();
 		}
 		EOLLibraryModule module = (EOLLibraryModule) tracer;
-		module.getIModels().add(iModel);
+		module.getIModels().add(iMetamodel);
 	}
 
 	@Override
@@ -160,8 +160,8 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 	}
 
 	@Override
-	public IModel getIModel() {
-		return iModel;
+	public IMetamodel getIMetamodel() {
+		return iMetamodel;
 	}
 
 }
