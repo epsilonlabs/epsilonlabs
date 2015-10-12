@@ -41,7 +41,7 @@ public class ModelDeclarationStatementCreator extends StatementCreator{
 				VariableDeclarationExpression a = context.getEolFactory().createVariableDeclarationExpression();
 				setAssets(alias, a, statement);
 				a.setName((NameExpression) context.getEolElementCreatorFactory().createEOLElement(alias, statement, context, NameExpressionCreator.class));
-				statement.getAlias().add(a);
+				statement.getAliases().add(a);
 				
 			}
 		}

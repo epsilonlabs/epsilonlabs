@@ -43,7 +43,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		NewExpressionCreatorTest.class,
 		NotEqualsOperatorExpressionCreatorTest.class,
 		NotOperatorExpressionCreatorTest.class,
-		OperationArgTypeCreatorTest.class,
+		//OperationArgTypeCreatorTest.class,
 		OperationDefinitionCreatorTest.class,
 		OrderedSetExpressionCreatorTest.class, OrderedSetTypeCreatorTest.class,
 		OrOperatorExpressionCreatorTest.class,

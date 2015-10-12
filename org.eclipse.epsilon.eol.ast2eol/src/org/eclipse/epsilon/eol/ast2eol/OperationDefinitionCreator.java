@@ -116,7 +116,7 @@ public class OperationDefinitionCreator extends EOLElementCreator{
 		_result.setName(resultName);
 		_result.setResolvedType(EcoreUtil.copy(operation.getReturnType()));
 		resultName.setResolvedType(EcoreUtil.copy(operation.getReturnType()));
-		operation.setResult(_result);
+		operation.set_result(_result);
 
 		return operation;
 	}

@@ -38,17 +38,17 @@ public class VariableDeclarationExpressionCreator extends ExpressionCreator{
 				declaration.setResolvedType((Type) context.getEolElementCreatorFactory().createEOLElement(typeAst, declaration, context)); //set type
 				
 				
-				if(ast.getNumberOfChildren() > 2) //if number of children is greater than 2 it means there are parameters
-				{
-					if(ast.getChild(2).getType() == EolParser.PARAMETERS) //if children 2 is PARAMETERS
-					{
-						AST parameterListAst = ast.getChild(2); //fetch parameter AST
-						for(AST parameterAst: parameterListAst.getChildren()) //process parameter ASTs
-						{
-							declaration.getParameters().add((Expression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, declaration, context));
-						}
-					}
-				}
+//				if(ast.getNumberOfChildren() > 2) //if number of children is greater than 2 it means there are parameters
+//				{
+//					if(ast.getChild(2).getType() == EolParser.PARAMETERS) //if children 2 is PARAMETERS
+//					{
+//						AST parameterListAst = ast.getChild(2); //fetch parameter AST
+//						for(AST parameterAst: parameterListAst.getChildren()) //process parameter ASTs
+//						{
+//							declaration.getParameters().add((Expression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, declaration, context));
+//						}
+//					}
+//				}
 			}
 		}
 		else //if there is no type defined, for the current implementation, AnyType is assigned to the variable declaration BUT THIS SHOULD NOT BE ALLOWED

@@ -42,5 +42,32 @@ public class NewExpressionCreatorTest {
 		SequenceType sequenceType = (SequenceType) newExpression.getResolvedType();
 		assertEquals(sequenceType.getContentType().getClass(), IntegerTypeImpl.class);
 	}
+	
+	@Test
+	public void test2(){
+		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = new Sequence(Sequence(Integer));");
+		
+		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		
+		EOLProgram program = (EOLProgram) eolElement;
+		
+		assertEquals(program.getBlock().getStatements().get(0).getClass(), AssignmentStatementImpl.class);
+		
+		AssignmentStatement assignmentStatement = (AssignmentStatement) program.getBlock().getStatements().get(0);
+		
+		assertEquals(assignmentStatement.getLhs().getClass(), VariableDeclarationExpressionImpl.class);
+		VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) assignmentStatement.getLhs();
+		assertEquals(variableDeclarationExpression.getName().getName(), "a");
+		
+		assertEquals(assignmentStatement.getRhs().getClass(), NewExpressionImpl.class);
+		NewExpression newExpression = (NewExpression) assignmentStatement.getRhs();
+		
+		
+		assertEquals(newExpression.getResolvedType().getClass(), SequenceTypeImpl.class);
+		SequenceType sequenceType = (SequenceType) newExpression.getResolvedType();
+		assertEquals(sequenceType.getContentType().getClass(), SequenceTypeImpl.class);
+		SequenceType innerSequenceType = (SequenceType) sequenceType.getContentType();
+		assertEquals(innerSequenceType.getContentType().getClass(), IntegerTypeImpl.class);
+	}
 
 }

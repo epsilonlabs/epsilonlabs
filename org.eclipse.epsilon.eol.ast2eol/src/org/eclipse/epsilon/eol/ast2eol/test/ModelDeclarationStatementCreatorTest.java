@@ -29,10 +29,10 @@ public class ModelDeclarationStatementCreatorTest {
 		
 		ModelDeclarationStatement modelDeclarationStatement = program.getModelDeclarations().get(0);
 		assertEquals(modelDeclarationStatement.getName().getName().getName(), "Core");
-		assertEquals(modelDeclarationStatement.getAlias().size(), 2);
-		VariableDeclarationExpression alias1 = modelDeclarationStatement.getAlias().get(0);
+		assertEquals(modelDeclarationStatement.getAliases().size(), 2);
+		VariableDeclarationExpression alias1 = modelDeclarationStatement.getAliases().get(0);
 		assertEquals(alias1.getName().getName(), "a");
-		VariableDeclarationExpression alias2 = modelDeclarationStatement.getAlias().get(1);
+		VariableDeclarationExpression alias2 = modelDeclarationStatement.getAliases().get(1);
 		assertEquals(alias2.getName().getName(), "b");
 		
 		assertEquals(modelDeclarationStatement.getDriver().getName(), "EMF");

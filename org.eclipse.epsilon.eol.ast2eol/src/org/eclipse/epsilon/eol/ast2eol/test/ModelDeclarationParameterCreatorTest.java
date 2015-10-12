@@ -28,7 +28,7 @@ public class ModelDeclarationParameterCreatorTest {
 		
 		ModelDeclarationStatement modelDeclarationStatement = program.getModelDeclarations().get(0);
 		assertEquals(modelDeclarationStatement.getName().getName().getName(), "Core");
-		assertEquals(modelDeclarationStatement.getAlias().size(), 0);
+		assertEquals(modelDeclarationStatement.getAliases().size(), 0);
 		assertEquals(modelDeclarationStatement.getDriver().getName(), "EMF");
 		assertEquals(modelDeclarationStatement.getParameters().size(), 1);
 
