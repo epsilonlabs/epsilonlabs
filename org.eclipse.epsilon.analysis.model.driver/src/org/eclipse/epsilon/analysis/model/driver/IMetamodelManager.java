@@ -19,6 +19,20 @@ public class IMetamodelManager {
 		return iMetamodelDrivers;
 	}
 	
+	public ArrayList<String> generateKeyWordsFromModelDeclarations()
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		if (iMetamodelDrivers.size() == 1) {
+			result.addAll(iMetamodelDrivers.get(0).getAllTypeNames(true));
+		}
+		else if(iMetamodelDrivers.size() > 1)
+		for(IMetamodelDriver imd: iMetamodelDrivers)
+		{
+			result.addAll(imd.getAllTypeNames(false));
+		}
+		return result;
+	}
+	
 	public void addIMetamodelDriver(IMetamodelDriver iMetamodelDriver)
 	{
 		if (addToMetamodelNamespace(iMetamodelDriver)) {

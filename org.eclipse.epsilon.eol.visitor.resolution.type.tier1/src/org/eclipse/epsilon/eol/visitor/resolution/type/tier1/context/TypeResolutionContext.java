@@ -37,11 +37,7 @@ public class TypeResolutionContext {
 	
 	public void generateKeyWordsFromModelDeclarations()
 	{
-		ArrayList<IMetamodelDriver> iMetamodelDrivers = iMetamodelManager.getiMetamodelDrivers();
-		for(IMetamodelDriver imd: iMetamodelDrivers)
-		{
-			metamodelRelatedKeywords.addAll(imd.getAllTypeNames());
-		}
+		metamodelRelatedKeywords.addAll(iMetamodelManager.generateKeyWordsFromModelDeclarations());
 	}
 	
 	public ArrayList<String> getMetamodelRelatedKeywords() {

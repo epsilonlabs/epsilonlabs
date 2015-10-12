@@ -31,5 +31,5 @@ public interface IMetamodelDriver {
 	
 	public IMetamodel getIMetamodel();
 	
-	public ArrayList<String> getAllTypeNames();
+	public ArrayList<String> getAllTypeNames(boolean allowSingleIdentifier);
 }

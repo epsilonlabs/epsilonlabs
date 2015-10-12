@@ -178,31 +178,50 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		return iMetamodel;
 	}
 
-
 	@Override
-	public ArrayList<String> getAllTypeNames() {
+	public ArrayList<String> getAllTypeNames(boolean allowSingleIdentifier) {
+		
 		ArrayList<String> result = new ArrayList<String>();
-		for(IPackageDriver ipd: getIPackageDrivers())
+		if(allowSingleIdentifier)
 		{
-			for(String typeName: ipd.getAllTypeNames())
-			{
-				result.add(name + "!" + typeName);
-			}
-			for(String alias: aliases)
+			for(IPackageDriver ipd: getIPackageDrivers())
 			{
 				for(String typeName: ipd.getAllTypeNames())
 				{
-					result.add(alias+"!"+typeName);
+					result.add(name + "!" + typeName);
+				}
+				for(String alias: aliases)
+				{
+					for(String typeName: ipd.getAllTypeNames())
+					{
+						result.add(alias+"!"+typeName);
+					}
+				}
+			}
+			
+			if(getIPackageDrivers().size() == 1)
+			{
+				IPackageDriver ipd = getIPackageDrivers().get(0);
+				result.addAll(ipd.getAllTypeNames());
+			}
+		}
+		else {
+			for(IPackageDriver ipd: getIPackageDrivers())
+			{
+				for(String typeName: ipd.getAllTypeNames())
+				{
+					result.add(name + "!" + typeName);
+				}
+				for(String alias: aliases)
+				{
+					for(String typeName: ipd.getAllTypeNames())
+					{
+						result.add(alias+"!"+typeName);
+					}
 				}
 			}
 		}
 		
-		if(getIPackageDrivers().size() == 1)
-		{
-			IPackageDriver ipd = getIPackageDrivers().get(0);
-			result.addAll(ipd.getAllTypeNames());
-		}
 		
-		return result;
-	}
+		return result;}
 }
