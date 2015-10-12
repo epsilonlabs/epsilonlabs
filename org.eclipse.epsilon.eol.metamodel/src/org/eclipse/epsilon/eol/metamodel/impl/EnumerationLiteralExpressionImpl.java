@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
-import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 
 /**

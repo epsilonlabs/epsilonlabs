@@ -8004,6 +8004,17 @@ public interface EolPackage extends EPackage {
 	EClass getIPackage();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>IPackage Driver</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver()
+	 * @see #getIPackage()
+	 * @generated
+	 */
+	EAttribute getIPackage_IPackageDriver();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8046,17 +8057,6 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getIPackage_SubPackages();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>IPackage Driver</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver()
-	 * @see #getIPackage()
-	 * @generated
-	 */
-	EAttribute getIPackage_IPackageDriver();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.TextRegion <em>Text Region</em>}'.
@@ -10427,6 +10427,14 @@ public interface EolPackage extends EPackage {
 		EClass IPACKAGE = eINSTANCE.getIPackage();
 
 		/**
+		 * The meta object literal for the '<em><b>IPackage Driver</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute IPACKAGE__IPACKAGE_DRIVER = eINSTANCE.getIPackage_IPackageDriver();
+
+		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -10457,14 +10465,6 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EReference IPACKAGE__SUB_PACKAGES = eINSTANCE.getIPackage_SubPackages();
-
-		/**
-		 * The meta object literal for the '<em><b>IPackage Driver</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute IPACKAGE__IPACKAGE_DRIVER = eINSTANCE.getIPackage_IPackageDriver();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl <em>Text Region</em>}' class.

@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Type;

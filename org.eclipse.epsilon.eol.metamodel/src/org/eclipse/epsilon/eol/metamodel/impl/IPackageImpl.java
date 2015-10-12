@@ -3,10 +3,12 @@
 package org.eclipse.epsilon.eol.metamodel.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -14,6 +16,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
@@ -140,6 +143,27 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Object getIPackageDriver() {
+		return iPackageDriver;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIPackageDriver(Object newIPackageDriver) {
+		Object oldIPackageDriver = iPackageDriver;
+		iPackageDriver = newIPackageDriver;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.IPACKAGE__IPACKAGE_DRIVER, oldIPackageDriver, iPackageDriver));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getName() {
 		return name;
 	}
@@ -239,27 +263,6 @@ public class IPackageImpl extends EOLElementImpl implements IPackage {
 				return ((InternalEList<?>)getSubPackages()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getIPackageDriver() {
-		return iPackageDriver;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIPackageDriver(Object newIPackageDriver) {
-		Object oldIPackageDriver = iPackageDriver;
-		iPackageDriver = newIPackageDriver;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.IPACKAGE__IPACKAGE_DRIVER, oldIPackageDriver, iPackageDriver));
 	}
 
 	/**

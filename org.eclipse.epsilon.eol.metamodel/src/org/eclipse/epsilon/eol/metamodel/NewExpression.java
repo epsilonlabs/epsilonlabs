@@ -2,7 +2,6 @@
  */
 package org.eclipse.epsilon.eol.metamodel;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->

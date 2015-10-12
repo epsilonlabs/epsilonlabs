@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
-import org.eclipse.epsilon.eol.metamodel.IModel;
-import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;

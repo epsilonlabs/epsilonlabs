@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
-import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;

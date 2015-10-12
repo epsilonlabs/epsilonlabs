@@ -53,7 +53,6 @@ import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOrEqualToOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
-import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.IfStatement;
 import org.eclipse.epsilon.eol.metamodel.ImpliesOperatorExpression;
@@ -80,7 +79,6 @@ import org.eclipse.epsilon.eol.metamodel.NegativeOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.NewExpression;
 import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.NotOperatorExpression;
-import org.eclipse.epsilon.eol.metamodel.OperationArgumentType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.OperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.OrOperatorExpression;
@@ -1099,6 +1097,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIPackage_IPackageDriver() {
+		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getIPackage_Name() {
 		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(1);
 	}
@@ -1128,15 +1135,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 */
 	public EReference getIPackage_SubPackages() {
 		return (EReference)iPackageEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getIPackage_IPackageDriver() {
-		return (EAttribute)iPackageEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**

@@ -4,7 +4,6 @@ package org.eclipse.epsilon.eol.metamodel;
 
 import org.eclipse.emf.common.util.EList;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>IPackage</b></em>'.
@@ -27,10 +26,36 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface IPackage extends EOLElement {
 	/**
+	 * Returns the value of the '<em><b>IPackage Driver</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>IPackage Driver</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>IPackage Driver</em>' attribute.
+	 * @see #setIPackageDriver(Object)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIPackage_IPackageDriver()
+	 * @model
+	 * @generated
+	 */
+	Object getIPackageDriver();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>IPackage Driver</em>' attribute.
+	 * @see #getIPackageDriver()
+	 * @generated
+	 */
+	void setIPackageDriver(Object value);
+
+	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Name</em>' reference isn't clear,
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -82,7 +107,7 @@ public interface IPackage extends EOLElement {
 	 * Returns the value of the '<em><b>Ns Prefix</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Ns Prefix</em>' reference isn't clear,
+	 * If the meaning of the '<em>Ns Prefix</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -119,31 +144,5 @@ public interface IPackage extends EOLElement {
 	 * @generated
 	 */
 	EList<IPackage> getSubPackages();
-
-	/**
-	 * Returns the value of the '<em><b>IPackage Driver</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>IPackage Driver</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>IPackage Driver</em>' attribute.
-	 * @see #setIPackageDriver(Object)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIPackage_IPackageDriver()
-	 * @model
-	 * @generated
-	 */
-	Object getIPackageDriver();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.IPackage#getIPackageDriver <em>IPackage Driver</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>IPackage Driver</em>' attribute.
-	 * @see #getIPackageDriver()
-	 * @generated
-	 */
-	void setIPackageDriver(Object value);
 
 } // IPackage

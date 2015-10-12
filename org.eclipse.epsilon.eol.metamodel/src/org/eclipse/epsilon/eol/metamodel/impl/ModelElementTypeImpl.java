@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
-import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;

@@ -79,7 +79,7 @@ public interface EOLElement extends EObject {
 	 * Returns the value of the '<em><b>Region</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Region</em>' reference isn't clear,
+	 * If the meaning of the '<em>Region</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
