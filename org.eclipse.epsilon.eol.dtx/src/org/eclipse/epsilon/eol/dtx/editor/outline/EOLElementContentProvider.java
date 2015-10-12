@@ -49,4 +49,5 @@ public class EOLElementContentProvider implements ITreeContentProvider {
 	public boolean hasChildren(Object element) {
 		return getChildren(element).length > 0;
 	}
+	
 }

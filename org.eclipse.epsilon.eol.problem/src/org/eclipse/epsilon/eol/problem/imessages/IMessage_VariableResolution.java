@@ -13,6 +13,8 @@ public class IMessage_VariableResolution {
 	public static final String ABORT_MUST_IN_TRANSACTION = "Abort statement should be used in a transaction statement";
 	public static final String IMPORTED_PROGRAM_NOT_FOUND = "Imported module not found";
 	
+	public static final String X_CANNOT_BE_RESOLVED = "%s cannot be resolved";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());

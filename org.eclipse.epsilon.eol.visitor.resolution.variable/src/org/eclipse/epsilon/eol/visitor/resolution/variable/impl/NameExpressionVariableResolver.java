@@ -51,7 +51,7 @@ public class NameExpressionVariableResolver extends NameExpressionVisitor<Variab
 				
 			}
 			else {
-				LogBook.getInstance().addError(nameExpression, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_NOT_DEFINED, nameExpression.getName()));	
+				LogBook.getInstance().addError(nameExpression, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.X_CANNOT_BE_RESOLVED, nameExpression.getName()));	
 			}
 			
 		}

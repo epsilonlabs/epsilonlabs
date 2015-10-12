@@ -43,7 +43,7 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_SHOULD_BE_COMPARABLE = "Expression should be of type Comparable";
 	
 	
-	public static final String EXPRESSION_SHOULD_BE_TYPE = "Expression should be a type";
+	public static final String EXPRESSION_SHOULD_BE_TYPE = "Expression should be a legal type";
 	public static final String EXPRESSION_SHOULD_BE_MODELELEMENT_TYPE = "Expression should be a model element type";
 	public static final String EXPRESSION_SHOULD_BE_COLLECTION_TYPE = "Expression should be a collection type";
 	
