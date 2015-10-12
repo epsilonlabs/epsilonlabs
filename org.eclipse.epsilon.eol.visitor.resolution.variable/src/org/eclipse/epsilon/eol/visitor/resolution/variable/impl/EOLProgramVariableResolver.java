@@ -13,6 +13,7 @@ public class EOLProgramVariableResolver extends EOLProgramVisitor<VariableResolu
 	@Override
 	public Object visit(EOLProgram program, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
+		
 		if (context.getMainProgram() == null) { //if the program is the EOL in question (the main program)
 			context.setMainProgram(program); //set the main program to be this one
 			context.getStack().push(program, true); //insert a stack

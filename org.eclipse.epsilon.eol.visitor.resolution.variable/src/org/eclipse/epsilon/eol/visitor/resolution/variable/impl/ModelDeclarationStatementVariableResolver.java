@@ -45,6 +45,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 		
 		NameExpression driver = modelDeclarationStatement.getDriver();
 		if (driver != null) {
+			
 		}
 		else {
 			LogBook.getInstance().addError(modelDeclarationStatement, IMessage_VariableResolution.MODEL_DECL_NO_DRIVER);
