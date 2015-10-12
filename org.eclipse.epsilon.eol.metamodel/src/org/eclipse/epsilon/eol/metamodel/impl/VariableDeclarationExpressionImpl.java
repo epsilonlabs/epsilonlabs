@@ -33,7 +33,6 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#isCreate <em>Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
@@ -70,16 +69,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * @ordered
 	 */
 	protected NameExpression name;
-
-	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getParameters()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Expression> parameters;
 
 	/**
 	 * The cached value of the '{@link #getReferences() <em>References</em>}' reference list.
@@ -179,18 +168,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Expression> getParameters() {
-		if (parameters == null) {
-			parameters = new EObjectContainmentEList<Expression>(Expression.class, this, EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS);
-		}
-		return parameters;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<NameExpression> getReferences() {
 		if (references == null) {
 			references = new EObjectResolvingEList<NameExpression>(NameExpression.class, this, EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
@@ -208,8 +185,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 		switch (featureID) {
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				return basicSetName(null, msgs);
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
-				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -226,8 +201,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return isCreate();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				return getName();
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
-				return getParameters();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				return getReferences();
 		}
@@ -248,10 +221,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				setName((NameExpression)newValue);
-				return;
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
-				getParameters().clear();
-				getParameters().addAll((Collection<? extends Expression>)newValue);
 				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				getReferences().clear();
@@ -275,9 +244,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				setName((NameExpression)null);
 				return;
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
-				getParameters().clear();
-				return;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				getReferences().clear();
 				return;
@@ -297,8 +263,6 @@ public class VariableDeclarationExpressionImpl extends ExpressionImpl implements
 				return create != CREATE_EDEFAULT;
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__NAME:
 				return name != null;
-			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__PARAMETERS:
-				return parameters != null && !parameters.isEmpty();
 			case EolPackage.VARIABLE_DECLARATION_EXPRESSION__REFERENCES:
 				return references != null && !references.isEmpty();
 		}

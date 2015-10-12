@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#isCreate <em>Create</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}</li>
  * </ul>
  * </p>
@@ -75,22 +74,6 @@ public interface VariableDeclarationExpression extends Expression {
 	 * @generated
 	 */
 	void setName(NameExpression value);
-
-	/**
-	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.Expression}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameters</em>' containment reference list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getVariableDeclarationExpression_Parameters()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Expression> getParameters();
 
 	/**
 	 * Returns the value of the '<em><b>References</b></em>' reference list.

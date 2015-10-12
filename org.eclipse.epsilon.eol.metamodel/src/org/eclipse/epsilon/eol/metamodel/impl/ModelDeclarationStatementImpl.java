@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
@@ -35,8 +36,8 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getDriver <em>Driver</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getAlias <em>Alias</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getImodel <em>Imodel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getAliases <em>Aliases</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getImetamodel <em>Imetamodel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelDeclarationStatementImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -65,24 +66,24 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	protected NameExpression driver;
 
 	/**
-	 * The cached value of the '{@link #getAlias() <em>Alias</em>}' containment reference list.
+	 * The cached value of the '{@link #getAliases() <em>Aliases</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAlias()
+	 * @see #getAliases()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<VariableDeclarationExpression> alias;
+	protected EList<VariableDeclarationExpression> aliases;
 
 	/**
-	 * The cached value of the '{@link #getImodel() <em>Imodel</em>}' containment reference.
+	 * The cached value of the '{@link #getImetamodel() <em>Imetamodel</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImodel()
+	 * @see #getImetamodel()
 	 * @generated
 	 * @ordered
 	 */
-	protected IModel imodel;
+	protected IMetamodel imetamodel;
 
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
@@ -204,11 +205,11 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<VariableDeclarationExpression> getAlias() {
-		if (alias == null) {
-			alias = new EObjectContainmentEList<VariableDeclarationExpression>(VariableDeclarationExpression.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS);
+	public EList<VariableDeclarationExpression> getAliases() {
+		if (aliases == null) {
+			aliases = new EObjectContainmentEList<VariableDeclarationExpression>(VariableDeclarationExpression.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES);
 		}
-		return alias;
+		return aliases;
 	}
 
 	/**
@@ -216,8 +217,8 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel getImodel() {
-		return imodel;
+	public IMetamodel getImetamodel() {
+		return imetamodel;
 	}
 
 	/**
@@ -225,11 +226,11 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetImodel(IModel newImodel, NotificationChain msgs) {
-		IModel oldImodel = imodel;
-		imodel = newImodel;
+	public NotificationChain basicSetImetamodel(IMetamodel newImetamodel, NotificationChain msgs) {
+		IMetamodel oldImetamodel = imetamodel;
+		imetamodel = newImetamodel;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL, oldImodel, newImodel);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, oldImetamodel, newImetamodel);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -240,18 +241,18 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setImodel(IModel newImodel) {
-		if (newImodel != imodel) {
+	public void setImetamodel(IMetamodel newImetamodel) {
+		if (newImetamodel != imetamodel) {
 			NotificationChain msgs = null;
-			if (imodel != null)
-				msgs = ((InternalEObject)imodel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL, null, msgs);
-			if (newImodel != null)
-				msgs = ((InternalEObject)newImodel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL, null, msgs);
-			msgs = basicSetImodel(newImodel, msgs);
+			if (imetamodel != null)
+				msgs = ((InternalEObject)imetamodel).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
+			if (newImetamodel != null)
+				msgs = ((InternalEObject)newImetamodel).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, null, msgs);
+			msgs = basicSetImetamodel(newImetamodel, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL, newImodel, newImodel));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL, newImetamodel, newImetamodel));
 	}
 
 	/**
@@ -278,10 +279,10 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				return basicSetName(null, msgs);
 			case EolPackage.MODEL_DECLARATION_STATEMENT__DRIVER:
 				return basicSetDriver(null, msgs);
-			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS:
-				return ((InternalEList<?>)getAlias()).basicRemove(otherEnd, msgs);
-			case EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL:
-				return basicSetImodel(null, msgs);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
+				return ((InternalEList<?>)getAliases()).basicRemove(otherEnd, msgs);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
+				return basicSetImetamodel(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -298,10 +299,10 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				return getName();
 			case EolPackage.MODEL_DECLARATION_STATEMENT__DRIVER:
 				return getDriver();
-			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS:
-				return getAlias();
-			case EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL:
-				return getImodel();
+			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
+				return getAliases();
+			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
+				return getImetamodel();
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				return getParameters();
 		}
@@ -323,12 +324,12 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 			case EolPackage.MODEL_DECLARATION_STATEMENT__DRIVER:
 				setDriver((NameExpression)newValue);
 				return;
-			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS:
-				getAlias().clear();
-				getAlias().addAll((Collection<? extends VariableDeclarationExpression>)newValue);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
+				getAliases().clear();
+				getAliases().addAll((Collection<? extends VariableDeclarationExpression>)newValue);
 				return;
-			case EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL:
-				setImodel((IModel)newValue);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
+				setImetamodel((IMetamodel)newValue);
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				getParameters().clear();
@@ -352,11 +353,11 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 			case EolPackage.MODEL_DECLARATION_STATEMENT__DRIVER:
 				setDriver((NameExpression)null);
 				return;
-			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS:
-				getAlias().clear();
+			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
+				getAliases().clear();
 				return;
-			case EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL:
-				setImodel((IModel)null);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
+				setImetamodel((IMetamodel)null);
 				return;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				getParameters().clear();
@@ -377,10 +378,10 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				return name != null;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__DRIVER:
 				return driver != null;
-			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIAS:
-				return alias != null && !alias.isEmpty();
-			case EolPackage.MODEL_DECLARATION_STATEMENT__IMODEL:
-				return imodel != null;
+			case EolPackage.MODEL_DECLARATION_STATEMENT__ALIASES:
+				return aliases != null && !aliases.isEmpty();
+			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
+				return imetamodel != null;
 			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
 		}

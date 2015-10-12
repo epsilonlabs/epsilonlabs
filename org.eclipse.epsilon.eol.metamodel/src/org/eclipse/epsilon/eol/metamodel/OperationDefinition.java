@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getSelf <em>Self</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getResult <em>Result</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#get_result <em>result</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getDependingOperationDefinitions <em>Depending Operation Definitions</em>}</li>
  * </ul>
  * </p>
@@ -202,30 +202,30 @@ public interface OperationDefinition extends EOLElement {
 	void setSelf(VariableDeclarationExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Result</b></em>' containment reference.
+	 * Returns the value of the '<em><b>result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Result</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>result</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Result</em>' containment reference.
-	 * @see #setResult(VariableDeclarationExpression)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getOperationDefinition_Result()
+	 * @return the value of the '<em>result</em>' containment reference.
+	 * @see #set_result(VariableDeclarationExpression)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getOperationDefinition__result()
 	 * @model containment="true"
 	 * @generated
 	 */
-	VariableDeclarationExpression getResult();
+	VariableDeclarationExpression get_result();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getResult <em>Result</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#get_result <em>result</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Result</em>' containment reference.
-	 * @see #getResult()
+	 * @param value the new value of the '<em>result</em>' containment reference.
+	 * @see #get_result()
 	 * @generated
 	 */
-	void setResult(VariableDeclarationExpression value);
+	void set_result(VariableDeclarationExpression value);
 
 	/**
 	 * Returns the value of the '<em><b>Depending Operation Definitions</b></em>' reference list.

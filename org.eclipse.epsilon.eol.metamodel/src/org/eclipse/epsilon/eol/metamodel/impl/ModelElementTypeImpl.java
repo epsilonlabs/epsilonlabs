@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
@@ -82,7 +83,7 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * @generated
 	 * @ordered
 	 */
-	protected IModel resolvedIModel;
+	protected IMetamodel resolvedIModel;
 
 	/**
 	 * The cached value of the '{@link #getResolvedModelDeclaration() <em>Resolved Model Declaration</em>}' reference.
@@ -190,10 +191,10 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel getResolvedIModel() {
+	public IMetamodel getResolvedIModel() {
 		if (resolvedIModel != null && resolvedIModel.eIsProxy()) {
 			InternalEObject oldResolvedIModel = (InternalEObject)resolvedIModel;
-			resolvedIModel = (IModel)eResolveProxy(oldResolvedIModel);
+			resolvedIModel = (IMetamodel)eResolveProxy(oldResolvedIModel);
 			if (resolvedIModel != oldResolvedIModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
@@ -207,7 +208,7 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel basicGetResolvedIModel() {
+	public IMetamodel basicGetResolvedIModel() {
 		return resolvedIModel;
 	}
 
@@ -216,8 +217,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResolvedIModel(IModel newResolvedIModel) {
-		IModel oldResolvedIModel = resolvedIModel;
+	public void setResolvedIModel(IMetamodel newResolvedIModel) {
+		IMetamodel oldResolvedIModel = resolvedIModel;
 		resolvedIModel = newResolvedIModel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
@@ -362,7 +363,7 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				setElementName((String)newValue);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IModel)newValue);
+				setResolvedIModel((IMetamodel)newValue);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				setResolvedModelDeclaration((ModelDeclarationStatement)newValue);
@@ -392,7 +393,7 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				setElementName(ELEMENT_NAME_EDEFAULT);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IModel)null);
+				setResolvedIModel((IMetamodel)null);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				setResolvedModelDeclaration((ModelDeclarationStatement)null);

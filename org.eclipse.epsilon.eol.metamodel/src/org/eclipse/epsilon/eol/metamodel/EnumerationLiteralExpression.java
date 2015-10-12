@@ -84,12 +84,12 @@ public interface EnumerationLiteralExpression extends Expression {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>IModel</em>' reference.
-	 * @see #setIModel(IModel)
+	 * @see #setIModel(IMetamodel)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEnumerationLiteralExpression_IModel()
 	 * @model
 	 * @generated
 	 */
-	IModel getIModel();
+	IMetamodel getIModel();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression#getIModel <em>IModel</em>}' reference.
@@ -99,7 +99,7 @@ public interface EnumerationLiteralExpression extends Expression {
 	 * @see #getIModel()
 	 * @generated
 	 */
-	void setIModel(IModel value);
+	void setIModel(IMetamodel value);
 
 	/**
 	 * Returns the value of the '<em><b>Model</b></em>' containment reference.

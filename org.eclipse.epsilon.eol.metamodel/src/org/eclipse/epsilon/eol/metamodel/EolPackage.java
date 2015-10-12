@@ -103,14 +103,14 @@ public interface EolPackage extends EPackage {
 	int EOL_ELEMENT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IModelImpl <em>IModel</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl <em>IMetamodel</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.IModelImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIMetamodel()
 	 * @generated
 	 */
-	int IMODEL = 1;
+	int IMETAMODEL = 1;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -119,7 +119,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__CONTAINER = EOL_ELEMENT__CONTAINER;
+	int IMETAMODEL__CONTAINER = EOL_ELEMENT__CONTAINER;
 
 	/**
 	 * The feature id for the '<em><b>Uri</b></em>' attribute.
@@ -128,7 +128,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__URI = EOL_ELEMENT__URI;
+	int IMETAMODEL__URI = EOL_ELEMENT__URI;
 
 	/**
 	 * The feature id for the '<em><b>Region</b></em>' containment reference.
@@ -137,7 +137,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__REGION = EOL_ELEMENT__REGION;
+	int IMETAMODEL__REGION = EOL_ELEMENT__REGION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' reference.
@@ -146,7 +146,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__NAME = EOL_ELEMENT_FEATURE_COUNT + 0;
+	int IMETAMODEL__NAME = EOL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Aliases</b></em>' reference list.
@@ -155,7 +155,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__ALIASES = EOL_ELEMENT_FEATURE_COUNT + 1;
+	int IMETAMODEL__ALIASES = EOL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Driver</b></em>' reference.
@@ -164,7 +164,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__DRIVER = EOL_ELEMENT_FEATURE_COUNT + 2;
+	int IMETAMODEL__DRIVER = EOL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>IMetamodel Driver</b></em>' attribute.
@@ -173,7 +173,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__IMETAMODEL_DRIVER = EOL_ELEMENT_FEATURE_COUNT + 3;
+	int IMETAMODEL__IMETAMODEL_DRIVER = EOL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>IPackages</b></em>' containment reference list.
@@ -182,16 +182,25 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL__IPACKAGES = EOL_ELEMENT_FEATURE_COUNT + 4;
+	int IMETAMODEL__IPACKAGES = EOL_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the '<em>IModel</em>' class.
+	 * The feature id for the '<em><b>Ns UR Ior Path</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IMODEL_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 5;
+	int IMETAMODEL__NS_UR_IOR_PATH = EOL_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>IMetamodel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMETAMODEL_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl <em>IPackage</em>}' class.
@@ -468,7 +477,7 @@ public interface EolPackage extends EPackage {
 	int EOL_LIBRARY_MODULE__IMPORTS = EOL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>IModels</b></em>' reference list.
+	 * The feature id for the '<em><b>IModels</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -559,7 +568,7 @@ public interface EolPackage extends EPackage {
 	int EOL_PROGRAM__IMPORTS = EOL_LIBRARY_MODULE__IMPORTS;
 
 	/**
-	 * The feature id for the '<em><b>IModels</b></em>' reference list.
+	 * The feature id for the '<em><b>IModels</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -942,7 +951,7 @@ public interface EolPackage extends EPackage {
 	int OPERATION_DEFINITION__SELF = EOL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Result</b></em>' containment reference.
+	 * The feature id for the '<em><b>result</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2649,22 +2658,13 @@ public interface EolPackage extends EPackage {
 	int VARIABLE_DECLARATION_EXPRESSION__NAME = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_DECLARATION_EXPRESSION__PARAMETERS = EXPRESSION_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>References</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION__REFERENCES = EXPRESSION_FEATURE_COUNT + 3;
+	int VARIABLE_DECLARATION_EXPRESSION__REFERENCES = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Variable Declaration Expression</em>' class.
@@ -2673,7 +2673,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
+	int VARIABLE_DECLARATION_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl <em>Formal Parameter Expression</em>}' class.
@@ -2738,15 +2738,6 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int FORMAL_PARAMETER_EXPRESSION__NAME = VARIABLE_DECLARATION_EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FORMAL_PARAMETER_EXPRESSION__PARAMETERS = VARIABLE_DECLARATION_EXPRESSION__PARAMETERS;
 
 	/**
 	 * The feature id for the '<em><b>References</b></em>' reference list.
@@ -6057,22 +6048,22 @@ public interface EolPackage extends EPackage {
 	int MODEL_DECLARATION_STATEMENT__DRIVER = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Alias</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Aliases</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_DECLARATION_STATEMENT__ALIAS = STATEMENT_FEATURE_COUNT + 2;
+	int MODEL_DECLARATION_STATEMENT__ALIASES = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Imodel</b></em>' containment reference.
+	 * The feature id for the '<em><b>Imetamodel</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_DECLARATION_STATEMENT__IMODEL = STATEMENT_FEATURE_COUNT + 3;
+	int MODEL_DECLARATION_STATEMENT__IMETAMODEL = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
@@ -7936,69 +7927,80 @@ public interface EolPackage extends EPackage {
 	EReference getEOLElement_Region();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.IModel <em>IModel</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel <em>IMetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>IModel</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel
+	 * @return the meta object for class '<em>IMetamodel</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel
 	 * @generated
 	 */
-	EClass getIModel();
+	EClass getIMetamodel();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IModel#getName <em>Name</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Name</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel#getName()
-	 * @see #getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getName()
+	 * @see #getIMetamodel()
 	 * @generated
 	 */
-	EReference getIModel_Name();
+	EReference getIMetamodel_Name();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.IModel#getAliases <em>Aliases</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getAliases <em>Aliases</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference list '<em>Aliases</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel#getAliases()
-	 * @see #getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getAliases()
+	 * @see #getIMetamodel()
 	 * @generated
 	 */
-	EReference getIModel_Aliases();
+	EReference getIMetamodel_Aliases();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IModel#getDriver <em>Driver</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getDriver <em>Driver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Driver</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel#getDriver()
-	 * @see #getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getDriver()
+	 * @see #getIMetamodel()
 	 * @generated
 	 */
-	EReference getIModel_Driver();
+	EReference getIMetamodel_Driver();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IModel#getIMetamodelDriver <em>IMetamodel Driver</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getIMetamodelDriver <em>IMetamodel Driver</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>IMetamodel Driver</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel#getIMetamodelDriver()
-	 * @see #getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getIMetamodelDriver()
+	 * @see #getIMetamodel()
 	 * @generated
 	 */
-	EAttribute getIModel_IMetamodelDriver();
+	EAttribute getIMetamodel_IMetamodelDriver();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IModel#getIPackages <em>IPackages</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getIPackages <em>IPackages</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>IPackages</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel#getIPackages()
-	 * @see #getIModel()
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getIPackages()
+	 * @see #getIMetamodel()
 	 * @generated
 	 */
-	EReference getIModel_IPackages();
+	EReference getIMetamodel_IPackages();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getNsURIorPath <em>Ns UR Ior Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Ns UR Ior Path</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel#getNsURIorPath()
+	 * @see #getIMetamodel()
+	 * @generated
+	 */
+	EReference getIMetamodel_NsURIorPath();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.IPackage <em>IPackage</em>}'.
@@ -8162,10 +8164,10 @@ public interface EolPackage extends EPackage {
 	EReference getEOLLibraryModule_Imports();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels <em>IModels</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels <em>IModels</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>IModels</em>'.
+	 * @return the meta object for the containment reference list '<em>IModels</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getIModels()
 	 * @see #getEOLLibraryModule()
 	 * @generated
@@ -8398,15 +8400,15 @@ public interface EolPackage extends EPackage {
 	EReference getOperationDefinition_Self();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getResult <em>Result</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#get_result <em>result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Result</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.OperationDefinition#getResult()
+	 * @return the meta object for the containment reference '<em>result</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.OperationDefinition#get_result()
 	 * @see #getOperationDefinition()
 	 * @generated
 	 */
-	EReference getOperationDefinition_Result();
+	EReference getOperationDefinition__result();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition#getDependingOperationDefinitions <em>Depending Operation Definitions</em>}'.
@@ -8724,17 +8726,6 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getVariableDeclarationExpression_Name();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters <em>Parameters</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getParameters()
-	 * @see #getVariableDeclarationExpression()
-	 * @generated
-	 */
-	EReference getVariableDeclarationExpression_Parameters();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression#getReferences <em>References</em>}'.
@@ -9896,26 +9887,26 @@ public interface EolPackage extends EPackage {
 	EReference getModelDeclarationStatement_Driver();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAlias <em>Alias</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAliases <em>Aliases</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Alias</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAlias()
+	 * @return the meta object for the containment reference list '<em>Aliases</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAliases()
 	 * @see #getModelDeclarationStatement()
 	 * @generated
 	 */
-	EReference getModelDeclarationStatement_Alias();
+	EReference getModelDeclarationStatement_Aliases();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImodel <em>Imodel</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel <em>Imetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Imodel</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImodel()
+	 * @return the meta object for the containment reference '<em>Imetamodel</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel()
 	 * @see #getModelDeclarationStatement()
 	 * @generated
 	 */
-	EReference getModelDeclarationStatement_Imodel();
+	EReference getModelDeclarationStatement_Imetamodel();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters <em>Parameters</em>}'.
@@ -10388,14 +10379,14 @@ public interface EolPackage extends EPackage {
 		EReference EOL_ELEMENT__REGION = eINSTANCE.getEOLElement_Region();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IModelImpl <em>IModel</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl <em>IMetamodel</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.IModelImpl
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIModel()
+		 * @see org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl
+		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIMetamodel()
 		 * @generated
 		 */
-		EClass IMODEL = eINSTANCE.getIModel();
+		EClass IMETAMODEL = eINSTANCE.getIMetamodel();
 
 		/**
 		 * The meta object literal for the '<em><b>Name</b></em>' reference feature.
@@ -10403,7 +10394,7 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IMODEL__NAME = eINSTANCE.getIModel_Name();
+		EReference IMETAMODEL__NAME = eINSTANCE.getIMetamodel_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Aliases</b></em>' reference list feature.
@@ -10411,7 +10402,7 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IMODEL__ALIASES = eINSTANCE.getIModel_Aliases();
+		EReference IMETAMODEL__ALIASES = eINSTANCE.getIMetamodel_Aliases();
 
 		/**
 		 * The meta object literal for the '<em><b>Driver</b></em>' reference feature.
@@ -10419,7 +10410,7 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IMODEL__DRIVER = eINSTANCE.getIModel_Driver();
+		EReference IMETAMODEL__DRIVER = eINSTANCE.getIMetamodel_Driver();
 
 		/**
 		 * The meta object literal for the '<em><b>IMetamodel Driver</b></em>' attribute feature.
@@ -10427,7 +10418,7 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute IMODEL__IMETAMODEL_DRIVER = eINSTANCE.getIModel_IMetamodelDriver();
+		EAttribute IMETAMODEL__IMETAMODEL_DRIVER = eINSTANCE.getIMetamodel_IMetamodelDriver();
 
 		/**
 		 * The meta object literal for the '<em><b>IPackages</b></em>' containment reference list feature.
@@ -10435,7 +10426,15 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IMODEL__IPACKAGES = eINSTANCE.getIModel_IPackages();
+		EReference IMETAMODEL__IPACKAGES = eINSTANCE.getIMetamodel_IPackages();
+
+		/**
+		 * The meta object literal for the '<em><b>Ns UR Ior Path</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IMETAMODEL__NS_UR_IOR_PATH = eINSTANCE.getIMetamodel_NsURIorPath();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl <em>IPackage</em>}' class.
@@ -10566,7 +10565,7 @@ public interface EolPackage extends EPackage {
 		EReference EOL_LIBRARY_MODULE__IMPORTS = eINSTANCE.getEOLLibraryModule_Imports();
 
 		/**
-		 * The meta object literal for the '<em><b>IModels</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>IModels</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -10754,12 +10753,12 @@ public interface EolPackage extends EPackage {
 		EReference OPERATION_DEFINITION__SELF = eINSTANCE.getOperationDefinition_Self();
 
 		/**
-		 * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>result</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference OPERATION_DEFINITION__RESULT = eINSTANCE.getOperationDefinition_Result();
+		EReference OPERATION_DEFINITION__RESULT = eINSTANCE.getOperationDefinition__result();
 
 		/**
 		 * The meta object literal for the '<em><b>Depending Operation Definitions</b></em>' reference list feature.
@@ -11056,14 +11055,6 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EReference VARIABLE_DECLARATION_EXPRESSION__NAME = eINSTANCE.getVariableDeclarationExpression_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference VARIABLE_DECLARATION_EXPRESSION__PARAMETERS = eINSTANCE.getVariableDeclarationExpression_Parameters();
 
 		/**
 		 * The meta object literal for the '<em><b>References</b></em>' reference list feature.
@@ -12048,20 +12039,20 @@ public interface EolPackage extends EPackage {
 		EReference MODEL_DECLARATION_STATEMENT__DRIVER = eINSTANCE.getModelDeclarationStatement_Driver();
 
 		/**
-		 * The meta object literal for the '<em><b>Alias</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Aliases</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_DECLARATION_STATEMENT__ALIAS = eINSTANCE.getModelDeclarationStatement_Alias();
+		EReference MODEL_DECLARATION_STATEMENT__ALIASES = eINSTANCE.getModelDeclarationStatement_Aliases();
 
 		/**
-		 * The meta object literal for the '<em><b>Imodel</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Imetamodel</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_DECLARATION_STATEMENT__IMODEL = eINSTANCE.getModelDeclarationStatement_Imodel();
+		EReference MODEL_DECLARATION_STATEMENT__IMETAMODEL = eINSTANCE.getModelDeclarationStatement_Imetamodel();
 
 		/**
 		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.

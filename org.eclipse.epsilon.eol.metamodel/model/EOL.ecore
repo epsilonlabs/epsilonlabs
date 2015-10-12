@@ -14,7 +14,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="region" eType="#//TextRegion"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IModel" eSuperTypes="#//EOLElement">
+  <eClassifiers xsi:type="ecore:EClass" name="IMetamodel" eSuperTypes="#//EOLElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aliases" upperBound="-1"
         eType="#//NameExpression"/>
@@ -23,6 +23,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iMetamodelDriver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iPackages" upperBound="-1"
         eType="#//IPackage" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nsURIorPath" eType="#//NameExpression"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IPackage" eSuperTypes="#//EOLElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iPackageDriver" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
@@ -48,7 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iModels" upperBound="-1"
-        eType="#//IModel"/>
+        eType="#//IMetamodel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelDeclarations" upperBound="-1"
         eType="#//ModelDeclarationStatement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
@@ -90,7 +92,7 @@
         eType="#//FormalParameterExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="self" lowerBound="1" eType="#//VariableDeclarationExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="#//VariableDeclarationExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="_result" eType="#//VariableDeclarationExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dependingOperationDefinitions"
         upperBound="-1" eType="#//OperationDefinition"/>
@@ -142,8 +144,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="references" upperBound="-1"
         eType="#//NameExpression"/>
   </eClassifiers>
@@ -238,7 +238,7 @@
         eType="#//NameExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="iModel" eType="#//IModel"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="iModel" eType="#//IMetamodel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
@@ -328,7 +328,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="AbortStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="BreakStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="BreakAllStatement" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="AnnotationStatement" eSuperTypes="#//Statement">
+  <eClassifiers xsi:type="ecore:EClass" name="AnnotationStatement" abstract="true"
+      eSuperTypes="#//Statement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
@@ -345,10 +346,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="driver" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="alias" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="aliases" upperBound="-1"
         eType="#//VariableDeclarationExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="imodel" lowerBound="1"
-        eType="#//IModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imetamodel" lowerBound="1"
+        eType="#//IMetamodel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ModelDeclarationParameter"/>
   </eClassifiers>
@@ -361,14 +362,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelType" eSuperTypes="#//AnyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedIModel" lowerBound="1"
-        eType="#//IModel"/>
+        eType="#//IMetamodel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelElementType" eSuperTypes="#//AnyType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedIModel" lowerBound="1"
-        eType="#//IModel"/>
+        eType="#//IMetamodel"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedModelDeclaration"
         lowerBound="1" eType="#//ModelDeclarationStatement"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelType" lowerBound="1"

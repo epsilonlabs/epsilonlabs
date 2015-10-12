@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.ModelType;
 
@@ -35,7 +36,7 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * @generated
 	 * @ordered
 	 */
-	protected IModel resolvedIModel;
+	protected IMetamodel resolvedIModel;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -61,10 +62,10 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel getResolvedIModel() {
+	public IMetamodel getResolvedIModel() {
 		if (resolvedIModel != null && resolvedIModel.eIsProxy()) {
 			InternalEObject oldResolvedIModel = (InternalEObject)resolvedIModel;
-			resolvedIModel = (IModel)eResolveProxy(oldResolvedIModel);
+			resolvedIModel = (IMetamodel)eResolveProxy(oldResolvedIModel);
 			if (resolvedIModel != oldResolvedIModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
@@ -78,7 +79,7 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel basicGetResolvedIModel() {
+	public IMetamodel basicGetResolvedIModel() {
 		return resolvedIModel;
 	}
 
@@ -87,8 +88,8 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResolvedIModel(IModel newResolvedIModel) {
-		IModel oldResolvedIModel = resolvedIModel;
+	public void setResolvedIModel(IMetamodel newResolvedIModel) {
+		IMetamodel oldResolvedIModel = resolvedIModel;
 		resolvedIModel = newResolvedIModel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
@@ -118,7 +119,7 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IModel)newValue);
+				setResolvedIModel((IMetamodel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,7 +134,7 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IModel)null);
+				setResolvedIModel((IMetamodel)null);
 				return;
 		}
 		super.eUnset(featureID);

@@ -52,6 +52,7 @@ import org.eclipse.epsilon.eol.metamodel.ForStatement;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOrEqualToOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.IfStatement;
@@ -145,7 +146,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass iModelEClass = null;
+	private EClass iMetamodelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1026,8 +1027,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getIModel() {
-		return iModelEClass;
+	public EClass getIMetamodel() {
+		return iMetamodelEClass;
 	}
 
 	/**
@@ -1035,8 +1036,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIModel_Name() {
-		return (EReference)iModelEClass.getEStructuralFeatures().get(0);
+	public EReference getIMetamodel_Name() {
+		return (EReference)iMetamodelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1044,8 +1045,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIModel_Aliases() {
-		return (EReference)iModelEClass.getEStructuralFeatures().get(1);
+	public EReference getIMetamodel_Aliases() {
+		return (EReference)iMetamodelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1053,8 +1054,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIModel_Driver() {
-		return (EReference)iModelEClass.getEStructuralFeatures().get(2);
+	public EReference getIMetamodel_Driver() {
+		return (EReference)iMetamodelEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1062,8 +1063,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIModel_IMetamodelDriver() {
-		return (EAttribute)iModelEClass.getEStructuralFeatures().get(3);
+	public EAttribute getIMetamodel_IMetamodelDriver() {
+		return (EAttribute)iMetamodelEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1071,8 +1072,17 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIModel_IPackages() {
-		return (EReference)iModelEClass.getEStructuralFeatures().get(4);
+	public EReference getIMetamodel_IPackages() {
+		return (EReference)iMetamodelEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIMetamodel_NsURIorPath() {
+		return (EReference)iMetamodelEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1413,7 +1423,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOperationDefinition_Result() {
+	public EReference getOperationDefinition__result() {
 		return (EReference)operationDefinitionEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1701,17 +1711,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVariableDeclarationExpression_Parameters() {
-		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getVariableDeclarationExpression_References() {
-		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(3);
+		return (EReference)variableDeclarationExpressionEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2700,7 +2701,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelDeclarationStatement_Alias() {
+	public EReference getModelDeclarationStatement_Aliases() {
 		return (EReference)modelDeclarationStatementEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -2709,7 +2710,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelDeclarationStatement_Imodel() {
+	public EReference getModelDeclarationStatement_Imetamodel() {
 		return (EReference)modelDeclarationStatementEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -3106,12 +3107,13 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEAttribute(eolElementEClass, EOL_ELEMENT__URI);
 		createEReference(eolElementEClass, EOL_ELEMENT__REGION);
 
-		iModelEClass = createEClass(IMODEL);
-		createEReference(iModelEClass, IMODEL__NAME);
-		createEReference(iModelEClass, IMODEL__ALIASES);
-		createEReference(iModelEClass, IMODEL__DRIVER);
-		createEAttribute(iModelEClass, IMODEL__IMETAMODEL_DRIVER);
-		createEReference(iModelEClass, IMODEL__IPACKAGES);
+		iMetamodelEClass = createEClass(IMETAMODEL);
+		createEReference(iMetamodelEClass, IMETAMODEL__NAME);
+		createEReference(iMetamodelEClass, IMETAMODEL__ALIASES);
+		createEReference(iMetamodelEClass, IMETAMODEL__DRIVER);
+		createEAttribute(iMetamodelEClass, IMETAMODEL__IMETAMODEL_DRIVER);
+		createEReference(iMetamodelEClass, IMETAMODEL__IPACKAGES);
+		createEReference(iMetamodelEClass, IMETAMODEL__NS_UR_IOR_PATH);
 
 		iPackageEClass = createEClass(IPACKAGE);
 		createEAttribute(iPackageEClass, IPACKAGE__IPACKAGE_DRIVER);
@@ -3215,7 +3217,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		variableDeclarationExpressionEClass = createEClass(VARIABLE_DECLARATION_EXPRESSION);
 		createEAttribute(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__CREATE);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__NAME);
-		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__PARAMETERS);
 		createEReference(variableDeclarationExpressionEClass, VARIABLE_DECLARATION_EXPRESSION__REFERENCES);
 
 		formalParameterExpressionEClass = createEClass(FORMAL_PARAMETER_EXPRESSION);
@@ -3377,8 +3378,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		modelDeclarationStatementEClass = createEClass(MODEL_DECLARATION_STATEMENT);
 		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__NAME);
 		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__DRIVER);
-		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__ALIAS);
-		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__IMODEL);
+		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__ALIASES);
+		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__IMETAMODEL);
 		createEReference(modelDeclarationStatementEClass, MODEL_DECLARATION_STATEMENT__PARAMETERS);
 
 		typeEClass = createEClass(TYPE);
@@ -3475,7 +3476,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		iModelEClass.getESuperTypes().add(this.getEOLElement());
+		iMetamodelEClass.getESuperTypes().add(this.getEOLElement());
 		iPackageEClass.getESuperTypes().add(this.getEOLElement());
 		textRegionEClass.getESuperTypes().add(this.getEOLElement());
 		textPositionEClass.getESuperTypes().add(this.getEOLElement());
@@ -3601,12 +3602,13 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getEOLElement_Uri(), ecorePackage.getEString(), "uri", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLElement_Region(), this.getTextRegion(), null, "region", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(iModelEClass, IModel.class, "IModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIModel_Name(), this.getNameExpression(), null, "name", null, 1, 1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIModel_Aliases(), this.getNameExpression(), null, "aliases", null, 0, -1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIModel_Driver(), this.getNameExpression(), null, "driver", null, 1, 1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIModel_IMetamodelDriver(), ecorePackage.getEJavaObject(), "iMetamodelDriver", null, 0, 1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIModel_IPackages(), this.getIPackage(), null, "iPackages", null, 0, -1, IModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(iMetamodelEClass, IMetamodel.class, "IMetamodel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIMetamodel_Name(), this.getNameExpression(), null, "name", null, 1, 1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIMetamodel_Aliases(), this.getNameExpression(), null, "aliases", null, 0, -1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIMetamodel_Driver(), this.getNameExpression(), null, "driver", null, 1, 1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIMetamodel_IMetamodelDriver(), ecorePackage.getEJavaObject(), "iMetamodelDriver", null, 0, 1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIMetamodel_IPackages(), this.getIPackage(), null, "iPackages", null, 0, -1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIMetamodel_NsURIorPath(), this.getNameExpression(), null, "nsURIorPath", null, 0, 1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(iPackageEClass, IPackage.class, "IPackage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getIPackage_IPackageDriver(), ecorePackage.getEJavaObject(), "iPackageDriver", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3626,7 +3628,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(eolLibraryModuleEClass, EOLLibraryModule.class, "EOLLibraryModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEOLLibraryModule_Name(), ecorePackage.getEString(), "name", null, 1, 1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_Imports(), this.getImport(), null, "imports", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEOLLibraryModule_IModels(), this.getIModel(), null, "iModels", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEOLLibraryModule_IModels(), this.getIMetamodel(), null, "iModels", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_ModelDeclarations(), this.getModelDeclarationStatement(), null, "modelDeclarations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_Operations(), this.getOperationDefinition(), null, "operations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3654,7 +3656,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getOperationDefinition_Name(), this.getNameExpression(), null, "name", null, 1, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOperationDefinition_Parameters(), this.getFormalParameterExpression(), null, "parameters", null, 0, -1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOperationDefinition_Self(), this.getVariableDeclarationExpression(), null, "self", null, 1, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOperationDefinition_Result(), this.getVariableDeclarationExpression(), null, "result", null, 0, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOperationDefinition__result(), this.getVariableDeclarationExpression(), null, "_result", null, 0, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOperationDefinition_DependingOperationDefinitions(), this.getOperationDefinition(), null, "dependingOperationDefinitions", null, 0, -1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3710,7 +3712,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(variableDeclarationExpressionEClass, VariableDeclarationExpression.class, "VariableDeclarationExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getVariableDeclarationExpression_Create(), ecorePackage.getEBoolean(), "create", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_Name(), this.getNameExpression(), null, "name", null, 1, 1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVariableDeclarationExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getVariableDeclarationExpression_References(), this.getNameExpression(), null, "references", null, 0, -1, VariableDeclarationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(formalParameterExpressionEClass, FormalParameterExpression.class, "FormalParameterExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3789,7 +3790,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(enumerationLiteralExpressionEClass, EnumerationLiteralExpression.class, "EnumerationLiteralExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEnumerationLiteralExpression_Literal(), this.getNameExpression(), null, "literal", null, 1, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEnumerationLiteralExpression_Enumeration(), this.getNameExpression(), null, "enumeration", null, 1, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEnumerationLiteralExpression_IModel(), this.getIModel(), null, "iModel", null, 0, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnumerationLiteralExpression_IModel(), this.getIMetamodel(), null, "iModel", null, 0, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEnumerationLiteralExpression_Model(), this.getNameExpression(), null, "model", null, 0, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(collectionInitialisationExpressionEClass, CollectionInitialisationExpression.class, "CollectionInitialisationExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3860,7 +3861,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(breakAllStatementEClass, BreakAllStatement.class, "BreakAllStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(annotationStatementEClass, AnnotationStatement.class, "AnnotationStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(annotationStatementEClass, AnnotationStatement.class, "AnnotationStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAnnotationStatement_Name(), this.getNameExpression(), null, "name", null, 1, 1, AnnotationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(simpleAnnotationStatementEClass, SimpleAnnotationStatement.class, "SimpleAnnotationStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3872,8 +3873,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(modelDeclarationStatementEClass, ModelDeclarationStatement.class, "ModelDeclarationStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModelDeclarationStatement_Name(), this.getVariableDeclarationExpression(), null, "name", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelDeclarationStatement_Driver(), this.getNameExpression(), null, "driver", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelDeclarationStatement_Alias(), this.getVariableDeclarationExpression(), null, "alias", null, 0, -1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelDeclarationStatement_Imodel(), this.getIModel(), null, "imodel", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelDeclarationStatement_Aliases(), this.getVariableDeclarationExpression(), null, "aliases", null, 0, -1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelDeclarationStatement_Imetamodel(), this.getIMetamodel(), null, "imetamodel", null, 1, 1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelDeclarationStatement_Parameters(), this.getModelDeclarationParameter(), null, "parameters", null, 0, -1, ModelDeclarationStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3883,12 +3884,12 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getAnyType_Declared(), ecorePackage.getEBoolean(), "declared", null, 1, 1, AnyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelTypeEClass, ModelType.class, "ModelType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModelType_ResolvedIModel(), this.getIModel(), null, "resolvedIModel", null, 1, 1, ModelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelType_ResolvedIModel(), this.getIMetamodel(), null, "resolvedIModel", null, 1, 1, ModelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelElementTypeEClass, ModelElementType.class, "ModelElementType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModelElementType_ModelName(), ecorePackage.getEString(), "modelName", null, 0, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelElementType_ElementName(), ecorePackage.getEString(), "elementName", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelElementType_ResolvedIModel(), this.getIModel(), null, "resolvedIModel", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelElementType_ResolvedIModel(), this.getIMetamodel(), null, "resolvedIModel", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelElementType_ResolvedModelDeclaration(), this.getModelDeclarationStatement(), null, "resolvedModelDeclaration", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelElementType_ModelType(), ecorePackage.getEJavaObject(), "modelType", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelElementType_ResolvedIPackage(), this.getIPackage(), null, "resolvedIPackage", null, 0, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

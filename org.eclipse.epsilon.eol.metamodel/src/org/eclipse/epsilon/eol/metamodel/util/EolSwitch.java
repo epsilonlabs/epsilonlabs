@@ -72,10 +72,10 @@ public class EolSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EolPackage.IMODEL: {
-				IModel iModel = (IModel)theEObject;
-				T result = caseIModel(iModel);
-				if (result == null) result = caseEOLElement(iModel);
+			case EolPackage.IMETAMODEL: {
+				IMetamodel iMetamodel = (IMetamodel)theEObject;
+				T result = caseIMetamodel(iMetamodel);
+				if (result == null) result = caseEOLElement(iMetamodel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1114,17 +1114,17 @@ public class EolSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>IModel</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>IMetamodel</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>IModel</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>IMetamodel</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseIModel(IModel object) {
+	public T caseIMetamodel(IMetamodel object) {
 		return null;
 	}
 

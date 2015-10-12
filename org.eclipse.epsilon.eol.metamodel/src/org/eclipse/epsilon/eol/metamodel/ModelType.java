@@ -29,12 +29,12 @@ public interface ModelType extends AnyType {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Resolved IModel</em>' reference.
-	 * @see #setResolvedIModel(IModel)
+	 * @see #setResolvedIModel(IMetamodel)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelType_ResolvedIModel()
 	 * @model required="true"
 	 * @generated
 	 */
-	IModel getResolvedIModel();
+	IMetamodel getResolvedIModel();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIModel <em>Resolved IModel</em>}' reference.
@@ -44,6 +44,6 @@ public interface ModelType extends AnyType {
 	 * @see #getResolvedIModel()
 	 * @generated
 	 */
-	void setResolvedIModel(IModel value);
+	void setResolvedIModel(IMetamodel value);
 
 } // ModelType

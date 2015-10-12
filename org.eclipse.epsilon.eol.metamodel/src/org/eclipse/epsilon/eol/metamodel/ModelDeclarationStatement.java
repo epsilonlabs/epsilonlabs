@@ -14,8 +14,8 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getDriver <em>Driver</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAlias <em>Alias</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImodel <em>Imodel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getAliases <em>Aliases</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel <em>Imetamodel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
@@ -78,46 +78,46 @@ public interface ModelDeclarationStatement extends Statement {
 	void setDriver(NameExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Alias</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Aliases</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Alias</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Aliases</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Alias</em>' containment reference list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelDeclarationStatement_Alias()
+	 * @return the value of the '<em>Aliases</em>' containment reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelDeclarationStatement_Aliases()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<VariableDeclarationExpression> getAlias();
+	EList<VariableDeclarationExpression> getAliases();
 
 	/**
-	 * Returns the value of the '<em><b>Imodel</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Imetamodel</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Imodel</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Imetamodel</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Imodel</em>' containment reference.
-	 * @see #setImodel(IModel)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelDeclarationStatement_Imodel()
+	 * @return the value of the '<em>Imetamodel</em>' containment reference.
+	 * @see #setImetamodel(IMetamodel)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelDeclarationStatement_Imetamodel()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	IModel getImodel();
+	IMetamodel getImetamodel();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImodel <em>Imodel</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getImetamodel <em>Imetamodel</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Imodel</em>' containment reference.
-	 * @see #getImodel()
+	 * @param value the new value of the '<em>Imetamodel</em>' containment reference.
+	 * @see #getImetamodel()
 	 * @generated
 	 */
-	void setImodel(IModel value);
+	void setImetamodel(IMetamodel value);
 
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' reference list.

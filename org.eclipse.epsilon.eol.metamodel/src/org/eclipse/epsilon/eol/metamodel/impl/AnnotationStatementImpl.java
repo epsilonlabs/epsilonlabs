@@ -27,7 +27,7 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  *
  * @generated
  */
-public class AnnotationStatementImpl extends StatementImpl implements AnnotationStatement {
+public abstract class AnnotationStatementImpl extends StatementImpl implements AnnotationStatement {
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
 	 * <!-- begin-user-doc -->

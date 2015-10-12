@@ -72,8 +72,8 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 				return createEOLElementAdapter();
 			}
 			@Override
-			public Adapter caseIModel(IModel object) {
-				return createIModelAdapter();
+			public Adapter caseIMetamodel(IMetamodel object) {
+				return createIMetamodelAdapter();
 			}
 			@Override
 			public Adapter caseIPackage(IPackage object) {
@@ -554,16 +554,16 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.IModel <em>IModel</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.IMetamodel <em>IMetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.eol.metamodel.IModel
+	 * @see org.eclipse.epsilon.eol.metamodel.IMetamodel
 	 * @generated
 	 */
-	public Adapter createIModelAdapter() {
+	public Adapter createIMetamodelAdapter() {
 		return null;
 	}
 

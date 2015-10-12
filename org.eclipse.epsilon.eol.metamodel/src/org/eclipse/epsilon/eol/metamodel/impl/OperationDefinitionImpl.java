@@ -41,7 +41,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getSelf <em>Self</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getResult <em>Result</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#get_result <em>result</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getDependingOperationDefinitions <em>Depending Operation Definitions</em>}</li>
  * </ul>
  * </p>
@@ -120,14 +120,14 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 	protected VariableDeclarationExpression self;
 
 	/**
-	 * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
+	 * The cached value of the '{@link #get_result() <em>result</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResult()
+	 * @see #get_result()
 	 * @generated
 	 * @ordered
 	 */
-	protected VariableDeclarationExpression result;
+	protected VariableDeclarationExpression _result;
 
 	/**
 	 * The cached value of the '{@link #getDependingOperationDefinitions() <em>Depending Operation Definitions</em>}' reference list.
@@ -433,8 +433,8 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public VariableDeclarationExpression getResult() {
-		return result;
+	public VariableDeclarationExpression get_result() {
+		return _result;
 	}
 
 	/**
@@ -442,11 +442,11 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetResult(VariableDeclarationExpression newResult, NotificationChain msgs) {
-		VariableDeclarationExpression oldResult = result;
-		result = newResult;
+	public NotificationChain basicSet_result(VariableDeclarationExpression new_result, NotificationChain msgs) {
+		VariableDeclarationExpression old_result = _result;
+		_result = new_result;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.OPERATION_DEFINITION__RESULT, oldResult, newResult);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.OPERATION_DEFINITION__RESULT, old_result, new_result);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -457,18 +457,18 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResult(VariableDeclarationExpression newResult) {
-		if (newResult != result) {
+	public void set_result(VariableDeclarationExpression new_result) {
+		if (new_result != _result) {
 			NotificationChain msgs = null;
-			if (result != null)
-				msgs = ((InternalEObject)result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.OPERATION_DEFINITION__RESULT, null, msgs);
-			if (newResult != null)
-				msgs = ((InternalEObject)newResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.OPERATION_DEFINITION__RESULT, null, msgs);
-			msgs = basicSetResult(newResult, msgs);
+			if (_result != null)
+				msgs = ((InternalEObject)_result).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.OPERATION_DEFINITION__RESULT, null, msgs);
+			if (new_result != null)
+				msgs = ((InternalEObject)new_result).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.OPERATION_DEFINITION__RESULT, null, msgs);
+			msgs = basicSet_result(new_result, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.OPERATION_DEFINITION__RESULT, newResult, newResult));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.OPERATION_DEFINITION__RESULT, new_result, new_result));
 	}
 
 	/**
@@ -506,7 +506,7 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 			case EolPackage.OPERATION_DEFINITION__SELF:
 				return basicSetSelf(null, msgs);
 			case EolPackage.OPERATION_DEFINITION__RESULT:
-				return basicSetResult(null, msgs);
+				return basicSet_result(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -534,7 +534,7 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 			case EolPackage.OPERATION_DEFINITION__SELF:
 				return getSelf();
 			case EolPackage.OPERATION_DEFINITION__RESULT:
-				return getResult();
+				return get_result();
 			case EolPackage.OPERATION_DEFINITION__DEPENDING_OPERATION_DEFINITIONS:
 				return getDependingOperationDefinitions();
 		}
@@ -573,7 +573,7 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 				setSelf((VariableDeclarationExpression)newValue);
 				return;
 			case EolPackage.OPERATION_DEFINITION__RESULT:
-				setResult((VariableDeclarationExpression)newValue);
+				set_result((VariableDeclarationExpression)newValue);
 				return;
 			case EolPackage.OPERATION_DEFINITION__DEPENDING_OPERATION_DEFINITIONS:
 				getDependingOperationDefinitions().clear();
@@ -613,7 +613,7 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 				setSelf((VariableDeclarationExpression)null);
 				return;
 			case EolPackage.OPERATION_DEFINITION__RESULT:
-				setResult((VariableDeclarationExpression)null);
+				set_result((VariableDeclarationExpression)null);
 				return;
 			case EolPackage.OPERATION_DEFINITION__DEPENDING_OPERATION_DEFINITIONS:
 				getDependingOperationDefinitions().clear();
@@ -645,7 +645,7 @@ public class OperationDefinitionImpl extends EOLElementImpl implements Operation
 			case EolPackage.OPERATION_DEFINITION__SELF:
 				return self != null;
 			case EolPackage.OPERATION_DEFINITION__RESULT:
-				return result != null;
+				return _result != null;
 			case EolPackage.OPERATION_DEFINITION__DEPENDING_OPERATION_DEFINITIONS:
 				return dependingOperationDefinitions != null && !dependingOperationDefinitions.isEmpty();
 		}

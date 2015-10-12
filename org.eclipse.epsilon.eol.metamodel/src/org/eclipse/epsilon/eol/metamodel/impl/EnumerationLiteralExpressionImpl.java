@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 
@@ -60,7 +61,7 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 	 * @generated
 	 * @ordered
 	 */
-	protected IModel iModel;
+	protected IMetamodel iModel;
 
 	/**
 	 * The cached value of the '{@link #getModel() <em>Model</em>}' containment reference.
@@ -182,10 +183,10 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel getIModel() {
+	public IMetamodel getIModel() {
 		if (iModel != null && iModel.eIsProxy()) {
 			InternalEObject oldIModel = (InternalEObject)iModel;
-			iModel = (IModel)eResolveProxy(oldIModel);
+			iModel = (IMetamodel)eResolveProxy(oldIModel);
 			if (iModel != oldIModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.ENUMERATION_LITERAL_EXPRESSION__IMODEL, oldIModel, iModel));
@@ -199,7 +200,7 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel basicGetIModel() {
+	public IMetamodel basicGetIModel() {
 		return iModel;
 	}
 
@@ -208,8 +209,8 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIModel(IModel newIModel) {
-		IModel oldIModel = iModel;
+	public void setIModel(IMetamodel newIModel) {
+		IMetamodel oldIModel = iModel;
 		iModel = newIModel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.ENUMERATION_LITERAL_EXPRESSION__IMODEL, oldIModel, iModel));
@@ -312,7 +313,7 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 				setEnumeration((NameExpression)newValue);
 				return;
 			case EolPackage.ENUMERATION_LITERAL_EXPRESSION__IMODEL:
-				setIModel((IModel)newValue);
+				setIModel((IMetamodel)newValue);
 				return;
 			case EolPackage.ENUMERATION_LITERAL_EXPRESSION__MODEL:
 				setModel((NameExpression)newValue);
@@ -336,7 +337,7 @@ public class EnumerationLiteralExpressionImpl extends ExpressionImpl implements 
 				setEnumeration((NameExpression)null);
 				return;
 			case EolPackage.ENUMERATION_LITERAL_EXPRESSION__IMODEL:
-				setIModel((IModel)null);
+				setIModel((IMetamodel)null);
 				return;
 			case EolPackage.ENUMERATION_LITERAL_EXPRESSION__MODEL:
 				setModel((NameExpression)null);

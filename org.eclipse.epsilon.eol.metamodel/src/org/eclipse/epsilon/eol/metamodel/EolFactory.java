@@ -31,13 +31,13 @@ public interface EolFactory extends EFactory {
 	EOLElement createEOLElement();
 
 	/**
-	 * Returns a new object of class '<em>IModel</em>'.
+	 * Returns a new object of class '<em>IMetamodel</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>IModel</em>'.
+	 * @return a new object of class '<em>IMetamodel</em>'.
 	 * @generated
 	 */
-	IModel createIModel();
+	IMetamodel createIMetamodel();
 
 	/**
 	 * Returns a new object of class '<em>IPackage</em>'.
@@ -614,15 +614,6 @@ public interface EolFactory extends EFactory {
 	 * @generated
 	 */
 	BreakAllStatement createBreakAllStatement();
-
-	/**
-	 * Returns a new object of class '<em>Annotation Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Annotation Statement</em>'.
-	 * @generated
-	 */
-	AnnotationStatement createAnnotationStatement();
 
 	/**
 	 * Returns a new object of class '<em>Simple Annotation Statement</em>'.

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IModel;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
@@ -74,14 +75,14 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	protected EList<Import> imports;
 
 	/**
-	 * The cached value of the '{@link #getIModels() <em>IModels</em>}' reference list.
+	 * The cached value of the '{@link #getIModels() <em>IModels</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getIModels()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<IModel> iModels;
+	protected EList<IMetamodel> iModels;
 
 	/**
 	 * The cached value of the '{@link #getModelDeclarations() <em>Model Declarations</em>}' containment reference list.
@@ -160,9 +161,9 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<IModel> getIModels() {
+	public EList<IMetamodel> getIModels() {
 		if (iModels == null) {
-			iModels = new EObjectResolvingEList<IModel>(IModel.class, this, EolPackage.EOL_LIBRARY_MODULE__IMODELS);
+			iModels = new EObjectContainmentEList<IMetamodel>(IMetamodel.class, this, EolPackage.EOL_LIBRARY_MODULE__IMODELS);
 		}
 		return iModels;
 	}
@@ -201,6 +202,8 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 		switch (featureID) {
 			case EolPackage.EOL_LIBRARY_MODULE__IMPORTS:
 				return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
+			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
+				return ((InternalEList<?>)getIModels()).basicRemove(otherEnd, msgs);
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				return ((InternalEList<?>)getModelDeclarations()).basicRemove(otherEnd, msgs);
 			case EolPackage.EOL_LIBRARY_MODULE__OPERATIONS:
@@ -249,7 +252,7 @@ public class EOLLibraryModuleImpl extends EOLElementImpl implements EOLLibraryMo
 				return;
 			case EolPackage.EOL_LIBRARY_MODULE__IMODELS:
 				getIModels().clear();
-				getIModels().addAll((Collection<? extends IModel>)newValue);
+				getIModels().addAll((Collection<? extends IMetamodel>)newValue);
 				return;
 			case EolPackage.EOL_LIBRARY_MODULE__MODEL_DECLARATIONS:
 				getModelDeclarations().clear();

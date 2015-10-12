@@ -16,7 +16,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getAnnotationStatement()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface AnnotationStatement extends Statement {

@@ -8,12 +8,13 @@ class EOLElement {
   val TextRegion region;
 }
 
-class IModel extends EOLElement {
+class IMetamodel extends EOLElement {
   ref NameExpression[1] name;
   ref NameExpression[*] aliases;
   ref NameExpression[1] driver;
   attr EJavaObject iMetamodelDriver;
   val IPackage[*] iPackages;
+  val NameExpression nsURIorPath;
 }
 
 class IPackage extends EOLElement {
@@ -37,7 +38,7 @@ class TextPosition extends EOLElement {
 class EOLLibraryModule extends EOLElement {
   attr String[1] name;
   val Import[*] imports;
-  ref IModel[*] iModels;
+  val IMetamodel[*] iModels;
   val ModelDeclarationStatement[*] modelDeclarations;
   val OperationDefinition[*] operations;
 }
@@ -71,7 +72,7 @@ class OperationDefinition extends EOLElement {
   val NameExpression[1] name;
   val FormalParameterExpression[*] parameters;
   val VariableDeclarationExpression[1] self;
-  val VariableDeclarationExpression result;
+  val VariableDeclarationExpression _result;
   ref OperationDefinition[*] dependingOperationDefinitions;
 }
 
@@ -151,7 +152,6 @@ class EqualsOperatorExpression extends ComparisonOperatorExpression {
 class VariableDeclarationExpression extends Expression {
   attr boolean[1] create;
   val NameExpression[1] name;
-  val Expression[*] parameters;
   ref NameExpression[*] references;
 }
 
@@ -255,7 +255,7 @@ abstract class UniqueCollection extends CollectionExpression {
 class EnumerationLiteralExpression extends Expression {
   val NameExpression[1] literal;
   val NameExpression[1] enumeration;
-  ref IModel iModel;
+  ref IMetamodel iModel;
   val NameExpression model;
 }
 
@@ -349,7 +349,7 @@ class BreakStatement extends Statement {
 class BreakAllStatement extends Statement {
 }
 
-class AnnotationStatement extends Statement {
+abstract class AnnotationStatement extends Statement {
   val NameExpression[1] name;
 }
 
@@ -364,8 +364,8 @@ class ExecutableAnnotationStatement extends AnnotationStatement {
 class ModelDeclarationStatement extends Statement {
   val VariableDeclarationExpression[1] name;
   val NameExpression[1] driver;
-  val VariableDeclarationExpression[*] alias;
-  val IModel[1] imodel;
+  val VariableDeclarationExpression[*] aliases;
+  val IMetamodel[1] imetamodel;
   ref ModelDeclarationParameter[*] parameters;
 }
 
@@ -378,13 +378,13 @@ class AnyType extends Type {
 }
 
 class ModelType extends AnyType {
-  ref IModel[1] resolvedIModel;
+  ref IMetamodel[1] resolvedIModel;
 }
 
 class ModelElementType extends AnyType {
   attr String modelName;
   attr String[1] elementName;
-  ref IModel[1] resolvedIModel;
+  ref IMetamodel[1] resolvedIModel;
   ref ModelDeclarationStatement[1] resolvedModelDeclaration;
   attr EJavaObject[1] modelType;
   ref IPackage resolvedIPackage;

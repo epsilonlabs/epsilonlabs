@@ -86,12 +86,12 @@ public interface ModelElementType extends AnyType {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Resolved IModel</em>' reference.
-	 * @see #setResolvedIModel(IModel)
+	 * @see #setResolvedIModel(IMetamodel)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelElementType_ResolvedIModel()
 	 * @model required="true"
 	 * @generated
 	 */
-	IModel getResolvedIModel();
+	IMetamodel getResolvedIModel();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel <em>Resolved IModel</em>}' reference.
@@ -101,7 +101,7 @@ public interface ModelElementType extends AnyType {
 	 * @see #getResolvedIModel()
 	 * @generated
 	 */
-	void setResolvedIModel(IModel value);
+	void setResolvedIModel(IMetamodel value);
 
 	/**
 	 * Returns the value of the '<em><b>Resolved Model Declaration</b></em>' reference.

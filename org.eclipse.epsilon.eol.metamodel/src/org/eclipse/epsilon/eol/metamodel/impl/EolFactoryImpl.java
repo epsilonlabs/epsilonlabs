@@ -57,7 +57,7 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case EolPackage.EOL_ELEMENT: return createEOLElement();
-			case EolPackage.IMODEL: return createIModel();
+			case EolPackage.IMETAMODEL: return createIMetamodel();
 			case EolPackage.IPACKAGE: return createIPackage();
 			case EolPackage.TEXT_REGION: return createTextRegion();
 			case EolPackage.TEXT_POSITION: return createTextPosition();
@@ -122,7 +122,6 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 			case EolPackage.ABORT_STATEMENT: return createAbortStatement();
 			case EolPackage.BREAK_STATEMENT: return createBreakStatement();
 			case EolPackage.BREAK_ALL_STATEMENT: return createBreakAllStatement();
-			case EolPackage.ANNOTATION_STATEMENT: return createAnnotationStatement();
 			case EolPackage.SIMPLE_ANNOTATION_STATEMENT: return createSimpleAnnotationStatement();
 			case EolPackage.EXECUTABLE_ANNOTATION_STATEMENT: return createExecutableAnnotationStatement();
 			case EolPackage.MODEL_DECLARATION_STATEMENT: return createModelDeclarationStatement();
@@ -166,9 +165,9 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IModel createIModel() {
-		IModelImpl iModel = new IModelImpl();
-		return iModel;
+	public IMetamodel createIMetamodel() {
+		IMetamodelImpl iMetamodel = new IMetamodelImpl();
+		return iMetamodel;
 	}
 
 	/**
@@ -809,16 +808,6 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	public BreakAllStatement createBreakAllStatement() {
 		BreakAllStatementImpl breakAllStatement = new BreakAllStatementImpl();
 		return breakAllStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AnnotationStatement createAnnotationStatement() {
-		AnnotationStatementImpl annotationStatement = new AnnotationStatementImpl();
-		return annotationStatement;
 	}
 
 	/**
