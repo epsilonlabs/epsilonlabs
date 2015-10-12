@@ -1,4 +1,4 @@
-package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
+package org.eclipse.epsilon.analysis.model.driver;
 
 import java.util.ArrayList;
 import java.util.HashMap;

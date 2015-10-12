@@ -350,4 +350,14 @@ public class EMFIPackageDriver implements IPackageDriver{
 		}
 	}
 
+	@Override
+	public ArrayList<String> getAllTypeNames() {
+		ArrayList<String> result = new ArrayList<String>();
+ 		for(EClassifier eClassifier: ePackage.getEClassifiers())
+		{
+			result.add(eClassifier.getName());
+		}
+ 		return result;
+	}
+
 }

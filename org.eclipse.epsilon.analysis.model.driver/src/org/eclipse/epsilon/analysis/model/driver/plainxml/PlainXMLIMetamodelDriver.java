@@ -164,4 +164,31 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 		return iMetamodel;
 	}
 
+	@Override
+	public ArrayList<String> getAllTypeNames() {
+		ArrayList<String> result = new ArrayList<String>();
+		for(IPackageDriver ipd: getIPackageDrivers())
+		{
+			for(String typeName: ipd.getAllTypeNames())
+			{
+				result.add(name + "!" + typeName);
+			}
+			for(String alias: aliases)
+			{
+				for(String typeName: ipd.getAllTypeNames())
+				{
+					result.add(alias+"!"+typeName);
+				}
+			}
+		}
+		
+		if(getIPackageDrivers().size() == 1)
+		{
+			IPackageDriver ipd = getIPackageDrivers().get(0);
+			result.addAll(ipd.getAllTypeNames());
+		}
+		
+		return result;
+	}
+
 }

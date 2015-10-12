@@ -3,6 +3,8 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.context;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
@@ -14,6 +16,8 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 public class VariableResolutionContext {
 	
 	public static VariableResolutionContext instance = null;
+	
+	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
 	protected HashSet<VariableDeclarationExpression> variables = new HashSet<VariableDeclarationExpression>();
 	
@@ -29,9 +33,34 @@ public class VariableResolutionContext {
 
 	protected ArrayList<String> modelNames = new ArrayList<String>();
 
+	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
+	
+	protected ArrayList<String> metamodelRelatedKeywords = new ArrayList<String>();
+	
 	protected VariableResolutionContext()
 	{
 		
+	}
+	
+	public void addIMetamodelDriver(IMetamodelDriver iMetamodelDriver)
+	{
+		iMetamodelManager.addIMetamodelDriver(iMetamodelDriver);
+	}
+	
+	public void generateKeyWordsFromModelDeclarations()
+	{
+		ArrayList<IMetamodelDriver> iMetamodelDrivers = iMetamodelManager.getiMetamodelDrivers();
+		for(IMetamodelDriver imd: iMetamodelDrivers)
+		{
+			metamodelRelatedKeywords.addAll(imd.getAllTypeNames());
+		}
+	}
+	
+	public String[] getSupportedDrivers() {
+		return supportedDrivers;
+	}
+	public IMetamodelManager getiMetamodelManager() {
+		return iMetamodelManager;
 	}
 	
 	public static VariableResolutionContext getInstance(){
@@ -45,7 +74,7 @@ public class VariableResolutionContext {
 	{
 		if (initialise) {
 			instance = new VariableResolutionContext();
-			LogBook.getInstance(true);
+			LogBook.getInstance();
 			return instance;
 		}
 		else {
@@ -157,6 +186,12 @@ public class VariableResolutionContext {
 		}
 		
 		else {
+			for(String str: metamodelRelatedKeywords)
+			{
+				if (s.equals(str)) {
+					return true;
+				}
+			}
 			return false;
 		}
 	}

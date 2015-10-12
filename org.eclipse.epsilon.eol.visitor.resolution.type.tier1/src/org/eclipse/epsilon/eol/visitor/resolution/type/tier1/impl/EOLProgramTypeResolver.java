@@ -35,6 +35,8 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 			controller.visit(mds, context);
 		}
 		
+		context.generateKeyWordsFromModelDeclarations();
+		
 		for(OperationDefinition od: program.getOperations()) //process each operation
 		{
 			if (od.getContextType() != null) {

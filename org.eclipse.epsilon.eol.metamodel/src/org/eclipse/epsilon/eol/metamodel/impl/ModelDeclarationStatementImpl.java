@@ -84,7 +84,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	protected IMetamodel iMetamodel;
 
 	/**
-	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' reference list.
+	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getParameters()
@@ -260,7 +260,7 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 	 */
 	public EList<ModelDeclarationParameter> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectResolvingEList<ModelDeclarationParameter>(ModelDeclarationParameter.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS);
+			parameters = new EObjectContainmentEList<ModelDeclarationParameter>(ModelDeclarationParameter.class, this, EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS);
 		}
 		return parameters;
 	}
@@ -281,6 +281,8 @@ public class ModelDeclarationStatementImpl extends StatementImpl implements Mode
 				return ((InternalEList<?>)getAliases()).basicRemove(otherEnd, msgs);
 			case EolPackage.MODEL_DECLARATION_STATEMENT__IMETAMODEL:
 				return basicSetIMetamodel(null, msgs);
+			case EolPackage.MODEL_DECLARATION_STATEMENT__PARAMETERS:
+				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

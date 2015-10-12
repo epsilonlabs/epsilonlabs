@@ -21,6 +21,7 @@ public class EOLProgramVariableResolver extends EOLProgramVisitor<VariableResolu
 			{
 				controller.visit(mds, context);
 			}
+			context.generateKeyWordsFromModelDeclarations();
 			for(Import imported : program.getImports())
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs
@@ -37,7 +38,7 @@ public class EOLProgramVariableResolver extends EOLProgramVisitor<VariableResolu
 			{
 				controller.visit(mds, context);
 			}
-
+			context.generateKeyWordsFromModelDeclarations();
 			for(Import imported : program.getImports()) 
 			{
 				controller.visit(imported, context); //visit each import statement and resolve the imported programs

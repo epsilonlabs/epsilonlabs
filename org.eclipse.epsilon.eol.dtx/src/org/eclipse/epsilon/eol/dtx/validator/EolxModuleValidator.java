@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
 import org.eclipse.epsilon.eol.problem.EOLError;
+import org.eclipse.epsilon.eol.problem.EOLProblem;
 import org.eclipse.epsilon.eol.problem.EOLWarning;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.EOLTypeResolver;
@@ -34,11 +35,20 @@ public class EolxModuleValidator implements IModuleValidator {
 			EolElementCreatorFactory factory = ast2EolContext.getEolElementCreatorFactory();
 			EOLElement eolElement = factory.createEOLElement(module.getAst(), null, ast2EolContext);
 			
+			LogBook logBook = LogBook.getInstance(true);
+
 			EOLVariableResolver variableResolver = new EOLVariableResolver();
 			variableResolver.run(eolElement);
 			
+			
 			EOLTypeResolver typeResolver = new EOLTypeResolver();
 			typeResolver.run(eolElement);
+			
+			
+			for(EOLProblem problem: LogBook.getInstance().getAllProblems())
+			{
+				System.out.println(problem.getMessage());
+			}
 			
 			for(EOLWarning warning: LogBook.getInstance().getWarnings((EOLLibraryModule) eolElement))
 			{

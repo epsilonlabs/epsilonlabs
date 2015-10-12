@@ -17,6 +17,8 @@ public interface IPackageDriver {
 	public abstract String getPackageNSURI();
 	public abstract String getPackageNSPrefix();
 	
+	public ArrayList<String> getAllTypeNames();
+	
 	public abstract boolean containsMetaElement(String elementName);
 	public abstract EClassifier getMetaElement(String elementName);
 	

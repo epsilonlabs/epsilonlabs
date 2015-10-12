@@ -6057,7 +6057,7 @@ public interface EolPackage extends EPackage {
 	int MODEL_DECLARATION_STATEMENT__IMETAMODEL = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Parameters</b></em>' reference list.
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9889,10 +9889,10 @@ public interface EolPackage extends EPackage {
 	EReference getModelDeclarationStatement_IMetamodel();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters <em>Parameters</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Parameters</em>'.
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement#getParameters()
 	 * @see #getModelDeclarationStatement()
 	 * @generated
@@ -12027,7 +12027,7 @@ public interface EolPackage extends EPackage {
 		EReference MODEL_DECLARATION_STATEMENT__IMETAMODEL = eINSTANCE.getModelDeclarationStatement_IMetamodel();
 
 		/**
-		 * The meta object literal for the '<em><b>Parameters</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

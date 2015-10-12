@@ -1,0 +1,22 @@
+model m alias eol driver EMF {nsURI = "http://www.eclipse.org/epsilon/eol"};
+ 
+var a = IntegerType.all;  
+
+var b = AnyType.all;
+
+if(true)
+{
+	a = AnyType.all;
+}
+
+a = Block.all;
+
+ 
+if(b.isTypeOf(Sequence(m!Block)))  
+{
+	a.statements.println();  
+}
+
+m.println();
+
+eol.println();

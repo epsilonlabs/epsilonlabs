@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.problem.EOLProblem;
+import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 
 public class Ast2DomWorkbench {
@@ -23,7 +25,7 @@ public class Ast2DomWorkbench {
 	
 	public void run() throws Exception {
 		
-		URL url = getClass().getResource("test1.eol");
+		URL url = getClass().getResource("test2.eol");
 		
 		EolModule eolModule = new EolModule();
 		try {
@@ -41,6 +43,12 @@ public class Ast2DomWorkbench {
 		
 		EOLVariableResolver app = new EOLVariableResolver();
 		app.run(dom);
+		
+		LogBook logBook = LogBook.getInstance();
+		for(EOLProblem problem: logBook.getAllProblems())
+		{
+			System.out.println(problem.getMessage());
+		}
 				
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("*", new XMIResourceFactoryImpl());

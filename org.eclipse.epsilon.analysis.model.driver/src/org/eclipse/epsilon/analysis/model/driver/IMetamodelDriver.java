@@ -30,4 +30,6 @@ public interface IMetamodelDriver {
 	public void reconcileEolLibraryModule();
 	
 	public IMetamodel getIMetamodel();
+	
+	public ArrayList<String> getAllTypeNames();
 }

@@ -120,7 +120,7 @@ public interface ModelDeclarationStatement extends Statement {
 	void setIMetamodel(IMetamodel value);
 
 	/**
-	 * Returns the value of the '<em><b>Parameters</b></em>' reference list.
+	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -128,9 +128,9 @@ public interface ModelDeclarationStatement extends Statement {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameters</em>' reference list.
+	 * @return the value of the '<em>Parameters</em>' containment reference list.
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelDeclarationStatement_Parameters()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ModelDeclarationParameter> getParameters();

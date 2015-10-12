@@ -1,9 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;

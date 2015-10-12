@@ -7,6 +7,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ModelDeclarationStatementVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
@@ -50,6 +51,11 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 					
 					//create a new MetaModel
 					IMetamodelDriver iMetamodelDriver = new EMFIMetamodelDriver(); 
+					iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
+					for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
+					{
+						iMetamodelDriver.getAliases().add(vde.getName().getName());
+					}
 					iMetamodelDriver.setLogBook(LogBook.getInstance());
 					iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
 					
@@ -81,7 +87,14 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 					
 					//create a new XMLMetaModel
 					PlainXMLIMetamodelDriver iMetamodelDriver = new PlainXMLIMetamodelDriver();
+					iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
+					for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
+					{
+						iMetamodelDriver.getAliases().add(vde.getName().getName());
+					}
 					iMetamodelDriver.setLogBook(LogBook.getInstance());
+					iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
+
 
 					boolean loaded = iMetamodelDriver.loadModel(sourceString);
 					

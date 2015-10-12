@@ -1,10 +1,12 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -28,8 +30,23 @@ public class TypeResolutionContext {
 	
 	protected HashMap<Expression, HashSet<Type>> expressionTypeRegistry = new HashMap<Expression, HashSet<Type>>();
 	
+	protected ArrayList<String> metamodelRelatedKeywords = new ArrayList<String>();
+	
 	protected TypeResolutionContext()
 	{}
+	
+	public void generateKeyWordsFromModelDeclarations()
+	{
+		ArrayList<IMetamodelDriver> iMetamodelDrivers = iMetamodelManager.getiMetamodelDrivers();
+		for(IMetamodelDriver imd: iMetamodelDrivers)
+		{
+			metamodelRelatedKeywords.addAll(imd.getAllTypeNames());
+		}
+	}
+	
+	public ArrayList<String> getMetamodelRelatedKeywords() {
+		return metamodelRelatedKeywords;
+	}
 	
 	public static TypeResolutionContext getInstanace()
 	{
@@ -44,7 +61,7 @@ public class TypeResolutionContext {
 		if (initialise) {
 			instance = new TypeResolutionContext();
 			OperationDefinitionManager.getInstance(true);
-			LogBook.getInstance(true);
+			LogBook.getInstance();
 			return instance;
 		}
 		else {

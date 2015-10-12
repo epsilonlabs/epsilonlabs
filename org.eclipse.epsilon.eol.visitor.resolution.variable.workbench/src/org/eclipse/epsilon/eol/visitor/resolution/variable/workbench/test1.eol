@@ -1,3 +1,5 @@
+model ecore alias ec driver EMF {nsuri = "http://www.eclipse.org/emf/2002/Ecore"};
+
 var seq : Sequence;
 var a = 1;
 var b = 2;
@@ -28,6 +30,9 @@ while(e < 10)
 }
 seq = Sequence{a,b,c,d,e};
 seq.println();
+
+ecore.println();
+e.println();
 
 $post _result < self
 operation Any hello(param: Integer) : Any

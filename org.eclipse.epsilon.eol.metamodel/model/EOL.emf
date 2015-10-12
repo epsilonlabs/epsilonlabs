@@ -365,7 +365,7 @@ class ModelDeclarationStatement extends Statement {
   val NameExpression[1] driver;
   val VariableDeclarationExpression[*] aliases;
   val IMetamodel[1] iMetamodel;
-  ref ModelDeclarationParameter[*] parameters;
+  val ModelDeclarationParameter[*] parameters;
 }
 
 class Type extends EOLElement {

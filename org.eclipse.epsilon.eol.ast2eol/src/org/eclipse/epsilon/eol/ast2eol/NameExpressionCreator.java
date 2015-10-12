@@ -37,11 +37,11 @@ public class NameExpressionCreator extends ExpressionCreator{
 		if (ast.getFirstChild()!=null) {
 			if(!ast.getFirstChild().getText().equals("PARAMETERS") && !ast.getFirstChild().getText().equals("PARAMLIST") && !name.contains("!"))
 			{
-				while(ast.getFirstChild()!=null)
-				{
+//				while(ast.getFirstChild()!=null)
+//				{
 					ast = ast.getFirstChild();
 					name += "(" + ast.getText() + ")";
-				}
+//				}
 			}
 		}
 		

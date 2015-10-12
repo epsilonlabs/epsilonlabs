@@ -349,7 +349,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="iMetamodel" lowerBound="1"
         eType="#//IMetamodel" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//ModelDeclarationParameter"/>
+        eType="#//ModelDeclarationParameter" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//EOLElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AnyType" eSuperTypes="#//Type">
