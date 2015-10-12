@@ -11,7 +11,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIModel <em>Resolved IModel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -21,29 +21,29 @@ package org.eclipse.epsilon.eol.metamodel;
  */
 public interface ModelType extends AnyType {
 	/**
-	 * Returns the value of the '<em><b>Resolved IModel</b></em>' reference.
+	 * Returns the value of the '<em><b>Resolved IMetamodel</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Resolved IModel</em>' reference isn't clear,
+	 * If the meaning of the '<em>Resolved IMetamodel</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resolved IModel</em>' reference.
-	 * @see #setResolvedIModel(IMetamodel)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelType_ResolvedIModel()
+	 * @return the value of the '<em>Resolved IMetamodel</em>' reference.
+	 * @see #setResolvedIMetamodel(IMetamodel)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelType_ResolvedIMetamodel()
 	 * @model required="true"
 	 * @generated
 	 */
-	IMetamodel getResolvedIModel();
+	IMetamodel getResolvedIMetamodel();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIModel <em>Resolved IModel</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Resolved IModel</em>' reference.
-	 * @see #getResolvedIModel()
+	 * @param value the new value of the '<em>Resolved IMetamodel</em>' reference.
+	 * @see #getResolvedIMetamodel()
 	 * @generated
 	 */
-	void setResolvedIModel(IMetamodel value);
+	void setResolvedIMetamodel(IMetamodel value);
 
 } // ModelType

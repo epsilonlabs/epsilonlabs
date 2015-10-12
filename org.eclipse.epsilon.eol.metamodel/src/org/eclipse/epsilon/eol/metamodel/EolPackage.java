@@ -6240,13 +6240,13 @@ public interface EolPackage extends EPackage {
 	int MODEL_TYPE__DECLARED = ANY_TYPE__DECLARED;
 
 	/**
-	 * The feature id for the '<em><b>Resolved IModel</b></em>' reference.
+	 * The feature id for the '<em><b>Resolved IMetamodel</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_TYPE__RESOLVED_IMODEL = ANY_TYPE_FEATURE_COUNT + 0;
+	int MODEL_TYPE__RESOLVED_IMETAMODEL = ANY_TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Model Type</em>' class.
@@ -6331,13 +6331,13 @@ public interface EolPackage extends EPackage {
 	int MODEL_ELEMENT_TYPE__ELEMENT_NAME = ANY_TYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Resolved IModel</b></em>' reference.
+	 * The feature id for the '<em><b>Resolved IMetamodel</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_ELEMENT_TYPE__RESOLVED_IMODEL = ANY_TYPE_FEATURE_COUNT + 2;
+	int MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL = ANY_TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Resolved Model Declaration</b></em>' reference.
@@ -9952,15 +9952,15 @@ public interface EolPackage extends EPackage {
 	EClass getModelType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIModel <em>Resolved IModel</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Resolved IModel</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIModel()
+	 * @return the meta object for the reference '<em>Resolved IMetamodel</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelType#getResolvedIMetamodel()
 	 * @see #getModelType()
 	 * @generated
 	 */
-	EReference getModelType_ResolvedIModel();
+	EReference getModelType_ResolvedIMetamodel();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType <em>Model Element Type</em>}'.
@@ -9995,15 +9995,15 @@ public interface EolPackage extends EPackage {
 	EAttribute getModelElementType_ElementName();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel <em>Resolved IModel</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Resolved IModel</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel()
+	 * @return the meta object for the reference '<em>Resolved IMetamodel</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIMetamodel()
 	 * @see #getModelElementType()
 	 * @generated
 	 */
-	EReference getModelElementType_ResolvedIModel();
+	EReference getModelElementType_ResolvedIMetamodel();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedModelDeclaration <em>Resolved Model Declaration</em>}'.
@@ -12081,12 +12081,12 @@ public interface EolPackage extends EPackage {
 		EClass MODEL_TYPE = eINSTANCE.getModelType();
 
 		/**
-		 * The meta object literal for the '<em><b>Resolved IModel</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Resolved IMetamodel</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_TYPE__RESOLVED_IMODEL = eINSTANCE.getModelType_ResolvedIModel();
+		EReference MODEL_TYPE__RESOLVED_IMETAMODEL = eINSTANCE.getModelType_ResolvedIMetamodel();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl <em>Model Element Type</em>}' class.
@@ -12115,12 +12115,12 @@ public interface EolPackage extends EPackage {
 		EAttribute MODEL_ELEMENT_TYPE__ELEMENT_NAME = eINSTANCE.getModelElementType_ElementName();
 
 		/**
-		 * The meta object literal for the '<em><b>Resolved IModel</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Resolved IMetamodel</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODEL_ELEMENT_TYPE__RESOLVED_IMODEL = eINSTANCE.getModelElementType_ResolvedIModel();
+		EReference MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL = eINSTANCE.getModelElementType_ResolvedIMetamodel();
 
 		/**
 		 * The meta object literal for the '<em><b>Resolved Model Declaration</b></em>' reference feature.

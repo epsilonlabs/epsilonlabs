@@ -2764,7 +2764,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelType_ResolvedIModel() {
+	public EReference getModelType_ResolvedIMetamodel() {
 		return (EReference)modelTypeEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2800,7 +2800,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModelElementType_ResolvedIModel() {
+	public EReference getModelElementType_ResolvedIMetamodel() {
 		return (EReference)modelElementTypeEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -3379,12 +3379,12 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEAttribute(anyTypeEClass, ANY_TYPE__DECLARED);
 
 		modelTypeEClass = createEClass(MODEL_TYPE);
-		createEReference(modelTypeEClass, MODEL_TYPE__RESOLVED_IMODEL);
+		createEReference(modelTypeEClass, MODEL_TYPE__RESOLVED_IMETAMODEL);
 
 		modelElementTypeEClass = createEClass(MODEL_ELEMENT_TYPE);
 		createEAttribute(modelElementTypeEClass, MODEL_ELEMENT_TYPE__MODEL_NAME);
 		createEAttribute(modelElementTypeEClass, MODEL_ELEMENT_TYPE__ELEMENT_NAME);
-		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_IMODEL);
+		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL);
 		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION);
 		createEAttribute(modelElementTypeEClass, MODEL_ELEMENT_TYPE__MODEL_TYPE);
 		createEReference(modelElementTypeEClass, MODEL_ELEMENT_TYPE__RESOLVED_IPACKAGE);
@@ -3873,12 +3873,12 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getAnyType_Declared(), ecorePackage.getEBoolean(), "declared", null, 1, 1, AnyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelTypeEClass, ModelType.class, "ModelType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getModelType_ResolvedIModel(), this.getIMetamodel(), null, "resolvedIModel", null, 1, 1, ModelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelType_ResolvedIMetamodel(), this.getIMetamodel(), null, "resolvedIMetamodel", null, 1, 1, ModelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelElementTypeEClass, ModelElementType.class, "ModelElementType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getModelElementType_ModelName(), ecorePackage.getEString(), "modelName", null, 0, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelElementType_ElementName(), ecorePackage.getEString(), "elementName", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModelElementType_ResolvedIModel(), this.getIMetamodel(), null, "resolvedIModel", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModelElementType_ResolvedIMetamodel(), this.getIMetamodel(), null, "resolvedIMetamodel", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelElementType_ResolvedModelDeclaration(), this.getModelDeclarationStatement(), null, "resolvedModelDeclaration", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getModelElementType_ModelType(), ecorePackage.getEJavaObject(), "modelType", null, 1, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModelElementType_ResolvedIPackage(), this.getIPackage(), null, "resolvedIPackage", null, 0, 1, ModelElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

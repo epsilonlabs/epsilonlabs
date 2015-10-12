@@ -13,7 +13,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getModelName <em>Model Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getElementName <em>Element Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel <em>Resolved IModel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedModelDeclaration <em>Resolved Model Declaration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getModelType <em>Model Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage <em>Resolved IPackage</em>}</li>
@@ -78,30 +78,30 @@ public interface ModelElementType extends AnyType {
 	void setElementName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Resolved IModel</b></em>' reference.
+	 * Returns the value of the '<em><b>Resolved IMetamodel</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Resolved IModel</em>' reference isn't clear,
+	 * If the meaning of the '<em>Resolved IMetamodel</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resolved IModel</em>' reference.
-	 * @see #setResolvedIModel(IMetamodel)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelElementType_ResolvedIModel()
+	 * @return the value of the '<em>Resolved IMetamodel</em>' reference.
+	 * @see #setResolvedIMetamodel(IMetamodel)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelElementType_ResolvedIMetamodel()
 	 * @model required="true"
 	 * @generated
 	 */
-	IMetamodel getResolvedIModel();
+	IMetamodel getResolvedIMetamodel();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIModel <em>Resolved IModel</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIMetamodel <em>Resolved IMetamodel</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Resolved IModel</em>' reference.
-	 * @see #getResolvedIModel()
+	 * @param value the new value of the '<em>Resolved IMetamodel</em>' reference.
+	 * @see #getResolvedIMetamodel()
 	 * @generated
 	 */
-	void setResolvedIModel(IMetamodel value);
+	void setResolvedIMetamodel(IMetamodel value);
 
 	/**
 	 * Returns the value of the '<em><b>Resolved Model Declaration</b></em>' reference.

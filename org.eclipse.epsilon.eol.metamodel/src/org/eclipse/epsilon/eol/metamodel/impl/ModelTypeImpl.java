@@ -21,7 +21,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelTypeImpl#getResolvedIModel <em>Resolved IModel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelTypeImpl#getResolvedIMetamodel <em>Resolved IMetamodel</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,15 +29,14 @@ import org.eclipse.epsilon.eol.metamodel.ModelType;
  */
 public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	/**
-	 * The cached value of the '{@link #getResolvedIModel() <em>Resolved IModel</em>}' reference.
+	 * The cached value of the '{@link #getResolvedIMetamodel() <em>Resolved IMetamodel</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResolvedIModel()
+	 * @see #getResolvedIMetamodel()
 	 * @generated
 	 * @ordered
 	 */
-	protected IMetamodel resolvedIModel;
-
+	protected IMetamodel resolvedIMetamodel;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -62,16 +61,16 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IMetamodel getResolvedIModel() {
-		if (resolvedIModel != null && resolvedIModel.eIsProxy()) {
-			InternalEObject oldResolvedIModel = (InternalEObject)resolvedIModel;
-			resolvedIModel = (IMetamodel)eResolveProxy(oldResolvedIModel);
-			if (resolvedIModel != oldResolvedIModel) {
+	public IMetamodel getResolvedIMetamodel() {
+		if (resolvedIMetamodel != null && resolvedIMetamodel.eIsProxy()) {
+			InternalEObject oldResolvedIMetamodel = (InternalEObject)resolvedIMetamodel;
+			resolvedIMetamodel = (IMetamodel)eResolveProxy(oldResolvedIMetamodel);
+			if (resolvedIMetamodel != oldResolvedIMetamodel) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL, oldResolvedIMetamodel, resolvedIMetamodel));
 			}
 		}
-		return resolvedIModel;
+		return resolvedIMetamodel;
 	}
 
 	/**
@@ -79,8 +78,8 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IMetamodel basicGetResolvedIModel() {
-		return resolvedIModel;
+	public IMetamodel basicGetResolvedIMetamodel() {
+		return resolvedIMetamodel;
 	}
 
 	/**
@@ -88,11 +87,11 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResolvedIModel(IMetamodel newResolvedIModel) {
-		IMetamodel oldResolvedIModel = resolvedIModel;
-		resolvedIModel = newResolvedIModel;
+	public void setResolvedIMetamodel(IMetamodel newResolvedIMetamodel) {
+		IMetamodel oldResolvedIMetamodel = resolvedIMetamodel;
+		resolvedIMetamodel = newResolvedIMetamodel;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL, oldResolvedIMetamodel, resolvedIMetamodel));
 	}
 
 	/**
@@ -103,9 +102,9 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				if (resolve) return getResolvedIModel();
-				return basicGetResolvedIModel();
+			case EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL:
+				if (resolve) return getResolvedIMetamodel();
+				return basicGetResolvedIMetamodel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -118,8 +117,8 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IMetamodel)newValue);
+			case EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL:
+				setResolvedIMetamodel((IMetamodel)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,8 +132,8 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IMetamodel)null);
+			case EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL:
+				setResolvedIMetamodel((IMetamodel)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -148,8 +147,8 @@ public class ModelTypeImpl extends AnyTypeImpl implements ModelType {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EolPackage.MODEL_TYPE__RESOLVED_IMODEL:
-				return resolvedIModel != null;
+			case EolPackage.MODEL_TYPE__RESOLVED_IMETAMODEL:
+				return resolvedIMetamodel != null;
 		}
 		return super.eIsSet(featureID);
 	}

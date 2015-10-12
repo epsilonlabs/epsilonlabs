@@ -25,7 +25,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getModelName <em>Model Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getElementName <em>Element Name</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIModel <em>Resolved IModel</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIMetamodel <em>Resolved IMetamodel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedModelDeclaration <em>Resolved Model Declaration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getModelType <em>Model Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIPackage <em>Resolved IPackage</em>}</li>
@@ -76,14 +76,14 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	protected String elementName = ELEMENT_NAME_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getResolvedIModel() <em>Resolved IModel</em>}' reference.
+	 * The cached value of the '{@link #getResolvedIMetamodel() <em>Resolved IMetamodel</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getResolvedIModel()
+	 * @see #getResolvedIMetamodel()
 	 * @generated
 	 * @ordered
 	 */
-	protected IMetamodel resolvedIModel;
+	protected IMetamodel resolvedIMetamodel;
 
 	/**
 	 * The cached value of the '{@link #getResolvedModelDeclaration() <em>Resolved Model Declaration</em>}' reference.
@@ -191,16 +191,16 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IMetamodel getResolvedIModel() {
-		if (resolvedIModel != null && resolvedIModel.eIsProxy()) {
-			InternalEObject oldResolvedIModel = (InternalEObject)resolvedIModel;
-			resolvedIModel = (IMetamodel)eResolveProxy(oldResolvedIModel);
-			if (resolvedIModel != oldResolvedIModel) {
+	public IMetamodel getResolvedIMetamodel() {
+		if (resolvedIMetamodel != null && resolvedIMetamodel.eIsProxy()) {
+			InternalEObject oldResolvedIMetamodel = (InternalEObject)resolvedIMetamodel;
+			resolvedIMetamodel = (IMetamodel)eResolveProxy(oldResolvedIMetamodel);
+			if (resolvedIMetamodel != oldResolvedIMetamodel) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL, oldResolvedIMetamodel, resolvedIMetamodel));
 			}
 		}
-		return resolvedIModel;
+		return resolvedIMetamodel;
 	}
 
 	/**
@@ -208,8 +208,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IMetamodel basicGetResolvedIModel() {
-		return resolvedIModel;
+	public IMetamodel basicGetResolvedIMetamodel() {
+		return resolvedIMetamodel;
 	}
 
 	/**
@@ -217,11 +217,11 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setResolvedIModel(IMetamodel newResolvedIModel) {
-		IMetamodel oldResolvedIModel = resolvedIModel;
-		resolvedIModel = newResolvedIModel;
+	public void setResolvedIMetamodel(IMetamodel newResolvedIMetamodel) {
+		IMetamodel oldResolvedIMetamodel = resolvedIMetamodel;
+		resolvedIMetamodel = newResolvedIMetamodel;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL, oldResolvedIModel, resolvedIModel));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL, oldResolvedIMetamodel, resolvedIMetamodel));
 	}
 
 	/**
@@ -333,9 +333,9 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				return getModelName();
 			case EolPackage.MODEL_ELEMENT_TYPE__ELEMENT_NAME:
 				return getElementName();
-			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				if (resolve) return getResolvedIModel();
-				return basicGetResolvedIModel();
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL:
+				if (resolve) return getResolvedIMetamodel();
+				return basicGetResolvedIMetamodel();
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				if (resolve) return getResolvedModelDeclaration();
 				return basicGetResolvedModelDeclaration();
@@ -362,8 +362,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 			case EolPackage.MODEL_ELEMENT_TYPE__ELEMENT_NAME:
 				setElementName((String)newValue);
 				return;
-			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IMetamodel)newValue);
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL:
+				setResolvedIMetamodel((IMetamodel)newValue);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				setResolvedModelDeclaration((ModelDeclarationStatement)newValue);
@@ -392,8 +392,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 			case EolPackage.MODEL_ELEMENT_TYPE__ELEMENT_NAME:
 				setElementName(ELEMENT_NAME_EDEFAULT);
 				return;
-			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				setResolvedIModel((IMetamodel)null);
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL:
+				setResolvedIMetamodel((IMetamodel)null);
 				return;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				setResolvedModelDeclaration((ModelDeclarationStatement)null);
@@ -420,8 +420,8 @@ public class ModelElementTypeImpl extends AnyTypeImpl implements ModelElementTyp
 				return MODEL_NAME_EDEFAULT == null ? modelName != null : !MODEL_NAME_EDEFAULT.equals(modelName);
 			case EolPackage.MODEL_ELEMENT_TYPE__ELEMENT_NAME:
 				return ELEMENT_NAME_EDEFAULT == null ? elementName != null : !ELEMENT_NAME_EDEFAULT.equals(elementName);
-			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMODEL:
-				return resolvedIModel != null;
+			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_IMETAMODEL:
+				return resolvedIMetamodel != null;
 			case EolPackage.MODEL_ELEMENT_TYPE__RESOLVED_MODEL_DECLARATION:
 				return resolvedModelDeclaration != null;
 			case EolPackage.MODEL_ELEMENT_TYPE__MODEL_TYPE:
