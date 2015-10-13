@@ -302,6 +302,7 @@ class SwitchCaseExpressionStatement extends SwitchCaseStatement {
 class IfStatement extends Statement {
   val Expression[1] condition;
   val ExpressionOrStatementBlock[1] ifBody;
+  val ExpressionOrStatementBlock[*] ifElseBody;
   val ExpressionOrStatementBlock elseBody;
 }
 

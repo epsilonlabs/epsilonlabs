@@ -286,6 +286,8 @@
         eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ifBody" lowerBound="1"
         eType="#//ExpressionOrStatementBlock" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ifElseBody" upperBound="-1"
+        eType="#//ExpressionOrStatementBlock" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" eType="#//ExpressionOrStatementBlock"
         containment="true"/>
   </eClassifiers>

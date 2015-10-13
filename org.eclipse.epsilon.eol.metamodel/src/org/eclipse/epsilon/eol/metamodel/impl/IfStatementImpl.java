@@ -2,13 +2,20 @@
  */
 package org.eclipse.epsilon.eol.metamodel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -24,6 +31,7 @@ import org.eclipse.epsilon.eol.metamodel.IfStatement;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getIfBody <em>If Body</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getIfElseBody <em>If Else Body</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getElseBody <em>Else Body</em>}</li>
  * </ul>
  * </p>
@@ -50,6 +58,16 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 	 * @ordered
 	 */
 	protected ExpressionOrStatementBlock ifBody;
+
+	/**
+	 * The cached value of the '{@link #getIfElseBody() <em>If Else Body</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIfElseBody()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ExpressionOrStatementBlock> ifElseBody;
 
 	/**
 	 * The cached value of the '{@link #getElseBody() <em>Else Body</em>}' containment reference.
@@ -171,6 +189,18 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ExpressionOrStatementBlock> getIfElseBody() {
+		if (ifElseBody == null) {
+			ifElseBody = new EObjectContainmentEList<ExpressionOrStatementBlock>(ExpressionOrStatementBlock.class, this, EolPackage.IF_STATEMENT__IF_ELSE_BODY);
+		}
+		return ifElseBody;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ExpressionOrStatementBlock getElseBody() {
 		return elseBody;
 	}
@@ -221,6 +251,8 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 				return basicSetCondition(null, msgs);
 			case EolPackage.IF_STATEMENT__IF_BODY:
 				return basicSetIfBody(null, msgs);
+			case EolPackage.IF_STATEMENT__IF_ELSE_BODY:
+				return ((InternalEList<?>)getIfElseBody()).basicRemove(otherEnd, msgs);
 			case EolPackage.IF_STATEMENT__ELSE_BODY:
 				return basicSetElseBody(null, msgs);
 		}
@@ -239,6 +271,8 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 				return getCondition();
 			case EolPackage.IF_STATEMENT__IF_BODY:
 				return getIfBody();
+			case EolPackage.IF_STATEMENT__IF_ELSE_BODY:
+				return getIfElseBody();
 			case EolPackage.IF_STATEMENT__ELSE_BODY:
 				return getElseBody();
 		}
@@ -250,6 +284,7 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -258,6 +293,10 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 				return;
 			case EolPackage.IF_STATEMENT__IF_BODY:
 				setIfBody((ExpressionOrStatementBlock)newValue);
+				return;
+			case EolPackage.IF_STATEMENT__IF_ELSE_BODY:
+				getIfElseBody().clear();
+				getIfElseBody().addAll((Collection<? extends ExpressionOrStatementBlock>)newValue);
 				return;
 			case EolPackage.IF_STATEMENT__ELSE_BODY:
 				setElseBody((ExpressionOrStatementBlock)newValue);
@@ -280,6 +319,9 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 			case EolPackage.IF_STATEMENT__IF_BODY:
 				setIfBody((ExpressionOrStatementBlock)null);
 				return;
+			case EolPackage.IF_STATEMENT__IF_ELSE_BODY:
+				getIfElseBody().clear();
+				return;
 			case EolPackage.IF_STATEMENT__ELSE_BODY:
 				setElseBody((ExpressionOrStatementBlock)null);
 				return;
@@ -299,6 +341,8 @@ public class IfStatementImpl extends StatementImpl implements IfStatement {
 				return condition != null;
 			case EolPackage.IF_STATEMENT__IF_BODY:
 				return ifBody != null;
+			case EolPackage.IF_STATEMENT__IF_ELSE_BODY:
+				return ifElseBody != null && !ifElseBody.isEmpty();
 			case EolPackage.IF_STATEMENT__ELSE_BODY:
 				return elseBody != null;
 		}

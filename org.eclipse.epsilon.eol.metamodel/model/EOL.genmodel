@@ -201,6 +201,7 @@
     <genClasses ecoreClass="EOL.ecore#//IfStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/ifBody"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/ifElseBody"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/elseBody"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//ForStatement">

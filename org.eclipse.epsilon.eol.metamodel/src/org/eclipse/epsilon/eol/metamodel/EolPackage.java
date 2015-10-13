@@ -5169,13 +5169,22 @@ public interface EolPackage extends EPackage {
 	int IF_STATEMENT__IF_BODY = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>If Else Body</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_STATEMENT__IF_ELSE_BODY = STATEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Else Body</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__ELSE_BODY = STATEMENT_FEATURE_COUNT + 2;
+	int IF_STATEMENT__ELSE_BODY = STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>If Statement</em>' class.
@@ -5184,7 +5193,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
+	int IF_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.ForStatementImpl <em>For Statement</em>}' class.
@@ -9541,6 +9550,17 @@ public interface EolPackage extends EPackage {
 	EReference getIfStatement_IfBody();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getIfElseBody <em>If Else Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>If Else Body</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IfStatement#getIfElseBody()
+	 * @see #getIfStatement()
+	 * @generated
+	 */
+	EReference getIfStatement_IfElseBody();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseBody <em>Else Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11731,6 +11751,14 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EReference IF_STATEMENT__IF_BODY = eINSTANCE.getIfStatement_IfBody();
+
+		/**
+		 * The meta object literal for the '<em><b>If Else Body</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference IF_STATEMENT__IF_ELSE_BODY = eINSTANCE.getIfStatement_IfElseBody();
 
 		/**
 		 * The meta object literal for the '<em><b>Else Body</b></em>' containment reference feature.

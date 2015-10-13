@@ -2411,8 +2411,17 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_ElseBody() {
+	public EReference getIfStatement_IfElseBody() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIfStatement_ElseBody() {
+		return (EReference)ifStatementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3320,6 +3329,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		ifStatementEClass = createEClass(IF_STATEMENT);
 		createEReference(ifStatementEClass, IF_STATEMENT__CONDITION);
 		createEReference(ifStatementEClass, IF_STATEMENT__IF_BODY);
+		createEReference(ifStatementEClass, IF_STATEMENT__IF_ELSE_BODY);
 		createEReference(ifStatementEClass, IF_STATEMENT__ELSE_BODY);
 
 		forStatementEClass = createEClass(FOR_STATEMENT);
@@ -3814,6 +3824,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIfStatement_Condition(), this.getExpression(), null, "condition", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_IfBody(), this.getExpressionOrStatementBlock(), null, "ifBody", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_IfElseBody(), this.getExpressionOrStatementBlock(), null, "ifElseBody", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_ElseBody(), this.getExpressionOrStatementBlock(), null, "elseBody", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -124,7 +124,7 @@ public interface ModelDeclarationStatement extends Statement {
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Parameters</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
