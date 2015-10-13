@@ -31,6 +31,7 @@ public class EOLTypeResolver {
 		controller.addNameExpressionVisitor(new NameExpressionTypeResolver());
 		controller.addPropertyCallExpressionVisitor(new PropertyCallExpressionTypeResolver());
 		controller.addMethodCallExpressionVisitor(new MethodCallExpressionTypeResolver());
+		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionTypeResolver());
 		
 		controller.addBinaryOperatorExpressionVisitor(new LogicalOperatorExpressionTypeResolver());
 		controller.addPlusOperatorExpressionVisitor(new PlusOperatorExpressionTypeResolver());

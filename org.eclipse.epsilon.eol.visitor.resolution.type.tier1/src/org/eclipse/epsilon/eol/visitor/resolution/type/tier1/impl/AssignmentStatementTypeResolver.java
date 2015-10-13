@@ -36,11 +36,11 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
 
 			if (lhsType == null) {
-				LogBook.getInstance().addError(lhsType, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 			}
 			
 			if (rhsType == null) {
-				LogBook.getInstance().addError(rhsType, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 			}
 			
 			if (lhsType != null && rhsType != null) {

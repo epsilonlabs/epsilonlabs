@@ -793,7 +793,7 @@ public class TypeUtil {
 			return true;
 		}
 		
-		if (isInstanceofAnyType(b)) {
+		if (isInstanceofAnyType(b) || isInstanceofAnyType(a)) {
 			return true;
 		}
 		
@@ -816,7 +816,7 @@ public class TypeUtil {
 					return false;
 				}
 			}
-			else if (b.eClass().getName().equals("CollectionTypeImpl")) { //theoretically this should not happen
+			else if (b.getClass().getSimpleName().equals("CollectionTypeImpl")) { //theoretically this should not happen
 				return true;
 			}
 		}

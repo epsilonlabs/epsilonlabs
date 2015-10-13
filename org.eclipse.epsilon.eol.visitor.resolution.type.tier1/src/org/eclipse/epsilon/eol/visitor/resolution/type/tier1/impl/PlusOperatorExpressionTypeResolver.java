@@ -64,7 +64,9 @@ public class PlusOperatorExpressionTypeResolver extends PlusOperatorExpressionVi
 		}
 		else if (lhsType instanceof StringType) {
 			if (rhsType instanceof StringType) {
-				
+				Type tempType = EolFactory.eINSTANCE.createStringType();
+				plusOperatorExpression.setResolvedType(tempType);
+				context.setAssets(type, plusOperatorExpression);
 			}
 			else if (typeUtil.isInstanceofAnyType(rhsType)) {
 				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {

@@ -13,6 +13,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getBlock <em>Block</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getExpression <em>Expression</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getCondition <em>Condition</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,5 +73,31 @@ public interface ExpressionOrStatementBlock extends EOLElement {
 	 * @generated
 	 */
 	void setExpression(Expression value);
+
+	/**
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Condition</em>' containment reference.
+	 * @see #setCondition(Expression)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getExpressionOrStatementBlock_Condition()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Expression getCondition();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getCondition <em>Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
+	 * @see #getCondition()
+	 * @generated
+	 */
+	void setCondition(Expression value);
 
 } // ExpressionOrStatementBlock

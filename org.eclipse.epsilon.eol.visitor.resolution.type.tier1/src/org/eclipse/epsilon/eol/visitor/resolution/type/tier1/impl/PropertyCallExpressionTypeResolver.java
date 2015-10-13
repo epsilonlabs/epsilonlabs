@@ -105,9 +105,14 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								}
 							}
 							else {
-								propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-								context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
-								return null;
+								if (isKeyword(propertyString)) {
+									targetType = inferredType;
+								}
+								else {
+									propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
+									context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+									return null;	
+								}
 							}
 						}
 						else {

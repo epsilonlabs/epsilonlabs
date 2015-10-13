@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
+import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.IfStatement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.IfStatementVisitor;
@@ -17,6 +18,13 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 		
 		controller.visit(ifStatement.getIfBody(), context);
 		context.getTypeRegistry().popContainer();//////////
+		
+		for(ExpressionOrStatementBlock eosb: ifStatement.getElseIfBodies())
+		{
+			context.getTypeRegistry().pushContainer(eosb);
+			controller.visit(eosb, context);
+			context.getTypeRegistry().popContainer();
+		}
 		
 		if (ifStatement.getElseBody() != null) {
 			context.getTypeRegistry().pushContainer(ifStatement.getElseBody());

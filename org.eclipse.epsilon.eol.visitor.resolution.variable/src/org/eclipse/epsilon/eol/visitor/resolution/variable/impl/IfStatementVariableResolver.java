@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
+import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
 import org.eclipse.epsilon.eol.metamodel.IfStatement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.IfStatementVisitor;
@@ -19,6 +20,16 @@ public class IfStatementVariableResolver extends IfStatementVisitor<VariableReso
 		controller.visit(ifStatement.getIfBody(), context);
 		//pop from stack
 		context.getStack().pop();
+		
+		for(ExpressionOrStatementBlock eosb: ifStatement.getElseIfBodies())
+		{
+			//push to stack
+			context.getStack().push(eosb, true);
+			//visit the else branch
+			controller.visit(eosb, context);
+			//pop from the stack
+			context.getStack().pop();
+		}
 		
 		//if there is an else body
 		if (ifStatement.getElseBody() != null) {

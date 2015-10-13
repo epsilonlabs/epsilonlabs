@@ -35,8 +35,25 @@ public class IfStatementCreator extends StatementCreator{
 		if (ifBodyAst != null) {
 			statement.setIfBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(ifBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));		
 		}
-		if (elseBodyAst != null) { //if there is a else-body
-			statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+		
+		if (elseBodyAst != null) {
+			if (elseBodyAst.getType() == EolParser.BLOCK) {
+				statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+			}
+			else {
+				while (elseBodyAst != null && elseBodyAst.getType() == EolParser.IF) {
+					AST elseIfConditionAst = elseBodyAst.getFirstChild();
+					AST elseIfBody = elseIfConditionAst.getNextSibling();
+					ExpressionOrStatementBlock block = (ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(elseIfBody, statement, context, ExpressionOrStatementBlockCreator.class);
+					block.setCondition((Expression) context.getEolElementCreatorFactory().createEOLElement(elseIfConditionAst, block, context));
+					statement.getElseIfBodies().add(block);
+					
+					elseBodyAst = elseIfBody.getNextSibling();
+				}
+				if (elseBodyAst != null && elseBodyAst.getType() == EolParser.BLOCK) {
+					statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
+				}
+			}
 		}
 		
 		return statement;

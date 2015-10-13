@@ -1349,6 +1349,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getExpressionOrStatementBlock_Condition() {
+		return (EReference)expressionOrStatementBlockEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOperationDefinition() {
 		return operationDefinitionEClass;
 	}
@@ -2411,7 +2420,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_IfElseBody() {
+	public EReference getIfStatement_ElseIfBodies() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -3150,6 +3159,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		expressionOrStatementBlockEClass = createEClass(EXPRESSION_OR_STATEMENT_BLOCK);
 		createEReference(expressionOrStatementBlockEClass, EXPRESSION_OR_STATEMENT_BLOCK__BLOCK);
 		createEReference(expressionOrStatementBlockEClass, EXPRESSION_OR_STATEMENT_BLOCK__EXPRESSION);
+		createEReference(expressionOrStatementBlockEClass, EXPRESSION_OR_STATEMENT_BLOCK__CONDITION);
 
 		operationDefinitionEClass = createEClass(OPERATION_DEFINITION);
 		createEReference(operationDefinitionEClass, OPERATION_DEFINITION__CONTEXT_TYPE);
@@ -3329,7 +3339,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		ifStatementEClass = createEClass(IF_STATEMENT);
 		createEReference(ifStatementEClass, IF_STATEMENT__CONDITION);
 		createEReference(ifStatementEClass, IF_STATEMENT__IF_BODY);
-		createEReference(ifStatementEClass, IF_STATEMENT__IF_ELSE_BODY);
+		createEReference(ifStatementEClass, IF_STATEMENT__ELSE_IF_BODIES);
 		createEReference(ifStatementEClass, IF_STATEMENT__ELSE_BODY);
 
 		forStatementEClass = createEClass(FOR_STATEMENT);
@@ -3645,6 +3655,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(expressionOrStatementBlockEClass, ExpressionOrStatementBlock.class, "ExpressionOrStatementBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpressionOrStatementBlock_Block(), this.getBlock(), null, "block", null, 0, 1, ExpressionOrStatementBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExpressionOrStatementBlock_Expression(), this.getExpression(), null, "expression", null, 0, 1, ExpressionOrStatementBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExpressionOrStatementBlock_Condition(), this.getExpression(), null, "condition", null, 0, 1, ExpressionOrStatementBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(operationDefinitionEClass, OperationDefinition.class, "OperationDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOperationDefinition_ContextType(), this.getType(), null, "contextType", null, 1, 1, OperationDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3824,7 +3835,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIfStatement_Condition(), this.getExpression(), null, "condition", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_IfBody(), this.getExpressionOrStatementBlock(), null, "ifBody", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_IfElseBody(), this.getExpressionOrStatementBlock(), null, "ifElseBody", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_ElseIfBodies(), this.getExpressionOrStatementBlock(), null, "elseIfBodies", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_ElseBody(), this.getExpressionOrStatementBlock(), null, "elseBody", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

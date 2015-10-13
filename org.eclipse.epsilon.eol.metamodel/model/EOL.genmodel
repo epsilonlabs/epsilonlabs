@@ -56,6 +56,7 @@
     <genClasses ecoreClass="EOL.ecore#//ExpressionOrStatementBlock">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ExpressionOrStatementBlock/block"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ExpressionOrStatementBlock/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//ExpressionOrStatementBlock/condition"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//OperationDefinition">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//OperationDefinition/contextType"/>
@@ -201,7 +202,7 @@
     <genClasses ecoreClass="EOL.ecore#//IfStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/condition"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/ifBody"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/ifElseBody"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/elseIfBodies"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//IfStatement/elseBody"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//ForStatement">

@@ -61,7 +61,6 @@ public class TypeRegistry {
 			}
 			if (container.getType(variableDeclarationExpression) != null) {
 				result.add(container.getType(variableDeclarationExpression));
-//				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
 			}
 			
 		}
@@ -79,14 +78,10 @@ public class TypeRegistry {
 				}
 				if (c.getType(variableDeclarationExpression) != null) {
 					result.add(c.getType(variableDeclarationExpression));
-//					result.add(EcoreUtil.copy(c.getType(variableDeclarationExpression)));	
 				}
-				
 			}
-			
 			if (container.getType(variableDeclarationExpression) != null) {
 				result.add(container.getType(variableDeclarationExpression));
-//				result.add(EcoreUtil.copy(container.getType(variableDeclarationExpression)));	
 			}
 			container = container.getPreviousContainer();
 		}

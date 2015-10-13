@@ -35,7 +35,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 			if(getDriverType(modelDeclarationStatement).equals("EMF"))
 			{
 				//get the nsuri 
-				sourceParameter = getParameter("nsURI", modelDeclarationStatement);
+				sourceParameter = getParameter("nsuri", modelDeclarationStatement);
 				
 				//if nsuri is not found, find uri for file location
 				if (sourceParameter == null) {

@@ -62,6 +62,7 @@ class AnnotationBlock extends Block {
 class ExpressionOrStatementBlock extends EOLElement {
   val Block block;
   val Expression expression;
+  val Expression condition;
 }
 
 class OperationDefinition extends EOLElement {
@@ -302,7 +303,7 @@ class SwitchCaseExpressionStatement extends SwitchCaseStatement {
 class IfStatement extends Statement {
   val Expression[1] condition;
   val ExpressionOrStatementBlock[1] ifBody;
-  val ExpressionOrStatementBlock[*] ifElseBody;
+  val ExpressionOrStatementBlock[*] elseIfBodies;
   val ExpressionOrStatementBlock elseBody;
 }
 

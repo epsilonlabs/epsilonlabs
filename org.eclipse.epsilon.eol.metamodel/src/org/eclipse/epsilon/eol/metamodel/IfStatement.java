@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getIfBody <em>If Body</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getIfElseBody <em>If Else Body</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseIfBodies <em>Else If Bodies</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseBody <em>Else Body</em>}</li>
  * </ul>
  * </p>
@@ -77,20 +77,20 @@ public interface IfStatement extends Statement {
 	void setIfBody(ExpressionOrStatementBlock value);
 
 	/**
-	 * Returns the value of the '<em><b>If Else Body</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Else If Bodies</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>If Else Body</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Else If Bodies</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>If Else Body</em>' containment reference list.
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIfStatement_IfElseBody()
+	 * @return the value of the '<em>Else If Bodies</em>' containment reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIfStatement_ElseIfBodies()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ExpressionOrStatementBlock> getIfElseBody();
+	EList<ExpressionOrStatementBlock> getElseIfBodies();
 
 	/**
 	 * Returns the value of the '<em><b>Else Body</b></em>' containment reference.

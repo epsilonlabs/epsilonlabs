@@ -8,6 +8,7 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
+import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
@@ -99,6 +100,7 @@ public class VariableResolutionContext {
 	public boolean isReservedWord(String s)
 	{
 		if (s.equals("Any") ||
+				s.equals("cached") ||
 				s.equals("Integer") ||
 				s.equals("Boolean") ||
 				s.equals("Real") ||
@@ -245,8 +247,26 @@ public class VariableResolutionContext {
 		for(VariableDeclarationExpression vde: variables)
 		{
 			if (vde.getReferences().size() == 0) {
-				LogBook.getInstance().addWarning(vde, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_UNUSED, vde.getName().getName()));
+				if (containedInModeDeclaration(vde)) {
+					
+				}
+				else
+				{
+					LogBook.getInstance().addWarning(vde, IMessage_VariableResolution.bindMessage(IMessage_VariableResolution.VARIABLE_UNUSED, vde.getName().getName()));	
+				}
 			}
 		}
+	}
+	
+	public boolean containedInModeDeclaration(VariableDeclarationExpression vde)
+	{
+		EOLElement container = vde.getContainer();
+		while(container != null)
+		{
+			if (container instanceof ModelDeclarationStatement) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

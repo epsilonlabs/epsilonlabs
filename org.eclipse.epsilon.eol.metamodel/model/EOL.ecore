@@ -76,6 +76,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Expression"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OperationDefinition" eSuperTypes="#//EOLElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextType" lowerBound="1"
@@ -286,7 +288,7 @@
         eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ifBody" lowerBound="1"
         eType="#//ExpressionOrStatementBlock" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ifElseBody" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseIfBodies" upperBound="-1"
         eType="#//ExpressionOrStatementBlock" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" eType="#//ExpressionOrStatementBlock"
         containment="true"/>

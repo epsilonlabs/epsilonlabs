@@ -53,6 +53,8 @@ public abstract class EOLElementCreator {
 		startPosition.setContainer(textRegion);
 		TextPosition endPosition = createTextPosition(endLine, endColumn);
 		endPosition.setContainer(textRegion);
+		textRegion.setStart(startPosition);
+		textRegion.setEnd(endPosition);
 		return textRegion;
 	}
 	

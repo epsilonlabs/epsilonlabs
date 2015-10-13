@@ -51,7 +51,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			targetType = EolFactory.eINSTANCE.createAnyType(); //since the target is null, we create an AnyType
 		}
 		else { //if the target is not null
-			controller.visit(methodCallExpression.getTarget(), context); //visit content first
+			controller.visit(target, context); //visit content first
 			
 			targetType = EcoreUtil.copy(methodCallExpression.getTarget().getResolvedType()); //get target type
 			

@@ -84,6 +84,9 @@ public class IMessage_TypeResolution {
 	
 	public static final String PROPERTY_NOT_FOUND = "Property not found";
 	
+	public static final String FOL_MUST_HAVE_TARGET = "First Order Logic method calls must have a target";
+	public static final String FOL_TARGET_MUST_BE_COLLECTION = "First Order Logic method %s must be performed on collection types";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());
@@ -92,7 +95,7 @@ public class IMessage_TypeResolution {
 	
 	public static String bindMessage(String message, Object... values)
 	{
-		String result = String.format(message, values.toString());
+		String result = String.format(message, values);
 		return result;
 	}
 }

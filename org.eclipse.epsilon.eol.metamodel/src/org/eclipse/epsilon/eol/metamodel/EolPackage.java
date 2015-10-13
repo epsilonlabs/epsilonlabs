@@ -842,13 +842,22 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION_OR_STATEMENT_BLOCK__EXPRESSION = EOL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_OR_STATEMENT_BLOCK__CONDITION = EOL_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Expression Or Statement Block</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_OR_STATEMENT_BLOCK_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 2;
+	int EXPRESSION_OR_STATEMENT_BLOCK_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl <em>Operation Definition</em>}' class.
@@ -5169,13 +5178,13 @@ public interface EolPackage extends EPackage {
 	int IF_STATEMENT__IF_BODY = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>If Else Body</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Else If Bodies</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__IF_ELSE_BODY = STATEMENT_FEATURE_COUNT + 2;
+	int IF_STATEMENT__ELSE_IF_BODIES = STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Else Body</b></em>' containment reference.
@@ -8313,6 +8322,17 @@ public interface EolPackage extends EPackage {
 	EReference getExpressionOrStatementBlock_Expression();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock#getCondition()
+	 * @see #getExpressionOrStatementBlock()
+	 * @generated
+	 */
+	EReference getExpressionOrStatementBlock_Condition();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.OperationDefinition <em>Operation Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9550,15 +9570,15 @@ public interface EolPackage extends EPackage {
 	EReference getIfStatement_IfBody();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getIfElseBody <em>If Else Body</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseIfBodies <em>Else If Bodies</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>If Else Body</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.IfStatement#getIfElseBody()
+	 * @return the meta object for the containment reference list '<em>Else If Bodies</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.IfStatement#getElseIfBodies()
 	 * @see #getIfStatement()
 	 * @generated
 	 */
-	EReference getIfStatement_IfElseBody();
+	EReference getIfStatement_ElseIfBodies();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseBody <em>Else Body</em>}'.
@@ -10687,6 +10707,14 @@ public interface EolPackage extends EPackage {
 		EReference EXPRESSION_OR_STATEMENT_BLOCK__EXPRESSION = eINSTANCE.getExpressionOrStatementBlock_Expression();
 
 		/**
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXPRESSION_OR_STATEMENT_BLOCK__CONDITION = eINSTANCE.getExpressionOrStatementBlock_Condition();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl <em>Operation Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -11753,12 +11781,12 @@ public interface EolPackage extends EPackage {
 		EReference IF_STATEMENT__IF_BODY = eINSTANCE.getIfStatement_IfBody();
 
 		/**
-		 * The meta object literal for the '<em><b>If Else Body</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Else If Bodies</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference IF_STATEMENT__IF_ELSE_BODY = eINSTANCE.getIfStatement_IfElseBody();
+		EReference IF_STATEMENT__ELSE_IF_BODIES = eINSTANCE.getIfStatement_ElseIfBodies();
 
 		/**
 		 * The meta object literal for the '<em><b>Else Body</b></em>' containment reference feature.
