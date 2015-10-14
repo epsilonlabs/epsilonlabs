@@ -67,7 +67,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 						return null;
 					}
 					else {
-						LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_CANNOT_LOAD);
+						LogBook.getInstance().addError(sourceParameter, IMessage_TypeResolution.MODEL_DECL_CANNOT_LOAD);
 					}
 					
 					return null;
@@ -105,7 +105,7 @@ public class ModelDeclarationStatementTypeResolver extends ModelDeclarationState
 						context.getiMetamodelManager().addIMetamodelDriver(iMetamodelDriver);
 					}
 					else {
-						LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_CANNOT_LOAD);
+						LogBook.getInstance().addError(sourceParameter, IMessage_TypeResolution.MODEL_DECL_CANNOT_LOAD);
 					}
 					
 					return null;

@@ -154,6 +154,15 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 				}
 			}
 		}
+		else {
+			if (!context.isEOLReservedKeywords(nameString)) {
+				LogBook.getInstance().addError(nameExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.NAME_CANNOT_BE_RESOLVED, nameExpression.getName()));
+			}
+			else {
+				LogBook.getInstance().addError(nameExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.NAME_IS_RESERVED, nameExpression.getName()));
+			}
+			
+		}
 		return null;
 	}
 	

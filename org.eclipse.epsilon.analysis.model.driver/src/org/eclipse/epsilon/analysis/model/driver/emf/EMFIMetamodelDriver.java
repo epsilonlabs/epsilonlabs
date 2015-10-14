@@ -46,7 +46,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));	
 				}
 				else {
-					logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+					//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
 					return false;
 				}
 				
@@ -63,7 +63,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 						packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
 					}
 					else {
-						logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+						//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
 						return false;
 					}
 				}

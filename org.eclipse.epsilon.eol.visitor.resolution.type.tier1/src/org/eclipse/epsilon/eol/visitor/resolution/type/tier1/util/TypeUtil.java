@@ -28,8 +28,6 @@ public class TypeUtil {
 
 	private static TypeUtil instance = null;
 	
-	protected TypeResolutionContext context = TypeResolutionContext.getInstanace();
-	
 	protected TypeUtil()
 	{
 	}
@@ -246,7 +244,7 @@ public class TypeUtil {
 			return isKeyWordSimple(temp);
 		}
 		else {
-			for(String str: context.getMetamodelRelatedKeywords())
+			for(String str: TypeResolutionContext.getInstanace().getMetamodelRelatedKeywords())
 			{
 				if(s.equals(str))
 					return true;
@@ -398,7 +396,7 @@ public class TypeUtil {
 	
 	public boolean isMetamodelElement(String name)
 	{
-		for(String str: context.getMetamodelRelatedKeywords())
+		for(String str: TypeResolutionContext.getInstanace().getMetamodelRelatedKeywords())
 		{
 			if(name.equals(str))
 				return true;
@@ -494,12 +492,12 @@ public class TypeUtil {
 //	}
 	
 	public boolean iMetamodelExists(String modelName) {
-		IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelName);
+		IMetamodelDriver iMetamodelDriver = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriverWithName(modelName);
 		if (iMetamodelDriver != null) {
 			return true;
 		}
 		else {
-			HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
+			HashSet<IMetamodelDriver> iMetamodelDrivers = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
 			if (iMetamodelDrivers.size() > 0) {
 				return true;
 			}
@@ -512,13 +510,13 @@ public class TypeUtil {
 	public ArrayList<IMetamodelDriver> getIMetamodelDriverByName(String modelName)
 	{
 		ArrayList<IMetamodelDriver> result = new ArrayList<IMetamodelDriver>();
-		IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelName);
+		IMetamodelDriver iMetamodelDriver = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriverWithName(modelName);
 		if (iMetamodelDriver != null) {
 			result.add(iMetamodelDriver);
 			return result;
 		}
 		else {
-			HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
+			HashSet<IMetamodelDriver> iMetamodelDrivers = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriversWithAlias(modelName);
 			for(IMetamodelDriver imd: iMetamodelDrivers)
 			{
 				result.add(imd);
@@ -539,7 +537,7 @@ public class TypeUtil {
 			//if elementString is not null
 			if (elementString != null) {
 				
-				IMetamodelDriver iMetamodelDriver = context.getiMetamodelManager().getIMetamodelDriverWithName(modelString);
+				IMetamodelDriver iMetamodelDriver = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriverWithName(modelString);
 				if (iMetamodelDriver != null) {
 					if(iMetamodelContainsMetaElement(iMetamodelDriver, modelString, elementString))
 					{
@@ -547,7 +545,7 @@ public class TypeUtil {
 					}
 				}
 				else {
-					HashSet<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getIMetamodelDriversWithAlias(modelString);
+					HashSet<IMetamodelDriver> iMetamodelDrivers = TypeResolutionContext.getInstanace().getiMetamodelManager().getIMetamodelDriversWithAlias(modelString);
 					for(IMetamodelDriver imd: iMetamodelDrivers)
 					{
 						if (iMetamodelContainsMetaElement(imd, modelString, elementString)) {
@@ -564,7 +562,7 @@ public class TypeUtil {
 		//if model string is null
 		else {
 			
-			ArrayList<IMetamodelDriver> iMetamodelDrivers = context.getiMetamodelManager().getiMetamodelDrivers();
+			ArrayList<IMetamodelDriver> iMetamodelDrivers = TypeResolutionContext.getInstanace().getiMetamodelManager().getiMetamodelDrivers();
 			for(IMetamodelDriver imd: iMetamodelDrivers)
 			{
 				if (iMetamodelContainsMetaElement(imd, modelString, elementString)) {

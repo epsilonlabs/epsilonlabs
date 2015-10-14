@@ -7,7 +7,7 @@ public class IMessage_TypeResolution {
 	
 	public static final String MODEL_DECL_NO_MODEL_DECLARED = "No metamodel has been loaded, please declare a metamodel first";
 
-	public static final String MODEL_DECL_NSURI_OR_PATH_REQUIRED = "nsURI or path is required to access metamodel";
+	public static final String MODEL_DECL_NSURI_OR_PATH_REQUIRED = "\"nsuri\" or \"path\" is required to access metamodel";
 	
 	public static final String MODEL_DECL_NO_NAME = "Model Declaration MUST have a name";
 	public static final String MODEL_DECL_NO_DRIVER = "Model Declaration MUST have a driver";
@@ -88,6 +88,10 @@ public class IMessage_TypeResolution {
 	
 	public static final String FOL_MUST_HAVE_TARGET = "First Order Logic method calls must have a target";
 	public static final String FOL_TARGET_MUST_BE_COLLECTION = "First Order Logic method %s must be performed on collection types";
+	
+	public static final String NAME_CANNOT_BE_RESOLVED = "\"%s\" cannot be resolved, check model declaration";
+	
+	public static final String NAME_IS_RESERVED = "%s is a reserved EOL keyword";
 	
 	public static String bindMessage(String message, Object value)
 	{

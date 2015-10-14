@@ -48,6 +48,8 @@ public class TypeResolutionContext {
 	
 	//property call stacks
 	protected Stack<String> propertyCallStack = new Stack<String>();
+
+	protected ArrayList<String> EOLReservedKeywords = new ArrayList<String>();
 		
 	public void setCurrentStatement(Statement currentStatement) {
 		this.currentStatement = currentStatement;
@@ -89,6 +91,7 @@ public class TypeResolutionContext {
 	{
 		if (instance == null) {
 			instance = new TypeResolutionContext();
+			instance.initialiseEOLReservedKeywords();
 		}
 		return instance;
 	}
@@ -153,6 +156,76 @@ public class TypeResolutionContext {
 	public HashSet<Type> getTypesOfExpression(Expression expression)
 	{
 		return expressionTypeRegistry.get(expression);
+	}
+	
+	public ArrayList<String> getEOLReservedKeywords() {
+		return EOLReservedKeywords;
+	}
+	
+	public boolean isEOLReservedKeywords(String str)
+	{
+		return EOLReservedKeywords.contains(str);
+	}
+	
+	protected void initialiseEOLReservedKeywords()
+	{
+		EOLReservedKeywords.add("import");
+		
+		EOLReservedKeywords.add("Any");
+		EOLReservedKeywords.add("Boolean");
+		EOLReservedKeywords.add("Integer");
+		EOLReservedKeywords.add("Real");
+		EOLReservedKeywords.add("String");
+		EOLReservedKeywords.add("Bag");
+		EOLReservedKeywords.add("OrderedSet");
+		EOLReservedKeywords.add("Set");
+		EOLReservedKeywords.add("Sequenece");
+		EOLReservedKeywords.add("Map");
+		
+		EOLReservedKeywords.add("null");
+		EOLReservedKeywords.add("pre");
+		EOLReservedKeywords.add("post");
+		
+		EOLReservedKeywords.add("model");
+		EOLReservedKeywords.add("alias");
+		EOLReservedKeywords.add("driver");
+		EOLReservedKeywords.add("metamodelNSURI");
+		EOLReservedKeywords.add("metamodelPath");
+		
+		EOLReservedKeywords.add("delete");
+		EOLReservedKeywords.add("transaction");
+		EOLReservedKeywords.add("abort");
+		
+		EOLReservedKeywords.add("switch");
+		EOLReservedKeywords.add("case");
+		EOLReservedKeywords.add("default");
+		
+		EOLReservedKeywords.add("break");
+		EOLReservedKeywords.add("breakAll");
+		EOLReservedKeywords.add("continue");
+		
+		EOLReservedKeywords.add("if");
+		EOLReservedKeywords.add("else");
+		
+		EOLReservedKeywords.add("while");
+		EOLReservedKeywords.add("for");
+		
+		EOLReservedKeywords.add("in");
+		
+		EOLReservedKeywords.add("and");
+		EOLReservedKeywords.add("or");
+		EOLReservedKeywords.add("implies");
+		EOLReservedKeywords.add("xor");
+		
+		EOLReservedKeywords.add("not");
+		
+		EOLReservedKeywords.add("new");
+		
+		EOLReservedKeywords.add("Collection");
+		
+		EOLReservedKeywords.add("operation");
+		EOLReservedKeywords.add("self");
+		EOLReservedKeywords.add("_result");
 	}
 	
 }
