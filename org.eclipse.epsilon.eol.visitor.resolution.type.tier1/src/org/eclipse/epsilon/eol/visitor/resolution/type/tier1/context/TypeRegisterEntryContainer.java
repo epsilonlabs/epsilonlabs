@@ -14,7 +14,7 @@ public class TypeRegisterEntryContainer {
 	protected EOLElement scope;
 	
 	//the map look up
-	protected HashMap<VariableDeclarationExpression, Type> typeMap = new HashMap<VariableDeclarationExpression, Type>();
+	protected HashMap<VariableDeclarationExpression, ArrayList<Type>> variableTypesInScope = new HashMap<VariableDeclarationExpression, ArrayList<Type>>();
 	
 	//types to disregard
 	protected HashMap<VariableDeclarationExpression, HashSet<TypeRegisterEntryContainer>> disregardSubContainersMap = new HashMap<VariableDeclarationExpression, HashSet<TypeRegisterEntryContainer>>();
@@ -47,19 +47,28 @@ public class TypeRegisterEntryContainer {
 	}
 	
 	//assign the type
-	public void assignType(VariableDeclarationExpression variableDeclarationExpression, Type type)
+	public void assignType(VariableDeclarationExpression vde, Type type)
 	{
-		if (typeMap.containsKey(variableDeclarationExpression)) {
-			//if type contains expression, override
-			typeMap.put(variableDeclarationExpression, EcoreUtil.copy(type));
-		}
-		else {
-			typeMap.put(variableDeclarationExpression, EcoreUtil.copy(type));
-		}
+		ArrayList<Type> replace = new ArrayList<Type>();
+		replace.add(EcoreUtil.copy(type));
+		variableTypesInScope.put(vde, replace);
 		
 		HashSet<TypeRegisterEntryContainer> temp = new HashSet<TypeRegisterEntryContainer>();
 		temp.addAll(subContainers);
-		disregardSubContainersMap.put(variableDeclarationExpression, temp);
+		disregardSubContainersMap.put(vde, temp);
+	}
+	
+	public void insertType(VariableDeclarationExpression vde, Type type)
+	{
+		ArrayList<Type> storedTypes = variableTypesInScope.get(vde);
+		if (storedTypes != null) {
+			storedTypes.add(EcoreUtil.copy(type));
+		}
+		else {
+			storedTypes = new ArrayList<Type>();
+			storedTypes.add(EcoreUtil.copy(type));
+			variableTypesInScope.put(vde, storedTypes);
+		}
 	}
 	
 	//get discard
@@ -68,10 +77,9 @@ public class TypeRegisterEntryContainer {
 		return disregardSubContainersMap.get(variableDeclarationExpression);
 	}
 	
-	//get type given a variableDeclarationExpression
-	public Type getType(VariableDeclarationExpression variableDeclarationExpression)
+	public ArrayList<Type> getTypes(VariableDeclarationExpression vde)
 	{
-		return typeMap.get(variableDeclarationExpression);
+		return variableTypesInScope.get(vde);
 	}
 	
 }

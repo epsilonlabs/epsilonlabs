@@ -1,8 +1,10 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
+import java.beans.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Stack;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
@@ -17,20 +19,59 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
 	
+	//instance
 	protected static TypeResolutionContext instance = null;
 	
+	//supported drivers
 	protected final String[] supportedDrivers = {"EMF", "XML"};
 	
+	//current program
 	protected EOLLibraryModule currentProgram = null;
+	
+	//current eol element
 	protected EOLElement currentEOLElement = null;
 	
+	//imetamodel manager
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
 	
+	//type registry
 	protected TypeRegistry typeRegistry = new TypeRegistry();
 	
+	//expression to registry map
 	protected HashMap<Expression, HashSet<Type>> expressionTypeRegistry = new HashMap<Expression, HashSet<Type>>();
 	
+	//metamodel related keywords
 	protected ArrayList<String> metamodelRelatedKeywords = new ArrayList<String>();
+	
+	//current statement
+	protected Statement currentStatement = null;
+	
+	//property call stacks
+	protected Stack<String> propertyCallStack = new Stack<String>();
+		
+	public void setCurrentStatement(Statement currentStatement) {
+		this.currentStatement = currentStatement;
+	}
+	
+	public Statement getCurrentStatement() {
+		return currentStatement;
+	}
+	
+	public void clearPropertyCallStack()
+	{
+		propertyCallStack.clear();
+	}
+	
+	public void pushPropertyToCall(String string)
+	{
+		propertyCallStack.push(string);
+	}
+	
+	public String getProperty()
+	{
+		return propertyCallStack.pop();
+	}
+	
 	
 	protected TypeResolutionContext()
 	{}
