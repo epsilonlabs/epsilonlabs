@@ -266,6 +266,7 @@ public class VariableResolutionContext {
 			if (container instanceof ModelDeclarationStatement) {
 				return true;
 			}
+			container = container.getContainer();
 		}
 		return false;
 	}

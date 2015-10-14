@@ -42,7 +42,14 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		if (result.size() > 0) {
 			for(EPackage ePackage: result)
 			{
-				packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+				if (ePackage != null) {
+					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));	
+				}
+				else {
+					logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+					return false;
+				}
+				
 			}
 			reconcileEolLibraryModule();
 			return true;
@@ -52,7 +59,13 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 			if (result.size() > 0) {
 				for(EPackage ePackage: result)
 				{
-					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+					if (ePackage != null) {
+						packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+					}
+					else {
+						logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+						return false;
+					}
 				}
 				reconcileEolLibraryModule();
 				return true;

@@ -199,22 +199,8 @@ public class TypeUtil {
 				return false;
 			}
 			else {
-				if(eClass1.getEPackage().equals(eClass2.getEPackage()))
-				{
-					if (type1.getModelName().equals(type2.getModelName())) {
-						if (type1.getElementName().equals(type2.getElementName())) {
-							return true;
-						}
-						else {
-							return false;
-						}
-					}
-					else {
-						return false;
-					}
-				}
-				else {
-					return false;
+				if (eClass1.equals(eClass2)) {
+					return true;
 				}
 			}
 		}
@@ -269,7 +255,7 @@ public class TypeUtil {
 		}
 	}
 	
-	public boolean isKeyWord(String s)
+	public boolean isTypeKeyWord(String s)
 	{
 		if (s.equals("Any") ||
 				s.equals("Integer") ||
@@ -287,22 +273,22 @@ public class TypeUtil {
 		else if (s.contains("Bag(")) {
 			String temp = s.replaceFirst("Bag\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isTypeKeyWord(temp);
 		}
 		else if (s.contains("Set(")) {
 			String temp = s.replaceFirst("Set\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isTypeKeyWord(temp);
 		}
 		else if (s.contains("OrderedSet(")) {
 			String temp = s.replaceFirst("OrderedSet\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isTypeKeyWord(temp);
 		}
 		else if (s.contains("Sequence(")) {
 			String temp = s.replaceFirst("Sequence\\(", "");
 			temp = temp.replaceFirst("\\)", "");
-			return isKeyWord(temp);
+			return isTypeKeyWord(temp);
 		}
 		else if (isMetamodelElement(s)) {
 			return true;

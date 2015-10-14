@@ -51,12 +51,12 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 						NameExpression name = (NameExpression) lhs;
 						if (name.getResolvedContent() instanceof VariableDeclarationExpression) {
 							VariableDeclarationExpression var = (VariableDeclarationExpression) name.getResolvedContent();
-							context.getTypeRegistry().pushVariable(var, rhsType);
+							context.getTypeRegistry().assignType(var, rhsType);
 						}
 					}
 					else if (lhs instanceof VariableDeclarationExpression) {
 						VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
-						context.getTypeRegistry().pushVariable(var, rhsType);
+						context.getTypeRegistry().assignType(var, rhsType);
 					}
 					//Type assignedRhsType = EcoreUtil.copy(rhsType);
 					//lhs.setResolvedType(assignedRhsType);

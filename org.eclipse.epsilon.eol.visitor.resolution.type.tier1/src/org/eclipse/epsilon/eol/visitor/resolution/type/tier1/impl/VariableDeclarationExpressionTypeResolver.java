@@ -53,7 +53,7 @@ public class VariableDeclarationExpressionTypeResolver extends VariableDeclarati
 			}
 		}
 		
-		context.getTypeRegistry().pushVariable(variableDeclarationExpression, variableDeclarationExpression.getResolvedType());
+		context.getTypeRegistry().assignType(variableDeclarationExpression, variableDeclarationExpression.getResolvedType());
 		return null;
 	}
 

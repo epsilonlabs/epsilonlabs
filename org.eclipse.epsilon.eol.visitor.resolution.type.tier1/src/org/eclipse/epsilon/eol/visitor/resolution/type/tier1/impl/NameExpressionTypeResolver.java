@@ -1,14 +1,12 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
-import org.eclipse.epsilon.eol.metamodel.InvalidType;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.ModelType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
@@ -31,30 +29,35 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		//get the name of the name expression
 		String nameString = nameExpression.getName();
 		
-		//if the name is a keyword, create corresponding type and return 
-		if (context.getTypeUtil().isKeyWord(nameString)) { //if name expression is keyword then resolve type immediately
+		//if the name is a keyword, create corresponding type, resolve the type, and return
+		if (context.getTypeUtil().isTypeKeyWord(nameString)) { //if name expression is keyword then resolve type immediately
 			AnyType type = context.getTypeUtil().createType(nameString);
+			
+			//if type is null, report error
 			if (type == null) {
 				LogBook.getInstance().addError(nameExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED,  nameString));
 			}
 			else {
-				nameExpression.setResolvedType(context.getTypeUtil().createType(nameString));
+				//set resolved type and then resolve the type
+				nameExpression.setResolvedType(type);
 				context.copyLocation(type, nameExpression);
 				controller.visit(nameExpression.getResolvedType(), context);
 			}
 			return null;
 		}
 		
-		if (nameString.equals("null")) { //if name is null then it is the keyword
-			InvalidType invalidType = EolFactory.eINSTANCE.createInvalidType();
-			nameExpression.setResolvedType(EcoreUtil.copy(invalidType));
-			context.copyLocation(invalidType, nameExpression);
+		if (nameString.equals("null")) { //if name is null, create anytype then return
+			AnyType anyType = EolFactory.eINSTANCE.createAnyType();
+			nameExpression.setResolvedType(EcoreUtil.copy(anyType));
+			context.copyLocation(anyType, nameExpression);
 			return null;
 		}
 
 		
 		//set the resolved type of the name to be Any first
-		nameExpression.setResolvedType(EcoreUtil.copy(EolFactory.eINSTANCE.createAnyType()));
+		AnyType anyType = EolFactory.eINSTANCE.createAnyType();
+		context.setAssets(anyType, nameExpression);
+		nameExpression.setResolvedType(anyType);
 		
 		//if name has a resolved content
 		if(nameExpression.getResolvedContent() != null) 
@@ -122,14 +125,14 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						//if variable is of anytype
 						if (TypeUtil.getInstance().isInstanceofAnyType(content.getResolvedType())) {
 							//get the types in the type registry
-							HashSet<Type> types = context.getTypeRegistry().getTypeForVariable(content);
+							ArrayList<Type> types = context.getTypeRegistry().getTypesForVariable(content);
 							//get the resolved type
-							AnyType anyType = (AnyType) content.getResolvedType();
+							AnyType contentType = (AnyType) content.getResolvedType();
 							//clear recorded dynamic types and add types recorded in the type registry
-							anyType.getDynamicTypes().clear();
-							anyType.getDynamicTypes().addAll(types);
+							contentType.getDynamicTypes().clear();
+							contentType.getDynamicTypes().addAll(types);
 							//nameExpression.setResolvedType(anyType);
-							nameExpression.setResolvedType(EcoreUtil.copy(anyType));
+							nameExpression.setResolvedType(EcoreUtil.copy(contentType));
 						}
 						else {
 							Type type = null;

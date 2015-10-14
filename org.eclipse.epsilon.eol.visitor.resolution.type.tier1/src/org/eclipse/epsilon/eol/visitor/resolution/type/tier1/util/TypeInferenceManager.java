@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -11,8 +12,10 @@ import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class TypeInferenceManager {
@@ -31,6 +34,43 @@ public class TypeInferenceManager {
 		return instance;
 	}
 	
+	
+	public ArrayList<Type> getCommonTypesForTwoAnys(AnyType anyType1, AnyType anyType2)
+	{
+		ArrayList<Type> result = new ArrayList<Type>();
+		
+		ArrayList<Type> dynTypes1 = new ArrayList<Type>();
+		ArrayList<Type> dynTypes2 = new ArrayList<Type>();
+		
+		if (TypeUtil.getInstance().isInstanceofAnyType(anyType1)) {
+			dynTypes1.addAll(EcoreUtil.copyAll(anyType1.getDynamicTypes()));
+		}
+		else {
+			dynTypes1.add(EcoreUtil.copy(anyType1));
+		}
+		
+		if (TypeUtil.getInstance().isInstanceofAnyType(anyType2)) {
+			dynTypes2.addAll(EcoreUtil.copyAll(anyType2.getDynamicTypes()));
+		}
+		else {
+			dynTypes2.add(EcoreUtil.copy(anyType2));
+		}
+		
+		for(Type t1: dynTypes1)
+		{
+			for(Type t2: dynTypes2)
+			{
+				Type common = getLeastCommonType(t1, t2);
+				if (common != null) {
+					result.add(common);
+				}
+			}
+		}
+		return result;
+		
+	}
+	
+	
 	public static void main(String[] args) {
 		Type t1 = EolFactory.eINSTANCE.createRealType();
 		Type t2 = EolFactory.eINSTANCE.createIntegerType();
@@ -48,6 +88,16 @@ public class TypeInferenceManager {
 		
 		TypeInferenceManager typeInferenceManager = new TypeInferenceManager();
 		System.out.println(typeInferenceManager.getLeastCommonTypeOf(t2.eClass(), t1.eClass()));
+	}
+	
+	public ArrayList<Type> getTypesForName(NameExpression nameExpression)
+	{
+		Object resolvedContent = nameExpression.getResolvedContent();
+		if (resolvedContent != null && resolvedContent instanceof VariableDeclarationExpression) {
+			VariableDeclarationExpression vde = (VariableDeclarationExpression) resolvedContent;
+			return TypeResolutionContext.getInstanace().getTypeRegistry().getTypesForVariable(vde);
+		}
+		return null;
 	}
 	
 	public boolean containsDynamicType(AnyType anyType, EClass typeUnderQuestion)
@@ -88,7 +138,7 @@ public class TypeInferenceManager {
 		}
 	}
 	
-	public Type inferType(HashSet<Type> types)
+	public Type inferType(ArrayList<Type> types)
 	{
 		Type result = null;
 		for(Type t: types)

@@ -72,7 +72,7 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 							if (target instanceof NameExpression) {
 								if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
 									VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-									TypeResolutionContext.getInstanace().getTypeRegistry().pushVariable(var, ct);
+									TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, ct);
 								}
 							}
 						}

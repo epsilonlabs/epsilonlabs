@@ -2,7 +2,6 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -69,7 +68,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 				//if resolved content is not null and is a variable declaration
 				if (resolvedContent != null && resolvedContent instanceof VariableDeclarationExpression) {
 					//get the inferred types
-					HashSet<Type> types = context.getTypeRegistry().getTypeForVariable((VariableDeclarationExpression) resolvedContent);
+					ArrayList<Type> types = context.getTypeRegistry().getTypesForVariable((VariableDeclarationExpression) resolvedContent);
 					//infer the types to get a least common type
 					Type inferredType = typeInferenceManager.inferType(types);
 					//if inferred type is not null

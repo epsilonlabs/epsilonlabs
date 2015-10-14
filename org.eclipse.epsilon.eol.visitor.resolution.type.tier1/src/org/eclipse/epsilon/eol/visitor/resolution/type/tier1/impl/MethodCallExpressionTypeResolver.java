@@ -97,7 +97,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 						if(methodCallExpression.getArguments().get(i) instanceof NameExpression)
 						{
 							NameExpression arg = (NameExpression) methodCallExpression.getArguments().get(i);
-							if (context.getTypeUtil().isKeyWord(arg.getName())) {
+							if (context.getTypeUtil().isTypeKeyWord(arg.getName())) {
 								
 							}
 							else {

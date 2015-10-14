@@ -12,24 +12,24 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 	public Object visit(IfStatement ifStatement, TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
-		context.getTypeRegistry().pushContainer(ifStatement.getIfBody());//////////
+		context.getTypeRegistry().pushEntry(ifStatement.getIfBody());//////////
 		
 		controller.visit(ifStatement.getCondition(), context);
 		
 		controller.visit(ifStatement.getIfBody(), context);
-		context.getTypeRegistry().popContainer();//////////
+		context.getTypeRegistry().popEntry();//////////
 		
 		for(ExpressionOrStatementBlock eosb: ifStatement.getElseIfBodies())
 		{
-			context.getTypeRegistry().pushContainer(eosb);
+			context.getTypeRegistry().pushEntry(eosb);
 			controller.visit(eosb, context);
-			context.getTypeRegistry().popContainer();
+			context.getTypeRegistry().popEntry();
 		}
 		
 		if (ifStatement.getElseBody() != null) {
-			context.getTypeRegistry().pushContainer(ifStatement.getElseBody());
+			context.getTypeRegistry().pushEntry(ifStatement.getElseBody());
 			controller.visit(ifStatement.getElseBody(), context);
-			context.getTypeRegistry().popContainer();
+			context.getTypeRegistry().popEntry();
 		}
 		return null;
 	}

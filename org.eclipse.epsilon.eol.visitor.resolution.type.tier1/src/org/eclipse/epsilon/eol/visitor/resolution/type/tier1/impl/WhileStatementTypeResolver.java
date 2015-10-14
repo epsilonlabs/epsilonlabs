@@ -16,7 +16,7 @@ public class WhileStatementTypeResolver extends WhileStatementVisitor<TypeResolu
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 
-		context.getTypeRegistry().pushContainer(whileStatement.getBody());//////////
+		context.getTypeRegistry().pushEntry(whileStatement.getBody());//////////
 		controller.visit(whileStatement.getCondition(), context);
 		controller.visit(whileStatement.getBody(), context);
 		
@@ -33,7 +33,7 @@ public class WhileStatementTypeResolver extends WhileStatementVisitor<TypeResolu
 				LogBook.getInstance().addError(condition, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, "Boolean"));
 			}
 		}
-		context.getTypeRegistry().popContainer();
+		context.getTypeRegistry().popEntry();
 		
 		return null;
 	}

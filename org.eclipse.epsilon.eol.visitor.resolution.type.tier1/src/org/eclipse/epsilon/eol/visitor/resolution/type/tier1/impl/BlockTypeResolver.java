@@ -13,6 +13,7 @@ public class BlockTypeResolver extends BlockVisitor<TypeResolutionContext, Objec
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		for(Statement statement: block.getStatements())
 		{
+			context.setCurrentStatement(statement);
 			controller.visit(statement, context);
 		}
 		return null;

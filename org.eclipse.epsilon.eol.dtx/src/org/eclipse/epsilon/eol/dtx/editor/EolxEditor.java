@@ -17,10 +17,10 @@ import org.eclipse.ui.texteditor.TextOperationAction;
 
 public class EolxEditor extends EolEditor {
 	
-	@Override
-	public SourceViewerConfiguration createSourceViewerConfiguration() {
-		return new EOLSourceViewerConfiguration(this);
-	}
+//	@Override
+//	public SourceViewerConfiguration createSourceViewerConfiguration() {
+//		return new EOLSourceViewerConfiguration(this);
+//	}
 
 
 	private static final String CONTENTASSIST_PROPOSAL_ID = 
@@ -30,29 +30,29 @@ public class EolxEditor extends EolEditor {
 	protected void createActions() {
 		// TODO Auto-generated method stub
 		super.createActions();
-		IAction action = 
-			      new TextOperationAction(new ResourceBundle(){
-
-					@Override
-					public Enumeration<String> getKeys() {
-						// TODO Auto-generated method stub
-						return null;
-					}
-
-					@Override
-					protected Object handleGetObject(String key) {
-						// TODO Auto-generated method stub
-						return null;
-					}},
-			      "ContentAssistProposal1", this, SourceViewer.CONTENTASSIST_PROPOSALS);
-			   action.setActionDefinitionId(CONTENTASSIST_PROPOSAL_ID);
-
-			   // Tell the editor about this new action
-			   setAction(CONTENTASSIST_PROPOSAL_ID, action);
-
-			   // Tell the editor to execute this action 
-			   // when Ctrl+Spacebar is pressed
-			   setActionActivationCode(CONTENTASSIST_PROPOSAL_ID,' ', -1, SWT.SHIFT);
+//		IAction action = 
+//			      new TextOperationAction(new ResourceBundle(){
+//
+//					@Override
+//					public Enumeration<String> getKeys() {
+//						// TODO Auto-generated method stub
+//						return null;
+//					}
+//
+//					@Override
+//					protected Object handleGetObject(String key) {
+//						// TODO Auto-generated method stub
+//						return null;
+//					}},
+//			      "ContentAssistProposal1", this, SourceViewer.CONTENTASSIST_PROPOSALS);
+//			   action.setActionDefinitionId(CONTENTASSIST_PROPOSAL_ID);
+//
+//			   // Tell the editor about this new action
+//			   setAction(CONTENTASSIST_PROPOSAL_ID, action);
+//
+//			   // Tell the editor to execute this action 
+//			   // when Ctrl+Spacebar is pressed
+//			   setActionActivationCode(CONTENTASSIST_PROPOSAL_ID,' ', -1, SWT.SHIFT);
 	}
 	
 	@Override
@@ -79,9 +79,6 @@ public class EolxEditor extends EolEditor {
 			}
 		};
 	}
-	
-	
-	
 	
 
 }

@@ -9,6 +9,7 @@ public class EOLTypeResolver {
 
 	protected EolVisitorController<TypeResolutionContext, Object> controller = new EolVisitorController<TypeResolutionContext, Object>();
 	protected TypeResolutionContext context = TypeResolutionContext.getInstance(true);
+	protected boolean debug = false;
 	
 	public EOLTypeResolver()
 	{
@@ -54,7 +55,18 @@ public class EOLTypeResolver {
 	
 	public void run(EOLElement eolElement)
 	{
-		controller.visit(eolElement, context);
+		if (debug) {
+			controller.visit(eolElement, context);
+		}
+		else {
+			try{
+				controller.visit(eolElement, context);
+			}
+			catch(Exception e)
+			{
+				System.err.println("Caught Exception");
+			}
+		}
 	}
 	
 	public TypeResolutionContext getTypeResolutionContext()

@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.Type;
@@ -8,82 +8,88 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 
 public class TypeRegistry {
 
-	protected TypeRegisterEntryContainer baseContainer;
-	protected TypeRegisterEntryContainer currentContainer;
+	protected TypeRegisterEntry baseEntry;
+	protected TypeRegisterEntry currentEntry;
 
 	
-	public TypeRegisterEntryContainer getBaseContainer() {
-		return baseContainer;
+	public TypeRegisterEntry getBaseEntry() {
+		return baseEntry;
 	}
 	
-	public TypeRegisterEntryContainer getCurrentContainer() {
-		return currentContainer;
+	public TypeRegisterEntry getCurrentEntry() {
+		return currentEntry;
 	}
 	
-	public void pushContainer(EOLElement eolElement)
+	public void pushEntry(EOLElement eolElement)
 	{
-		if (baseContainer == null) {
-			baseContainer = new TypeRegisterEntryContainer();
-			baseContainer.setScope(eolElement);
-			currentContainer = baseContainer;
+		if (baseEntry == null) {
+			baseEntry = new TypeRegisterEntry();
+			baseEntry.setScope(eolElement);
+			currentEntry = baseEntry;
 		}
 		else {
-			TypeRegisterEntryContainer container = new TypeRegisterEntryContainer();
-			container.setPreviousContainer(currentContainer);
+			TypeRegisterEntry container = new TypeRegisterEntry();
+			container.setPreviousEntry(currentEntry);
 			container.setScope(eolElement);
-			currentContainer.getSubContainers().add(container);
-			currentContainer = container;
+			currentEntry.getSubEntries().add(container);
+			currentEntry = container;
 		}
 	}
 	
-	public void popContainer()
+	public void popEntry()
 	{	
-		if (currentContainer.getPreviousContainer() != null) {
-			currentContainer = currentContainer.getPreviousContainer();	
+		if (currentEntry.getPreviousEntry() != null) {
+			currentEntry = currentEntry.getPreviousEntry();	
 		}
 	}
 	
-	public void pushVariable(VariableDeclarationExpression variableDeclarationExpression, Type type)
+	public void assignType(VariableDeclarationExpression variableDeclarationExpression, Type type)
 	{
-		currentContainer.assignType(variableDeclarationExpression, type);
+		currentEntry.assignType(variableDeclarationExpression, type);
 	}
 	
-	public HashSet<Type> getTypeForVariable(VariableDeclarationExpression variableDeclarationExpression)
+	public void insertType(VariableDeclarationExpression vde, Type type)
 	{
-		HashSet<Type> result = new HashSet<Type>();
-		HashSet<TypeRegisterEntryContainer> containersToIgnore = currentContainer.getContainersToDisregard(variableDeclarationExpression);
-		for(TypeRegisterEntryContainer container : currentContainer.getSubContainers())
+		currentEntry.insertType(vde, type);
+	}
+	
+	
+	
+	public ArrayList<Type> getTypesForVariable(VariableDeclarationExpression variableDeclarationExpression)
+	{
+		ArrayList<Type> result = new ArrayList<Type>();
+		ArrayList<TypeRegisterEntry> entriesToDiscard = currentEntry.getEntriesToDiscard(variableDeclarationExpression);
+		for(TypeRegisterEntry container : currentEntry.getSubEntries())
 		{
-			if (containersToIgnore != null) {
-				if (containersToIgnore.contains(container)) {
+			if (entriesToDiscard != null) {
+				if (entriesToDiscard.contains(container)) {
 					continue;
 				}
 			}
-			if (container.getType(variableDeclarationExpression) != null) {
-				result.add(container.getType(variableDeclarationExpression));
+			if (container.getTypes(variableDeclarationExpression) != null) {
+				result.addAll(container.getTypes(variableDeclarationExpression));
 			}
 			
 		}
-		TypeRegisterEntryContainer container = currentContainer;
+		TypeRegisterEntry container = currentEntry;
 		while(container != null)
 		{
-			
-			HashSet<TypeRegisterEntryContainer> toIgnore = container.getContainersToDisregard(variableDeclarationExpression);
-			for(TypeRegisterEntryContainer c : container.getSubContainers())
+			ArrayList<TypeRegisterEntry> toIgnore = container.getEntriesToDiscard(variableDeclarationExpression);
+			for(TypeRegisterEntry c : container.getSubEntries())
 			{
 				if (toIgnore != null) {
 					if (toIgnore.contains(c)) {
 						continue;
 					}
 				}
-				if (c.getType(variableDeclarationExpression) != null) {
-					result.add(c.getType(variableDeclarationExpression));
+				if (c.getTypes(variableDeclarationExpression) != null) {
+					result.addAll(c.getTypes(variableDeclarationExpression));
 				}
 			}
-			if (container.getType(variableDeclarationExpression) != null) {
-				result.add(container.getType(variableDeclarationExpression));
+			if (container.getTypes(variableDeclarationExpression) != null) {
+				result.addAll(container.getTypes(variableDeclarationExpression));
 			}
-			container = container.getPreviousContainer();
+			container = container.getPreviousEntry();
 		}
 		return result;
 	}

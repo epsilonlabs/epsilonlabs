@@ -52,22 +52,27 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 
-		
+		//visit lhs and rhs first
 		controller.visit(binaryOperatorExpression.getLhs(), context);
 		controller.visit(binaryOperatorExpression.getRhs(), context);
 		
+		//set the type first
 		BooleanType type = EolFactory.eINSTANCE.createBooleanType(); 
 		binaryOperatorExpression.setResolvedType(type);
 		context.setAssets(type, binaryOperatorExpression);
 		
+		//get the lhs and rhs
 		Expression lhs = binaryOperatorExpression.getLhs();
 		Expression rhs = binaryOperatorExpression.getRhs();
 		
+		//get the lhsType and rhsType
 		Type lhsType = lhs.getResolvedType();
 		Type rhsType = rhs.getResolvedType();
 		
+		//get typeUtil
 		TypeUtil typeUtil = TypeUtil.getInstance();
 		
+		//report if type is null
 		if (lhsType == null) {
 			LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 			return null;
@@ -78,27 +83,37 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			return null;
 		}
 		
+		//if is logical operator
 		if (isLogicalOperator(binaryOperatorExpression)) {
 			
+			//if lhs is bool
 			if (lhsType instanceof BooleanType) {
+				//if rhs is bool, return
 				if (rhsType instanceof BooleanType) {
-					
+					return null;
 				}
+				//if rhs is any check for compatibility
 				else if (typeUtil.isInstanceofAnyType(rhsType)) {
 					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
 						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
 					}
+					return null;
 				}
 				else {
 					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
+					return null;
 				}
 			}
+			//if lhs is of type any
 			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				//if rhs is bool
 				if (rhsType instanceof BooleanType) {
 					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, rhsType.eClass())) {
 						LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_NOT_NUMERAL);
 					}
+					return null;
 				}
+				//if rhs is any
 				else if (typeUtil.isInstanceofAnyType(rhsType)) {
 					boolean match = false;
 					for(Type t: ((AnyType)rhsType).getDynamicTypes())
@@ -108,6 +123,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
 								//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 								match = true;
+								return null;
 							}
 						}
 					}
@@ -122,6 +138,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 			else {
 				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_NOT_NUMERAL);
 			}
+			return null;
 		}
 
 		
@@ -140,6 +157,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						}
 						else {
 							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
+							return null;
 						}
 					}
 					else {
@@ -252,7 +270,8 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							}
 						}
 						if (!match) {
-							LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+							LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+							return null;
 						}
 					}
 					else {
@@ -261,7 +280,8 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 						}
 						else {
-							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
+							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
+							return null;
 						}
 					}
 				}
@@ -280,7 +300,8 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							}
 						}
 						if (!match) {
-							LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+							LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+							return null;
 						}
 					}
 					else {
@@ -289,7 +310,8 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 							//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
 						}
 						else {
-							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));	
+							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
+							return null;
 						}
 					}
 				}
@@ -300,7 +322,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						
 					}
 					else {
-						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
 					}
 					return null;
 				}
@@ -309,7 +331,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						
 					}
 					else {
-						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
 					}
 					return null;
 				}
@@ -319,7 +341,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						
 					}
 					else {
-						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
 					}	
 					return null;
 				}
@@ -330,7 +352,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						
 					}
 					else {
-						LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
 					}
 				}
 				else if (lhsType instanceof ModelElementType && rhsType instanceof ModelElementType) {
@@ -338,7 +360,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 						
 					}
 					else {
-						LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
 					}
 				}
 			}

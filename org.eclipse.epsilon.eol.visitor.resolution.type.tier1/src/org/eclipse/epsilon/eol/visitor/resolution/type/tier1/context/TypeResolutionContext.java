@@ -1,6 +1,5 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
-import java.beans.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +11,7 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
@@ -29,7 +29,7 @@ public class TypeResolutionContext {
 	protected EOLLibraryModule currentProgram = null;
 	
 	//current eol element
-	protected EOLElement currentEOLElement = null;
+//	protected EOLElement currentEOLElement = null;
 	
 	//imetamodel manager
 	protected IMetamodelManager iMetamodelManager = new IMetamodelManager();
