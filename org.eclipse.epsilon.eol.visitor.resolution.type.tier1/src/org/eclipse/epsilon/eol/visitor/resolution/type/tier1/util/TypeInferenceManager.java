@@ -9,12 +9,17 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
+import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
+import org.eclipse.epsilon.eol.metamodel.RealType;
+import org.eclipse.epsilon.eol.metamodel.StringType;
+import org.eclipse.epsilon.eol.metamodel.SummablePrimitiveType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
@@ -350,15 +355,102 @@ public class TypeInferenceManager {
 	
 	public Type getLeastCommonPrimitiveType(PrimitiveType t1, PrimitiveType t2)
 	{
-		if (t1.eClass().isSuperTypeOf(t2.eClass())) {
-			return EcoreUtil.copy(t1);
+		if (t1 instanceof BooleanType) {
+			if (t2 instanceof BooleanType) {
+				return EcoreUtil.copy(t2);
+			}
+			else {
+				return null;
+			}
 		}
-		else if (t2.eClass().isSuperTypeOf(t1.eClass())) {
-			return EcoreUtil.copy(t2);
+		
+		if (t1 instanceof IntegerType) {
+			if (t2 instanceof IntegerType) {
+				return EcoreUtil.copy(t1);
+			}
+			else if (t2 instanceof RealType) {
+				return EcoreUtil.copy(t2);
+			}
+			else if (t2 instanceof StringType) {
+				return EcoreUtil.copy(t2);
+			}
+			else {
+				return null;
+			}
 		}
-		else {
-			return null;
+		
+		if (t1 instanceof RealType) {
+			if (t2 instanceof IntegerType) {
+				return EcoreUtil.copy(t1);
+			}
+			else if (t2 instanceof RealType) {
+				return EcoreUtil.copy(t2);
+			}
+			else if (t2 instanceof StringType) {
+				return EcoreUtil.copy(t2);
+			}
+			else {
+				return null;
+			}
 		}
+		
+		if (t1 instanceof StringType) {
+			if (t2 instanceof SummablePrimitiveType) {
+				return EcoreUtil.copy(t1);
+			}
+			else {
+				return null;
+			}
+		}
+		
+		if (t2 instanceof BooleanType) {
+			if (t1 instanceof BooleanType) {
+				return EcoreUtil.copy(t1);
+			}
+			else {
+				return null;
+			}
+		}
+		
+		if (t2 instanceof IntegerType) {
+			if (t1 instanceof IntegerType) {
+				return EcoreUtil.copy(t1);
+			}
+			else if (t1 instanceof RealType) {
+				return EcoreUtil.copy(t1);
+			}
+			else if (t1 instanceof StringType) {
+				return EcoreUtil.copy(t1);
+			}
+			else {
+				return null;
+			}
+		}
+		
+		if (t2 instanceof RealType) {
+			if (t1 instanceof IntegerType) {
+				return EcoreUtil.copy(t2);
+			}
+			else if (t1 instanceof RealType) {
+				return EcoreUtil.copy(t2);
+			}
+			else if (t1 instanceof StringType) {
+				return EcoreUtil.copy(t1);
+			}
+			else {
+				return null;
+			}
+		}
+		
+		if (t2 instanceof StringType) {
+			if (t1 instanceof SummablePrimitiveType) {
+				return EcoreUtil.copy(t2);
+			}
+			else {
+				return null;
+			}
+		}
+		return null;
 	}
 	
 	public HashSet<EClass> getCommonTypesOf(EClass t1, EClass t2)
