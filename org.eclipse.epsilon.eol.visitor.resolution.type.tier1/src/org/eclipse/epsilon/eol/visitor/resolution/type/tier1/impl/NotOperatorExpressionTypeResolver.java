@@ -49,11 +49,11 @@ public class NotOperatorExpressionTypeResolver extends NotOperatorExpressionVisi
 				return null;
 			}
 			else {
-				LogBook.getInstance().addWarning(expression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+				LogBook.getInstance().addError(expression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
 			}
 		}
 		else {
-			LogBook.getInstance().addWarning(expression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+			LogBook.getInstance().addError(expression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
 		}
 		
 		return null;
