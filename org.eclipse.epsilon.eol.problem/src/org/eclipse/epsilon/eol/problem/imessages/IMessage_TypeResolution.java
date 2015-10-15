@@ -93,6 +93,8 @@ public class IMessage_TypeResolution {
 	
 	public static final String NAME_IS_RESERVED = "%s is a reserved EOL keyword";
 	
+	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression does not contain a numeral value";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());

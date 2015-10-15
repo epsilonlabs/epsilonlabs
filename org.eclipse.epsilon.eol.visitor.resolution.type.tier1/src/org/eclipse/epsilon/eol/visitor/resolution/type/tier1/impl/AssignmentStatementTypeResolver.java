@@ -36,57 +36,62 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 			Type rhsType = rhs.getResolvedType(); //get the resolved type of the rhs
 
 			if (lhsType == null) {
+				//this should not happen as all expressions should have types
 				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				return null;
 			}
 			
 			if (rhsType == null) {
+				//this should not happen as all expressions should have types
 				LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				return null;
 			}
 			
-			if (lhsType != null && rhsType != null) {
-				
-				//if lhs is of type Any, allow 
-				if (TypeUtil.getInstance().isInstanceofAnyType(lhsType)) {
-					if (lhs instanceof NameExpression) {
-						NameExpression name = (NameExpression) lhs;
-						if (name.getResolvedContent() instanceof VariableDeclarationExpression) {
-							VariableDeclarationExpression var = (VariableDeclarationExpression) name.getResolvedContent();
-							context.getTypeRegistry().assignType(var, rhsType);
-						}
-					}
-					else if (lhs instanceof VariableDeclarationExpression) {
-						VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
+
+			
+			//if lhs is of type Any, allow 
+			if (TypeUtil.getInstance().isInstanceofAnyType(lhsType)) {
+				if (lhs instanceof NameExpression) {
+					NameExpression name = (NameExpression) lhs;
+					if (name.getResolvedContent() instanceof VariableDeclarationExpression) {
+						VariableDeclarationExpression var = (VariableDeclarationExpression) name.getResolvedContent();
 						context.getTypeRegistry().assignType(var, rhsType);
 					}
-					//Type assignedRhsType = EcoreUtil.copy(rhsType);
-					//lhs.setResolvedType(assignedRhsType);
-					//context.setAssets(assignedRhsType, lhs);
-//					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
-//						for(Type t: ((AnyType)rhsType).getDynamicTypes())
-//						{
-//							((AnyType)lhsType).getDynamicTypes().add(t);
-//						}
-//					}
-//					else {
-//						((AnyType)lhsType).getDynamicTypes().add(rhsType);
-//					}
 				}
-				else {
-					//if rhs is of any type
-					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
-						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
-							LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH);
-						}
-						else {
-							LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.TYPE_MISMATCH);
-						}
-						
+				else if (lhs instanceof VariableDeclarationExpression) {
+					VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
+					context.getTypeRegistry().assignType(var, rhsType);
+				}
+				//Type assignedRhsType = EcoreUtil.copy(rhsType);
+				//lhs.setResolvedType(assignedRhsType);
+				//context.setAssets(assignedRhsType, lhs);
+//				if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
+//					for(Type t: ((AnyType)rhsType).getDynamicTypes())
+//					{
+//						((AnyType)lhsType).getDynamicTypes().add(t);
+//					}
+//				}
+//				else {
+//					((AnyType)lhsType).getDynamicTypes().add(rhsType);
+//				}
+			}
+			else {
+				//if rhs is of any type
+				if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
+						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH);
 					}
-					else if (!context.getTypeUtil().isTypeEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
-							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.TYPE_MISMATCH);
+					else {
+						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.TYPE_MISMATCH);
 					}
+					
+				}
+				else if (!context.getTypeUtil().isTypeEqualOrGeneric(rhsType, lhsType)) { //if the types are not related at all
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.TYPE_MISMATCH);
 				}
 			}
+		
+			
 		}
 		else {
 			LogBook.getInstance().addError(lhs, IMessage_TypeResolution.INVALID_ASSIGNMENT_TARGET);

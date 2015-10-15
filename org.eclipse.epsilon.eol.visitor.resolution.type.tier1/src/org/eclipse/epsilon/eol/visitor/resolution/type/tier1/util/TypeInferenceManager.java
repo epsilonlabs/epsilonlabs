@@ -11,6 +11,7 @@ import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
@@ -90,6 +91,7 @@ public class TypeInferenceManager {
 		System.out.println(typeInferenceManager.getLeastCommonTypeOf(t2.eClass(), t1.eClass()));
 	}
 	
+	//retrieve a list of types by traversing nameExpression to its declaration
 	public ArrayList<Type> getTypesForName(NameExpression nameExpression)
 	{
 		Object resolvedContent = nameExpression.getResolvedContent();
@@ -100,29 +102,51 @@ public class TypeInferenceManager {
 		return null;
 	}
 	
+	//check if an AnyType's dynamic types contain the type under question
 	public boolean containsDynamicType(AnyType anyType, EClass typeUnderQuestion)
 	{
+		//iterate through dynamic types
 		for(Type dynType: anyType.getDynamicTypes())
 		{
+			//if is subtype or is type return true
 			if (typeUnderQuestion.isSuperTypeOf(dynType.eClass()) || typeUnderQuestion.equals(dynType.eClass())) {
 				return true;
+			}
+			//if is anytype then call recursively
+			else if(TypeUtil.getInstance().isInstanceofAnyType(dynType))
+			{
+				if (containsDynamicType((AnyType) dynType, typeUnderQuestion))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
 	}
 	
+	//get the type in an AnyType's dynamic types that matches the type under question
 	public Type getDynamicType(AnyType anyType, EClass typeUnderQuestion)
 	{
+		//iterate through dynamic types
 		for(Type dynType: anyType.getDynamicTypes())
 		{
+			//if is sub type or is type return 
 			if (typeUnderQuestion.isSuperTypeOf(dynType.eClass()) || typeUnderQuestion.equals(dynType.eClass())) {
 				return dynType;
+			}
+			//if is any type, call recursively
+			else if(TypeUtil.getInstance().isInstanceofAnyType(dynType))
+			{
+				Type temp = getDynamicType((AnyType) dynType, typeUnderQuestion);
+				if (temp != null) {
+					return temp;
+				}
 			}
 		}
 		return null;
 	}
 	
-	public Type inferType(AnyType anyType)
+	public Type getLeastCommonTypeFromDynamicTypes(AnyType anyType)
 	{
 		Type result = null;
 		for(Type t: anyType.getDynamicTypes())
@@ -138,7 +162,7 @@ public class TypeInferenceManager {
 		}
 	}
 	
-	public Type inferType(ArrayList<Type> types)
+	public Type getLeastCommonTypeFromTypes(ArrayList<Type> types)
 	{
 		Type result = null;
 		for(Type t: types)
@@ -189,11 +213,18 @@ public class TypeInferenceManager {
 	
 	public Type getLeastCommonCollectionType(CollectionType t1, CollectionType t2)
 	{
+		//if same collection
 		if (t1.getClass().equals(t2.getClass())) {
+			//if content type of t1 is not null
 			if (t1.getContentType() != null) {
+				//if content type of t2 is not null
 				if (t2.getContentType() != null) {
+					
+					//get content types
 					Type c1 = t1.getContentType();
 					Type c2 = t2.getContentType();
+					
+					//if both primitive types
 					if (c1 instanceof PrimitiveType && c2 instanceof PrimitiveType) {
 						Type contentType = getLeastCommonPrimitiveType((PrimitiveType)c1, (PrimitiveType)c2);
 						if (contentType != null) {
@@ -233,6 +264,28 @@ public class TypeInferenceManager {
 		return null;
 	}
 	
+	public boolean containsPrimitiveType(AnyType anyType)
+	{
+		if (containsDynamicType(anyType, EolPackage.eINSTANCE.getBooleanType())) {
+			return true;
+		}
+		if (containsDynamicType(anyType, EolPackage.eINSTANCE.getIntegerType())) {
+			return true;
+		}
+		if (containsDynamicType(anyType, EolPackage.eINSTANCE.getRealType())) {
+			return true;
+		}
+		if (containsDynamicType(anyType, EolPackage.eINSTANCE.getStringType())) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean containsCollectionType(AnyType anyType)
+	{
+		return false;
+	}
+	
 	public ModelElementType getLeastCommonModelElementType(ModelElementType t1, ModelElementType t2)
 	{
 		EClass eClass1 = (EClass) t1.getModelType();
@@ -245,13 +298,18 @@ public class TypeInferenceManager {
 			return EcoreUtil.copy(t2);
 		}
 		else {
+			//get least common type
 			EClass result = getLeastCommonTypeOf(eClass1, eClass2);
+			//if result is not null
 			if(result != null)
 			{
+				//get context
 				TypeResolutionContext context = TypeResolutionContext.getInstanace();
+				//iterate modeldrivers
 				for(IMetamodelDriver iMetamodelDriver : context.getiMetamodelManager().getiMetamodelDrivers())
 				{
 					for(IPackageDriver iPackageDriver: iMetamodelDriver.getIPackageDrivers()) {
+						//fetch the class and set properties
 						if (iPackageDriver.getClass(result.getName()).equals(result)) {
 							ModelElementType modelElementType = EolFactory.eINSTANCE.createModelElementType();
 							modelElementType.setModelType(result);
@@ -261,6 +319,7 @@ public class TypeInferenceManager {
 						}
 					}
 				}
+				//return null
 				return null;
 			}
 			else {
@@ -284,7 +343,10 @@ public class TypeInferenceManager {
 	
 	public HashSet<EClass> getCommonTypesOf(EClass t1, EClass t2)
 	{
+		//prepare result
 		HashSet<EClass> result = new HashSet<EClass>();
+		
+		//if t1 is super type of t2, or vice versa, return the super class
 		if (t1.isSuperTypeOf(t2)) {
 			result.add(t1);
 		}
@@ -292,12 +354,15 @@ public class TypeInferenceManager {
 			result.add(t2);
 		}
 		
+		//iterate t1 supertypes, if it is also a super type of t2, then add
 		for(EClass eClass: t1.getEAllSuperTypes())
 		{
 			if (eClass.isSuperTypeOf(t2)) {
 				result.add(eClass);
 			}
 		}
+		
+		//iterate t2 supertypes, if it is also a super type of t1, add to result
 		for(EClass eClass: t2.getEAllSuperTypes())
 		{
 			if (eClass.isSuperTypeOf(t1)) {
@@ -310,16 +375,20 @@ public class TypeInferenceManager {
 	
 	public EClass getLeastCommonTypeOf(EClass t1, EClass t2)
 	{
+		//prepare result;
 		HashMap<EClass, Integer> result = new HashMap<EClass, Integer>();
+		
+		//iterate all common types
 		for(EClass commonType: getCommonTypesOf(t1, t2))
 		{
-			int temp = 0;
-			temp = TypeUtil.getInstance().shortestDistanceBetweenClass(t1, commonType);
-			temp = TypeUtil.getInstance().shortestDistanceBetweenClass(t2, commonType);
-			result.put(commonType, temp);
+			//the distance should be sqrt(a^2 + b^2), but we just compare squares
+			int temp1 = TypeUtil.getInstance().shortestDistanceBetweenClass(t1, commonType);
+			int temp2 = TypeUtil.getInstance().shortestDistanceBetweenClass(t2, commonType);
+			
+			result.put(commonType, temp1*temp1 + temp2*temp2);
 		}
 		EClass least = null;
-		int count = 9999;
+		long count = Integer.MAX_VALUE;
 		for(EClass eClass: result.keySet())
 		{
 			int sum = result.get(eClass);

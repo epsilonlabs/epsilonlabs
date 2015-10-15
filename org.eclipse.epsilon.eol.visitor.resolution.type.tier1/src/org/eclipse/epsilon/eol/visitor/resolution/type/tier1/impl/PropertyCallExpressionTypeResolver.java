@@ -70,7 +70,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 					//get the inferred types
 					ArrayList<Type> types = context.getTypeRegistry().getTypesForVariable((VariableDeclarationExpression) resolvedContent);
 					//infer the types to get a least common type
-					Type inferredType = typeInferenceManager.inferType(types);
+					Type inferredType = typeInferenceManager.getLeastCommonTypeFromTypes(types);
 					//if inferred type is not null
 					if (inferredType != null) {
 						//if inferred type is a model element type

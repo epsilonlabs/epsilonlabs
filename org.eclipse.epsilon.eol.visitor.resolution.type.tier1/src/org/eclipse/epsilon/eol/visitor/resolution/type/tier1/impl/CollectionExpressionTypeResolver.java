@@ -13,11 +13,14 @@ import org.eclipse.epsilon.eol.metamodel.ExpressionRange;
 import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.RealType;
 import org.eclipse.epsilon.eol.metamodel.StringType;
+import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.CollectionExpressionVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class CollectionExpressionTypeResolver extends CollectionExpressionVisitor<TypeResolutionContext, Object>{
 
@@ -28,6 +31,8 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 		
 		//get the init value
 		CollectionInitialisationExpression initValue = collectionExpression.getParameterList();
+		
+		TypeUtil typeUtil = TypeUtil.getInstance();
 		
 		//if the init value is expRange
 		if (initValue instanceof ExpressionRange) {
@@ -43,73 +48,76 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 			controller.visit(start, context);
 			controller.visit(end, context);
 			
-			if (start.getResolvedType() != null) {
-				if (!(start.getResolvedType() instanceof IntegerType)) {
-					LogBook.getInstance().addError(start, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-				}	
-			}
-			else {
+			Type startType = start.getResolvedType();
+			Type endType = end.getResolvedType();
+			
+			if (startType == null) {
 				LogBook.getInstance().addError(start, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				return null;
 			}
-			if (end.getResolvedType() != null) {
-				if (!(end.getResolvedType() instanceof IntegerType)) {
-					LogBook.getInstance().addError(end, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-				}	
-			}
-			else {
+
+			if(endType == null){
 				LogBook.getInstance().addError(end, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				return null;
 			}
+			
+			if (typeUtil.isInstanceofAnyType(startType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) startType, EolFactory.eINSTANCE.createIntegerType().eClass())) {
+					LogBook.getInstance().addError(start, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+				}
+			}
+			else if (!(startType instanceof IntegerType)) {
+				LogBook.getInstance().addError(start, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+			}
+			
+			
+			if (typeUtil.isInstanceofAnyType(endType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) endType, EolFactory.eINSTANCE.createIntegerType().eClass())) {
+					LogBook.getInstance().addError(end, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+				}
+			}
+			else if (!(endType instanceof IntegerType)) {
+				LogBook.getInstance().addError(end, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+			}	
+			
 		}
 		//if initvalue is exprlist
 		if (initValue instanceof ExpressionList) {
 			
 			ExpressionList list = (ExpressionList) initValue;
 			CollectionType collType = (CollectionType) collectionExpression.getResolvedType();
+			Type contentType = null;
 			
 			if (allBoolean(list, controller, context)) {
-				collType.setContentType(EcoreUtil.copy(EolFactory.eINSTANCE.createBooleanType()));
+				contentType = EcoreUtil.copy(EolFactory.eINSTANCE.createBooleanType());
 			}
 			else if (allInteger(list, controller, context)) {
-				collType.setContentType(EcoreUtil.copy(EolFactory.eINSTANCE.createIntegerType()));
+				contentType = EcoreUtil.copy(EolFactory.eINSTANCE.createIntegerType());
 			}
 			else if (allReal(list, controller, context)) {
-				collType.setContentType(EcoreUtil.copy(EolFactory.eINSTANCE.createRealType()));
+				contentType = EcoreUtil.copy(EolFactory.eINSTANCE.createRealType());
 			}
 			else if (allString(list, controller, context)) {
-				collType.setContentType(EcoreUtil.copy(EolFactory.eINSTANCE.createStringType()));
+				contentType = EcoreUtil.copy(EolFactory.eINSTANCE.createStringType());
 			}
 			else {
-				AnyType anyType = EolFactory.eINSTANCE.createAnyType();
+				contentType = EolFactory.eINSTANCE.createAnyType();
 				for(Expression expr : list.getExpressions())
 				{
 					controller.visit(expr, context);
 					if (!(expr.getResolvedType() instanceof CollectionType)) {
-						anyType.getDynamicTypes().add(expr.getResolvedType());	
+						((AnyType)contentType).getDynamicTypes().add(expr.getResolvedType());	
 					}
 					else {
 						LogBook.getInstance().addError(expr, IMessage_TypeResolution.EXPRESSION_INIT_CANNOT_CONTAIN_COLLECTION);
 					}
 				}
-				collType.setContentType(anyType);
-				context.setAssets(anyType, collType);
+				collType.setContentType(contentType);
+				context.setAssets(contentType, collType);
 			}
 		}
 		
 		return null;
-	}
-	
-	public boolean containsBoolean(ExpressionList list, EolVisitorController<TypeResolutionContext, Object> controller, TypeResolutionContext context)
-	{
-		boolean result = false;
-		for(Expression expr: list.getExpressions())
-		{
-			controller.visit(expr, context);
-			if (expr.getResolvedType() instanceof BooleanType) {
-				result = true;
-				break;
-			}
-		}
-		return result;
 	}
 	
 	public boolean allBoolean(ExpressionList list, EolVisitorController<TypeResolutionContext, Object> controller, TypeResolutionContext context)
@@ -134,11 +142,23 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 		for(Expression expr: list.getExpressions())
 		{
 			controller.visit(expr, context);
-			if (expr.getResolvedType() instanceof IntegerType) {
+			Type t = expr.getResolvedType();
+			if (t instanceof IntegerType) {
+				continue;
 			}
 			else {
-				result = false;
-				break;
+				if (TypeUtil.getInstance().isInstanceofAnyType(t)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) t, EolFactory.eINSTANCE.createIntegerType().eClass())) {
+						continue;
+					}
+					else {
+						return false;
+					}
+				}
+				else {
+					return false;	
+				}
+				
 			}
 		}
 		return result;
@@ -150,11 +170,23 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 		for(Expression expr: list.getExpressions())
 		{
 			controller.visit(expr, context);
-			if (expr.getResolvedType() instanceof RealType) {
+			Type t = expr.getResolvedType();
+
+			if (t instanceof RealType) {
+				continue;
 			}
 			else {
-				result = false;
-				break;
+				if (TypeUtil.getInstance().isInstanceofAnyType(t)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) t, EolFactory.eINSTANCE.createRealType().eClass())) {
+						continue;
+					}
+					else {
+						return false;
+					}
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		return result;
@@ -166,11 +198,23 @@ public class CollectionExpressionTypeResolver extends CollectionExpressionVisito
 		for(Expression expr: list.getExpressions())
 		{
 			controller.visit(expr, context);
-			if (expr.getResolvedType() instanceof StringType) {
+			Type t = expr.getResolvedType();
+
+			if (t instanceof StringType) {
+				continue;
 			}
 			else {
-				result = false;
-				break;
+				if (TypeUtil.getInstance().isInstanceofAnyType(t)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) t, EolFactory.eINSTANCE.createStringType().eClass())) {
+						continue;
+					}
+					else {
+						return false;
+					}
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		return result;

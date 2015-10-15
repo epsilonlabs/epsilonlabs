@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeRegisterEntry {
 
@@ -49,7 +51,17 @@ public class TypeRegisterEntry {
 	public void assignType(VariableDeclarationExpression vde, Type type)
 	{
 		ArrayList<Type> replace = new ArrayList<Type>();
-		replace.add(EcoreUtil.copy(type));
+		
+		if (TypeUtil.getInstance().isInstanceofAnyType(type)) {
+			AnyType anyType = (AnyType) type;
+			for(Type t: anyType.getDynamicTypes())
+			{
+				replace.add(EcoreUtil.copy(t));
+			}
+		}
+		else {
+			replace.add(EcoreUtil.copy(type));
+		}
 		variableTypesInEntry.put(vde, replace);
 		
 		ArrayList<TypeRegisterEntry> temp = new ArrayList<TypeRegisterEntry>();
