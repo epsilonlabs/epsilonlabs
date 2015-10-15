@@ -146,6 +146,26 @@ public class TypeInferenceManager {
 		return null;
 	}
 	
+	public ArrayList<Type> getDynamicTypes(AnyType anyType, EClass typeUnderQuestion)
+	{
+		ArrayList<Type> result = new ArrayList<Type>();
+		//iterate through dynamic types
+		for(Type dynType: anyType.getDynamicTypes())
+		{
+			//if is sub type or is type return 
+			if (typeUnderQuestion.isSuperTypeOf(dynType.eClass()) || typeUnderQuestion.equals(dynType.eClass())) {
+				result.add(dynType);
+			}
+			//if is any type, call recursively
+			else if(TypeUtil.getInstance().isInstanceofAnyType(dynType))
+			{
+				result.addAll(getDynamicTypes((AnyType) dynType, typeUnderQuestion));
+			}
+		}
+		return result;
+	}
+	
+	
 	public Type getLeastCommonTypeFromDynamicTypes(AnyType anyType)
 	{
 		Type result = null;
@@ -291,10 +311,10 @@ public class TypeInferenceManager {
 		EClass eClass1 = (EClass) t1.getModelType();
 		EClass eClass2 = (EClass) t2.getModelType();
 
-		if (eClass1.eClass().isSuperTypeOf(eClass2.eClass())) {
+		if (eClass1.isSuperTypeOf(eClass2)) {
 			return EcoreUtil.copy(t1);
 		}
-		else if (eClass2.eClass().isSuperTypeOf(eClass1.eClass())) {
+		else if (eClass2.isSuperTypeOf(eClass1)) {
 			return EcoreUtil.copy(t2);
 		}
 		else {

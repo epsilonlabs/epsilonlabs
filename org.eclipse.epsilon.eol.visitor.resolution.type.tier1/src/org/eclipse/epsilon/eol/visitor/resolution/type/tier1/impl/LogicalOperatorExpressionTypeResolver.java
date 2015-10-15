@@ -1,23 +1,25 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
+import java.util.ArrayList;
+
 import org.eclipse.epsilon.eol.metamodel.AndOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.BinaryOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
-import org.eclipse.epsilon.eol.metamodel.ComparablePrimitiveType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.EqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.GreaterThanOrEqualToOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.ImpliesOperatorExpression;
+import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.LessThanOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.LessThanOrEqualToOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.OrOperatorExpression;
-import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
 import org.eclipse.epsilon.eol.metamodel.RealType;
 import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
@@ -86,6 +88,14 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 		//if is logical operator
 		if (isLogicalOperator(binaryOperatorExpression)) {
 			
+			if (!(lhsType instanceof BooleanType) && (!typeUtil.isInstanceofAnyType(lhsType))) {
+				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+			}
+			
+			if (!(rhsType instanceof BooleanType) && (!typeUtil.isInstanceofAnyType(rhsType))) {
+				LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+			}
+			
 			//if lhs is bool
 			if (lhsType instanceof BooleanType) {
 				//if rhs is bool, return
@@ -94,7 +104,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 				}
 				//if rhs is any check for compatibility
 				else if (typeUtil.isInstanceofAnyType(rhsType)) {
-					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
+					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
 						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
 					}
 					return null;
@@ -104,267 +114,677 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 					return null;
 				}
 			}
-			//if lhs is of type any
-			else if (typeUtil.isInstanceofAnyType(lhsType)) {
-				//if rhs is bool
+			
+			if (typeUtil.isInstanceofAnyType(lhsType)) {
 				if (rhsType instanceof BooleanType) {
-					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, rhsType.eClass())) {
-						LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_NOT_NUMERAL);
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+						return null;
 					}
-					return null;
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, EolPackage.eINSTANCE.getBooleanType().getName()));
+					}
 				}
-				//if rhs is any
 				else if (typeUtil.isInstanceofAnyType(rhsType)) {
-					boolean match = false;
-					for(Type t: ((AnyType)rhsType).getDynamicTypes())
+
+					ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+					if (types.size() == 0) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+						}
+						return null;
+					}
+					for(Type t: types)
 					{
 						if (t instanceof BooleanType) {
-							//try if there exists a type in lhs that is equal to t
-							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
-								//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-								match = true;
-								return null;
+							return null;
+						}
+						else {
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+								LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+							}
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+								LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
 							}
 						}
 					}
-					if (!match) {
-						LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-					}
+					return null;
 				}
 				else {
-					LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
 				}
 			}
-			else {
-				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_NOT_NUMERAL);
+			
+			if (typeUtil.isInstanceofAnyType(rhsType)) {
+				if (lhsType instanceof BooleanType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, EolPackage.eINSTANCE.getBooleanType().getName()));
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(lhsType)) {
+
+					ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+					if (types.size() == 0) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+						}
+						return null;
+					}
+					for(Type t: types)
+					{
+						if (t instanceof BooleanType) {
+							return null;
+						}
+						else {
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+								LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+							}
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+								LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+							}
+						}
+					}
+					return null;
+				}
+				else {
+					LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_BOOLEAN);
+				}
 			}
+			
 			return null;
 		}
 
 		
 		//if is comparativeOperator
 		else if (isComparativeOperator(binaryOperatorExpression)) {
-			//if lhs or rhs is Anytype
-			if (typeUtil.isInstanceofAnyType(lhsType) || typeUtil.isInstanceofAnyType(rhsType)) {
-				//if lhs is any
-				if (typeUtil.isInstanceofAnyType(lhsType)) {
-					//if rhs is comparableprimitive
-					if (rhsType instanceof ComparablePrimitiveType) {
-						//if lhs is compatable to rhs
-						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, rhsType.eClass())) {
-							//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-							return null;
-						}
-						else {
-							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
-							return null;
-						}
-					}
-					else {
-						//if rhs is also any type
-						if (typeUtil.isInstanceofAnyType(rhsType)) {
-							//for each dynamic type
-							boolean match = false;
-							for(Type t: ((AnyType)rhsType).getDynamicTypes())
-							{
-								//if t is comparableprimitive
-								if (t instanceof ComparablePrimitiveType) {
-									//if lhstype contains t
-									if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, t.eClass())) {
-										//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-										match = true;
-									}
-								}
-							}
-							if (!match) {
-								LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-							}
-						}
-						else {
-							LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-						}
-					}
-				}
-				//if rhs is anytype
-				else if (typeUtil.isInstanceofAnyType(rhsType)) {
-					//if lhs is comparativeprimitive
-					if (lhsType instanceof ComparablePrimitiveType) {
-						//if rhs contains lhs
-						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
-							//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-						}
-						else {
-							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));	
-						}
-					}
-					else {
-						//if lhs is also any
-						if (typeUtil.isInstanceofAnyType(lhsType)) {
-							//for each dynamic type
-							boolean match = false;
-							for(Type t: ((AnyType)lhsType).getDynamicTypes())
-							{
-								if (t instanceof ComparablePrimitiveType) {
-									if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, t.eClass())) {
-										//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-										match = true;
-										break;
-									}
-								}
-							}
-							if (!match) {
-								LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-							}
-						}
-						else {
-							LogBook.getInstance().addError(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-						}
-					}
-					
-				}
-				return null;
+			
+			if (!(lhsType instanceof RealType) && (!typeUtil.isInstanceofAnyType(lhsType))) {
+				LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
 			}
-			else if (lhsType instanceof ComparablePrimitiveType && rhsType instanceof ComparablePrimitiveType) {
-				if (lhsType instanceof RealType) {
-					if (rhsType instanceof RealType) {
-						
+			
+			if (!(rhsType instanceof RealType) && (!typeUtil.isInstanceofAnyType(rhsType))) {
+				LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+			}
+			
+			//if lhstype is real
+			if (lhsType instanceof IntegerType) {
+				if (rhsType instanceof IntegerType) {
+					return null;
+				}
+				else if (rhsType instanceof RealType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getIntegerType())) {
+						return null;
+					}
+					else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
 					}
 					else {
-						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
 					}
 				}
 				else {
-					if (rhsType instanceof StringType) {
-						
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
+				}
+				return null;
+			}
+			
+			if (lhsType instanceof RealType) {
+				if (rhsType instanceof RealType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
 					}
 					else {
-						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
 					}
 				}
-			}
-			else {
-				if (!(lhsType instanceof ComparablePrimitiveType)) {
-					LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COMPARABLE);
+				else {
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
 				}
-				if (!(rhsType instanceof ComparablePrimitiveType)) {
-					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COMPARABLE);
-				}
+				return null;
 			}
+			
+			if (typeUtil.isInstanceofAnyType(lhsType)) {
+				if (rhsType instanceof IntegerType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getIntegerType())) {
+						return null;
+					}
+					else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+					}
+				}
+				else if (rhsType instanceof RealType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+					boolean foundReal = false;
+					if (types.size() == 0) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						return null;
+					}
+					for(Type t: types)
+					{
+						if (t instanceof RealType) {
+							foundReal = true;
+							return null;
+						}
+						
+					}
+					if (foundReal) {
+						return null;
+					}
+					else {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+					}
+				}
+				else {
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+				}
+				return null;
+			}
+			
+			if (rhsType instanceof IntegerType) {
+				if (lhsType instanceof IntegerType) {
+					return null;
+				}
+				else if (lhsType instanceof RealType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(lhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getIntegerType())) {
+						return null;
+					}
+					else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+					}
+				}
+				else {
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+				}
+				return null;
+			}
+			
+			if (rhsType instanceof RealType) {
+				if (lhsType instanceof RealType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(lhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+					}
+				}
+				else {
+					LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getName()));
+				}
+				return null;
+			}
+			
+			if (typeUtil.isInstanceofAnyType(rhsType)) {
+				if (lhsType instanceof IntegerType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getIntegerType())) {
+						return null;
+					}
+					else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
+					}
+				}
+				else if (lhsType instanceof RealType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addError(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getName()));
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(lhsType)) {
+					ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+					boolean foundReal = false;
+					if (types.size() == 0) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						return null;
+					}
+					for(Type t: types)
+					{
+						if (t instanceof RealType) {
+							foundReal = true;
+						}
+						
+					}
+					if (foundReal) {
+						return null;
+					}
+					else {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+							LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+						}
+					}
+				}
+				else {
+					LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+				}
+				return null;
+			}
+			
+			return null;
+
 		}
 		else if(isEqualityComparisonOperator(binaryOperatorExpression))
 		{
-			//if lhs or rhs is anytype
-			if (typeUtil.isInstanceofAnyType(lhsType) || typeUtil.isInstanceofAnyType(rhsType)) {
-				//if lhs is any
-				if (typeUtil.isInstanceofAnyType(lhsType)) {
-					//if rhs is also any
-					if (typeUtil.isInstanceofAnyType(rhsType)) {
-						//for each dynamic type
-						boolean match = false;
-						for(Type t: ((AnyType)rhsType).getDynamicTypes())
-						{
-							//try if there exists a type in lhs that is equal to t
-							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, t.eClass()))) {
-								//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-								match = true;
-							}
-						}
-						if (!match) {
-							LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-							return null;
-						}
+			
+			if (lhsType instanceof BooleanType) {
+				if (rhsType instanceof BooleanType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+						return null;
 					}
 					else {
-						//try if there exists a type in lhs that is equal to rhs
-						if (TypeUtil.getInstance().isTypeEqual(rhsType, TypeInferenceManager.getInstance().getDynamicType((AnyType) lhsType, rhsType.eClass()))) {
-							//LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-						}
-						else {
-							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
-							return null;
-						}
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
 					}
 				}
-				//if rhs is any
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			
+			if (lhsType instanceof RealType) {
+				if (rhsType instanceof RealType) {
+					return null;
+				}
 				else if (typeUtil.isInstanceofAnyType(rhsType)) {
-					//if lhs is also any
-					if (typeUtil.isInstanceofAnyType(lhsType)) {
-						
-						boolean match = false;
-						for(Type t: ((AnyType)lhsType).getDynamicTypes())
-						{
-							//try if there exists a type in rhs that is equal to t
-							if (TypeUtil.getInstance().isTypeEqual(t, TypeInferenceManager.getInstance().getDynamicType((AnyType) rhsType, t.eClass()))) {
-								//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
-								match = true;
-							}
-						}
-						if (!match) {
-							LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-							return null;
-						}
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
 					}
 					else {
-						//try if there exists a type in rhs that is equalt to lhs
-						if (TypeUtil.getInstance().isTypeEqual(lhsType, TypeInferenceManager.getInstance().getDynamicType((AnyType) rhsType, lhsType.eClass()))) {
-							//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.EXPRESSION_IS_ANYTYPE);
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			
+			if (lhsType instanceof StringType) {
+				if (rhsType instanceof StringType) {
+					return null;
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getStringType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			
+			if (lhsType instanceof CollectionType) {
+				if (rhsType instanceof CollectionType) {
+					if (!typeUtil.isTypeEqual(lhsType, rhsType)) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					boolean found = false;
+					for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) rhsType, lhsType.eClass()))
+					{
+						if (typeUtil.isTypeEqual(t, lhsType)) {
+							found = true;
+							break;
 						}
-						else {
-							LogBook.getInstance().addWarning(lhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, rhsType.getClass().getSimpleName()));	
-							return null;
+					}
+					if (!found) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				return null;
+			}
+			
+			
+			if (lhsType instanceof ModelElementType) {
+				if (rhsType instanceof ModelElementType) {
+					if (!typeUtil.isTypeEqual(lhsType, rhsType)) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					boolean found = false;
+					for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) rhsType, lhsType.eClass()))
+					{
+						if (typeUtil.isTypeEqual(t, lhsType)) {
+							found = true;
+							break;
 						}
+					}
+					if (!found) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
 					}
 				}
 			}
-			else if (lhsType instanceof PrimitiveType && rhsType instanceof PrimitiveType) {
-				if (lhsType instanceof BooleanType) {
-					if (rhsType instanceof BooleanType) {
-						
+			
+			if (typeUtil.isInstanceofAnyType(lhsType)) {
+				if (rhsType instanceof BooleanType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+						return null;
 					}
 					else {
-						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (rhsType instanceof RealType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (rhsType instanceof StringType) {
+					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getStringType())) {
+						return null;
+					}
+					else {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (rhsType instanceof CollectionType) {
+					boolean found = false;
+					for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) lhsType, rhsType.eClass()))
+					{
+						if (typeUtil.isTypeEqual(t, lhsType)) {
+							found = true;
+							break;
+						}
+					}
+					if (!found) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
 					}
 					return null;
 				}
-				else if (lhsType instanceof StringType) {
-					if (rhsType instanceof StringType) {
-						
+				else if (rhsType instanceof ModelElementType) {
+					boolean found = false;
+					for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) lhsType, EolPackage.eINSTANCE.getModelElementType()))
+					{
+						if (t instanceof ModelElementType) {
+							ModelElementType met = (ModelElementType) t;
+							if (typeUtil.isTypeEqual(met, rhsType)) {
+								found = true;
+								break;
+							}
+						}
+						else {
+							System.err.println("This is wrong!!!!!!!!!!!!!!!!!!!!");
+						}
+					}
+					if (!found) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
+					}
+				}
+				else if (typeUtil.isInstanceofAnyType(rhsType)) {
+					ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+					if (types.size() == 0) {
+						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+						return null;
 					}
 					else {
-						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
+						return null;
 					}
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
 					return null;
 				}
-				else if (lhsType instanceof RealType)
-				{
-					if (rhsType instanceof RealType) {
-						
-					}
-					else {
-						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, lhsType.getClass().getSimpleName()));
-					}	
+			}
+		}
+			
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		if (rhsType instanceof BooleanType) {
+			if (lhsType instanceof BooleanType) {
+				return null;
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getBooleanType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
 					return null;
 				}
 			}
 			else {
-				if (lhsType instanceof CollectionType && rhsType instanceof CollectionType) {
-					if (TypeUtil.getInstance().isTypeEqual(lhsType, rhsType)) {
-						
-					}
-					else {
-						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+				LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+				return null;
+			}
+		}
+		
+		
+		if (rhsType instanceof RealType) {
+			if (lhsType instanceof RealType) {
+				return null;
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getRealType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else {
+				LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+				return null;
+			}
+		}
+		
+		if (rhsType instanceof StringType) {
+			if (lhsType instanceof StringType) {
+				return null;
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) lhsType, EolPackage.eINSTANCE.getStringType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else {
+				LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+				return null;
+			}
+		}
+		
+		if (rhsType instanceof CollectionType) {
+			if (lhsType instanceof CollectionType) {
+				if (!typeUtil.isTypeEqual(lhsType, rhsType)) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				boolean found = false;
+				for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) lhsType, rhsType.eClass()))
+				{
+					if (typeUtil.isTypeEqual(t, rhsType)) {
+						found = true;
+						break;
 					}
 				}
-				else if (lhsType instanceof ModelElementType && rhsType instanceof ModelElementType) {
-					if (TypeUtil.getInstance().isTypeEqual(lhsType, rhsType)) {
-						
+				if (!found) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			return null;
+		}
+		
+		
+		if (rhsType instanceof ModelElementType) {
+			if (lhsType instanceof ModelElementType) {
+				if (!typeUtil.isTypeEqual(lhsType, rhsType)) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				boolean found = false;
+				for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) lhsType, rhsType.eClass()))
+				{
+					if (typeUtil.isTypeEqual(t, rhsType)) {
+						found = true;
+						break;
 					}
-					else {
-						LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
-					}
+				}
+				if (!found) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
 				}
 			}
 		}
+		
+		if (typeUtil.isInstanceofAnyType(rhsType)) {
+			if (lhsType instanceof BooleanType) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getBooleanType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (lhsType instanceof RealType) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getRealType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (lhsType instanceof StringType) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, EolPackage.eINSTANCE.getStringType())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (lhsType instanceof CollectionType) {
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
+					return null;
+				}
+				else {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (lhsType instanceof ModelElementType) {
+				boolean found = false;
+				for(Type t: TypeInferenceManager.getInstance().getDynamicTypes((AnyType) rhsType, EolPackage.eINSTANCE.getModelElementType()))
+				{
+					if (t instanceof ModelElementType) {
+						ModelElementType met = (ModelElementType) t;
+						if (typeUtil.isTypeEqual(met, lhsType)) {
+							found = true;
+							break;
+						}
+					}
+					else {
+						System.err.println("This is wrong!!!!!!!!!!!!!!!!!!!!");
+					}
+				}
+				if (!found) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+			}
+			else if (typeUtil.isInstanceofAnyType(lhsType)) {
+				ArrayList<Type> types = TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)lhsType, (AnyType)rhsType);
+				if (types.size() == 0) {
+					LogBook.getInstance().addWarning(binaryOperatorExpression, IMessage_TypeResolution.OPERAND_TYPE_MISMATCH);
+					return null;
+				}
+				else {
+					return null;
+				}
+			
+			}
+		}
+	
+		
 		return null;
 	}	
 	

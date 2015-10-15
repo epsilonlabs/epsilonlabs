@@ -56,6 +56,14 @@ public class MinusOperatorExpressionTypeResolver extends MinusOperatorExpression
 		//get type util
 		TypeUtil typeUtil = TypeUtil.getInstance();
 		
+		if (!(lhsType instanceof RealType) && (!typeUtil.isInstanceofAnyType(lhsType))) {
+			LogBook.getInstance().addError(lhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+		}
+		
+		if (!(rhsType instanceof RealType) && (!typeUtil.isInstanceofAnyType(rhsType))) {
+			LogBook.getInstance().addError(rhs, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_NUMERAL);
+		}
+		
 		//if lhstype is real
 		if (lhsType instanceof IntegerType) {
 			if (rhsType instanceof IntegerType) {
