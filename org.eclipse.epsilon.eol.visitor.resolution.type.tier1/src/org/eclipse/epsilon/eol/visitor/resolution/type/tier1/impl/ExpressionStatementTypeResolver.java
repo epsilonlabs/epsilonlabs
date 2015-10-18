@@ -22,5 +22,5 @@ public class ExpressionStatementTypeResolver extends ExpressionStatementVisitor<
 		}
 		return null;
 	}
-
+ 
 }

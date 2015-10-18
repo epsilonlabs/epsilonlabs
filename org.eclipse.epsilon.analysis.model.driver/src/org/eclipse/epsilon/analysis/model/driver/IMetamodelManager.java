@@ -54,13 +54,29 @@ public class IMetamodelManager {
 	
 	public boolean addToMetamodelNamespace(IMetamodelDriver iMetamodelDriver)
 	{
-		if (!metamodelNamespace.add(iMetamodelDriver.getName())) {
+		if (metamodelNamespace.contains(iMetamodelDriver.getName())) {
 			iMetamodelDriver.getLogBook().addError(iMetamodelDriver.getModelDeclarationStatement().getName(), IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.METAMODEL_NAME_EXISTS,  iMetamodelDriver.getModelDeclarationStatement().getName().getName().getName()));
 			return false;
 		}
 		else {
+			metamodelNamespace.add(iMetamodelDriver.getName());
 			return true;
 		}
+	}
+	
+	public boolean isMetamodelName(String str)
+	{
+		return metamodelNamespace.contains(str);
+	}
+	
+	public boolean isMetamodelAlias(String str)
+	{
+		return aliasMap.containsKey(str);
+	}
+	
+	public boolean metamodelNamespaceContains(String str)
+	{
+		return metamodelNamespace.contains(str);
 	}
 	
 	public IMetamodelDriver getIMetamodelDriverWithName(String iMetamodelDriver)

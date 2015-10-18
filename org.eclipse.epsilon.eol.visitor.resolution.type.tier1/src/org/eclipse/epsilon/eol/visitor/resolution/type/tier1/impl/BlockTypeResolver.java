@@ -15,8 +15,9 @@ public class BlockTypeResolver extends BlockVisitor<TypeResolutionContext, Objec
 		{
 			context.setCurrentStatement(statement);
 			controller.visit(statement, context);
+			context.clearPropertyCallStack();
 		}
 		return null;
-	}
+	} 
 
 }

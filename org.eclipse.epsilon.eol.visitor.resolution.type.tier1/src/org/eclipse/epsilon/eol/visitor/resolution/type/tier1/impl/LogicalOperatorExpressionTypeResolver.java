@@ -47,7 +47,7 @@ public class LogicalOperatorExpressionTypeResolver extends BinaryOperatorExpress
 				binaryOperatorExpression instanceof NotEqualsOperatorExpression ||
 				binaryOperatorExpression instanceof LessThanOperatorExpression ||
 				binaryOperatorExpression instanceof LessThanOrEqualToOperatorExpression;				
-	}
+	} 
 
 	@Override
 	public Object visit(BinaryOperatorExpression binaryOperatorExpression,

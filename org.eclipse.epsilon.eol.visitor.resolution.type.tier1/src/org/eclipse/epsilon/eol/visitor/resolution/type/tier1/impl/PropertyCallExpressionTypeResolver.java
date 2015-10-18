@@ -35,17 +35,40 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		//get target
 		Expression target = propertyCallExpression.getTarget(); //get the target
-		controller.visit(target, context); //visit the target first
 		
-		Type targetType = target.getResolvedType();
+		if (target == null) {
+			LogBook.getInstance().addError(propertyCallExpression, IMessage_TypeResolution.PROPERTY_MUST_HAVE_A_TARGET);
+			return null;
+		}
 		
-		TypeUtil typeUtil = TypeUtil.getInstance();
-		TypeInferenceManager typeInferenceManager = TypeInferenceManager.getInstance();
-		
+		//get the property
 		NameExpression property = propertyCallExpression.getProperty();
 		String propertyString = property.getName();
 		
+		//push the property to stack
+		context.pushPropertyToCall(propertyString);
+		
+		//visit the target first
+		controller.visit(target, context); 
+		
+		//get resolved type
+		Type targetType = target.getResolvedType();
+		
+		//if target type is null, report
+		if (targetType == null) {
+			LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+			return null;
+		}
+		
+		//get typeutil and type inference manager
+		TypeUtil typeUtil = TypeUtil.getInstance();
+		TypeInferenceManager typeInferenceManager = TypeInferenceManager.getInstance();
+		
+		
+		
+		//should handle extended property
 		if (propertyCallExpression.isExtended()) {
 			AnyType anyType = EolFactory.eINSTANCE.createAnyType(); //create an anyType
 			context.setAssets(anyType, propertyCallExpression); //set assets

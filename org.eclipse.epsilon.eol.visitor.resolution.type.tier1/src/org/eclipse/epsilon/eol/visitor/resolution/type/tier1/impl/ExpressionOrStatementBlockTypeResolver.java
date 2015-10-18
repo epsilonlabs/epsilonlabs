@@ -13,6 +13,12 @@ public class ExpressionOrStatementBlockTypeResolver extends ExpressionOrStatemen
 	public Object visit(ExpressionOrStatementBlock expressionOrStatementBlock,
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
+		if (expressionOrStatementBlock.getCondition() != null) {
+			context.setHandlingBranchCondition(true);
+			controller.visit(expressionOrStatementBlock.getCondition(), context);
+			context.setHandlingBranchCondition(false);
+		}
+		
 		Expression expression = expressionOrStatementBlock.getExpression();
 		Block block = expressionOrStatementBlock.getBlock();
 		

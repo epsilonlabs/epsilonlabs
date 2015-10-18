@@ -40,7 +40,8 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 			else {
 				//set resolved type and then resolve the type
 				nameExpression.setResolvedType(type);
-				context.copyLocation(type, nameExpression);
+				//context.copyLocation(type, nameExpression);
+				context.setAssets(type, nameExpression);
 				controller.visit(nameExpression.getResolvedType(), context);
 			}
 			return null;
@@ -48,8 +49,9 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 		
 		if (nameString.equals("null")) { //if name is null, create anytype then return
 			AnyType anyType = EolFactory.eINSTANCE.createAnyType();
-			nameExpression.setResolvedType(EcoreUtil.copy(anyType));
-			context.copyLocation(anyType, nameExpression);
+			nameExpression.setResolvedType(anyType);
+//			context.copyLocation(anyType, nameExpression);
+			context.setAssets(anyType, nameExpression);
 			return null;
 		}
 
@@ -81,10 +83,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 					modelType.setResolvedIMetamodel(stmt.getIMetamodel());
 
 				}
-				context.copyLocation(modelType, nameExpression);
+				//context.copyLocation(modelType, nameExpression);
 				
 				//set resolved type and return
 				nameExpression.setResolvedType(modelType);
+				context.setAssets(modelType, nameExpression);
 				return null;
 			}
 			else {
@@ -108,6 +111,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 						
 						//set resolved type
 						nameExpression.setResolvedType(modelType); 
+						context.setAssets(modelType, nameExpression);
 						return null;
 					}
 					else {
@@ -132,7 +136,11 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							contentType.getDynamicTypes().clear();
 							contentType.getDynamicTypes().addAll(types);
 							//nameExpression.setResolvedType(anyType);
-							nameExpression.setResolvedType(EcoreUtil.copy(contentType));
+							Type typeCopy = EcoreUtil.copy(contentType);
+							
+							nameExpression.setResolvedType(typeCopy);
+							context.setAssets(typeCopy, nameExpression);
+							
 						}
 						else {
 							Type type = null;

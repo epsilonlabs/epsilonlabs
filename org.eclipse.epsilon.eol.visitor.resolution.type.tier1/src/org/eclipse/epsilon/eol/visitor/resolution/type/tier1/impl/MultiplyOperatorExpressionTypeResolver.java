@@ -27,7 +27,7 @@ public class MultiplyOperatorExpressionTypeResolver extends MultiplyOperatorExpr
 		
 		//visit contents first
 		controller.visitContents(multiplyOperatorExpression, context);
-		
+		 
 		//get lhs and rhs
 		Expression lhs = multiplyOperatorExpression.getLhs();
 		Expression rhs = multiplyOperatorExpression.getRhs();

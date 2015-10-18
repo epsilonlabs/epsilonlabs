@@ -773,17 +773,37 @@ public class TypeUtil {
 			b = (Type) t2;
 		}
 		
-		if (t1.eClass().equals(t2.eClass())) { //if the eclasses are the same return true
-			return true;
+		
+		
+		if (isInstanceofAnyType(a) && !isInstanceofAnyType(b)) {
+			Type dynType = TypeInferenceManager.getInstance().getDynamicType((AnyType) a, b.eClass());
+			if (dynType != null) {
+				return isTypeEqualOrGeneric(dynType, b);
+			}
+			else {
+				return false;
+			}
 		}
 		
-		if (isInstanceofAnyType(b) || isInstanceofAnyType(a)) {
+		if (isInstanceofAnyType(a) && isInstanceofAnyType(b)) {
+			if (TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)a, (AnyType)b).size() == 0) {
+				return false;
+			}
+			else {
+				return true;
+			}
+		}
+		
+		if (isInstanceofAnyType(b)) {
 			return true;
 		}
 		
 		if(a instanceof PrimitiveType && b instanceof PrimitiveType)
 		{
 			if (a.eClass().getEAllSuperTypes().contains(b.eClass())) {
+				return true;
+			}
+			else if (a.eClass().equals(b.eClass())) {
 				return true;
 			}
 		}

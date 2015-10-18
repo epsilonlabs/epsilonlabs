@@ -28,7 +28,7 @@ public class NegativeOperatorExpressionTypeResolver extends NegativeOperatorExpr
 		
 		//resolve expression
 		controller.visit(expression, context);
-		
+		 
 		//get resolved type
 		Type expressionType = expression.getResolvedType();
 		

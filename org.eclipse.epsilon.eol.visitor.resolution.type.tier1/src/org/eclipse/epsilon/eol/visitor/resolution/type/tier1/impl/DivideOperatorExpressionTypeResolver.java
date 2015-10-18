@@ -21,7 +21,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceM
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class DivideOperatorExpressionTypeResolver extends DivideOperatorExpressionVisitor<TypeResolutionContext, Object>{
-
+ 
 	@Override
 	public Object visit(DivideOperatorExpression divideOperatorExpression,
 			TypeResolutionContext context,

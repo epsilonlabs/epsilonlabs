@@ -31,7 +31,7 @@ public class MinusOperatorExpressionTypeResolver extends MinusOperatorExpression
 		//get lhs and rhs
 		Expression lhs = minusOperatorExpression.getLhs();
 		Expression rhs = minusOperatorExpression.getRhs();
-
+ 
 		//get lhstype and rhstype
 		Type lhsType = lhs.getResolvedType();
 		Type rhsType = rhs.getResolvedType();

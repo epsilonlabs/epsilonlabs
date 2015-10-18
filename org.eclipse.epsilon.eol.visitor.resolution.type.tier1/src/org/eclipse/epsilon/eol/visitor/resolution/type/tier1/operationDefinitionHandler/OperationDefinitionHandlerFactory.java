@@ -19,6 +19,8 @@ public class OperationDefinitionHandlerFactory {
 	public void initTypeHandlers()
 	{
 		handlers.add(new IfUndefinedHandler());
+		handlers.add(new AddHandler());
+		handlers.add(new AddAllHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

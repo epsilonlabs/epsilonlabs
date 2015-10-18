@@ -20,6 +20,11 @@ public class ExpressionOrStatementBlockVariableResolver extends ExpressionOrStat
 		//get the expression
 		Expression expr = expressionOrStatementBlock.getExpression();
 		
+		Expression condition = expressionOrStatementBlock.getCondition();
+		if (condition != null) {
+			controller.visit(condition, context);
+		}
+		
 		//if block is not null visit the block
 		if (block != null) {
 			controller.visit(block, context);

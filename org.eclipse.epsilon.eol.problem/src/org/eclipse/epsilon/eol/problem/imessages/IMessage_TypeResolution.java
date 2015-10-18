@@ -77,7 +77,7 @@ public class IMessage_TypeResolution {
 	
 	public static final String OPERATION_SIGNATURE_EXISTS = "Operation with same signature has already been defined";
 	
-	public static final String OPERATION_REQUIRES_TARGET ="Operation requires a target for it to be invoked";
+	public static final String OPERATION_REQUIRES_TARGET ="Operation may require a target for it to be invoked";
 	
 	public static final String OPERATION_CONTEXT_TYPE_MISMATCH = "Type mismatch for Operation: %s(), expected type: %s, actual type: %s.";
 	public static final String OPERATION_NOT_FOUND = "Operation definition: %s(%s) cannot be found";
@@ -85,6 +85,7 @@ public class IMessage_TypeResolution {
 	public static final String ELEMENT_DOES_NOT_CONTAIN_PROPERTY = "Element %s does not contain property %s";
 	
 	public static final String PROPERTY_NOT_FOUND = "Property not found";
+	public static final String PROPERTY_MUST_HAVE_A_TARGET = "Property does not have a target";
 	
 	public static final String FOL_MUST_HAVE_TARGET = "First Order Logic method calls must have a target";
 	public static final String FOL_TARGET_MUST_BE_COLLECTION = "First Order Logic method %s must be performed on collection types";
@@ -96,8 +97,10 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not contain a numeral value";
 	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not contain a boolean value";
 	
-	public static final String EXPRESSION_MAY_NOT_BE_SUMMABLE = "Expression may not apply to the \"+\" operator";
+	public static final String EXPRESSION_MAY_NOT_BE_SUMMABLE = "Expression may not apply to the \"+\" operator";	
+	public static final String EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE = "Expression may not contain a collection type";
 
+	public static final String EXPRESSION_MAY_NOT_BE_MODEL_ELEMENT = "Expression may not evaluate to a model element";
 
 	
 	public static String bindMessage(String message, Object value)

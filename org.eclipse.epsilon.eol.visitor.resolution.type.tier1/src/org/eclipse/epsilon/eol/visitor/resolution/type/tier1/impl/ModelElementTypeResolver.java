@@ -28,6 +28,22 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 		//get the string for element
 		String elementName = modelElementType.getElementName(); 
 		
+		//get whole name
+		String wholeName = "";
+		if (modelName != null && elementName != null) {
+			wholeName = modelName+"!"+elementName;
+		}
+		else if (modelName == null && elementName != null) {
+			wholeName = elementName;
+		}
+		
+		
+		if (wholeName.equals("") || !context.isMetamodelRelatedKeywords(wholeName)) {
+			LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, wholeName));
+			return null;
+		}
+		
+		
 		//if keyword _ModelElementType_ is found, then return null, do nothing
 		if (modelName == null && elementName.equals("_ModelElementType_")) { 
 			return null;
@@ -38,10 +54,8 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 			return null;
 		}
 		
-		
 		//if model name is not null
 		if (modelName != null) {
-			
 			if (context.getTypeUtil().getIMetamodelDriverByName(modelName).size() == 0) {
 				LogBook.getInstance().addError(modelElementType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.MODEL_NOT_FOUND, modelName));
 			}

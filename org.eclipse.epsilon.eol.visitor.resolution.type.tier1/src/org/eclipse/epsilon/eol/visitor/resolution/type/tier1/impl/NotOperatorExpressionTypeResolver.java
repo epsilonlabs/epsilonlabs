@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
-import org.eclipse.epsilon.eol.metamodel.AnyType;
+import org.eclipse.epsilon.eol.metamodel.AnyType; 
 import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;

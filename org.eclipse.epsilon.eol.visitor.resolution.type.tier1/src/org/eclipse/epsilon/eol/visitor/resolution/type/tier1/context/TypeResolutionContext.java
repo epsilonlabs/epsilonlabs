@@ -50,6 +50,8 @@ public class TypeResolutionContext {
 	protected Stack<String> propertyCallStack = new Stack<String>();
 
 	protected ArrayList<String> EOLReservedKeywords = new ArrayList<String>();
+	
+	protected boolean handlingBranchCondition = false;
 		
 	public void setCurrentStatement(Statement currentStatement) {
 		this.currentStatement = currentStatement;
@@ -226,6 +228,20 @@ public class TypeResolutionContext {
 		EOLReservedKeywords.add("operation");
 		EOLReservedKeywords.add("self");
 		EOLReservedKeywords.add("_result");
+	}
+	
+	public boolean isMetamodelRelatedKeywords(String str)
+	{
+		return metamodelRelatedKeywords.contains(str);
+	}
+	
+	public boolean isHandlingBranchCondition() {
+		return handlingBranchCondition;
+	}
+	
+	public void setHandlingBranchCondition(boolean bool)
+	{
+		handlingBranchCondition = bool;
 	}
 	
 }

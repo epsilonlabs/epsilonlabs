@@ -14,7 +14,9 @@ public class IfStatementTypeResolver extends IfStatementVisitor<TypeResolutionCo
 		
 		context.getTypeRegistry().pushEntry(ifStatement.getIfBody());//////////
 		
+		context.setHandlingBranchCondition(true);
 		controller.visit(ifStatement.getCondition(), context);
+		context.setHandlingBranchCondition(false);
 		
 		controller.visit(ifStatement.getIfBody(), context);
 		context.getTypeRegistry().popEntry();//////////

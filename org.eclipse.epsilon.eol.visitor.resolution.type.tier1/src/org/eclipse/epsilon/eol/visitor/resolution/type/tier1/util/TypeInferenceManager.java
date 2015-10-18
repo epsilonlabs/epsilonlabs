@@ -62,6 +62,15 @@ public class TypeInferenceManager {
 			dynTypes2.add(EcoreUtil.copy(anyType2));
 		}
 		
+		if (dynTypes1.size() == 0) {
+			dynTypes1.add(null);
+		}
+		
+		if (dynTypes2.size() == 0) {
+			dynTypes2.add(null);
+		}
+		
+		
 		for(Type t1: dynTypes1)
 		{
 			for(Type t2: dynTypes2)
@@ -110,6 +119,13 @@ public class TypeInferenceManager {
 	//check if an AnyType's dynamic types contain the type under question
 	public boolean containsDynamicType(AnyType anyType, EClass typeUnderQuestion)
 	{
+//		if (TypeUtil.getInstance().isInstanceofAnyType((EOLElement) typeUnderQuestion)) {
+//			AnyType typesUnderQuestion = ((AnyType)typeUnderQuestion);
+//			for(Type t: typesUnderQuestion.getDynamicTypes())
+//			{
+//				return containsDynamicType(anyType, (EClass) t);
+//			}
+//		}
 		//iterate through dynamic types
 		for(Type dynType: anyType.getDynamicTypes())
 		{
@@ -369,10 +385,10 @@ public class TypeInferenceManager {
 				return EcoreUtil.copy(t1);
 			}
 			else if (t2 instanceof RealType) {
-				return EcoreUtil.copy(t2);
+				return null;
 			}
 			else if (t2 instanceof StringType) {
-				return EcoreUtil.copy(t2);
+				return null;
 			}
 			else {
 				return null;
@@ -387,7 +403,7 @@ public class TypeInferenceManager {
 				return EcoreUtil.copy(t2);
 			}
 			else if (t2 instanceof StringType) {
-				return EcoreUtil.copy(t2);
+				return null;
 			}
 			else {
 				return null;
@@ -403,53 +419,6 @@ public class TypeInferenceManager {
 			}
 		}
 		
-		if (t2 instanceof BooleanType) {
-			if (t1 instanceof BooleanType) {
-				return EcoreUtil.copy(t1);
-			}
-			else {
-				return null;
-			}
-		}
-		
-		if (t2 instanceof IntegerType) {
-			if (t1 instanceof IntegerType) {
-				return EcoreUtil.copy(t1);
-			}
-			else if (t1 instanceof RealType) {
-				return EcoreUtil.copy(t1);
-			}
-			else if (t1 instanceof StringType) {
-				return EcoreUtil.copy(t1);
-			}
-			else {
-				return null;
-			}
-		}
-		
-		if (t2 instanceof RealType) {
-			if (t1 instanceof IntegerType) {
-				return EcoreUtil.copy(t2);
-			}
-			else if (t1 instanceof RealType) {
-				return EcoreUtil.copy(t2);
-			}
-			else if (t1 instanceof StringType) {
-				return EcoreUtil.copy(t1);
-			}
-			else {
-				return null;
-			}
-		}
-		
-		if (t2 instanceof StringType) {
-			if (t1 instanceof SummablePrimitiveType) {
-				return EcoreUtil.copy(t2);
-			}
-			else {
-				return null;
-			}
-		}
 		return null;
 	}
 	

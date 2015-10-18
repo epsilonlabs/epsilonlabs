@@ -31,29 +31,38 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		
 		//prepare target type
 		Type targetType = null;
+		
 		//prepare arrow
 		boolean arrow = false;
+		
 		//prepare argTypes
-		ArrayList<Type> argTypes = new ArrayList<Type>(); 
+		ArrayList<Type> argTypes = new ArrayList<Type>();
+		
 		//get method name
-		String methodName = methodCallExpression.getMethod().getName();  
+		String methodName = methodCallExpression.getMethod().getName();
+		
 		//get target
 		Expression target = methodCallExpression.getTarget();
 		
 		for(Expression argument: methodCallExpression.getArguments()) //process arguments
 		{
 			controller.visit(argument, context); //resolve the type of the argument first
+			if (argument.getResolvedType() == null) {
+				LogBook.getInstance().addError(argument, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				return null;
+			}
 			argTypes.add(EcoreUtil.copy(argument.getResolvedType())); //if is not any type, add to the argument list immediately
 		}
 
 
 		if (target == null) { //if the target is null
 			targetType = EolFactory.eINSTANCE.createAnyType(); //since the target is null, we create an AnyType
+			context.setAssets(targetType, target);
 		}
 		else { //if the target is not null
 			controller.visit(target, context); //visit content first
 			
-			targetType = EcoreUtil.copy(methodCallExpression.getTarget().getResolvedType()); //get target type
+			targetType = EcoreUtil.copy(target.getResolvedType()); //get target type
 			
 			if (targetType == null) { //if target type is null
 				context.getLogBook().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
@@ -71,17 +80,17 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		if (operationDefinition != null) {
 			
 			//get the context type of the operation
-			Type contextType = operationDefinition.getContextType();
+			Type opContextType = operationDefinition.getContextType();
 			
 			//if target type and context type is generic
-			if (context.getTypeUtil().isTypeEqualOrGeneric(targetType,contextType)) {
+			if (context.getTypeUtil().isTypeEqualOrGeneric(targetType,opContextType)) {
 				
 				//if target is null, check operation definition declares context type
 				if (target == null) {
-					if (TypeUtil.getInstance().isInstanceofAnyType(operationDefinition.getContextType())) {
-						AnyType ct = (AnyType) contextType;
+					if (TypeUtil.getInstance().isInstanceofAnyType(opContextType)) {
+						AnyType ct = (AnyType) opContextType;
 						if (ct.isDeclared()) {
-							LogBook.getInstance().addError(methodCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
+							LogBook.getInstance().addWarning(methodCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
 							return null;
 						}
 					}
@@ -112,9 +121,14 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				
 				
 				if (OperationDefinitionManager.getInstance().handled(operationDefinition)) {
-					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
+					//make a copy of the return type
+					Type returnType = EcoreUtil.copy(operationDefinition.getReturnType());
+					//set the resolved type
+					methodCallExpression.setResolvedType(returnType);
+					//set assets
+					context.setAssets(returnType, operationDefinition);
 					//set the resolved type of the method
-					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
+					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(returnType));
 					//set resolved content
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
 				}
@@ -187,12 +201,12 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				//handle type incompatible
 				String expectedType = "";
 				String actualType = "";
-				if (contextType instanceof ModelElementType) {
-					expectedType = ((ModelElementType)contextType).getModelName() + "!" + ((ModelElementType)contextType).getElementName();
+				if (opContextType instanceof ModelElementType) {
+					expectedType = ((ModelElementType)opContextType).getModelName() + "!" + ((ModelElementType)opContextType).getElementName();
 				}
 				
 				else {
-					expectedType = contextType.getClass().toString();
+					expectedType = opContextType.getClass().toString();
 				}
 				if (targetType instanceof ModelElementType) {
 					actualType = ((ModelElementType)targetType).getModelName() + "!" + ((ModelElementType)targetType).getElementName();
@@ -207,7 +221,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			String argString = "";
 			for(int i = 0; i < argTypes.size(); i++)
 			{
-				argString.concat(argTypes.get(i).getClass().toString());
+				argString += argTypes.get(i).eClass().getName();
 				if (i == argTypes.size() - 1) {
 					
 				}
