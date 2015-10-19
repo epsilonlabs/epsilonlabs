@@ -95,7 +95,7 @@ public class FlattenHandler extends CollectionOperationDefinitionHandler{
 					return result;
 				}
 				else {
-					boolean found = false;
+					//boolean found = false;
 					for(Type t : dynTypes)
 					{
 						CollectionType _t = (CollectionType) t;	

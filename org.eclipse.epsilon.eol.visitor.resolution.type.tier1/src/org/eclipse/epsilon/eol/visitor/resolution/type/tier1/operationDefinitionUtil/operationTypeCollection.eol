@@ -39,9 +39,9 @@ operation Collection isEmpty() : Boolean {} //simple ---------------------------
 
 operation Collection random() : SelfContentType {} //done ---------------------------
 
-operation Collection remove(item: Any) : SelfType {} //done ---------------------------
+operation Collection remove(item: Any) : Boolean {} //done ---------------------------
 
-operation Collection removeAll(col: Collection) : SelfType{} //done ---------------------------
+operation Collection removeAll(col: Collection) : Boolean{} //done ---------------------------
 
 operation Collection product() : Real {} //simple ---------------------------
 

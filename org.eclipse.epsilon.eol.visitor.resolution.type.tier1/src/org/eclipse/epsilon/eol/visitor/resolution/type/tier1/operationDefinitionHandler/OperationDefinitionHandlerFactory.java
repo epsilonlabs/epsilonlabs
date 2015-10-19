@@ -22,6 +22,8 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new AddHandler());
 		handlers.add(new AddAllHandler());
 		handlers.add(new FlattenHandler());
+		handlers.add(new IncludingHandler());
+		handlers.add(new IncludingAllHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)
