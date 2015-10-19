@@ -135,11 +135,15 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				else {
 					
 					//if is self type
-					if (operationDefinition.getReturnType() instanceof SelfType) { 
+					if (operationDefinition.getReturnType() instanceof SelfType) {
+						
+						Type targetTypeCopy = EcoreUtil.copy(targetType);
+						
 						//just copy the target type because the target type has been resolved
-						methodCallExpression.setResolvedType(EcoreUtil.copy(targetType));
+						methodCallExpression.setResolvedType(targetTypeCopy);
+						context.setAssets(targetTypeCopy, methodCallExpression);
 						//set the resolved type of the method
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetType));
+						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetTypeCopy));
 						//set resolved content
 						methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
 					}
@@ -184,8 +188,11 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					}
 					
 					else {
-						methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+						Type returnTypeCopy = EcoreUtil.copy(operationDefinition.getReturnType());
+						
+						methodCallExpression.setResolvedType(returnTypeCopy); //set the type of the method call
+						context.setAssets(returnTypeCopy, methodCallExpression);
+						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(returnTypeCopy)); //set resolved type
 						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 					}
 				}

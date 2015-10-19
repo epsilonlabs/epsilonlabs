@@ -1,5 +1,7 @@
+@Need Handler
 operation Collection add(item: Any) : Boolean {} //done ---------------------------/
 
+@Need Handler
 operation Collection addAll(col: Collection) : Boolean {} //done ---------------------------/
 
 operation Collection clear() : SelfType{} //done ---------------------------
