@@ -47,7 +47,7 @@ public class AddAllHandler extends CollectionOperationDefinitionHandler{
 			//if target is null, report and return
 			if (target == null) {
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-				return null;
+				return result;
 			}
 			else {
 				//if target is collection type
@@ -68,11 +68,11 @@ public class AddAllHandler extends CollectionOperationDefinitionHandler{
 						CollectionType _argType = (CollectionType) argType;
 						argContentType = _argType.getContentType();
 						if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
-							return null;
+							return result;
 						}
 						else {
 							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
-							return null;
+							return result;
 						}
 					}
 					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
@@ -90,23 +90,23 @@ public class AddAllHandler extends CollectionOperationDefinitionHandler{
 								}
 								if (!found) {
 									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
-									return null;
+									return result;
 								}
-								return null;
+								return result;
 							}
 							else {
 								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
-								return null;
+								return result;
 							}
 						}
 						else {
 							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-							return null;
+							return result;
 						}
 					}
 					else {
 						LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						return null;
+						return result;
 					}
 				}
 				//if target is any type
@@ -136,11 +136,11 @@ public class AddAllHandler extends CollectionOperationDefinitionHandler{
 								CollectionType _argType = (CollectionType) argType;
 								argContentType = _argType.getContentType();
 								if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
-									return null;
+									return result;
 								}
 								else {
 									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
-									return null;
+									return result;
 								}
 							}
 							else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
@@ -160,21 +160,21 @@ public class AddAllHandler extends CollectionOperationDefinitionHandler{
 											LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(t)) + ")");
 											return null;
 										}
-										return null;
+										return result;
 									}
 									else {
 										LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(t)) +")");
-										return null;
+										return result;
 									}
 								}
 								else {
 									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-									return null;
+									return result;
 								}
 							}
 							else {
 								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-								return null;
+								return result;
 							}
 						}
 					}

@@ -94,13 +94,15 @@ public class IMessage_TypeResolution {
 	
 	public static final String NAME_IS_RESERVED = "%s is a reserved EOL keyword";
 	
-	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not contain a numeral value";
-	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not contain a boolean value";
+	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not evaluate to a numeral value";
+	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not evaluate to a boolean value";
 	
 	public static final String EXPRESSION_MAY_NOT_BE_SUMMABLE = "Expression may not apply to the \"+\" operator";	
-	public static final String EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE = "Expression may not contain a collection type";
+	public static final String EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE = "Expression may not evaluate to a value of Collection type";
 
 	public static final String EXPRESSION_MAY_NOT_BE_MODEL_ELEMENT = "Expression may not evaluate to a model element";
+	
+	public static final String POTENTIAL_ARGUMENT_MISMATCH = "Argument may not evaluate to a value that is applicable to %s";
 
 	
 	public static String bindMessage(String message, Object value)

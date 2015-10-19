@@ -126,7 +126,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					//set the resolved type
 					methodCallExpression.setResolvedType(returnType);
 					//set assets
-					context.setAssets(returnType, operationDefinition);
+					context.setAssets(returnType, methodCallExpression);
 					//set the resolved type of the method
 					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(returnType));
 					//set resolved content

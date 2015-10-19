@@ -1,7 +1,9 @@
 @Need Handler
+@invasive
 operation Collection add(item: Any) : Boolean {} //done ---------------------------/
 
 @Need Handler
+@invasive
 operation Collection addAll(col: Collection) : Boolean {} //done ---------------------------/
 
 operation Collection clear() : SelfType{} //done ---------------------------
@@ -18,11 +20,11 @@ operation Collection excludes(item: Any) : Boolean{} //done --------------------
 
 operation Collection excludesAll(col: Collection) : Boolean{} //done ---------------------------/
 
+operation Collection excluding(item: Any) : SelfType{} //done ---------------------------
+
 operation Collection excludingAll(col: Collection) : SelfType{} //done ---------------------------/
 
 operation Collection flatten() : Sequence {} //done ---------------------------
-
-operation Collection excluding(item: Any) : SelfType{} //done ---------------------------
 
 operation Collection includes(item: Any) : Boolean{} //done ---------------------------
 
