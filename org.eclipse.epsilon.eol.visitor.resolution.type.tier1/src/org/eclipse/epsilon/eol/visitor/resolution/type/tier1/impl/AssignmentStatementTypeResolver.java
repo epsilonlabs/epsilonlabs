@@ -62,6 +62,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 					VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
 					context.getTypeRegistry().assignType(var, rhsType);
 				}
+				
 				//Type assignedRhsType = EcoreUtil.copy(rhsType);
 				//lhs.setResolvedType(assignedRhsType);
 				//context.setAssets(assignedRhsType, lhs);

@@ -16,11 +16,16 @@ import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
+import org.eclipse.epsilon.eol.metamodel.IntegerType;
+import org.eclipse.epsilon.eol.metamodel.MapType;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NativeType;
 import org.eclipse.epsilon.eol.metamodel.OrderedSetType;
 import org.eclipse.epsilon.eol.metamodel.PrimitiveType;
+import org.eclipse.epsilon.eol.metamodel.RealType;
 import org.eclipse.epsilon.eol.metamodel.SequenceType;
 import org.eclipse.epsilon.eol.metamodel.SetType;
+import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
@@ -57,6 +62,19 @@ public class TypeUtil {
 	
 	public boolean isEDataType(EObject eObject) {
 		return eObject instanceof EDataType;
+	}
+	
+	public ArrayList<Type> getAllDynamicTypes(AnyType anyType)
+	{
+		ArrayList<Type> result = new ArrayList<Type>();
+		for(Type t: anyType.getDynamicTypes())
+		{
+			result.add(t);
+			if (isInstanceofAnyType(t)) {
+				result.addAll(getAllDynamicTypes((AnyType) t));
+			}
+		}
+		return result;
 	}
 
 	// returns true if the argument falls into the category of being primitive
@@ -294,6 +312,81 @@ public class TypeUtil {
 		else {
 			return false;
 		}
+	}
+	
+	public String getTypeName(Type t)
+	{
+		if (t instanceof PrimitiveType) {
+			if (t instanceof IntegerType) {
+				return "Integer";
+			}
+			else if (t instanceof RealType) {
+				return "Real";
+			}
+			else if (t instanceof BooleanType) {
+				return "Boolean";
+			}
+			else if (t instanceof StringType) {
+				return "String";
+			}
+		}
+		else if (t instanceof CollectionType) {
+			String buff = "";
+			if (t instanceof SetType) {
+				buff = "Set";
+			}
+			else if (t instanceof SequenceType) {
+				buff = "Sequence";
+			}
+			else if (t instanceof OrderedSetType) {
+				buff = "OrderedSet";
+			}
+			else if (t instanceof BagType) {
+				buff = "Bag";
+			}
+			if (((CollectionType) t).getContentType() != null) {
+				buff = buff + "(" + getTypeName(((CollectionType) t).getContentType()) + ")";
+			}
+			return buff;
+		}
+		else if (t instanceof ModelElementType) {
+			String buff = "";
+			ModelElementType _t = (ModelElementType) t;
+			if (_t.getModelName() != null) {
+				buff += _t.getModelName()+"!";
+			}
+			if (_t.getElementName() != null) {
+				buff += _t.getElementName();
+			}
+			return buff;
+		}
+		else if (t instanceof NativeType) {
+			String buff = "Native";
+			NativeType _t = (NativeType) t;
+			if (_t.getExpression() != null) {
+				buff = buff + "(" + _t.getExpression().getValue() + ")";
+			}
+			return buff;
+		}
+		else if (t instanceof MapType) {
+			return "Map";
+		}
+		else if (t instanceof AnyType) {
+			AnyType _t = (AnyType) t;
+			String buff = "Any";
+			if (_t.getDynamicTypes() != null) {
+				buff += "{";
+				for(Type __t: _t.getDynamicTypes())
+				{
+					buff = buff + getTypeName(__t);
+					buff += ", ";
+				}
+				buff = buff.substring(0, buff.length()-2);
+				buff += "}";
+			}
+			return buff;
+		}
+		return null;
 	}
 	
 	public AnyType createType(String s)

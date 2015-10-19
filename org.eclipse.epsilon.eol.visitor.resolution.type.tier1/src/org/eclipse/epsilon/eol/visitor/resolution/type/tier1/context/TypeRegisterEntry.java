@@ -52,6 +52,7 @@ public class TypeRegisterEntry {
 	{
 		ArrayList<Type> replace = new ArrayList<Type>();
 		
+		//if is any type, add all dynamic types
 		if (TypeUtil.getInstance().isInstanceofAnyType(type)) {
 			AnyType anyType = (AnyType) type;
 			for(Type t: anyType.getDynamicTypes())
@@ -59,6 +60,7 @@ public class TypeRegisterEntry {
 				replace.add(EcoreUtil.copy(t));
 			}
 		}
+		//if is normal type, add
 		else {
 			replace.add(EcoreUtil.copy(type));
 		}
