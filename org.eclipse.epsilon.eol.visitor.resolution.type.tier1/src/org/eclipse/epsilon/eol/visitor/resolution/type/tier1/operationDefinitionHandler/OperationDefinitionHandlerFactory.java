@@ -32,6 +32,8 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new OrderedCollectionAccessorHandler());
 		handlers.add(new InvertHandler());
 		handlers.add(new IndexOfHandler());
+		handlers.add(new IncludesHandler());
+		handlers.add(new IncludesAllHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

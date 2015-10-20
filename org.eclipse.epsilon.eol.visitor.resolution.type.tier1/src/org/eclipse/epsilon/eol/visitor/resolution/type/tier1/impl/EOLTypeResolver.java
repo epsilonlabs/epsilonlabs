@@ -52,6 +52,7 @@ public class EOLTypeResolver {
 
 		controller.addCollectionExpressionVisitor(new CollectionExpressionTypeResolver());
 		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockTypeResolver());
+		controller.addMapExpressionVisitor(new MapExpressionTypeResolver());
 	}
 	
 	public void run(EOLElement eolElement)
