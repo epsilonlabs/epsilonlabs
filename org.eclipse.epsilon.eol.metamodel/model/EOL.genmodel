@@ -269,8 +269,8 @@
     <genClasses ecoreClass="EOL.ecore#//SelfContentType"/>
     <genClasses ecoreClass="EOL.ecore#//SelfInnermostContentType"/>
     <genClasses ecoreClass="EOL.ecore#//MapType">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/keyType"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/valueType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/keyType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//MapType/valueType"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//NativeType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//NativeType/expression"/>

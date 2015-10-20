@@ -404,8 +404,8 @@ class SelfInnermostContentType extends PseudoType {
 }
 
 class MapType extends AnyType {
-  ref AnyType keyType;
-  ref AnyType valueType;
+  val AnyType keyType;
+  val AnyType valueType;
 }
 
 class NativeType extends AnyType {

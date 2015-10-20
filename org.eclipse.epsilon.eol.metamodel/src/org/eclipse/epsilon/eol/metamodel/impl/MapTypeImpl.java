@@ -3,6 +3,7 @@
 package org.eclipse.epsilon.eol.metamodel.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -29,7 +30,7 @@ import org.eclipse.epsilon.eol.metamodel.MapType;
  */
 public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	/**
-	 * The cached value of the '{@link #getKeyType() <em>Key Type</em>}' reference.
+	 * The cached value of the '{@link #getKeyType() <em>Key Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getKeyType()
@@ -39,7 +40,7 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	protected AnyType keyType;
 
 	/**
-	 * The cached value of the '{@link #getValueType() <em>Value Type</em>}' reference.
+	 * The cached value of the '{@link #getValueType() <em>Value Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getValueType()
@@ -73,14 +74,6 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * @generated
 	 */
 	public AnyType getKeyType() {
-		if (keyType != null && keyType.eIsProxy()) {
-			InternalEObject oldKeyType = (InternalEObject)keyType;
-			keyType = (AnyType)eResolveProxy(oldKeyType);
-			if (keyType != oldKeyType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MAP_TYPE__KEY_TYPE, oldKeyType, keyType));
-			}
-		}
 		return keyType;
 	}
 
@@ -89,8 +82,14 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyType basicGetKeyType() {
-		return keyType;
+	public NotificationChain basicSetKeyType(AnyType newKeyType, NotificationChain msgs) {
+		AnyType oldKeyType = keyType;
+		keyType = newKeyType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__KEY_TYPE, oldKeyType, newKeyType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -99,10 +98,17 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * @generated
 	 */
 	public void setKeyType(AnyType newKeyType) {
-		AnyType oldKeyType = keyType;
-		keyType = newKeyType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__KEY_TYPE, oldKeyType, keyType));
+		if (newKeyType != keyType) {
+			NotificationChain msgs = null;
+			if (keyType != null)
+				msgs = ((InternalEObject)keyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MAP_TYPE__KEY_TYPE, null, msgs);
+			if (newKeyType != null)
+				msgs = ((InternalEObject)newKeyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MAP_TYPE__KEY_TYPE, null, msgs);
+			msgs = basicSetKeyType(newKeyType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__KEY_TYPE, newKeyType, newKeyType));
 	}
 
 	/**
@@ -111,14 +117,6 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * @generated
 	 */
 	public AnyType getValueType() {
-		if (valueType != null && valueType.eIsProxy()) {
-			InternalEObject oldValueType = (InternalEObject)valueType;
-			valueType = (AnyType)eResolveProxy(oldValueType);
-			if (valueType != oldValueType) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EolPackage.MAP_TYPE__VALUE_TYPE, oldValueType, valueType));
-			}
-		}
 		return valueType;
 	}
 
@@ -127,8 +125,14 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnyType basicGetValueType() {
-		return valueType;
+	public NotificationChain basicSetValueType(AnyType newValueType, NotificationChain msgs) {
+		AnyType oldValueType = valueType;
+		valueType = newValueType;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__VALUE_TYPE, oldValueType, newValueType);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -137,10 +141,33 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	 * @generated
 	 */
 	public void setValueType(AnyType newValueType) {
-		AnyType oldValueType = valueType;
-		valueType = newValueType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__VALUE_TYPE, oldValueType, valueType));
+		if (newValueType != valueType) {
+			NotificationChain msgs = null;
+			if (valueType != null)
+				msgs = ((InternalEObject)valueType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.MAP_TYPE__VALUE_TYPE, null, msgs);
+			if (newValueType != null)
+				msgs = ((InternalEObject)newValueType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.MAP_TYPE__VALUE_TYPE, null, msgs);
+			msgs = basicSetValueType(newValueType, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.MAP_TYPE__VALUE_TYPE, newValueType, newValueType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.MAP_TYPE__KEY_TYPE:
+				return basicSetKeyType(null, msgs);
+			case EolPackage.MAP_TYPE__VALUE_TYPE:
+				return basicSetValueType(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -152,11 +179,9 @@ public class MapTypeImpl extends AnyTypeImpl implements MapType {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EolPackage.MAP_TYPE__KEY_TYPE:
-				if (resolve) return getKeyType();
-				return basicGetKeyType();
+				return getKeyType();
 			case EolPackage.MAP_TYPE__VALUE_TYPE:
-				if (resolve) return getValueType();
-				return basicGetValueType();
+				return getValueType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

@@ -6705,7 +6705,7 @@ public interface EolPackage extends EPackage {
 	int MAP_TYPE__DECLARED = ANY_TYPE__DECLARED;
 
 	/**
-	 * The feature id for the '<em><b>Key Type</b></em>' reference.
+	 * The feature id for the '<em><b>Key Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6714,7 +6714,7 @@ public interface EolPackage extends EPackage {
 	int MAP_TYPE__KEY_TYPE = ANY_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value Type</b></em>' reference.
+	 * The feature id for the '<em><b>Value Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10129,10 +10129,10 @@ public interface EolPackage extends EPackage {
 	EClass getMapType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.MapType#getKeyType <em>Key Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.MapType#getKeyType <em>Key Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Key Type</em>'.
+	 * @return the meta object for the containment reference '<em>Key Type</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.MapType#getKeyType()
 	 * @see #getMapType()
 	 * @generated
@@ -10140,10 +10140,10 @@ public interface EolPackage extends EPackage {
 	EReference getMapType_KeyType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.epsilon.eol.metamodel.MapType#getValueType <em>Value Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.MapType#getValueType <em>Value Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Value Type</em>'.
+	 * @return the meta object for the containment reference '<em>Value Type</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.MapType#getValueType()
 	 * @see #getMapType()
 	 * @generated
@@ -12253,7 +12253,7 @@ public interface EolPackage extends EPackage {
 		EClass MAP_TYPE = eINSTANCE.getMapType();
 
 		/**
-		 * The meta object literal for the '<em><b>Key Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Key Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -12261,7 +12261,7 @@ public interface EolPackage extends EPackage {
 		EReference MAP_TYPE__KEY_TYPE = eINSTANCE.getMapType_KeyType();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Type</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Value Type</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

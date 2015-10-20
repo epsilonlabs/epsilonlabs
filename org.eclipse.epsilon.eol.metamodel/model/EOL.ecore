@@ -383,8 +383,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="SelfContentType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SelfInnermostContentType" eSuperTypes="#//PseudoType"/>
   <eClassifiers xsi:type="ecore:EClass" name="MapType" eSuperTypes="#//AnyType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="keyType" eType="#//AnyType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//AnyType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="keyType" eType="#//AnyType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//AnyType"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NativeType" eSuperTypes="#//AnyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
