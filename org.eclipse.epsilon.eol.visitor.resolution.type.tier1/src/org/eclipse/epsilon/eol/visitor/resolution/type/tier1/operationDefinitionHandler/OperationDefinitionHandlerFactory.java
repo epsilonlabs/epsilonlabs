@@ -24,6 +24,7 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new FlattenHandler());
 		handlers.add(new IncludingHandler());
 		handlers.add(new IncludingAllHandler());
+		handlers.add(new RandomHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)
