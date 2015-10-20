@@ -13,28 +13,23 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class UtilityHandler extends CollectionOperationDefinitionHandler {
+public class ExcludingAllHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return ((name.equals("isEmpty") ||
-				name.equals("product") ||
-				name.equals("size") ||
-				name.equals("sum") ||
-				name.equals("concat") ||
-				name.equals("clear")) && argTypes.size() == 0 ) ||
-				(name.equals("count") && argTypes.size() == 1);
+		return name.equals("excludingAll") && argTypes.size() == 1;
 	}
 
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
+			ArrayList<Type> argTypes) throws AnalysisInterruptException {
 		
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
@@ -59,14 +54,28 @@ public class UtilityHandler extends CollectionOperationDefinitionHandler {
 			else {
 				//get the target type copy
 				Type targetType = EcoreUtil.copy(target.getResolvedType());
+				Type argType = argTypes.get(0);
 				
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					result.setReturnType(targetType);
+					return result;
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
+					if (argType instanceof CollectionType) {
+						
+					}
+					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						}
+					}
+					else {
+						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					}
+					result.setReturnType(targetType);
 					return result;
 				}
 				//else if target type is an instance of any
@@ -75,19 +84,30 @@ public class UtilityHandler extends CollectionOperationDefinitionHandler {
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
-						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-						return null;
+						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						result.setReturnType(targetType);
+						return result;
 					}
 					else {
-						//if size is 1, a collection type is found
-						if (dyntypes.size() > 0) {
-							return result;
+						if (argType instanceof CollectionType) {
+							
 						}
+						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+							}
+						}
+						else {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						}
+						result.setReturnType(targetType);
+						return result;
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					return null;
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					result.setReturnType(targetType);
+					return result;
 				}
 			}
 		}

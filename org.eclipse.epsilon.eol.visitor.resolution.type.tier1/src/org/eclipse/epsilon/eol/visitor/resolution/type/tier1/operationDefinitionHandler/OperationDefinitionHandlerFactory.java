@@ -20,6 +20,8 @@ public class OperationDefinitionHandlerFactory {
 	public void initTypeHandlers()
 	{
 		handlers.add(new IfUndefinedHandler());
+		
+		
 		handlers.add(new AddHandler());
 		handlers.add(new AddAllHandler());
 		handlers.add(new FlattenHandler());
@@ -34,6 +36,10 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new IndexOfHandler());
 		handlers.add(new IncludesHandler());
 		handlers.add(new IncludesAllHandler());
+		handlers.add(new ExcludingHandler());
+		handlers.add(new ExcludingAllHandler());
+		handlers.add(new RemoveHandler());
+		handlers.add(new RemoveAllHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)
