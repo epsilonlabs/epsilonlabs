@@ -24,7 +24,7 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return (name.equals("clone") || name.equals("clear")) && argTypes.size() == 0;
+		return (name.equals("clone")) && argTypes.size() == 0;
 	}
 
 	@Override

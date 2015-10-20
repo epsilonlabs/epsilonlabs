@@ -21,14 +21,14 @@ public class OperationDefinitionHandlerFactory {
 	{
 		handlers.add(new IfUndefinedHandler());
 		
-		
+		handlers.add(new ClearHandler());
 		handlers.add(new AddHandler());
 		handlers.add(new AddAllHandler());
 		handlers.add(new FlattenHandler());
 		handlers.add(new IncludingHandler());
 		handlers.add(new IncludingAllHandler());
 		handlers.add(new RandomHandler());
-		handlers.add(new UtilityHandler());
+		handlers.add(new CollectionUtilityHandler());
 		handlers.add(new CloneHandler());
 		handlers.add(new AtHandler());
 		handlers.add(new OrderedCollectionAccessorHandler());
@@ -40,6 +40,13 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new ExcludingAllHandler());
 		handlers.add(new RemoveHandler());
 		handlers.add(new RemoveAllHandler());
+		
+		handlers.add(new ContainsKeyHandler());
+		handlers.add(new GetHandler());
+		handlers.add(new KeySetHandler());
+		handlers.add(new ValuesHandler());
+		
+		//handlers.add(new MapUtilityHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

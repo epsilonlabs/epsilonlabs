@@ -2,11 +2,14 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitio
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
+import org.eclipse.epsilon.eol.metamodel.MapType;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
@@ -57,27 +60,65 @@ public class RemoveHandler extends CollectionOperationDefinitionHandler{
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+					result.setReturnType(EolFactory.eINSTANCE.createBooleanType());
 					return result;
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
+					result.setContextType(EcoreUtil.copy(targetType));
+					result.setReturnType(EolFactory.eINSTANCE.createBooleanType());
 					return result;
+				}
+				else if (targetType instanceof MapType) {
+					 MapType _targetType = (MapType) targetType;
+					 AnyType valueType = _targetType.getValueType();
+					
+					 result.setContextType(EcoreUtil.copy(targetType));
+					 result.setReturnType(valueType);
+					 return result;
 				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
+					
+					boolean notCollection = false;
+					boolean notMap = false;
+					
 					//get dynamic types that are of type collection
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
-						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						return result;
+						notCollection = true;
 					}
 					else {
+						result.setContextType(EcoreUtil.copy(targetType));
+						result.setReturnType(EolFactory.eINSTANCE.createBooleanType());
+						return result;
+					}
+					
+					dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getMapType());
+					//if size is 0, no collection type is found, report and return
+					if (dyntypes.size() == 0) {
+						notMap = true;
+					}
+					else {
+						MapType _targetType = (MapType) dyntypes.get(0);
+						 AnyType valueType = _targetType.getValueType();
+						
+						 result.setContextType(EcoreUtil.copy(targetType));
+						 result.setReturnType(valueType);
+						 return result;
+					}
+					if (notCollection && notMap) {
+						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						result.setReturnType(EolFactory.eINSTANCE.createBooleanType());
+
 						return result;
 					}
 				}
 				else {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					result.setReturnType(EolFactory.eINSTANCE.createBooleanType());
+
 					return result;
 				}
 			}

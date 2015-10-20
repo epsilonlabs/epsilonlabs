@@ -935,6 +935,9 @@ public class TypeUtil {
 		else if (b.getClass().getSimpleName().equals("TypeImpl") && a instanceof Type) {
 			return true;
 		}
+		else if (a instanceof MapType && b instanceof MapType) {
+			return true;
+		}
 		else {
 			return false;
 		}
