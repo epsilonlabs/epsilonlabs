@@ -23,6 +23,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.PropertyCallExpressionVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
@@ -443,7 +444,13 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		Expression target = propertyCallExpression.getTarget();
 		
 		//get the operation definition
-		OperationDefinition operationDefinition = context.getOperationDefinitionManager().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false); //fetch operation definition using name, context type and arg types
+		OperationDefinition operationDefinition = null;
+		try {
+			operationDefinition = context.getOperationDefinitionManager().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false);
+		} catch (AnalysisInterruptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //fetch operation definition using name, context type and arg types
 		//if an operation is found
 		if (operationDefinition != null) {
 			

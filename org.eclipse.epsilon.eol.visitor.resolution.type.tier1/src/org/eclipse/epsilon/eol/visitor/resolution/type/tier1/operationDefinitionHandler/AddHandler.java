@@ -15,6 +15,7 @@ import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
@@ -31,7 +32,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
+			ArrayList<Type> argTypes) throws AnalysisInterruptException {
 		
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
@@ -51,7 +52,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 			//if target is null, report and return
 			if (target == null) {
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-				return null;
+				return result;
 			}
 			else {
 				//get the target type
@@ -60,7 +61,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					return result;
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
@@ -99,7 +100,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 						if(!TypeUtil.getInstance().isTypeEqualOrGeneric(argType, contentType))
 						{
 							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
-							return null;
+							return result;
 						}
 					}
 				}
@@ -110,7 +111,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-						return null;
+						return result;
 					}
 					else {
 						//if size is 1, a collection type is found
@@ -148,6 +149,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 								if(!TypeUtil.getInstance().isTypeEqualOrGeneric(argType, contentType))
 								{
 									LogBook.getInstance().addError(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, contentType.getClass().getSimpleName()));
+									return result;
 								}
 							}
 						}
@@ -156,7 +158,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 				}
 				else {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					return null;
+					return result;
 				}
 			}
 		}

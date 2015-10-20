@@ -18,6 +18,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.FOLMethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpressionVisitor<TypeResolutionContext, Object>{
@@ -95,10 +96,15 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 					arrow = fOLMethodCallExpression.isIsArrow();
 					
 					//prepare operation definition
-					OperationDefinition operationDefinition;
+					OperationDefinition operationDefinition = null;
 					
 					//fetch operation definition using name, context type and arg types from the built in library
-					operationDefinition = context.getOperationDefinitionManager().getOperation(fOLMethodCallExpression, name, targetType, argTypes, arrow); 
+					try {
+						operationDefinition = context.getOperationDefinitionManager().getOperation(fOLMethodCallExpression, name, targetType, argTypes, arrow);
+					} catch (AnalysisInterruptException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
 					
 					//if there is an operation
 					if (operationDefinition != null) {

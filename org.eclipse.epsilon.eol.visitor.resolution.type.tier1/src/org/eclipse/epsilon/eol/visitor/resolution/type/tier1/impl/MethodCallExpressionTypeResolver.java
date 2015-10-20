@@ -18,6 +18,7 @@ import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
@@ -72,9 +73,13 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			arrow = methodCallExpression.isIsArrow();
 		}
 		
-		OperationDefinition operationDefinition;
+		OperationDefinition operationDefinition = null;
 		//fetch operation definition using name, context type and arg types from the standard library and user defined operations
-		operationDefinition = context.getOperationDefinitionManager().getOperation(methodCallExpression, methodName, targetType, argTypes, arrow); 
+		try {
+			operationDefinition = context.getOperationDefinitionManager().getOperation(methodCallExpression, methodName, targetType, argTypes, arrow);
+		} catch (AnalysisInterruptException e) {
+			return null;
+		} 
 		
 		//if an operation is found
 		if (operationDefinition != null) {
@@ -182,7 +187,9 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 						
 						CollectionType resultType = EcoreUtil.copy(returnType);
 						resultType.setContentType(EcoreUtil.copy(targetType));
-						methodCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set the type of the method call
+						context.setAssets(resultType, methodCallExpression);
+						
+						methodCallExpression.setResolvedType(resultType); //set the type of the method call
 						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
 						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 					}

@@ -6,79 +6,78 @@ operation Collection add(item: Any) : Boolean {} //done ------------------------
 @invasive
 operation Collection addAll(col: Collection) : Boolean {} //done ---------------------------/
 
-operation Collection clear() : SelfType{} //done ---------------------------
+operation Collection clear() : SelfType{} //DONE
 
-operation Collection clone() : SelfType {} //done ---------------------------
+operation Collection clone() : SelfType {} //DONE
 
-operation Collection concat() : String {} //simple ---------------------------
+operation Collection concat() : String {} //DONE
 
-operation Collection concat(separator: String) : String {} //done ---------------------------/
+operation Collection concat(separator: String) : String {} //DONE
 
-operation Collection count(item: Any) : Integer {} //done ---------------------------/
+operation Collection count(item: Any) : Integer {} //DONE
 
-operation Collection excludes(item: Any) : Boolean{} //done ---------------------------/
+operation Collection excludes(item: Any) : Boolean{} //DONE
 
-operation Collection excludesAll(col: Collection) : Boolean{} //done ---------------------------/
+operation Collection excludesAll(col: Collection) : Boolean{} //DONE
 
-operation Collection excluding(item: Any) : SelfType{} //done ---------------------------
+operation Collection excluding(item: Any) : SelfType{} //DONE
 
-operation Collection excludingAll(col: Collection) : SelfType{} //done ---------------------------/
+operation Collection excludingAll(col: Collection) : SelfType{} //DONE
 
-operation Collection flatten() : Sequence {} //done ---------------------------
+operation Collection flatten() : Sequence {} //DONE
 
-operation Collection includes(item: Any) : Boolean{} //done ---------------------------
+operation Collection includes(item: Any) : Boolean{} //DONE
 
-operation Collection includesAll(col: Collection) : Boolean{} //done ---------------------------
+operation Collection includesAll(col: Collection) : Boolean{} //DONE
 
-operation Collection including(item: Any) : SelfType{} //done ---------------------------
+operation Collection including(item: Any) : SelfType{} //DONE
 
-operation Collection includingAll(col: Collection) : SelfType{} //done ---------------------------/
+operation Collection includingAll(col: Collection) : SelfType{} //DONE
 
-operation Collection isEmpty() : Boolean {} //simple ---------------------------/
+operation Collection isEmpty() : Boolean {} //DONE
 
+operation Collection random() : SelfContentType {} //DONE
 
-operation Collection random() : SelfContentType {} //done ---------------------------
+operation Collection remove(item: Any) : Boolean {} //DONE
 
-operation Collection remove(item: Any) : Boolean {} //done ---------------------------
+operation Collection removeAll(col: Collection) : Boolean{} //DONE
 
-operation Collection removeAll(col: Collection) : Boolean{} //done ---------------------------
+operation Collection product() : Real {} //DONE
 
-operation Collection product() : Real {} //simple ---------------------------
+operation Collection size() : Integer {} //DONE
 
-operation Collection size() : Integer {} //simple ---------------------------
-
-operation Collection sum() : Real {} //simple ---------------------------
+operation Collection sum() : Real {} //DONE
 
 -- operations for Sequence and OrderedSet types
 
-operation Sequence at(index: Integer) : SelfContentType {} // ---------------------------
+operation Sequence at(index: Integer) : SelfContentType {} //DONE
 
-operation OrderedSet at(index: Integer) : SelfContentType {} // ---------------------------
+operation OrderedSet at(index: Integer) : SelfContentType {} //DONE
 
-operation Sequence first() : SelfContentType {} //done ---------------------------
+operation Sequence first() : SelfContentType {} //DONE
 
-operation OrderedSet first() : SelfContentType {} //done ---------------------------
+operation OrderedSet first() : SelfContentType {} //DONE
 
-operation Sequence second() : SelfContentType {} //done ---------------------------
+operation Sequence second() : SelfContentType {} //DONE
 
-operation OrderedSet second() : SelfContentType {} //done ---------------------------
+operation OrderedSet second() : SelfContentType {} //DONE
 
-operation Sequence third() : SelfContentType {} //done ---------------------------
+operation Sequence third() : SelfContentType {} //DONE
 
-operation OrderedSet third() : SelfContentType {} //done ---------------------------
+operation OrderedSet third() : SelfContentType {} //DONE
 
-operation Sequence fourth() : SelfContentType {} //done ---------------------------
+operation Sequence fourth() : SelfContentType {} //DONE
 
-operation OrderedSet fourth() : SelfContentType {} //done ---------------------------
+operation OrderedSet fourth() : SelfContentType {} //DONE
 
-operation Sequence last() : SelfContentType {} //done ---------------------------
+operation Sequence last() : SelfContentType {} //DONE
 
-operation OrderedSet last() : SelfContentType {} //done ---------------------------
+operation OrderedSet last() : SelfContentType {} //DONE
 
 
-operation Sequence removeAt(index: Integer) : SelfContentType {} // ---------------------------
+operation Sequence removeAt(index: Integer) : SelfContentType {} //DONE
 
-operation OrderedSet removeAt(index : Integer) : SelfContentType {} // ---------------------------
+operation OrderedSet removeAt(index : Integer) : SelfContentType {} //DONE
 
 operation Sequence indexOf(item: Any) : Integer {} //done Does this return -1? ==========================================
 

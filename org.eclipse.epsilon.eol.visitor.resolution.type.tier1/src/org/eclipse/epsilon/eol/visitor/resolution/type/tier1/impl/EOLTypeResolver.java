@@ -3,6 +3,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolDefaultVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 
 public class EOLTypeResolver {
@@ -64,8 +65,9 @@ public class EOLTypeResolver {
 			}
 			catch(Exception e)
 			{
-				e.printStackTrace();
-				System.err.println("Caught Exception");
+				if (!(e instanceof AnalysisInterruptException)) {
+					//e.printStackTrace();
+				}
 			}
 		}
 	}

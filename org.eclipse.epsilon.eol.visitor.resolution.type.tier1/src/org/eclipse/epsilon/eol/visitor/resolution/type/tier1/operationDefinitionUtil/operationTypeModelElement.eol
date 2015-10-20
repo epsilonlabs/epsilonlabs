@@ -1,14 +1,14 @@
 @_sysParam modelOp
-operation _ModelElementType_ allOfType() : OrderedSet(SelfType) {} //done
+operation _ModelElementType_ allOfType() : Sequence(SelfType) {} //done
 
 @_sysParam modelOp
-operation _ModelElementType_ allOfKind() : OrderedSet(SelfType) {} //done
+operation _ModelElementType_ allOfKind() : Sequence(SelfType) {} //done
 
 @_sysParam modelOp
-operation _ModelElementType_ allInstances() : OrderedSet(SelfType) {} //done
+operation _ModelElementType_ allInstances() : Sequence(SelfType) {} //done
 
 @_sysParam modelOp
-operation _ModelElementType_ all() : OrderedSet(SelfType) {} //done
+operation _ModelElementType_ all() : Sequence(SelfType) {} //done
 
 @_sysParam modelOp
 operation _ModelElementType_ isInstantiable() : Boolean {} //done

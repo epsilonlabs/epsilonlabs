@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 
 public class OperationDefinitionHandlerFactory {
 
@@ -26,6 +27,11 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new IncludingAllHandler());
 		handlers.add(new RandomHandler());
 		handlers.add(new UtilityHandler());
+		handlers.add(new CloneHandler());
+		handlers.add(new AtHandler());
+		handlers.add(new OrderedCollectionAccessorHandler());
+		handlers.add(new InvertHandler());
+		handlers.add(new IndexOfHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)
@@ -33,7 +39,7 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(handler);
 	}
 	
-	public OperationDefinition handle(FeatureCallExpression featureCallExpression, String name, Type contextType, ArrayList<Type> argTypes)
+	public OperationDefinition handle(FeatureCallExpression featureCallExpression, String name, Type contextType, ArrayList<Type> argTypes) throws AnalysisInterruptException
 	{
 		for(OperationDefinitionHandler handler: handlers)
 		{

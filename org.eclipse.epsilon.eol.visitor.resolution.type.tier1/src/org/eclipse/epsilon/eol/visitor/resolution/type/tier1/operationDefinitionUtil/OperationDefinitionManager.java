@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionHandler.OperationDefinitionHandlerFactory;
 
 public class OperationDefinitionManager {
@@ -77,7 +78,7 @@ public class OperationDefinitionManager {
 		userDefinedOperations.putOperation(operation);
 	}
 	
-	public OperationDefinition getOperation(FeatureCallExpression methodCallExpression, String name, Type contextType, ArrayList<Type> argTypes, boolean priority)
+	public OperationDefinition getOperation(FeatureCallExpression methodCallExpression, String name, Type contextType, ArrayList<Type> argTypes, boolean priority) throws AnalysisInterruptException
 	{
 		OperationDefinition operation = null; //prepare the result
 		if (!priority) { //if priority is given to the userdefined operations
