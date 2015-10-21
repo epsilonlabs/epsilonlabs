@@ -58,7 +58,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 
 		if (target == null) { //if the target is null
 			targetType = EolFactory.eINSTANCE.createAnyType(); //since the target is null, we create an AnyType
-			context.setAssets(targetType, target);
 		}
 		else { //if the target is not null
 			controller.visit(target, context); //visit content first
@@ -207,6 +206,10 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
+//				if (!TypeUtil.getInstance().isInstanceofAnyType(operationDefinition.getReturnType())) {
+//					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//
+//				}
 					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
 					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten

@@ -21,6 +21,8 @@ public class OperationDefinitionHandlerFactory {
 	{
 		handlers.add(new IfUndefinedHandler());
 		
+		handlers.add(new ConcatHandler());
+		
 		handlers.add(new ClearHandler());
 		handlers.add(new AddHandler());
 		handlers.add(new AddAllHandler());
@@ -45,8 +47,12 @@ public class OperationDefinitionHandlerFactory {
 		handlers.add(new GetHandler());
 		handlers.add(new KeySetHandler());
 		handlers.add(new ValuesHandler());
-		
+		handlers.add(new PutHandler());
+		handlers.add(new PutAllHandler());
 		//handlers.add(new MapUtilityHandler());
+		
+		handlers.add(new CreateInstanceHandler());
+		handlers.add(new isInstantiableHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

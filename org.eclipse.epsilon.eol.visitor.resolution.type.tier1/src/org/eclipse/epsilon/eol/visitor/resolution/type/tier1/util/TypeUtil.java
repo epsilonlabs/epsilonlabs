@@ -882,7 +882,7 @@ public class TypeUtil {
 		
 		if (isInstanceofAnyType(a) && isInstanceofAnyType(b)) {
 			if (TypeInferenceManager.getInstance().getCommonTypesForTwoAnys((AnyType)a, (AnyType)b).size() == 0) {
-				return false;
+				return true;
 			}
 			else {
 				return true;

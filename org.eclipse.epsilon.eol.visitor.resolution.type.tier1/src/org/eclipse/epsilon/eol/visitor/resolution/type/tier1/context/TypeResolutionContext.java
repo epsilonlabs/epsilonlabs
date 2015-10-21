@@ -11,8 +11,10 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.Type;
+import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
@@ -148,6 +150,19 @@ public class TypeResolutionContext {
 	
 	public TypeRegistry getTypeRegistry() {
 		return typeRegistry;
+	}
+	
+	public void registerNameExpression(Expression expression, Type type)
+	{
+		if (expression instanceof NameExpression) {
+			NameExpression _expression = (NameExpression) expression;
+			if (_expression.getResolvedContent() != null) {
+				if (_expression.getResolvedContent() instanceof VariableDeclarationExpression) {
+					VariableDeclarationExpression vde = (VariableDeclarationExpression) _expression.getResolvedContent();
+					typeRegistry.assignType(vde, type);
+				}
+			}
+		}
 	}
 	
 	public void registerExpressionWithTypes(Expression expression, HashSet<Type> types)

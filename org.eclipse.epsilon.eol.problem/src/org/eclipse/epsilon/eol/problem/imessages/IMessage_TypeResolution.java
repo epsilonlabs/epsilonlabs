@@ -97,6 +97,9 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not evaluate to a numeral value";
 	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not evaluate to a boolean value";
 	
+	public static final String EXPRESSION_MAY_NOT_BE_MAP = "Expression may not evaluate to a value of Map type";	
+
+	
 	public static final String EXPRESSION_MAY_NOT_BE_SUMMABLE = "Expression may not apply to the \"+\" operator";	
 	public static final String EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE = "Expression may not evaluate to a value of Collection type";
 	public static final String EXPRESSION_MAY_NOT_BE_ORDERED_COLLECTION_TYPE = "Expression may not evaluate to a value of Ordered Collection type";

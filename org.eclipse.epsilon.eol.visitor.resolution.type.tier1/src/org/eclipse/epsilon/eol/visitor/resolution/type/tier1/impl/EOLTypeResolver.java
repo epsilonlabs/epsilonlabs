@@ -66,6 +66,7 @@ public class EOLTypeResolver {
 			}
 			catch(Exception e)
 			{
+				e.printStackTrace();
 				if (!(e instanceof AnalysisInterruptException)) {
 					//e.printStackTrace();
 				}
