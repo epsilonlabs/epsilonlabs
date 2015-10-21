@@ -95,7 +95,12 @@ public class IMessage_TypeResolution {
 	public static final String NAME_IS_RESERVED = "%s is a reserved EOL keyword";
 	
 	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not evaluate to a numeral value";
+	public static final String EXPRESSION_MAY_NOT_BE_INTEGER = "Expression may not evaluate to an integer value";
+
 	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not evaluate to a boolean value";
+	
+	public static final String EXPRESSION_MAY_NOT_BE_STRING = "Expression may not evaluate to a string value";
+
 	
 	public static final String EXPRESSION_MAY_NOT_BE_MAP = "Expression may not evaluate to a value of Map type";	
 

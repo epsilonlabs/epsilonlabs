@@ -175,7 +175,7 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 							else {
 								actualType = targetType.getClass().toString();
 							}
-							context.getLogBook().addError(fOLMethodCallExpression.getTarget(), "Type mismatch for Operation: " + 
+							LogBook.getInstance().addError(fOLMethodCallExpression.getTarget(), "Type mismatch for Operation: " + 
 							operationDefinition.getName().getName() + "()" + "; Expected type: " + expectedType + 
 							" , actual type: " + actualType);
 							
@@ -193,12 +193,12 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 								argString.concat(", ");
 							}
 						}
-						context.getLogBook().addError(fOLMethodCallExpression, "OperationDefinition: " + name + "("+ argString +")" + "cannot be found");
+						LogBook.getInstance().addError(fOLMethodCallExpression, "OperationDefinition: " + name + "("+ argString +")" + "cannot be found");
 					}
 				}
 			}
 			else {
-				context.getLogBook().addError(targetType, "Target does not have a type");
+				LogBook.getInstance().addError(targetType, "Target does not have a type");
 			}
 			return null;
 		}

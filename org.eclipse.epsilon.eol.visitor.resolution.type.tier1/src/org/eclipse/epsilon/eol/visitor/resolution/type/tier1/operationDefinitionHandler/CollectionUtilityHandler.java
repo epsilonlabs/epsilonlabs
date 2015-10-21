@@ -8,7 +8,6 @@ import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
-import org.eclipse.epsilon.eol.metamodel.MapType;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
@@ -22,15 +21,29 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 public class CollectionUtilityHandler extends CollectionOperationDefinitionHandler {
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return ((name.equals("isEmpty") ||
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (((name.equals("isEmpty") ||
 				name.equals("product") ||
 				name.equals("size") ||
 				name.equals("sum") ||
-				name.equals("concat")) && argTypes.size() == 0 ) ||
-				(name.equals("count") && argTypes.size() == 1);
+				name.equals("concat")) && argTypes.size() == 0 )) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
-
+	
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
@@ -70,48 +83,18 @@ public class CollectionUtilityHandler extends CollectionOperationDefinitionHandl
 					result.setContextType(EcoreUtil.copy(targetType));
 					return result;
 				}
-				else if (targetType instanceof MapType) {
-					result.setContextType(EcoreUtil.copy(targetType));
-					return result;
-				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
 					
-					boolean notCollectionType = false;
-					boolean notMapType = false;
 					//get dynamic types that are of type collection
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
-						notCollectionType = true;
-						//LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						//return result;
-					}
-					else {
-						//if size is 1, a collection type is found
-						if (dyntypes.size() > 0) {
-							result.setContextType(EcoreUtil.copy(dyntypes.get(0)));
-							return result;
-							
-						}
-					}
-					
-					dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getMapType());
-					if (dyntypes.size() == 0) {
-						notMapType = true;
-						//LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						//return result;
-					}
-					else {
-						//if size is 1, a collection type is found
-						if (dyntypes.size() > 0) {
-							result.setContextType(EcoreUtil.copy(dyntypes.get(0)));
-							return result;
-						}
-					}
-					
-					if (notCollectionType && notMapType) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						return result;
+					}
+					else {
+						result.setContextType(EcoreUtil.copy(dyntypes.get(0)));
 						return result;
 					}
 				}
@@ -123,5 +106,7 @@ public class CollectionUtilityHandler extends CollectionOperationDefinitionHandl
 		}
 		return result;
 	}
+
+
 
 }

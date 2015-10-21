@@ -22,10 +22,25 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 public class IncludesAllHandler extends OperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return (name.equals("includesAll") ||
-				name.equals("excludesAll")) && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if ((name.equals("includesAll") || name.equals("excludesAll")) && argTypes.size() == 1 ) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
+
 
 	@Override
 	public OperationDefinition handle(
@@ -67,8 +82,10 @@ public class IncludesAllHandler extends OperationDefinitionHandler{
 					if (argType instanceof CollectionType) {
 						
 					}
-					else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-						
+					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						}
 					}
 					else {
 						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
@@ -88,8 +105,10 @@ public class IncludesAllHandler extends OperationDefinitionHandler{
 						if (argType instanceof CollectionType) {
 							
 						}
-						else if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-							
+						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+							}
 						}
 						else {
 							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
@@ -105,5 +124,6 @@ public class IncludesAllHandler extends OperationDefinitionHandler{
 		}
 		return result;
 	}
+
 
 }

@@ -13,6 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.BooleanType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
+import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
@@ -351,12 +352,23 @@ public class TypeInferenceManager {
 				{
 					for(IPackageDriver iPackageDriver: iMetamodelDriver.getIPackageDrivers()) {
 						//fetch the class and set properties
-						if (iPackageDriver.getClass(result.getName()).equals(result)) {
-							ModelElementType modelElementType = EolFactory.eINSTANCE.createModelElementType();
-							modelElementType.setModelType(result);
-							modelElementType.setElementName(result.getName());
-							modelElementType.setModelName(iMetamodelDriver.getName());
-							return modelElementType;
+						if (iPackageDriver.getClass(result.getName()) != null) {
+							if (iPackageDriver.getClass(result.getName()).equals(result)) {
+								ModelElementType modelElementType = EolFactory.eINSTANCE.createModelElementType();
+								modelElementType.setModelType(result);
+								modelElementType.setElementName(result.getName());
+								modelElementType.setModelName(iMetamodelDriver.getName());
+								modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
+								for(IPackage iPackage: iMetamodelDriver.getIMetamodel().getIPackages())
+								{
+									if (iPackage.getName().equals(iPackageDriver.getPackageName())) {
+										modelElementType.setResolvedIPackage(iPackage);
+										break;
+									}
+								}
+								
+								return modelElementType;
+							}
 						}
 					}
 				}

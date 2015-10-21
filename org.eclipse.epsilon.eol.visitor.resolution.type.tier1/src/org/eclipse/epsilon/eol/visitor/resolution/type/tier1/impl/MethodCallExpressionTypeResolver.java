@@ -48,9 +48,10 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		for(Expression argument: methodCallExpression.getArguments()) //process arguments
 		{
 			controller.visit(argument, context); //resolve the type of the argument first
+			//check if type is null (should not happen)
 			if (argument.getResolvedType() == null) {
 				LogBook.getInstance().addError(argument, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-				return null;
+				//return null;
 			}
 			argTypes.add(EcoreUtil.copy(argument.getResolvedType())); //if is not any type, add to the argument list immediately
 		}
@@ -65,7 +66,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			targetType = EcoreUtil.copy(target.getResolvedType()); //get target type
 			
 			if (targetType == null) { //if target type is null
-				context.getLogBook().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+				LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 				targetType = EolFactory.eINSTANCE.createAnyType();
 				context.setAssets(targetType, target);
 			}
@@ -114,16 +115,16 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 								
 							}
 							else {
-								context.getLogBook().addError(arg, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+								LogBook.getInstance().addError(arg, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
 							}
 						}
 						else {
-							context.getLogBook().addError(methodCallExpression.getArguments().get(i), IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+							LogBook.getInstance().addError(methodCallExpression.getArguments().get(i), IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
 						}
 					}
 				}
 				
-				
+				//if handled
 				if (OperationDefinitionManager.getInstance().handled(operationDefinition)) {
 					//make a copy of the return type
 					Type returnType = EcoreUtil.copy(operationDefinition.getReturnType());
@@ -136,13 +137,13 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					//set resolved content
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
 				}
+				//if there is no handler
 				else {
 					
 					//if is self type
 					if (operationDefinition.getReturnType() instanceof SelfType) {
-						
+						//get copy of target type
 						Type targetTypeCopy = EcoreUtil.copy(targetType);
-						
 						//just copy the target type because the target type has been resolved
 						methodCallExpression.setResolvedType(targetTypeCopy);
 						context.setAssets(targetTypeCopy, methodCallExpression);
@@ -155,6 +156,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					//if is selfContentType
 					else if (operationDefinition.getReturnType() instanceof SelfContentType) {
 						
+						System.out.println("self content typeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 						//if target type is of collection type
 						if (targetType instanceof CollectionType) {
 							Type contentType = ((CollectionType) targetType).getContentType(); //getContentType

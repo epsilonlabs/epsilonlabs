@@ -54,7 +54,7 @@ public class TypeResolutionContext {
 	protected ArrayList<String> EOLReservedKeywords = new ArrayList<String>();
 	
 	protected boolean handlingBranchCondition = false;
-		
+	
 	public void setCurrentStatement(Statement currentStatement) {
 		this.currentStatement = currentStatement;
 	}
@@ -68,14 +68,29 @@ public class TypeResolutionContext {
 		propertyCallStack.clear();
 	}
 	
-	public void pushPropertyToCall(String string)
+	public void pushProperty(String string)
 	{
 		propertyCallStack.push(string);
+	}
+	
+	public void popProperty()
+	{
+		propertyCallStack.pop();
 	}
 	
 	public String getProperty()
 	{
 		return propertyCallStack.pop();
+	}
+	
+	public ArrayList<String> getPropertyCallChain()
+	{
+		ArrayList<String> result = new ArrayList<String>();
+		for(int i = 0; i < propertyCallStack.size(); i++)
+		{
+			result.add(propertyCallStack.get(0));
+		}
+		return result;
 	}
 	
 	
@@ -115,10 +130,6 @@ public class TypeResolutionContext {
 	
 	public TypeUtil getTypeUtil() {
 		return TypeUtil.getInstance();
-	}
-	
-	public LogBook getLogBook() {
-		return LogBook.getInstance();
 	}
 	
 	public void addIMetamodelDriver(IMetamodelDriver iMetamodelDriver)

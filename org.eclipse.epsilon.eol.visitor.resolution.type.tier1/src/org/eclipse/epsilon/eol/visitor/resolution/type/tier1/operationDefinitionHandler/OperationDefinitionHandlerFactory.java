@@ -21,9 +21,11 @@ public class OperationDefinitionHandlerFactory {
 	{
 		handlers.add(new IfUndefinedHandler());
 		
-		handlers.add(new ConcatHandler());
+		handlers.add(new CharAtHandler());
 		
-		handlers.add(new ClearHandler());
+		handlers.add(new CollectionConcatHandler());
+		
+		handlers.add(new CollectionClearHandler());
 		handlers.add(new AddHandler());
 		handlers.add(new AddAllHandler());
 		handlers.add(new FlattenHandler());

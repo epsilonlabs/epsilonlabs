@@ -4,48 +4,33 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
-import org.eclipse.epsilon.eol.metamodel.CollectionType;
-import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
+import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class CloneHandler extends CollectionOperationDefinitionHandler{
+public class CharAtHandler extends StringOperationDefinitionHandler {
 
 	@Override
-	public boolean appliesTo(String name, Type contextType,
-			ArrayList<Type> argTypes) {
-		boolean result = true;
-		if (name.equals("clone") && argTypes.size() == 0) {
-			if (contextType instanceof CollectionType) {
-				
-			}
-			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
-					result = false;
-				}
-			}
-			else {
-				result = false;
-			}
-		}
-		return result;
+	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
+		return name.equals("charAt") && argTypes.size() == 1;
 	}
-	
+
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
+			ArrayList<Type> argTypes) throws AnalysisInterruptException {
 		
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
@@ -70,58 +55,63 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 			else {
 				//get the target type copy
 				Type targetType = EcoreUtil.copy(target.getResolvedType());
-				
+				Type argType = argTypes.get(0);
+
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-					
-					result.setReturnType(returnType);
-					return result;
+					return null;
 				}
 				//if target type is collection type
-				if (targetType instanceof CollectionType) {
-					result.setReturnType(targetType);
-					return result;
+				if (targetType instanceof StringType) {
+					if (argType instanceof IntegerType) {
+						return result;
+					}
+					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
+							return result;
+						}
+						else {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
+						}
+					}
+					else {
+						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
+					}
 				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
 					//get dynamic types that are of type collection
-					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
+					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getStringType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
-						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-						CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-						Type contentType = EolFactory.eINSTANCE.createAnyType();
-						returnType.setContentType(contentType);;
-						TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-						
-						result.setReturnType(returnType);
-						return null;
+						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_STRING);
+						return result;
 					}
 					else {
-						result.setReturnType(targetType);
-						return result;
+						if (argType instanceof IntegerType) {
+							return result;
+						}
+						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+							if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
+								return result;
+							}
+							else {
+								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
+							}
+						}
+						else {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
+						}
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-					
-					result.setReturnType(returnType);
-					return null;
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_STRING);
+					return result;
 				}
 			}
 		}
 		return result;
 	}
-
-	
 
 }

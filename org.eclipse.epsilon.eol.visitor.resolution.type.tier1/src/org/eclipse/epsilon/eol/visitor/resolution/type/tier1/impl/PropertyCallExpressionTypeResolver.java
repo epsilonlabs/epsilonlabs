@@ -39,17 +39,17 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//get target
 		Expression target = propertyCallExpression.getTarget(); //get the target
 		
+		//should not happen
 		if (target == null) {
 			LogBook.getInstance().addError(propertyCallExpression, IMessage_TypeResolution.PROPERTY_MUST_HAVE_A_TARGET);
 			return null;
 		}
 		
 		//get the property
-		NameExpression property = propertyCallExpression.getProperty();
-		String propertyString = property.getName();
+		String property = propertyCallExpression.getProperty().getName();
 		
 		//push the property to stack
-		context.pushPropertyToCall(propertyString);
+		context.pushProperty(property);
 		
 		//visit the target first
 		controller.visit(target, context); 
@@ -57,7 +57,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//get resolved type
 		Type targetType = target.getResolvedType();
 		
-		//if target type is null, report
+		//if target type is null, report (should not happen)
 		if (targetType == null) {
 			LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 			return null;
@@ -67,17 +67,22 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		TypeUtil typeUtil = TypeUtil.getInstance();
 		TypeInferenceManager typeInferenceManager = TypeInferenceManager.getInstance();
 		
-		
-		
 		//should handle extended property
 		if (propertyCallExpression.isExtended()) {
 			AnyType anyType = EolFactory.eINSTANCE.createAnyType(); //create an anyType
 			context.setAssets(anyType, propertyCallExpression); //set assets
 			propertyCallExpression.setResolvedType(anyType); //assign type
 			
-			context.getLogBook().addWarning(propertyCallExpression.getProperty(), "property is an Extended property, expression type is set to Any");
+			LogBook.getInstance().addWarning(propertyCallExpression.getProperty(), "property is an Extended property, expression type is set to Any");
 			return null;
 		}
+		
+		
+//		if (targetType instanceof ModelElementType && isMetamodelKeyword(property)) {
+//			handleKeywords(propertyCallExpression, context);
+//			return null;
+//		}
+		
 		
 		
 		//if the target is of any type, find the leat common type first, then find property, if no common type found, find property that applies to the first model element type
@@ -100,8 +105,8 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						//if inferred type is a model element type
 						if (inferredType instanceof ModelElementType) {
 							ModelElementType met = (ModelElementType) inferredType;
-							IPackageDriver iPackageDriver = (IPackageDriver) met.getResolvedIPackage().getIPackageDriver();
-							if (iPackageDriver.containsFeature(met.getElementName(), propertyString)) {
+ 							IPackageDriver iPackageDriver = (IPackageDriver) met.getResolvedIPackage().getIPackageDriver();
+							if (iPackageDriver.containsFeature(met.getElementName(), property)) {
 								targetType = inferredType;
 							}
 							else {
@@ -116,7 +121,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							if (contentType instanceof ModelElementType) {
 								ModelElementType met = (ModelElementType) contentType;
 								IPackageDriver iPackageDriver = (IPackageDriver) met.getResolvedIPackage().getIPackageDriver();
-								if (iPackageDriver.containsFeature(met.getElementName(), propertyString)) {
+								if (iPackageDriver.containsFeature(met.getElementName(), property)) {
 									targetType = inferredType;
 								}
 								else {
@@ -128,31 +133,31 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								}
 							}
 							else {
-								if (isKeyword(propertyString)) {
+								if (isMetamodelKeyword(property) || isCollectionKeyword(property)) {
 									targetType = inferredType;
 								}
 								else {
 									propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-									context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+									LogBook.getInstance().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 									return null;	
 								}
 							}
 						}
 						else {
 							propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-							context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+							LogBook.getInstance().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 							return null;
 						}
 					}
 					else {
 						propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-						context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+						LogBook.getInstance().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 						return null;
 					}
 				}
 				else {
 					propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
-					context.getLogBook().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
+					LogBook.getInstance().addWarning(propertyCallExpression.getTarget(), "Potentially unsafe typing");
 					return null;
 				}
 			}
@@ -161,7 +166,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//if the property is an extended property, then the type of the call should be Any
 		//if the type of the target is of Type Any, then the TypeResolver also assumes that the property is of type Any
 		//System.err.println(propertyCallExpression.getProperty().getName());
-		if (isKeyword(propertyCallExpression.getProperty().getName())) {
+		if (isMetamodelKeyword(property) || isCollectionKeyword(property)) {
 			handleKeywords(propertyCallExpression, context);
 			return null;
 		}
@@ -176,12 +181,12 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 				
 				IPackageDriver ipd = (IPackageDriver) modelElementType.getResolvedIPackage().getIPackageDriver();
 				if (ipd != null) {
-					if (!ipd.containsFeature(elementString, propertyString)) {
-						LogBook.getInstance().addError(propertyCallExpression.getProperty(), IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.ELEMENT_DOES_NOT_CONTAIN_PROPERTY, elementString, propertyString));
+					if (!ipd.containsFeature(elementString, property)) {
+						LogBook.getInstance().addError(propertyCallExpression.getProperty(), IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.ELEMENT_DOES_NOT_CONTAIN_PROPERTY, elementString, property));
 						propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
 					}
 					else {
-						EStructuralFeature feature = ipd.getFeature(elementString, propertyString); //get the property 
+						EStructuralFeature feature = ipd.getFeature(elementString, property); //get the property 
 						
 						propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
 						
@@ -189,7 +194,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 							Type contentType = null; //each collection type needs a content type
 							CollectionType callType = null; //prepare the callType
 							
-							EClassifier propertyType = ipd.getTypeForFeature(elementString, propertyString); //get the type for the property
+							EClassifier propertyType = ipd.getTypeForFeature(elementString, property); //get the type for the property
 							
 							if (context.getTypeUtil().isEDataType(propertyType)) {//if type is EDataType
 								if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
@@ -236,7 +241,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						}
 						else { //if the feature is single value aggregation
 							
-							EClassifier propertyType = ipd.getTypeForFeature(elementString, propertyString); //get property
+							EClassifier propertyType = ipd.getTypeForFeature(elementString, property); //get property
 							if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
 								if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
 									Type type = context.getTypeUtil().normalise(propertyType);
@@ -271,7 +276,6 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								context.setAssets(typeCopy, propertyCallExpression);
 							}
 						}
-					
 					}
 				}
 			
@@ -292,16 +296,16 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 						{
 							String elementString = resultContentType.getElementName(); //get metaclass string
 							
-							if(ipd.containsFeature(elementString, propertyString)) //if metamode class contains the property
+							if(ipd.containsFeature(elementString, property)) //if metamode class contains the property
 							{
-								EStructuralFeature feature = ipd.getFeature(elementString, propertyString); //get the property 
+								EStructuralFeature feature = ipd.getFeature(elementString, property); //get the property 
 								propertyCallExpression.getProperty().setResolvedContent(feature); //set the resolved content for the property
 
 								if (feature.getUpperBound() != 1) { //this means that the feature is a many value aggregation
 									Type contentType = null; //each collection type needs a content type
 									CollectionType callType = null; //prepare the callType
 									
-									EClassifier propertyType = ipd.getTypeForFeature(elementString, propertyString); //get the type for the property
+									EClassifier propertyType = ipd.getTypeForFeature(elementString, property); //get the type for the property
 									if (context.getTypeUtil().isEDataType(propertyType)) { //if type is EDataType
 										if(context.getTypeUtil().isNormalisable(propertyType)){ //if type is normalisable
 											contentType = context.getTypeUtil().normalise(propertyType); //normalise and assign type to contentType
@@ -349,7 +353,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								}
 								else { //if the feature is single value aggregation
 									
-									EClassifier propertyType = ipd.getTypeForFeature(elementString, propertyString); //get property
+									EClassifier propertyType = ipd.getTypeForFeature(elementString, property); //get property
 									if (context.getTypeUtil().isEDataType(propertyType)) { //if property is data type
 										if(context.getTypeUtil().isNormalisable(propertyType)){ //if the data type is normalisable
 											Type type = context.getTypeUtil().normalise(propertyType);
@@ -395,7 +399,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 								}
 							}
 							else {
-								context.getLogBook().addError(propertyCallExpression.getProperty(), "Property with name " + propertyString
+								LogBook.getInstance().addError(propertyCallExpression.getProperty(), "Property with name " + property
 										+ " is not found" );
 								propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
 							}
@@ -413,14 +417,23 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			}
 		}
 	
+		context.popProperty();
 		return null;
 	}
 	
-	public boolean isKeyword(String s)
+	public boolean isMetamodelKeyword(String s)
 	{
-		if (s.equals("all") ||
-				s.equals("allInstances") ||
-				s.equals("first") ||
+		if (s.equals("all") || s.equals("allInstances")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isCollectionKeyword(String s)
+	{
+		if (s.equals("first") ||
 				s.equals("second") ||
 				s.equals("third") ||
 				s.equals("fourth") ||
@@ -432,6 +445,146 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 			return false;
 		}
 		
+	}
+	
+	public Object handleModeElementKeyword(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)
+	{
+
+		//get the target type
+		Type targetType = propertyCallExpression.getTarget().getResolvedType();
+		
+		//prepare arg types
+		ArrayList<Type> argTypes = new ArrayList<Type>();
+		
+		Expression target = propertyCallExpression.getTarget();
+		
+		//get the operation definition
+		OperationDefinition operationDefinition = null;
+		try {
+			operationDefinition = context.getOperationDefinitionManager().getOperation(propertyCallExpression, propertyCallExpression.getProperty().getName(), targetType, argTypes, false);
+		} catch (AnalysisInterruptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //fetch operation definition using name, context type and arg types
+		//if an operation is found
+		if (operationDefinition != null) {
+			
+			//get the context type of the operation
+			Type contextType = operationDefinition.getContextType();
+			
+			//if target type and context type is generic
+			if (context.getTypeUtil().isTypeEqualOrGeneric(targetType,contextType)) {
+				
+				if (OperationDefinitionManager.getInstance().handled(operationDefinition)) {
+					propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
+					//set the resolved type of the method
+					propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType()));
+					//set resolved content
+					propertyCallExpression.getProperty().setResolvedContent(operationDefinition); 
+				}
+				else {
+					
+					//if is self type
+					if (operationDefinition.getReturnType() instanceof SelfType) { 
+						//just copy the target type because the target type has been resolved
+						propertyCallExpression.setResolvedType(EcoreUtil.copy(targetType));
+						//set the resolved type of the method
+						propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(targetType));
+						//set resolved content
+						propertyCallExpression.getProperty().setResolvedContent(operationDefinition); 
+					}
+					
+					//if is selfContentType
+					else if (operationDefinition.getReturnType() instanceof SelfContentType) {
+						
+						//if target type is of collection type
+						if (targetType instanceof CollectionType) {
+							Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
+							if (contentType != null) {
+								propertyCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
+								propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(contentType)); //set method type
+								propertyCallExpression.getProperty().setResolvedContent(operationDefinition); //set resolved content
+							}
+							else {
+								AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
+								propertyCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+								propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(tempAnyType));
+								//handle content type null
+							}
+						}
+						else {
+							LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
+							
+							AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
+							propertyCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
+							propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(tempAnyType));
+						}
+					}
+					
+					else if (operationDefinition.getReturnType() instanceof CollectionType && 
+							(((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfType)) { //if the return type is collection type and its content type is SelfType ============================
+						
+						CollectionType returnType = (CollectionType) operationDefinition.getReturnType();
+						
+						CollectionType resultType = EcoreUtil.copy(returnType);
+						resultType.setContentType(EcoreUtil.copy(targetType));
+						propertyCallExpression.setResolvedType(EcoreUtil.copy(resultType)); //set the type of the method call
+						propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
+						propertyCallExpression.getProperty().setResolvedContent(operationDefinition); //set resolved content
+					}
+					
+					else {
+						propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+						propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+						propertyCallExpression.getProperty().setResolvedContent(operationDefinition); //set resolved content
+					}
+				}
+				
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
+				propertyCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+				propertyCallExpression.getProperty().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+				propertyCallExpression.getProperty().setResolvedContent(operationDefinition); //set resolved conten
+			}
+			else {
+				//handle type incompatible
+				String expectedType = "";
+				//String actualType = "";
+				if (contextType instanceof ModelElementType) {
+					expectedType = ((ModelElementType)contextType).getModelName() + "!" + ((ModelElementType)contextType).getElementName();
+				}
+				
+				else {
+					expectedType = contextType.getClass().toString();
+				}
+//				if (targetType instanceof ModelElementType) {
+//					actualType = ((ModelElementType)targetType).getModelName() + "!" + ((ModelElementType)targetType).getElementName();
+//				}
+//				else {
+//					actualType = targetType.getClass().toString();
+//				}
+				LogBook.getInstance().addError(target, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, expectedType));
+			}
+		}
+		else {
+			String argString = "";
+			for(int i = 0; i < argTypes.size(); i++)
+			{
+				argString.concat(argTypes.get(i).getClass().toString());
+				if (i == argTypes.size() - 1) {
+					
+				}
+				else {
+					argString.concat(", ");
+				}
+			}
+			
+			LogBook.getInstance().addError(propertyCallExpression.getProperty(), IMessage_TypeResolution.PROPERTY_NOT_FOUND);
+		}
+		return null;
+		
+	
 	}
 	
 	public Object handleKeywords(PropertyCallExpression propertyCallExpression, TypeResolutionContext context)

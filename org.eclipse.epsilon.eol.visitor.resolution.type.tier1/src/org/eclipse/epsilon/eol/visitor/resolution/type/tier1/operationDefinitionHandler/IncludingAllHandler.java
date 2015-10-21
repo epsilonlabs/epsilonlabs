@@ -21,8 +21,23 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("includingAll") && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("includingAll") && argTypes.size() == 1 ) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -74,13 +89,6 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 					if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 						AnyType _contentType = (AnyType) contentType;
 						_contentType.getDynamicTypes().add(_argType);
-//						if (target instanceof NameExpression) {
-//							if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-//								VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-//								TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, targetType);
-//							}
-//						}
-//						return result;
 					}
 					//if content type is not any, compare with the arg type (argtype is collection now, dont forget)
 					else {
@@ -124,12 +132,6 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 									}
 								}
 							}
-//							if (target instanceof NameExpression) {
-//								if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-//									VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-//									TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, targetType);
-//								}
-//							}
 							if (!found) {
 								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
 								Type targetTypeCopy = EcoreUtil.copy(targetType);
@@ -193,12 +195,6 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 							if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 								AnyType _contentType = (AnyType) contentType;
 								_contentType.getDynamicTypes().add(_argType);
-//								if (target instanceof NameExpression) {
-//									if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-//										VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-//										TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, targetType);
-//									}
-//								}
 								Type targetTypeCopy = EcoreUtil.copy(targetType);
 								result.setReturnType(targetTypeCopy);
 								return result;
@@ -238,12 +234,6 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 											}
 										}
 									}
-//									if (target instanceof NameExpression) {
-//										if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-//											VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-//											TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, targetType);
-//										}
-//									}
 									if (!found) {
 										LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(t)) + ")");
 										return null;
@@ -283,5 +273,6 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 		}
 		return result;
 	}
+
 
 }
