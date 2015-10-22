@@ -22,11 +22,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class AtHandler extends CollectionOperationDefinitionHandler{
+public class OrderedCollectionAtHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return (name.equals("at") || name.equals("removeAt")) && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if ((name.equals("at") || name.equals("removeAt")) && argTypes.size() == 1 ) {
+			if (contextType instanceof OrderedCollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -62,42 +77,45 @@ public class AtHandler extends CollectionOperationDefinitionHandler{
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+					return result;
 				}
+				
+				if (argType instanceof IntegerType) {
+					
+				}
+				else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
+						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+					}
+				}
+				else {
+					LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
+				}
+				
+				
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
 					if (targetType instanceof OrderedCollectionType) {
-						
-						
 						//get the content type and arg type
 						Type contentType = ((CollectionType)targetType).getContentType();
 						if (contentType != null) {
-							if (argType instanceof IntegerType) {
-								
-							}
-							else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-								if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
-									LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-								}
-							}
-							else {
-								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-							}
 							result.setReturnType(EcoreUtil.copy(contentType));
+							return result;
+						}
+						else {
+							result.setReturnType(EolFactory.eINSTANCE.createAnyType());
 							return result;
 						}
 					}
 					else {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_ORDERED_COLLECTION_TYPE);
-						
 						Type contentType = ((CollectionType)targetType).getContentType();
 						if (contentType != null) {
 							result.setReturnType(EcoreUtil.copy(contentType));
 							return result;
 						}
-
 					}
-					
 				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
@@ -119,22 +137,26 @@ public class AtHandler extends CollectionOperationDefinitionHandler{
 							Type contentType = collectionType.getContentType();
 							
 							if (contentType != null) {
-								if (argType instanceof IntegerType) {
-									
-								}
-								else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-									if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
-										LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-									}
-								}
-								else {
-									LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MUST_BE_INTEGER);
-								}
 								result.setReturnType(EcoreUtil.copy(contentType));
 								return result;
 							}
 						}
-						return null;					
+						else {
+							AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+							for(Type t: dyntypes)
+							{
+								CollectionType _targetType = (CollectionType) t;
+								Type _contentType = EcoreUtil.copy(_targetType.getContentType());
+								if (TypeUtil.getInstance().isInstanceofAnyType(_contentType)) {
+									returnType.getDynamicTypes().addAll(((AnyType)_contentType).getDynamicTypes());
+								}
+								else {
+									returnType.getDynamicTypes().add(_contentType);
+								}
+							}
+							result.setReturnType(returnType);
+							return result;
+						}
 					}
 				}
 				else {
@@ -147,5 +169,7 @@ public class AtHandler extends CollectionOperationDefinitionHandler{
 		}
 		return result;
 	}
+
+
 
 }

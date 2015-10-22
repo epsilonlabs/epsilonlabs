@@ -18,7 +18,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
+public class CollectionIncludingAllHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, Type contextType,
@@ -73,8 +73,8 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 			//if target type is collection
 			if (targetType instanceof CollectionType) {
 				//get collection type and get content type
-				CollectionType collectionType = (CollectionType) targetType;	
-				Type contentType = collectionType.getContentType();
+				CollectionType _targetType = (CollectionType) EcoreUtil.copy(targetType);	
+				Type contentType = _targetType.getContentType();
 				
 				//get the arg type
 				Type argType = argTypes.get(0);
@@ -82,26 +82,33 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 				
 				//if argument is collection
 				if (argType instanceof CollectionType) {
-					CollectionType _argType = (CollectionType) argType;
+					CollectionType _argType = (CollectionType) EcoreUtil.copy(argType);
 					argContentType = _argType.getContentType();
 					
 					//if content type is any, add the argtype to the content type
 					if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 						AnyType _contentType = (AnyType) contentType;
-						_contentType.getDynamicTypes().add(_argType);
+						AnyType _argContentType = (AnyType) EcoreUtil.copy(argContentType);
+
+						if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+							_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
+						}
+						else {
+							_contentType.getDynamicTypes().add(_argContentType);
+						}
+						
+						result.setReturnType(_targetType);
 					}
 					//if content type is not any, compare with the arg type (argtype is collection now, dont forget)
 					else {
 						if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
 							
-							Type targetTypeCopy = EcoreUtil.copy(targetType);
-							result.setReturnType(targetTypeCopy);
+							result.setReturnType(_targetType);
 							return result;
 						}
 						else {
 							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
-							Type targetTypeCopy = EcoreUtil.copy(targetType);
-							result.setReturnType(targetTypeCopy);
+							result.setReturnType(_targetType);
 							return result;
 						}
 					}
@@ -123,8 +130,16 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 								//if target content type is any, add to dynamic types
 								if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 									found = true;
-									AnyType _contenType = (AnyType) contentType;
-									_contenType.getDynamicTypes().add(argContentType);
+									
+									AnyType _contentType = (AnyType) contentType;
+									AnyType _argContentType = (AnyType) EcoreUtil.copy(argContentType);
+
+									if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+										_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
+									}
+									else {
+										_contentType.getDynamicTypes().add(_argContentType);
+									}
 								}
 								else {
 									if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
@@ -134,32 +149,27 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 							}
 							if (!found) {
 								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
-								Type targetTypeCopy = EcoreUtil.copy(targetType);
-								result.setReturnType(targetTypeCopy);
+								result.setReturnType(_targetType);
 								return result;
 							}
-							Type targetTypeCopy = EcoreUtil.copy(targetType);
-							result.setReturnType(targetTypeCopy);
+							result.setReturnType(_targetType);
 							return result;
 						}
 						else {
 							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
-							Type targetTypeCopy = EcoreUtil.copy(targetType);
-							result.setReturnType(targetTypeCopy);
+							result.setReturnType(_targetType);
 							return result;
 						}
 					}
 					else {
 						LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						Type targetTypeCopy = EcoreUtil.copy(targetType);
-						result.setReturnType(targetTypeCopy);
+						result.setReturnType(_targetType);
 						return result;
 					}
 				}
 				else {
 					LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-					Type targetTypeCopy = EcoreUtil.copy(targetType);
-					result.setReturnType(targetTypeCopy);
+					result.setReturnType(_targetType);
 					return result;
 				}
 			}
@@ -173,43 +183,136 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 					LogBook.getInstance().addWarning(targetType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
 					return null;
 				}
+				else if (dynTypes.size() == 1) {
+					//get collection type and get content type
+					CollectionType _targetType = (CollectionType) EcoreUtil.copy(dynTypes.get(0));	
+					Type contentType = _targetType.getContentType();
+					
+					//get the arg type
+					Type argType = argTypes.get(0);
+					Type argContentType = null;
+					
+					//if argument is collection
+					if (argType instanceof CollectionType) {
+						CollectionType _argType = (CollectionType) EcoreUtil.copy(argType);
+						argContentType = _argType.getContentType();
+						
+						//if content type is any, add the argtype to the content type
+						if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
+							AnyType _contentType = (AnyType) contentType;
+							AnyType _argContentType = (AnyType) EcoreUtil.copy(argContentType);
+
+							if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+								_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
+							}
+							else {
+								_contentType.getDynamicTypes().add(_argContentType);
+							}
+							
+							result.setReturnType(_targetType);
+						}
+						//if content type is not any, compare with the arg type (argtype is collection now, dont forget)
+						else {
+							if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
+								
+								result.setReturnType(_targetType);
+								return result;
+							}
+							else {
+								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
+								result.setReturnType(_targetType);
+								return result;
+							}
+						}
+					}
+					//if arg type is any
+					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+						//get all dyn types that are of type collection
+						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+							ArrayList<Type> _dynTypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) argType, EolPackage.eINSTANCE.getCollectionType());
+							if (_dynTypes.size() > 0) {
+								boolean found = false;
+								//for all the dynamic types
+								for(Type t: _dynTypes)
+								{
+									//cast to collection type and get the arg content type
+									CollectionType collectionType2 = (CollectionType) t;
+									argContentType = collectionType2.getContentType();
+									
+									//if target content type is any, add to dynamic types
+									if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
+										found = true;
+										
+										AnyType _contentType = (AnyType) contentType;
+										AnyType _argContentType = (AnyType) EcoreUtil.copy(argContentType);
+
+										if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+											_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
+										}
+										else {
+											_contentType.getDynamicTypes().add(_argContentType);
+										}
+									}
+									else {
+										if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
+											found = true;
+										}
+									}
+								}
+								if (!found) {
+									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
+									result.setReturnType(_targetType);
+									return result;
+								}
+								result.setReturnType(_targetType);
+								return result;
+							}
+							else {
+								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(targetType) + ")"));
+								result.setReturnType(_targetType);
+								return result;
+							}
+						}
+						else {
+							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+							result.setReturnType(_targetType);
+							return result;
+						}
+					}
+					else {
+						LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						result.setReturnType(_targetType);
+						return result;
+					}
+				}
 				//if found collection type
-				else if (dynTypes.size() > 0) {
+				else if (dynTypes.size() > 1) {
+					Type _targetType = EcoreUtil.copy(targetType);
 					Type argType = argTypes.get(0);
 					//for all types found
 					for(Type t: dynTypes)
 					{
 						//get collection type and get content type
-						CollectionType collectionType = (CollectionType) t;	
-						Type contentType = collectionType.getContentType();
+						CollectionType __targetType = (CollectionType) t;	
+						Type contentType = __targetType.getContentType();
 						
 						//get the arg type
 						Type argContentType = null;
 						
-						
 						if (argType instanceof CollectionType) {
 							
-							CollectionType _argType = (CollectionType) argType;
+							CollectionType _argType = (CollectionType) EcoreUtil.copy(argType);
 							argContentType = _argType.getContentType();
 							//if content type is any, add the argtype to the content type
 							if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 								AnyType _contentType = (AnyType) contentType;
-								_contentType.getDynamicTypes().add(_argType);
-								Type targetTypeCopy = EcoreUtil.copy(targetType);
-								result.setReturnType(targetTypeCopy);
-								return result;
-							}
-							else {
-								if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
-									Type targetTypeCopy = EcoreUtil.copy(targetType);
-									result.setReturnType(targetTypeCopy);
-									return result;
+
+								if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+									AnyType _argContentType = (AnyType) argContentType;
+									_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
 								}
 								else {
-									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH, contentType.getClass().getSimpleName()));
-									Type targetTypeCopy = EcoreUtil.copy(targetType);
-									result.setReturnType(targetTypeCopy);
-									return result;
+									_contentType.getDynamicTypes().add(argContentType);
 								}
 							}
 						}
@@ -220,13 +323,19 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 									boolean found = false;
 									for(Type _t: _dynTypes)
 									{
-										CollectionType collectionType2 = (CollectionType) _t;
-										argContentType = collectionType2.getContentType();
+										CollectionType __argType = (CollectionType) _t;
+										argContentType = __argType.getContentType();
 										//if target content type is any, add to dynamic types
 										if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
+											AnyType _contentType = (AnyType) contentType;
+											if (TypeUtil.getInstance().isInstanceofAnyType(argContentType)) {
+												AnyType _argContentType = (AnyType) argContentType;
+												_contentType.getDynamicTypes().addAll(_argContentType.getDynamicTypes());
+											}
+											else {
+												_contentType.getDynamicTypes().add(argContentType);
+											}
 											found = true;
-											AnyType _contenType = (AnyType) contentType;
-											_contenType.getDynamicTypes().add(argContentType);
 										}
 										else {
 											if (TypeUtil.getInstance().isTypeEqualOrGeneric(argContentType, contentType)) {
@@ -235,34 +344,21 @@ public class IncludingAllHandler extends CollectionOperationDefinitionHandler{
 										}
 									}
 									if (!found) {
-										LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(t)) + ")");
-										return null;
 									}
-									Type targetTypeCopy = EcoreUtil.copy(targetType);
-									result.setReturnType(targetTypeCopy);
-									return result;
 								}
 								else {
-									LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.POTENTIAL_ARGUMENT_MISMATCH, "addAll(" + TypeUtil.getInstance().getTypeName(t)) +")");
-									Type targetTypeCopy = EcoreUtil.copy(targetType);
-									result.setReturnType(targetTypeCopy);
-									return result;
 								}
 							}
 							else {
-								LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-								Type targetTypeCopy = EcoreUtil.copy(targetType);
-								result.setReturnType(targetTypeCopy);
-								return result;
 							}
 						}
 						else {
-							LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-							Type targetTypeCopy = EcoreUtil.copy(targetType);
-							result.setReturnType(targetTypeCopy);
-							return result;
+							
 						}
 					}
+					LogBook.getInstance().addWarning(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					result.setReturnType(_targetType);
+					return result;
 				}
 			}
 			else {

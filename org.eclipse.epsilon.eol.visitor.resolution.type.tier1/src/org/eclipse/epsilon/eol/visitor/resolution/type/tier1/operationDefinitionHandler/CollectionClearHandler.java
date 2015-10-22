@@ -76,10 +76,7 @@ public class CollectionClearHandler extends CollectionOperationDefinitionHandler
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
+					AnyType returnType = EolFactory.eINSTANCE.createAnyType();
 					result.setReturnType(returnType);
 					return result;
 				}
@@ -90,7 +87,6 @@ public class CollectionClearHandler extends CollectionOperationDefinitionHandler
 						AnyType _contentType = (AnyType) _targetType.getContentType();
 						_contentType.getDynamicTypes().clear();
 					}
-					result.setContextType(EcoreUtil.copy(_targetType));
 					result.setReturnType(_targetType);
 					
 					if (target instanceof NameExpression) {
@@ -108,12 +104,20 @@ public class CollectionClearHandler extends CollectionOperationDefinitionHandler
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-						CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-						Type contentType = EolFactory.eINSTANCE.createAnyType();
-						returnType.setContentType(contentType);;
-						TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-						
+						AnyType returnType = EolFactory.eINSTANCE.createAnyType();
 						result.setReturnType(returnType);
+						return result;
+					}
+					else if (dyntypes.size() == 1) {
+						CollectionType _targetType = (CollectionType) EcoreUtil.copy(dyntypes.get(0));
+						if (TypeUtil.getInstance().isInstanceofAnyType(_targetType.getContentType())) {
+							AnyType _contentType = (AnyType) _targetType.getContentType();
+							_contentType.getDynamicTypes().clear();
+						}
+						if (target instanceof NameExpression) {
+							TypeResolutionContext.getInstanace().registerNameExpression(target, EcoreUtil.copy(targetType));
+						}
+						result.setReturnType(EcoreUtil.copy(_targetType));
 						return result;
 					}
 					else {
@@ -136,11 +140,7 @@ public class CollectionClearHandler extends CollectionOperationDefinitionHandler
 				}
 				else {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-					
+					AnyType returnType = EolFactory.eINSTANCE.createAnyType();
 					result.setReturnType(returnType);
 					return result;
 				}

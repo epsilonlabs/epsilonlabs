@@ -21,12 +21,28 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class PutHandler extends MapOperationDefinitionHandler {
+public class MapPutAllHandler extends MapOperationDefinitionHandler {
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("put") && argTypes.size() == 2;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("putAll")  && argTypes.size() == 1) {
+			if (contextType instanceof MapType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
+
 
 	@Override
 	public OperationDefinition handle(
@@ -65,12 +81,31 @@ public class PutHandler extends MapOperationDefinitionHandler {
 				//if target type is collection type
 				if (targetType instanceof MapType) {
 					
-					AnyType argType1 = (AnyType) argTypes.get(0);
-					AnyType argType2 = (AnyType) argTypes.get(1);
+					AnyType argType = (AnyType) argTypes.get(0);
 					MapType _targetType = (MapType) targetType;
 					
-					_targetType.getKeyType().getDynamicTypes().add(argType1);
-					_targetType.getValueType().getDynamicTypes().add(argType2);
+					if (argType instanceof MapType) {
+						MapType _argType = (MapType) argType;
+						_targetType.getKeyType().getDynamicTypes().addAll(_argType.getKeyType().getDynamicTypes());
+						_targetType.getValueType().getDynamicTypes().addAll(_argType.getValueType().getDynamicTypes());
+					}
+					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+						ArrayList<Type> dynTypes = TypeInferenceManager.getInstance().getDynamicTypes(argType, EolPackage.eINSTANCE.getMapType());
+						if (dynTypes.size() == 0) {
+							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MAP);
+						}
+						else {
+							for(Type t: dynTypes)
+							{
+								MapType _argType = (MapType) t;
+								_targetType.getKeyType().getDynamicTypes().addAll(_argType.getKeyType().getDynamicTypes());
+								_targetType.getValueType().getDynamicTypes().addAll(_argType.getValueType().getDynamicTypes());
+							}	
+						}
+					}
+					else {
+						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MAP);
+					}
 					
 					if (target instanceof NameExpression) {
 						TypeResolutionContext.getInstanace().registerNameExpression(target, EcoreUtil.copy(targetType));	
@@ -81,6 +116,8 @@ public class PutHandler extends MapOperationDefinitionHandler {
 				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
+					
+					AnyType argType = (AnyType) argTypes.get(0);
 					//get dynamic types that are of type collection
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getMapType());
 					//if size is 0, no collection type is found, report and return
@@ -90,18 +127,39 @@ public class PutHandler extends MapOperationDefinitionHandler {
 						return result;
 					}
 					else {
-						AnyType argType1 = (AnyType) argTypes.get(0);
-						AnyType argType2 = (AnyType) argTypes.get(1);
-						MapType _targetType = (MapType) dyntypes.get(0);
-						
-						_targetType.getKeyType().getDynamicTypes().add(argType1);
-						_targetType.getValueType().getDynamicTypes().add(argType2);
-						
-						if (target instanceof NameExpression) {
-							TypeResolutionContext.getInstanace().registerNameExpression(target, EcoreUtil.copy(_targetType));	
+						for(Type t: dyntypes)
+						{
+							MapType _targetType = (MapType) t;
+							if (argTypes instanceof MapType) {
+								MapType _argType = (MapType) argType;
+								_targetType.getKeyType().getDynamicTypes().addAll(_argType.getKeyType().getDynamicTypes());
+								_targetType.getValueType().getDynamicTypes().addAll(_argType.getValueType().getDynamicTypes());
+							}
+							else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+								ArrayList<Type> dynTypes = TypeInferenceManager.getInstance().getDynamicTypes(argType, EolPackage.eINSTANCE.getMapType());
+								if (dynTypes.size() == 0) {
+									LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MAP);
+								}
+								else {
+									for(Type _t: dynTypes)
+									{
+										MapType _argType = (MapType) _t;
+										_targetType.getKeyType().getDynamicTypes().addAll(_argType.getKeyType().getDynamicTypes());
+										_targetType.getValueType().getDynamicTypes().addAll(_argType.getValueType().getDynamicTypes());
+									}	
+								}
+							}
+							else {
+								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MAP);
+							}
+							
 						}
 						
-						result.setReturnType(EcoreUtil.copy(_targetType));
+						if (target instanceof NameExpression) {
+							TypeResolutionContext.getInstanace().registerNameExpression(target, EcoreUtil.copy(targetType));	
+						}
+						
+						result.setReturnType(EcoreUtil.copy(targetType));
 						return result;			
 					}
 				}
@@ -114,5 +172,6 @@ public class PutHandler extends MapOperationDefinitionHandler {
 		}
 		return result;
 	}
+
 
 }

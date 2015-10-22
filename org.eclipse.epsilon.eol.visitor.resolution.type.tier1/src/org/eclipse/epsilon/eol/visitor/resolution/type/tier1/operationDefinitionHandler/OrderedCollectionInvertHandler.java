@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
+import org.eclipse.epsilon.eol.metamodel.OrderedCollectionType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
@@ -19,11 +21,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class ExcludingAllHandler extends CollectionOperationDefinitionHandler{
+public class OrderedCollectionInvertHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("excludingAll") && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("invert") && argTypes.size() == 0) {
+			if (contextType instanceof OrderedCollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -54,64 +71,68 @@ public class ExcludingAllHandler extends CollectionOperationDefinitionHandler{
 			else {
 				//get the target type copy
 				Type targetType = EcoreUtil.copy(target.getResolvedType());
-				Type argType = argTypes.get(0);
 				
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					result.setReturnType(targetType);
+					Type returnType = EolFactory.eINSTANCE.createAnyType();
+					result.setReturnType(returnType);
 					return result;
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
-					if (argType instanceof CollectionType) {
-						
-					}
-					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						}
+					if (targetType instanceof OrderedCollectionType) {
+						result.setReturnType(targetType);
+						return result;
 					}
 					else {
-						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_ORDERED_COLLECTION_TYPE);
+						Type returnType = EolFactory.eINSTANCE.createAnyType();
+						result.setReturnType(returnType);
+						return result;
 					}
-					result.setReturnType(targetType);
-					return result;
+					
 				}
 				//else if target type is an instance of any
 				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
 					//get dynamic types that are of type collection
-					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
+					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getOrderedCollectionType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						result.setReturnType(targetType);
+						Type returnType = EolFactory.eINSTANCE.createAnyType();
+						result.setReturnType(returnType);
 						return result;
 					}
 					else {
-						if (argType instanceof CollectionType) {
-							
-						}
-						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-							}
+						//if size is 1, a collection type is found
+						if (dyntypes.size() == 1) {
+							CollectionType _targetType = (CollectionType) dyntypes.get(0);
+							result.setReturnType(EcoreUtil.copy(_targetType));
+							return result;
 						}
 						else {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+							AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+							for(Type t: dyntypes)
+							{
+								returnType.getDynamicTypes().add(EcoreUtil.copy(t));
+							}
+							result.setReturnType(returnType);
+							return result;
 						}
-						result.setReturnType(targetType);
-						return result;
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-					result.setReturnType(targetType);
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_ORDERED_COLLECTION_TYPE);
+					Type returnType = EolFactory.eINSTANCE.createAnyType();
+					result.setReturnType(returnType);
 					return result;
 				}
 			}
 		}
 		return result;
 	}
+
+
 
 }

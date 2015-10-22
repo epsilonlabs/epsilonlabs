@@ -22,10 +22,25 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 public class MapUtilityHandler extends MapOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return (name.equals("clear") ||
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if ((name.equals("clear") ||
 				name.equals("isEmpty") ||
-				name.equals("size") ) && argTypes.size() == 0;
+				name.equals("size") ) && argTypes.size() == 0) {
+			if (contextType instanceof MapType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -90,5 +105,6 @@ public class MapUtilityHandler extends MapOperationDefinitionHandler{
 		}
 		return result;
 	}
+
 
 }

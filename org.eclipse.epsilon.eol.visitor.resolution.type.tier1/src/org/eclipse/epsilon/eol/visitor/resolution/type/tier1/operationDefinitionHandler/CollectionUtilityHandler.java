@@ -27,8 +27,7 @@ public class CollectionUtilityHandler extends CollectionOperationDefinitionHandl
 		if (((name.equals("isEmpty") ||
 				name.equals("product") ||
 				name.equals("size") ||
-				name.equals("sum") ||
-				name.equals("concat")) && argTypes.size() == 0 )) {
+				name.equals("sum")) && argTypes.size() == 0 )) {
 			if (contextType instanceof CollectionType) {
 				
 			}

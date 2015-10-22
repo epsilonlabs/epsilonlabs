@@ -21,13 +21,28 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class FlattenHandler extends CollectionOperationDefinitionHandler{
+public class CollectionFlattenHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("flatten") && argTypes.size() == 0;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("flatten") && argTypes.size() == 0 ) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
-
+	
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
@@ -59,7 +74,7 @@ public class FlattenHandler extends CollectionOperationDefinitionHandler{
 			if (targetType instanceof CollectionType) {
 				
 				//convert target type, get innermost type, get return type
-				CollectionType _targetType = (CollectionType) targetType;	
+				CollectionType _targetType = (CollectionType) EcoreUtil.copy(targetType);	
 				Type innermostType = getInnermosTypeRecursively(_targetType);
 				Type returnType = result.getReturnType();
 				
@@ -95,60 +110,45 @@ public class FlattenHandler extends CollectionOperationDefinitionHandler{
 					return result;
 				}
 				else {
+					Type returnType = result.getReturnType();
+					AnyType contentType = EolFactory.eINSTANCE.createAnyType();
+					
+					
+					SequenceType rt = (SequenceType) returnType;
+					SequenceType _rt = EcoreUtil.copy(rt);
+					
+					_rt.setContentType(contentType);
+
 					//boolean found = false;
 					for(Type t : dynTypes)
 					{
 						CollectionType _t = (CollectionType) t;	
 						Type innermostType = getInnermosTypeRecursively(_t);
-						Type returnType = result.getReturnType();
 						
-						//if return type is sequence, which it should be
-						if (returnType instanceof SequenceType) {
-							
-							//convert return type and copy
-							SequenceType rt = (SequenceType) returnType;
-							SequenceType _rt = EcoreUtil.copy(rt);
-							
-							//get the innermost type copy, set the content to the return type and set assets
-							Type innerMostTypeCopy = EcoreUtil.copy(innermostType);
-							_rt.setContentType(innerMostTypeCopy);
-							TypeResolutionContext.getInstanace().setAssets(innerMostTypeCopy, _rt);
-
-							result.setReturnType(EcoreUtil.copy(_rt));
-							TypeResolutionContext.getInstanace().setAssets(_rt, result);
-							
-							//get return type and set assets
-							featureCallExpression.setResolvedType(_rt);
-							TypeResolutionContext.getInstanace().setAssets(_rt, featureCallExpression);
-							
-							
-							return result;
+						if (TypeUtil.getInstance().isInstanceofAnyType(innermostType)) {
+							AnyType _innermostType = (AnyType) EcoreUtil.copy(innermostType);
+							contentType.getDynamicTypes().addAll(_innermostType.getDynamicTypes());
+						}
+						else {
+							contentType.getDynamicTypes().add(EcoreUtil.copy(innermostType));
 						}
 					}
+					
+					result.setReturnType(EcoreUtil.copy(_rt));
+					TypeResolutionContext.getInstanace().setAssets(_rt, result);
+					
+					//get return type and set assets
+					featureCallExpression.setResolvedType(_rt);
+					TypeResolutionContext.getInstanace().setAssets(_rt, featureCallExpression);
 				}
 			}
 			else {
 				LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
+				return result;
 			}
 		}
 		
 		return result;
-	}
-	
-	public Type getInnermostType(Type t)
-	{
-		if (t instanceof CollectionType) {
-			CollectionType collectionType = (CollectionType) t;
-			Type contentType = collectionType.getContentType();
-			while(contentType instanceof CollectionType)
-			{
-				contentType = ((CollectionType)contentType).getContentType();
-			}
-			return EcoreUtil.copy(contentType);
-		}
-		else {
-			return EcoreUtil.copy(t);
-		}
 	}
 	
 	public Type getInnermosTypeRecursively(Type t)
@@ -215,6 +215,8 @@ public class FlattenHandler extends CollectionOperationDefinitionHandler{
 		
 		return result;
 	}
+
+
 
 
 }

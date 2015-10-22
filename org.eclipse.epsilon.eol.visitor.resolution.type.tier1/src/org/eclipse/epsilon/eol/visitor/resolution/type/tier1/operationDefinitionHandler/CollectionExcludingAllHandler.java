@@ -14,19 +14,19 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class CloneHandler extends CollectionOperationDefinitionHandler{
+public class CollectionExcludingAllHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
 		boolean result = true;
-		if (name.equals("clone") && argTypes.size() == 0) {
+		if (name.equals("excludingAll") && argTypes.size() == 1 ) {
 			if (contextType instanceof CollectionType) {
 				
 			}
@@ -41,11 +41,11 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 		}
 		return result;
 	}
-	
+
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
+			ArrayList<Type> argTypes) throws AnalysisInterruptException {
 		
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
@@ -65,23 +65,33 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 			//if target is null, report and return
 			if (target == null) {
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-				return null;
+				result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+				return result;
 			}
 			else {
 				//get the target type copy
 				Type targetType = EcoreUtil.copy(target.getResolvedType());
+				Type argType = argTypes.get(0);
 				
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-					
-					result.setReturnType(returnType);
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
 					return result;
 				}
+				
+				if (argType instanceof CollectionType) {
+					
+				}
+				else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
+						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					}
+				}
+				else {
+					LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+				}
+				
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
 					result.setReturnType(targetType);
@@ -93,14 +103,14 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getCollectionType());
 					//if size is 0, no collection type is found, report and return
 					if (dyntypes.size() == 0) {
-						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-						CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-						Type contentType = EolFactory.eINSTANCE.createAnyType();
-						returnType.setContentType(contentType);;
-						TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-						
-						result.setReturnType(returnType);
-						return null;
+						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+						result.setReturnType(targetType);
+						return result;
+					}
+					else if (dyntypes.size() == 1) {
+						CollectionType _targetType = (CollectionType) dyntypes.get(0);
+						result.setReturnType(EcoreUtil.copy(_targetType));
+						return result;
 					}
 					else {
 						result.setReturnType(targetType);
@@ -108,14 +118,9 @@ public class CloneHandler extends CollectionOperationDefinitionHandler{
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					CollectionType returnType = EolFactory.eINSTANCE.createBagType();
-					Type contentType = EolFactory.eINSTANCE.createAnyType();
-					returnType.setContentType(contentType);;
-					TypeResolutionContext.getInstanace().setAssets(contentType, returnType);
-					
-					result.setReturnType(returnType);
-					return null;
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+					return result;
 				}
 			}
 		}

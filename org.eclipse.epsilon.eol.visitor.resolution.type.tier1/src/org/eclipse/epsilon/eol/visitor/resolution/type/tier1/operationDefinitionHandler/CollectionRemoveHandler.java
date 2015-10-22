@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitio
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
@@ -18,11 +19,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class RemoveAllHandler extends CollectionOperationDefinitionHandler{
+public class CollectionRemoveHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("removeAll") && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("remove") && argTypes.size() == 1 ) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -53,7 +69,6 @@ public class RemoveAllHandler extends CollectionOperationDefinitionHandler{
 			else {
 				//get the target type
 				Type targetType = target.getResolvedType();
-				Type argType = argTypes.get(0);
 				
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
@@ -62,17 +77,7 @@ public class RemoveAllHandler extends CollectionOperationDefinitionHandler{
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
-					if (argType instanceof CollectionType) {
-						
-					}
-					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-						if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						}
-					}
-					else {
-						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-					}
+					result.setContextType(EcoreUtil.copy(targetType));
 					return result;
 				}
 				//else if target type is an instance of any
@@ -85,17 +90,6 @@ public class RemoveAllHandler extends CollectionOperationDefinitionHandler{
 						return result;
 					}
 					else {
-						if (argType instanceof CollectionType) {
-							
-						}
-						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-							if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getCollectionType())) {
-								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-							}
-						}
-						else {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
-						}
 						return result;
 					}
 				}
@@ -107,5 +101,7 @@ public class RemoveAllHandler extends CollectionOperationDefinitionHandler{
 		}
 		return result;
 	}
+
+
 
 }

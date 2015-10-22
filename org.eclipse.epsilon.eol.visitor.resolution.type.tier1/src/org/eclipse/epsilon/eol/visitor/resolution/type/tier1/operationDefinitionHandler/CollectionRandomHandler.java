@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
@@ -18,11 +19,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class RandomHandler extends CollectionOperationDefinitionHandler{
+public class CollectionRandomHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("random") && argTypes.size() == 0;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("random") && argTypes.size() == 0 ) {
+			if (contextType instanceof CollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -57,7 +73,9 @@ public class RandomHandler extends CollectionOperationDefinitionHandler{
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+					result.setReturnType(returnType);
+					return result;
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
@@ -83,24 +101,40 @@ public class RandomHandler extends CollectionOperationDefinitionHandler{
 						if (dyntypes.size() == 1) {
 							
 							//get the collection type and the content type and the arg type
-							CollectionType collectionType = (CollectionType) dyntypes.get(0);
-							Type contentType = collectionType.getContentType();
+							CollectionType _targetType = (CollectionType) dyntypes.get(0);
+							Type contentType = _targetType.getContentType();
 							
 							if (contentType != null) {
 								result.setReturnType(EcoreUtil.copy(contentType));
 								return result;
 							}
 						}
-						return null;					
+						else {
+							AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+							for(Type t: dyntypes)
+							{
+								CollectionType _targetType = (CollectionType) t;
+								Type contentType = _targetType.getContentType();
+								if (contentType != null) {
+									returnType.getDynamicTypes().add(EcoreUtil.copy(contentType));
+								}
+							}
+							result.setReturnType(returnType);
+							return result;
+						}
 					}
 				}
 				else {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-					return null;
+					AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+					result.setReturnType(returnType);
+					return result;
 				}
 			}
 		}
 		return result;
 	}
+
+	
 
 }

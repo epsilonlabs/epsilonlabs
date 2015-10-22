@@ -24,12 +24,27 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 public class OrderedCollectionAccessorHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return (name.equals("first") ||
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if ((name.equals("first") ||
 				name.equals("second") ||
 				name.equals("third") ||
 				name.equals("fourth") ||
-				name.equals("last")) && argTypes.size() == 0;
+				name.equals("last")) && argTypes.size() == 0) {
+			if (contextType instanceof OrderedCollectionType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -71,7 +86,8 @@ public class OrderedCollectionAccessorHandler extends CollectionOperationDefinit
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+					return result;
 				}
 				if (targetType instanceof CollectionType) {
 					if (targetType instanceof OrderedCollectionType) {
@@ -80,6 +96,10 @@ public class OrderedCollectionAccessorHandler extends CollectionOperationDefinit
 						Type contentType = ((CollectionType)targetType).getContentType();
 						if (contentType != null) {
 							result.setReturnType(EcoreUtil.copy(contentType));
+							return result;
+						}
+						else {
+							result.setReturnType(EolFactory.eINSTANCE.createAnyType());
 							return result;
 						}
 					}
@@ -113,8 +133,27 @@ public class OrderedCollectionAccessorHandler extends CollectionOperationDefinit
 								result.setReturnType(EcoreUtil.copy(contentType));
 								return result;
 							}
+							else {
+								result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+								return result;
+							}
 						}
-						return null;					
+						else {
+							AnyType returnType = EolFactory.eINSTANCE.createAnyType();
+							for(Type t: dyntypes)
+							{
+								CollectionType _targetType = (CollectionType) t;
+								Type _contentType = EcoreUtil.copy(_targetType.getContentType());
+								if (TypeUtil.getInstance().isInstanceofAnyType(_contentType)) {
+									returnType.getDynamicTypes().addAll(((AnyType)_contentType).getDynamicTypes());
+								}
+								else {
+									returnType.getDynamicTypes().add(_contentType);
+								}
+							}
+							result.setReturnType(returnType);
+							return result;
+						}
 					}
 				}
 				else {
@@ -127,5 +166,6 @@ public class OrderedCollectionAccessorHandler extends CollectionOperationDefinit
 		}
 		return result;
 	}
+
 
 }

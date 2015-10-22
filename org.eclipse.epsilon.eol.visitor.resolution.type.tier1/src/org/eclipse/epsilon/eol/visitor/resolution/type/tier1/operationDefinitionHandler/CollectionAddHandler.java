@@ -22,7 +22,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class AddHandler extends CollectionOperationDefinitionHandler{
+public class CollectionAddHandler extends CollectionOperationDefinitionHandler{
 
 	@Override
 	public boolean appliesTo(String name, Type contextType,
@@ -78,6 +78,7 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
 					return result;
 				}
+				
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
 					
@@ -88,28 +89,24 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 					//if content type is any
 					if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
 						//get the copy of the content type
-						AnyType ct = (AnyType) EcoreUtil.copy(contentType);
+						AnyType _contentType = (AnyType) contentType;
 						
 						if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-							if (target instanceof NameExpression) {
-								ct.getDynamicTypes().addAll(TypeUtil.getInstance().getAllDynamicTypes((AnyType) argType));
-								VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-								TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, ct);
-							}
+							_contentType.getDynamicTypes().addAll(TypeUtil.getInstance().getAllDynamicTypes((AnyType) EcoreUtil.copy(argType)));
 						}
 						else {
-							//if the dynamic types does not contain the arg type, add the type to the dynamic types and register resolved content
-							if (!TypeInferenceManager.getInstance().containsDynamicType(ct, argType.eClass())) {
-								ct.getDynamicTypes().add(EcoreUtil.copy(argType));
-								if (target instanceof NameExpression) {
-									if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-										VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-										TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, ct);
-									}
-								}
-							}	
+							_contentType.getDynamicTypes().add(EcoreUtil.copy(argType));
 						}
+
+						if (target instanceof NameExpression) {
+							if (((NameExpression) target).getResolvedContent() != null && ((NameExpression)target).getResolvedContent() instanceof VariableDeclarationExpression) {
+								VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
+								TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, EcoreUtil.copy(targetType));	
+							}
+						}
+						return result;
 					}
+					
 					//if content type is not any, compare content type with the arg type and report if necessary
 					else {
 						if(!TypeUtil.getInstance().isTypeEqualOrGeneric(argType, contentType))
@@ -133,29 +130,31 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 						if (dyntypes.size() == 1) {
 							
 							//get the collection type and the content type and the arg type
-							CollectionType collectionType = (CollectionType) dyntypes.get(0);
-							Type contentType = collectionType.getContentType();
+							CollectionType _targetType = (CollectionType) dyntypes.get(0);
+							Type contentType = _targetType.getContentType();
 							Type argType = argTypes.get(0);
 							
 							//if contenttype is any and arg type is any, check if there are any common types
 							if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
-								AnyType ct = (AnyType) EcoreUtil.copy(contentType);
+								
+								AnyType _contentType = (AnyType) contentType;
+								
 								if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+									
+									_contentType.getDynamicTypes().addAll(TypeUtil.getInstance().getAllDynamicTypes((AnyType) EcoreUtil.copy(argType)));
 									if (target instanceof NameExpression) {
-										ct.getDynamicTypes().addAll(TypeUtil.getInstance().getAllDynamicTypes((AnyType) argType));
-										VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-										TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, ct);
+										if (((NameExpression) target).getResolvedContent() != null && ((NameExpression)target).getResolvedContent() instanceof VariableDeclarationExpression) {
+											VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
+											TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, EcoreUtil.copy(targetType));	
+										}
 									}
 								}
 								else {
-									//if the dynamic types does not contain the arg type, add the type to the dynamic types and register resolved content
-									if (!TypeInferenceManager.getInstance().containsDynamicType(ct, argType.eClass())) {
-										ct.getDynamicTypes().add(EcoreUtil.copy(argType));
-										if (target instanceof NameExpression) {
-											if (((NameExpression) target).getResolvedContent() instanceof VariableDeclarationExpression) {
-												VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
-												TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, ct);
-											}
+									_contentType.getDynamicTypes().add(EcoreUtil.copy(argType));
+									if (target instanceof NameExpression) {
+										if (((NameExpression) target).getResolvedContent() != null && ((NameExpression)target).getResolvedContent() instanceof VariableDeclarationExpression) {
+											VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
+											TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, EcoreUtil.copy(targetType));	
 										}
 									}	
 								}
@@ -168,11 +167,52 @@ public class AddHandler extends CollectionOperationDefinitionHandler{
 								}
 							}
 						}
-						return null;
+						else {
+							for(Type t: dyntypes)
+							{
+								//get the collection type and the content type and the arg type
+								CollectionType _targetType = (CollectionType) t;
+								Type contentType = _targetType.getContentType();
+								Type argType = argTypes.get(0);
+								
+								//if contenttype is any and arg type is any, check if there are any common types
+								if (TypeUtil.getInstance().isInstanceofAnyType(contentType)) {
+									
+									AnyType _contentType = (AnyType) contentType;
+									
+									if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+										
+										_contentType.getDynamicTypes().addAll(TypeUtil.getInstance().getAllDynamicTypes((AnyType) EcoreUtil.copy(argType)));
+										if (target instanceof NameExpression) {
+											if (((NameExpression) target).getResolvedContent() != null && ((NameExpression)target).getResolvedContent() instanceof VariableDeclarationExpression) {
+												VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
+												TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, EcoreUtil.copy(targetType));	
+											}
+										}
+									}
+									else {
+										_contentType.getDynamicTypes().add(EcoreUtil.copy(argType));
+										if (target instanceof NameExpression) {
+											if (((NameExpression) target).getResolvedContent() != null && ((NameExpression)target).getResolvedContent() instanceof VariableDeclarationExpression) {
+												VariableDeclarationExpression var = (VariableDeclarationExpression) ((NameExpression) target).getResolvedContent();
+												TypeResolutionContext.getInstanace().getTypeRegistry().assignType(var, EcoreUtil.copy(targetType));	
+											}
+										}	
+									}
+								}
+								else {
+									if(!TypeUtil.getInstance().isTypeEqualOrGeneric(argType, contentType))
+									{
+										//LogBook.getInstance().addError(argType, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPECTED_TYPE, contentType.getClass().getSimpleName()));
+									}
+								}
+							}
+							return result;
+						}
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_COLLECTION_TYPE);
 					return result;
 				}
 			}
