@@ -20,8 +20,19 @@ public class OperationDefinitionHandlerFactory {
 	public void initTypeHandlers()
 	{
 		//any
+		handlers.add(new AnyAsBagHandler());
+		handlers.add(new AnyAsOrderedSetHandler());
+		handlers.add(new AnyAsSequenceHandler());
+		handlers.add(new AnyAsSetHandler());
+		handlers.add(new AnyAsBooleanHandler());
+		handlers.add(new AnyErrHandler());
+		handlers.add(new AnyFormatHandler());
+		handlers.add(new AnyHasPropertyHandler());
 		handlers.add(new AnyIfUndefinedHandler());
-		
+		handlers.add(new AnyIsDefinedHandler());
+		handlers.add(new AnyIsKindOfHandler());
+		handlers.add(new AnyOwningModelHandler());
+		handlers.add(new AnyTypeHandler());
 		
 		//string
 		handlers.add(new StringCharAtHandler());

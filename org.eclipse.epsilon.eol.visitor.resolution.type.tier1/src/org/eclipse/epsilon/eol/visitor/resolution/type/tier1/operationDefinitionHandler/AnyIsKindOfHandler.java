@@ -4,21 +4,16 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
-import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
-import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class AnyIsKindOfHandler extends AnyOperationDefinitionHandler{
@@ -27,7 +22,7 @@ public class AnyIsKindOfHandler extends AnyOperationDefinitionHandler{
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
 		boolean result = true;
-		if (name.equals("isKindOf")  && argTypes.size() == 1) {
+		if ((name.equals("isKindOf") || name.equals("isTypeOf")) && argTypes.size() == 1) {
 			if (contextType instanceof AnyType) {
 				return true;
 			}
@@ -36,7 +31,7 @@ public class AnyIsKindOfHandler extends AnyOperationDefinitionHandler{
 	}
 
 	@Override
-	public OperationDefinition handle(
+	public OperationDefinition handle(  
 			FeatureCallExpression featureCallExpression, Type contextType,
 			ArrayList<Type> argTypes) {
 		
@@ -68,29 +63,40 @@ public class AnyIsKindOfHandler extends AnyOperationDefinitionHandler{
 				return result;
 			}
 			
-			if (argType instanceof ModelElementType) {
-				if (TypeResolutionContext.getInstanace().isHandlingBranchCondition()) {
-					if (target instanceof NameExpression) {
-						NameExpression _target = (NameExpression) target;
-						if (_target.getResolvedContent() != null) {
-							if (_target.getResolvedContent() instanceof VariableDeclarationExpression) {
-								VariableDeclarationExpression content = (VariableDeclarationExpression) _target.getResolvedContent();
-								TypeResolutionContext.getInstanace().getTypeRegistry().insertType(content, argType);
-								return result;
-							}
-						}
-					}	
-				}
-			}
-			else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getModelElementType())) {
+			Expression argument = ((MethodCallExpression)featureCallExpression).getArguments().get(0);
+			if (argument instanceof NameExpression) {
+				NameExpression _argument = (NameExpression) argument;
+				String typeName = _argument.getName();
+				if (!TypeUtil.getInstance().isTypeKeyWord(typeName)) {
+					LogBook.getInstance().addError(argument, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_CANNOT_BE_RESOLVED, typeName));
 					return result;
 				}
-				else {
-					LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MODEL_ELEMENT);
-					return null;
-				}
 			}
+			
+//			
+//			if (argType instanceof ModelElementType) {
+//				if (TypeResolutionContext.getInstanace().isHandlingBranchCondition()) {
+//					if (target instanceof NameExpression) {
+//						NameExpression _target = (NameExpression) target;
+//						if (_target.getResolvedContent() != null) {
+//							if (_target.getResolvedContent() instanceof VariableDeclarationExpression) {
+//								VariableDeclarationExpression content = (VariableDeclarationExpression) _target.getResolvedContent();
+//								TypeResolutionContext.getInstanace().getTypeRegistry().insertType(content, argType);
+//								return result;
+//							}
+//						}
+//					}	
+//				}
+//			}
+//			else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
+//				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getModelElementType())) {
+//					return result;
+//				}
+//				else {
+//					LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MODEL_ELEMENT);
+//					return null;
+//				}
+//			}
 		
 		}
 				

@@ -115,6 +115,7 @@ public class IMessage_TypeResolution {
 	
 	public static final String POTENTIAL_ARGUMENT_MISMATCH = "Argument may not evaluate to a value that is applicable to %s";
 
+	public static final String OBJECT_NOT_DEFINED_IN_MODEL = "The object is not defined in any known models";
 	
 	public static String bindMessage(String message, Object value)
 	{
