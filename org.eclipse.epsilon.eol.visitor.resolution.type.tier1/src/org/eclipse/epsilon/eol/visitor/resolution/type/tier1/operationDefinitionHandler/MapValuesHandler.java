@@ -21,11 +21,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class ValuesHandler extends MapOperationDefinitionHandler{
+public class MapValuesHandler extends MapOperationDefinitionHandler{
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("values") && argTypes.size() == 0;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("values")  && argTypes.size() == 0) {
+			if (contextType instanceof MapType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -80,17 +95,21 @@ public class ValuesHandler extends MapOperationDefinitionHandler{
 					//get dynamic types that are of type collection
 					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getMapType());
 					//if size is 0, no collection type is found, report and return
-					if (dyntypes.size() == 0) {
+					if (dyntypes.size() <= 0) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MAP);
 						BagType returnType = EolFactory.eINSTANCE.createBagType();
 						result.setReturnType(EcoreUtil.copy(returnType));
 						return result;
 					}
 					else {
-						MapType _targetType = (MapType) EcoreUtil.copy(dyntypes.get(0));
-						AnyType valueType = _targetType.getValueType();
 						BagType returnType = EolFactory.eINSTANCE.createBagType();
-						returnType.setContentType(valueType);
+						AnyType _contentType = EolFactory.eINSTANCE.createAnyType();
+						returnType.setContentType(_contentType);
+						for(Type t: dyntypes)
+						{
+							MapType _targetType = (MapType) EcoreUtil.copy(t);
+							_contentType.getDynamicTypes().addAll(_targetType.getValueType().getDynamicTypes());
+						}
 						result.setReturnType(EcoreUtil.copy(returnType));
 						return result;	
 					}
@@ -105,5 +124,7 @@ public class ValuesHandler extends MapOperationDefinitionHandler{
 		}
 		return result;
 	}
+
+
 
 }

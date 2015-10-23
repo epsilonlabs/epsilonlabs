@@ -37,6 +37,8 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_CANNOT_BE_STRING = "Expression cannot be String";
 	
 	public static final String EXPRESSION_MUST_BE_INTEGER = "Expression must be of type Integer";
+	public static final String EXPRESSION_MUST_BE_STRING = "Expression must be a String";
+
 	public static final String EXPRESSION_INIT_CANNOT_CONTAIN_COLLECTION = "Expression is of type Collection, it is not allowed in the initialisation of a Collection.";
 
 	
@@ -95,11 +97,10 @@ public class IMessage_TypeResolution {
 	public static final String NAME_IS_RESERVED = "%s is a reserved EOL keyword";
 	
 	public static final String EXPRESSION_MAY_NOT_BE_NUMERAL = "Expression may not evaluate to a numeral value";
-	public static final String EXPRESSION_MAY_NOT_BE_INTEGER = "Expression may not evaluate to an integer value";
-
-	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not evaluate to a boolean value";
-	
-	public static final String EXPRESSION_MAY_NOT_BE_STRING = "Expression may not evaluate to a string value";
+	public static final String EXPRESSION_MAY_NOT_BE_INTEGER = "Expression may not evaluate to an Integer value";
+	public static final String EXPRESSION_MAY_NOT_BE_REAL = "Expression may not evaluate to an Real value";
+	public static final String EXPRESSION_MAY_NOT_BE_BOOLEAN = "Expression may not evaluate to a Boolean value";
+	public static final String EXPRESSION_MAY_NOT_BE_STRING = "Expression may not evaluate to a String value";
 
 	
 	public static final String EXPRESSION_MAY_NOT_BE_MAP = "Expression may not evaluate to a value of Map type";	

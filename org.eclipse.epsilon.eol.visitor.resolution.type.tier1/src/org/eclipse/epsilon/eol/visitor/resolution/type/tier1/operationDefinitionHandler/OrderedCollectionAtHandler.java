@@ -160,7 +160,7 @@ public class OrderedCollectionAtHandler extends CollectionOperationDefinitionHan
 					}
 				}
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_ORDERED_COLLECTION_TYPE);
 					AnyType returnType = EolFactory.eINSTANCE.createAnyType();
 					result.setReturnType(returnType);
 					return result;

@@ -19,42 +19,70 @@ public class OperationDefinitionHandlerFactory {
 	
 	public void initTypeHandlers()
 	{
-		handlers.add(new IfUndefinedHandler());
+		//any
+		handlers.add(new AnyIfUndefinedHandler());
 		
-		handlers.add(new CharAtHandler());
 		
-		handlers.add(new CollectionConcatHandler());
+		//string
+		handlers.add(new StringCharAtHandler());
+		handlers.add(new StringConcatHandler());
+		handlers.add(new StringEndsWithHandler());
+		handlers.add(new StringUtilityHandler());
+		handlers.add(new StringIsSubStringOfHandler());
+		handlers.add(new StringPadHandler());
+		handlers.add(new StringReplaceHandler());
+		handlers.add(new StringSplitHandler());
+		handlers.add(new StringStartsWithHandler());
+		handlers.add(new StringSubstringHandler());
+		handlers.add(new StringToCharSequenceHandler());
 		
-		handlers.add(new CollectionClearHandler());
+		//real
+		handlers.add(new RealUtilityHandler());
+		
+		//integer
+		handlers.add(new IntegerIotaHandler());
+		handlers.add(new IntegerToHandler());
+		handlers.add(new IntegerToBinaryHandler());
+		
+		//collection
 		handlers.add(new CollectionAddHandler());
 		handlers.add(new CollectionAddAllHandler());
-		handlers.add(new CollectionFlattenHandler());
-		handlers.add(new CollectionIncludingHandler());
-		handlers.add(new CollectionIncludingAllHandler());
-		handlers.add(new CollectionRandomHandler());
-		handlers.add(new CollectionUtilityHandler());
+		handlers.add(new CollectionClearHandler());
 		handlers.add(new CollectionCloneHandler());
-		handlers.add(new OrderedCollectionAtHandler());
-		handlers.add(new OrderedCollectionAccessorHandler());
-		handlers.add(new OrderedCollectionInvertHandler());
-		handlers.add(new IndexOfHandler());
+		handlers.add(new CollectionConcatHandler());
+		handlers.add(new CollectionCountHandler());
 		handlers.add(new CollectionIncludesHandler());
 		handlers.add(new CollectionIncludesAllHandler());
 		handlers.add(new CollectionExcludingHandler());
 		handlers.add(new CollectionExcludingAllHandler());
+		handlers.add(new CollectionFlattenHandler());
+		handlers.add(new CollectionIncludingHandler());
+		handlers.add(new CollectionIncludingAllHandler());
+
+		handlers.add(new CollectionUtilityHandler());
+		handlers.add(new CollectionRandomHandler());
 		handlers.add(new CollectionRemoveHandler());
 		handlers.add(new CollectionRemoveAllHandler());
+
+		//ordered collection
+		handlers.add(new OrderedCollectionAtHandler());
+		handlers.add(new OrderedCollectionAccessorHandler());
+		handlers.add(new OrderedCollectionInvertHandler());
+		handlers.add(new OrderedCollectionIndexOfHandler());
 		
+		//map
+		handlers.add(new MapClearHandler());
 		handlers.add(new MapContainsKeyHandler());
 		handlers.add(new MapGetHandler());
 		handlers.add(new MapKeySetHandler());
-		handlers.add(new ValuesHandler());
+		handlers.add(new MapValuesHandler());
 		handlers.add(new MapPutHandler());
 		handlers.add(new MapPutAllHandler());
-		//handlers.add(new MapUtilityHandler());
+		handlers.add(new MapRemoveHandler());
+		handlers.add(new MapUtilityHandler());
 		
-		handlers.add(new CreateInstanceHandler());
-		handlers.add(new isInstantiableHandler());
+		handlers.add(new ModelElementCreateInstanceHandler());
+		handlers.add(new ModeElementisInstantiableHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)
@@ -66,7 +94,7 @@ public class OperationDefinitionHandlerFactory {
 	{
 		for(OperationDefinitionHandler handler: handlers)
 		{
-			if (handler.appliesTo(name, argTypes)) {
+			if (handler.appliesTo(name, contextType, argTypes)) {
 				return handler.handle(featureCallExpression, contextType, argTypes);
 			}
 		}

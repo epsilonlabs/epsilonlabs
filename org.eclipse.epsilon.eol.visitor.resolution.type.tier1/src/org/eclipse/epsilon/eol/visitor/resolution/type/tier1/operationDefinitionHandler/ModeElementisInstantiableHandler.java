@@ -2,77 +2,93 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitio
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
-import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.Type;
-import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.AnalysisInterruptException;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.OperationDefinitionManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitionUtil.StandardLibraryOperationDefinitionContainer;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class IsKindOfHandler extends AnyOperationDefinitionHandler{
+public class ModeElementisInstantiableHandler extends ModelElementOperationDefinitionHandler {
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("isKindOf") && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("isInstantiable")  && argTypes.size() == 0) {
+			if (contextType instanceof ModelElementType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getModelElementType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
+
 
 	@Override
 	public OperationDefinition handle(
 			FeatureCallExpression featureCallExpression, Type contextType,
-			ArrayList<Type> argTypes) {
+			ArrayList<Type> argTypes) throws AnalysisInterruptException {
 		
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
-				
+		
 		//get the result
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
+		//if result is not null
 		if (result != null) {
+			
+			//register the result as it has been handled
+			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
+
+			//get the target
 			Expression target = featureCallExpression.getTarget();
+			
+			//if target is null, report and return
 			if (target == null) {
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-				return null;
+				return result;
 			}
 			else {
-				Type argType = argTypes.get(0);
-				if (argType instanceof ModelElementType) {
-					if (TypeResolutionContext.getInstanace().isHandlingBranchCondition()) {
-						if (target instanceof NameExpression) {
-							NameExpression _target = (NameExpression) target;
-							if (_target.getResolvedContent() != null) {
-								if (_target.getResolvedContent() instanceof VariableDeclarationExpression) {
-									VariableDeclarationExpression content = (VariableDeclarationExpression) _target.getResolvedContent();
-									TypeResolutionContext.getInstanace().getTypeRegistry().insertType(content, argType);
-									return result;
-								}
-							}
-						}	
-					}
+				//get the target type copy
+				Type targetType = EcoreUtil.copy(target.getResolvedType());
+				
+				//if target type is null, report and return (this will not happend)
+				if (targetType == null) {
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+					return result;
 				}
-				else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getModelElementType())) {
-						return result;
-					}
-					else {
-						LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_MODEL_ELEMENT);
-						return null;
-					}
+				//if target type is collection type
+				if (targetType instanceof ModelElementType) {
+					return result;
+				}
+				
+				else {
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_MODELELEMENT_TYPE);
+					return result;
 				}
 			}
 		}
-				
 		return result;
 	}
+
 
 }

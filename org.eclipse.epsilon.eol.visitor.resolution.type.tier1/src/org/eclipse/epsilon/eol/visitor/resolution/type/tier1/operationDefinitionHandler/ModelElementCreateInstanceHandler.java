@@ -2,15 +2,16 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinitio
 
 import java.util.ArrayList;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
+import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
-import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
+import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.StringType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.problem.LogBook;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_TypeResolution;
@@ -20,11 +21,26 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class CharAtHandler extends StringOperationDefinitionHandler {
+public class ModelElementCreateInstanceHandler extends ModelElementOperationDefinitionHandler {
 
 	@Override
-	public boolean appliesTo(String name, ArrayList<Type> argTypes) {
-		return name.equals("charAt") && argTypes.size() == 1;
+	public boolean appliesTo(String name, Type contextType,
+			ArrayList<Type> argTypes) {
+		boolean result = true;
+		if (name.equals("createInstance")  && argTypes.size() == 0) {
+			if (contextType instanceof ModelElementType) {
+				
+			}
+			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getModelElementType())) {
+					result = false;
+				}
+			}
+			else {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -55,63 +71,39 @@ public class CharAtHandler extends StringOperationDefinitionHandler {
 			else {
 				//get the target type copy
 				Type targetType = EcoreUtil.copy(target.getResolvedType());
-				Type argType = argTypes.get(0);
-
+				
 				//if target type is null, report and return (this will not happend)
 				if (targetType == null) {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
-					return null;
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+					return result;
 				}
 				//if target type is collection type
-				if (targetType instanceof StringType) {
-					if (argType instanceof IntegerType) {
-						return result;
-					}
-					else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-						if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
-							return result;
-						}
-						else {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
-						}
-					}
-					else {
-						LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
-					}
-				}
-				//else if target type is an instance of any
-				else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
-					//get dynamic types that are of type collection
-					ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) targetType, EolPackage.eINSTANCE.getStringType());
-					//if size is 0, no collection type is found, report and return
-					if (dyntypes.size() == 0) {
-						LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_STRING);
-						return result;
-					}
-					else {
-						if (argType instanceof IntegerType) {
-							return result;
-						}
-						else if (TypeUtil.getInstance().isInstanceofAnyType(argType)) {
-							if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) argType, EolPackage.eINSTANCE.getIntegerType())) {
-								return result;
-							}
-							else {
-								LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
+				if (targetType instanceof ModelElementType) {
+					ModelElementType met = (ModelElementType) EcoreUtil.copy(targetType);
+					Object modelType = met.getModelType();
+					if (modelType != null) {
+						if (modelType instanceof EClass) {
+							EClass eClass = (EClass) modelType;
+							if (eClass.isAbstract() || eClass.isInterface()) {
+								LogBook.getInstance().addError(target, IMessage_TypeResolution.TYPE_NOT_INSTANTIABLE);
 							}
 						}
-						else {
-							LogBook.getInstance().addError(argType, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_INTEGER);
-						}
 					}
+					result.setReturnType(met);
+					return result;
 				}
+				
 				else {
-					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_STRING);
+					LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_MODELELEMENT_TYPE);
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
 					return result;
 				}
 			}
 		}
 		return result;
 	}
+
+
 
 }
