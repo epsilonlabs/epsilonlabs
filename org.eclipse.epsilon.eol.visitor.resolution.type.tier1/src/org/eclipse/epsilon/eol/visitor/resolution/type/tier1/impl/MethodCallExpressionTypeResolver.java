@@ -178,9 +178,13 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) targetType, opContextType.eClass())) {
 						LogBook.getInstance().addError(target, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.EXPRESSION_MAY_NOT_BE_TYPE, TypeUtil.getInstance().getTypeName(opContextType)));
 					}
-					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
-					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+					methodCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType()); //set the type of the method call
+					methodCallExpression.getMethod().setResolvedType(EolFactory.eINSTANCE.createAnyType()); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
+
+//					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
+//					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
+//					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
 			}
 			else {
 				//handle type incompatible

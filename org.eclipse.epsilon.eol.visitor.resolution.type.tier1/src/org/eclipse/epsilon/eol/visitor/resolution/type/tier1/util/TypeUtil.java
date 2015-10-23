@@ -354,6 +354,9 @@ public class TypeUtil {
 		else if (t instanceof ModelElementType) {
 			String buff = "";
 			ModelElementType _t = (ModelElementType) t;
+			if (_t.getElementName().equals("_ModelElementType_")) {
+				return "ModelElementType";
+			}
 			if (_t.getModelName() != null) {
 				buff += _t.getModelName()+"!";
 			}

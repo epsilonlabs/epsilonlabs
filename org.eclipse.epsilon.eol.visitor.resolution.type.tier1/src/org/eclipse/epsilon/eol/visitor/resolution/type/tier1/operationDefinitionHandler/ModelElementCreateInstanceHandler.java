@@ -85,7 +85,7 @@ public class ModelElementCreateInstanceHandler extends ModelElementOperationDefi
 						if (modelType instanceof EClass) {
 							EClass eClass = (EClass) modelType;
 							if (eClass.isAbstract() || eClass.isInterface()) {
-								LogBook.getInstance().addError(target, IMessage_TypeResolution.TYPE_NOT_INSTANTIABLE);
+								LogBook.getInstance().addError(target, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.TYPE_NOT_INSTANTIABLE, eClass.getName()));
 							}
 						}
 					}
