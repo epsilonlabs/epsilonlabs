@@ -9,6 +9,7 @@ import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
+import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.SelfContentType;
 import org.eclipse.epsilon.eol.metamodel.SelfType;
@@ -23,7 +24,7 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeInferenceManager;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
-public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisitor<TypeResolutionContext, Object>{
+public class MethodCallExpressionTypeResolver_old extends MethodCallExpressionVisitor<TypeResolutionContext, Object>{
 
 	@Override
 	public Object visit(MethodCallExpression methodCallExpression,
@@ -90,6 +91,39 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 			//if target type and context type is generic
 			if (context.getTypeUtil().isTypeEqualOrGeneric(targetType,opContextType)) {
 				
+				//if target is null, check operation definition declares context type
+				if (target == null) {
+					if (TypeUtil.getInstance().isInstanceofAnyType(opContextType)) {
+						AnyType ct = (AnyType) opContextType;
+						if (ct.isDeclared()) {
+							LogBook.getInstance().addWarning(methodCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
+							return null;
+						}
+					}
+				}
+				
+				
+				//deals with parameter of type "Type"
+				for(int i = 0; i < operationDefinition.getParameters().size(); i++)
+				{
+					//if the parameter is keyword "Type"
+					if (operationDefinition.getParameters().get(i).getResolvedType().eClass().getName().equals("Type")) {
+						//if the argument is an name expression
+						if(methodCallExpression.getArguments().get(i) instanceof NameExpression)
+						{
+							NameExpression arg = (NameExpression) methodCallExpression.getArguments().get(i);
+							if (context.getTypeUtil().isTypeKeyWord(arg.getName())) {
+								
+							}
+							else {
+								LogBook.getInstance().addError(arg, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+							}
+						}
+						else {
+							LogBook.getInstance().addError(methodCallExpression.getArguments().get(i), IMessage_TypeResolution.EXPRESSION_SHOULD_BE_TYPE);
+						}
+					}
+				}
 				
 				//if handled
 				if (OperationDefinitionManager.getInstance().handled(operationDefinition)) {
@@ -219,5 +253,4 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 		}
 		return null;
 	}
-
 }

@@ -94,6 +94,7 @@ public class OperationDefinitionHandlerFactory {
 		
 		handlers.add(new ModelElementCreateInstanceHandler());
 		handlers.add(new ModeElementisInstantiableHandler());
+		handlers.add(new ModelElementAllHandler());
 	}
 	
 	public void addHandler(OperationDefinitionHandler handler)

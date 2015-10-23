@@ -383,7 +383,9 @@ public class TypeUtil {
 					buff = buff + getTypeName(__t);
 					buff += ", ";
 				}
-				buff = buff.substring(0, buff.length()-2);
+				if (_t.getDynamicTypes().size() > 0) {
+					buff = buff.substring(0, buff.length()-2);
+				}
 				buff += "}";
 			}
 			return buff;
@@ -919,7 +921,10 @@ public class TypeUtil {
 			ModelElementType type1 = (ModelElementType) a;
 			ModelElementType type2 = (ModelElementType) b;
 			
-			if(shortestDistanceBetweenClass((EClass)type1.getModelType(), (EClass)type2.getModelType()) != -1)
+			if (type2.getElementName().equals("_ModelElementType_")) {
+				return true;
+			}
+			else if(shortestDistanceBetweenClass((EClass)type1.getModelType(), (EClass)type2.getModelType()) != -1)
 			{
 				return true;
 			}
