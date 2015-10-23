@@ -26,25 +26,24 @@ public class OrderedCollectionAccessorHandler extends CollectionOperationDefinit
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if ((name.equals("first") ||
 				name.equals("second") ||
 				name.equals("third") ||
 				name.equals("fourth") ||
 				name.equals("last")) && argTypes.size() == 0) {
 			if (contextType instanceof OrderedCollectionType) {
-				
+				return true;
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
-					result = false;
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+					return true;
 				}
 			}
 			else {
-				result = false;
+				return false;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override

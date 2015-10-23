@@ -139,7 +139,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				}
 				//if there is no handler
 				else {
-					
+					System.err.println("NOHANDLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
 					//if is self type
 					if (operationDefinition.getReturnType() instanceof SelfType) {
 						//get copy of target type

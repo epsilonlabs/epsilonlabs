@@ -24,21 +24,20 @@ public class ModeElementisInstantiableHandler extends ModelElementOperationDefin
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("isInstantiable")  && argTypes.size() == 0) {
 			if (contextType instanceof ModelElementType) {
-				
+				return true;
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getModelElementType())) {
-					result = false;
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getModelElementType())) {
+					return true;
 				}
 			}
 			else {
-				result = false;
+				return false;
 			}
 		}
-		return result;
+		return false;
 	}
 
 

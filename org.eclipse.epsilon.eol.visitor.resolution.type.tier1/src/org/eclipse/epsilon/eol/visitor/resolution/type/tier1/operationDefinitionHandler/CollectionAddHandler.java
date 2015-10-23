@@ -27,21 +27,20 @@ public class CollectionAddHandler extends CollectionOperationDefinitionHandler{
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("add") && argTypes.size() == 1) {
 			if (contextType instanceof CollectionType) {
-				
+				return true;
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
-					result = false;
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getCollectionType())) {
+					return true;
 				}
 			}
 			else {
-				result = false;
+				return false;
 			}
 		}
-		return result;
+		return false;
 	}
 	
 	@Override

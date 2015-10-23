@@ -25,21 +25,20 @@ public class OrderedCollectionIndexOfHandler extends CollectionOperationDefiniti
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("indexOf") && argTypes.size() == 0) {
 			if (contextType instanceof OrderedCollectionType) {
-				
+				return true;
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
-					result = false;
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+					return true;
 				}
 			}
 			else {
-				result = false;
+				return false;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override

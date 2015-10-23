@@ -19,7 +19,6 @@ public class AnyAsBooleanHandler extends AnyOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if ((name.equals("asBoolean")  ||
 				name.equals("asInteger") ||
 				name.equals("asReal") ||
@@ -28,7 +27,7 @@ public class AnyAsBooleanHandler extends AnyOperationDefinitionHandler {
 				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override
@@ -43,7 +42,8 @@ public class AnyAsBooleanHandler extends AnyOperationDefinitionHandler {
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
 		if (result != null) {
-			
+			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
+
 			Expression target = featureCallExpression.getTarget();
 			
 			if (target == null) {

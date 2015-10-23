@@ -26,21 +26,20 @@ public class MapValuesHandler extends MapOperationDefinitionHandler{
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("values")  && argTypes.size() == 0) {
 			if (contextType instanceof MapType) {
-				
+				return true;
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
-				if (!TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
-					result = false;
+				if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
+					return true;
 				}
 			}
 			else {
-				result = false;
+				return false;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override

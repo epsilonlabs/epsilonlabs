@@ -21,13 +21,12 @@ public class AnyTypeHandler extends AnyOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("isKindOf")  && argTypes.size() == 1) {
 			if (contextType instanceof AnyType) {
 				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override

@@ -25,7 +25,6 @@ public class AnyErrHandler extends AnyOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if ((name.equals("err")  && argTypes.size() == 0) ||
 				(name.equals("err")  && argTypes.size() == 1) ||
 				(name.equals("print")  && argTypes.size() == 0) ||
@@ -38,7 +37,7 @@ public class AnyErrHandler extends AnyOperationDefinitionHandler {
 				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	@Override
@@ -53,7 +52,8 @@ public class AnyErrHandler extends AnyOperationDefinitionHandler {
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
 		if (result != null) {
-			
+			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
+
 			Expression target = featureCallExpression.getTarget();
 			
 			if (target == null) {

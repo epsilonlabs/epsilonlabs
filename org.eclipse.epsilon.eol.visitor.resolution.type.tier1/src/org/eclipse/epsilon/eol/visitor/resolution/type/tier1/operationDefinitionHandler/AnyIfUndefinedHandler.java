@@ -21,13 +21,12 @@ public class AnyIfUndefinedHandler extends AnyOperationDefinitionHandler{
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		boolean result = true;
 		if (name.equals("ifUndefined")  && argTypes.size() == 1) {
 			if (contextType instanceof AnyType) {
 				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 
@@ -43,7 +42,8 @@ public class AnyIfUndefinedHandler extends AnyOperationDefinitionHandler{
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
 		if (result != null) {
-			
+			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
+
 			Expression target = featureCallExpression.getTarget();
 			
 			if (target == null) {
