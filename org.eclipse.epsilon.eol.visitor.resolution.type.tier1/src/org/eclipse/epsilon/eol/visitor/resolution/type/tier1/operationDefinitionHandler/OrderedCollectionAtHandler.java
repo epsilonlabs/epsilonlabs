@@ -27,7 +27,7 @@ public class OrderedCollectionAtHandler extends CollectionOperationDefinitionHan
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		if ((name.equals("at") || name.equals("removeAt")) && argTypes.size() == 1 ) {
+		if ((name.equals("at") || name.equals("removeAt") || name.equals("get")) && argTypes.size() == 1 ) {
 			if (contextType instanceof OrderedCollectionType) {
 				return true;
 			}
@@ -51,9 +51,18 @@ public class OrderedCollectionAtHandler extends CollectionOperationDefinitionHan
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
 		
-		//get the result
-		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
 		
+		if (contextType instanceof OrderedCollectionType) {
+			result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), contextType, argTypes);
+
+		}
+		else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+			if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType())) {
+				ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) contextType, EolPackage.eINSTANCE.getOrderedCollectionType());
+				result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), dyntypes.get(0), argTypes);
+			}
+		}		
 		//if result is not null
 		if (result != null) {
 			

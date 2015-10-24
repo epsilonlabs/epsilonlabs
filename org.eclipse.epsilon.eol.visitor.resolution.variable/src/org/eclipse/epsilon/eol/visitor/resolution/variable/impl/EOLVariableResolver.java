@@ -36,6 +36,7 @@ public class EOLVariableResolver {
 		controller.addExpressionOrStatementBlockVisitor(new ExpressionOrStatementBlockVariableResolver());
 		controller.addTransactionStatementVisitor(new TransactionStatementVariableResolver());
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementVariableResolver());
+		controller.addEnumerationLiteralExpressionVisitor(new EnumerationLiteralExpressionVariableResolver());
 		
 	}
 	

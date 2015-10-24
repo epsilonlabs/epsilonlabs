@@ -103,7 +103,14 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				}
 				//if there is no handler
 				else {
-					System.err.println("NOHANDLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+					System.err.println("NO_HANDLER: " + methodName);
+
+					Type returnTypeCopy = EcoreUtil.copy(operationDefinition.getReturnType());
+					
+					methodCallExpression.setResolvedType(returnTypeCopy); //set the type of the method call
+					context.setAssets(returnTypeCopy, methodCallExpression);
+					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(returnTypeCopy)); //set resolved type
+					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
 				}
 				
 			}

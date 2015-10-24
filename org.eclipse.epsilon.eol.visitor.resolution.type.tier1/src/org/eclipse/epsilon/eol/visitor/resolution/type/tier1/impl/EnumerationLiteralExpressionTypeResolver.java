@@ -49,7 +49,7 @@ public class EnumerationLiteralExpressionTypeResolver extends EnumerationLiteral
 					IPackageDriver iPackageDriver = iPackageDrivers.get(0);
 					if (iPackageDriver.containsEnumeration(enumName)) {
 						EEnum enum1 = iPackageDriver.getEnumeration(enumName);
-						if (enum1.getEEnumLiteral(literalName) != null) {
+						if (enum1.getEEnumLiteral(literalName) == null) {
 							LogBook.getInstance().addError(enumerationLiteralExpression, IMessage_TypeResolution.ENUM_LITERAL_CANNOT_BE_RESLVED);
 						}
 						else {

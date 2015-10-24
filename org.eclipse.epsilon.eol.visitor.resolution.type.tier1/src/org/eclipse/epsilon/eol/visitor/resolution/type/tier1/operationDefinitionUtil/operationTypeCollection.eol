@@ -54,6 +54,10 @@ operation Sequence at(index: Integer) : SelfContentType {} //DONE
 
 operation OrderedSet at(index: Integer) : SelfContentType {} //DONE
 
+operation Sequence get(index: Integer) : SelfContentType {} //DONE
+
+operation OrderedSet get(index: Integer) : SelfContentType {} //DONE
+
 operation Sequence first() : SelfContentType {} //DONE
 
 operation OrderedSet first() : SelfContentType {} //DONE
