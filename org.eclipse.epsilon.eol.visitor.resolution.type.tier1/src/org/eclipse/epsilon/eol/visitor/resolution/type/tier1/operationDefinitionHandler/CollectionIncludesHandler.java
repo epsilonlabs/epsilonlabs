@@ -63,7 +63,7 @@ public class CollectionIncludesHandler extends CollectionOperationDefinitionHand
 			//if target is null, report and return
 			if (target == null) {
 				LogBook.getInstance().addError(featureCallExpression, IMessage_TypeResolution.OPERATION_REQUIRES_TARGET);
-				return null;
+				return result;
 			}
 			else {
 				//get the target type copy

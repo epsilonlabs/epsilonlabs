@@ -4,14 +4,11 @@ import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
-import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.SelfContentType;
-import org.eclipse.epsilon.eol.metamodel.SelfType;
 import org.eclipse.epsilon.eol.metamodel.Type;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.MethodCallExpressionVisitor;
@@ -107,71 +104,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				//if there is no handler
 				else {
 					System.err.println("NOHANDLERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-					//if is self type
-					if (operationDefinition.getReturnType() instanceof SelfType) {
-						//get copy of target type
-						Type targetTypeCopy = EcoreUtil.copy(targetType);
-						//just copy the target type because the target type has been resolved
-						methodCallExpression.setResolvedType(targetTypeCopy);
-						context.setAssets(targetTypeCopy, methodCallExpression);
-						//set the resolved type of the method
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(targetTypeCopy));
-						//set resolved content
-						methodCallExpression.getMethod().setResolvedContent(operationDefinition); 
-					}
-					
-					//if is selfContentType
-					else if (operationDefinition.getReturnType() instanceof SelfContentType) {
-						
-						System.out.println("self content typeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-						//if target type is of collection type
-						if (targetType instanceof CollectionType) {
-							Type contentType = ((CollectionType) targetType).getContentType(); //getContentType
-							if (contentType != null) {
-								methodCallExpression.setResolvedType(EcoreUtil.copy(contentType)); //set resolved type
-								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(contentType)); //set method type
-								methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
-							}
-							else {
-								AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
-								methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
-								methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
-								//handle content type null
-							}
-						}
-						else {
-							LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_SHOULD_BE_COLLECTION_TYPE);
-							
-							AnyType tempAnyType = EolFactory.eINSTANCE.createAnyType();
-							methodCallExpression.setResolvedType(EcoreUtil.copy(tempAnyType));
-							methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(tempAnyType));
-						}
-					}
-					
-					else if (operationDefinition.getReturnType() instanceof CollectionType && 
-							(((CollectionType)operationDefinition.getReturnType()).getContentType() instanceof SelfType)) { //if the return type is collection type and its content type is SelfType ============================
-						
-						CollectionType returnType = (CollectionType) operationDefinition.getReturnType();
-						
-						CollectionType resultType = EcoreUtil.copy(returnType);
-						resultType.setContentType(EcoreUtil.copy(targetType));
-						context.setAssets(resultType, methodCallExpression);
-						
-						methodCallExpression.setResolvedType(resultType); //set the type of the method call
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(resultType)); //set resolved type
-						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
-					}
-					
-					else {
-						Type returnTypeCopy = EcoreUtil.copy(operationDefinition.getReturnType());
-						
-						methodCallExpression.setResolvedType(returnTypeCopy); //set the type of the method call
-						context.setAssets(returnTypeCopy, methodCallExpression);
-						methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(returnTypeCopy)); //set resolved type
-						methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved content
-					}
 				}
-				
 				
 			}
 			else if (TypeUtil.getInstance().isInstanceofAnyType(targetType)) {
@@ -181,10 +114,6 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					methodCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType()); //set the type of the method call
 					methodCallExpression.getMethod().setResolvedType(EolFactory.eINSTANCE.createAnyType()); //set resolved type
 					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
-
-//					methodCallExpression.setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set the type of the method call
-//					methodCallExpression.getMethod().setResolvedType(EcoreUtil.copy(operationDefinition.getReturnType())); //set resolved type
-//					methodCallExpression.getMethod().setResolvedContent(operationDefinition); //set resolved conten
 			}
 			else {
 				//handle type incompatible
@@ -218,7 +147,10 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 					argString.concat(", ");
 				}
 			}
+			AnyType returnType = EolFactory.eINSTANCE.createAnyType();
 			
+			methodCallExpression.setResolvedType(returnType); //set the type of the method call
+			context.setAssets(returnType, methodCallExpression);
 			LogBook.getInstance().addError(methodCallExpression, IMessage_TypeResolution.bindMessage(IMessage_TypeResolution.OPERATION_NOT_FOUND, methodName, argString));
 		}
 		return null;

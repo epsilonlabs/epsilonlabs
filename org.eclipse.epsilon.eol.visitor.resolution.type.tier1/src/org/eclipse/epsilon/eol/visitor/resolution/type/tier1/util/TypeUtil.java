@@ -346,6 +346,9 @@ public class TypeUtil {
 			else if (t instanceof BagType) {
 				buff = "Bag";
 			}
+			else {
+				buff = "Collection";
+			}
 			if (((CollectionType) t).getContentType() != null) {
 				buff = buff + "(" + getTypeName(((CollectionType) t).getContentType()) + ")";
 			}

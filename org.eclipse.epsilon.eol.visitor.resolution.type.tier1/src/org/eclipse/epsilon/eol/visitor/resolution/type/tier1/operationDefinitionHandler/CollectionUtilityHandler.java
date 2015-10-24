@@ -78,7 +78,6 @@ public class CollectionUtilityHandler extends CollectionOperationDefinitionHandl
 				}
 				//if target type is collection type
 				if (targetType instanceof CollectionType) {
-					result.setContextType(EcoreUtil.copy(targetType));
 					return result;
 				}
 				//else if target type is an instance of any
@@ -92,7 +91,6 @@ public class CollectionUtilityHandler extends CollectionOperationDefinitionHandl
 						return result;
 					}
 					else {
-						result.setContextType(EcoreUtil.copy(dyntypes.get(0)));
 						return result;
 					}
 				}

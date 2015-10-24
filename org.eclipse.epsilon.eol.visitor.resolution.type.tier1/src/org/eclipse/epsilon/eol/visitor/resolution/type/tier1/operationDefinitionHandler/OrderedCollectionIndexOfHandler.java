@@ -25,7 +25,7 @@ public class OrderedCollectionIndexOfHandler extends CollectionOperationDefiniti
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		if (name.equals("indexOf") && argTypes.size() == 0) {
+		if (name.equals("indexOf") && argTypes.size() == 1) {
 			if (contextType instanceof OrderedCollectionType) {
 				return true;
 			}
