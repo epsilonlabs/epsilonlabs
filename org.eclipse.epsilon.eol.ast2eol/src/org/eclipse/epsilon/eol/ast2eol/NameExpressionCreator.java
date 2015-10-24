@@ -37,17 +37,28 @@ public class NameExpressionCreator extends ExpressionCreator{
 		if (ast.getFirstChild()!=null) {
 			if(!ast.getFirstChild().getText().equals("PARAMETERS") && !ast.getFirstChild().getText().equals("PARAMLIST") && !name.contains("!"))
 			{
-				while(ast.getFirstChild()!=null)
-				{
-					ast = ast.getFirstChild();
-					name += "(" + ast.getText() + ")";
-				}
+				name = name+"("+ getNameRecursively(ast.getFirstChild()) + ")";
+//				while(ast.getFirstChild()!=null)
+//				{
+//					ast = ast.getFirstChild();
+//					name += "(" + ast.getText() + ")";
+//				}
 			}
 		}
 		
 		expression.setName(name);
 		
 		return expression;
+	}
+	
+	public String getNameRecursively(AST ast)
+	{
+		if (ast.getFirstChild() == null) {
+			return ast.getText();
+		}
+		else {
+			return ast.getText() + "("+ getNameRecursively(ast.getFirstChild()) +")";
+		}
 	}
 
 }
