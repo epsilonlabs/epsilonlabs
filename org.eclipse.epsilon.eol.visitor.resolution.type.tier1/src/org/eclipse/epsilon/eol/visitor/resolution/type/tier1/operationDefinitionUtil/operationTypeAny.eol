@@ -1,10 +1,10 @@
 operation Any asBag() : Bag(SelfType){} //done ---------------------------/
 
-operation String asInteger() : Integer{} //done ---------------------------/
+operation Any asInteger() : Integer{} //done ---------------------------/
 
-operation String asReal() : Real{} //done ---------------------------/
+operation Any asReal() : Real{} //done ---------------------------/
 
-operation String asBoolean() : Boolean{} //done ---------------------------/
+operation Any asBoolean() : Boolean{} //done ---------------------------/
 
 operation Any asSequence() : Sequence(SelfType){} //done ---------------------------/
 

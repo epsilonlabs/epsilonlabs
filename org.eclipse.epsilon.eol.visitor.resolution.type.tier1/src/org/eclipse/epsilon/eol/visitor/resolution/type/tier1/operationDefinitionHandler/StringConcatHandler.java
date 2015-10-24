@@ -48,8 +48,18 @@ public class StringConcatHandler extends StringOperationDefinitionHandler {
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
 		
-		//get the result
-		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
+		
+		if (contextType instanceof StringType) {
+			result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), contextType, argTypes);
+
+		}
+		else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+			if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getStringType())) {
+				ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) contextType, EolPackage.eINSTANCE.getStringType());
+				result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), dyntypes.get(0), argTypes);
+			}
+		}
 		
 		//if result is not null
 		if (result != null) {

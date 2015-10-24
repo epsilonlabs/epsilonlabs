@@ -21,7 +21,7 @@ public class AnyTypeHandler extends AnyOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		if (name.equals("isKindOf")  && argTypes.size() == 1) {
+		if (name.equals("type")  && argTypes.size() == 0) {
 			if (contextType instanceof AnyType) {
 				return true;
 			}
@@ -41,6 +41,9 @@ public class AnyTypeHandler extends AnyOperationDefinitionHandler {
 		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
 		
 		if (result != null) {
+			
+			//register the result as it has been handled
+			OperationDefinitionManager.getInstance().registerHandledOperationDefinition(result);
 			
 			Expression target = featureCallExpression.getTarget();
 			

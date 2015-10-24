@@ -27,7 +27,7 @@ public class MapPutHandler extends MapOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		if (name.equals("put")  && argTypes.size() == 1) {
+		if (name.equals("put")  && argTypes.size() == 2) {
 			if (contextType instanceof MapType) {
 				return true;
 			}

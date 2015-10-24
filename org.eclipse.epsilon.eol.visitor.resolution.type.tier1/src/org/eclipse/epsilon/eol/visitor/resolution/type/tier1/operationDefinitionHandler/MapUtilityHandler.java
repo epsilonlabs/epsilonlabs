@@ -50,9 +50,18 @@ public class MapUtilityHandler extends MapOperationDefinitionHandler{
 		//get the manager
 		StandardLibraryOperationDefinitionContainer manager = OperationDefinitionManager.getInstance().getStandardLibraryOperationDefinitionContainer();
 		
-		//get the result
-		OperationDefinition result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), argTypes);
+		OperationDefinition result = null;
 		
+		if (contextType instanceof MapType) {
+			result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), contextType, argTypes);
+
+		}
+		else if (TypeUtil.getInstance().isInstanceofAnyType(contextType)) {
+			if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) contextType, EolPackage.eINSTANCE.getMapType())) {
+				ArrayList<Type> dyntypes = TypeInferenceManager.getInstance().getDynamicTypes((AnyType) contextType, EolPackage.eINSTANCE.getMapType());
+				result = manager.getOperation(((MethodCallExpression) featureCallExpression).getMethod().getName(), dyntypes.get(0), argTypes);
+			}
+		}		
 		//if result is not null
 		if (result != null) {
 			

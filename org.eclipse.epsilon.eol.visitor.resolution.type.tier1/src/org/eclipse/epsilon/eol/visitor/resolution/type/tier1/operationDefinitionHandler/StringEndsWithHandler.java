@@ -24,7 +24,7 @@ public class StringEndsWithHandler extends StringOperationDefinitionHandler {
 	@Override
 	public boolean appliesTo(String name, Type contextType,
 			ArrayList<Type> argTypes) {
-		if (name.equals("concat")  && argTypes.size() == 1) {
+		if (name.equals("endsWith")  && argTypes.size() == 1) {
 			if (contextType instanceof StringType) {
 				return true;
 			}

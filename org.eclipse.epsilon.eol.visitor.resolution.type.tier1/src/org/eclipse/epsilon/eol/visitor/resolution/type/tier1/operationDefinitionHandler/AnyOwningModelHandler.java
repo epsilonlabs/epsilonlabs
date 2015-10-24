@@ -94,6 +94,8 @@ public class AnyOwningModelHandler extends AnyOperationDefinitionHandler{
 						}
 						else {
 							LogBook.getInstance().addError(target, IMessage_TypeResolution.OBJECT_NOT_DEFINED_IN_MODEL);
+							result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+							return result;
 						}
 					}
 					else {
@@ -114,10 +116,16 @@ public class AnyOwningModelHandler extends AnyOperationDefinitionHandler{
 				}
 				else {
 					LogBook.getInstance().addError(target, IMessage_TypeResolution.OBJECT_NOT_DEFINED_IN_MODEL);
+					result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+					return result;
+
 				}
 			}
 			else {
 				LogBook.getInstance().addError(target, IMessage_TypeResolution.OBJECT_NOT_DEFINED_IN_MODEL);
+				result.setReturnType(EolFactory.eINSTANCE.createAnyType());
+				return result;
+
 			}
 		}
 		return result;
