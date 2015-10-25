@@ -26,7 +26,7 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 
-		context.getTypeRegistry().pushEntry(forStatement);//////////
+		context.getTypeRegistry().pushScope(forStatement);//////////
 		
 		
 		controller.visit(forStatement.getIterator(), context);
@@ -163,7 +163,7 @@ public class ForStatementTypeResolver extends ForStatementVisitor<TypeResolution
 		
 		controller.visit(forStatement.getBody(), context);
 		
-		context.getTypeRegistry().popEntry();//////////
+		context.getTypeRegistry().popScope();//////////
 		
 
 		return null;

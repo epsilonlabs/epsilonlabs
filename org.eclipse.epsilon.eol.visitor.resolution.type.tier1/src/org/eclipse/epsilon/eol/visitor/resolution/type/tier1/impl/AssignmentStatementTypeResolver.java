@@ -1,5 +1,6 @@
 package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -57,10 +58,22 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 						VariableDeclarationExpression var = (VariableDeclarationExpression) name.getResolvedContent();
 						context.getTypeRegistry().assignType(var, rhsType);
 					}
+					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
+						((AnyType)lhsType).getDynamicTypes().addAll(EcoreUtil.copyAll(((AnyType)rhsType).getDynamicTypes()));
+					}
+					else {
+						((AnyType)lhsType).getDynamicTypes().add(EcoreUtil.copy(rhsType));	
+					}
 				}
 				else if (lhs instanceof VariableDeclarationExpression) {
 					VariableDeclarationExpression var = (VariableDeclarationExpression) lhs;
 					context.getTypeRegistry().assignType(var, rhsType);
+					if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
+						((AnyType)lhsType).getDynamicTypes().addAll(EcoreUtil.copyAll(((AnyType)rhsType).getDynamicTypes()));
+					}
+					else {
+						((AnyType)lhsType).getDynamicTypes().add(EcoreUtil.copy(rhsType));	
+					}
 				}
 				
 				//Type assignedRhsType = EcoreUtil.copy(rhsType);
@@ -80,7 +93,7 @@ public class AssignmentStatementTypeResolver extends AssignmentStatementVisitor<
 				//if rhs is of any type
 				if (TypeUtil.getInstance().isInstanceofAnyType(rhsType)) {
 					if (TypeInferenceManager.getInstance().containsDynamicType((AnyType) rhsType, lhsType.eClass())) {
-						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH);
+						//LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.POTENTIAL_TYPE_MISMATCH);
 					}
 					else {
 						LogBook.getInstance().addWarning(rhs, IMessage_TypeResolution.TYPE_MISMATCH);

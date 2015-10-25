@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.runtime.content.IContentTypeManager.ContentTypeChangeEvent;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
@@ -131,15 +132,15 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							//get the types in the type registry
 							ArrayList<Type> types = context.getTypeRegistry().getTypesForVariable(content);
 							//get the resolved type
+							AnyType resolvedType = (AnyType) EcoreUtil.copy(content.getResolvedType());
 							AnyType contentType = (AnyType) content.getResolvedType();
-							//clear recorded dynamic types and add types recorded in the type registry
-							contentType.getDynamicTypes().clear();
-							contentType.getDynamicTypes().addAll(types);
+							//contentType.getDynamicTypes().clear();
+							resolvedType.getDynamicTypes().addAll(EcoreUtil.copyAll(types));
+							//contentType.getDynamicTypes().addAll(EcoreUtil.copyAll(types));
 							//nameExpression.setResolvedType(anyType);
-							Type typeCopy = EcoreUtil.copy(contentType);
 							
-							nameExpression.setResolvedType(typeCopy);
-							context.setAssets(typeCopy, nameExpression);
+							nameExpression.setResolvedType(resolvedType);
+							context.setAssets(resolvedType, nameExpression);
 							
 						}
 						else {

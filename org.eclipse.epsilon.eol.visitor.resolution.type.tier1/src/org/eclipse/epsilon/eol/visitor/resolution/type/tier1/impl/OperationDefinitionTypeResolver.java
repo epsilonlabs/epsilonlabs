@@ -12,9 +12,10 @@ public class OperationDefinitionTypeResolver extends OperationDefinitionVisitor<
 			TypeResolutionContext context,
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
+		context.getTypeRegistry().pushScope(operationDefinition);
 		//visit body
 		controller.visit(operationDefinition.getBody(), context);
-		
+		context.getTypeRegistry().popScope();
 		return null;
 	}
 

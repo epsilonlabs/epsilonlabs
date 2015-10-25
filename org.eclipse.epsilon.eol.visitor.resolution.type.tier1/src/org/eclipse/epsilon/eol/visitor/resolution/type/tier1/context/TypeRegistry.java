@@ -20,7 +20,7 @@ public class TypeRegistry {
 		return currentEntry;
 	}
 	
-	public void pushEntry(EOLElement eolElement)
+	public void pushScope(EOLElement eolElement)
 	{
 		if (baseEntry == null) {
 			baseEntry = new TypeRegisterEntry();
@@ -36,10 +36,13 @@ public class TypeRegistry {
 		}
 	}
 	
-	public void popEntry()
+	public void popScope()
 	{	
 		if (currentEntry.getPreviousEntry() != null) {
 			currentEntry = currentEntry.getPreviousEntry();	
+		}
+		else {
+			//System.err.println("ERROR: Stack is empty");
 		}
 	}
 	
@@ -58,22 +61,11 @@ public class TypeRegistry {
 	public ArrayList<Type> getTypesForVariable(VariableDeclarationExpression variableDeclarationExpression)
 	{
 		ArrayList<Type> result = new ArrayList<Type>();
-		ArrayList<TypeRegisterEntry> entriesToDiscard = currentEntry.getEntriesToDiscard(variableDeclarationExpression);
-		for(TypeRegisterEntry container : currentEntry.getSubEntries())
-		{
-			if (entriesToDiscard != null) {
-				if (entriesToDiscard.contains(container)) {
-					continue;
-				}
-			}
-			if (container.getTypes(variableDeclarationExpression) != null) {
-				result.addAll(container.getTypes(variableDeclarationExpression));
-			}
-			
-		}
+		
 		TypeRegisterEntry container = currentEntry;
 		while(container != null)
 		{
+			
 			ArrayList<TypeRegisterEntry> toIgnore = container.getEntriesToDiscard(variableDeclarationExpression);
 			for(TypeRegisterEntry c : container.getSubEntries())
 			{
@@ -89,6 +81,12 @@ public class TypeRegistry {
 			if (container.getTypes(variableDeclarationExpression) != null) {
 				result.addAll(container.getTypes(variableDeclarationExpression));
 			}
+			
+			if (container.variableDefinedInEntry(variableDeclarationExpression)) {
+				result.addAll(container.getTypes(variableDeclarationExpression));
+				break;
+			}
+			
 			container = container.getPreviousEntry();
 		}
 		return result;

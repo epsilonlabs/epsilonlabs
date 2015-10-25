@@ -4,6 +4,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl;
 import java.util.ArrayList;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
@@ -11,6 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.Expression;
+import org.eclipse.epsilon.eol.metamodel.IntegerType;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
@@ -60,6 +62,7 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		//if target type is null, report (should not happen)
 		if (targetType == null) {
 			LogBook.getInstance().addError(target, IMessage_TypeResolution.EXPRESSION_DOES_NOT_HAVE_A_TYPE);
+			propertyCallExpression.setResolvedType(EolFactory.eINSTANCE.createAnyType());
 			return null;
 		}
 		
@@ -78,12 +81,22 @@ public class PropertyCallExpressionTypeResolver extends PropertyCallExpressionVi
 		}
 		
 		
-//		if (targetType instanceof ModelElementType && isMetamodelKeyword(property)) {
-//			handleKeywords(propertyCallExpression, context);
-//			return null;
+		
+//		if (targetType instanceof ModelElementType) {
+//			ModelElementType _targetType = (ModelElementType) targetType;
+//			IPackageDriver iPackageDriver = (IPackageDriver) _targetType.getResolvedIPackage().getIPackageDriver();
+//			if (iPackageDriver != null) {
+//				if (iPackageDriver.containsFeature(_targetType.getElementName(), property)) {
+//					Object feature = iPackageDriver.getFeature(_targetType.getElementName(), property);
+//					if (feature instanceof EEnumLiteral) {
+//						IntegerType propertyCallExpressionType = EolFactory.eINSTANCE.createIntegerType();
+//						propertyCallExpression.setResolvedType(propertyCallExpressionType);
+//						context.setAssets(propertyCallExpression, propertyCallExpression);
+//						return null;
+//					}
+//				}
+//			}
 //		}
-		
-		
 		
 		//if the target is of any type, find the leat common type first, then find property, if no common type found, find property that applies to the first model element type
 		if (typeUtil.isInstanceofAnyType(targetType)) {// or the target is of type Any

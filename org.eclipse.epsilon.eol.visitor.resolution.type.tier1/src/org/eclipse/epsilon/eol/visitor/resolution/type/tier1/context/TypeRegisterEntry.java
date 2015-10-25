@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.eol.metamodel.AnyType;
@@ -15,7 +16,7 @@ public class TypeRegisterEntry {
 	protected EOLElement scope;
 	
 	//the map look up
-	protected HashMap<VariableDeclarationExpression, ArrayList<Type>> variableTypesInEntry = new HashMap<VariableDeclarationExpression, ArrayList<Type>>();
+	protected HashMap<VariableDeclarationExpression, HashSet<Type>> variableTypesInEntry = new HashMap<VariableDeclarationExpression, HashSet<Type>>();
 	
 	//types to disregard
 	protected HashMap<VariableDeclarationExpression, ArrayList<TypeRegisterEntry>> disregardSubContainersMap = new HashMap<VariableDeclarationExpression, ArrayList<TypeRegisterEntry>>();
@@ -25,6 +26,8 @@ public class TypeRegisterEntry {
 	
 	//previous container
 	protected TypeRegisterEntry previousEntry;
+	
+	protected HashMap<VariableDeclarationExpression, Boolean> variableRedefinedInEntry = new HashMap<VariableDeclarationExpression, Boolean>();
 	
 	//set the scope
 	public void setScope(EOLElement scope) {
@@ -50,7 +53,7 @@ public class TypeRegisterEntry {
 	//assign the type, will overwrite all previous type in this entry
 	public void assignType(VariableDeclarationExpression vde, Type type)
 	{
-		ArrayList<Type> replace = new ArrayList<Type>();
+		HashSet<Type> replace = new HashSet<Type>();
 		
 		//if is any type, add all dynamic types
 		if (TypeUtil.getInstance().isInstanceofAnyType(type)) {
@@ -69,17 +72,31 @@ public class TypeRegisterEntry {
 		ArrayList<TypeRegisterEntry> temp = new ArrayList<TypeRegisterEntry>();
 		temp.addAll(subEntries);
 		disregardSubContainersMap.put(vde, temp);
+		
+		variableRedefinedInEntry.put(vde, true);
 	}
+	
+	public boolean variableDefinedInEntry(VariableDeclarationExpression vde)
+	{
+		if (variableRedefinedInEntry.containsKey(vde)) {
+			return variableRedefinedInEntry.get(vde);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 	
 	//insert type, will insert a type for a variable in this entry
 	public void insertType(VariableDeclarationExpression vde, Type type)
 	{
-		ArrayList<Type> storedTypes = variableTypesInEntry.get(vde);
+		HashSet<Type> storedTypes = variableTypesInEntry.get(vde);
 		if (storedTypes != null) {
 			storedTypes.add(EcoreUtil.copy(type));
 		}
 		else {
-			storedTypes = new ArrayList<Type>();
+			storedTypes = new HashSet<Type>();
 			storedTypes.add(EcoreUtil.copy(type));
 			variableTypesInEntry.put(vde, storedTypes);
 		}
@@ -92,7 +109,7 @@ public class TypeRegisterEntry {
 	}
 	
 	//get the types of a var in this entry
-	public ArrayList<Type> getTypes(VariableDeclarationExpression vde)
+	public HashSet<Type> getTypes(VariableDeclarationExpression vde)
 	{
 		return variableTypesInEntry.get(vde);
 	}

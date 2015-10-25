@@ -22,7 +22,7 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 			EolVisitorController<TypeResolutionContext, Object> controller) {
 		
 		if (context.getTypeRegistry().getBaseEntry() == null) {
-			context.getTypeRegistry().pushEntry(program);
+			context.getTypeRegistry().pushScope(program);
 		}
 		
 		for(Import import1: program.getImports())
@@ -63,7 +63,9 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 			}
 		}
 		
+		context.getTypeRegistry().pushScope(program.getBlock());
 		controller.visitContents(program.getBlock(), context); //process statement block
+		context.getTypeRegistry().popScope();
 
 		for(OperationDefinition od: program.getOperations())
 		{
@@ -71,7 +73,7 @@ public class EOLProgramTypeResolver extends EOLProgramVisitor<TypeResolutionCont
 		}
 		
 		if (context.getTypeRegistry().getCurrentEntry().getPreviousEntry() == null) {
-			context.getTypeRegistry().popEntry();
+			context.getTypeRegistry().popScope();
 		}
 		else {
 			System.err.println("This is wrong!");
