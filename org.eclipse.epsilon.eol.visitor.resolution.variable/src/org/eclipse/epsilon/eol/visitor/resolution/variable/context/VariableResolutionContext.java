@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
+import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
@@ -15,6 +16,8 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 
 
 public class VariableResolutionContext {
+	
+	protected EolModule eolModule = null;
 	
 	public static VariableResolutionContext instance = null;
 	
@@ -270,4 +273,20 @@ public class VariableResolutionContext {
 		}
 		return false;
 	}
+	
+	public void setEolModule(EolModule eolModule) {
+		this.eolModule = eolModule;
+	}
+	
+	public String getDirectory(String path)
+	{
+		int lastIndexOf = path.lastIndexOf("/");
+		return path.substring(0, lastIndexOf+1);
+	}
+	
+	public String getParentFolderDirectory()
+	{
+		return getDirectory(eolModule.getSourceFile().getAbsolutePath());
+	}
+	
 }

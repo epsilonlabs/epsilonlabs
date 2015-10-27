@@ -135,7 +135,7 @@ public class NameExpressionTypeResolver extends NameExpressionVisitor<TypeResolu
 							AnyType resolvedType = (AnyType) EcoreUtil.copy(content.getResolvedType());
 							AnyType contentType = (AnyType) content.getResolvedType();
 							//contentType.getDynamicTypes().clear();
-							resolvedType.getDynamicTypes().addAll(EcoreUtil.copyAll(types));
+							//resolvedType.getDynamicTypes().addAll(EcoreUtil.copyAll(types));
 							//contentType.getDynamicTypes().addAll(EcoreUtil.copyAll(types));
 							//nameExpression.setResolvedType(anyType);
 							

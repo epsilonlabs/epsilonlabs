@@ -44,6 +44,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 				driver.setRoot(translator.get_root());
 				packages.put(ePackage.getName(), driver);
 			}
+			reconcileEolLibraryModule();
 			return true;
 		}
 		else {

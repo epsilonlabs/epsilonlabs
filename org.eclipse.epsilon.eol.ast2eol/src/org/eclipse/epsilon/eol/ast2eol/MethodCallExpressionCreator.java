@@ -50,7 +50,14 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 					
 			for (AST parameterAst : parametersAst.getChildren()) {
 				if (isKeyWord(parameterAst.getText())) {
-					expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, expression, context, NameExpressionCreator.class));  //process arguments which is an actual type
+					if (parameterAst.getFirstChild() != null && (parameterAst.getFirstChild().getType() == EolParser.EXPRLIST || parameterAst.getFirstChild().getType() == EolParser.EXPRRANGE)) {
+						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, expression, context)); //process arguments
+					}
+					else {
+						NameExpression name = (NameExpression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, expression, context, NameExpressionCreator.class);
+						name.setIsType(true);
+						expression.getArguments().add(name);  //process arguments which is an actual type		
+					}
 				}
 				else {
 					expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, expression, context)); //process arguments
@@ -76,7 +83,14 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 				for(AST argumentAst: argumentListAst.getChildren()) //process argument
 				{
 					if (isKeyWord(argumentAst.getText())) {
-						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(argumentAst, expression, context, NameExpressionCreator.class));  //process arguments which is an actual type
+						if (argumentAst.getFirstChild() != null && (argumentAst.getFirstChild().getType() == EolParser.EXPRLIST || argumentAst.getFirstChild().getType() == EolParser.EXPRRANGE)) {
+							expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(argumentAst, expression, context)); //process arguments
+						}
+						else {
+							NameExpression name = (NameExpression) context.getEolElementCreatorFactory().createEOLElement(argumentAst, expression, context, NameExpressionCreator.class);
+							name.setIsType(true);
+							expression.getArguments().add(name);  //process arguments which is an actual type	
+						}
 					}
 					else {
 						expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(argumentAst, expression, context)); //process arguments

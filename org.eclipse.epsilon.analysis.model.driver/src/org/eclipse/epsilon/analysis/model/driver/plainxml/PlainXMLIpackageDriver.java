@@ -24,8 +24,6 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	protected EClass root;
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
 	
-	protected LogBook logBook = null;
-	
 	protected EOLElement currentEolElement = null;
 	
 	protected boolean read = false;
@@ -42,14 +40,6 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	
 	public void setRoot(EClass root) {
 		this.root = root;
-	}
-	
-	public LogBook getLogBook() {
-		return logBook;
-	}
-	
-	public void setLogBook(LogBook logBook) {
-		this.logBook = logBook;
 	}
 	
 	public EOLElement getCurrentEolElement() {
@@ -119,7 +109,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					return null;
 				}
 				else {
-					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
+					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
 					result = EcoreFactory.eINSTANCE.createEClass();
 					result.setName(elementName);
 					ePackage.getEClassifiers().add(result);
@@ -168,7 +158,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					return null;
 				}
 				else {
-					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
+					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
 					result = EcoreFactory.eINSTANCE.createEClass();
 					result.setName(elementName);
 					ePackage.getEClassifiers().add(result);
@@ -185,28 +175,28 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	@Override
 	public boolean containsDataType(String elementName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.DATATYPE_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.DATATYPE_NOT_SUPPORTED);
 		return false;
 	}
 
 	@Override
 	public EDataType getDataType(String elementName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.DATATYPE_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.DATATYPE_NOT_SUPPORTED);
 		return null;
 	}
 
 	@Override
 	public boolean containsEnumeration(String enumerationName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
 		return false;
 	}
 
 	@Override
 	public EEnum getEnumeration(String enumerationName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
 		return null;
 	}
 
@@ -214,7 +204,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	public boolean containsEnumerationLiteral(String enumerationName,
 			String literalName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
 		return false;
 	}
 
@@ -222,7 +212,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	public EEnumLiteral getEnumerationLiteral(String enumerationName,
 			String literalName) {
 		// not supported
-		logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
+		LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.ENUMERATION_NOT_SUPPORTED);
 		return null;
 	}
 
@@ -460,7 +450,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						}
 						else {
 							//should issue warning
-							logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+							LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 							EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
 							attribute.setName(attributeName);
 							attribute.setUpperBound(1);
@@ -489,7 +479,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 								return null;
 							}
 							else {
-								logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+								LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 								attribute = EcoreFactory.eINSTANCE.createEAttribute();
 								attribute.setName(escapedAttrName);
 								attribute.setUpperBound(1);
@@ -583,7 +573,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 							return null;
 						}
 						else {
-							logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
+							LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
 							EClass otherEnd = getClass("t_"+escapedReferenceName);
 							EReference eReference = EcoreFactory.eINSTANCE.createEReference();
 							eReference.setName(escapedReferenceName);
@@ -689,7 +679,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				}
 				else {
 					//should issue warning
-					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 					EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
 					attribute.setName(attributeName);
 					attribute.setUpperBound(1);
@@ -718,7 +708,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						return null;
 					}
 					else {
-						logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+						LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 						attribute = EcoreFactory.eINSTANCE.createEAttribute();
 						attribute.setName(escapedAttrName);
 						attribute.setUpperBound(1);
@@ -801,7 +791,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					return null;
 				}
 				else {
-					logBook.addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
+					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
 
 					EClass otherEnd = getClass("t_"+escapedReferenceName);
 					EReference eReference = EcoreFactory.eINSTANCE.createEReference();

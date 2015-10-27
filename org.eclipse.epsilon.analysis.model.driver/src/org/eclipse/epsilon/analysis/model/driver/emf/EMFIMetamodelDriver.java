@@ -39,22 +39,8 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		
 		result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
 
-		if (result.size() > 0) {
-			for(EPackage ePackage: result)
-			{
-				if (ePackage != null) {
-					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));	
-				}
-				else {
-					//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
-					return false;
-				}
-				
-			}
-			reconcileEolLibraryModule();
-			return true;
-		}
-		else {
+		
+		if (result.size() == 1 && result.get(0) == null) {
 			result.addAll(EcoreFileLoader.loadEPackageFromFile(pathOrNSURI));
 			if (result.size() > 0) {
 				for(EPackage ePackage: result)
@@ -74,6 +60,21 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
 				return false;
 			}
+		}
+		else {
+			for(EPackage ePackage: result)
+			{
+				if (ePackage != null) {
+					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));	
+				}
+				else {
+					//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+					return false;
+				}
+				
+			}
+			reconcileEolLibraryModule();
+			return true;
 		}
 	}
 		

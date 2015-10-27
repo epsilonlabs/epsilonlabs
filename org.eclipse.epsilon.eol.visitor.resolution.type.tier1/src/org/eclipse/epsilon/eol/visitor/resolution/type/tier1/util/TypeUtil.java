@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
@@ -85,6 +86,9 @@ public class TypeUtil {
 		boolean result = false;
 		EDataType dataType = (EDataType) obj;
 		String className = dataType.getInstanceClassName();
+		if (dataType instanceof EEnum) {
+			return true;
+		}
 		if (className.equals("boolean")
 				|| className.equals("java.lang.Boolean")
 				|| className.equals("int")
@@ -107,6 +111,11 @@ public class TypeUtil {
 		Type result = null;
 		//prepare a datatype
 		EDataType dataType = (EDataType) obj;
+		
+		if (dataType instanceof EEnum) {
+			result = eolFactory.createIntegerType();
+		}
+		
 		//get the instance class name of the data type
 		String instanceClassName = dataType.getInstanceClassName();
 		//if the class name is int then create a IntegerType

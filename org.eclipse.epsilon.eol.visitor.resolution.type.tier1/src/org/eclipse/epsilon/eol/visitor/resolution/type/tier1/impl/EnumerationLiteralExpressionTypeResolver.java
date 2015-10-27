@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
+import org.eclipse.epsilon.eol.metamodel.AnyType;
 import org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.IntegerType;
@@ -29,6 +30,10 @@ public class EnumerationLiteralExpressionTypeResolver extends EnumerationLiteral
 		IntegerType resolvedType = EolFactory.eINSTANCE.createIntegerType();
 		context.setAssets(resolvedType, enumerationLiteralExpression);
 		enumerationLiteralExpression.setResolvedType(resolvedType);
+		
+//		AnyType resolvedType = EolFactory.eINSTANCE.createAnyType();
+//		context.setAssets(resolvedType, enumerationLiteralExpression);
+//		enumerationLiteralExpression.setResolvedType(resolvedType);
 
 
 		if (context.getTypeUtil().getIMetamodelDriverByName(modelName).size() == 0) {

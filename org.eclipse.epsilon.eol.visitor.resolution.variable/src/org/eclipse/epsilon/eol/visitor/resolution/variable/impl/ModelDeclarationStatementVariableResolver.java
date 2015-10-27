@@ -37,6 +37,7 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 				//get the nsuri 
 				sourceParameter = getParameter("nsuri", modelDeclarationStatement);
 				
+				
 				//if nsuri is not found, find uri for file location
 				if (sourceParameter == null) {
 					sourceParameter = getParameter("path", modelDeclarationStatement);	
@@ -80,8 +81,9 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 				}
 				else {
 					
-					sourceString = ((NameExpression)sourceParameter.getValue()).getName();
+					sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
 
+					sourceString = context.getParentFolderDirectory() + sourceString;
 					
 					//create a new XMLMetaModel
 					PlainXMLIMetamodelDriver iMetamodelDriver = new PlainXMLIMetamodelDriver();

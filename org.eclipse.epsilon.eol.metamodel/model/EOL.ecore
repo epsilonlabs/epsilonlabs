@@ -239,7 +239,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumeration" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="iModel" eType="#//IMetamodel"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//NameExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" lowerBound="1" eType="#//NameExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CollectionInitialisationExpression"

@@ -7,6 +7,7 @@ import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.analysis.model.driver.emf.EMFIMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
+import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIpackageDriver;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
@@ -145,6 +146,7 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 			if (identifiers.length == 1) {
 				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
 					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
+					
 					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 						modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());
@@ -221,6 +223,8 @@ public class ModelElementTypeResolver extends ModelElementTypeVisitor<TypeResolu
 
 				if (iMetamodelDriver.getIPackageDrivers().size() == 1) {
 					IPackageDriver iPackageDriver = iMetamodelDriver.getIPackageDrivers().get(0);
+					PlainXMLIpackageDriver _iPackageDriver = (PlainXMLIpackageDriver) iPackageDriver;
+					_iPackageDriver.setCurrentEolElement(modelElementType);
 					if (iPackageDriver.getMetaElement(identifiers[0]) != null) {
 						modelElementType.setModelType(iPackageDriver.getMetaElement(identifiers[0]));
 						modelElementType.setResolvedIMetamodel(iMetamodelDriver.getIMetamodel());

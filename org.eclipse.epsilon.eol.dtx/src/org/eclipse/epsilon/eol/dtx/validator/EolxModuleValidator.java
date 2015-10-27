@@ -18,7 +18,9 @@ import org.eclipse.epsilon.eol.problem.EOLError;
 import org.eclipse.epsilon.eol.problem.EOLProblem;
 import org.eclipse.epsilon.eol.problem.EOLWarning;
 import org.eclipse.epsilon.eol.problem.LogBook;
+import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.EOLTypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 
 public class EolxModuleValidator implements IModuleValidator {
@@ -38,10 +40,11 @@ public class EolxModuleValidator implements IModuleValidator {
 			LogBook logBook = LogBook.getInstance(true);
 
 			EOLVariableResolver variableResolver = new EOLVariableResolver();
+			VariableResolutionContext.getInstance().setEolModule((EolModule) module);
 			variableResolver.run(eolElement);
 			
-			
 			EOLTypeResolver typeResolver = new EOLTypeResolver();
+			TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
 			typeResolver.run(eolElement);
 			
 			

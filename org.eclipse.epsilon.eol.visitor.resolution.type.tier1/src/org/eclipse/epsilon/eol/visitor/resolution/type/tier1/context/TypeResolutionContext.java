@@ -8,6 +8,8 @@ import java.util.Stack;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
+import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
+import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -20,6 +22,8 @@ import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.operationDefinition
 import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.util.TypeUtil;
 
 public class TypeResolutionContext {
+	
+	protected EolModule eolModule = null;
 	
 	//instance
 	protected static TypeResolutionContext instance = null;
@@ -54,6 +58,25 @@ public class TypeResolutionContext {
 	protected ArrayList<String> EOLReservedKeywords = new ArrayList<String>();
 	
 	protected boolean handlingBranchCondition = false;
+	
+	public void setEolModule(EolModule eolModule) {
+		this.eolModule = eolModule;
+	}
+	
+	public EolModule getEolModule() {
+		return eolModule;
+	}
+	
+	public String getDirectory(String path)
+	{
+		int lastIndexOf = path.lastIndexOf("/");
+		return path.substring(0, lastIndexOf+1);
+	}
+	
+	public String getParentFolderDirectory()
+	{
+		return getDirectory(eolModule.getSourceFile().getAbsolutePath());
+	}
 	
 	public void setCurrentStatement(Statement currentStatement) {
 		this.currentStatement = currentStatement;
@@ -258,7 +281,27 @@ public class TypeResolutionContext {
 	
 	public boolean isMetamodelRelatedKeywords(String str)
 	{
+		boolean openWorld = false;
+		for(IMetamodelDriver imd: iMetamodelManager.getiMetamodelDrivers())
+		{
+			if (imd instanceof PlainXMLIMetamodelDriver) {
+				openWorld = true;
+			}
+		}
+		if (openWorld) {
+			if (isXMLKeyword(str)) {
+				return true;
+			}
+		}
 		return metamodelRelatedKeywords.contains(str);
+	}
+	
+	public boolean isXMLKeyword(String str)
+	{
+		if (str.startsWith("t_")) {
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean isHandlingBranchCondition() {
