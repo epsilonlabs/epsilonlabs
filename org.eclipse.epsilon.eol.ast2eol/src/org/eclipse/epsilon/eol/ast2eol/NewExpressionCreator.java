@@ -28,13 +28,18 @@ public class NewExpressionCreator extends ExpressionCreator{
 		AST typeAst = ast.getChild(0); //must have a type
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createEOLElement(typeAst, expression, context)); //set resolved type to be the type
 		
-//		if (typeAst.getNumberOfChildren() > 0) {
-//			AST paramlistAst = typeAst.getChild(0);
-//			for(AST parameterAst : paramlistAst.getChildren())
-//			{
-//				expression.getParameters().add((NameExpression) context.getEolElementCreatorFactory().createEOLElement(parameterAst, expression, context, NameExpressionCreator.class));
-//			}
-//		}
+		AST parameterAST = typeAst.getNextSibling();
+		
+		if (parameterAST != null) {
+			if (parameterAST.getNumberOfChildren() > 0) {
+				for(AST param : parameterAST.getChildren())
+				{
+					expression.getParameters().add((NameExpression) context.getEolElementCreatorFactory().createEOLElement(param, expression, context, NameExpressionCreator.class));
+				}
+			}
+		}
+		
+		
 		
 		return expression;
 	}

@@ -91,7 +91,7 @@ public class XML2EcoreTranslator {
 		for(int i = 0; i < attrs.getLength(); i++) //for each attribute
 		{
 			String attrName = attrs.item(i).getNodeName(); //get the attr name
-			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one
+			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one			
 			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
 				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
 			}
@@ -244,6 +244,38 @@ public class XML2EcoreTranslator {
 		System.out.println(resourceSet.getPackageRegistry().toString());
 		System.out.println(EPackage.Registry.INSTANCE.toString());
 		resource.save(null);	
+	}
+	
+	public static boolean isInteger(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Integer.parseInt(s);
+	         // s is a valid integer
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	         // s is not an integer
+	      }
+	 
+	      return isValidInteger;
+	}
+	
+	public static boolean isReal(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Float.parseFloat(s);
+	         // s is a valid integer
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	         // s is not an integer
+	      }
+	 
+	      return isValidInteger;
 	}
 
 }

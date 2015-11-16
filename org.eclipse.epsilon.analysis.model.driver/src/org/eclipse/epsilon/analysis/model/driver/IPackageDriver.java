@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
@@ -16,6 +17,7 @@ public interface IPackageDriver {
 	public abstract String getPackageName();
 	public abstract String getPackageNSURI();
 	public abstract String getPackageNSPrefix();
+	
 	
 	public ArrayList<String> getAllTypeNames();
 	
@@ -56,4 +58,8 @@ public interface IPackageDriver {
 	
 	public IPackageDriver getSubPackageDriver(String name);
 	public ArrayList<IPackageDriver> getSubPackageDrivers();
+	
+	public abstract IMetamodelDriver getIMetamodelDriver();
+	
+	public abstract EPackage getEPackage();
 }

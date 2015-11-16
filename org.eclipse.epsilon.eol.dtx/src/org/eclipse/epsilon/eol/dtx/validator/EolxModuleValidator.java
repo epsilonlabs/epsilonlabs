@@ -18,8 +18,8 @@ import org.eclipse.epsilon.eol.problem.EOLError;
 import org.eclipse.epsilon.eol.problem.EOLProblem;
 import org.eclipse.epsilon.eol.problem.EOLWarning;
 import org.eclipse.epsilon.eol.problem.LogBook;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.context.TypeResolutionContext;
-import org.eclipse.epsilon.eol.visitor.resolution.type.tier1.impl.EOLTypeResolver;
+import org.eclipse.epsilon.eol.visitor.resolution.type.naive.context.TypeResolutionContext;
+import org.eclipse.epsilon.eol.visitor.resolution.type.naive.impl.nonImportant.EOLTypeResolver;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 

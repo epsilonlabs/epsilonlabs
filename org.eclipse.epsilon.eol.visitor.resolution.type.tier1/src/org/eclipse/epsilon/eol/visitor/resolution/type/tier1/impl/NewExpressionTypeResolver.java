@@ -14,7 +14,6 @@ public class NewExpressionTypeResolver extends NewExpressionVisitor<TypeResoluti
 
 		//visit resolved type is enough
 		controller.visit(newExpression.getResolvedType(), context);
-
 		return null;
 	}
 

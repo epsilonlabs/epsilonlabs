@@ -1961,6 +1961,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getNewExpression_Parameters() {
+		return (EReference)newExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMapExpression() {
 		return mapExpressionEClass;
 	}
@@ -3261,6 +3270,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		newExpressionEClass = createEClass(NEW_EXPRESSION);
 		createEReference(newExpressionEClass, NEW_EXPRESSION__TYPE_NAME);
+		createEReference(newExpressionEClass, NEW_EXPRESSION__PARAMETERS);
 
 		mapExpressionEClass = createEClass(MAP_EXPRESSION);
 		createEReference(mapExpressionEClass, MAP_EXPRESSION__KEY_VALUES);
@@ -3757,6 +3767,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(newExpressionEClass, NewExpression.class, "NewExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNewExpression_TypeName(), this.getNameExpression(), null, "typeName", null, 1, 1, NewExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNewExpression_Parameters(), this.getExpression(), null, "parameters", null, 0, -1, NewExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mapExpressionEClass, MapExpression.class, "MapExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMapExpression_KeyValues(), this.getKeyValueExpression(), null, "keyValues", null, 0, -1, MapExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3799,7 +3810,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getEnumerationLiteralExpression_Literal(), this.getNameExpression(), null, "literal", null, 1, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEnumerationLiteralExpression_Enumeration(), this.getNameExpression(), null, "enumeration", null, 1, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEnumerationLiteralExpression_IModel(), this.getIMetamodel(), null, "iModel", null, 0, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEnumerationLiteralExpression_Model(), this.getNameExpression(), null, "model", null, 0, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnumerationLiteralExpression_Model(), this.getNameExpression(), null, "model", null, 1, 1, EnumerationLiteralExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(collectionInitialisationExpressionEClass, CollectionInitialisationExpression.class, "CollectionInitialisationExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

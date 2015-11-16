@@ -82,7 +82,7 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			{
 				for(AST argumentAst: argumentListAst.getChildren()) //process argument
 				{
-					if (isKeyWord(argumentAst.getText())) {
+ 					if (isKeyWord(argumentAst.getText())) {
 						if (argumentAst.getFirstChild() != null && (argumentAst.getFirstChild().getType() == EolParser.EXPRLIST || argumentAst.getFirstChild().getType() == EolParser.EXPRRANGE)) {
 							expression.getArguments().add((Expression) context.getEolElementCreatorFactory().createEOLElement(argumentAst, expression, context)); //process arguments
 						}

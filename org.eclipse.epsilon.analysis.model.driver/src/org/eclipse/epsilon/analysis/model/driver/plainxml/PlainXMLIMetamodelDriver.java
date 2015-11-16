@@ -41,6 +41,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 			{
 				EPackage ePackage = translator.getEPackage();
 				PlainXMLIpackageDriver driver = new PlainXMLIpackageDriver(ePackage);
+				driver.setiMetamodelDriver(this);
 				driver.setRoot(translator.get_root());
 				packages.put(ePackage.getName(), driver);
 			}
@@ -176,6 +177,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 				for(String typeName: ipd.getAllTypeNames())
 				{
 					result.add(name + "!" + typeName);
+					result.add(ipd.getPackageName() + "!" + typeName);
 				}
 				for(String alias: aliases)
 				{

@@ -53,7 +53,7 @@ public class NameExpressionCreator extends ExpressionCreator{
 	
 	public String getNameRecursively(AST ast)
 	{
-		if (ast.getFirstChild() == null) {
+		if (ast.getFirstChild() == null || ast.getText().contains("!")) {
 			return ast.getText();
 		}
 		else {

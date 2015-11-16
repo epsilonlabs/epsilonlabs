@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
+import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
 import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
 public class IMetamodelManager {
@@ -23,6 +24,10 @@ public class IMetamodelManager {
 	{
 		ArrayList<String> result = new ArrayList<String>();
 		if (iMetamodelDrivers.size() == 1) {
+			if (iMetamodelDrivers.get(0) instanceof PlainXMLIMetamodelDriver) {
+				result.add("XMLDoc");
+				result.add("Element");
+			}
 			result.addAll(iMetamodelDrivers.get(0).getAllTypeNames(true));
 		}
 		else if(iMetamodelDrivers.size() > 1)

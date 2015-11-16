@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.problem.LogBook;
@@ -23,6 +24,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	protected EPackage ePackage;
 	protected EClass root;
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
+	protected IMetamodelDriver iMetamodelDriver = null;
 	
 	protected EOLElement currentEolElement = null;
 	
@@ -845,6 +847,21 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 			result.add(eClassifier.getName());
 		}
  		return result;
+	}
+
+	@Override
+	public IMetamodelDriver getIMetamodelDriver() {
+		// TODO Auto-generated method stub
+		return iMetamodelDriver;
+	}
+	
+	public void setiMetamodelDriver(IMetamodelDriver iMetamodelDriver) {
+		this.iMetamodelDriver = iMetamodelDriver;
+	}
+
+	@Override
+	public EPackage getEPackage() {
+		return ePackage;
 	}
 
 }

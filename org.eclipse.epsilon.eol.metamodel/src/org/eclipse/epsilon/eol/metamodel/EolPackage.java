@@ -3423,13 +3423,22 @@ public interface EolPackage extends EPackage {
 	int NEW_EXPRESSION__TYPE_NAME = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEW_EXPRESSION__PARAMETERS = EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>New Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NEW_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
+	int NEW_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.MapExpressionImpl <em>Map Expression</em>}' class.
@@ -9036,6 +9045,17 @@ public interface EolPackage extends EPackage {
 	EReference getNewExpression_TypeName();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.NewExpression#getParameters <em>Parameters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.NewExpression#getParameters()
+	 * @see #getNewExpression()
+	 * @generated
+	 */
+	EReference getNewExpression_Parameters();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.MapExpression <em>Map Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11317,6 +11337,14 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EReference NEW_EXPRESSION__TYPE_NAME = eINSTANCE.getNewExpression_TypeName();
+
+		/**
+		 * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference NEW_EXPRESSION__PARAMETERS = eINSTANCE.getNewExpression_Parameters();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.MapExpressionImpl <em>Map Expression</em>}' class.

@@ -198,6 +198,7 @@ class ModelDeclarationParameter extends KeyValueExpression {
 
 class NewExpression extends Expression {
   val NameExpression[1] typeName;
+  val Expression[*] parameters;
 }
 
 class MapExpression extends Expression {
@@ -256,7 +257,7 @@ class EnumerationLiteralExpression extends Expression {
   val NameExpression[1] literal;
   val NameExpression[1] enumeration;
   ref IMetamodel iModel;
-  val NameExpression model;
+  val NameExpression[1] model;
 }
 
 abstract class CollectionInitialisationExpression extends Expression {

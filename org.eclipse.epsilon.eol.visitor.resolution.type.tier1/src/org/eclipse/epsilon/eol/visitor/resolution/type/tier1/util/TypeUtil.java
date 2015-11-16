@@ -907,6 +907,10 @@ public class TypeUtil {
 		
 		if(a instanceof PrimitiveType && b instanceof PrimitiveType)
 		{
+			if (b instanceof StringType) {
+				return true;
+			}
+			
 			if (a.eClass().getEAllSuperTypes().contains(b.eClass())) {
 				return true;
 			}

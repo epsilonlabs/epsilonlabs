@@ -109,7 +109,7 @@ public class LogBook {
 	
 	protected EOLLibraryModule getEolLibraryModule(EOLElement eolElement)
 	{
-		EOLElement trace = eolElement.getContainer();
+		EOLElement trace = eolElement;
 		while(trace != null && !(trace instanceof EOLLibraryModule))
 		{
 			trace = trace.getContainer();

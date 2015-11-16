@@ -46,7 +46,9 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				for(EPackage ePackage: result)
 				{
 					if (ePackage != null) {
-						packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));
+						EMFIPackageDriver iPackageDriver = new EMFIPackageDriver(ePackage);
+						iPackageDriver.setiMetamodelDriver(this);
+						packages.put(ePackage.getName(), iPackageDriver);
 					}
 					else {
 						//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
@@ -65,7 +67,9 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 			for(EPackage ePackage: result)
 			{
 				if (ePackage != null) {
-					packages.put(ePackage.getName(), new EMFIPackageDriver(ePackage));	
+					EMFIPackageDriver iPackageDriver = new EMFIPackageDriver(ePackage);
+					iPackageDriver.setiMetamodelDriver(this);
+					packages.put(ePackage.getName(), iPackageDriver);	
 				}
 				else {
 					//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
@@ -203,6 +207,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				for(String typeName: ipd.getAllTypeNames())
 				{
 					result.add(name + "!" + typeName);
+					result.add(ipd.getPackageName() + "!" + typeName);
 				}
 				for(String alias: aliases)
 				{
@@ -225,6 +230,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 				for(String typeName: ipd.getAllTypeNames())
 				{
 					result.add(name + "!" + typeName);
+					result.add(ipd.getPackageName() + "!" + typeName);
 				}
 				for(String alias: aliases)
 				{

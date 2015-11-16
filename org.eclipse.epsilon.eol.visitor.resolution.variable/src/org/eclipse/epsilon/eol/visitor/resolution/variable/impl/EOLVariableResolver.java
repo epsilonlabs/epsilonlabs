@@ -38,6 +38,7 @@ public class EOLVariableResolver {
 		controller.addModelDeclarationStatementVisitor(new ModelDeclarationStatementVariableResolver());
 		controller.addEnumerationLiteralExpressionVisitor(new EnumerationLiteralExpressionVariableResolver());
 		
+		controller.addNewExpressionVisitor(new NewExpressionVariableResolver());
 	}
 	
 	public void run(EOLElement dom)

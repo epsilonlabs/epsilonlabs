@@ -13,12 +13,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 
 public class EMFIPackageDriver implements IPackageDriver{
 
+	protected IMetamodelDriver iMetamodelDriver = null;
 	protected EPackage ePackage;
 	protected HashMap<String, EMFIPackageDriver> subPackages = new HashMap<String, EMFIPackageDriver>();
 
@@ -358,6 +360,21 @@ public class EMFIPackageDriver implements IPackageDriver{
 			result.add(eClassifier.getName());
 		}
  		return result;
+	}
+
+	@Override
+	public IMetamodelDriver getIMetamodelDriver() {
+		return iMetamodelDriver;
+	}
+	
+	public void setiMetamodelDriver(IMetamodelDriver iMetamodelDriver) {
+		this.iMetamodelDriver = iMetamodelDriver;
+	}
+
+	@Override
+	public EPackage getEPackage() {
+		// TODO Auto-generated method stub
+		return ePackage;
 	}
 
 }

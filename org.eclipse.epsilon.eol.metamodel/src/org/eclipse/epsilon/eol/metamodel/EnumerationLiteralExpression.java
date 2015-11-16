@@ -112,7 +112,7 @@ public interface EnumerationLiteralExpression extends Expression {
 	 * @return the value of the '<em>Model</em>' containment reference.
 	 * @see #setModel(NameExpression)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEnumerationLiteralExpression_Model()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	NameExpression getModel();
