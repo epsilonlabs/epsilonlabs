@@ -1,6 +1,6 @@
 package org.eclipse.epsilon.eol.ast2eol.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
@@ -9,12 +9,12 @@ import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl;
 import org.junit.Test;
@@ -38,15 +38,15 @@ public class ImportCreatorTest {
 		EOLElement eolElement = context.getEolElementCreatorFactory().createEOLElement(eolModule.getAst(), null, context);
 
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
-		EOLProgram program = (EOLProgram) eolElement;
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getImports().size(), 1);
 		
 		Import import1 = program.getImports().get(0);
 		assertEquals(import1.getImported(), "test_import.eol");
 		
-		EOLProgram program2 = (EOLProgram) import1.getImportedModule();
+		EOLModule program2 = (EOLModule) import1.getImportedModule();
 		assertEquals(program2.getBlock().getStatements().size(), 1);
 		Statement statement = program2.getBlock().getStatements().get(0);
 		assertEquals(statement.getClass(), AssignmentStatementImpl.class);

@@ -24,7 +24,7 @@ import org.eclipse.epsilon.eol.ast2eol.DeleteStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.DivideOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EOLElementCreator;
 import org.eclipse.epsilon.eol.ast2eol.EnumerationLiteralExpressionCreator;
-import org.eclipse.epsilon.eol.ast2eol.EolProgramCreator;
+import org.eclipse.epsilon.eol.ast2eol.EOLModuleCreator;
 import org.eclipse.epsilon.eol.ast2eol.EqualsOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExecutableAnnotationStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExprListCreator;
@@ -92,7 +92,7 @@ import org.eclipse.epsilon.eol.ast2eol.VariableDeclarationExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.WhileStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.XorOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
@@ -221,7 +221,7 @@ public class EolElementCreatorFactory {
 		result.add(new ImportCreator());
 		result.add(new KeyValueExpressionCreator());
 		result.add(new ModelDeclarationParameterCreator());
-		result.add(new EolProgramCreator());
+		result.add(new EOLModuleCreator());
 		result.add(new OperationDefinitionCreator());
 		result.addAll(this.initiateStatementPool());
 		result.addAll(this.initiateTypePool());
@@ -384,7 +384,7 @@ public class EolElementCreatorFactory {
 		for(EOLElement de: createdEolElements)
 		{
 			EOLElement trace = de;
-			while(!(trace instanceof EOLProgram) && trace.getContainer() != null)
+			while(!(trace instanceof EOLModule) && trace.getContainer() != null)
 			{
 				trace = trace.getContainer();
 			}

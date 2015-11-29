@@ -8,7 +8,7 @@ import org.eclipse.epsilon.eol.ast2eol.util.AstUtilities;
 import org.eclipse.epsilon.eol.metamodel.*;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
-public class EolProgramCreator extends EOLElementCreator{
+public class EOLModuleCreator extends EOLElementCreator{
 
 	@Override
 	public boolean appliesTo(AST ast) {
@@ -26,7 +26,7 @@ public class EolProgramCreator extends EOLElementCreator{
 	public EOLElement create(AST ast, EOLElement container,
 			Ast2EolContext context) {
 		
-		EOLProgram program = context.getEolFactory().createEOLProgram(); //create a program 
+		EOLModule program = context.getEolFactory().createEOLModule(); //create a program 
 		this.setAssets(ast, program, null);
 		
 		ArrayList<AST> importAsts = AstUtilities.getChildren(ast, EolParser.IMPORT); //get Import ASTs

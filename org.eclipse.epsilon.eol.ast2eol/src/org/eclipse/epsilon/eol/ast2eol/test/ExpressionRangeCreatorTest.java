@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionRange;
 import org.eclipse.epsilon.eol.metamodel.IntegerExpression;
 import org.eclipse.epsilon.eol.metamodel.SequenceExpression;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionRangeImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.SequenceExpressionImpl;
@@ -24,9 +24,9 @@ public class ExpressionRangeCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = Sequence{1..5};");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		

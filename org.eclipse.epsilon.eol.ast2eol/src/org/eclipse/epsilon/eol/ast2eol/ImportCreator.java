@@ -4,7 +4,7 @@ import org.eclipse.epsilon.common.parse.AST;
 import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.parse.EolParser;
 
@@ -24,7 +24,7 @@ public class ImportCreator extends EOLElementCreator{
 			for(EolImport leImport: context.getModule().getImports())
 			{
 				if (leImport.getAst().equals(ast)) {
-					EOLProgram importedProgram = (EOLProgram) context.getEolElementCreatorFactory().createEOLElement(leImport.getModule().getAst(), imp, context);
+					EOLModule importedProgram = (EOLModule) context.getEolElementCreatorFactory().createEOLElement(leImport.getModule().getAst(), imp, context);
 					if (importedProgram != null) {
 						imp.setImportedModule(importedProgram);
 					}

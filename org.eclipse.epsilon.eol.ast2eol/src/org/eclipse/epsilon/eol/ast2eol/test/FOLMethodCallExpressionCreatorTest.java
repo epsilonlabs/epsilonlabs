@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.BooleanExpression;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionList;
 import org.eclipse.epsilon.eol.metamodel.ExpressionStatement;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
@@ -17,7 +17,7 @@ import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.BooleanExpressionImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionListImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
@@ -35,9 +35,9 @@ public class FOLMethodCallExpressionCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = Sequence{1,\"hello\",true}; \n" +
 		"a.select(v|v.isKindOf(Integer)).println();");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		
@@ -81,9 +81,9 @@ public class FOLMethodCallExpressionCreatorTest {
 		
 		assertEquals(folMethodCallExpression.getMethod().getName(), "select");
 		assertEquals(folMethodCallExpression.getIterator().getName().getName(), "v");
-		assertEquals(folMethodCallExpression.getCondition().getClass(), MethodCallExpressionImpl.class);
+		assertEquals(folMethodCallExpression.getConditions().get(0).getClass(), MethodCallExpressionImpl.class);
 		
-		MethodCallExpression condition = (MethodCallExpression) folMethodCallExpression.getCondition();
+		MethodCallExpression condition = (MethodCallExpression) folMethodCallExpression.getConditions().get(0);
 		assertEquals(condition.getTarget().getClass(), NameExpressionImpl.class);
 		assertEquals(condition.getMethod().getName(), "isKindOf");
 		assertEquals(condition.getArguments().size(), 1);

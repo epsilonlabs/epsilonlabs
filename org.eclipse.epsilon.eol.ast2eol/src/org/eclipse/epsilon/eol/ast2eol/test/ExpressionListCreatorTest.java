@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.BooleanExpression;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionList;
 import org.eclipse.epsilon.eol.metamodel.IntegerExpression;
 import org.eclipse.epsilon.eol.metamodel.SequenceExpression;
@@ -13,7 +13,7 @@ import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.BooleanExpressionImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionListImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.SequenceExpressionImpl;
@@ -27,9 +27,9 @@ public class ExpressionListCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = Sequence{1,\"hello\",true};");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		

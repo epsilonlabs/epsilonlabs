@@ -43,8 +43,15 @@ public class FOLMethodCallExpressionCreator extends FeatureCallExpressionCreator
 		
 		AST conditionAst = parametersAst.getNextSibling();
 		if (conditionAst != null) {
-			expression.setCondition((Expression) context.getEolElementCreatorFactory().createEOLElement(conditionAst, expression, context));
+			expression.getConditions().add((Expression) context.getEolElementCreatorFactory().createEOLElement(conditionAst, expression, context));
+			//expression.setCondition((Expression) context.getEolElementCreatorFactory().createEOLElement(conditionAst, expression, context));
+			AST anotherConditionAst = conditionAst.getNextSibling();
+			if (anotherConditionAst != null) {
+				expression.getConditions().add((Expression) context.getEolElementCreatorFactory().createEOLElement(anotherConditionAst, expression, context));
+			}
 		}
+		
+		
 		
 		boolean isArrow = ast.getType() == EolParser.ARROW ? true : false;
 		expression.setIsArrow(isArrow);

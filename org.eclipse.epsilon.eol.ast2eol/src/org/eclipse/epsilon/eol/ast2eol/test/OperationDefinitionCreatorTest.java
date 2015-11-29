@@ -3,11 +3,11 @@ package org.eclipse.epsilon.eol.ast2eol.test;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.impl.AnyTypeImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerTypeImpl;
 import org.junit.Test;
@@ -18,9 +18,9 @@ public class OperationDefinitionCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("operation foo(bar:Integer) {}");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		
@@ -42,9 +42,9 @@ public class OperationDefinitionCreatorTest {
 	public void test1() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("operation Integer foo(bar:Integer) {}");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		
@@ -67,9 +67,9 @@ public class OperationDefinitionCreatorTest {
 	public void test2() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("operation Integer foo(bar:Integer) : Integer {}");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		

@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionList;
 import org.eclipse.epsilon.eol.metamodel.SetExpression;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionListImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.SetExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl;
@@ -22,9 +22,9 @@ public class SetExpressionCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = Set{1,2,3,4,5};");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		

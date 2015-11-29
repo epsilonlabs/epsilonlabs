@@ -5,13 +5,13 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionStatement;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionStatementImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.StringExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.StringTypeImpl;
@@ -23,9 +23,9 @@ public class StringTypeCreatorTest {
 	@Test
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = \"hello world!\";");
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().size(), 1);
 		
@@ -47,9 +47,9 @@ public class StringTypeCreatorTest {
 	@Test
 	public void test1() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a : String;");
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().size(), 1);
 		

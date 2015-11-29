@@ -3,12 +3,12 @@ package org.eclipse.epsilon.eol.ast2eol.test;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExpressionStatement;
 import org.eclipse.epsilon.eol.metamodel.OrderedSetType;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionStatementImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerTypeImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.OrderedSetTypeImpl;
@@ -22,9 +22,9 @@ public class OrderedSetTypeCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a : OrderedSet(Integer);");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		

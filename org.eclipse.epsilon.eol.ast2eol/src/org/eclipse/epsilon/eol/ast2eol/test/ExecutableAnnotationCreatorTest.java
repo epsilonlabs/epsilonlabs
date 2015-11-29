@@ -5,11 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.epsilon.eol.metamodel.AnnotationBlock;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ExecutableAnnotationStatement;
 import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.NotEqualsOperatorExpressionImpl;
 import org.junit.Test;
@@ -22,8 +22,8 @@ public class ExecutableAnnotationCreatorTest {
 				"operation foo() {} ");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
-		EOLProgram program = (EOLProgram) eolElement;
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		

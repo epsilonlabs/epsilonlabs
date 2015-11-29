@@ -1,16 +1,16 @@
 package org.eclipse.epsilon.eol.ast2eol.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.IntegerExpression;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl;
 import org.junit.Test;
@@ -20,9 +20,9 @@ public class IntegerExpressionCreatorTest {
 	@Test
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = 10;");
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().size(), 1);
 		

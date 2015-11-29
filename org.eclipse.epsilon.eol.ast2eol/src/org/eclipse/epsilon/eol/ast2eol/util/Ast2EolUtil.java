@@ -26,12 +26,12 @@ public class Ast2EolUtil {
 		return context;
 	}
 	
-	public EOLProgram createEOLProgramFromPath(String path)
+	public EOLModule createEOLProgramFromPath(String path)
 	{
-		EOLProgram result = null;
+		EOLModule result = null;
 		AST ast = createASTFromPath(path);
 		if (ast != null) {
-			result = (EOLProgram) context.getEolElementCreatorFactory().createEOLElement(ast, null, context);	
+			result = (EOLModule) context.getEolElementCreatorFactory().createEOLElement(ast, null, context);	
 		}
 		return result;
 	}

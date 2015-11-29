@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.IntegerExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
 import org.eclipse.epsilon.eol.metamodel.ReturnStatement;
 import org.eclipse.epsilon.eol.metamodel.impl.AnyTypeImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.FormalParameterExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.IntegerTypeImpl;
@@ -23,9 +23,9 @@ public class ReturnStatementCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("operation foo(bar:Integer) { return; }");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		
@@ -53,9 +53,9 @@ public class ReturnStatementCreatorTest {
 	public void test1() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("operation foo(bar:Integer) { return 1; }");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getOperations().size(), 1);
 		
@@ -85,9 +85,9 @@ public class ReturnStatementCreatorTest {
 	public void test2() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("return;");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().size(), 1);
 		assertEquals(program.getBlock().getStatements().get(0).getClass(), ReturnStatementImpl.class);

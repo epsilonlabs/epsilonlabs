@@ -1,11 +1,11 @@
 package org.eclipse.epsilon.eol.ast2eol.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.impl.ContinueStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.junit.Test;
 
 public class ContinueStatementCreatorTest {
@@ -15,8 +15,8 @@ public class ContinueStatementCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("continue; ");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
-		EOLProgram program = (EOLProgram) eolElement;
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
+		EOLModule program = (EOLModule) eolElement;
 		assertEquals(program.getBlock().getStatements().get(0).getClass(), ContinueStatementImpl.class);
 		
 	}

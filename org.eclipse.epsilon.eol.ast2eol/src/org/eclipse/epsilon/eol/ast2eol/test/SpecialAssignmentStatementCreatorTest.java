@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Block;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.SpecialAssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.SpecialAssignmentStatementImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl;
@@ -21,9 +21,9 @@ public class SpecialAssignmentStatementCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = A!B; \n" +
 				"var b ::= a;");
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().size(), 2);
 		

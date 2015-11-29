@@ -3,13 +3,13 @@ package org.eclipse.epsilon.eol.ast2eol.test;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationParameter;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.StringExpressionImpl;
 import org.junit.Test;
@@ -20,9 +20,9 @@ public class ModelDeclarationStatementCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("model Core alias a, b driver EMF {nsuri = \"org.amma.dsl.jdt.core\"};");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		assertEquals(program.getBlock().getStatements().size(), 0);
 		
 		assertEquals(program.getModelDeclarations().size(), 1);

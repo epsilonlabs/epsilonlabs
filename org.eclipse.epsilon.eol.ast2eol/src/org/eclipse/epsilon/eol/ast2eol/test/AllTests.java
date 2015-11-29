@@ -16,7 +16,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		DeleteStatementCreatorTest.class,
 		DivideOperatorExpressionCreatorTest.class,
 		EnumerationLiteralExpressionCreatorTest.class,
-		EolProgramCreatorTest.class, EqualsOperatorExpressionCreatorTest.class,
+		EOLModuleCreatorTest.class, EqualsOperatorExpressionCreatorTest.class,
 		ExecutableAnnotationCreatorTest.class, ExpressionRangeCreatorTest.class,
 		ExpressionOrStatementBlockCreatorTest.class,
 		ExpressionStatementCreatorTest.class, ExpressionListCreatorTest.class,

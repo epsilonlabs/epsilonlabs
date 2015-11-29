@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.OrderedSetExpression;
 import org.eclipse.epsilon.eol.metamodel.Statement;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.ExpressionListImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.OrderedSetExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.VariableDeclarationExpressionImpl;
@@ -21,9 +21,9 @@ public class OrderedSetExpressionCreatorTest {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = OrderedSet{1,2,3,4};");
 		
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		Statement statement = program.getBlock().getStatements().get(0);
 		

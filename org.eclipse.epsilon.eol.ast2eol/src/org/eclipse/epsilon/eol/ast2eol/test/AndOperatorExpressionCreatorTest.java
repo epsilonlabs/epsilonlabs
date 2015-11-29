@@ -1,13 +1,13 @@
 package org.eclipse.epsilon.eol.ast2eol.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.impl.AndOperatorExpressionImpl;
 import org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl;
-import org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl;
+import org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl;
 import org.junit.Test;
 
 public class AndOperatorExpressionCreatorTest {
@@ -16,9 +16,9 @@ public class AndOperatorExpressionCreatorTest {
 	public void test() {
 		EOLElement eolElement = AST2EolElementProducer.parseAST("var a = b and c;");
 		
-		assertEquals(eolElement.getClass(), EOLProgramImpl.class);
+		assertEquals(eolElement.getClass(), EOLModuleImpl.class);
 		
-		EOLProgram program = (EOLProgram) eolElement;
+		EOLModule program = (EOLModule) eolElement;
 		
 		assertEquals(program.getBlock().getStatements().get(0).getClass(), AssignmentStatementImpl.class);
 		
