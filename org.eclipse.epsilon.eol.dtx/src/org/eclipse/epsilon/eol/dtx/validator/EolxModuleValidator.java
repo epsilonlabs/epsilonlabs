@@ -37,8 +37,6 @@ public class EolxModuleValidator implements IModuleValidator {
 			EolElementCreatorFactory factory = ast2EolContext.getEolElementCreatorFactory();
 			EOLElement eolElement = factory.createEOLElement(module.getAst(), null, ast2EolContext);
 			
-			LogBook logBook = LogBook.getInstance(true);
-
 			EOLVariableResolver variableResolver = new EOLVariableResolver();
 			VariableResolutionContext.getInstance().setEolModule((EolModule) module);
 			variableResolver.run(eolElement);
@@ -58,6 +56,7 @@ public class EolxModuleValidator implements IModuleValidator {
 				TextRegion textRegion = warning.getEolElement().getRegion();
 				Region region = new Region(textRegion.getStart().getLine(), textRegion.getStart().getColumn(), textRegion.getEnd().getLine(), textRegion.getEnd().getColumn());
 				ModuleMarker marker = new ModuleMarker(null, region, warning.getMessage(), Severity.Warning);
+				
 				markers.add(marker);
 			}
 			

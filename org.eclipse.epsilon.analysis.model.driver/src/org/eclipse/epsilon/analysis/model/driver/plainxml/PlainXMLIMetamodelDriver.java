@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
@@ -33,24 +34,46 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 	protected IMetamodel iMetamodel = null;
 
 	@Override
-	public boolean loadModel(String URIorPath) {
+	public boolean loadModel(HashMap<String, Object> options) {
 		ArrayList<XML2EcoreTranslator> result = new ArrayList<XML2EcoreTranslator>();
-		result.add(util.translatePlainXML2EPackage(URIorPath));
-		if (result.size() > 0) {
-			for(XML2EcoreTranslator translator: result)
-			{
-				EPackage ePackage = translator.getEPackage();
-				PlainXMLIpackageDriver driver = new PlainXMLIpackageDriver(ePackage);
-				driver.setiMetamodelDriver(this);
-				driver.setRoot(translator.get_root());
-				packages.put(ePackage.getName(), driver);
+		String path = (String) options.get("path");
+		Boolean create = (Boolean) options.get("create");
+		String name = (String) options.get("name");
+		
+		if (create) {
+			EPackage ePackage = EcoreFactory.eINSTANCE.createEPackage();
+			PlainXMLIpackageDriver driver = new PlainXMLIpackageDriver(ePackage);
+			driver.setCreate(true);
+			if (name != null) {
+				ePackage.setName(name);
 			}
+			if (path != null) {
+				ePackage.setNsURI(path);
+			}
+			driver.setiMetamodelDriver(this);
+			packages.put(name, driver);
 			reconcileEolLibraryModule();
 			return true;
 		}
+		
 		else {
-			logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
-			return false;
+			result.add(util.translatePlainXML2EPackage(path));
+			if (result.size() > 0) {
+				for(XML2EcoreTranslator translator: result)
+				{
+					EPackage ePackage = translator.getEPackage();
+					PlainXMLIpackageDriver driver = new PlainXMLIpackageDriver(ePackage);
+					driver.setiMetamodelDriver(this);
+					driver.setRoot(translator.get_root());
+					packages.put(ePackage.getName(), driver);
+				}
+				reconcileEolLibraryModule();
+				return true;
+			}
+			else {
+				logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+				return false;
+			}
 		}
 	}
 
@@ -118,6 +141,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 		iMetamodel = EolFactory.eINSTANCE.createIMetamodel();
 		iMetamodel.setName(modelDeclarationStatement.getName().getName());
 		iMetamodel.setDriver(modelDeclarationStatement.getDriver());
+		iMetamodel.setIMetamodelDriver(this);
 		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAliases())
 		{
 			iMetamodel.getAliases().add(alias.getName());
@@ -152,6 +176,7 @@ public class PlainXMLIMetamodelDriver implements IMetamodelDriver{
 		}
 		EOLLibraryModule module = (EOLLibraryModule) tracer;
 		module.getIModels().add(iMetamodel);
+		modelDeclarationStatement.setIMetamodel(iMetamodel);
 	}
 
 	@Override

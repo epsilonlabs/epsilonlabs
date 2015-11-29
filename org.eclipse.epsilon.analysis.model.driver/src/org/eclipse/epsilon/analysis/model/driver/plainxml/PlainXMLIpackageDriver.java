@@ -21,15 +21,21 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_IMetamodelDriver;
 
 public class PlainXMLIpackageDriver implements IPackageDriver{
 	
+	protected boolean create = false;
 	protected EPackage ePackage;
 	protected EClass root;
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
 	protected IMetamodelDriver iMetamodelDriver = null;
 	
 	protected EOLElement currentEolElement = null;
+		
+	public void setCreate(boolean create) {
+		this.create = create;
+	}
 	
-	protected boolean read = false;
-
+	public boolean isCreate() {
+		return create;
+	}
 	
 	public PlainXMLIpackageDriver(EPackage ePackage)
 	{
@@ -52,14 +58,6 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 		this.currentEolElement = currentEolElement;
 	}
 	
-	public void setRead(boolean read) {
-		this.read = read;
-	}
-	
-	public boolean isRead() {
-		return read;
-	}
-	
 	@Override
 	public String getPackageName() {
 		return ePackage.getName();
@@ -78,7 +76,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	@Override
 	public boolean containsMetaElement(String elementName) {
 		if (elementName.startsWith("t_") || elementName.equals("root")) {
-			if (read) {
+			if (!create) {
 				EClass result = (EClass) ePackage.getEClassifier(elementName);
 				if (result != null) {
 					return true;
@@ -107,14 +105,17 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				return result; 
 			}
 			else {
-				if (read) {
+				if (!create) {
 					return null;
 				}
 				else {
-					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
+					//LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
 					result = EcoreFactory.eINSTANCE.createEClass();
 					result.setName(elementName);
 					ePackage.getEClassifiers().add(result);
+					if (root == null) {
+						root = result;
+					}
 					return result;	
 				}
 			}
@@ -127,7 +128,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	@Override
 	public boolean containsClass(String elementName) {
 		if (elementName.startsWith("t_") || elementName.equals("root")) {
-			if (read) {
+			if (!create) {
 				EClass result = (EClass) ePackage.getEClassifier(elementName);
 				if (result != null) {
 					return true;
@@ -156,17 +157,19 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				return result; 
 			}
 			else {
-				if (read) {
+				if (!create) {
 					return null;
 				}
 				else {
-					LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
+					//LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.METACLASS_MAY_NOT_EXIST);
 					result = EcoreFactory.eINSTANCE.createEClass();
 					result.setName(elementName);
 					ePackage.getEClassifiers().add(result);
+					if (root == null) {
+						root = result;
+					}
 					return result;
 				}
-				
 			}
 		}
 		else {
@@ -230,7 +233,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				}
 				else {
 					attributeName = util.removeTag(attributeName);
-					if (read) {
+					if (!create) {
 						EClass eClass = getClass(elementName);
 						if (eClass == null) {
 							return false;
@@ -276,11 +279,11 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 			}
 			else {
 				if (attributeName.equals("text") || attributeName.equals("tagName")) {
-					if (read) {
+					if (!create) {
 						EClass eClass = getClass(elementName);
 						if (eClass != null) {
 							EStructuralFeature feature = eClass.getEStructuralFeature(attributeName);
-							if (feature == null) {
+							if (feature != null) {
 								return true;
 							}
 							else {
@@ -326,7 +329,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						referenceName.startsWith("c_") ||
 						referenceName.startsWith("t_")) {
 					referenceName = util.removeTag(referenceName);
-					if (read) {
+					if (!create) {
 						EClass eClass = getClass(elementName);
 						if (eClass == null) {
 							return false;
@@ -375,7 +378,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 			}
 			else {
 				if (referenceName.equals("parentNode") || referenceName.equals("children")) {
-					if (read) {
+					if (!create) {
 						EClass eClass = getClass(elementName);
 						if (eClass == null) {
 							return false;
@@ -447,12 +450,12 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				if (attributeName.equals("text") || attributeName.equals("tagName")) { //if is keyword, handle it
 					EAttribute result = (EAttribute) clazz.getEStructuralFeature(attributeName);
 					if (result == null) {
-						if (read) {
+						if (!create) {
 							return null;
 						}
 						else {
 							//should issue warning
-							LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+							//LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 							EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
 							attribute.setName(attributeName);
 							attribute.setUpperBound(1);
@@ -477,11 +480,11 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						String escapedAttrName = util.removeTag(attributeName); //escape attribute name
 						EStructuralFeature attribute = clazz.getEStructuralFeature(escapedAttrName); //get the estructurefeature
 						if (attribute == null) { //if does not exist, create one and throw a warning
-							if (read) {
+							if (!create) {
 								return null;
 							}
 							else {
-								LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
+								//LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_MAY_NOT_EXIST, attributeName));
 								attribute = EcoreFactory.eINSTANCE.createEAttribute();
 								attribute.setName(escapedAttrName);
 								attribute.setUpperBound(1);
@@ -493,6 +496,28 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						}
 						else { //if exists
 							if (attribute instanceof EAttribute) { //if it is not an eattribute return null
+								EAttribute _attribute = (EAttribute) attribute;
+								EDataType eDataType = (EDataType) _attribute.getEType();
+								if (attributeName.startsWith("i_")) {
+									if (!eDataType.equals(EcorePackage.eINSTANCE.getEInt())) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_TYPE_MISMATCH, attributeName, "Integer"));
+									}
+								}
+								else if (attributeName.startsWith("a_") || attributeName.startsWith("s_")) {
+									if (!eDataType.equals(EcorePackage.eINSTANCE.getEString())) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_TYPE_MISMATCH, attributeName, "String"));
+									}
+								}
+								else if (attributeName.startsWith("b_")) {
+									if (!eDataType.equals(EcorePackage.eINSTANCE.getEBoolean())) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_TYPE_MISMATCH, attributeName, "Boolean"));
+									}
+								}
+								else if (attributeName.startsWith("r_")) {
+									if ((!eDataType.equals(EcorePackage.eINSTANCE.getEDouble())) && (!eDataType.equals(EcorePackage.eINSTANCE.getEFloat()))) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.ATTRIBUTE_TYPE_MISMATCH, attributeName, "Real"));
+									}
+								}
 								return (EAttribute) attribute;
 							}
 							else {
@@ -571,24 +596,47 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					String escapedReferenceName = util.removeTag(referenceName);
 					EStructuralFeature feature = clazz.getEStructuralFeature(escapedReferenceName);
 					if (feature == null) {
-						if (read) {
+						if (!create) {
 							return null;
 						}
 						else {
-							LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
+							//LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MAY_NOT_EXIST, referenceName));
 							EClass otherEnd = getClass("t_"+escapedReferenceName);
 							EReference eReference = EcoreFactory.eINSTANCE.createEReference();
 							eReference.setName(escapedReferenceName);
 							eReference.setEType(otherEnd);
 							eReference.setLowerBound(0);
-							eReference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+							if (referenceName.startsWith("e_")) {
+								eReference.setUpperBound(1);
+							}
+							if (referenceName.startsWith("c_")) {
+								eReference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	
+							}
 							clazz.getEStructuralFeatures().add(eReference);
 							return eReference;
 						}
 					}
 					else {
 						if (feature instanceof EReference) {
-							return (EReference) feature;
+							if (!create) {
+								return (EReference) feature;
+							}
+							else {
+								if (referenceName.startsWith("c_")) {
+									if (feature.getUpperBound() != EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_SINGLE_VALUED, referenceName));
+									}
+									feature.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+								}
+								else if (referenceName.startsWith("e_")) {
+									if (feature.getUpperBound() == EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
+										LogBook.getInstance().addWarning(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MULTI_VALUED, referenceName));
+									}
+									feature.setUpperBound(1);
+								}
+;								return (EReference) feature;
+							}
+							
 						}
 						else {
 							return null;
@@ -676,7 +724,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 		if (attributeName.equals("text") || attributeName.equals("tagName")) { //if is keyword, handle it
 			EAttribute result = (EAttribute) metaElement.getEStructuralFeature(attributeName);
 			if (result == null) {
-				if (read) {
+				if (!create) {
 					return null;
 				}
 				else {
@@ -706,7 +754,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				String escapedAttrName = util.removeTag(attributeName); //escape attribute name
 				EStructuralFeature attribute = metaElement.getEStructuralFeature(escapedAttrName); //get the estructurefeature
 				if (attribute == null) { //if does not exist, create one and throw a warning
-					if (read) {
+					if (!create) {
 						return null;
 					}
 					else {
@@ -789,7 +837,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 			String escapedReferenceName = util.removeTag(referenceName);
 			EStructuralFeature feature = metaElement.getEStructuralFeature(escapedReferenceName);
 			if (feature == null) {
-				if (read) {
+				if (!create) {
 					return null;
 				}
 				else {
@@ -800,7 +848,12 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					eReference.setName(escapedReferenceName);
 					eReference.setEType(otherEnd);
 					eReference.setLowerBound(0);
-					eReference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					if (referenceName.startsWith("e_")) {
+						eReference.setUpperBound(1);
+					}
+					if (referenceName.startsWith("c_")) {
+						eReference.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);	
+					}
 					metaElement.getEStructuralFeatures().add(eReference);
 					return eReference;
 				}

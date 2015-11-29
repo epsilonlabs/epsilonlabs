@@ -18,16 +18,19 @@ public class PlainXMLMetamodelDriverUtil {
 			xml2EcoreTranslator.translatePlainXMLFromFile(URIorPath);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		
-		return xml2EcoreTranslator;
+		finally
+		{
+			xml2EcoreTranslator.getePackage().setName(URIorPath);
+			return xml2EcoreTranslator;	
+		}
 	}
 	
 	public boolean isXMLSyntax(String fullName)
@@ -36,7 +39,7 @@ public class PlainXMLMetamodelDriverUtil {
 				fullName.startsWith("i_") || fullName.startsWith("f_") || 
 				fullName.startsWith("d_") || fullName.startsWith("s_") ||
 				fullName.startsWith("t_") || fullName.startsWith("c_") ||
-				fullName.startsWith("e_") || fullName.startsWith("x_")) {
+				fullName.startsWith("e_") || fullName.startsWith("x_") || fullName.startsWith("r_")) {
 			return true;
 		}
 		else {
@@ -67,6 +70,9 @@ public class PlainXMLMetamodelDriverUtil {
 		}
 		else if (s.startsWith("i_")) {
 			return EcorePackage.eINSTANCE.getEInt();
+		}
+		else if (s.startsWith("r_")) {
+			return EcorePackage.eINSTANCE.getEFloat();
 		}
 		else if (s.startsWith("s_") || s.startsWith("a_")) {
 			return EcorePackage.eINSTANCE.getEString();

@@ -25,8 +25,8 @@ public class IMetamodelManager {
 		ArrayList<String> result = new ArrayList<String>();
 		if (iMetamodelDrivers.size() == 1) {
 			if (iMetamodelDrivers.get(0) instanceof PlainXMLIMetamodelDriver) {
-				result.add("XMLDoc");
-				result.add("Element");
+//				result.add("XMLDoc");
+//				result.add("Element");
 			}
 			result.addAll(iMetamodelDrivers.get(0).getAllTypeNames(true));
 		}

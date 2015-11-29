@@ -13,6 +13,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -74,26 +75,107 @@ public class XML2EcoreTranslator {
 		HashMap<String, EAttribute> attributeMap = new HashMap<String, EAttribute>(); //initialise attribute map
 
 		String attributeName = "tagName"; //get the attr name
-		getEAttribute(className, attributeName); //retrieve attr if exist, if not create one
+		getEAttribute(className, attributeName, EcorePackage.eINSTANCE.getEString()); //retrieve attr if exist, if not create one
 		
+		attributeName = "text"; //get the attr name
+		getEAttribute(className, attributeName, EcorePackage.eINSTANCE.getEString()); //retrieve attr if exist, if not create one
 		
-		if (element.getTextContent().split("\n").length == 1) {
-			String attrName = "text"; //get the attr name
-			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one
-			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
-				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
-			}
-			else {
-				attributeMap.put(attrName, attr); 
-			}
-		}
+//		if (element.getTextContent().split("\n").length == 1) {
+//			String attrName = "text"; //get the attr name
+//			EAttribute attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEString()); //retrieve attr if exist, if not create one
+//			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
+//				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+//			}
+//			else {
+//				attributeMap.put(attrName, attr); 
+//			}
+//		}
 
 		for(int i = 0; i < attrs.getLength(); i++) //for each attribute
 		{
-			String attrName = attrs.item(i).getNodeName(); //get the attr name
-			EAttribute attr = getEAttribute(className, attrName); //retrieve attr if exist, if not create one			
+			Node n = attrs.item(i);
+			
+			String attrName = n.getNodeName(); //get the attr name
+			String attrVal = n.getNodeValue();
+			EAttribute attr = null;
+			if (isInteger(attrVal)) {
+				attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEInt());
+			}
+			else if (isFloat(attrVal)) {
+				attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEFloat());
+			}
+			else if (isDouble(attrVal)) {
+				attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEDouble());
+			}
+			else if (isBoolean(attrVal)) {
+				attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEBoolean());
+			}
+			
+			if (attr == null) {
+				attr = getEAttribute(className, attrName, EcorePackage.eINSTANCE.getEString());
+			}
+			
 			if (attributeMap.containsKey(attrName)) { //if attribute already exists set upper bound to unlimited
-				attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+				EAttribute _attr = attributeMap.get(attrName);
+				if (_attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) {
+					if (!attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) {
+						
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+						attributeMap.put(attrName, attr);
+					}
+					else{
+						_attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					}
+				}
+				else if (_attr.getEType().equals(EcorePackage.eINSTANCE.getEInt())) {
+					if ((!attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) && (!attr.getEType().equals(EcorePackage.eINSTANCE.getEInt()))) {
+						
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+						attributeMap.put(attrName, attr);
+					}
+					else {
+						_attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					}
+				}
+				else if (_attr.getEType().equals(EcorePackage.eINSTANCE.getEFloat())) {
+					if ((!attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) && 
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEInt())) &&
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEFloat()))) {
+						
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+						attributeMap.put(attrName, attr);
+					}
+					else {
+						_attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					}
+				}
+				else if (_attr.getEType().equals(EcorePackage.eINSTANCE.getEDouble())) {
+					if ((!attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) && 
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEInt())) &&
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEFloat())) &&
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEDouble()))) {
+						
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+						attributeMap.put(attrName, attr);
+					}
+					else {
+						_attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					}
+				}
+				else if (_attr.getEType().equals(EcorePackage.eINSTANCE.getEString())) {
+					if ((!attr.getEType().equals(EcorePackage.eINSTANCE.getEBoolean())) && 
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEInt())) &&
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEFloat())) &&
+							(!attr.getEType().equals(EcorePackage.eINSTANCE.getEDouble()))) {
+						
+						attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+						attributeMap.put(attrName, attr);
+					}
+					else {
+						_attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+					}
+				}
+				//attr.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
 			}
 			else {
 				attributeMap.put(attrName, attr); 
@@ -142,7 +224,7 @@ public class XML2EcoreTranslator {
 		return result;
 	}
 	
-	public EAttribute getEAttribute(String className, String attributeName)
+	public EAttribute getEAttribute(String className, String attributeName, EDataType eType)
 	{
 		EAttribute result = null;
 		if (metaElementMap.containsKey(className)) {
@@ -150,7 +232,8 @@ public class XML2EcoreTranslator {
 			if (cls.getEStructuralFeature(attributeName) == null) {
 				result = ecoreFactory.createEAttribute();
 				result.setName(attributeName);
-				result.setEType(EcorePackage.eINSTANCE.getEString());
+				result.setEType(eType);
+				//result.setEType(EcorePackage.eINSTANCE.getEString());
 				result.setLowerBound(0);
 				result.setUpperBound(1);
 				cls.getEStructuralFeatures().add(result);
@@ -169,6 +252,7 @@ public class XML2EcoreTranslator {
 			EClass cls = metaElementMap.get(className);
 			if (cls.getEStructuralFeature(referenceName) == null) {
 				result = ecoreFactory.createEReference();
+				result.setContainment(true);
 				result.setName(referenceName);
 				result.setEType(referredClass);
 				result.setLowerBound(0);
@@ -262,7 +346,7 @@ public class XML2EcoreTranslator {
 	      return isValidInteger;
 	}
 	
-	public static boolean isReal(String s) {
+	public static boolean isFloat(String s) {
 	      boolean isValidInteger = false;
 	      try
 	      {
@@ -276,6 +360,34 @@ public class XML2EcoreTranslator {
 	      }
 	 
 	      return isValidInteger;
+	}
+	
+	public static boolean isDouble(String s) {
+	      boolean isValidInteger = false;
+	      try
+	      {
+	         Double.parseDouble(s);
+	         // s is a valid integer
+	         isValidInteger = true;
+	      }
+	      catch (NumberFormatException ex)
+	      {
+	         // s is not an integer
+	      }
+	 
+	      return isValidInteger;
+	}
+	
+	public static boolean isBoolean(String s)
+	{
+	      if (s.equals("true") || s.equals("false")) {
+			return true;
+		}
+	      return false;
+	}
+	
+	public EPackage getePackage() {
+		return ePackage;
 	}
 
 }

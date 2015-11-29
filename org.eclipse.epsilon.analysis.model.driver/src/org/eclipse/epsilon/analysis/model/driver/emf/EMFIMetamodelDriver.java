@@ -34,14 +34,12 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 	protected IMetamodel iMetamodel = null;
 	
 	@Override
-	public boolean loadModel(String pathOrNSURI) {
+	public boolean loadModel(HashMap<String, Object> options) {
 		ArrayList<EPackage> result = new ArrayList<EPackage>();
 		
-		result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(pathOrNSURI));
-
-		
-		if (result.size() == 1 && result.get(0) == null) {
-			result.addAll(EcoreFileLoader.loadEPackageFromFile(pathOrNSURI));
+		String path = (String) options.get("path");
+		if (path != null) {
+			result.addAll(EcoreFileLoader.loadEPackageFromFile(path));
 			if (result.size() > 0) {
 				for(EPackage ePackage: result)
 				{
@@ -64,21 +62,27 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 			}
 		}
 		else {
-			for(EPackage ePackage: result)
-			{
-				if (ePackage != null) {
-					EMFIPackageDriver iPackageDriver = new EMFIPackageDriver(ePackage);
-					iPackageDriver.setiMetamodelDriver(this);
-					packages.put(ePackage.getName(), iPackageDriver);	
+			String nsuri = (String) options.get("nsuri");
+			if (nsuri != null) {
+				result.addAll(EcoreRegistryLoader.loadEPackageFromRegistry(nsuri));
+				for(EPackage ePackage: result)
+				{
+					if (ePackage != null) {
+						EMFIPackageDriver iPackageDriver = new EMFIPackageDriver(ePackage);
+						iPackageDriver.setiMetamodelDriver(this);
+						packages.put(ePackage.getName(), iPackageDriver);	
+					}
+					else {
+						//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
+						return false;
+					}
 				}
-				else {
-					//logBook.addError(modelDeclarationStatement, IMessage_IMetamodelDriver.UNABLE_TO_LOAD_METAMODEL);
-					return false;
-				}
-				
+				reconcileEolLibraryModule();
+				return true;
 			}
-			reconcileEolLibraryModule();
-			return true;
+			else {
+				return false;
+			}
 		}
 	}
 		
@@ -146,6 +150,7 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		iMetamodel = EolFactory.eINSTANCE.createIMetamodel();
 		iMetamodel.setName(modelDeclarationStatement.getName().getName());
 		iMetamodel.setDriver(modelDeclarationStatement.getDriver());
+		iMetamodel.setIMetamodelDriver(this);
 		for(VariableDeclarationExpression alias: modelDeclarationStatement.getAliases())
 		{
 			iMetamodel.getAliases().add(alias.getName());
@@ -180,6 +185,8 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		}
 		EOLLibraryModule module = (EOLLibraryModule) tracer;
 		module.getIModels().add(iMetamodel);
+		
+		modelDeclarationStatement.setIMetamodel(iMetamodel);
 	}
 
 
@@ -244,4 +251,5 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 		
 		
 		return result;}
+
 }

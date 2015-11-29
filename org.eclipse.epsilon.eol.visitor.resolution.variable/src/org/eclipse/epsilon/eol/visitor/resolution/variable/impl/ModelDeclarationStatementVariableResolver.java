@@ -1,5 +1,8 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.emf.EMFIMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.plainxml.PlainXMLIMetamodelDriver;
@@ -29,78 +32,111 @@ public class ModelDeclarationStatementVariableResolver extends ModelDeclarationS
 			ModelDeclarationParameter sourceParameter = null;
 			
 			//fetch the metamodel name or NSURI
-			String sourceString = ""; 
+			//String sourceString = ""; 
 
 			//if the driver is EMF
 			if(getDriverType(modelDeclarationStatement).equals("EMF"))
 			{
+				HashMap<String, Object> options = new HashMap<String, Object>();
+				
 				//get the nsuri 
 				sourceParameter = getParameter("nsuri", modelDeclarationStatement);
-				
-				
-				//if nsuri is not found, find uri for file location
-				if (sourceParameter == null) {
-					sourceParameter = getParameter("path", modelDeclarationStatement);	
-				}
-				
-				//if no nsuri is defined, it should report error and return
-				if (sourceParameter == null) {
-					LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
+				if (sourceParameter != null) {
+					options.put("nsuri", ((StringExpression)sourceParameter.getValue()).getValue());
 				}
 				else {
-					
-					//if nsuri or the uri is found, get it 
-					sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
-					
-					//create a new MetaModel
-					IMetamodelDriver iMetamodelDriver = new EMFIMetamodelDriver(); 
-					iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
-					for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
-					{
-						iMetamodelDriver.getAliases().add(vde.getName().getName());
+					sourceParameter = getParameter("path", modelDeclarationStatement);
+					if (sourceParameter != null) {
+						
+						options.put("path", ((StringExpression)sourceParameter.getValue()).getValue());
 					}
-					iMetamodelDriver.setLogBook(LogBook.getInstance());
-					iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
-					
-					
-					boolean loaded = iMetamodelDriver.loadModel(sourceString);
-					
-					if (loaded) {
-						context.getiMetamodelManager().addIMetamodelDriver(iMetamodelDriver);
+					else {
+						LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
 					}
 				}
+				
+
+				
+				//if nsuri or the uri is found, get it 
+				//sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
+				
+				//create a new MetaModel
+				IMetamodelDriver iMetamodelDriver = new EMFIMetamodelDriver(); 
+				iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
+				for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
+				{
+					iMetamodelDriver.getAliases().add(vde.getName().getName());
+				}
+				iMetamodelDriver.setLogBook(LogBook.getInstance());
+				iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
+				
+				
+				boolean loaded = iMetamodelDriver.loadModel(options);
+				
+				if (loaded) {
+					context.getiMetamodelManager().addIMetamodelDriver(iMetamodelDriver);
+				}
+			
 			}
 			else if (getDriverType(modelDeclarationStatement).equals("XML")) {
 				
-				//if nsuri is not found, find uri for file location
-				sourceParameter = getParameter("path", modelDeclarationStatement);	
-				
-				//if no nsuri is defined, it should report error and return
-				if (sourceParameter == null) {
-					LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
-				}
-				else {
-					
-					sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
 
-					sourceString = context.getParentFolderDirectory() + sourceString;
-					
-					//create a new XMLMetaModel
-					PlainXMLIMetamodelDriver iMetamodelDriver = new PlainXMLIMetamodelDriver();
-					iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
+				HashMap<String, Object> options = new HashMap<String, Object>();
+				
+				boolean create = false;
+				
+				ModelDeclarationParameter createParameter = getParameter("create", modelDeclarationStatement);
+				if (createParameter != null) {
+					create = true;
+				}
+				
+				options.put("create", create);
+				
+				if (create) {
+					options.put("name", modelDeclarationStatement.getName().getName().getName());
+					ArrayList<String> aliases = new ArrayList<String>();
 					for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
 					{
-						iMetamodelDriver.getAliases().add(vde.getName().getName());
+						aliases.add(vde.getName().getName());
 					}
-					iMetamodelDriver.setLogBook(LogBook.getInstance());
-					iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
+					options.put("aliases", aliases);
+				}
+				
+				String sourceString = null;
+				
+				//get the nsuri 
+				sourceParameter = getParameter("uri", modelDeclarationStatement);
+				if (sourceParameter != null) {
+					options.put("uri", ((StringExpression)sourceParameter.getValue()).getValue());
+				}
+				else {
+					sourceParameter = getParameter("path", modelDeclarationStatement);
+					if (sourceParameter != null) {
+						sourceString = ((StringExpression)sourceParameter.getValue()).getValue();
+						sourceString = context.getParentFolderDirectory() + sourceString;
+						options.put("path", sourceString);
+					}
+					else {
+						LogBook.getInstance().addError(modelDeclarationStatement, IMessage_TypeResolution.MODEL_DECL_NSURI_OR_PATH_REQUIRED);
+					}
+				}
+				
+				
+				//create a new XMLMetaModel
+				PlainXMLIMetamodelDriver iMetamodelDriver = new PlainXMLIMetamodelDriver();
+				iMetamodelDriver.setName(modelDeclarationStatement.getName().getName().getName());
+				for(VariableDeclarationExpression vde: modelDeclarationStatement.getAliases())
+				{
+					iMetamodelDriver.getAliases().add(vde.getName().getName());
+				}
+				iMetamodelDriver.setLogBook(LogBook.getInstance());
+				iMetamodelDriver.setModelDeclarationStatement(modelDeclarationStatement);
 
 
-					boolean loaded = iMetamodelDriver.loadModel(sourceString);
-					
-					if (loaded) {
-						context.getiMetamodelManager().addIMetamodelDriver(iMetamodelDriver);
-					}
+				boolean loaded = iMetamodelDriver.loadModel(options);
+				
+				if (loaded) {
+					context.getiMetamodelManager().addIMetamodelDriver(iMetamodelDriver);
 				}
 			}
 		}

@@ -25,7 +25,7 @@ public class Ast2DomWorkbench {
 	
 	public void run() throws Exception {
 		
-		URL url = getClass().getResource("test2.eol");
+		URL url = getClass().getResource("test1.eol");
 		
 		EolModule eolModule = new EolModule();
 		try {
@@ -36,6 +36,8 @@ public class Ast2DomWorkbench {
 
 		
 		Ast2EolContext context = new Ast2EolContext();
+		
+		System.out.println(eolModule.getAst().toStringTree());
 		
 		EOLElement dom = context.getEolElementCreatorFactory().createEOLElement(eolModule.getAst(), null, context);
 		

@@ -119,6 +119,8 @@ public class IMessage_TypeResolution {
 
 	public static final String OBJECT_NOT_DEFINED_IN_MODEL = "The object is not defined in any known models";
 	
+	public static final String ARG_NOT_IN_THE_SAME_PACKAGE = "The type of the argument is not defined in the target domain";
+	
 	public static String bindMessage(String message, Object value)
 	{
 		String result = String.format(message, value.toString());

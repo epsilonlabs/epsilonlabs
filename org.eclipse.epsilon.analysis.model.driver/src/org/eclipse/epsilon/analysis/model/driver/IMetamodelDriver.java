@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.analysis.model.driver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.eclipse.epsilon.eol.metamodel.IMetamodel;
@@ -9,7 +10,7 @@ import org.eclipse.epsilon.eol.problem.LogBook;
 
 public interface IMetamodelDriver {
 
-	public abstract boolean loadModel(String URIorPath);
+	public abstract boolean loadModel(HashMap<String, Object> options);
 	
 	public abstract String getName();
 	public void setName(String name);
