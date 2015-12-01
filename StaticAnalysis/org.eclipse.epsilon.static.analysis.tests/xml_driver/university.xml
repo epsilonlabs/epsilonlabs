@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<university name="UoY">
+  <department name="CS">
+  	<student first_name="Cathy" last_name="Smith"/>
+    <lecturer first_name="Tom" last_name="Brown"/>
+    <module name="MODE">
+    </module>
+  </department>
+</university>

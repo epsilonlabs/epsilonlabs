@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
 import java.util.ArrayList;
 
+import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
@@ -66,7 +67,10 @@ public class FOLMethodCallExpressionVariableResolver extends FOLMethodCallExpres
 		//visit the iterator
 		controller.visit(fOLMethodCallExpression.getIterator(), context);
 		//visit the condition
-		controller.visit(fOLMethodCallExpression.getCondition(), context);
+		for(Expression condition: fOLMethodCallExpression.getConditions())
+		{
+			controller.visit(condition, context);
+		}
 		//pop from stack
 		context.getStack().pop();
 		return null;

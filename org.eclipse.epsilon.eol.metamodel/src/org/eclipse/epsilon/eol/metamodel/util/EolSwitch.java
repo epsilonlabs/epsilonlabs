@@ -107,11 +107,11 @@ public class EolSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EolPackage.EOL_PROGRAM: {
-				EOLProgram eolProgram = (EOLProgram)theEObject;
-				T result = caseEOLProgram(eolProgram);
-				if (result == null) result = caseEOLLibraryModule(eolProgram);
-				if (result == null) result = caseEOLElement(eolProgram);
+			case EolPackage.EOL_MODULE: {
+				EOLModule eolModule = (EOLModule)theEObject;
+				T result = caseEOLModule(eolModule);
+				if (result == null) result = caseEOLLibraryModule(eolModule);
+				if (result == null) result = caseEOLElement(eolModule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1189,17 +1189,17 @@ public class EolSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EOL Program</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EOL Module</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EOL Program</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EOL Module</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEOLProgram(EOLProgram object) {
+	public T caseEOLModule(EOLModule object) {
 		return null;
 	}
 

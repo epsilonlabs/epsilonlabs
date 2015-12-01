@@ -1,17 +1,17 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.ModelDeclarationStatement;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
-import org.eclipse.epsilon.eol.metamodel.visitor.EOLProgramVisitor;
+import org.eclipse.epsilon.eol.metamodel.visitor.EOLModuleVisitor;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 
-public class EOLProgramVariableResolver extends EOLProgramVisitor<VariableResolutionContext, Object>{
+public class EOLModuleVariableResolver extends EOLModuleVisitor<VariableResolutionContext, Object>{
 
 	@Override
-	public Object visit(EOLProgram program, VariableResolutionContext context,
+	public Object visit(EOLModule program, VariableResolutionContext context,
 			EolVisitorController<VariableResolutionContext, Object> controller) {
 		
 		if (context.getMainProgram() == null) { //if the program is the EOL in question (the main program)

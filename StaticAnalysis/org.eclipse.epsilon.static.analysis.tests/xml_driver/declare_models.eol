@@ -1,0 +1,4 @@
+model Graph alias graph driver EMF 
+	{nsuri = "http://graph/1.0"};
+model XMLDoc alias xml driver XML 
+	{path = "tree.xml"};   

@@ -35,7 +35,7 @@ import org.eclipse.epsilon.eol.metamodel.DeleteStatement;
 import org.eclipse.epsilon.eol.metamodel.DivideOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression;
 import org.eclipse.epsilon.eol.metamodel.EolFactory;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
@@ -179,7 +179,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass eolProgramEClass = null;
+	private EClass eolModuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1250,8 +1250,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEOLProgram() {
-		return eolProgramEClass;
+	public EClass getEOLModule() {
+		return eolModuleEClass;
 	}
 
 	/**
@@ -1259,8 +1259,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEOLProgram_Block() {
-		return (EReference)eolProgramEClass.getEStructuralFeatures().get(0);
+	public EReference getEOLModule_Block() {
+		return (EReference)eolModuleEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1880,7 +1880,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFOLMethodCallExpression_Condition() {
+	public EReference getFOLMethodCallExpression_Conditions() {
 		return (EReference)folMethodCallExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -3153,8 +3153,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__MODEL_DECLARATIONS);
 		createEReference(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__OPERATIONS);
 
-		eolProgramEClass = createEClass(EOL_PROGRAM);
-		createEReference(eolProgramEClass, EOL_PROGRAM__BLOCK);
+		eolModuleEClass = createEClass(EOL_MODULE);
+		createEReference(eolModuleEClass, EOL_MODULE__BLOCK);
 
 		importEClass = createEClass(IMPORT);
 		createEReference(importEClass, IMPORT__IMPORTED_MODULE);
@@ -3258,7 +3258,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		folMethodCallExpressionEClass = createEClass(FOL_METHOD_CALL_EXPRESSION);
 		createEReference(folMethodCallExpressionEClass, FOL_METHOD_CALL_EXPRESSION__ITERATOR);
-		createEReference(folMethodCallExpressionEClass, FOL_METHOD_CALL_EXPRESSION__CONDITION);
+		createEReference(folMethodCallExpressionEClass, FOL_METHOD_CALL_EXPRESSION__CONDITIONS);
 		createEReference(folMethodCallExpressionEClass, FOL_METHOD_CALL_EXPRESSION__METHOD);
 		createEReference(folMethodCallExpressionEClass, FOL_METHOD_CALL_EXPRESSION__RESOLVED_FOL_DEFINITION);
 
@@ -3499,7 +3499,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		textRegionEClass.getESuperTypes().add(this.getEOLElement());
 		textPositionEClass.getESuperTypes().add(this.getEOLElement());
 		eolLibraryModuleEClass.getESuperTypes().add(this.getEOLElement());
-		eolProgramEClass.getESuperTypes().add(this.getEOLLibraryModule());
+		eolModuleEClass.getESuperTypes().add(this.getEOLLibraryModule());
 		importEClass.getESuperTypes().add(this.getEOLElement());
 		blockEClass.getESuperTypes().add(this.getEOLElement());
 		annotationBlockEClass.getESuperTypes().add(this.getBlock());
@@ -3650,8 +3650,8 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getEOLLibraryModule_ModelDeclarations(), this.getModelDeclarationStatement(), null, "modelDeclarations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLLibraryModule_Operations(), this.getOperationDefinition(), null, "operations", null, 0, -1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(eolProgramEClass, EOLProgram.class, "EOLProgram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEOLProgram_Block(), this.getBlock(), null, "block", null, 0, 1, EOLProgram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(eolModuleEClass, EOLModule.class, "EOLModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEOLModule_Block(), this.getBlock(), null, "block", null, 0, 1, EOLModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getImport_ImportedModule(), this.getEOLLibraryModule(), null, "importedModule", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3755,7 +3755,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(folMethodCallExpressionEClass, FOLMethodCallExpression.class, "FOLMethodCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFOLMethodCallExpression_Iterator(), this.getFormalParameterExpression(), null, "iterator", null, 1, 1, FOLMethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFOLMethodCallExpression_Condition(), this.getExpression(), null, "condition", null, 1, 1, FOLMethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFOLMethodCallExpression_Conditions(), this.getExpression(), null, "conditions", null, 1, -1, FOLMethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFOLMethodCallExpression_Method(), this.getNameExpression(), null, "method", null, 1, 1, FOLMethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFOLMethodCallExpression_ResolvedFOLDefinition(), this.getOperationDefinition(), null, "resolvedFOLDefinition", null, 0, 1, FOLMethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

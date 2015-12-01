@@ -1,0 +1,16 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+ 
+//test 1
+var t1s = 1;
+var t1r = t1s.toHex();
+t1r.println();
+
+//test 2
+var t2s = 1.0;
+var t2r = t2s.toHex();
+t2r.println();   
+
+//test 2
+var t3s = "";
+var t3r = t3s.toHex();
+t3r.println();   

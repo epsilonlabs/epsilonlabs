@@ -62,7 +62,7 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 			case EolPackage.TEXT_REGION: return createTextRegion();
 			case EolPackage.TEXT_POSITION: return createTextPosition();
 			case EolPackage.EOL_LIBRARY_MODULE: return createEOLLibraryModule();
-			case EolPackage.EOL_PROGRAM: return createEOLProgram();
+			case EolPackage.EOL_MODULE: return createEOLModule();
 			case EolPackage.IMPORT: return createImport();
 			case EolPackage.BLOCK: return createBlock();
 			case EolPackage.ANNOTATION_BLOCK: return createAnnotationBlock();
@@ -215,9 +215,9 @@ public class EolFactoryImpl extends EFactoryImpl implements EolFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOLProgram createEOLProgram() {
-		EOLProgramImpl eolProgram = new EOLProgramImpl();
-		return eolProgram;
+	public EOLModule createEOLModule() {
+		EOLModuleImpl eolModule = new EOLModuleImpl();
+		return eolModule;
 	}
 
 	/**

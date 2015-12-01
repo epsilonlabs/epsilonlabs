@@ -1,0 +1,39 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test boolean
+var t1: Boolean = true;
+var t1result = not t1;
+t1result.println();
+
+//test any
+var t2 = true;
+var t2result = not t2;
+t2result.println();
+
+//test int
+var t3: Integer = 1;
+var t3result = not t3;
+t3result.println();
+
+//test Real
+var t4: Real = 1;
+var t4result = not t4;
+t4result.println();
+
+
+//test String
+var t5: String = "Hello world";
+var t5result = not t5;
+t5result.println();
+
+
+//test Collection
+var t6: Sequence = Sequence{1,2,3,4};
+var t6result = not t6;
+t6result.println();
+
+
+//test ModelElementType
+var t7 = ModelElementType.all.first;
+var t7result = not t7;
+t7result.println();

@@ -43,7 +43,7 @@ class EOLLibraryModule extends EOLElement {
   val OperationDefinition[*] operations;
 }
 
-class EOLProgram extends EOLLibraryModule {
+class EOLModule extends EOLLibraryModule {
   val Block block;
 }
 
@@ -183,7 +183,7 @@ class PropertyCallExpression extends FeatureCallExpression {
 
 class FOLMethodCallExpression extends FeatureCallExpression {
   val FormalParameterExpression[1] iterator;
-  val Expression[1] condition;
+  val Expression[+] conditions;
   val NameExpression[1] method;
   ref OperationDefinition resolvedFOLDefinition;
 }

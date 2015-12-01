@@ -76,13 +76,13 @@ public interface EolFactory extends EFactory {
 	EOLLibraryModule createEOLLibraryModule();
 
 	/**
-	 * Returns a new object of class '<em>EOL Program</em>'.
+	 * Returns a new object of class '<em>EOL Module</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>EOL Program</em>'.
+	 * @return a new object of class '<em>EOL Module</em>'.
 	 * @generated
 	 */
-	EOLProgram createEOLProgram();
+	EOLModule createEOLModule();
 
 	/**
 	 * Returns a new object of class '<em>Import</em>'.

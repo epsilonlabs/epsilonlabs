@@ -1,0 +1,48 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test Integer
+var t1: Integer = 1;
+var t1result = - t1;
+t1result.println();
+
+//test Real
+var t2: Real = 2.0;
+var t2result = - t2;
+t2result.println();
+
+//test String
+var t3: String = "Hello World";
+var t3result = - t3;
+t3result.println();
+
+//test Boolean
+var t4: Boolean = false;
+var t4result = - t4;
+t4result.println();
+
+
+//test Any(Integer)
+var t5 = 1;
+var t5result = - t5;
+t5result.println(); 
+
+//test Any(Real)
+var t6 = 1.0;
+var t6result = - t6;
+t6result.println();
+
+//test Any(String)
+var t7 = "Hello World";
+var t7result = - t7;
+t7result.println();
+
+//test Collection
+var t8 = Sequence{1,2,3,4};
+var t8result = - t8;
+t8result.println();
+
+
+//test ModelElementType
+var t9 = ModelElementType.all.first;
+var t9result = - t9;
+t9result.println();

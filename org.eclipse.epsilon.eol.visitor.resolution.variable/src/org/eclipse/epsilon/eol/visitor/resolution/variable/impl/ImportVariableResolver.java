@@ -1,7 +1,7 @@
 package org.eclipse.epsilon.eol.visitor.resolution.variable.impl;
 
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.Import;
 import org.eclipse.epsilon.eol.metamodel.visitor.EolVisitorController;
 import org.eclipse.epsilon.eol.metamodel.visitor.ImportVisitor;
@@ -19,8 +19,8 @@ public class ImportVariableResolver extends ImportVisitor<VariableResolutionCont
 		//if program is not null
 		if (program != null) { 
 			//if program is eol program then it is good
-			if (program instanceof EOLProgram) {
-				EOLProgram temp = (EOLProgram) program;
+			if (program instanceof EOLModule) {
+				EOLModule temp = (EOLModule) program;
 				controller.visit(temp, context);	
 			}
 		}

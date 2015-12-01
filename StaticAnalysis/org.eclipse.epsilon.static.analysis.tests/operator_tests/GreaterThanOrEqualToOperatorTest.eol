@@ -1,0 +1,100 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test int >= int
+var t1L:Integer = 1;
+var t1R:Integer = 2;
+var test1Result1 = t1L >= t1R;
+var test1Result2 = t1R >= t1L;
+test1Result1.println();
+test1Result2.println();
+
+//test int >= Real
+var t2L:Integer = 1;
+var t2R:Real = 2.0;
+var test2Result1 = t2L >= t2R;
+var test2Result2 = t2R >= t2L;
+test2Result1.println();
+test2Result2.println();
+
+
+//test any(Integer) >= int
+var t3L:Integer = 1;
+var t3R = 2;
+var test3Result1 = t3L >= t3R;
+var test3Result2 = t3R >= t3L;
+test3Result1.println();
+test3Result2.println();
+
+//test any(Real) >= int
+var t4L:Integer = 1;
+var t4R = 2.5;
+var test4Result1 = t4L >= t4R;
+var test4Result2 = t4R >= t4L;
+test4Result1.println();
+test4Result2.println();
+
+//test any(Integer) >= real
+var t5L:Real = 1.5;
+var t5R = 2;
+var test5Result1 = t5L >= t5R;
+var test5Result2 = t5R >= t5L;
+test5Result1.println();
+test5Result2.println();
+
+//test any(Real) >= real
+var t6L:Real = 1.5;
+var t6R = 2.5;
+var test6Result1 = t6L >= t6R;
+var test6Result2 = t6R >= t6L;
+test6Result1.println();
+test6Result2.println();
+
+//test any(Integer) >= any(Integer)
+var t7L = 1;
+var t7R = 2;
+var test7Result1 = t7L >= t7R;
+var test7Result2 = t7R >= t7L;
+test7Result1.println();
+test7Result2.println();
+
+//test any(Integer) >= any(Real)
+var t8L = 1;
+var t8R = 2.5;
+var test8Result1 = t8L >= t8R;
+var test8Result2 = t8R >= t8L;
+test8Result1.println();
+test8Result2.println();
+
+//test non-numeral >= Integer
+var t9L = "hello";
+var t9R = 2.5;
+var test9Result1 = t9L >= t9R;
+var test9Result2 = t9R >= t9L;
+test9Result1.println();
+test9Result2.println();
+
+//test non-numeral >= Integer
+var t10L = MinusOperatorExpression.all.first;
+var t10R = 2;
+var test10Result1 = t10L >= t10R;
+var test10Result2 = t10R >= t10L;
+test10Result1.println();
+test10Result2.println();
+
+//test Boolean >= Any
+var t11L : Boolean = true;
+var t11R = false;
+var test11Result1 = t11L >= t11R;
+var test11Result2 = t11R >= t11L;
+test11Result1.println();
+test11Result2.println();
+
+//test Any >= Any
+var t12L = true;
+var t12R = false;
+var test12Result1 = t12L >= t12R;
+var test12Result2 = t12R >= t12L;
+test12Result1.println();
+test12Result2.println();
+
+"All tests passed".println();

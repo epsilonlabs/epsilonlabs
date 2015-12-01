@@ -1,0 +1,34 @@
+import "model_declarations.eol";
+
+rule xml_university2University 
+  transform xml_u : XMLDoc!t_university
+  to e : University!University { 
+  
+  e.name = xml_u.s_name;
+  e.departments = xml_u.c_department.equivalent();
+}   
+
+rule xml_department2Department 
+  transform xml_d : XMLDoc!t_department
+  to d : University!Department { 
+  
+  d.name = xml_d.s_name;
+  d.members.add(xml_d.c_student.equivalent());
+  d.members.add(xml_d.c_lecturer.equivalent());
+}   
+
+rule xml_student2Student 
+  transform xml_s : XMLDoc!t_student
+  to s : University!Student { 
+  
+  s.first_name = xml_s.a_first_name;
+  s.last_name = xml_s.a_last_name;
+}  
+
+rule xml_lecturer2Lecturer 
+  transform xml_l : XMLDoc!t_lecturer
+  to l : University!Lecturer { 
+  
+  l.first_name = xml_l.a_first_name;
+  l.last_name = xml_l.a_last_name;
+}  

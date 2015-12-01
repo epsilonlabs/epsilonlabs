@@ -1,0 +1,33 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+ 
+ 
+var a = true; 
+var b = false; 
+
+var aAndb = a and b;
+var aOrb = a or b;
+var aXorb = a xor b; 
+var aImpliesB = a implies b;  
+
+aXorb.println();
+
+var d = 1;
+var e = 2;
+ 
+var f = d > "String"; 
+   
+var aEqualsb = a = b; 
+ 
+var var1 = Statement.allInstances().first;    
+
+var var2 = Statement.allInstances().second;   
+
+var var3 = OperationDefinition.allInstances().first;
+
+var var1EqualsVar2 = var1 = var2;
+var var1EqualsVar3 = var1 = var3;
+ 
+var aEqualsd = a = d;
+
+var Statement = d;
+

@@ -1,0 +1,13 @@
+import "declare_models.eol";
+
+rule tree2Node 
+  transform xml_t : XMLDoc!t_tree
+  to n : Graph!Node { 
+  
+  n.name = xml_t.i_name;  
+  if(xml_t.parentNode.isDefined()) { 
+  	var e: new Graph!Edge;
+  	e.source = xml_t.parentNode.equivalent();
+  	e.target = n;
+  } 
+}   

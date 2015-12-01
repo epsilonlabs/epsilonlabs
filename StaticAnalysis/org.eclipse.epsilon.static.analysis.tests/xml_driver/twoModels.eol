@@ -1,0 +1,32 @@
+model University alias uni driver EMF 
+	{nsuri = "http://university/1.0"};
+model XMLDoc alias xml driver XML 
+	{path = "library.xml", create = "true"}; 
+	
+var university = University!University.all.first;
+
+var xml_university = new t_university;
+xml_university.s_name = university.name;
+
+var departments = university.departments;
+for(department in departments)
+{
+	var xml_department = new t_department;
+	xml_department.s_name = department.name;
+	xml_university.appendChild(xml_department);
+	
+	for(person in department.members)
+	{
+		if(person.isTypeOf(University!Student))
+		{
+			var xml_student = new t_student;
+			xml_student.s_first_name = person.first_name;
+			xml_student.s_last_name = person.last_name;
+			xml_student.s_student_id = person.student_id;
+			xml_department.appendChild(xml_student);
+		}
+	}
+}
+
+XMLDoc.root = xml_university;
+ 

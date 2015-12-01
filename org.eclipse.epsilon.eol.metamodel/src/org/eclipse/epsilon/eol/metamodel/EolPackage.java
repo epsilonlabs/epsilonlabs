@@ -513,14 +513,14 @@ public interface EolPackage extends EPackage {
 	int EOL_LIBRARY_MODULE_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl <em>EOL Program</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl <em>EOL Module</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getEOLProgram()
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getEOLModule()
 	 * @generated
 	 */
-	int EOL_PROGRAM = 6;
+	int EOL_MODULE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -529,7 +529,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__CONTAINER = EOL_LIBRARY_MODULE__CONTAINER;
+	int EOL_MODULE__CONTAINER = EOL_LIBRARY_MODULE__CONTAINER;
 
 	/**
 	 * The feature id for the '<em><b>Uri</b></em>' attribute.
@@ -538,7 +538,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__URI = EOL_LIBRARY_MODULE__URI;
+	int EOL_MODULE__URI = EOL_LIBRARY_MODULE__URI;
 
 	/**
 	 * The feature id for the '<em><b>Region</b></em>' containment reference.
@@ -547,7 +547,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__REGION = EOL_LIBRARY_MODULE__REGION;
+	int EOL_MODULE__REGION = EOL_LIBRARY_MODULE__REGION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -556,7 +556,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__NAME = EOL_LIBRARY_MODULE__NAME;
+	int EOL_MODULE__NAME = EOL_LIBRARY_MODULE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
@@ -565,7 +565,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__IMPORTS = EOL_LIBRARY_MODULE__IMPORTS;
+	int EOL_MODULE__IMPORTS = EOL_LIBRARY_MODULE__IMPORTS;
 
 	/**
 	 * The feature id for the '<em><b>IModels</b></em>' reference list.
@@ -574,7 +574,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__IMODELS = EOL_LIBRARY_MODULE__IMODELS;
+	int EOL_MODULE__IMODELS = EOL_LIBRARY_MODULE__IMODELS;
 
 	/**
 	 * The feature id for the '<em><b>Model Declarations</b></em>' containment reference list.
@@ -583,7 +583,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__MODEL_DECLARATIONS = EOL_LIBRARY_MODULE__MODEL_DECLARATIONS;
+	int EOL_MODULE__MODEL_DECLARATIONS = EOL_LIBRARY_MODULE__MODEL_DECLARATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Operations</b></em>' containment reference list.
@@ -592,7 +592,7 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__OPERATIONS = EOL_LIBRARY_MODULE__OPERATIONS;
+	int EOL_MODULE__OPERATIONS = EOL_LIBRARY_MODULE__OPERATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Block</b></em>' containment reference.
@@ -601,16 +601,16 @@ public interface EolPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM__BLOCK = EOL_LIBRARY_MODULE_FEATURE_COUNT + 0;
+	int EOL_MODULE__BLOCK = EOL_LIBRARY_MODULE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>EOL Program</em>' class.
+	 * The number of structural features of the '<em>EOL Module</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EOL_PROGRAM_FEATURE_COUNT = EOL_LIBRARY_MODULE_FEATURE_COUNT + 1;
+	int EOL_MODULE_FEATURE_COUNT = EOL_LIBRARY_MODULE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.ImportImpl <em>Import</em>}' class.
@@ -3186,13 +3186,13 @@ public interface EolPackage extends EPackage {
 	int FOL_METHOD_CALL_EXPRESSION__ITERATOR = FEATURE_CALL_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
+	 * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOL_METHOD_CALL_EXPRESSION__CONDITION = FEATURE_CALL_EXPRESSION_FEATURE_COUNT + 1;
+	int FOL_METHOD_CALL_EXPRESSION__CONDITIONS = FEATURE_CALL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Method</b></em>' containment reference.
@@ -8215,25 +8215,25 @@ public interface EolPackage extends EPackage {
 	EReference getEOLLibraryModule_Operations();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.EOLProgram <em>EOL Program</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.EOLModule <em>EOL Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>EOL Program</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.EOLProgram
+	 * @return the meta object for class '<em>EOL Module</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.EOLModule
 	 * @generated
 	 */
-	EClass getEOLProgram();
+	EClass getEOLModule();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.EOLProgram#getBlock <em>Block</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.EOLModule#getBlock <em>Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Block</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.EOLProgram#getBlock()
-	 * @see #getEOLProgram()
+	 * @see org.eclipse.epsilon.eol.metamodel.EOLModule#getBlock()
+	 * @see #getEOLModule()
 	 * @generated
 	 */
-	EReference getEOLProgram_Block();
+	EReference getEOLModule_Block();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.Import <em>Import</em>}'.
@@ -8949,15 +8949,15 @@ public interface EolPackage extends EPackage {
 	EReference getFOLMethodCallExpression_Iterator();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getCondition <em>Condition</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getConditions <em>Conditions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Condition</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getCondition()
+	 * @return the meta object for the containment reference list '<em>Conditions</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getConditions()
 	 * @see #getFOLMethodCallExpression()
 	 * @generated
 	 */
-	EReference getFOLMethodCallExpression_Condition();
+	EReference getFOLMethodCallExpression_Conditions();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getMethod <em>Method</em>}'.
@@ -10629,14 +10629,14 @@ public interface EolPackage extends EPackage {
 		EReference EOL_LIBRARY_MODULE__OPERATIONS = eINSTANCE.getEOLLibraryModule_Operations();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl <em>EOL Program</em>}' class.
+		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl <em>EOL Module</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getEOLProgram()
+		 * @see org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl
+		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getEOLModule()
 		 * @generated
 		 */
-		EClass EOL_PROGRAM = eINSTANCE.getEOLProgram();
+		EClass EOL_MODULE = eINSTANCE.getEOLModule();
 
 		/**
 		 * The meta object literal for the '<em><b>Block</b></em>' containment reference feature.
@@ -10644,7 +10644,7 @@ public interface EolPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EOL_PROGRAM__BLOCK = eINSTANCE.getEOLProgram_Block();
+		EReference EOL_MODULE__BLOCK = eINSTANCE.getEOLModule_Block();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.ImportImpl <em>Import</em>}' class.
@@ -11261,12 +11261,12 @@ public interface EolPackage extends EPackage {
 		EReference FOL_METHOD_CALL_EXPRESSION__ITERATOR = eINSTANCE.getFOLMethodCallExpression_Iterator();
 
 		/**
-		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOL_METHOD_CALL_EXPRESSION__CONDITION = eINSTANCE.getFOLMethodCallExpression_Condition();
+		EReference FOL_METHOD_CALL_EXPRESSION__CONDITIONS = eINSTANCE.getFOLMethodCallExpression_Conditions();
 
 		/**
 		 * The meta object literal for the '<em><b>Method</b></em>' containment reference feature.

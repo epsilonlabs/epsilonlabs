@@ -1,0 +1,15 @@
+model XMLDoc alias xml driver XML {path = "library.xml"};           
+
+var books = t_book.all;
+for(b in books) {
+	b.i_title.println();
+	for(author in b.c_author) {
+		author.text.println();
+	}
+	b.r_pages.println();
+} 
+            
+            
+            
+            
+            

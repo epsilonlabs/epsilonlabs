@@ -1,0 +1,15 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test 1
+var t1 = Statement.isInstantiable();
+t1.println(); 
+
+//test 2
+var t2 = Statements.isInstantiable();
+t2.println();
+ 
+//test 3
+var t3s = true;
+var t3t = t3s.isInstantiable();
+t3t.println();
+         

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<tree name="root">
+	<tree name="node1">
+		<tree name="node2">
+		</tree>
+		<tree name="node3">
+		</tree>
+	</tree>
+</tree>

@@ -1,0 +1,49 @@
+model XMLDoc alias xml driver XML {path = "library.xml",
+				create = "true"};           
+var library = new t_library;    
+ 
+XMLDoc.root = library;         
+ 
+library.createBook("EMF Eclipse Modeling Framework",  
+  OrderedSet{"Dave Steinberg", "Frank Budinsky", 
+    "Marcelo Paternostro", "Ed Merks"}, 
+  744, 2009); 
+ 
+library.createBook("Eclipse Modeling Project: " + 
+  "A Domain-Specific Language (DSL) Toolkit", 
+    OrderedSet{"Richard Gronback"}, 736, 2009);
+
+library.createBook("Official Eclipse 3.0 FAQs", 
+  OrderedSet{"John Arthorne", "Chris Laffra"}, 432, 2004); 
+
+XMLDoc.root.println(); 
+
+operation createBook(title : String, authors : OrderedSet(String), 
+  pages : Integer, published : Integer) {  
+
+  // Create a new book element
+  var book = new t_book;  
+   
+  // Set its title 
+  book.a_title = title;    
+  
+  // Set its pages 
+  book.a_pages = pages; 
+  
+  // Create its author children  
+  for (author in authors) {
+    var authorElement = new t_author; 
+    authorElement.text = author;
+    book.appendChild(authorElement);
+  }
+  
+  book.c_author.println();  
+  
+  // Create its published child
+  var publishedElement = new t_published;
+  publishedElement.text = published;
+  
+  // Add the book as a child
+  self.appendChild(book);
+
+}

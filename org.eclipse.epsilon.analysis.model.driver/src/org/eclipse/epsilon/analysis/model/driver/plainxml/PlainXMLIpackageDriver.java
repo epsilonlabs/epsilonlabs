@@ -770,6 +770,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				}
 				else { //if exists
 					if (attribute instanceof EAttribute) { //if it is not an eattribute return null
+						//attribute.setEType(util.getEDataTypeByName(attributeName));
 						return (EAttribute) attribute;
 					}
 					else {

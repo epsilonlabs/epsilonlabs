@@ -1,0 +1,4 @@
+model University alias university driver EMF 
+	{nsuri = "http://university/1.0"};
+model XMLDoc alias xml driver XML 
+	{path = "university.xml"}; 

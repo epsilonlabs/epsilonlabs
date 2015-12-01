@@ -1,0 +1,26 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test 1 
+var t1 = Statement.allInstances; 
+t1.println(); 
+
+//test 2
+var t2 = Statement.allInstances();
+t2.println();
+
+//test 3
+var t3 = Statement.all;
+t3.println();
+
+//test 4
+var t4 = Statement.all();
+t4.println();
+ 
+//test 5
+var t5 = Statement.allOfType();
+t5.println();
+
+//test 6
+var t6 = Statement.allOfKind();
+t6.println();
+     

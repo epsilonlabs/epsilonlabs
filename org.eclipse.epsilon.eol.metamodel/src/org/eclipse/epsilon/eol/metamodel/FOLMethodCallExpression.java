@@ -2,6 +2,7 @@
  */
 package org.eclipse.epsilon.eol.metamodel;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -12,7 +13,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getIterator <em>Iterator</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getMethod <em>Method</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getResolvedFOLDefinition <em>Resolved FOL Definition</em>}</li>
  * </ul>
@@ -50,30 +51,20 @@ public interface FOLMethodCallExpression extends FeatureCallExpression {
 	void setIterator(FormalParameterExpression value);
 
 	/**
-	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.epsilon.eol.metamodel.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Condition</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' containment reference.
-	 * @see #setCondition(Expression)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFOLMethodCallExpression_Condition()
+	 * @return the value of the '<em>Conditions</em>' containment reference list.
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFOLMethodCallExpression_Conditions()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getCondition();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression#getCondition <em>Condition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' containment reference.
-	 * @see #getCondition()
-	 * @generated
-	 */
-	void setCondition(Expression value);
+	EList<Expression> getConditions();
 
 	/**
 	 * Returns the value of the '<em><b>Method</b></em>' containment reference.

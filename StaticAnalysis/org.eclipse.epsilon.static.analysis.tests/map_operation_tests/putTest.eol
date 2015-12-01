@@ -1,0 +1,16 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test 1
+var t1s = Map{"Hello" = 1, "World" = 2};
+t1s.put("third", 3);
+t1s.println();  
+
+//test 2 
+var t2s : Map;
+t2s.put("third", 3);
+t2s.println();
+
+//test 3 
+var t3s = ModelElementType.all().first(); 
+t3s.put("third", 3); 
+t3s.println();       

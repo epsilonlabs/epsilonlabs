@@ -56,7 +56,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
         eType="#//OperationDefinition" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EOLProgram" eSuperTypes="#//EOLLibraryModule">
+  <eClassifiers xsi:type="ecore:EClass" name="EOLModule" eSuperTypes="#//EOLLibraryModule">
     <eStructuralFeatures xsi:type="ecore:EReference" name="block" eType="#//Block"
         containment="true"/>
   </eClassifiers>
@@ -180,8 +180,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="FOLMethodCallExpression" eSuperTypes="#//FeatureCallExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="iterator" lowerBound="1"
         eType="#//FormalParameterExpression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
-        eType="#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="conditions" lowerBound="1"
+        upperBound="-1" eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="method" lowerBound="1"
         eType="#//NameExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedFOLDefinition"

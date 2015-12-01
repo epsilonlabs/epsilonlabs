@@ -9,14 +9,14 @@ public class EOLVariableResolver {
 	
 
 	protected EolVisitorController<VariableResolutionContext, Object> controller = new EolVisitorController<VariableResolutionContext, Object>();
-	protected VariableResolutionContext context = VariableResolutionContext.getInstance(true);
+	protected VariableResolutionContext context = new VariableResolutionContext();
 	
 	public EOLVariableResolver()
 	{
 		controller.addAbortStatementVisitor(new AbortStatementVariableResolver());
 		controller.addAssignmentStatementVisitor(new AssignmentStatementVariableResolver());
 		controller.addImportVisitor(new ImportVariableResolver());
-		controller.addEOLProgramVisitor(new EOLProgramVariableResolver());
+		controller.addEOLModuleVisitor(new EOLModuleVariableResolver());
 		controller.addDefaultVisitor(new EolDefaultVisitor<VariableResolutionContext, Object>());
 		controller.addVariableDeclarationExpressionVisitor(new VariableDeclarationExpressionVariableResolver());
 		controller.addFormalParameterExpressionVisitor(new FormalParameterExpressionVariableResolver());

@@ -1,0 +1,14 @@
+var a = 10;
+var b = "a";
+
+var c = a*a;
+
+if(c > 10)
+{
+	b = "string";
+	b = 1;
+}
+
+var d = b * a;            
+
+d.println();

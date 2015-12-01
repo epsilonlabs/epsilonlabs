@@ -1,0 +1,28 @@
+model XMLDoc alias xml driver XML {path = "library.xml",
+				create = "true"};           
+
+var library = new t_library;    
+
+var book = new t_book;
+
+book.a_title = "EMF Eclipse Modeling Framework";
+book.i_pages = 744;
+
+for(name in OrderedSet{"Dave Steinberg", "Frank Budinsky", 
+    "Marcelo Paternostro", "Ed Merks"}) {
+	var author = new t_author;
+	author.text = name;
+	book.appendChild(author);
+}
+
+var published = new t_published;
+published.text = 2009;
+book.appendChild(published);
+
+library.appendChild(book);
+
+book.s_pages.println();
+library.c_book.println(); 
+ 
+XMLDoc.root = library;
+

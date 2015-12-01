@@ -92,8 +92,8 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 				return createEOLLibraryModuleAdapter();
 			}
 			@Override
-			public Adapter caseEOLProgram(EOLProgram object) {
-				return createEOLProgramAdapter();
+			public Adapter caseEOLModule(EOLModule object) {
+				return createEOLModuleAdapter();
 			}
 			@Override
 			public Adapter caseImport(Import object) {
@@ -624,16 +624,16 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.EOLProgram <em>EOL Program</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.EOLModule <em>EOL Module</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.eol.metamodel.EOLProgram
+	 * @see org.eclipse.epsilon.eol.metamodel.EOLModule
 	 * @generated
 	 */
-	public Adapter createEOLProgramAdapter() {
+	public Adapter createEOLModuleAdapter() {
 		return null;
 	}
 

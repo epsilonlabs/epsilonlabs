@@ -2,13 +2,20 @@
  */
 package org.eclipse.epsilon.eol.metamodel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.Expression;
@@ -25,7 +32,7 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getIterator <em>Iterator</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getCondition <em>Condition</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getResolvedFOLDefinition <em>Resolved FOL Definition</em>}</li>
  * </ul>
@@ -45,14 +52,14 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 	protected FormalParameterExpression iterator;
 
 	/**
-	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
+	 * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCondition()
+	 * @see #getConditions()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression condition;
+	protected EList<Expression> conditions;
 
 	/**
 	 * The cached value of the '{@link #getMethod() <em>Method</em>}' containment reference.
@@ -141,42 +148,11 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getCondition() {
-		return condition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCondition(Expression newCondition, NotificationChain msgs) {
-		Expression oldCondition = condition;
-		condition = newCondition;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION, oldCondition, newCondition);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Expression> getConditions() {
+		if (conditions == null) {
+			conditions = new EObjectContainmentEList<Expression>(Expression.class, this, EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCondition(Expression newCondition) {
-		if (newCondition != condition) {
-			NotificationChain msgs = null;
-			if (condition != null)
-				msgs = ((InternalEObject)condition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION, null, msgs);
-			if (newCondition != null)
-				msgs = ((InternalEObject)newCondition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION, null, msgs);
-			msgs = basicSetCondition(newCondition, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION, newCondition, newCondition));
+		return conditions;
 	}
 
 	/**
@@ -270,8 +246,8 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 		switch (featureID) {
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__ITERATOR:
 				return basicSetIterator(null, msgs);
-			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION:
-				return basicSetCondition(null, msgs);
+			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS:
+				return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__METHOD:
 				return basicSetMethod(null, msgs);
 		}
@@ -288,8 +264,8 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 		switch (featureID) {
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__ITERATOR:
 				return getIterator();
-			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION:
-				return getCondition();
+			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS:
+				return getConditions();
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__METHOD:
 				return getMethod();
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__RESOLVED_FOL_DEFINITION:
@@ -304,14 +280,16 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__ITERATOR:
 				setIterator((FormalParameterExpression)newValue);
 				return;
-			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION:
-				setCondition((Expression)newValue);
+			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS:
+				getConditions().clear();
+				getConditions().addAll((Collection<? extends Expression>)newValue);
 				return;
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__METHOD:
 				setMethod((NameExpression)newValue);
@@ -334,8 +312,8 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__ITERATOR:
 				setIterator((FormalParameterExpression)null);
 				return;
-			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION:
-				setCondition((Expression)null);
+			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS:
+				getConditions().clear();
 				return;
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__METHOD:
 				setMethod((NameExpression)null);
@@ -357,8 +335,8 @@ public class FOLMethodCallExpressionImpl extends FeatureCallExpressionImpl imple
 		switch (featureID) {
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__ITERATOR:
 				return iterator != null;
-			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITION:
-				return condition != null;
+			case EolPackage.FOL_METHOD_CALL_EXPRESSION__CONDITIONS:
+				return conditions != null && !conditions.isEmpty();
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__METHOD:
 				return method != null;
 			case EolPackage.FOL_METHOD_CALL_EXPRESSION__RESOLVED_FOL_DEFINITION:

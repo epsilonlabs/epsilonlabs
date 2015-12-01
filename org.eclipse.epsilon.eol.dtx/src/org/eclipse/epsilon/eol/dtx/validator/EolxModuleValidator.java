@@ -37,13 +37,24 @@ public class EolxModuleValidator implements IModuleValidator {
 			EolElementCreatorFactory factory = ast2EolContext.getEolElementCreatorFactory();
 			EOLElement eolElement = factory.createEOLElement(module.getAst(), null, ast2EolContext);
 			
+			
 			EOLVariableResolver variableResolver = new EOLVariableResolver();
-			VariableResolutionContext.getInstance().setEolModule((EolModule) module);
+			variableResolver.getVariableResolutionContext().setEolModule((EolModule) module);
+			//VariableResolutionContext.getInstance().setEolModule((EolModule) module);
 			variableResolver.run(eolElement);
 			
 			EOLTypeResolver typeResolver = new EOLTypeResolver();
-			TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
+			typeResolver.getTypeResolutionContext().setEolModule((EolModule) module);
+			//TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
 			typeResolver.run(eolElement);
+			
+//			EOLVariableResolver variableResolver = new EOLVariableResolver();
+//			VariableResolutionContext.getInstance().setEolModule((EolModule) module);
+//			variableResolver.run(eolElement);
+//			
+//			EOLTypeResolver typeResolver = new EOLTypeResolver();
+//			TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
+//			typeResolver.run(eolElement);
 			
 			
 			for(EOLProblem problem: LogBook.getInstance().getAllProblems())

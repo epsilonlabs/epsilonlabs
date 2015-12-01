@@ -39,6 +39,21 @@ public class LogBook {
 		}
 	}
 	
+	public void removerError(EOLElement eolElement)
+	{
+		for(EOLLibraryModule module: errors.keySet())
+		{
+			HashSet<EOLError> temp = (HashSet<EOLError>) errors.get(module).clone();
+			for(EOLError error: temp)
+			{
+				if (error.getEolElement().equals(eolElement)) {
+					temp.remove(error);
+					errors.put(module, temp);
+				}
+			}
+		}
+	}
+	
 	public HashSet<EOLWarning> getAllWarnings()
 	{
 		HashSet<EOLWarning> result = new HashSet<EOLWarning>();

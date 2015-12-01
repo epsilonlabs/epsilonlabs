@@ -1,0 +1,30 @@
+model m alias eol driver EMF {nsuri = "http://www.eclipse.org/epsilon/eol"};
+
+//test 1
+var t1s = Sequence{1,2,3,4,5,6,7.0, ""};
+var t1e = Sequence{1,2};
+t1s.addAll(t1e);
+t1s.clear(); 
+
+//test 2
+var t2s : Sequence(String);
+var t2e = Sequence{1,2};
+t2s.addAll(t2e); 
+t2s.clear();          
+
+//test 3
+var t3s : Sequence(Sequence(String));
+var t3e = Sequence{Sequence{""}};
+t3s.addAll(t3e); 
+t3s.clear();        
+
+//test 4
+var t4s = Sequence{Sequence{""}};
+var t4e = Sequence{Sequence{1}};
+t4s.addAll(t4e); 
+t4s.clear();    
+
+//test 5
+var t5s = ModelElementType.all.first; 
+var t5r = t5s.clear(); 
+t5r.println();   

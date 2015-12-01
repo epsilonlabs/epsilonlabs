@@ -5,7 +5,9 @@ import java.util.HashSet;
 
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
+import org.eclipse.epsilon.eol.EolLibraryModule;
 import org.eclipse.epsilon.eol.EolModule;
+import org.eclipse.epsilon.eol.execute.EolLibraryExecutor;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
@@ -17,7 +19,7 @@ import org.eclipse.epsilon.eol.problem.imessages.IMessage_VariableResolution;
 
 public class VariableResolutionContext {
 	
-	protected EolModule eolModule = null;
+	protected EolLibraryModule eolLibraryModule = null;
 	
 	public static VariableResolutionContext instance = null;
 	
@@ -41,9 +43,9 @@ public class VariableResolutionContext {
 	
 	protected ArrayList<String> metamodelRelatedKeywords = new ArrayList<String>();
 	
-	protected VariableResolutionContext()
+	public VariableResolutionContext()
 	{
-		
+		LogBook.getInstance();
 	}
 	
 	public void addIMetamodelDriver(IMetamodelDriver iMetamodelDriver)
@@ -63,27 +65,27 @@ public class VariableResolutionContext {
 		return iMetamodelManager;
 	}
 	
-	public static VariableResolutionContext getInstance(){
-		if (instance == null) {
-			instance = new VariableResolutionContext();
-		}
-		return instance;
-	}
+//	public static VariableResolutionContext getInstance(){
+//		if (instance == null) {
+//			instance = new VariableResolutionContext();
+//		}
+//		return instance;
+//	}
 	
-	public static VariableResolutionContext getInstance(boolean initialise)
-	{
-		if (initialise) {
-			instance = new VariableResolutionContext();
-			LogBook.getInstance();
-			return instance;
-		}
-		else {
-			if (instance == null) {
-				instance = new VariableResolutionContext();
-			}
-			return instance;	
-		}
-	}
+//	public static VariableResolutionContext getInstance(boolean initialise)
+//	{
+//		if (initialise) {
+//			instance = new VariableResolutionContext();
+//			LogBook.getInstance();
+//			return instance;
+//		}
+//		else {
+//			if (instance == null) {
+//				instance = new VariableResolutionContext();
+//			}
+//			return instance;	
+//		}
+//	}
 	
 	public FrameStack getStack()
 	{
@@ -274,8 +276,8 @@ public class VariableResolutionContext {
 		return false;
 	}
 	
-	public void setEolModule(EolModule eolModule) {
-		this.eolModule = eolModule;
+	public void setEolModule(EolLibraryModule eolModule) {
+		this.eolLibraryModule = eolModule;
 	}
 	
 	public String getDirectory(String path)
@@ -286,7 +288,7 @@ public class VariableResolutionContext {
 	
 	public String getParentFolderDirectory()
 	{
-		return getDirectory(eolModule.getSourceFile().getAbsolutePath());
+		return getDirectory(eolLibraryModule.getSourceFile().getAbsolutePath());
 	}
 	
 }

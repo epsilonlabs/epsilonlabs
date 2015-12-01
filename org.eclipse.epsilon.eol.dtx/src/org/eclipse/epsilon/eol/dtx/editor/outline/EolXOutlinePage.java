@@ -9,9 +9,7 @@ import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.ast2eol.context.EolElementCreatorFactory;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
-import org.eclipse.epsilon.eol.visitor.resolution.type.naive.context.TypeResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.type.naive.impl.nonImportant.EOLTypeResolver;
-import org.eclipse.epsilon.eol.visitor.resolution.variable.context.VariableResolutionContext;
 import org.eclipse.epsilon.eol.visitor.resolution.variable.impl.EOLVariableResolver;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -38,11 +36,13 @@ public class EolXOutlinePage extends ModuleContentOutlinePage{
 		EOLElement eolElement = factory.createEOLElement(module.getAst(), null, context);
 		
 		EOLVariableResolver variableResolver = new EOLVariableResolver();
-		VariableResolutionContext.getInstance().setEolModule((EolModule) module);
+		variableResolver.getVariableResolutionContext().setEolModule((EolModule) module);
+		//VariableResolutionContext.getInstance().setEolModule((EolModule) module);
 		variableResolver.run(eolElement);
 		
 		EOLTypeResolver typeResolver = new EOLTypeResolver();
-		TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
+		typeResolver.getTypeResolutionContext().setEolModule((EolModule) module);
+		//TypeResolutionContext.getInstanace().setEolModule((EolModule) module);
 		typeResolver.run(eolElement);
 				
 		return new EOLOutlineElement(eolElement);

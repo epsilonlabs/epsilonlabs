@@ -11,23 +11,23 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.epsilon.eol.metamodel.Block;
-import org.eclipse.epsilon.eol.metamodel.EOLProgram;
+import org.eclipse.epsilon.eol.metamodel.EOLModule;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>EOL Program</b></em>'.
+ * An implementation of the model object '<em><b>EOL Module</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLProgramImpl#getBlock <em>Block</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLModuleImpl#getBlock <em>Block</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
+public class EOLModuleImpl extends EOLLibraryModuleImpl implements EOLModule {
 	/**
 	 * The cached value of the '{@link #getBlock() <em>Block</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -43,7 +43,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EOLProgramImpl() {
+	protected EOLModuleImpl() {
 		super();
 	}
 
@@ -54,7 +54,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EolPackage.Literals.EOL_PROGRAM;
+		return EolPackage.Literals.EOL_MODULE;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 		Block oldBlock = block;
 		block = newBlock;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.EOL_PROGRAM__BLOCK, oldBlock, newBlock);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EolPackage.EOL_MODULE__BLOCK, oldBlock, newBlock);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -90,14 +90,14 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 		if (newBlock != block) {
 			NotificationChain msgs = null;
 			if (block != null)
-				msgs = ((InternalEObject)block).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_PROGRAM__BLOCK, null, msgs);
+				msgs = ((InternalEObject)block).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_MODULE__BLOCK, null, msgs);
 			if (newBlock != null)
-				msgs = ((InternalEObject)newBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_PROGRAM__BLOCK, null, msgs);
+				msgs = ((InternalEObject)newBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EolPackage.EOL_MODULE__BLOCK, null, msgs);
 			msgs = basicSetBlock(newBlock, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EOL_PROGRAM__BLOCK, newBlock, newBlock));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EOL_MODULE__BLOCK, newBlock, newBlock));
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EolPackage.EOL_PROGRAM__BLOCK:
+			case EolPackage.EOL_MODULE__BLOCK:
 				return basicSetBlock(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -122,7 +122,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EolPackage.EOL_PROGRAM__BLOCK:
+			case EolPackage.EOL_MODULE__BLOCK:
 				return getBlock();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -136,7 +136,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EolPackage.EOL_PROGRAM__BLOCK:
+			case EolPackage.EOL_MODULE__BLOCK:
 				setBlock((Block)newValue);
 				return;
 		}
@@ -151,7 +151,7 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EolPackage.EOL_PROGRAM__BLOCK:
+			case EolPackage.EOL_MODULE__BLOCK:
 				setBlock((Block)null);
 				return;
 		}
@@ -166,10 +166,10 @@ public class EOLProgramImpl extends EOLLibraryModuleImpl implements EOLProgram {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EolPackage.EOL_PROGRAM__BLOCK:
+			case EolPackage.EOL_MODULE__BLOCK:
 				return block != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //EOLProgramImpl
+} //EOLModuleImpl
