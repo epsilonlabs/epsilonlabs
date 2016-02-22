@@ -26,7 +26,6 @@ public class SetExpressionCreator extends CollectionExpressionCreator{
 		this.buildCollection(ast, expression, container, context);
 		
 		expression.setResolvedType((Type) context.getEolElementCreatorFactory().createEOLElement(ast, expression, context, SetTypeCreator.class));
-		
 		return expression;
 	}
 

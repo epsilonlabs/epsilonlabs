@@ -27,6 +27,8 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	protected PlainXMLMetamodelDriverUtil util = new PlainXMLMetamodelDriverUtil();
 	protected IMetamodelDriver iMetamodelDriver = null;
 	
+	protected boolean read = false;
+	
 	protected EOLElement currentEolElement = null;
 		
 	public void setCreate(boolean create) {
@@ -233,7 +235,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 				}
 				else {
 					attributeName = util.removeTag(attributeName);
-					if (!create) {
+					if (!create || read) {
 						EClass eClass = getClass(elementName);
 						if (eClass == null) {
 							return false;
@@ -329,7 +331,7 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 						referenceName.startsWith("c_") ||
 						referenceName.startsWith("t_")) {
 					referenceName = util.removeTag(referenceName);
-					if (!create) {
+					if (!create || read) {
 						EClass eClass = getClass(elementName);
 						if (eClass == null) {
 							return false;
@@ -619,6 +621,18 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 					else {
 						if (feature instanceof EReference) {
 							if (!create) {
+								if (referenceName.startsWith("c_")) {
+									if (feature.getUpperBound() != EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
+										LogBook.getInstance().addError(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_SINGLE_VALUED, referenceName));
+									}
+									feature.setUpperBound(EStructuralFeature.UNBOUNDED_MULTIPLICITY);
+								}
+								else if (referenceName.startsWith("e_")) {
+									if (feature.getUpperBound() == EStructuralFeature.UNBOUNDED_MULTIPLICITY) {
+										LogBook.getInstance().addError(currentEolElement, IMessage_IMetamodelDriver.bindMessage(IMessage_IMetamodelDriver.REFERENCE_MULTI_VALUED, referenceName));
+									}
+									feature.setUpperBound(1);
+								}
 								return (EReference) feature;
 							}
 							else {
@@ -916,6 +930,14 @@ public class PlainXMLIpackageDriver implements IPackageDriver{
 	@Override
 	public EPackage getEPackage() {
 		return ePackage;
+	}
+	
+	public boolean isRead() {
+		return read;
+	}
+	
+	public void setRead(boolean read) {
+		this.read = read;
 	}
 
 }

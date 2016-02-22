@@ -28,6 +28,7 @@ public class IMessage_TypeResolution {
 	public static final String EXPRESSION_DOES_NOT_HAVE_A_TYPE = "Expression does not have a type";
 	public static final String EXPRESSION_NOT_BOOLEAN = "Expression is not of type Boolean";
 	public static final String EXPRESSION_NOT_NUMERAL = "Expression should be of either type Integer or type Real";
+	public static final String EXPRESSION_NOT_STRING = "Expression is not of type String";
 	
 	public static final String EXPRESSION_EXPECTED_BOOLEAN = "Expected boolean type, actual type is: %s";
 	public static final String EXPRESSION_EXPECTED_STRING = "Expected String type, actual type is: %s";
@@ -41,6 +42,7 @@ public class IMessage_TypeResolution {
 
 	public static final String EXPRESSION_INIT_CANNOT_CONTAIN_COLLECTION = "Expression is of type Collection, it is not allowed in the initialisation of a Collection.";
 
+	public static final String CONTENT_TYPE_IS_ANY = "Collection's content type is Any";
 	
 	public static final String EXPRESSION_IS_ANYTYPE = "Expression is of type Any";
 	public static final String EXPRESSION_CANNOT_BE_CAST_TO_TYPE = "Expression cannot be cast to type: %s";
@@ -62,7 +64,7 @@ public class IMessage_TypeResolution {
 	public static final String COLLECTION_EXPRESSION_NO_CONTENT_TYPE = "Expression does not have a content type";
 	
 	
-	public static final String RETURN_STATEMENT_NOT_IN_OP = "Return statement should be included in an operation/helper definition";
+	public static final String RETURN_STATEMENT_NOT_IN_OP = "Return statement should be included in an operation/helper definition or in a transaction statement";
 	
 	public static final String POTENTIAL_TYPE_MISMATCH = "Potential type mismatch";
 	public static final String TYPE_MISMATCH = "Type mismatch";
@@ -120,6 +122,8 @@ public class IMessage_TypeResolution {
 	public static final String OBJECT_NOT_DEFINED_IN_MODEL = "The object is not defined in any known models";
 	
 	public static final String ARG_NOT_IN_THE_SAME_PACKAGE = "The type of the argument is not defined in the target domain";
+	
+	public static final String RETURN_STMT_NOT_ALLOWED = "Return statement is not allowed here";
 	
 	public static String bindMessage(String message, Object value)
 	{
