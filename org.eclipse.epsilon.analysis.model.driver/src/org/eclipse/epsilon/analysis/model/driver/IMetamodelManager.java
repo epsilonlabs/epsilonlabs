@@ -31,10 +31,13 @@ public class IMetamodelManager {
 			result.addAll(iMetamodelDrivers.get(0).getAllTypeNames(true));
 		}
 		else if(iMetamodelDrivers.size() > 1)
-		for(IMetamodelDriver imd: iMetamodelDrivers)
 		{
-			result.addAll(imd.getAllTypeNames(false));
+			for(IMetamodelDriver imd: iMetamodelDrivers)
+			{
+				result.addAll(imd.getAllTypeNames(false));
+			}
 		}
+		
 		return result;
 	}
 	
