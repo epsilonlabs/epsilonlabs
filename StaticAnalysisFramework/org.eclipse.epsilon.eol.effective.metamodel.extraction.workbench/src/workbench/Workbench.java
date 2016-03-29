@@ -10,9 +10,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
-import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
+import org.eclipse.epsilon.eol.dom.Import;
 import org.eclipse.epsilon.eol.effective.metamodel.extraction.impl.EffectiveMetamodelExtractor;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.visitor.resolution.type.naive.impl.nonImportant.EOLTypeResolver;
@@ -38,7 +38,7 @@ public class Workbench {
 				e.printStackTrace();
 			}
 
-			for (EolImport imp : eolModule.getImports()) {
+			for (Import imp : eolModule.getImports()) {
 				System.out.println(imp.getModule().getAst().toStringTree());
 			}
 
@@ -85,7 +85,7 @@ public class Workbench {
 						e.printStackTrace();
 					}
 
-					for (EolImport imp : eolModule.getImports()) {
+					for (Import imp : eolModule.getImports()) {
 						System.out.println(imp.getModule().getAst()
 								.toStringTree());
 					}
@@ -133,7 +133,7 @@ public class Workbench {
 			e.printStackTrace();
 		}
 
-		for (EolImport imp : eolModule.getImports()) {
+		for (Import imp : eolModule.getImports()) {
 			System.out.println(imp.getModule().getAst().toStringTree());
 		}
 
