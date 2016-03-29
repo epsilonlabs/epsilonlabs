@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.epsilon.etl.dtx.editor.EtlxEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="false"
+            extensions="etl"
+            id="org.eclipse.epsilon.etl.dtx.editor.EtlEditor"
+            name="Epsilon Transformation Language Editor X">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.epsilon.common.dt.moduleValidator">
+      <moduleValidator
+            class="org.eclipse.epsilon.etl.dtx.validator.EtlxModuleValidator">
+      </moduleValidator>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.eclipse.epsilon.etl.dtx.category"
+            name="ETLExtension">
+      </category>
+      <view
+            category="org.eclipse.epsilon.etl.dtx.category"
+            class="org.eclipse.epsilon.etl.dtx.analysis.metamodel.coverage.CoverageAnalysisView"
+            id="org.eclipse.epsilon.etl.dtx.view1"
+            name="Metamodel Coverage"
+            restorable="true">
+      </view>
+      <view
+            category="org.eclipse.epsilon.etl.dtx.category"
+            class="org.eclipse.epsilon.etl.dtx.analysis.transformation.dependency.TransformationDependencyView"
+            id="org.eclipse.epsilon.etl.dtx.view2"
+            name="Transformation Rule Dependency"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
