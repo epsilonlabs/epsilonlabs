@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,63 +39,59 @@ import org.eclipse.epsilon.eol.execute.introspection.IPropertyGetter;
 import org.eclipse.epsilon.eol.execute.introspection.IPropertySetter;
 import org.eclipse.epsilon.eol.models.transactions.IModelTransactionSupport;
 
-public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
-	
-	//DONE : Improve support for file-based metamodels
-	//FIXME : If the user wants, they can load it as a local copy
-	//DONE : Re-implement the isTypeOf and isKindOf locally
-	
+import com.google.common.collect.Iterators;
+
+public class IndexedAbstractEmfModel extends IndexedCachedModel<EObject> {
+
+	// DONE : Improve support for file-based metamodels
+	// FIXME : If the user wants, they can load it as a local copy
+	// DONE : Re-implement the isTypeOf and isKindOf locally
+
 	protected Resource modelImpl;
 	protected boolean expand = true;
 	Map<String, EClass> eClassCache = new HashMap<String, EClass>();
-	
+
 	protected InputStream getInputStream(String file) throws IOException {
-		
+
 		if (file.startsWith("bundleresource:") || file.startsWith("platform:")) {
 			URL url = new URL(file);
 			return url.openConnection().getInputStream();
-		}
-		else {
+		} else {
 			return new FileInputStream(file);
 		}
-		
+
 	}
-	
-	protected void setDataTypesInstanceClasses(Resource metamodel){
+
+	protected void setDataTypesInstanceClasses(Resource metamodel) {
 		Iterator<EObject> it = metamodel.getAllContents();
 		while (it.hasNext()) {
 			EObject eObject = it.next();
-			if (eObject instanceof EEnum){
-				//TODO : See if we really need this
-				//((EEnum) eObject).setInstanceClassName("java.lang.Integer");
-			}
-			else if (eObject instanceof EDataType){
+			if (eObject instanceof EEnum) {
+				// TODO : See if we really need this
+				// ((EEnum) eObject).setInstanceClassName("java.lang.Integer");
+			} else if (eObject instanceof EDataType) {
 				EDataType eDataType = (EDataType) eObject;
 				String instanceClass = "";
-				if (eDataType.getName().equals("String")){
+				if (eDataType.getName().equals("String")) {
 					instanceClass = "java.lang.String";
-				}
-				else if (eDataType.getName().equals("Boolean")){
+				} else if (eDataType.getName().equals("Boolean")) {
 					instanceClass = "java.lang.Boolean";
-				}
-				else if (eDataType.getName().equals("Integer")){
+				} else if (eDataType.getName().equals("Integer")) {
 					instanceClass = "java.lang.Integer";
-				}
-				else if (eDataType.getName().equals("Float")){
+				} else if (eDataType.getName().equals("Float")) {
 					instanceClass = "java.lang.Float";
-				}
-				else if (eDataType.getName().equals("Double")){
+				} else if (eDataType.getName().equals("Double")) {
 					instanceClass = "java.lang.Double";
 				}
 				eDataType.setInstanceClassName(instanceClass);
 			}
 		}
 	}
-	
+
 	public void addMetamodelUri(String nsUri) {
 		getPackageRegistry().put(nsUri, EPackage.Registry.INSTANCE.get(nsUri));
 	}
-	
+
 	protected Registry registry = null;
 
 	/**
@@ -104,78 +101,83 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	 * @return the (global) package registry
 	 */
 	protected Registry getPackageRegistry() {
-		
+
 		if (registry == null) {
 			if (modelImpl.getResourceSet() == null) {
 				registry = EPackage.Registry.INSTANCE;
-				//new EPackageRegistryImpl();
-				//registry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
-			}
-			else {
-				// By default getPackageRegistry() returns/creates a registry backed by the global registry
+				// new EPackageRegistryImpl();
+				// registry.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+			} else {
+				// By default getPackageRegistry() returns/creates a registry
+				// backed by the global registry
 				registry = modelImpl.getResourceSet().getPackageRegistry();
 			}
 		}
-		
+
 		return registry;
 	}
-	
+
 	public Object getEnumerationValue(String enumeration, String label) throws EolEnumerationValueNotFoundException {
-		
+
 		for (Object pkg : getPackageRegistry().values()) {
 
-			if (pkg instanceof EPackage /*|| pkg instanceof EPackage.Descriptor*/) {
+			if (pkg instanceof EPackage /*
+										 * || pkg instanceof EPackage.Descriptor
+										 */) {
 				EPackage ePackage = null;
-				
-				//if (pkg instanceof EPackage) {
-					ePackage = (EPackage) pkg;
-				//}
-				//else {
-				//	ePackage = ((EPackage.Descriptor) pkg).getEPackage();
-				//}
-				
+
+				// if (pkg instanceof EPackage) {
+				ePackage = (EPackage) pkg;
+				// }
+				// else {
+				// ePackage = ((EPackage.Descriptor) pkg).getEPackage();
+				// }
+
 				for (EClassifier classifier : EmfUtil.getAllEClassifiers(ePackage)) {
-				//for (EClassifier classifier : ePackage.getEClassifiers()) {
-					if (classifier instanceof EEnum && 
-							(((EEnum) classifier).getName().equals(enumeration) ||
-							getFullyQualifiedName(classifier).equals(enumeration))){
+					// for (EClassifier classifier : ePackage.getEClassifiers())
+					// {
+					if (classifier instanceof EEnum && (((EEnum) classifier).getName().equals(enumeration)
+							|| getFullyQualifiedName(classifier).equals(enumeration))) {
 						EEnum eEnum = (EEnum) classifier;
 						EEnumLiteral literal = eEnum.getEEnumLiteral(label);
-						
-						if (literal != null) return literal.getInstance();
+
+						if (literal != null)
+							return literal.getInstance();
 					}
 				}
 			}
 		}
-		
-		throw new EolEnumerationValueNotFoundException(enumeration,label,this.getName());
+
+		throw new EolEnumerationValueNotFoundException(enumeration, label, this.getName());
 	}
-	
+
 	@Override
 	public boolean knowsAboutProperty(Object instance, String property) {
-		if (!owns(instance)) return false;
-		EObject eObject = (EObject) instance;		
+		if (!owns(instance))
+			return false;
+		EObject eObject = (EObject) instance;
 		return knowsAboutProperty(eObject, property);
 	}
 
 	protected boolean knowsAboutProperty(EObject instance, String property) {
 		return EmfUtil.getEStructuralFeature(instance.eClass(), property) != null;
 	}
-	
-	//TODO : Throw the exception if size == 0 check the allContents for the class
+
+	// TODO : Throw the exception if size == 0 check the allContents for the
+	// class
 	protected Collection<EObject> getAllOfTypeFromModel(String type) throws EolModelElementTypeNotFoundException {
 		final EClass eClass = classForName(type);
 		final List<EObject> allOfType = new ArrayList<EObject>();
-			
+
 		for (EObject eObject : allContents()) {
-			if (eObject.eClass() == eClass){
+			if (eObject.eClass() == eClass) {
 				allOfType.add(eObject);
 			}
 		}
 
 		return allOfType;
 	}
-	
+
 	public Object getCacheKeyForType(String type) throws EolModelElementTypeNotFoundException {
 		return classForName(type);
 	}
@@ -192,11 +194,11 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 				return eClass;
 			}
 		}
- 		
+
 		throw new EolModelElementTypeNotFoundException(this.name, name);
 	}
-	
-	protected EClass classForName(String name, Registry registry) {	
+
+	protected EClass classForName(String name, Registry registry) {
 		boolean absolute = name.indexOf("::") > -1;
 
 		for (Object pkg : registry.values()) {
@@ -211,16 +213,15 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	}
 
 	private EClass classForName(String name, boolean absolute, Object pkg) {
-		for (EClassifier eClassifier : EmfUtil.getAllEClassifiers((EPackage)pkg)) {
+		for (EClassifier eClassifier : EmfUtil.getAllEClassifiers((EPackage) pkg)) {
 			if (eClassifier instanceof EClass) {
 				String eClassifierName = "";
 				if (absolute) {
 					eClassifierName = getFullyQualifiedName(eClassifier);
-				}
-				else {
+				} else {
 					eClassifierName = eClassifier.getName();
 				}
-				
+
 				if (eClassifierName.compareTo(name) == 0) {
 					return (EClass) eClassifier;
 				}
@@ -228,67 +229,86 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 		}
 		return null;
 	}
-	
+
 	protected Collection<EObject> getAllOfKindFromModel(String kind) throws EolModelElementTypeNotFoundException {
 		final EClass eClass = classForName(kind);
 		final List<EObject> allOfKind = new ArrayList<EObject>();
-		
-		for (EObject eObject : (Collection<EObject>)allContents()) {
-			if (eClass.isInstance(eObject)){
+
+		for (EObject eObject : (Collection<EObject>) allContents()) {
+			if (eClass.isInstance(eObject)) {
 				allOfKind.add(eObject);
 			}
 		}
-		
+
 		return allOfKind;
 	}
-	
-	protected Collection<EObject> allContentsFromModel(){
+
+	protected Iterator<EObject> kallContentsFromModel() {
+
+		List<Resource> res = getResources();
+
+		List<Iterator<EObject>> its = new LinkedList<Iterator<EObject>>();
+
+		for (Resource r : res)
+			its.add(r.getAllContents());
+
+		if (its.isEmpty())
+			return null;
+
+		Iterator<EObject> it = its.get(0);
+
+		for (int i = 1; i < its.size(); i++)
+			it = Iterators.concat(it, its.get(i));
+
+		return it;
+
+	}
+
+	protected Collection<EObject> allContentsFromModel() {
 		final List<EObject> allInstances = new ArrayList<EObject>();
-		
+
 		for (Resource resource : getResources()) {
 			Iterator<EObject> it = resource.getAllContents();
-			while (it.hasNext()){
+			while (it.hasNext()) {
 				allInstances.add(it.next());
 			}
 		}
-		
+
 		/*
-		if (!expand) {
-			Iterator<EObject> it = modelImpl.getAllContents();
-			while (it.hasNext()){
-				allInstances.add(it.next());
-			}
-		
-		} else {
-			final List<Resource> resources;
-			
-			if (modelImpl.getResourceSet() == null) {
-				resources = new ArrayList<Resource>();
-				resources.add(modelImpl);
-			} else {
-				resources = modelImpl.getResourceSet().getResources();
-			}
-				
-			
-		}*/
-			
+		 * if (!expand) { Iterator<EObject> it = modelImpl.getAllContents();
+		 * while (it.hasNext()){ allInstances.add(it.next()); }
+		 * 
+		 * } else { final List<Resource> resources;
+		 * 
+		 * if (modelImpl.getResourceSet() == null) { resources = new
+		 * ArrayList<Resource>(); resources.add(modelImpl); } else { resources =
+		 * modelImpl.getResourceSet().getResources(); }
+		 * 
+		 * 
+		 * }
+		 */
+
 		return allInstances;
 	}
-	
-	protected EObject createInstanceInModel(String type) throws EolModelElementTypeNotFoundException, EolNotInstantiableModelElementTypeException {
-		
+
+	protected EObject createInstanceInModel(String type)
+			throws EolModelElementTypeNotFoundException, EolNotInstantiableModelElementTypeException {
+
 		EClass eClass = classForName(type);
-		//if (eClass == null) throw new EolModelElementTypeNotFoundException(this.getName(), type);
-		if (eClass.isAbstract()) throw new EolNotInstantiableModelElementTypeException(this.name, type);
-		
+		// if (eClass == null) throw new
+		// EolModelElementTypeNotFoundException(this.getName(), type);
+		if (eClass.isAbstract())
+			throw new EolNotInstantiableModelElementTypeException(this.name, type);
+
 		EObject instance = eClass.getEPackage().getEFactoryInstance().create(eClass);
 		modelImpl.getContents().add(instance);
 		instance.eAdapters().add(new ContainmentChangeAdapter(instance, modelImpl));
 		return instance;
-		
+
 	}
-	
+
 	protected EmfModelTransactionSupport_indexed transactionSupport;
+
 	@Override
 	public IModelTransactionSupport getTransactionSupport() {
 		if (transactionSupport == null) {
@@ -296,21 +316,21 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 		}
 		return transactionSupport;
 	}
-	
-	protected int instancesCount(Resource r){
+
+	protected int instancesCount(Resource r) {
 		int i = 0;
 		Iterator<EObject> ite = r.getAllContents();
-		while (ite.hasNext()){
+		while (ite.hasNext()) {
 			ite.next();
 			i++;
 		}
 		return i;
 	}
-		
-	protected boolean deleteElementInModel(Object instance) throws EolRuntimeException {		
+
+	protected boolean deleteElementInModel(Object instance) throws EolRuntimeException {
 		if (!(instance instanceof EObject))
 			return false;
-		
+
 		EObject eObject = (EObject) instance;
 		EcoreUtil.delete(eObject);
 
@@ -323,35 +343,35 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 			deleteElement(content);
 		}
 		contents.clear();
-		//clearCache();
+		// clearCache();
 		return true;
 	}
 
 	public boolean owns(Object instance) {
-		
+
 		if (instance instanceof EObject) {
 			EObject eObject = (EObject) instance;
 			Resource eObjectResource = eObject.eResource();
-			
-			if (eObjectResource == null) return false;
-			
+
+			if (eObjectResource == null)
+				return false;
+
 			if (expand) {
 				return modelImpl.getResourceSet() == eObjectResource.getResourceSet();
-			}
-			else {
+			} else {
 				return modelImpl == eObjectResource;
 			}
 		}
-		
-		return  false;
-		
+
+		return false;
+
 	}
-	
+
 	public boolean store(String fileName) {
 		return store(EmfUtil.createPlatformResourceURI(fileName));
 	}
-	
-	// If expand == true, save the other resources in the 
+
+	// If expand == true, save the other resources in the
 	// resource set as well
 	// See how we can run store inside a WorkbenchModificationOperation
 	public boolean store(URI uri) {
@@ -360,21 +380,20 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 		try {
 			modelImpl.setURI(uri);
 			modelImpl.save(null);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
-		}
-		finally {
+		} finally {
 			modelImpl.setURI(oldUri);
 		}
 
 		return true;
 	}
-	
+
 	public boolean store(OutputStream os) {
-		if (modelImpl == null) return false;
-		
+		if (modelImpl == null)
+			return false;
+
 		try {
 			modelImpl.save(os, null);
 			return true;
@@ -383,7 +402,7 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 			return false;
 		}
 	}
-	
+
 	@Override
 	public void disposeModel() {
 		registry = null;
@@ -398,18 +417,18 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	public Resource getResource() {
 		return modelImpl;
 	}
-	
+
 	public void setResource(Resource resource) {
 		this.modelImpl = resource;
 	}
-	
+
 	/**
 	 * @deprecated Use getResource() instead
 	 */
 	public Resource getModelImpl() {
 		return modelImpl;
 	}
-	
+
 	public void setModelImpl(Resource modelImpl) {
 		this.modelImpl = modelImpl;
 	}
@@ -418,63 +437,61 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 		List<Resource> resources = new ArrayList<Resource>();
 		if (expand && modelImpl.getResourceSet() != null) {
 			resources.addAll(modelImpl.getResourceSet().getResources());
-		}
-		else {
+		} else {
 			resources.add(modelImpl);
 		}
 		return resources;
 	}
-	
+
 	public Object getElementById(String id) {
 		for (Resource resource : getResources()) {
 			Object instance = resource.getEObject(id);
-			if (instance != null) return instance;
+			if (instance != null)
+				return instance;
 		}
 		return null;
 	}
 
 	public String getElementId(Object instance) {
 		EObject eObject = (EObject) instance;
-		
+
 		/*
-		if (eObject.eResource() instanceof XMIResource){
-			String id = ((XMIResource) eObject.eResource()).getID(eObject);
-			if (id != null && id.trim().length() > 0) return id;
-		}
-		
-		if (eObject.eResource() instanceof XMLResource){
-			return ((XMLResource) eObject.eResource()).getURIFragment(eObject);
-		}
-		
-		return "";*/
-		
+		 * if (eObject.eResource() instanceof XMIResource){ String id =
+		 * ((XMIResource) eObject.eResource()).getID(eObject); if (id != null &&
+		 * id.trim().length() > 0) return id; }
+		 * 
+		 * if (eObject.eResource() instanceof XMLResource){ return
+		 * ((XMLResource) eObject.eResource()).getURIFragment(eObject); }
+		 * 
+		 * return "";
+		 */
+
 		return eObject.eResource().getURIFragment(eObject);
-		
+
 	}
-	
+
 	public void setElementId(Object instance, String newId) {
 		if (newId == null || newId.isEmpty())
 			return;
-		
-		/* I think that, quite sensibly, EMF does not all URI
-		 * fragments to be set on an XML resource. Also, we
-		 * don't want a URI fragment to be used as an XMI ID
+
+		/*
+		 * I think that, quite sensibly, EMF does not all URI fragments to be
+		 * set on an XML resource. Also, we don't want a URI fragment to be used
+		 * as an XMI ID
 		 */
 		if (isUriFragment(newId))
 			return;
-		
-		
+
 		EObject eObject = (EObject) instance;
-		
+
 		if (eObject.eResource() instanceof XMIResource) {
 			((XMIResource) eObject.eResource()).setID(eObject, newId);
 		}
 	}
-	
+
 	private boolean isUriFragment(String newId) {
 		return newId.startsWith("/") || newId.startsWith("#/");
 	}
-	
 
 	@Override
 	public IPropertyGetter getPropertyGetter() {
@@ -485,38 +502,40 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	public IPropertySetter getPropertySetter() {
 		return new EmfPropertySetter();
 	}
-	
+
 	public Object getTypeOf(Object instance) {
 		return ((EObject) instance).eClass();
 	}
-	
+
 	public String getTypeNameOf(Object instance) {
 		if (!isModelElement(instance))
-			throw new IllegalArgumentException("Not a valid EMF model element: " + instance + " (" + instance.getClass().getCanonicalName() + ") ");
-	
-		return ((EClass)getTypeOf(instance)).getName();
+			throw new IllegalArgumentException("Not a valid EMF model element: " + instance + " ("
+					+ instance.getClass().getCanonicalName() + ") ");
+
+		return ((EClass) getTypeOf(instance)).getName();
 	}
-	
+
 	public String getFullyQualifiedTypeNameOf(Object instance) {
 		if (!isModelElement(instance))
-			throw new IllegalArgumentException("Not a valid EMF model element: " + instance + " (" + instance.getClass().getCanonicalName() + ") ");
-		
-		return getFullyQualifiedName(((EClass)getTypeOf(instance)));
+			throw new IllegalArgumentException("Not a valid EMF model element: " + instance + " ("
+					+ instance.getClass().getCanonicalName() + ") ");
+
+		return getFullyQualifiedName(((EClass) getTypeOf(instance)));
 	}
-	
+
 	public Collection<String> getAllTypeNamesOf(Object instance) {
 		final Collection<String> allTypeNames = new ArrayList<String>();
-		
+
 		if (isModelElement(instance)) {
-			final EClass type = (EClass)getTypeOf(instance);
-			
+			final EClass type = (EClass) getTypeOf(instance);
+
 			allTypeNames.add(type.getName());
-			
+
 			for (EClass supertype : type.getEAllSuperTypes()) {
 				allTypeNames.add(supertype.getName());
 			}
 		}
-		
+
 		return allTypeNames;
 	}
 
@@ -527,19 +546,20 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 			return false;
 		}
 	}
-	
+
 	public boolean hasType(String type) {
 		try {
 			// Speed things up
-			if (eClassCache.containsKey(type)) return true;
-			
+			if (eClassCache.containsKey(type))
+				return true;
+
 			classForName(type);
 			return true;
 		} catch (EolModelElementTypeNotFoundException e) {
 			return false;
 		}
 	}
-	
+
 	protected String getFullyQualifiedName(EClassifier eClassifier) {
 		String fullyQualifiedName = eClassifier.getName();
 		EPackage parent = eClassifier.getEPackage();
@@ -559,31 +579,29 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	}
 
 	@Override
-	public boolean isOfKind(Object instance, String metaClass)
-			throws EolModelElementTypeNotFoundException {
-		
+	public boolean isOfKind(Object instance, String metaClass) throws EolModelElementTypeNotFoundException {
+
 		EClass eClass = classForName(metaClass);
 		return eClass.isInstance(instance);
 	}
 
 	@Override
-	public boolean isOfType(Object instance, String metaClass)
-			throws EolModelElementTypeNotFoundException {
-		
+	public boolean isOfType(Object instance, String metaClass) throws EolModelElementTypeNotFoundException {
+
 		EClass eClass = classForName(metaClass);
-		
+
 		if (instance instanceof EObject) {
 			EObject eObject = (EObject) instance;
 			return eClass == eObject.eClass();
 		}
 		return false;
 	}
-	
+
 	public Object getContainerOf(Object object) {
 		if (object instanceof EObject) {
 			return ((EObject) object).eContainer();
 		}
-		
+
 		return null;
 	}
 
@@ -600,6 +618,6 @@ public class IndexedAbstractEmfModel extends IndexecCachedModel<EObject>{
 	@Override
 	protected void loadModel() throws EolModelLoadingException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

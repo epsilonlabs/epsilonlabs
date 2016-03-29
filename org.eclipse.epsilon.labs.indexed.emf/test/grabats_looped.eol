@@ -1,10 +1,269 @@
 model Core driver EMF {nsuri = "org.amma.dsl.jdt.core"};
+
 model DOM driver EMF {nsuri = "org.amma.dsl.jdt.dom"};
+
 model PrimitiveTypes driver EMF {nsuri = "org.amma.dsl.jdt.primitiveTypes"};
 
-var a = DOM!Modifier.all;
-var a_prime = a.select(md|md.public = true).println;
 
-var b = DOM!Modifier.all.select(md|md.static = true).println;
 
-var c = DOM!Modifier.all.select(md|md.public = true and md.static = false).println;
+var size = 0;
+
+var iImportDeclaration = Core!IImportDeclaration.all.first;
+
+size = size + Core!IImportDeclaration.all.size();
+
+var enumDeclaration = DOM!EnumDeclaration.all.first;
+
+size = size + DOM!EnumDeclaration.all.size();
+
+var instanceofExpression = DOM!InstanceofExpression.all.first;
+
+size = size + DOM!InstanceofExpression.all.size();
+
+var simpleType = DOM!SimpleType.all.first;
+
+size = size + DOM!SimpleType.all.size();
+
+var iField = Core!IField.all.first;
+
+size = size + Core!IField.all.size();
+
+var fieldAccess = DOM!FieldAccess.all.first;
+
+size = size + DOM!FieldAccess.all.size();
+
+var numberLiteral = DOM!NumberLiteral.all.first;
+
+size = size + DOM!NumberLiteral.all.size();
+
+var continueStatement = DOM!ContinueStatement.all.first;
+
+size = size + DOM!ContinueStatement.all.size();
+
+var booleanLiteral = DOM!BooleanLiteral.all.first;
+
+size = size + DOM!BooleanLiteral.all.size();
+
+var fieldDeclaration = DOM!FieldDeclaration.all.first;
+
+size = size + DOM!FieldDeclaration.all.size();
+
+var superConstructorInvocation = DOM!SuperConstructorInvocation.all.first;
+
+size = size + DOM!SuperConstructorInvocation.all.size();
+
+var binaryPackageFragmentRoot = Core!BinaryPackageFragmentRoot.all.first;
+
+size = size + Core!BinaryPackageFragmentRoot.all.size();
+
+var nullLiteral = DOM!NullLiteral.all.first;
+
+size = size + DOM!NullLiteral.all.size();
+
+var primitiveType = DOM!PrimitiveType.all.first;
+
+size = size + DOM!PrimitiveType.all.size();
+
+var wildcardType = DOM!WildcardType.all.first;
+
+size = size + DOM!WildcardType.all.size();
+
+var methodInvocation = DOM!MethodInvocation.all.first;
+
+size = size + DOM!MethodInvocation.all.size();
+
+var arrayAccess = DOM!ArrayAccess.all.first;
+
+size = size + DOM!ArrayAccess.all.size();
+
+var iInitializer = Core!IInitializer.all.first;
+
+size = size + Core!IInitializer.all.size();
+
+var methodDeclaration = DOM!MethodDeclaration.all.first;
+
+size = size + DOM!MethodDeclaration.all.size();
+
+var iMethod = Core!IMethod.all.first;
+
+size = size + Core!IMethod.all.size();
+
+var iJavaModel = Core!IJavaModel.all.first;
+
+size = size + Core!IJavaModel.all.size();
+
+var assertStatement = DOM!AssertStatement.all.first;
+
+size = size + DOM!AssertStatement.all.size();
+
+var initializer = DOM!Initializer.all.first;
+
+size = size + DOM!Initializer.all.size();
+
+var variableDeclarationFragment = DOM!VariableDeclarationFragment.all.first;
+
+size = size + DOM!VariableDeclarationFragment.all.size();
+
+var conditionalExpression = DOM!ConditionalExpression.all.first;
+
+size = size + DOM!ConditionalExpression.all.size();
+
+var typeDeclaration = DOM!TypeDeclaration.all.first;
+
+size = size + DOM!TypeDeclaration.all.size();
+
+var enhancedForStatement = DOM!EnhancedForStatement.all.first;
+
+size = size + DOM!EnhancedForStatement.all.size();
+
+var variableDeclarationStatement = DOM!VariableDeclarationStatement.all.first;
+
+size = size + DOM!VariableDeclarationStatement.all.size();
+
+var tagElement = DOM!TagElement.all.first;
+
+size = size + DOM!TagElement.all.size();
+
+var typeParameter = DOM!TypeParameter.all.first;
+
+size = size + DOM!TypeParameter.all.size();
+
+var singleVariableDeclaration = DOM!SingleVariableDeclaration.all.first;
+
+size = size + DOM!SingleVariableDeclaration.all.size();
+
+var synchronizedStatement = DOM!SynchronizedStatement.all.first;
+
+size = size + DOM!SynchronizedStatement.all.size();
+
+var doStatement = DOM!DoStatement.all.first;
+
+size = size + DOM!DoStatement.all.size();
+
+var infixExpression = DOM!InfixExpression.all.first;
+
+size = size + DOM!InfixExpression.all.size();
+
+var methodRef = DOM!MethodRef.all.first;
+
+size = size + DOM!MethodRef.all.size();
+
+var characterLiteral = DOM!CharacterLiteral.all.first;
+
+size = size + DOM!CharacterLiteral.all.size();
+
+var variableDeclarationExpression = DOM!VariableDeclarationExpression.all.first;
+
+size = size + DOM!VariableDeclarationExpression.all.size();
+
+var typeDeclarationStatement = DOM!TypeDeclarationStatement.all.first;
+
+size = size + DOM!TypeDeclarationStatement.all.size();
+
+var catchClause = DOM!CatchClause.all.first;
+
+size = size + DOM!CatchClause.all.size();
+
+var importDeclaration = DOM!ImportDeclaration.all.first;
+
+size = size + DOM!ImportDeclaration.all.size();
+
+var singleMemberAnnotation = DOM!SingleMemberAnnotation.all.first;
+
+size = size + DOM!SingleMemberAnnotation.all.size();
+
+var switchCase = DOM!SwitchCase.all.first;
+
+size = size + DOM!SwitchCase.all.size();
+
+var modifier = DOM!Modifier.all.first;
+
+size = size + DOM!Modifier.all.size();
+
+var iJavaProject = Core!IJavaProject.all.first;
+
+size = size + Core!IJavaProject.all.size();
+
+var postfixExpression = DOM!PostfixExpression.all.first;
+
+size = size + DOM!PostfixExpression.all.size();
+
+var anonymousClassDeclaration = DOM!AnonymousClassDeclaration.all.first;
+
+size = size + DOM!AnonymousClassDeclaration.all.size();
+
+var memberRef = DOM!MemberRef.all.first;
+
+size = size + DOM!MemberRef.all.size();
+
+var returnStatement = DOM!ReturnStatement.all.first;
+
+size = size + DOM!ReturnStatement.all.size();
+
+var iType = Core!IType.all.first;
+
+size = size + Core!IType.all.size();
+
+var throwStatement = DOM!ThrowStatement.all.first;
+
+size = size + DOM!ThrowStatement.all.size();
+
+var compilationUnit = DOM!CompilationUnit.all.first;
+
+size = size + DOM!CompilationUnit.all.size();
+
+var typeLiteral = DOM!TypeLiteral.all.first;
+
+size = size + DOM!TypeLiteral.all.size();
+
+var methodRefParameter = DOM!MethodRefParameter.all.first;
+
+size = size + DOM!MethodRefParameter.all.size();
+
+var iCompilationUnit = Core!ICompilationUnit.all.first;
+
+size = size + Core!ICompilationUnit.all.size();
+
+var packageDeclaration = DOM!PackageDeclaration.all.first;
+
+size = size + DOM!PackageDeclaration.all.size();
+
+var iPackageFragment = Core!IPackageFragment.all.first;
+
+size = size + Core!IPackageFragment.all.size();
+
+var classInstanceCreation = DOM!ClassInstanceCreation.all.first;
+
+size = size + DOM!ClassInstanceCreation.all.size();
+
+var arrayCreation = DOM!ArrayCreation.all.first;
+
+size = size + DOM!ArrayCreation.all.size();
+
+var sourcePackageFragmentRoot = Core!SourcePackageFragmentRoot.all.first;
+
+size = size + Core!SourcePackageFragmentRoot.all.size();
+
+var iClassFile = Core!IClassFile.all.first;
+
+size = size + Core!IClassFile.all.size();
+
+var stringLiteral = StringLiteral.all.first;
+
+size = size + DOM!StringLiteral.all.size();
+
+var switchStatement = DOM!SwitchStatement.all.first;
+
+size = size + DOM!SwitchStatement.all.size();
+
+var constructorInvocation = DOM!ConstructorInvocation.all.first;
+
+size = size + DOM!ConstructorInvocation.all.size();
+
+var enumConstantDeclaration = DOM!EnumConstantDeclaration.all.first;
+
+size = size + DOM!EnumConstantDeclaration.all.size();
+
+size.println();
+
+DOM.allContents().size().println();
