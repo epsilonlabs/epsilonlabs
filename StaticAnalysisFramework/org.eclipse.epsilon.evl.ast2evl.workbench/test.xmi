@@ -1,0 +1,1392 @@
+<?xml version="1.0" encoding="ASCII"?>
+<evl:EVLModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" xmlns:evl="http://www.eclipse.org/epsilon/evl">
+  <region container="/">
+    <start container="//@region" line="1"/>
+    <end container="//@region" line="90" column="1"/>
+  </region>
+  <operations container="/">
+    <region container="//@operations.0">
+      <start container="//@operations.0/@region" line="82"/>
+      <end container="//@operations.0/@region" line="90" column="1"/>
+    </region>
+    <contextType xsi:type="eol:ModelElementType" container="//@operations.0" elementName="Class">
+      <region container="//@operations.0/@contextType">
+        <start container="//@operations.0/@contextType/@region" line="82" column="10"/>
+        <end container="//@operations.0/@contextType/@region" line="82" column="15"/>
+      </region>
+    </contextType>
+    <returnType xsi:type="eol:BooleanType" container="//@operations.0">
+      <region container="//@operations.0/@returnType">
+        <start container="//@operations.0/@returnType/@region" line="82" column="38"/>
+        <end container="//@operations.0/@returnType/@region" line="82" column="45"/>
+      </region>
+    </returnType>
+    <body container="//@operations.0">
+      <region container="//@operations.0/@body">
+        <start container="//@operations.0/@body/@region" line="82" column="46"/>
+        <end container="//@operations.0/@body/@region" line="90" column="1"/>
+      </region>
+      <statements xsi:type="eol:IfStatement" container="//@operations.0/@body">
+        <region container="//@operations.0/@body/@statements.0">
+          <start container="//@operations.0/@body/@statements.0/@region" line="84" column="2"/>
+          <end container="//@operations.0/@body/@statements.0/@region" line="89" column="3"/>
+        </region>
+        <condition xsi:type="eol:MethodCallExpression" container="//@operations.0/@body/@statements.0">
+          <region container="//@operations.0/@body/@statements.0/@condition">
+            <start container="//@operations.0/@body/@statements.0/@condition/@region" line="84" column="6"/>
+            <end container="//@operations.0/@body/@statements.0/@condition/@region" line="84" column="32"/>
+          </region>
+          <target xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@condition">
+            <region container="//@operations.0/@body/@statements.0/@condition/@target">
+              <start container="//@operations.0/@body/@statements.0/@condition/@target/@region" line="84" column="6"/>
+              <end container="//@operations.0/@body/@statements.0/@condition/@target/@region" line="84" column="20"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@condition/@target" name="self">
+              <region container="//@operations.0/@body/@statements.0/@condition/@target/@target">
+                <start container="//@operations.0/@body/@statements.0/@condition/@target/@target/@region" line="84" column="6"/>
+                <end container="//@operations.0/@body/@statements.0/@condition/@target/@target/@region" line="84" column="10"/>
+              </region>
+            </target>
+            <property container="//@operations.0/@body/@statements.0/@condition/@target" name="extends">
+              <region container="//@operations.0/@body/@statements.0/@condition/@target/@property">
+                <start container="//@operations.0/@body/@statements.0/@condition/@target/@property/@region" line="84" column="11"/>
+                <end container="//@operations.0/@body/@statements.0/@condition/@target/@property/@region" line="84" column="20"/>
+              </region>
+            </property>
+          </target>
+          <method container="//@operations.0/@body/@statements.0/@condition" name="isDefined">
+            <region container="//@operations.0/@body/@statements.0/@condition/@method">
+              <start container="//@operations.0/@body/@statements.0/@condition/@method/@region" line="84" column="21"/>
+              <end container="//@operations.0/@body/@statements.0/@condition/@method/@region" line="84" column="32"/>
+            </region>
+          </method>
+        </condition>
+        <ifBody container="//@operations.0/@body/@statements.0">
+          <region container="//@operations.0/@body/@statements.0/@ifBody">
+            <start container="//@operations.0/@body/@statements.0/@ifBody/@region" line="84" column="34"/>
+            <end container="//@operations.0/@body/@statements.0/@ifBody/@region" line="86" column="3"/>
+          </region>
+          <block container="//@operations.0/@body/@statements.0/@ifBody">
+            <region container="//@operations.0/@body/@statements.0/@ifBody/@block">
+              <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@region" line="84" column="34"/>
+              <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@region" line="86" column="3"/>
+            </region>
+            <statements xsi:type="eol:ReturnStatement" container="//@operations.0/@body/@statements.0/@ifBody/@block">
+              <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0">
+                <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@region" line="85" column="4"/>
+                <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@region" line="85" column="60"/>
+              </region>
+              <expression xsi:type="eol:OrOperatorExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0">
+                <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression">
+                  <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@region" line="85" column="11"/>
+                  <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@region" line="85" column="59"/>
+                </region>
+                <lhs xsi:type="eol:EqualsOperatorExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression">
+                  <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs">
+                    <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@region" line="85" column="11"/>
+                    <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@region" line="85" column="29"/>
+                  </region>
+                  <lhs xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs">
+                    <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs">
+                      <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@region" line="85" column="11"/>
+                      <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@region" line="85" column="25"/>
+                    </region>
+                    <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs" name="self">
+                      <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@target">
+                        <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@target/@region" line="85" column="11"/>
+                        <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@target/@region" line="85" column="15"/>
+                      </region>
+                    </target>
+                    <property container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs" name="extends">
+                      <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@property">
+                        <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@property/@region" line="85" column="16"/>
+                        <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@lhs/@property/@region" line="85" column="25"/>
+                      </region>
+                    </property>
+                  </lhs>
+                  <rhs xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs" name="c">
+                    <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@rhs">
+                      <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@rhs/@region" line="85" column="28"/>
+                      <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@lhs/@rhs/@region" line="85" column="29"/>
+                    </region>
+                  </rhs>
+                </lhs>
+                <rhs xsi:type="eol:MethodCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression">
+                  <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs">
+                    <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@region" line="85" column="33"/>
+                    <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@region" line="85" column="59"/>
+                  </region>
+                  <target xsi:type="eol:PropertyCallExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs">
+                    <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target">
+                      <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@region" line="85" column="33"/>
+                      <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@region" line="85" column="47"/>
+                    </region>
+                    <target xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target" name="self">
+                      <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@target">
+                        <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@target/@region" line="85" column="33"/>
+                        <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@target/@region" line="85" column="37"/>
+                      </region>
+                    </target>
+                    <property container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target" name="extends">
+                      <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@property">
+                        <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@property/@region" line="85" column="38"/>
+                        <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@target/@property/@region" line="85" column="47"/>
+                      </region>
+                    </property>
+                  </target>
+                  <arguments xsi:type="eol:NameExpression" container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs" name="c">
+                    <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@arguments.0">
+                      <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@arguments.0/@region" line="85" column="57"/>
+                      <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@arguments.0/@region" line="85" column="58"/>
+                    </region>
+                  </arguments>
+                  <method container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs" name="inherits">
+                    <region container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@method">
+                      <start container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@method/@region" line="85" column="48"/>
+                      <end container="//@operations.0/@body/@statements.0/@ifBody/@block/@statements.0/@expression/@rhs/@method/@region" line="85" column="59"/>
+                    </region>
+                  </method>
+                </rhs>
+              </expression>
+            </statements>
+          </block>
+        </ifBody>
+        <elseBody container="//@operations.0/@body/@statements.0">
+          <region container="//@operations.0/@body/@statements.0/@elseBody">
+            <start container="//@operations.0/@body/@statements.0/@elseBody/@region" line="87" column="2"/>
+            <end container="//@operations.0/@body/@statements.0/@elseBody/@region" line="89" column="3"/>
+          </region>
+          <block container="//@operations.0/@body/@statements.0/@elseBody">
+            <region container="//@operations.0/@body/@statements.0/@elseBody/@block">
+              <start container="//@operations.0/@body/@statements.0/@elseBody/@block/@region" line="87" column="2"/>
+              <end container="//@operations.0/@body/@statements.0/@elseBody/@block/@region" line="89" column="3"/>
+            </region>
+            <statements xsi:type="eol:ReturnStatement" container="//@operations.0/@body/@statements.0/@elseBody/@block">
+              <region container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0">
+                <start container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@region" line="88" column="4"/>
+                <end container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@region" line="88" column="17"/>
+              </region>
+              <expression xsi:type="eol:BooleanExpression" container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0">
+                <region container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression">
+                  <start container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression/@region" line="88" column="11"/>
+                  <end container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression/@region" line="88" column="16"/>
+                </region>
+                <resolvedType xsi:type="eol:BooleanType" container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression">
+                  <region container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression/@resolvedType">
+                    <start container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression/@resolvedType/@region" line="88" column="11"/>
+                    <end container="//@operations.0/@body/@statements.0/@elseBody/@block/@statements.0/@expression/@resolvedType/@region" line="88" column="16"/>
+                  </region>
+                </resolvedType>
+              </expression>
+            </statements>
+          </block>
+        </elseBody>
+      </statements>
+    </body>
+    <name container="//@operations.0" name="inherits">
+      <region container="//@operations.0/@name">
+        <start container="//@operations.0/@name/@region" line="82" column="16"/>
+        <end container="//@operations.0/@name/@region" line="82" column="24"/>
+      </region>
+    </name>
+    <parameters container="//@operations.0">
+      <region container="//@operations.0/@parameters.0">
+        <start container="//@operations.0/@parameters.0/@region" line="82" column="25"/>
+        <end container="//@operations.0/@parameters.0/@region" line="82" column="34"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0/@parameters.0" elementName="Class">
+        <region container="//@operations.0/@parameters.0/@resolvedType">
+          <start container="//@operations.0/@parameters.0/@resolvedType/@region" line="82" column="29"/>
+          <end container="//@operations.0/@parameters.0/@resolvedType/@region" line="82" column="34"/>
+        </region>
+      </resolvedType>
+      <name container="//@operations.0/@parameters.0" name="c">
+        <region container="//@operations.0/@parameters.0/@name">
+          <start container="//@operations.0/@parameters.0/@name/@region" line="82" column="25"/>
+          <end container="//@operations.0/@parameters.0/@name/@region" line="82" column="26"/>
+        </region>
+      </name>
+    </parameters>
+    <self>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0" elementName="Class">
+        <region container="//@operations.0/@self/@resolvedType">
+          <start container="//@operations.0/@self/@resolvedType/@region" line="82" column="10"/>
+          <end container="//@operations.0/@self/@resolvedType/@region" line="82" column="15"/>
+        </region>
+      </resolvedType>
+      <name name="self">
+        <resolvedType xsi:type="eol:ModelElementType" container="//@operations.0" elementName="Class">
+          <region container="//@operations.0/@self/@name/@resolvedType">
+            <start container="//@operations.0/@self/@name/@resolvedType/@region" line="82" column="10"/>
+            <end container="//@operations.0/@self/@name/@resolvedType/@region" line="82" column="15"/>
+          </region>
+        </resolvedType>
+      </name>
+    </self>
+    <_result>
+      <resolvedType xsi:type="eol:BooleanType" container="//@operations.0">
+        <region container="//@operations.0/@_result/@resolvedType">
+          <start container="//@operations.0/@_result/@resolvedType/@region" line="82" column="38"/>
+          <end container="//@operations.0/@_result/@resolvedType/@region" line="82" column="45"/>
+        </region>
+      </resolvedType>
+      <name name="_result">
+        <resolvedType xsi:type="eol:BooleanType" container="//@operations.0">
+          <region container="//@operations.0/@_result/@name/@resolvedType">
+            <start container="//@operations.0/@_result/@name/@resolvedType/@region" line="82" column="38"/>
+            <end container="//@operations.0/@_result/@name/@resolvedType/@region" line="82" column="45"/>
+          </region>
+        </resolvedType>
+      </name>
+    </_result>
+  </operations>
+  <contexts container="/">
+    <region container="//@contexts.0">
+      <start container="//@contexts.0/@region" line="1"/>
+      <end container="//@contexts.0/@region" line="11" column="1"/>
+    </region>
+    <type container="//@contexts.0" modelName="OO" elementName="NamedElement">
+      <region container="//@contexts.0/@type">
+        <start container="//@contexts.0/@type/@region" line="1" column="8"/>
+        <end container="//@contexts.0/@type/@region" line="1" column="23"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Constraint" container="//@contexts.0">
+      <region container="//@contexts.0/@invariants.0">
+        <start container="//@contexts.0/@invariants.0/@region" line="4" column="2"/>
+        <end container="//@contexts.0/@invariants.0/@region" line="10" column="3"/>
+      </region>
+      <name container="//@contexts.0" name="HasName">
+        <region container="//@contexts.0/@invariants.0/@name">
+          <start container="//@contexts.0/@invariants.0/@name/@region" line="4" column="2"/>
+          <end container="//@contexts.0/@invariants.0/@name/@region" line="10" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.0/@invariants.0">
+        <region container="//@contexts.0/@invariants.0/@check">
+          <start container="//@contexts.0/@invariants.0/@check/@region" line="6" column="12"/>
+          <end container="//@contexts.0/@invariants.0/@check/@region" line="6" column="27"/>
+        </region>
+        <expression xsi:type="eol:NotEqualsOperatorExpression" container="//@contexts.0/@invariants.0/@check">
+          <region container="//@contexts.0/@invariants.0/@check/@expression">
+            <start container="//@contexts.0/@invariants.0/@check/@expression/@region" line="6" column="12"/>
+            <end container="//@contexts.0/@invariants.0/@check/@expression/@region" line="6" column="27"/>
+          </region>
+          <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.0/@invariants.0/@check/@expression">
+            <region container="//@contexts.0/@invariants.0/@check/@expression/@lhs">
+              <start container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@region" line="6" column="12"/>
+              <end container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@region" line="6" column="21"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.0/@invariants.0/@check/@expression/@lhs" name="self">
+              <region container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@target">
+                <start container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@target/@region" line="6" column="12"/>
+                <end container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@target/@region" line="6" column="16"/>
+              </region>
+            </target>
+            <property container="//@contexts.0/@invariants.0/@check/@expression/@lhs" name="name">
+              <region container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@property">
+                <start container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@property/@region" line="6" column="17"/>
+                <end container="//@contexts.0/@invariants.0/@check/@expression/@lhs/@property/@region" line="6" column="21"/>
+              </region>
+            </property>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@check/@expression" value="">
+            <region container="//@contexts.0/@invariants.0/@check/@expression/@rhs">
+              <start container="//@contexts.0/@invariants.0/@check/@expression/@rhs/@region" line="6" column="25"/>
+              <end container="//@contexts.0/@invariants.0/@check/@expression/@rhs/@region" line="6" column="27"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@check/@expression/@rhs">
+              <region container="//@contexts.0/@invariants.0/@check/@expression/@rhs/@resolvedType">
+                <start container="//@contexts.0/@invariants.0/@check/@expression/@rhs/@resolvedType/@region" line="6" column="25"/>
+                <end container="//@contexts.0/@invariants.0/@check/@expression/@rhs/@resolvedType/@region" line="6" column="27"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.0/@invariants.0">
+        <region container="//@contexts.0/@invariants.0/@message">
+          <start container="//@contexts.0/@invariants.0/@message/@region" line="8" column="14"/>
+          <end container="//@contexts.0/@invariants.0/@message/@region" line="8" column="55"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.0/@invariants.0/@message">
+          <region container="//@contexts.0/@invariants.0/@message/@expression">
+            <start container="//@contexts.0/@invariants.0/@message/@expression/@region" line="8" column="14"/>
+            <end container="//@contexts.0/@invariants.0/@message/@expression/@region" line="8" column="55"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.0/@invariants.0/@message/@expression">
+            <region container="//@contexts.0/@invariants.0/@message/@expression/@lhs">
+              <start container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@region" line="8" column="14"/>
+              <end container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@region" line="8" column="31"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@message/@expression/@lhs" value="Element ">
+              <region container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs">
+                <start container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs/@region" line="8" column="14"/>
+                <end container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs/@region" line="8" column="24"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs">
+                <region container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType">
+                  <start container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="8" column="14"/>
+                  <end container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="8" column="24"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:NameExpression" container="//@contexts.0/@invariants.0/@message/@expression/@lhs" name="self">
+              <region container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@rhs">
+                <start container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@rhs/@region" line="8" column="27"/>
+                <end container="//@contexts.0/@invariants.0/@message/@expression/@lhs/@rhs/@region" line="8" column="31"/>
+              </region>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.0/@invariants.0/@message/@expression" value=" must define a name">
+            <region container="//@contexts.0/@invariants.0/@message/@expression/@rhs">
+              <start container="//@contexts.0/@invariants.0/@message/@expression/@rhs/@region" line="8" column="34"/>
+              <end container="//@contexts.0/@invariants.0/@message/@expression/@rhs/@region" line="8" column="55"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.0/@invariants.0/@message/@expression/@rhs">
+              <region container="//@contexts.0/@invariants.0/@message/@expression/@rhs/@resolvedType">
+                <start container="//@contexts.0/@invariants.0/@message/@expression/@rhs/@resolvedType/@region" line="8" column="34"/>
+                <end container="//@contexts.0/@invariants.0/@message/@expression/@rhs/@resolvedType/@region" line="8" column="55"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <self>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@contexts.0" modelName="OO" elementName="NamedElement">
+        <region container="//@contexts.0/@self/@resolvedType">
+          <start container="//@contexts.0/@self/@resolvedType/@region" line="1" column="8"/>
+          <end container="//@contexts.0/@self/@resolvedType/@region" line="1" column="23"/>
+        </region>
+      </resolvedType>
+      <name name="self"/>
+    </self>
+  </contexts>
+  <contexts container="/">
+    <region container="//@contexts.1">
+      <start container="//@contexts.1/@region" line="13"/>
+      <end container="//@contexts.1/@region" line="25" column="1"/>
+    </region>
+    <type container="//@contexts.1" modelName="OO" elementName="Feature">
+      <region container="//@contexts.1/@type">
+        <start container="//@contexts.1/@type/@region" line="13" column="8"/>
+        <end container="//@contexts.1/@type/@region" line="13" column="18"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Critique" container="//@contexts.1">
+      <region container="//@contexts.1/@invariants.0">
+        <start container="//@contexts.1/@invariants.0/@region" line="17" column="2"/>
+        <end container="//@contexts.1/@invariants.0/@region" line="24" column="3"/>
+      </region>
+      <guard container="//@contexts.1/@invariants.0">
+        <region container="//@contexts.1/@invariants.0/@guard">
+          <start container="//@contexts.1/@invariants.0/@guard/@region" line="19" column="12"/>
+          <end container="//@contexts.1/@invariants.0/@guard/@region" line="19" column="37"/>
+        </region>
+        <expression xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@guard">
+          <region container="//@contexts.1/@invariants.0/@guard/@expression">
+            <start container="//@contexts.1/@invariants.0/@guard/@expression/@region" line="19" column="12"/>
+            <end container="//@contexts.1/@invariants.0/@guard/@expression/@region" line="19" column="37"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@guard/@expression" name="self">
+            <region container="//@contexts.1/@invariants.0/@guard/@expression/@target">
+              <start container="//@contexts.1/@invariants.0/@guard/@expression/@target/@region" line="19" column="12"/>
+              <end container="//@contexts.1/@invariants.0/@guard/@expression/@target/@region" line="19" column="16"/>
+            </region>
+          </target>
+          <arguments xsi:type="eol:StringExpression" container="//@contexts.1/@invariants.0/@guard/@expression" value="HasName">
+            <region container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0">
+              <start container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0/@region" line="19" column="27"/>
+              <end container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0/@region" line="19" column="36"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0">
+              <region container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0/@resolvedType">
+                <start container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0/@resolvedType/@region" line="19" column="27"/>
+                <end container="//@contexts.1/@invariants.0/@guard/@expression/@arguments.0/@resolvedType/@region" line="19" column="36"/>
+              </region>
+            </resolvedType>
+          </arguments>
+          <method container="//@contexts.1/@invariants.0/@guard/@expression" name="satisfies">
+            <region container="//@contexts.1/@invariants.0/@guard/@expression/@method">
+              <start container="//@contexts.1/@invariants.0/@guard/@expression/@method/@region" line="19" column="17"/>
+              <end container="//@contexts.1/@invariants.0/@guard/@expression/@method/@region" line="19" column="37"/>
+            </region>
+          </method>
+        </expression>
+      </guard>
+      <name container="//@contexts.1" name="NameMustStartWithLowerCase">
+        <region container="//@contexts.1/@invariants.0/@name">
+          <start container="//@contexts.1/@invariants.0/@name/@region" line="17" column="2"/>
+          <end container="//@contexts.1/@invariants.0/@name/@region" line="24" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.1/@invariants.0">
+        <region container="//@contexts.1/@invariants.0/@check">
+          <start container="//@contexts.1/@invariants.0/@check/@region" line="21" column="12"/>
+          <end container="//@contexts.1/@invariants.0/@check/@region" line="22" column="44"/>
+        </region>
+        <expression xsi:type="eol:EqualsOperatorExpression" container="//@contexts.1/@invariants.0/@check">
+          <region container="//@contexts.1/@invariants.0/@check/@expression">
+            <start container="//@contexts.1/@invariants.0/@check/@expression/@region" line="21" column="12"/>
+            <end container="//@contexts.1/@invariants.0/@check/@expression/@region" line="22" column="44"/>
+          </region>
+          <lhs xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression">
+            <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs">
+              <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@region" line="21" column="12"/>
+              <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@region" line="21" column="36"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@region" line="21" column="12"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@region" line="21" column="21"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" name="self">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@target">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@target/@region" line="21" column="12"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@target/@region" line="21" column="16"/>
+                </region>
+              </target>
+              <property container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target" name="name">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@property">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@property/@region" line="21" column="17"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@target/@property/@region" line="21" column="21"/>
+                </region>
+              </property>
+            </target>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0/@region" line="21" column="32"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0/@region" line="21" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0/@resolvedType">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0/@resolvedType/@region" line="21" column="32"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.0/@resolvedType/@region" line="21" column="33"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@lhs" value="1">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1/@region" line="21" column="34"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1/@region" line="21" column="35"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1/@resolvedType">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1/@resolvedType/@region" line="21" column="34"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@arguments.1/@resolvedType/@region" line="21" column="35"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <method container="//@contexts.1/@invariants.0/@check/@expression/@lhs" name="substring">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@method">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@method/@region" line="21" column="22"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@lhs/@method/@region" line="21" column="36"/>
+              </region>
+            </method>
+          </lhs>
+          <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression">
+            <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs">
+              <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@region" line="22" column="6"/>
+              <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@region" line="22" column="44"/>
+            </region>
+            <target xsi:type="eol:MethodCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@region" line="22" column="6"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@region" line="22" column="30"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@region" line="22" column="6"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@region" line="22" column="15"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" name="self">
+                  <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@target">
+                    <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@target/@region" line="22" column="6"/>
+                    <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@target/@region" line="22" column="10"/>
+                  </region>
+                </target>
+                <property container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target" name="name">
+                  <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@property">
+                    <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@property/@region" line="22" column="11"/>
+                    <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@target/@property/@region" line="22" column="15"/>
+                  </region>
+                </property>
+              </target>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0/@region" line="22" column="26"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0/@region" line="22" column="27"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0">
+                  <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0/@resolvedType">
+                    <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0/@resolvedType/@region" line="22" column="26"/>
+                    <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.0/@resolvedType/@region" line="22" column="27"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" value="1">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1/@region" line="22" column="28"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1/@region" line="22" column="29"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1">
+                  <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1/@resolvedType">
+                    <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1/@resolvedType/@region" line="22" column="28"/>
+                    <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@arguments.1/@resolvedType/@region" line="22" column="29"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <method container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target" name="substring">
+                <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@method">
+                  <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@method/@region" line="22" column="16"/>
+                  <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@target/@method/@region" line="22" column="30"/>
+                </region>
+              </method>
+            </target>
+            <method container="//@contexts.1/@invariants.0/@check/@expression/@rhs" name="toLowerCase">
+              <region container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@method">
+                <start container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@method/@region" line="22" column="31"/>
+                <end container="//@contexts.1/@invariants.0/@check/@expression/@rhs/@method/@region" line="22" column="44"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+    </invariants>
+    <self>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@contexts.1" modelName="OO" elementName="Feature">
+        <region container="//@contexts.1/@self/@resolvedType">
+          <start container="//@contexts.1/@self/@resolvedType/@region" line="13" column="8"/>
+          <end container="//@contexts.1/@self/@resolvedType/@region" line="13" column="18"/>
+        </region>
+      </resolvedType>
+      <name name="self"/>
+    </self>
+  </contexts>
+  <contexts container="/">
+    <region container="//@contexts.2">
+      <start container="//@contexts.2/@region" line="27"/>
+      <end container="//@contexts.2/@region" line="78" column="1"/>
+    </region>
+    <type container="//@contexts.2" modelName="OO" elementName="Class">
+      <region container="//@contexts.2/@type">
+        <start container="//@contexts.2/@type/@region" line="27" column="8"/>
+        <end container="//@contexts.2/@type/@region" line="27" column="16"/>
+      </region>
+    </type>
+    <invariants xsi:type="evl:Constraint" container="//@contexts.2">
+      <region container="//@contexts.2/@invariants.0">
+        <start container="//@contexts.2/@invariants.0/@region" line="52" column="2"/>
+        <end container="//@contexts.2/@invariants.0/@region" line="58" column="3"/>
+      </region>
+      <name container="//@contexts.2" name="MustNotInheritItself">
+        <region container="//@contexts.2/@invariants.0/@name">
+          <start container="//@contexts.2/@invariants.0/@name/@region" line="52" column="2"/>
+          <end container="//@contexts.2/@invariants.0/@name/@region" line="58" column="3"/>
+        </region>
+      </name>
+      <check container="//@contexts.2/@invariants.0">
+        <region container="//@contexts.2/@invariants.0/@check">
+          <start container="//@contexts.2/@invariants.0/@check/@region" line="54" column="12"/>
+          <end container="//@contexts.2/@invariants.0/@check/@region" line="54" column="35"/>
+        </region>
+        <expression xsi:type="eol:NotOperatorExpression" container="//@contexts.2/@invariants.0/@check">
+          <region container="//@contexts.2/@invariants.0/@check/@expression">
+            <start container="//@contexts.2/@invariants.0/@check/@expression/@region" line="54" column="12"/>
+            <end container="//@contexts.2/@invariants.0/@check/@expression/@region" line="54" column="35"/>
+          </region>
+          <expression xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.0/@check/@expression">
+            <region container="//@contexts.2/@invariants.0/@check/@expression/@expression">
+              <start container="//@contexts.2/@invariants.0/@check/@expression/@expression/@region" line="54" column="16"/>
+              <end container="//@contexts.2/@invariants.0/@check/@expression/@expression/@region" line="54" column="35"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@check/@expression/@expression" name="self">
+              <region container="//@contexts.2/@invariants.0/@check/@expression/@expression/@target">
+                <start container="//@contexts.2/@invariants.0/@check/@expression/@expression/@target/@region" line="54" column="16"/>
+                <end container="//@contexts.2/@invariants.0/@check/@expression/@expression/@target/@region" line="54" column="20"/>
+              </region>
+            </target>
+            <arguments xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@check/@expression/@expression" name="self">
+              <region container="//@contexts.2/@invariants.0/@check/@expression/@expression/@arguments.0">
+                <start container="//@contexts.2/@invariants.0/@check/@expression/@expression/@arguments.0/@region" line="54" column="30"/>
+                <end container="//@contexts.2/@invariants.0/@check/@expression/@expression/@arguments.0/@region" line="54" column="34"/>
+              </region>
+            </arguments>
+            <method container="//@contexts.2/@invariants.0/@check/@expression/@expression" name="inherits">
+              <region container="//@contexts.2/@invariants.0/@check/@expression/@expression/@method">
+                <start container="//@contexts.2/@invariants.0/@check/@expression/@expression/@method/@region" line="54" column="21"/>
+                <end container="//@contexts.2/@invariants.0/@check/@expression/@expression/@method/@region" line="54" column="35"/>
+              </region>
+            </method>
+          </expression>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.0">
+        <region container="//@contexts.2/@invariants.0/@message">
+          <start container="//@contexts.2/@invariants.0/@message/@region" line="56" column="14"/>
+          <end container="//@contexts.2/@invariants.0/@message/@region" line="56" column="55"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.0/@message">
+          <region container="//@contexts.2/@invariants.0/@message/@expression">
+            <start container="//@contexts.2/@invariants.0/@message/@expression/@region" line="56" column="14"/>
+            <end container="//@contexts.2/@invariants.0/@message/@expression/@region" line="56" column="55"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.0/@message/@expression">
+            <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs">
+              <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@region" line="56" column="14"/>
+              <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@region" line="56" column="34"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs" value="Class ">
+              <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs">
+                <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs/@region" line="56" column="14"/>
+                <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs/@region" line="56" column="22"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs">
+                <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType">
+                  <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="56" column="14"/>
+                  <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="56" column="22"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs">
+                <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@region" line="56" column="25"/>
+                <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@region" line="56" column="34"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" name="self">
+                <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@target">
+                  <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@target/@region" line="56" column="25"/>
+                  <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@target/@region" line="56" column="29"/>
+                </region>
+              </target>
+              <property container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs" name="name">
+                <region container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@property">
+                  <start container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@property/@region" line="56" column="30"/>
+                  <end container="//@contexts.2/@invariants.0/@message/@expression/@lhs/@rhs/@property/@region" line="56" column="34"/>
+                </region>
+              </property>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.0/@message/@expression" value=" inherits itself">
+            <region container="//@contexts.2/@invariants.0/@message/@expression/@rhs">
+              <start container="//@contexts.2/@invariants.0/@message/@expression/@rhs/@region" line="56" column="37"/>
+              <end container="//@contexts.2/@invariants.0/@message/@expression/@rhs/@region" line="56" column="55"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.0/@message/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.0/@message/@expression/@rhs/@resolvedType">
+                <start container="//@contexts.2/@invariants.0/@message/@expression/@rhs/@resolvedType/@region" line="56" column="37"/>
+                <end container="//@contexts.2/@invariants.0/@message/@expression/@rhs/@resolvedType/@region" line="56" column="55"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <invariants xsi:type="evl:Critique" container="//@contexts.2">
+      <region container="//@contexts.2/@invariants.1">
+        <start container="//@contexts.2/@invariants.1/@region" line="31" column="2"/>
+        <end container="//@contexts.2/@invariants.1/@region" line="48" column="3"/>
+      </region>
+      <guard container="//@contexts.2/@invariants.1">
+        <region container="//@contexts.2/@invariants.1/@guard">
+          <start container="//@contexts.2/@invariants.1/@guard/@region" line="33" column="12"/>
+          <end container="//@contexts.2/@invariants.1/@guard/@region" line="33" column="37"/>
+        </region>
+        <expression xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@guard">
+          <region container="//@contexts.2/@invariants.1/@guard/@expression">
+            <start container="//@contexts.2/@invariants.1/@guard/@expression/@region" line="33" column="12"/>
+            <end container="//@contexts.2/@invariants.1/@guard/@expression/@region" line="33" column="37"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@guard/@expression" name="self">
+            <region container="//@contexts.2/@invariants.1/@guard/@expression/@target">
+              <start container="//@contexts.2/@invariants.1/@guard/@expression/@target/@region" line="33" column="12"/>
+              <end container="//@contexts.2/@invariants.1/@guard/@expression/@target/@region" line="33" column="16"/>
+            </region>
+          </target>
+          <arguments xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@guard/@expression" value="HasName">
+            <region container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0">
+              <start container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0/@region" line="33" column="27"/>
+              <end container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0/@region" line="33" column="36"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0">
+              <region container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0/@resolvedType">
+                <start container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0/@resolvedType/@region" line="33" column="27"/>
+                <end container="//@contexts.2/@invariants.1/@guard/@expression/@arguments.0/@resolvedType/@region" line="33" column="36"/>
+              </region>
+            </resolvedType>
+          </arguments>
+          <method container="//@contexts.2/@invariants.1/@guard/@expression" name="satisfies">
+            <region container="//@contexts.2/@invariants.1/@guard/@expression/@method">
+              <start container="//@contexts.2/@invariants.1/@guard/@expression/@method/@region" line="33" column="17"/>
+              <end container="//@contexts.2/@invariants.1/@guard/@expression/@method/@region" line="33" column="37"/>
+            </region>
+          </method>
+        </expression>
+      </guard>
+      <name container="//@contexts.2" name="NameShouldStartWithUpperCase">
+        <region container="//@contexts.2/@invariants.1/@name">
+          <start container="//@contexts.2/@invariants.1/@name/@region" line="31" column="2"/>
+          <end container="//@contexts.2/@invariants.1/@name/@region" line="48" column="3"/>
+        </region>
+      </name>
+      <fixes container="//@contexts.2/@invariants.1">
+        <region container="//@contexts.2/@invariants.1/@fixes.0">
+          <start container="//@contexts.2/@invariants.1/@fixes.0/@region" line="41" column="4"/>
+          <end container="//@contexts.2/@invariants.1/@fixes.0/@region" line="47" column="5"/>
+        </region>
+        <title container="//@contexts.2/@invariants.1/@fixes.0">
+          <region container="//@contexts.2/@invariants.1/@fixes.0/@title">
+            <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@region" line="42" column="14"/>
+            <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@region" line="43" column="36"/>
+          </region>
+          <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title">
+            <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression">
+              <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@region" line="42" column="14"/>
+              <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@region" line="43" column="36"/>
+            </region>
+            <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression">
+              <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs">
+                <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@region" line="42" column="14"/>
+                <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@region" line="42" column="50"/>
+              </region>
+              <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs">
+                <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs">
+                  <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@region" line="42" column="14"/>
+                  <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@region" line="42" column="41"/>
+                </region>
+                <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs" value="Rename class ">
+                  <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs">
+                    <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs/@region" line="42" column="14"/>
+                    <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs/@region" line="42" column="29"/>
+                  </region>
+                  <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs">
+                    <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs/@resolvedType">
+                      <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs/@resolvedType/@region" line="42" column="14"/>
+                      <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@lhs/@resolvedType/@region" line="42" column="29"/>
+                    </region>
+                  </resolvedType>
+                </lhs>
+                <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs">
+                  <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs">
+                    <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@region" line="42" column="32"/>
+                    <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@region" line="42" column="41"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" name="self">
+                    <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@target">
+                      <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@target/@region" line="42" column="32"/>
+                      <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@target/@region" line="42" column="36"/>
+                    </region>
+                  </target>
+                  <property container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs" name="name">
+                    <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@property">
+                      <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@property/@region" line="42" column="37"/>
+                      <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@lhs/@rhs/@property/@region" line="42" column="41"/>
+                    </region>
+                  </property>
+                </rhs>
+              </lhs>
+              <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs" value=" to ">
+                <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs">
+                  <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs/@region" line="42" column="44"/>
+                  <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs/@region" line="42" column="50"/>
+                </region>
+                <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs">
+                  <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs/@resolvedType">
+                    <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs/@resolvedType/@region" line="42" column="44"/>
+                    <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@lhs/@rhs/@resolvedType/@region" line="42" column="50"/>
+                  </region>
+                </resolvedType>
+              </rhs>
+            </lhs>
+            <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression">
+              <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs">
+                <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@region" line="43" column="8"/>
+                <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@region" line="43" column="36"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs">
+                <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target">
+                  <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@region" line="43" column="8"/>
+                  <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@region" line="43" column="17"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" name="self">
+                  <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@target">
+                    <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@target/@region" line="43" column="8"/>
+                    <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@target/@region" line="43" column="12"/>
+                  </region>
+                </target>
+                <property container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target" name="name">
+                  <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@property">
+                    <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@property/@region" line="43" column="13"/>
+                    <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@target/@property/@region" line="43" column="17"/>
+                  </region>
+                </property>
+              </target>
+              <method container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs" name="firstToUpperCase">
+                <region container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@method">
+                  <start container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@method/@region" line="43" column="18"/>
+                  <end container="//@contexts.2/@invariants.1/@fixes.0/@title/@expression/@rhs/@method/@region" line="43" column="36"/>
+                </region>
+              </method>
+            </rhs>
+          </expression>
+        </title>
+      </fixes>
+      <check container="//@contexts.2/@invariants.1">
+        <region container="//@contexts.2/@invariants.1/@check">
+          <start container="//@contexts.2/@invariants.1/@check/@region" line="35" column="12"/>
+          <end container="//@contexts.2/@invariants.1/@check/@region" line="36" column="44"/>
+        </region>
+        <expression xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.1/@check">
+          <region container="//@contexts.2/@invariants.1/@check/@expression">
+            <start container="//@contexts.2/@invariants.1/@check/@expression/@region" line="35" column="12"/>
+            <end container="//@contexts.2/@invariants.1/@check/@expression/@region" line="36" column="44"/>
+          </region>
+          <lhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression">
+            <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs">
+              <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@region" line="35" column="12"/>
+              <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@region" line="35" column="36"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@region" line="35" column="12"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@region" line="35" column="21"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" name="self">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@target">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@target/@region" line="35" column="12"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@target/@region" line="35" column="16"/>
+                </region>
+              </target>
+              <property container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target" name="name">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@property">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@property/@region" line="35" column="17"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@target/@property/@region" line="35" column="21"/>
+                </region>
+              </property>
+            </target>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0/@region" line="35" column="32"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0/@region" line="35" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0/@resolvedType">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0/@resolvedType/@region" line="35" column="32"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.0/@resolvedType/@region" line="35" column="33"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@lhs" value="1">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1/@region" line="35" column="34"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1/@region" line="35" column="35"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1/@resolvedType">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1/@resolvedType/@region" line="35" column="34"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@arguments.1/@resolvedType/@region" line="35" column="35"/>
+                </region>
+              </resolvedType>
+            </arguments>
+            <method container="//@contexts.2/@invariants.1/@check/@expression/@lhs" name="substring">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@method">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@method/@region" line="35" column="22"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@lhs/@method/@region" line="35" column="36"/>
+              </region>
+            </method>
+          </lhs>
+          <rhs xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression">
+            <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs">
+              <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@region" line="36" column="6"/>
+              <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@region" line="36" column="44"/>
+            </region>
+            <target xsi:type="eol:MethodCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@region" line="36" column="6"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@region" line="36" column="30"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@region" line="36" column="6"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@region" line="36" column="15"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" name="self">
+                  <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@target">
+                    <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@target/@region" line="36" column="6"/>
+                    <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@target/@region" line="36" column="10"/>
+                  </region>
+                </target>
+                <property container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target" name="name">
+                  <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@property">
+                    <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@property/@region" line="36" column="11"/>
+                    <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@target/@property/@region" line="36" column="15"/>
+                  </region>
+                </property>
+              </target>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0/@region" line="36" column="26"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0/@region" line="36" column="27"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0">
+                  <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0/@resolvedType">
+                    <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0/@resolvedType/@region" line="36" column="26"/>
+                    <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.0/@resolvedType/@region" line="36" column="27"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <arguments xsi:type="eol:IntegerExpression" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" value="1">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1/@region" line="36" column="28"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1/@region" line="36" column="29"/>
+                </region>
+                <resolvedType xsi:type="eol:IntegerType" container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1">
+                  <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1/@resolvedType">
+                    <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1/@resolvedType/@region" line="36" column="28"/>
+                    <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@arguments.1/@resolvedType/@region" line="36" column="29"/>
+                  </region>
+                </resolvedType>
+              </arguments>
+              <method container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target" name="substring">
+                <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@method">
+                  <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@method/@region" line="36" column="16"/>
+                  <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@target/@method/@region" line="36" column="30"/>
+                </region>
+              </method>
+            </target>
+            <method container="//@contexts.2/@invariants.1/@check/@expression/@rhs" name="toUpperCase">
+              <region container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@method">
+                <start container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@method/@region" line="36" column="31"/>
+                <end container="//@contexts.2/@invariants.1/@check/@expression/@rhs/@method/@region" line="36" column="44"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.1">
+        <region container="//@contexts.2/@invariants.1/@message">
+          <start container="//@contexts.2/@invariants.1/@message/@region" line="38" column="14"/>
+          <end container="//@contexts.2/@invariants.1/@message/@region" line="39" column="47"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@message">
+          <region container="//@contexts.2/@invariants.1/@message/@expression">
+            <start container="//@contexts.2/@invariants.1/@message/@expression/@region" line="38" column="14"/>
+            <end container="//@contexts.2/@invariants.1/@message/@expression/@region" line="39" column="47"/>
+          </region>
+          <lhs xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.1/@message/@expression">
+            <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs">
+              <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@region" line="38" column="14"/>
+              <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@region" line="38" column="46"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs" value="The name of class ">
+              <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs">
+                <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs/@region" line="38" column="14"/>
+                <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs/@region" line="38" column="34"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs">
+                <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs/@resolvedType">
+                  <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="38" column="14"/>
+                  <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@lhs/@resolvedType/@region" line="38" column="34"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs">
+                <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@region" line="38" column="37"/>
+                <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@region" line="38" column="46"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" name="self">
+                <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@target">
+                  <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@target/@region" line="38" column="37"/>
+                  <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@target/@region" line="38" column="41"/>
+                </region>
+              </target>
+              <property container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs" name="name">
+                <region container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@property">
+                  <start container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@property/@region" line="38" column="42"/>
+                  <end container="//@contexts.2/@invariants.1/@message/@expression/@lhs/@rhs/@property/@region" line="38" column="46"/>
+                </region>
+              </property>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.1/@message/@expression" value=" should start with an upper-case letter">
+            <region container="//@contexts.2/@invariants.1/@message/@expression/@rhs">
+              <start container="//@contexts.2/@invariants.1/@message/@expression/@rhs/@region" line="39" column="6"/>
+              <end container="//@contexts.2/@invariants.1/@message/@expression/@rhs/@region" line="39" column="47"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.1/@message/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.1/@message/@expression/@rhs/@resolvedType">
+                <start container="//@contexts.2/@invariants.1/@message/@expression/@rhs/@resolvedType/@region" line="39" column="6"/>
+                <end container="//@contexts.2/@invariants.1/@message/@expression/@rhs/@resolvedType/@region" line="39" column="47"/>
+              </region>
+            </resolvedType>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <invariants xsi:type="evl:Critique" container="//@contexts.2">
+      <region container="//@contexts.2/@invariants.2">
+        <start container="//@contexts.2/@invariants.2/@region" line="62" column="2"/>
+        <end container="//@contexts.2/@invariants.2/@region" line="77" column="3"/>
+      </region>
+      <name container="//@contexts.2" name="UnusedClass">
+        <region container="//@contexts.2/@invariants.2/@name">
+          <start container="//@contexts.2/@invariants.2/@name/@region" line="62" column="2"/>
+          <end container="//@contexts.2/@invariants.2/@name/@region" line="77" column="3"/>
+        </region>
+      </name>
+      <fixes container="//@contexts.2/@invariants.2">
+        <region container="//@contexts.2/@invariants.2/@fixes.0">
+          <start container="//@contexts.2/@invariants.2/@fixes.0/@region" line="70" column="4"/>
+          <end container="//@contexts.2/@invariants.2/@fixes.0/@region" line="76" column="5"/>
+        </region>
+        <title container="//@contexts.2/@invariants.2/@fixes.0">
+          <region container="//@contexts.2/@invariants.2/@fixes.0/@title">
+            <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@region" line="71" column="14"/>
+            <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@region" line="71" column="41"/>
+          </region>
+          <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title">
+            <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression">
+              <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@region" line="71" column="14"/>
+              <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@region" line="71" column="41"/>
+            </region>
+            <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression" value="Delete class ">
+              <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs">
+                <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs/@region" line="71" column="14"/>
+                <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs/@region" line="71" column="29"/>
+              </region>
+              <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs">
+                <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs/@resolvedType">
+                  <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs/@resolvedType/@region" line="71" column="14"/>
+                  <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@lhs/@resolvedType/@region" line="71" column="29"/>
+                </region>
+              </resolvedType>
+            </lhs>
+            <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression">
+              <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs">
+                <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@region" line="71" column="32"/>
+                <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@region" line="71" column="41"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" name="self">
+                <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@target">
+                  <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@target/@region" line="71" column="32"/>
+                  <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@target/@region" line="71" column="36"/>
+                </region>
+              </target>
+              <property container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs" name="name">
+                <region container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@property">
+                  <start container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@property/@region" line="71" column="37"/>
+                  <end container="//@contexts.2/@invariants.2/@fixes.0/@title/@expression/@rhs/@property/@region" line="71" column="41"/>
+                </region>
+              </property>
+            </rhs>
+          </expression>
+        </title>
+      </fixes>
+      <check container="//@contexts.2/@invariants.2">
+        <region container="//@contexts.2/@invariants.2/@check">
+          <start container="//@contexts.2/@invariants.2/@check/@region" line="64" column="12"/>
+          <end container="//@contexts.2/@invariants.2/@check/@region" line="66" column="53"/>
+        </region>
+        <expression xsi:type="eol:OrOperatorExpression" container="//@contexts.2/@invariants.2/@check">
+          <region container="//@contexts.2/@invariants.2/@check/@expression">
+            <start container="//@contexts.2/@invariants.2/@check/@expression/@region" line="64" column="12"/>
+            <end container="//@contexts.2/@invariants.2/@check/@expression/@region" line="66" column="53"/>
+          </region>
+          <lhs xsi:type="eol:OrOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression">
+            <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs">
+              <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@region" line="64" column="12"/>
+              <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@region" line="65" column="50"/>
+            </region>
+            <lhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@region" line="64" column="12"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@region" line="64" column="58"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@region" line="64" column="12"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@region" line="64" column="34"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" name="Parameter">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@target">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@target/@region" line="64" column="12"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@target/@region" line="64" column="21"/>
+                  </region>
+                </target>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target" name="allInstances">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@property">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@property/@region" line="64" column="22"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@target/@property/@region" line="64" column="34"/>
+                  </region>
+                </property>
+              </target>
+              <iterator container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@region" line="64" column="42"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@region" line="64" column="43"/>
+                </region>
+                <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@resolvedType">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@resolvedType/@region" line="64" column="42"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@resolvedType/@region" line="64" column="43"/>
+                  </region>
+                </resolvedType>
+                <name container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator" name="p">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@name">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@name/@region" line="64" column="42"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@iterator/@name/@region" line="64" column="43"/>
+                  </region>
+                </name>
+              </iterator>
+              <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@region" line="64" column="44"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@region" line="64" column="57"/>
+                </region>
+                <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@region" line="64" column="44"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@region" line="64" column="50"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" name="p">
+                    <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@target">
+                      <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@target/@region" line="64" column="44"/>
+                      <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@target/@region" line="64" column="45"/>
+                    </region>
+                  </target>
+                  <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs" name="type">
+                    <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@property">
+                      <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@property/@region" line="64" column="46"/>
+                      <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@lhs/@property/@region" line="64" column="50"/>
+                    </region>
+                  </property>
+                </lhs>
+                <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0" name="self">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@rhs">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@rhs/@region" line="64" column="53"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@conditions.0/@rhs/@region" line="64" column="57"/>
+                  </region>
+                </rhs>
+              </conditions>
+              <method container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs" name="exists">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@method">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@method/@region" line="64" column="35"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@lhs/@method/@region" line="64" column="58"/>
+                </region>
+              </method>
+            </lhs>
+            <rhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@region" line="65" column="6"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@region" line="65" column="50"/>
+              </region>
+              <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@region" line="65" column="6"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@region" line="65" column="26"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" name="Feature">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@target">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@target/@region" line="65" column="6"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@target/@region" line="65" column="13"/>
+                  </region>
+                </target>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target" name="allInstances">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@property">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@property/@region" line="65" column="14"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@target/@property/@region" line="65" column="26"/>
+                  </region>
+                </property>
+              </target>
+              <iterator container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@region" line="65" column="34"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@region" line="65" column="35"/>
+                </region>
+                <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@resolvedType">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@resolvedType/@region" line="65" column="34"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@resolvedType/@region" line="65" column="35"/>
+                  </region>
+                </resolvedType>
+                <name container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator" name="f">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@name">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@name/@region" line="65" column="34"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@iterator/@name/@region" line="65" column="35"/>
+                  </region>
+                </name>
+              </iterator>
+              <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@region" line="65" column="36"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@region" line="65" column="49"/>
+                </region>
+                <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@region" line="65" column="36"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@region" line="65" column="42"/>
+                  </region>
+                  <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" name="f">
+                    <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@target">
+                      <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@target/@region" line="65" column="36"/>
+                      <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@target/@region" line="65" column="37"/>
+                    </region>
+                  </target>
+                  <property container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs" name="type">
+                    <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@property">
+                      <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@property/@region" line="65" column="38"/>
+                      <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@lhs/@property/@region" line="65" column="42"/>
+                    </region>
+                  </property>
+                </lhs>
+                <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0" name="self">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@rhs">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@rhs/@region" line="65" column="45"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@conditions.0/@rhs/@region" line="65" column="49"/>
+                  </region>
+                </rhs>
+              </conditions>
+              <method container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs" name="exists">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@method">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@method/@region" line="65" column="27"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@lhs/@rhs/@method/@region" line="65" column="50"/>
+                </region>
+              </method>
+            </rhs>
+          </lhs>
+          <rhs xsi:type="eol:FOLMethodCallExpression" container="//@contexts.2/@invariants.2/@check/@expression">
+            <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs">
+              <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@region" line="66" column="6"/>
+              <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@region" line="66" column="53"/>
+            </region>
+            <target xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@region" line="66" column="6"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@region" line="66" column="24"/>
+              </region>
+              <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" name="Class">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@target">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@target/@region" line="66" column="6"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@target/@region" line="66" column="11"/>
+                </region>
+              </target>
+              <property container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target" name="allInstances">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@property">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@property/@region" line="66" column="12"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@target/@property/@region" line="66" column="24"/>
+                </region>
+              </property>
+            </target>
+            <iterator container="//@contexts.2/@invariants.2/@check/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@region" line="66" column="32"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@region" line="66" column="33"/>
+              </region>
+              <resolvedType xsi:type="eol:AnyType" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@resolvedType">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@resolvedType/@region" line="66" column="32"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@resolvedType/@region" line="66" column="33"/>
+                </region>
+              </resolvedType>
+              <name container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator" name="c">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@name">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@name/@region" line="66" column="32"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@iterator/@name/@region" line="66" column="33"/>
+                </region>
+              </name>
+            </iterator>
+            <conditions xsi:type="eol:EqualsOperatorExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@region" line="66" column="34"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@region" line="66" column="52"/>
+              </region>
+              <lhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@region" line="66" column="34"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@region" line="66" column="45"/>
+                </region>
+                <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" name="c">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@target">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@target/@region" line="66" column="34"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@target/@region" line="66" column="35"/>
+                  </region>
+                </target>
+                <property container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs" name="extends">
+                  <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@property">
+                    <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@property/@region" line="66" column="36"/>
+                    <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@lhs/@property/@region" line="66" column="45"/>
+                  </region>
+                </property>
+              </lhs>
+              <rhs xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0" name="self">
+                <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@rhs">
+                  <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@rhs/@region" line="66" column="48"/>
+                  <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@conditions.0/@rhs/@region" line="66" column="52"/>
+                </region>
+              </rhs>
+            </conditions>
+            <method container="//@contexts.2/@invariants.2/@check/@expression/@rhs" name="exists">
+              <region container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@method">
+                <start container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@method/@region" line="66" column="25"/>
+                <end container="//@contexts.2/@invariants.2/@check/@expression/@rhs/@method/@region" line="66" column="53"/>
+              </region>
+            </method>
+          </rhs>
+        </expression>
+      </check>
+      <message container="//@contexts.2/@invariants.2">
+        <region container="//@contexts.2/@invariants.2/@message">
+          <start container="//@contexts.2/@invariants.2/@message/@region" line="68" column="14"/>
+          <end container="//@contexts.2/@invariants.2/@message/@region" line="68" column="41"/>
+        </region>
+        <expression xsi:type="eol:PlusOperatorExpression" container="//@contexts.2/@invariants.2/@message">
+          <region container="//@contexts.2/@invariants.2/@message/@expression">
+            <start container="//@contexts.2/@invariants.2/@message/@expression/@region" line="68" column="14"/>
+            <end container="//@contexts.2/@invariants.2/@message/@expression/@region" line="68" column="41"/>
+          </region>
+          <lhs xsi:type="eol:StringExpression" container="//@contexts.2/@invariants.2/@message/@expression" value="Unused class ">
+            <region container="//@contexts.2/@invariants.2/@message/@expression/@lhs">
+              <start container="//@contexts.2/@invariants.2/@message/@expression/@lhs/@region" line="68" column="14"/>
+              <end container="//@contexts.2/@invariants.2/@message/@expression/@lhs/@region" line="68" column="29"/>
+            </region>
+            <resolvedType xsi:type="eol:StringType" container="//@contexts.2/@invariants.2/@message/@expression/@lhs">
+              <region container="//@contexts.2/@invariants.2/@message/@expression/@lhs/@resolvedType">
+                <start container="//@contexts.2/@invariants.2/@message/@expression/@lhs/@resolvedType/@region" line="68" column="14"/>
+                <end container="//@contexts.2/@invariants.2/@message/@expression/@lhs/@resolvedType/@region" line="68" column="29"/>
+              </region>
+            </resolvedType>
+          </lhs>
+          <rhs xsi:type="eol:PropertyCallExpression" container="//@contexts.2/@invariants.2/@message/@expression">
+            <region container="//@contexts.2/@invariants.2/@message/@expression/@rhs">
+              <start container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@region" line="68" column="32"/>
+              <end container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@region" line="68" column="41"/>
+            </region>
+            <target xsi:type="eol:NameExpression" container="//@contexts.2/@invariants.2/@message/@expression/@rhs" name="self">
+              <region container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@target">
+                <start container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@target/@region" line="68" column="32"/>
+                <end container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@target/@region" line="68" column="36"/>
+              </region>
+            </target>
+            <property container="//@contexts.2/@invariants.2/@message/@expression/@rhs" name="name">
+              <region container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@property">
+                <start container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@property/@region" line="68" column="37"/>
+                <end container="//@contexts.2/@invariants.2/@message/@expression/@rhs/@property/@region" line="68" column="41"/>
+              </region>
+            </property>
+          </rhs>
+        </expression>
+      </message>
+    </invariants>
+    <self>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@contexts.2" modelName="OO" elementName="Class">
+        <region container="//@contexts.2/@self/@resolvedType">
+          <start container="//@contexts.2/@self/@resolvedType/@region" line="27" column="8"/>
+          <end container="//@contexts.2/@self/@resolvedType/@region" line="27" column="16"/>
+        </region>
+      </resolvedType>
+      <name name="self"/>
+    </self>
+  </contexts>
+</evl:EVLModule>
