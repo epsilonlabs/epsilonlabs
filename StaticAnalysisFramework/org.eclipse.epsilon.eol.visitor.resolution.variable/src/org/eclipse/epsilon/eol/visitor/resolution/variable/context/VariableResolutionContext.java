@@ -6,8 +6,6 @@ import java.util.HashSet;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IMetamodelManager;
 import org.eclipse.epsilon.eol.EolLibraryModule;
-import org.eclipse.epsilon.eol.EolModule;
-import org.eclipse.epsilon.eol.execute.EolLibraryExecutor;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;

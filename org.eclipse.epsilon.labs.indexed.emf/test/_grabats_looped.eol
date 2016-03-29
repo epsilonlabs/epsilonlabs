@@ -1,0 +1,16 @@
+model Core driver EMF {nsuri = "org.amma.dsl.jdt.core"};
+model DOM driver EMF {nsuri = "org.amma.dsl.jdt.dom"};
+model PrimitiveTypes driver EMF {nsuri = "org.amma.dsl.jdt.primitiveTypes"};
+
+var a = DOM!Modifier.all;
+var a_prime = a.select(md|md.public = true).println;
+
+var b = DOM!Modifier.all.select(md|md.static = true).println;
+
+//public static abstract final native none protected strictfp synchronized transient volatile 
+var c = DOM!Modifier.all.select(md|md.public = true and md.static = false).println;
+
+var d = DOM!TypeDeclaration.all.size.println;
+var d = DOM!MethodDeclaration.all.size.println;
+var d = DOM!SimpleName.all.size.println;
+

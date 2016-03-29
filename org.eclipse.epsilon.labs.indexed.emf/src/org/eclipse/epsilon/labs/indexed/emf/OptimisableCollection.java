@@ -26,8 +26,6 @@ public class OptimisableCollection extends HashSet<EObject> implements
 	protected Model model;
 	protected EClass type = null;
 
-	protected OptimisableCollectionSelectOperation indexedAttributeListSelectOperation = new OptimisableCollectionSelectOperation();
-
 	/**
 	 * 
 	 */
@@ -45,7 +43,7 @@ public class OptimisableCollection extends HashSet<EObject> implements
 	@Override
 	public AbstractOperation getAbstractOperation(String name) {
 		if ("select".equals(name)) {
-			return indexedAttributeListSelectOperation;
+			return new OptimisableCollectionSelectOperation();
 		} else
 			return null;
 	}

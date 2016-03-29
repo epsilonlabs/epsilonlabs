@@ -14,7 +14,7 @@ import org.eclipse.epsilon.eol.exceptions.models.EolNotInstantiableModelElementT
 import org.eclipse.epsilon.eol.models.CachedModel;
 import org.eclipse.epsilon.eol.models.Model;
 
-public abstract class IndexecCachedModel<ModelElementType> extends Model{
+public abstract class IndexedCachedModel<ModelElementType> extends Model{
 	
 	public static final String PROPERTY_CACHED = "cached";
 	

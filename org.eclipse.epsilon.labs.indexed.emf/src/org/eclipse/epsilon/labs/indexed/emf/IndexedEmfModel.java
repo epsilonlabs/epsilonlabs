@@ -183,7 +183,7 @@ public class IndexedEmfModel extends IndexedAbstractEmfModel implements IReflect
 		}
 
 		private static void migrateUriValue(StringProperties properties, String oldProperty, String newProperty) {
-			if (properties.hasValueFor(oldProperty) && !properties.hasValueFor(newProperty)) {
+			if (properties.hasProperty(oldProperty) && !properties.hasProperty(newProperty)) {
 				final String oldValue = properties.getProperty(oldProperty);
 
 				final File oldFile = new File(oldValue);
@@ -198,7 +198,6 @@ public class IndexedEmfModel extends IndexedAbstractEmfModel implements IReflect
 			}
 		}
 	}
-	
 	
 	public void setupContainmentChangeListeners() {
 		// Add a notification adapter to all objects in the model

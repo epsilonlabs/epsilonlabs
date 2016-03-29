@@ -17,7 +17,7 @@ import java.util.HashSet;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.common.util.Multimap;
+import org.eclipse.epsilon.eol.dom.Expression;
 import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.eol.execute.context.IEolContext;
 import org.eclipse.epsilon.eol.execute.context.Variable;
@@ -37,14 +37,13 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 
 	EClass metaclass;
 
-
-
 	@Override
-	public Object execute(Object target, Variable iterator, AST expressionAst,
-			IEolContext context, boolean returnOnFirstMatch)
-			throws EolRuntimeException {
-//		System.out.println("this is run");
-						
+	public Object execute(Object target, Variable iterator, Expression expressionAst, IEolContext context,
+			boolean returnOnFirstMatch) throws EolRuntimeException {
+		// System.out.println("this is run");
+
+		AST ast = expressionAst;
+
 		try {
 
 			this.context = context;
@@ -53,21 +52,18 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 			this.iterator = iterator;
 			model = (EMFIndexedModel) ((OptimisableCollection) target).getOwningModel();
 			metaclass = ((OptimisableCollection) target).type;
-			
-			Object ret = decomposeAST(target, expressionAst);
-			
-			
-			
+
+			Object ret = decomposeAST(target, ast);
+
 			return ret;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new EolRuntimeException("OptimisableCollectionSelectOperation: parseAST(iterator, ast) failed:", expressionAst);
+			throw new EolRuntimeException("OptimisableCollectionSelectOperation: parseAST(iterator, ast) failed:",
+					expressionAst);
 		}
 
-	
 	}
-		
 
 	@SuppressWarnings("unchecked")
 	protected Collection<Object> decomposeAST(Object target, AST ast) throws Exception {
@@ -90,7 +86,7 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 			return optimisedExecution(target, ast);
 		} else {
 			// System.err.println("giving to super: "+ast.toStringTree());
-			Object ret = super.execute(target, iterator, ast, context, returnOnFirstMatch);
+			Object ret = super.execute(target, iterator, (Expression) ast, context, returnOnFirstMatch);
 			// System.err.println("super returns: "+ret.getClass());
 			return (Collection<Object>) ret;
 
@@ -247,8 +243,6 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 		// System.err.println("anding:
 		// "+ast.getFirstChild().toStringTree()+"\n"+ast.getChild(1).toStringTree());
 
-
-		
 		boolean a = isOptimisable(ast.getFirstChild());
 		boolean b = isOptimisable(ast.getChild(1));
 
@@ -274,10 +268,8 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 	@SuppressWarnings("unchecked")
 	private Collection<Object> optimisedExecution(Object target, AST ast) throws EolRuntimeException {
 
-		long init = System.nanoTime();
-		
 		Collection<Object> ret = null;
-		
+
 		// System.err.println(">"+ast.toStringTree());
 		final String attributename = ast.getFirstChild().getChild(1).getText();
 		final AST valueAST = ast.getFirstChild().getNextSibling();
@@ -292,74 +284,89 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 					+ iterator.getName() + ") is not used in this process.\nDefaulting to Epsion's Select");
 		}
 
-			HashSet<Object> result = new HashSet<Object>();
-			result.addAll((Collection<Object>) target);
+		HashSet<Object> result = new HashSet<Object>();
+		result.addAll((Collection<Object>) target);
 
-			HashMap<EClass, HashMap<String, SmartMultiMap<Object, EObject>>> managerMap = model.index;
-			
-			SmartMultiMap<Object, EObject> index = null;
+		HashMap<EClass, HashMap<String, SmartMultiMap<Object, EObject>>> managerMap = model.index;
 
-			try {
-				index = managerMap.get(metaclass).get(attributename);
-					
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
+		SmartMultiMap<Object, EObject> index = null;
 
-			if(index!=null){
-			
-			
+		try {
+			index = managerMap.get(metaclass).get(attributename);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
+		if (index != null) {
+
 			System.err.println("indexed ast found: " + ast.getFirstChild().getFirstChild().getText()
-					+ ast.getFirstChild().getText() + attributename + ast.getText() + attributevalue
-					+ " (type:" + attributevalue.getClass() + ")");
+					+ ast.getFirstChild().getText() + attributename + ast.getText() + attributevalue + " (type:"
+					+ attributevalue.getClass() + ")");
 
 			Collection<EObject> filter = new HashSet<EObject>();
 
-				if (ast.getText().equals("=") || ast.getText().equals("=="))
-						filter = index.get(attributevalue);
-//				else if (ast.getText().equals(">")) {
-//					if (attributevalue instanceof Integer)
-//						hits = index.query(attributename, (int) attributevalue, Integer.MAX_VALUE, false, true);
-//					else if (attributevalue instanceof Long)
-//						hits = index.query(attributename, (long) attributevalue, Long.MAX_VALUE, false, true);
-//					else if (attributevalue instanceof Double)
-//						hits = index.query(attributename, (double) attributevalue, Double.MAX_VALUE, false, true);
-//					else
-//						throw new EolRuntimeException(
-//								"> used with a non numeric value (" + attributevalue.getClass() + ")");
-//				} else if (ast.getText().equals(">=")) {
-//					if (attributevalue instanceof Integer)
-//						hits = index.query(attributename, (int) attributevalue, Integer.MAX_VALUE, true, true);
-//					else if (attributevalue instanceof Long)
-//						hits = index.query(attributename, (long) attributevalue, Long.MAX_VALUE, true, true);
-//					else if (attributevalue instanceof Double)
-//						hits = index.query(attributename, (double) attributevalue, Double.MAX_VALUE, true, true);
-//					else
-//						throw new EolRuntimeException(
-//								">= used with a non numeric value (" + attributevalue.getClass() + ")");
-//				} else if (ast.getText().equals("<")) {
-//					if (attributevalue instanceof Integer)
-//						hits = index.query(attributename, Integer.MIN_VALUE, (int) attributevalue, true, false);
-//					else if (attributevalue instanceof Long)
-//						hits = index.query(attributename, Long.MIN_VALUE, (long) attributevalue, true, false);
-//					else if (attributevalue instanceof Double)
-//						hits = index.query(attributename, Double.MIN_VALUE, (double) attributevalue, true, false);
-//					else
-//						throw new EolRuntimeException(
-//								"< used with a non numeric value (" + attributevalue.getClass() + ")");
-//				} else if (ast.getText().equals("<=")) {
-//					if (attributevalue instanceof Integer)
-//						hits = index.query(attributename, Integer.MIN_VALUE, (int) attributevalue, true, true);
-//					else if (attributevalue instanceof Long)
-//						hits = index.query(attributename, Long.MIN_VALUE, (long) attributevalue, true, true);
-//					else if (attributevalue instanceof Double)
-//						hits = index.query(attributename, Double.MIN_VALUE, (double) attributevalue, true, true);
-//					else
-//						throw new EolRuntimeException(
-//								"<= used with a non numeric value (" + attributevalue.getClass() + ")");
-//				}
-	
+			if (ast.getText().equals("=") || ast.getText().equals("=="))
+				filter = index.get(attributevalue);
+			// else if (ast.getText().equals(">")) {
+			// if (attributevalue instanceof Integer)
+			// hits = index.query(attributename, (int) attributevalue,
+			// Integer.MAX_VALUE, false, true);
+			// else if (attributevalue instanceof Long)
+			// hits = index.query(attributename, (long) attributevalue,
+			// Long.MAX_VALUE, false, true);
+			// else if (attributevalue instanceof Double)
+			// hits = index.query(attributename, (double) attributevalue,
+			// Double.MAX_VALUE, false, true);
+			// else
+			// throw new EolRuntimeException(
+			// "> used with a non numeric value (" + attributevalue.getClass() +
+			// ")");
+			// } else if (ast.getText().equals(">=")) {
+			// if (attributevalue instanceof Integer)
+			// hits = index.query(attributename, (int) attributevalue,
+			// Integer.MAX_VALUE, true, true);
+			// else if (attributevalue instanceof Long)
+			// hits = index.query(attributename, (long) attributevalue,
+			// Long.MAX_VALUE, true, true);
+			// else if (attributevalue instanceof Double)
+			// hits = index.query(attributename, (double) attributevalue,
+			// Double.MAX_VALUE, true, true);
+			// else
+			// throw new EolRuntimeException(
+			// ">= used with a non numeric value (" + attributevalue.getClass()
+			// + ")");
+			// } else if (ast.getText().equals("<")) {
+			// if (attributevalue instanceof Integer)
+			// hits = index.query(attributename, Integer.MIN_VALUE, (int)
+			// attributevalue, true, false);
+			// else if (attributevalue instanceof Long)
+			// hits = index.query(attributename, Long.MIN_VALUE, (long)
+			// attributevalue, true, false);
+			// else if (attributevalue instanceof Double)
+			// hits = index.query(attributename, Double.MIN_VALUE, (double)
+			// attributevalue, true, false);
+			// else
+			// throw new EolRuntimeException(
+			// "< used with a non numeric value (" + attributevalue.getClass() +
+			// ")");
+			// } else if (ast.getText().equals("<=")) {
+			// if (attributevalue instanceof Integer)
+			// hits = index.query(attributename, Integer.MIN_VALUE, (int)
+			// attributevalue, true, true);
+			// else if (attributevalue instanceof Long)
+			// hits = index.query(attributename, Long.MIN_VALUE, (long)
+			// attributevalue, true, true);
+			// else if (attributevalue instanceof Double)
+			// hits = index.query(attributename, Double.MIN_VALUE, (double)
+			// attributevalue, true, true);
+			// else
+			// throw new EolRuntimeException(
+			// "<= used with a non numeric value (" + attributevalue.getClass()
+			// + ")");
+			// }
+
 			result.retainAll(filter);
 			ret = result;
 			// System.err.println(Arrays.toString(ret.toArray()));
@@ -369,26 +376,25 @@ public class OptimisableCollectionSelectOperation extends SelectOperation {
 
 			// System.err.println("giving to super: "+ast.toStringTree());
 
-			ret = (Collection<Object>) super.execute(target, iterator, ast, context, returnOnFirstMatch);
+			ret = (Collection<Object>) super.execute(target, iterator, (Expression) ast, context, returnOnFirstMatch);
 
 			// System.err.println("super returns: "+rett.getClass());
 			// return rett;
 
 		}
-	
-			return ret;
-	}
 
+		return ret;
+	}
 
 	private boolean isOptimisable(AST ast) {
 
 		try {
 
-			return ast.getType() == EolParser.OPERATOR
-					&& (ast.getText().equals("=") || ast.getText().equals("==") //|| ast.getText().equals(">")
-							//|| ast.getText().equals(">=") || ast.getText().equals("<") || ast.getText().equals("<=")
-							)
-					&& ast.getFirstChild().getType() == EolParser.POINT
+			return ast.getType() == EolParser.OPERATOR && (ast.getText().equals("=") || ast.getText().equals("==") // ||
+																													// ast.getText().equals(">")
+			// || ast.getText().equals(">=") || ast.getText().equals("<") ||
+			// ast.getText().equals("<=")
+			) && ast.getFirstChild().getType() == EolParser.POINT
 					&& ast.getFirstChild().getFirstChild().getText().equals(iterator.getName());
 
 		} catch (Exception e) {
