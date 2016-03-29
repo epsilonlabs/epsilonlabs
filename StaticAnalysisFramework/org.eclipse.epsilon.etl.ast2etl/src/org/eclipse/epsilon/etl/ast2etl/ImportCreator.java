@@ -1,7 +1,6 @@
 package org.eclipse.epsilon.etl.ast2etl;
 
 import org.eclipse.epsilon.common.parse.AST;
-import org.eclipse.epsilon.eol.EolImport;
 import org.eclipse.epsilon.eol.ast2eol.context.Ast2EolContext;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.EOLLibraryModule;
@@ -20,9 +19,9 @@ public class ImportCreator extends org.eclipse.epsilon.eol.ast2eol.ImportCreator
 		AST importedStringAST = ast.getFirstChild(); //obtain the imported string AST
 		if(importedStringAST != null)
 		{
-			for(EolImport leImport: _context.getModule().getImports())
+			for(org.eclipse.epsilon.eol.dom.Import leImport: _context.getModule().getImports())
 			{
-				if (leImport.getAst().equals(ast)) {
+				if (leImport.equals(ast)) {
 					EOLLibraryModule importedProgram = (EOLLibraryModule) _context.getEtlElementCreatorFactory().createDomElement(leImport.getModule().getAst(), imp, _context);
 					if (importedProgram != null) {
 						imp.setImportedModule(importedProgram);

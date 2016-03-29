@@ -1,6 +1,7 @@
 package org.eclipse.epsilon.eol.dtx.editor.outline;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.epsilon.common.dt.editor.AbstractModuleEditor;
 import org.eclipse.epsilon.common.dt.editor.outline.ModuleContentOutlinePage;
 import org.eclipse.epsilon.common.dt.util.EclipseUtil;
 import org.eclipse.epsilon.common.module.IModule;
@@ -18,12 +19,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.IDocumentProvider;
-import org.eclipse.ui.texteditor.ITextEditor;
 
 public class EolXOutlinePage extends ModuleContentOutlinePage{
 	
 	public EolXOutlinePage(IDocumentProvider documentProvider,
-			ITextEditor editor, ILabelProvider labelProvider) {
+			AbstractModuleEditor editor, ILabelProvider labelProvider) {
+		//super(documentProvider, editor, labelProvider);
 		super(documentProvider, editor, labelProvider);
 		addSelectionChangedListener(this);
 	}
