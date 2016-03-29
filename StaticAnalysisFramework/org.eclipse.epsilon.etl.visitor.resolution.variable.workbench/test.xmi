@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="ASCII"?>
+<etl:ETLModule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eol="http://www.eclipse.org/epsilon/eol" xmlns:etl="http://www.eclipse.org/epsilon/etl">
+  <region container="/">
+    <start container="//@region" line="2"/>
+    <end container="//@region" line="25" column="1"/>
+  </region>
+  <transformationRules container="/" resolvedParentRules="//@transformationRules.1 //@transformationRules.2">
+    <region container="//@transformationRules.0">
+      <start container="//@transformationRules.0/@region" line="3"/>
+      <end container="//@transformationRules.0/@region" line="14" column="1"/>
+    </region>
+    <name container="//@transformationRules.0" name="CopyChild">
+      <region container="//@transformationRules.0/@name">
+        <start container="//@transformationRules.0/@name/@region" line="3" column="5"/>
+        <end container="//@transformationRules.0/@name/@region" line="3" column="14"/>
+      </region>
+    </name>
+    <source container="//@transformationRules.0">
+      <region container="//@transformationRules.0/@source">
+        <start container="//@transformationRules.0/@source/@region" line="4" column="14"/>
+        <end container="//@transformationRules.0/@source/@region" line="4" column="30"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.0/@source" modelName="Source" elementName="Child">
+        <region container="//@transformationRules.0/@source/@resolvedType">
+          <start container="//@transformationRules.0/@source/@resolvedType/@region" line="4" column="18"/>
+          <end container="//@transformationRules.0/@source/@resolvedType/@region" line="4" column="30"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.0/@source" name="s">
+        <region container="//@transformationRules.0/@source/@name">
+          <start container="//@transformationRules.0/@source/@name/@region" line="4" column="14"/>
+          <end container="//@transformationRules.0/@source/@name/@region" line="4" column="15"/>
+        </region>
+      </name>
+    </source>
+    <targets container="//@transformationRules.0">
+      <region container="//@transformationRules.0/@targets.0">
+        <start container="//@transformationRules.0/@targets.0/@region" line="5" column="7"/>
+        <end container="//@transformationRules.0/@targets.0/@region" line="5" column="22"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.0/@targets.0" modelName="Target" elementName="Child">
+        <region container="//@transformationRules.0/@targets.0/@resolvedType">
+          <start container="//@transformationRules.0/@targets.0/@resolvedType/@region" line="5" column="10"/>
+          <end container="//@transformationRules.0/@targets.0/@resolvedType/@region" line="5" column="22"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.0/@targets.0" name="t">
+        <region container="//@transformationRules.0/@targets.0/@name">
+          <start container="//@transformationRules.0/@targets.0/@name/@region" line="5" column="7"/>
+          <end container="//@transformationRules.0/@targets.0/@name/@region" line="5" column="8"/>
+        </region>
+      </name>
+    </targets>
+    <body container="//@transformationRules.0">
+      <region container="//@transformationRules.0/@body">
+        <start container="//@transformationRules.0/@body/@region" line="12" column="4"/>
+        <end container="//@transformationRules.0/@body/@region" line="12" column="21"/>
+      </region>
+      <statements xsi:type="eol:AssignmentStatement" container="//@transformationRules.0/@body">
+        <region container="//@transformationRules.0/@body/@statements.0">
+          <start container="//@transformationRules.0/@body/@statements.0/@region" line="12" column="4"/>
+          <end container="//@transformationRules.0/@body/@statements.0/@region" line="12" column="21"/>
+        </region>
+        <lhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.0/@body/@statements.0">
+          <region container="//@transformationRules.0/@body/@statements.0/@lhs">
+            <start container="//@transformationRules.0/@body/@statements.0/@lhs/@region" line="12" column="4"/>
+            <end container="//@transformationRules.0/@body/@statements.0/@lhs/@region" line="12" column="10"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.0/@body/@statements.0/@lhs" name="t">
+            <region container="//@transformationRules.0/@body/@statements.0/@lhs/@target">
+              <start container="//@transformationRules.0/@body/@statements.0/@lhs/@target/@region" line="12" column="4"/>
+              <end container="//@transformationRules.0/@body/@statements.0/@lhs/@target/@region" line="12" column="5"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.0/@body/@statements.0/@lhs" name="name">
+            <region container="//@transformationRules.0/@body/@statements.0/@lhs/@property">
+              <start container="//@transformationRules.0/@body/@statements.0/@lhs/@property/@region" line="12" column="6"/>
+              <end container="//@transformationRules.0/@body/@statements.0/@lhs/@property/@region" line="12" column="10"/>
+            </region>
+          </property>
+        </lhs>
+        <rhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.0/@body/@statements.0">
+          <region container="//@transformationRules.0/@body/@statements.0/@rhs">
+            <start container="//@transformationRules.0/@body/@statements.0/@rhs/@region" line="12" column="14"/>
+            <end container="//@transformationRules.0/@body/@statements.0/@rhs/@region" line="12" column="20"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.0/@body/@statements.0/@rhs" name="t">
+            <region container="//@transformationRules.0/@body/@statements.0/@rhs/@target">
+              <start container="//@transformationRules.0/@body/@statements.0/@rhs/@target/@region" line="12" column="14"/>
+              <end container="//@transformationRules.0/@body/@statements.0/@rhs/@target/@region" line="12" column="15"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.0/@body/@statements.0/@rhs" name="name">
+            <region container="//@transformationRules.0/@body/@statements.0/@rhs/@property">
+              <start container="//@transformationRules.0/@body/@statements.0/@rhs/@property/@region" line="12" column="16"/>
+              <end container="//@transformationRules.0/@body/@statements.0/@rhs/@property/@region" line="12" column="20"/>
+            </region>
+          </property>
+        </rhs>
+      </statements>
+    </body>
+    <extends container="//@transformationRules.0" name="CopyMom">
+      <region container="//@transformationRules.0/@extends.0">
+        <start container="//@transformationRules.0/@extends.0/@region" line="6" column="12"/>
+        <end container="//@transformationRules.0/@extends.0/@region" line="6" column="19"/>
+      </region>
+    </extends>
+    <extends container="//@transformationRules.0" name="CopyDad">
+      <region container="//@transformationRules.0/@extends.1">
+        <start container="//@transformationRules.0/@extends.1/@region" line="6" column="21"/>
+        <end container="//@transformationRules.0/@extends.1/@region" line="6" column="28"/>
+      </region>
+    </extends>
+    <guard container="//@transformationRules.0">
+      <region container="//@transformationRules.0/@guard">
+        <start container="//@transformationRules.0/@guard/@region" line="8" column="4"/>
+        <end container="//@transformationRules.0/@guard/@region" line="11" column="5"/>
+      </region>
+      <block container="//@transformationRules.0/@guard">
+        <region container="//@transformationRules.0/@guard/@block">
+          <start container="//@transformationRules.0/@guard/@block/@region" line="8" column="4"/>
+          <end container="//@transformationRules.0/@guard/@block/@region" line="11" column="5"/>
+        </region>
+        <statements xsi:type="eol:ExpressionStatement" container="//@transformationRules.0/@guard/@block">
+          <region container="//@transformationRules.0/@guard/@block/@statements.0">
+            <start container="//@transformationRules.0/@guard/@block/@statements.0/@region" line="9" column="4"/>
+            <end container="//@transformationRules.0/@guard/@block/@statements.0/@region" line="9" column="14"/>
+          </region>
+          <expression xsi:type="eol:NotEqualsOperatorExpression" container="//@transformationRules.0/@guard/@block/@statements.0">
+            <region container="//@transformationRules.0/@guard/@block/@statements.0/@expression">
+              <start container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@region" line="9" column="4"/>
+              <end container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@region" line="9" column="14"/>
+            </region>
+            <lhs xsi:type="eol:NameExpression" container="//@transformationRules.0/@guard/@block/@statements.0/@expression" name="t">
+              <region container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@lhs">
+                <start container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@lhs/@region" line="9" column="4"/>
+                <end container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@lhs/@region" line="9" column="5"/>
+              </region>
+            </lhs>
+            <rhs xsi:type="eol:NameExpression" container="//@transformationRules.0/@guard/@block/@statements.0/@expression" name="null">
+              <region container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@rhs">
+                <start container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@rhs/@region" line="9" column="9"/>
+                <end container="//@transformationRules.0/@guard/@block/@statements.0/@expression/@rhs/@region" line="9" column="13"/>
+              </region>
+            </rhs>
+          </expression>
+        </statements>
+        <statements xsi:type="eol:ExpressionStatement" container="//@transformationRules.0/@guard/@block">
+          <region container="//@transformationRules.0/@guard/@block/@statements.1">
+            <start container="//@transformationRules.0/@guard/@block/@statements.1/@region" line="10" column="4"/>
+            <end container="//@transformationRules.0/@guard/@block/@statements.1/@region" line="10" column="11"/>
+          </region>
+          <expression xsi:type="eol:GreaterThanOperatorExpression" container="//@transformationRules.0/@guard/@block/@statements.1">
+            <region container="//@transformationRules.0/@guard/@block/@statements.1/@expression">
+              <start container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@region" line="10" column="4"/>
+              <end container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@region" line="10" column="11"/>
+            </region>
+            <lhs xsi:type="eol:NameExpression" container="//@transformationRules.0/@guard/@block/@statements.1/@expression" name="t">
+              <region container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@lhs">
+                <start container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@lhs/@region" line="10" column="4"/>
+                <end container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@lhs/@region" line="10" column="5"/>
+              </region>
+            </lhs>
+            <rhs xsi:type="eol:IntegerExpression" container="//@transformationRules.0/@guard/@block/@statements.1/@expression" value="10">
+              <region container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs">
+                <start container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs/@region" line="10" column="8"/>
+                <end container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs/@region" line="10" column="10"/>
+              </region>
+              <resolvedType xsi:type="eol:IntegerType" container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs">
+                <region container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs/@resolvedType">
+                  <start container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs/@resolvedType/@region" line="10" column="8"/>
+                  <end container="//@transformationRules.0/@guard/@block/@statements.1/@expression/@rhs/@resolvedType/@region" line="10" column="10"/>
+                </region>
+              </resolvedType>
+            </rhs>
+          </expression>
+        </statements>
+      </block>
+    </guard>
+  </transformationRules>
+  <transformationRules container="/">
+    <region container="//@transformationRules.1">
+      <start container="//@transformationRules.1/@region" line="16"/>
+      <end container="//@transformationRules.1/@region" line="20" column="1"/>
+    </region>
+    <name container="//@transformationRules.1" name="CopyMom">
+      <region container="//@transformationRules.1/@name">
+        <start container="//@transformationRules.1/@name/@region" line="16" column="5"/>
+        <end container="//@transformationRules.1/@name/@region" line="16" column="12"/>
+      </region>
+    </name>
+    <source container="//@transformationRules.1">
+      <region container="//@transformationRules.1/@source">
+        <start container="//@transformationRules.1/@source/@region" line="17" column="14"/>
+        <end container="//@transformationRules.1/@source/@region" line="17" column="28"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.1/@source" modelName="Source" elementName="Mom">
+        <region container="//@transformationRules.1/@source/@resolvedType">
+          <start container="//@transformationRules.1/@source/@resolvedType/@region" line="17" column="18"/>
+          <end container="//@transformationRules.1/@source/@resolvedType/@region" line="17" column="28"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.1/@source" name="s">
+        <region container="//@transformationRules.1/@source/@name">
+          <start container="//@transformationRules.1/@source/@name/@region" line="17" column="14"/>
+          <end container="//@transformationRules.1/@source/@name/@region" line="17" column="15"/>
+        </region>
+      </name>
+    </source>
+    <targets container="//@transformationRules.1">
+      <region container="//@transformationRules.1/@targets.0">
+        <start container="//@transformationRules.1/@targets.0/@region" line="18" column="7"/>
+        <end container="//@transformationRules.1/@targets.0/@region" line="18" column="21"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.1/@targets.0" modelName="Target" elementName="Mom">
+        <region container="//@transformationRules.1/@targets.0/@resolvedType">
+          <start container="//@transformationRules.1/@targets.0/@resolvedType/@region" line="18" column="11"/>
+          <end container="//@transformationRules.1/@targets.0/@resolvedType/@region" line="18" column="21"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.1/@targets.0" name="t">
+        <region container="//@transformationRules.1/@targets.0/@name">
+          <start container="//@transformationRules.1/@targets.0/@name/@region" line="18" column="7"/>
+          <end container="//@transformationRules.1/@targets.0/@name/@region" line="18" column="8"/>
+        </region>
+      </name>
+    </targets>
+    <body container="//@transformationRules.1">
+      <region container="//@transformationRules.1/@body">
+        <start container="//@transformationRules.1/@body/@region" line="18" column="28"/>
+        <end container="//@transformationRules.1/@body/@region" line="18" column="53"/>
+      </region>
+      <statements xsi:type="eol:AssignmentStatement" container="//@transformationRules.1/@body">
+        <region container="//@transformationRules.1/@body/@statements.0">
+          <start container="//@transformationRules.1/@body/@statements.0/@region" line="18" column="28"/>
+          <end container="//@transformationRules.1/@body/@statements.0/@region" line="18" column="53"/>
+        </region>
+        <lhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.1/@body/@statements.0">
+          <region container="//@transformationRules.1/@body/@statements.0/@lhs">
+            <start container="//@transformationRules.1/@body/@statements.0/@lhs/@region" line="18" column="28"/>
+            <end container="//@transformationRules.1/@body/@statements.0/@lhs/@region" line="18" column="38"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.1/@body/@statements.0/@lhs" name="t">
+            <region container="//@transformationRules.1/@body/@statements.0/@lhs/@target">
+              <start container="//@transformationRules.1/@body/@statements.0/@lhs/@target/@region" line="18" column="28"/>
+              <end container="//@transformationRules.1/@body/@statements.0/@lhs/@target/@region" line="18" column="29"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.1/@body/@statements.0/@lhs" name="surname2">
+            <region container="//@transformationRules.1/@body/@statements.0/@lhs/@property">
+              <start container="//@transformationRules.1/@body/@statements.0/@lhs/@property/@region" line="18" column="30"/>
+              <end container="//@transformationRules.1/@body/@statements.0/@lhs/@property/@region" line="18" column="38"/>
+            </region>
+          </property>
+        </lhs>
+        <rhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.1/@body/@statements.0">
+          <region container="//@transformationRules.1/@body/@statements.0/@rhs">
+            <start container="//@transformationRules.1/@body/@statements.0/@rhs/@region" line="18" column="42"/>
+            <end container="//@transformationRules.1/@body/@statements.0/@rhs/@region" line="18" column="52"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.1/@body/@statements.0/@rhs" name="t">
+            <region container="//@transformationRules.1/@body/@statements.0/@rhs/@target">
+              <start container="//@transformationRules.1/@body/@statements.0/@rhs/@target/@region" line="18" column="42"/>
+              <end container="//@transformationRules.1/@body/@statements.0/@rhs/@target/@region" line="18" column="43"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.1/@body/@statements.0/@rhs" name="surname2">
+            <region container="//@transformationRules.1/@body/@statements.0/@rhs/@property">
+              <start container="//@transformationRules.1/@body/@statements.0/@rhs/@property/@region" line="18" column="44"/>
+              <end container="//@transformationRules.1/@body/@statements.0/@rhs/@property/@region" line="18" column="52"/>
+            </region>
+          </property>
+        </rhs>
+      </statements>
+    </body>
+  </transformationRules>
+  <transformationRules container="/">
+    <region container="//@transformationRules.2">
+      <start container="//@transformationRules.2/@region" line="22"/>
+      <end container="//@transformationRules.2/@region" line="25" column="1"/>
+    </region>
+    <name container="//@transformationRules.2" name="CopyDad">
+      <region container="//@transformationRules.2/@name">
+        <start container="//@transformationRules.2/@name/@region" line="22" column="5"/>
+        <end container="//@transformationRules.2/@name/@region" line="22" column="12"/>
+      </region>
+    </name>
+    <source container="//@transformationRules.2">
+      <region container="//@transformationRules.2/@source">
+        <start container="//@transformationRules.2/@source/@region" line="23" column="14"/>
+        <end container="//@transformationRules.2/@source/@region" line="23" column="28"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.2/@source" modelName="Source" elementName="Dad">
+        <region container="//@transformationRules.2/@source/@resolvedType">
+          <start container="//@transformationRules.2/@source/@resolvedType/@region" line="23" column="18"/>
+          <end container="//@transformationRules.2/@source/@resolvedType/@region" line="23" column="28"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.2/@source" name="s">
+        <region container="//@transformationRules.2/@source/@name">
+          <start container="//@transformationRules.2/@source/@name/@region" line="23" column="14"/>
+          <end container="//@transformationRules.2/@source/@name/@region" line="23" column="15"/>
+        </region>
+      </name>
+    </source>
+    <targets container="//@transformationRules.2">
+      <region container="//@transformationRules.2/@targets.0">
+        <start container="//@transformationRules.2/@targets.0/@region" line="24" column="7"/>
+        <end container="//@transformationRules.2/@targets.0/@region" line="24" column="21"/>
+      </region>
+      <resolvedType xsi:type="eol:ModelElementType" container="//@transformationRules.2/@targets.0" modelName="Target" elementName="Dad">
+        <region container="//@transformationRules.2/@targets.0/@resolvedType">
+          <start container="//@transformationRules.2/@targets.0/@resolvedType/@region" line="24" column="11"/>
+          <end container="//@transformationRules.2/@targets.0/@resolvedType/@region" line="24" column="21"/>
+        </region>
+      </resolvedType>
+      <name container="//@transformationRules.2/@targets.0" name="t">
+        <region container="//@transformationRules.2/@targets.0/@name">
+          <start container="//@transformationRules.2/@targets.0/@name/@region" line="24" column="7"/>
+          <end container="//@transformationRules.2/@targets.0/@name/@region" line="24" column="8"/>
+        </region>
+      </name>
+    </targets>
+    <body container="//@transformationRules.2">
+      <region container="//@transformationRules.2/@body">
+        <start container="//@transformationRules.2/@body/@region" line="24" column="28"/>
+        <end container="//@transformationRules.2/@body/@region" line="24" column="51"/>
+      </region>
+      <statements xsi:type="eol:AssignmentStatement" container="//@transformationRules.2/@body">
+        <region container="//@transformationRules.2/@body/@statements.0">
+          <start container="//@transformationRules.2/@body/@statements.0/@region" line="24" column="28"/>
+          <end container="//@transformationRules.2/@body/@statements.0/@region" line="24" column="51"/>
+        </region>
+        <lhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.2/@body/@statements.0">
+          <region container="//@transformationRules.2/@body/@statements.0/@lhs">
+            <start container="//@transformationRules.2/@body/@statements.0/@lhs/@region" line="24" column="28"/>
+            <end container="//@transformationRules.2/@body/@statements.0/@lhs/@region" line="24" column="37"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.2/@body/@statements.0/@lhs" name="t">
+            <region container="//@transformationRules.2/@body/@statements.0/@lhs/@target">
+              <start container="//@transformationRules.2/@body/@statements.0/@lhs/@target/@region" line="24" column="28"/>
+              <end container="//@transformationRules.2/@body/@statements.0/@lhs/@target/@region" line="24" column="29"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.2/@body/@statements.0/@lhs" name="surname">
+            <region container="//@transformationRules.2/@body/@statements.0/@lhs/@property">
+              <start container="//@transformationRules.2/@body/@statements.0/@lhs/@property/@region" line="24" column="30"/>
+              <end container="//@transformationRules.2/@body/@statements.0/@lhs/@property/@region" line="24" column="37"/>
+            </region>
+          </property>
+        </lhs>
+        <rhs xsi:type="eol:PropertyCallExpression" container="//@transformationRules.2/@body/@statements.0">
+          <region container="//@transformationRules.2/@body/@statements.0/@rhs">
+            <start container="//@transformationRules.2/@body/@statements.0/@rhs/@region" line="24" column="41"/>
+            <end container="//@transformationRules.2/@body/@statements.0/@rhs/@region" line="24" column="50"/>
+          </region>
+          <target xsi:type="eol:NameExpression" container="//@transformationRules.2/@body/@statements.0/@rhs" name="t">
+            <region container="//@transformationRules.2/@body/@statements.0/@rhs/@target">
+              <start container="//@transformationRules.2/@body/@statements.0/@rhs/@target/@region" line="24" column="41"/>
+              <end container="//@transformationRules.2/@body/@statements.0/@rhs/@target/@region" line="24" column="42"/>
+            </region>
+          </target>
+          <property container="//@transformationRules.2/@body/@statements.0/@rhs" name="surname">
+            <region container="//@transformationRules.2/@body/@statements.0/@rhs/@property">
+              <start container="//@transformationRules.2/@body/@statements.0/@rhs/@property/@region" line="24" column="43"/>
+              <end container="//@transformationRules.2/@body/@statements.0/@rhs/@property/@region" line="24" column="50"/>
+            </region>
+          </property>
+        </rhs>
+      </statements>
+    </body>
+  </transformationRules>
+</etl:ETLModule>
