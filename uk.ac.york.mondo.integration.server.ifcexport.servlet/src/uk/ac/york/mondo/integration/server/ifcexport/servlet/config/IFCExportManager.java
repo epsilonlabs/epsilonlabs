@@ -3,6 +3,8 @@ package uk.ac.york.mondo.integration.server.ifcexport.servlet.config;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.eclipse.core.runtime.jobs.ISchedulingRule;
+
 import uk.ac.york.mondo.integration.api.IFCExportJob;
 import uk.ac.york.mondo.integration.api.IFCExportStatus;
 
@@ -40,7 +42,20 @@ public class IFCExportManager {
 		else {
 			String jobID = jobIDGen.nextSessionId();
 			IFCExportJob job = new IFCExportJob(jobID, IFCExportStatus.SCHEDULED, "added to queue");
+			ISchedulingRule rule = new ISchedulingRule() {
+				
+				@Override
+				public boolean isConflicting(ISchedulingRule rule) {
+					return this.equals(rule);
+				}
+				
+				@Override
+				public boolean contains(ISchedulingRule rule) {
+					return this.equals(rule);
+				}
+			};
 			IFCExportJobExecutor exe_thread = new IFCExportJobExecutor(job, request);
+			exe_thread.setRule(rule);
 			exe_thread.addJobChangeListener(new IFCExportJobChangeListener(job));
 			request_map.put(job, request);
 			exe_thread.schedule();
