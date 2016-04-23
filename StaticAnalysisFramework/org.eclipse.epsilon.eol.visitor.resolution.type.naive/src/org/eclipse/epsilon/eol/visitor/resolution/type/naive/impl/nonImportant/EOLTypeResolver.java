@@ -30,9 +30,11 @@ public class EOLTypeResolver {
 	
 	public EOLTypeResolver()
 	{
+		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
+		
 		controller.addExpressionStatementVisitor(new ExpressionStatementTypeResolver());
 		controller.addImportVisitor(new ImportTypeResolver());
-		controller.addDefaultVisitor(new EolDefaultVisitor<TypeResolutionContext, Object>());
+		
 		controller.addEOLModuleVisitor(new EOLModuleTypeResolver());
 		controller.addBlockVisitor(new BlockTypeResolver());
 		controller.addOperationDefinitionVisitor(new OperationDefinitionTypeResolver());

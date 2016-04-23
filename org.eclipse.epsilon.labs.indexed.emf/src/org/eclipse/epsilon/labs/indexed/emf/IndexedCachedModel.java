@@ -119,6 +119,7 @@ public abstract class IndexedCachedModel<ModelElementType> extends Model{
 		typeCache.put(key, collection);
 
 		for (String kind : getAllTypeNamesOf(instance)) {
+			key = getCacheKeyForType(kind);
 			OptimisableCollection collection2 = kindCache.get(key);
 			if (collection2 != null) {
 				collection2.add((EObject) instance);
@@ -128,7 +129,7 @@ public abstract class IndexedCachedModel<ModelElementType> extends Model{
 				collection2.add((EObject) instance);
 				
 			}
-			kindCache.put(key, collection);
+			kindCache.put(key, collection2);
 		}
 		
 		return instance;

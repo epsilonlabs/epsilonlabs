@@ -29,13 +29,8 @@ public class FOLMethodCallExpressionEME extends FOLMethodCallExpressionVisitor<T
 		//get the context
 		EffectiveMetamodelExtractionContext leContext = (EffectiveMetamodelExtractionContext) context;
 		
-		//push the current iterator =================================================================
-		leContext.setCurrentIterator(fOLMethodCallExpression.getIterator());
 		leContext.pushToCovariantType();
 
-		//push the current fol method call
-		leContext.setCurrentFolMethodCallExpression(fOLMethodCallExpression);
-		
 		//visit the target first
 		controller.visit(fOLMethodCallExpression.getTarget(), context);
 
@@ -75,16 +70,13 @@ public class FOLMethodCallExpressionEME extends FOLMethodCallExpressionVisitor<T
 			
 			else if (target instanceof PropertyCallExpression) {
 				
-				PropertyCallExpression propertyCallExpression = (PropertyCallExpression) target;
-				if (propertyCallExpression.getResolvedType() instanceof CollectionType) {
-					
-					EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(propertyCallExpression);
-					
-					if (effectiveType != null) {
-						leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression.getIterator(), effectiveType);
-						leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression, effectiveType);
-					}
+				EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(target);
+				
+				if (effectiveType != null) {
+					leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression.getIterator(), effectiveType);
+					leContext.registerEffectiveTypeWithObject(fOLMethodCallExpression, effectiveType);
 				}
+
 			}
 			else {
 				EffectiveType et = leContext.getEffectiveTypeFromRegistry(target);
@@ -133,9 +125,7 @@ public class FOLMethodCallExpressionEME extends FOLMethodCallExpressionVisitor<T
 				controller.visit(condition, context);
 			}
 		}
-		leContext.popCurrentFOLMethodCallExpression();
 		leContext.popCovarintTypes();
-		leContext.popCurrentIterator();
 		return null;
 	}
 	

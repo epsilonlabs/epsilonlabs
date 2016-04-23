@@ -4,7 +4,7 @@ import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveMetamodel;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveType;
 import org.eclipse.epsilon.eol.effective.metamodel.extraction.context.EffectiveMetamodelExtractionContext;
-import org.eclipse.epsilon.eol.effective.metamodel.extraction.context.OperationDefinitionNode;
+import org.eclipse.epsilon.eol.metamodel.EOLElement;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
@@ -128,14 +128,40 @@ public class MethodCallExpressionEME extends MethodCallExpressionVisitor<TypeRes
 		Object obj = methodCallExpression.getMethod().getResolvedContent();
 		if (obj instanceof OperationDefinition) {
 			OperationDefinition operationDefinition = (OperationDefinition) obj;
-			
-			if (leContext.getFromCallGraph(operationDefinition) != null) {
-				OperationDefinitionNode node = leContext.getFromCallGraph(operationDefinition);
-				node.addInvoker(methodCallExpression);
+			EffectiveType et = leContext.getEffectiveTypeFromRegistry(target);
+			if (et == null) {
+				if (target instanceof NameExpression) {
+					NameExpression name = (NameExpression) target;
+					if (name.getResolvedContent() != null) {
+						EOLElement resolvedContent = (EOLElement) name.getResolvedContent();
+						et = leContext.getEffectiveTypeFromRegistry(resolvedContent);
+					}
+				}
 			}
+			
+			if (et != null) {
+				if (!isRecursive(methodCallExpression, operationDefinition)) {
+					leContext.registerEffectiveType(operationDefinition.getSelf(), et);
+					controller.visit(operationDefinition, leContext);
+				}
+			}
+			
 		}
 		
 		return null;
+	}
+	
+	public boolean isRecursive(MethodCallExpression methodCallExpression, OperationDefinition operationDefinition)
+	{
+		EOLElement container = methodCallExpression.getContainer();
+		while(container != null)
+		{
+			if (container.equals(operationDefinition)) {
+				return true;
+			}
+			container = container.getContainer();
+		}
+		return false;
 	}
 	
 	public boolean isKeyword(String s)

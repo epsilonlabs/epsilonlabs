@@ -9,10 +9,12 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveFeature;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveMetamodel;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveType;
@@ -20,6 +22,9 @@ import org.eclipse.epsilon.emc.emf.EmfModel;
 import org.eclipse.epsilon.eol.EolModule;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelElementTypeNotFoundException;
 import org.eclipse.epsilon.eol.exceptions.models.EolModelLoadingException;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.tooldef.GMFToolPackage;
 
 public class NormalEmfModel extends EmfModel {
 
@@ -154,24 +159,40 @@ public class NormalEmfModel extends EmfModel {
 	}
 
 	public static void main(String[] args) throws URISyntaxException, Exception {
-
+		registerPackages(EcorePackage.eINSTANCE);
+		registerPackages(GMFGraphPackage.eINSTANCE);
+		registerPackages(GMFMapPackage.eINSTANCE);
+		registerPackages(GMFToolPackage.eINSTANCE);
 		for (int i = 0; i < 5; i++) {
-			long init = System.nanoTime();
 
 			EolModule eolModule = new EolModule();
-			eolModule.parse(new File("test/grabats_looped.eol"));
+			eolModule.parse(new File("test/ECore2GMF.eol"));
 
-			NormalEmfModel indexedModel = new NormalEmfModel();
-			indexedModel.setIndexed(false);
+			EmfModel indexedModel = new EmfModel();
 
 			//indexedModel.setCachingEnabled(false);
 
-			indexedModel.setName("DOM");
-			indexedModel.aliases.add("Core");
-			indexedModel.setModelFile(new File("test/set2.xmi").getAbsolutePath());
-			indexedModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+//			indexedModel.setName("DOM");
+//			indexedModel.getAliases().add("Core");
+//			indexedModel.setModelFile(new File("test/set1.xmi").getAbsolutePath());
+//			indexedModel.setMetamodelFile(new File("test/JDTAST.ecore").getAbsolutePath());
+//
+//			loadEPackageFromFile("test/JDTAST.ecore");
+			
+			indexedModel.setName("m");
+			indexedModel.getAliases().add("ECore");
+			indexedModel.getAliases().add("GmfGraph");
+			indexedModel.getAliases().add("GmfMap");
+			indexedModel.getAliases().add("GmfTool");
+			indexedModel.setModelFile(new File("test/eugenia_example.ecore").getAbsolutePath());
+			ArrayList<String> metamodels = new ArrayList<String>();
+			metamodels.add("http://www.eclipse.org/gmf/2005/ToolDefinition");
+			metamodels.add("http://www.eclipse.org/gmf/2006/GraphicalDefinition");
+			metamodels.add("http://www.eclipse.org/gmf/2008/mappings");
+			metamodels.add("http://www.eclipse.org/emf/2002/Ecore");
+			indexedModel.setMetamodelUris(metamodels);
 
-			loadEPackageFromFile("test/JDTAST.ecore");
+			long init = System.nanoTime();
 
 			indexedModel.load();
 			System.out.println("(took ~" + (System.nanoTime() - init) / 1000000 + "ms to load)");
@@ -202,5 +223,26 @@ public class NormalEmfModel extends EmfModel {
 			}
 		}
 		return result;
+	}
+	
+	public static void registerPackages(EPackage root) {
+		if (root.getNsURI() != null && !root.getNsURI().equals(EcorePackage.eNS_URI)
+				&& !root.getNsURI().equals(XMLTypePackage.eNS_URI)) {
+			if (EPackage.Registry.INSTANCE.get(root.getNsURI()) == null) {
+				if (EPackage.Registry.INSTANCE.put(root.getNsURI(), root) == null) {
+				}
+				for (EPackage pkg : root.getESubpackages()) {
+					registerPackages(pkg);
+				}
+			}
+		}
+	}
+
+	public static void registerPackages(Resource r) {
+
+		for (EObject e : r.getContents())
+			if (e instanceof EPackage)
+				registerPackages((EPackage) e);
+
 	}
 }

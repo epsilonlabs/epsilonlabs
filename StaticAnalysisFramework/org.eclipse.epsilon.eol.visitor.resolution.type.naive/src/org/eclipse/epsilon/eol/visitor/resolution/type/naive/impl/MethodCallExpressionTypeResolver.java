@@ -112,7 +112,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 //						controller.visit(operationDefinition.getBody(), context);
 //					}
 					
-					System.err.println("NO_HANDLER: " + methodName);
+//					System.err.println("NO_HANDLER: " + methodName);
 
 					Type returnTypeCopy = EcoreUtil.copy(operationDefinition.getReturnType());
 					

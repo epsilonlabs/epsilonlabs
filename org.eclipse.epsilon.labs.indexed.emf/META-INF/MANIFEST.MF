@@ -12,4 +12,6 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.effective.metamodel;bundle-version="0.1.0",
  org.eclipse.epsilon.eol.effective.metamodel.extraction;bundle-version="0.1.0",
  org.eclipse.epsilon.emc.emf;bundle-version="1.2.0",
- com.google.guava
+ com.google.guava;bundle-version="15.0.0",
+ org.eclipse.gmf.graphdef;bundle-version="2.9.0",
+ org.eclipse.gmf.map;bundle-version="2.9.0"

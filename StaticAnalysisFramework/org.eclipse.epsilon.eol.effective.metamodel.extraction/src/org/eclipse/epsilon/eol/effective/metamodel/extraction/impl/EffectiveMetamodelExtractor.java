@@ -23,6 +23,7 @@ public class EffectiveMetamodelExtractor {
 		controller.addOperationDefinitionVisitor(new OperationDefinitionEME());
 		controller.addAssignmentStatementVisitor(new AssignmentStatementEME());
 		controller.addFOLMethodCallExpressionVisitor(new FOLMethodCallExpressionEME());
+		controller.addForStatementVisitor(new ForStatementEME());
 	}
 	
 	public void run(EOLElement eolElement)

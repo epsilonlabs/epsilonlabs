@@ -2,6 +2,7 @@ package org.eclipse.epsilon.eol.effective.metamodel.extraction.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.epsilon.analysis.model.driver.IMetamodelDriver;
 import org.eclipse.epsilon.analysis.model.driver.IPackageDriver;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveFeature;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveMetamodel;
@@ -11,6 +12,7 @@ import org.eclipse.epsilon.eol.metamodel.CollectionType;
 import org.eclipse.epsilon.eol.metamodel.ComparisonOperatorExpression;
 import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
+import org.eclipse.epsilon.eol.metamodel.IMetamodel;
 import org.eclipse.epsilon.eol.metamodel.IPackage;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ModelElementType;
@@ -47,6 +49,26 @@ public class PropertyCallExpressionEME extends PropertyCallExpressionVisitor<Typ
 			//get target
 			NameExpression nameExpression = (NameExpression) target;
 			
+			if (nameExpression.getName().equals("self")) {
+				EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(nameExpression.getResolvedContent());
+				if (effectiveType != null) {
+					IMetamodelDriver iMetamodel = leContext.getiMetamodelManager().getIMetamodelDriverWithName(effectiveType.getEffectiveMetamodel().getName());
+					if (iMetamodel != null) {
+						IPackageDriver iPackageDriver = iMetamodel.getIPackageDriver(effectiveType.getEffectiveMetamodel().getName());
+						if (iPackageDriver != null) {
+							//if meta class contains attributes
+							EffectiveFeature effectiveFeature = null;
+							if (iPackageDriver.containsAttribute(effectiveType.getName(), propertyString)) {
+								effectiveFeature = effectiveType.addToAttributes(propertyString);
+								if (propertyCallExpression.getContainer() instanceof ComparisonOperatorExpression) {
+									effectiveFeature.increaseUsage();
+								}
+							}
+						}
+					}
+				}
+				
+			}
 			//check if target type is model element type
 			if (target.getResolvedType() instanceof ModelElementType) {
 				
@@ -98,6 +120,8 @@ public class PropertyCallExpressionEME extends PropertyCallExpressionVisitor<Typ
 					}
 				}
 				else {
+					
+					
 					//if resolved content is a formal parameter expression (as an iterator in an FOLMethodCallExpression)
 					if (nameExpression.getResolvedContent() instanceof FormalParameterExpression) {
 						
@@ -146,7 +170,7 @@ public class PropertyCallExpressionEME extends PropertyCallExpressionVisitor<Typ
 									sur_type = effectiveMetamodel.addToTypes(eClass.getName());	
 								}
 								
-								leContext.putToMap(leContext.getCurrentFolMethodCallExpression(), effectiveFeature);
+								leContext.putToMap(propertyCallExpression, effectiveFeature);
 								leContext.registerEffectiveTypeWithObject(propertyCallExpression, sur_type);
 							}
 						}
@@ -221,18 +245,6 @@ public class PropertyCallExpressionEME extends PropertyCallExpressionVisitor<Typ
 							}
 						}
 					}
-					else {
-						
-					}
-				}
-				else {
-//					if (collectionType.getContentType() != null && collectionType.getContentType() instanceof CollectionType) {
-//						CollectionType contentType = (CollectionType) collectionType.getContentType();
-//						if (contentType.getContentType() instanceof ModelElementType) {
-//							
-//						}
-//						//if a reference is multi valued
-//					}
 				}
 			}
 		}
@@ -306,8 +318,9 @@ public class PropertyCallExpressionEME extends PropertyCallExpressionVisitor<Typ
 					
 					if (iPackageDriver != null) {
 						EffectiveType effectiveType = leContext.getEffectiveTypeFromRegistry(targetPropertyCallExpression);
-						elementString = effectiveType.getName();
 						if (effectiveType != null) {
+							elementString = effectiveType.getName();
+
 							EffectiveType sur_type = null;
 
 							if (iPackageDriver.containsAttribute(elementString, propertyString)) {

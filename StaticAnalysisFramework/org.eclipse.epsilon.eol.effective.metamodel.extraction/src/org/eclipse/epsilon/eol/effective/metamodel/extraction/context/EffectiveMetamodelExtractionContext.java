@@ -10,9 +10,9 @@ import org.eclipse.epsilon.effective.metamodel.impl.EffectiveMetamodel;
 import org.eclipse.epsilon.effective.metamodel.impl.EffectiveType;
 import org.eclipse.epsilon.eol.metamodel.AssignmentStatement;
 import org.eclipse.epsilon.eol.metamodel.EOLElement;
+import org.eclipse.epsilon.eol.metamodel.Expression;
 import org.eclipse.epsilon.eol.metamodel.FOLMethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.ForStatement;
-import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
 import org.eclipse.epsilon.eol.metamodel.MethodCallExpression;
 import org.eclipse.epsilon.eol.metamodel.NameExpression;
 import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
@@ -34,17 +34,11 @@ public class EffectiveMetamodelExtractionContext extends TypeResolutionContext{
 	// current assignment statement
 	protected AssignmentStatement currentAssignmentStatement = null;
 
-	// stack to hold fol method calls
-	protected Stack<FOLMethodCallExpression> currentFolMethodCallExpressions = new Stack<FOLMethodCallExpression>();
-
-	// stack to hold iterators of fol method calls
-	protected Stack<FormalParameterExpression> currentIterators = new Stack<FormalParameterExpression>();
-
 	// map that maps fol method calls with effective features
-	protected HashMap<FOLMethodCallExpression, EffectiveFeature> map = new HashMap<FOLMethodCallExpression, EffectiveFeature>();
+	protected HashMap<Expression, EffectiveFeature> map = new HashMap<Expression, EffectiveFeature>();
 
 	// operationdefinition call graph
-	protected ArrayList<OperationDefinitionNode> opCallGraph = new ArrayList<OperationDefinitionNode>();
+	protected HashMap<OperationDefinitionNode, ArrayList<MethodCallExpression>> opCallGraph = new HashMap<OperationDefinitionNode, ArrayList<MethodCallExpression>>();
 
 	public void pushToCovariantType()
 	{
@@ -102,51 +96,13 @@ public class EffectiveMetamodelExtractionContext extends TypeResolutionContext{
 	{
 		covariantTypes.pop();
 	}
-	
-	// add an operationdefinition to the call graph
-	public void addToCallGraph(OperationDefinition operationDefinition) {
-		OperationDefinitionNode node = new OperationDefinitionNode(
-				operationDefinition);
-		opCallGraph.add(node);
-	}
 
-	// get an operation definition node from the call graph
-	public OperationDefinitionNode getFromCallGraph(
-			OperationDefinition operationDefinition) {
-		for (OperationDefinitionNode opNode : opCallGraph) {
-			if (opNode.getContainedOperationDefinition().equals(
-					operationDefinition)) {
-				return opNode;
-			}
+	public void setInvokersForOperation(OperationDefinition operationDefinition, ArrayList<MethodCallExpression> toAdd)
+	{
+		ArrayList<MethodCallExpression> invokers = opCallGraph.get(operationDefinition);
+		if (invokers != null) {
+			invokers.addAll(toAdd);
 		}
-		return null;
-	}
-
-	// push an folmethodcallexpression to the stack
-	public void setCurrentFolMethodCallExpression(
-			FOLMethodCallExpression currentFolMethodCallExpression) {
-		currentFolMethodCallExpressions.push(currentFolMethodCallExpression);
-	}
-
-	// get the current fol method call expression
-	public FOLMethodCallExpression getCurrentFolMethodCallExpression() {
-		return currentFolMethodCallExpressions.peek();
-	}
-
-	// get the previous method call expression
-	public FOLMethodCallExpression getPreviousFolMethodCallExpression() {
-		return currentFolMethodCallExpressions
-				.get(currentFolMethodCallExpressions.size() - 2);
-	}
-
-	// get the fol method call expressoin count
-	public int getCurrentFolMethodCallExpressionsCount() {
-		return currentFolMethodCallExpressions.size();
-	}
-
-	// pop the current fol method call expression
-	public void popCurrentFOLMethodCallExpression() {
-		currentFolMethodCallExpressions.pop();
 	}
 
 	// get an effective feature from the map
@@ -156,24 +112,9 @@ public class EffectiveMetamodelExtractionContext extends TypeResolutionContext{
 	}
 
 	// put a pair to the map
-	public void putToMap(FOLMethodCallExpression folMethodCallExpression,
+	public void putToMap(Expression expression,
 			EffectiveFeature effectiveFeature) {
-		map.put(folMethodCallExpression, effectiveFeature);
-	}
-
-	// push an iterator to the stack
-	public void setCurrentIterator(FormalParameterExpression currentIterator) {
-		currentIterators.push(currentIterator);
-	}
-
-	// get the current iterator
-	public FormalParameterExpression getCurrentIterator() {
-		return currentIterators.peek();
-	}
-
-	// pop the iterator
-	public void popCurrentIterator() {
-		currentIterators.pop();
+		map.put(expression, effectiveFeature);
 	}
 
 	// get the current assignment statement
@@ -238,28 +179,6 @@ public class EffectiveMetamodelExtractionContext extends TypeResolutionContext{
 		return effectiveMetamodels;
 	}
 
-	// public boolean isKeywordAllOfKind(String keyword)
-	// {
-	// if (keyword.equals("all") ||
-	// keyword.equals("allInstances") ||
-	// keyword.equals("allOfKind")) {
-	// return true;
-	// }
-	// else {
-	// return false;
-	// }
-	// }
-	//
-	// public boolean isKeywordAllOfType(String keyword)
-	// {
-	// if (keyword.equals("allOfType")) {
-	// return true;
-	// }
-	// else {
-	// return false;
-	// }
-	// }
-
 	public void registerEffectiveTypeWithObject(Object object,
 			EffectiveType effectiveType) {
 		// get the current assignment statement
@@ -304,171 +223,12 @@ public class EffectiveMetamodelExtractionContext extends TypeResolutionContext{
 
 			}
 
-			// if it is not involved in the current assignment, register the
-			// effective type with the object
-			else {
-				registerEffectiveType(object, effectiveType);
-			}
+			registerEffectiveType(object, effectiveType);
 		} else {
 			registerEffectiveType(object, effectiveType);
 		}
 	}
 	
-	public void unregisterEffectiveTypeWithObject(Object object,
-			EffectiveType effectiveType) {
-		// get the current assignment statement
-		AssignmentStatement currentAssignmentStatement = getCurrentAssignmentStatement();
-
-		if (currentAssignmentStatement != null) {
-			// if the rhs of the current assignment is the object provided
-			if (currentAssignmentStatement.getRhs().equals(object)) {
-				// if the lhs of the current assignment is a variable
-				// declaration expression
-				if (currentAssignmentStatement.getLhs() instanceof VariableDeclarationExpression) {
-					// get the variable declaration expression
-					VariableDeclarationExpression variableDeclarationExpression = (VariableDeclarationExpression) currentAssignmentStatement
-							.getLhs();
-
-					// register the effective type with the variable declaration
-					// expression
-					registerEffectiveType(variableDeclarationExpression,
-							effectiveType);
-				}
-
-				// if the lhs of the current assignment is a name expression
-				else if (currentAssignmentStatement.getLhs() instanceof NameExpression) {
-					// get the name expression
-					NameExpression nameExpression = (NameExpression) currentAssignmentStatement
-							.getLhs();
-
-					// if the name expression has a resolved content and the
-					// resolved content is a variable declaration expression
-					if (nameExpression.getResolvedContent() != null
-							&& nameExpression.getResolvedContent() instanceof VariableDeclarationExpression) {
-
-						// get the resolved content
-						VariableDeclarationExpression originalVariableDeclarationExpression = (VariableDeclarationExpression) nameExpression
-								.getResolvedContent();
-						// register the effective type with the resolved content
-						registerEffectiveType(
-								originalVariableDeclarationExpression,
-								effectiveType);
-					}
-				}
-
-			}
-
-			// if it is not involved in the current assignment, register the
-			// effective type with the object
-			else {
-				registerEffectiveType(object, effectiveType);
-			}
-		} else {
-			registerEffectiveType(object, effectiveType);
-		}
-	}
-
-	public void processMap() {
-		// for each fol
-		for (FOLMethodCallExpression fol : map.keySet()) {
-			// get trace
-			EOLElement element = getTrace(fol);
-
-			// if fol is not null
-			if (element != null) {
-
-				// if element is operation definition
-				if (element instanceof OperationDefinition) {
-
-					// get the node in opcallgraph
-					OperationDefinition operationDefinition = (OperationDefinition) element;
-					OperationDefinitionNode node = getFromCallGraph(operationDefinition);
-					EffectiveFeature feature = map.get(fol);
-
-					for (int i = 0; i < node.getInvokers().size(); i++) {
-						MethodCallExpression invoker = node.getInvokers()
-								.get(i);
-
-						OperationDefinition op = getContainingOperationDefinition(invoker);
-						if (op != null) {
-							OperationDefinitionNode node2 = getFromCallGraph(op);
-							if (node != null) {
-								ArrayList<MethodCallExpression> invokersToRemove = new ArrayList<MethodCallExpression>();
-								for (MethodCallExpression methodCallExpression : node2
-										.getInvokers()) {
-									if (containedInLoop(methodCallExpression)) {
-										feature.increaseUsage();
-										invokersToRemove
-												.add(methodCallExpression);
-									}
-								}
-								node2.getInvokers().removeAll(invokersToRemove);
-							}
-						} else {
-							if (containedInLoop(invoker)) {
-								feature.increaseUsage();
-							}
-						}
-					}
-
-					// if (node.getInvokers().size() > 1) {
-					// for(int i = 1; i < node.getInvokers().size(); i++)
-					// {
-					// map.get(fol).increaseUsage();
-					// }
-					// }
-					// else if (node.getInvokers().size() == 1) {
-					// if (containedInLoop(node.getInvokers().get(0))) {
-					// map.get(fol).increaseUsage();
-					// }
-					// }
-				}
-				if ((element instanceof ForStatement)
-						|| (element instanceof WhileStatement)) {
-					map.get(fol).increaseUsage();
-				}
-			}
-		}
-	}
-
-	// returns true if the methodCallExpression is contained in a loop
-	public boolean containedInLoop(MethodCallExpression methodCallExpression) {
-		boolean result = false;
-		// get the container
-		EOLElement trace = methodCallExpression.getContainer();
-
-		// while container is not null
-		while (trace != null) {
-			// if trace is for or while loop, return true
-			if ((trace instanceof ForStatement)
-					|| (trace instanceof WhileStatement)) {
-				result = true;
-			}
-
-			// if trace is an operation definition
-			else if (trace instanceof OperationDefinition) {
-
-				// get the operation definition
-				OperationDefinition operationDefinition = (OperationDefinition) trace;
-
-				// get the opCallNode from the opCallGraph
-				OperationDefinitionNode node = getFromCallGraph(operationDefinition);
-
-				// for each invoker, return true if the invoker is contained in
-				// a loop
-				for (MethodCallExpression call : node.getInvokers()) {
-					result = containedInLoop(call);
-				}
-			}
-
-			// otherwise trace one level up
-			trace = trace.getContainer();
-		}
-
-		// return false if not contained in loop at all
-		return result;
-	}
-
 	public OperationDefinition getContainingOperationDefinition(
 			EOLElement eolElement) {
 		EOLElement trace = eolElement.getContainer();

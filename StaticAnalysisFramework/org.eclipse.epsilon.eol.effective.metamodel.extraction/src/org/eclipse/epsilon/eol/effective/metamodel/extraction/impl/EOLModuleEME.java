@@ -38,9 +38,6 @@ public class EOLModuleEME extends EOLModuleVisitor<TypeResolutionContext, Object
 		//process operation definitions
 		for(OperationDefinition od: module.getOperations()) //process each operation
 		{
-			//add to call graph
-			leContext.addToCallGraph(od); 
-			
 			
 			Type contextType = od.getContextType(); //get the contextType
 			ArrayList<Type> argTypes = new ArrayList<Type>(); //prepare argTypes
@@ -67,9 +64,6 @@ public class EOLModuleEME extends EOLModuleVisitor<TypeResolutionContext, Object
 		{			
 			controller.visit(od, context);
 		}
-		
-		//process the map
-		leContext.processMap();
 		
 		return null;
 	}

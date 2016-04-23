@@ -116,7 +116,13 @@ public class EMFIMetamodelDriver implements IMetamodelDriver{
 
 	@Override
 	public IPackageDriver getIPackageDriver(String packageName) {
-		return packages.get(packageName);
+		for(String s: packages.keySet())
+		{
+			if (s.equalsIgnoreCase(packageName)) {
+				return packages.get(s);
+			}
+		}
+		return null;
 	}
 
 	@Override

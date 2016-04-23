@@ -348,7 +348,7 @@ public class TypeResolutionContext {
 				if (ePackage != null) {
 					for(EClassifier eClassifier2: ePackage.getEClassifiers())
 					{
-						if (eClassifier.equals(eClassifier2)) {
+						if (eClassifier.getName().equals(eClassifier2.getName())) {
 							return imd;
 						}
 					}
