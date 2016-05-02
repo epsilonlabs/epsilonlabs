@@ -50,7 +50,7 @@ public class IfStatementCreator extends StatementCreator{
 					
 					elseBodyAst = elseIfBody.getNextSibling();
 				}
-				if (elseBodyAst != null && elseBodyAst.getType() == EolParser.BLOCK) {
+				if (elseBodyAst != null) {
 					statement.setElseBody((ExpressionOrStatementBlock) context.getEolElementCreatorFactory().createEOLElement(elseBodyAst, statement, context, ExpressionOrStatementBlockCreator.class));
 				}
 			}
