@@ -10,10 +10,10 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.BooleanExpression#isValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getBooleanExpression()
  * @model

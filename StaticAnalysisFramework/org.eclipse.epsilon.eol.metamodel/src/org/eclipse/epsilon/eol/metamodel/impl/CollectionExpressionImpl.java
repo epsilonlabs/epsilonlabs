@@ -28,11 +28,11 @@ import org.eclipse.epsilon.eol.metamodel.Expression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.CollectionExpressionImpl#getContents <em>Contents</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.CollectionExpressionImpl#getParameterList <em>Parameter List</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

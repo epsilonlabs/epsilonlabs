@@ -30,13 +30,13 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getIterator <em>Iterator</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getConditions <em>Conditions</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FOLMethodCallExpressionImpl#getResolvedFOLDefinition <em>Resolved FOL Definition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

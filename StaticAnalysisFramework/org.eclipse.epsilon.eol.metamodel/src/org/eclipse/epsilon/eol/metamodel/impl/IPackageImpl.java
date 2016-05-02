@@ -27,6 +27,7 @@ import org.eclipse.epsilon.eol.metamodel.StringExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getIPackageDriver <em>IPackage Driver</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getName <em>Name</em>}</li>
@@ -34,7 +35,6 @@ import org.eclipse.epsilon.eol.metamodel.StringExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getNsPrefix <em>Ns Prefix</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl#getSubPackages <em>Sub Packages</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

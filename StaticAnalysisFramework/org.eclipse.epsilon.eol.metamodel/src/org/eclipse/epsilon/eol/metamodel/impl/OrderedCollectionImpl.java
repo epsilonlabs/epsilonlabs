@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.OrderedCollection;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Ordered Collection</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

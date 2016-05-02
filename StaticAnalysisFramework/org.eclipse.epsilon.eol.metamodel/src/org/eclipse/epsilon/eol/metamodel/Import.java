@@ -10,11 +10,11 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.Import#getImportedModule <em>Imported Module</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.Import#getImported <em>Imported</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getImport()
  * @model

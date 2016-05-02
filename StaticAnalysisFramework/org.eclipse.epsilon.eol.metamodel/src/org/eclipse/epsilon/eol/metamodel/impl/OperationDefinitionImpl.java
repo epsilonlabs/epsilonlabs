@@ -33,6 +33,7 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getContextType <em>Context Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getReturnType <em>Return Type</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.epsilon.eol.metamodel.VariableDeclarationExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#get_result <em>result</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.OperationDefinitionImpl#getDependingOperationDefinitions <em>Depending Operation Definitions</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

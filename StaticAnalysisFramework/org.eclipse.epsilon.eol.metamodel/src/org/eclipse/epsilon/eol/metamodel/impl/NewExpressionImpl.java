@@ -28,11 +28,11 @@ import org.eclipse.epsilon.eol.metamodel.NewExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NewExpressionImpl#getTypeName <em>Type Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NewExpressionImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

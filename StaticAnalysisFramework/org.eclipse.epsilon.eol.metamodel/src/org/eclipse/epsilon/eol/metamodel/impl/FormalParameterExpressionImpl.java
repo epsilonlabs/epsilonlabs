@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Formal Parameter Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

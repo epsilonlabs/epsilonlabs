@@ -27,11 +27,11 @@ import org.eclipse.epsilon.eol.metamodel.Type;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.AnyTypeImpl#getDynamicTypes <em>Dynamic Types</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.AnyTypeImpl#isDeclared <em>Declared</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

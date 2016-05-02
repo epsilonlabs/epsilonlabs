@@ -10,11 +10,11 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.PropertyCallExpression#isExtended <em>Extended</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.PropertyCallExpression#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getPropertyCallExpression()
  * @model

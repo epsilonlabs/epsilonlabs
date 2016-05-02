@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.LessThanOperatorExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Less Than Operator Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

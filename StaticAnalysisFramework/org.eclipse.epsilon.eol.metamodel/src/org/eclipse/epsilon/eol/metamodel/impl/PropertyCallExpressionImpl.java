@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.PropertyCallExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.PropertyCallExpressionImpl#isExtended <em>Extended</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.PropertyCallExpressionImpl#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

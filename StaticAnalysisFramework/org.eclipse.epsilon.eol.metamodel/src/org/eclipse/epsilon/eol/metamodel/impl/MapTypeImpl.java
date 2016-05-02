@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.MapType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MapTypeImpl#getKeyType <em>Key Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MapTypeImpl#getValueType <em>Value Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

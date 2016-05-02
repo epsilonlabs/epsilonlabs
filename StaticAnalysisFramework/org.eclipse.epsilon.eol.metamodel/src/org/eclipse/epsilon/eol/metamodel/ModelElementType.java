@@ -10,6 +10,7 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getModelName <em>Model Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getElementName <em>Element Name</em>}</li>
@@ -18,7 +19,6 @@ package org.eclipse.epsilon.eol.metamodel;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getModelType <em>Model Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ModelElementType#getResolvedIPackage <em>Resolved IPackage</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getModelElementType()
  * @model

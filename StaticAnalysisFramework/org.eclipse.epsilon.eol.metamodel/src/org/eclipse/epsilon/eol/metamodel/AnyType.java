@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.AnyType#getDynamicTypes <em>Dynamic Types</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.AnyType#isDeclared <em>Declared</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getAnyType()
  * @model

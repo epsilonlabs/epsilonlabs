@@ -10,11 +10,11 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.BinaryOperatorExpression#getLhs <em>Lhs</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.BinaryOperatorExpression#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getBinaryOperatorExpression()
  * @model abstract="true"

@@ -21,12 +21,12 @@ import org.eclipse.epsilon.eol.metamodel.ExpressionOrStatementBlock;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionOrStatementBlockImpl#getBlock <em>Block</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionOrStatementBlockImpl#getExpression <em>Expression</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionOrStatementBlockImpl#getCondition <em>Condition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

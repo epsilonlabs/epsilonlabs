@@ -21,6 +21,7 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getModelName <em>Model Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getElementName <em>Element Name</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.epsilon.eol.metamodel.ModelElementType;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getModelType <em>Model Type</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelElementTypeImpl#getResolvedIPackage <em>Resolved IPackage</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

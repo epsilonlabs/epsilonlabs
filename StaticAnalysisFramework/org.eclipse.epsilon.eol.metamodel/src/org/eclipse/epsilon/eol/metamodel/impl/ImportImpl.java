@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.Import;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ImportImpl#getImportedModule <em>Imported Module</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ImportImpl#getImported <em>Imported</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

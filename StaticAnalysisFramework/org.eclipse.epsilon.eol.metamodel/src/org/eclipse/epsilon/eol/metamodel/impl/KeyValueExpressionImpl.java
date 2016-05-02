@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.KeyValueExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.KeyValueExpressionImpl#getKey <em>Key</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.KeyValueExpressionImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

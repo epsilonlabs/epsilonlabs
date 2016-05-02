@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.SelfContentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Self Content Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

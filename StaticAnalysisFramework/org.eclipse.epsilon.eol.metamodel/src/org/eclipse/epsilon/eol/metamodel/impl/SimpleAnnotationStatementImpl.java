@@ -4,12 +4,16 @@ package org.eclipse.epsilon.eol.metamodel.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.SimpleAnnotationStatement;
 import org.eclipse.epsilon.eol.metamodel.StringExpression;
@@ -20,16 +24,16 @@ import org.eclipse.epsilon.eol.metamodel.StringExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.SimpleAnnotationStatementImpl#getValues <em>Values</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
 public class SimpleAnnotationStatementImpl extends AnnotationStatementImpl implements SimpleAnnotationStatement {
 	/**
-	 * The cached value of the '{@link #getValues() <em>Values</em>}' reference list.
+	 * The cached value of the '{@link #getValues() <em>Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getValues()
@@ -64,9 +68,23 @@ public class SimpleAnnotationStatementImpl extends AnnotationStatementImpl imple
 	 */
 	public EList<StringExpression> getValues() {
 		if (values == null) {
-			values = new EObjectResolvingEList<StringExpression>(StringExpression.class, this, EolPackage.SIMPLE_ANNOTATION_STATEMENT__VALUES);
+			values = new EObjectContainmentEList<StringExpression>(StringExpression.class, this, EolPackage.SIMPLE_ANNOTATION_STATEMENT__VALUES);
 		}
 		return values;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case EolPackage.SIMPLE_ANNOTATION_STATEMENT__VALUES:
+				return ((InternalEList<?>)getValues()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

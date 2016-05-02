@@ -22,12 +22,12 @@ import org.eclipse.epsilon.eol.metamodel.FormalParameterExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ForStatementImpl#getIterator <em>Iterator</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ForStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ForStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

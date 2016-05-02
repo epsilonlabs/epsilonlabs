@@ -21,12 +21,12 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getContainer <em>Container</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getUri <em>Uri</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLElementImpl#getRegion <em>Region</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

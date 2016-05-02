@@ -20,10 +20,10 @@ import org.eclipse.epsilon.eol.metamodel.Type;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionImpl#getResolvedType <em>Resolved Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

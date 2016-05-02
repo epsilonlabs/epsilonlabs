@@ -10,12 +10,12 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ForStatement#getIterator <em>Iterator</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ForStatement#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ForStatement#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getForStatement()
  * @model

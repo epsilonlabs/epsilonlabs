@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl#getStart <em>Start</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl#getEnd <em>End</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

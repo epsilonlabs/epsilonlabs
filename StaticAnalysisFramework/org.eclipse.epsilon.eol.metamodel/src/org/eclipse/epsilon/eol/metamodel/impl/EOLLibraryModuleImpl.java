@@ -31,6 +31,7 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getImports <em>Imports</em>}</li>
@@ -38,7 +39,6 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getModelDeclarations <em>Model Declarations</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl#getOperations <em>Operations</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

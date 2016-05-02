@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.OrderedSetExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Ordered Set Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

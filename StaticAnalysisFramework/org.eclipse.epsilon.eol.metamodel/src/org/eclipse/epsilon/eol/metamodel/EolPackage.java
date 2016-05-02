@@ -5929,7 +5929,7 @@ public interface EolPackage extends EPackage {
 	int SIMPLE_ANNOTATION_STATEMENT__NAME = ANNOTATION_STATEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Values</b></em>' reference list.
+	 * The feature id for the '<em><b>Values</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9863,10 +9863,10 @@ public interface EolPackage extends EPackage {
 	EClass getSimpleAnnotationStatement();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.eclipse.epsilon.eol.metamodel.SimpleAnnotationStatement#getValues <em>Values</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.epsilon.eol.metamodel.SimpleAnnotationStatement#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Values</em>'.
+	 * @return the meta object for the containment reference list '<em>Values</em>'.
 	 * @see org.eclipse.epsilon.eol.metamodel.SimpleAnnotationStatement#getValues()
 	 * @see #getSimpleAnnotationStatement()
 	 * @generated
@@ -12043,7 +12043,7 @@ public interface EolPackage extends EPackage {
 		EClass SIMPLE_ANNOTATION_STATEMENT = eINSTANCE.getSimpleAnnotationStatement();
 
 		/**
-		 * The meta object literal for the '<em><b>Values</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Values</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.SequenceExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Sequence Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

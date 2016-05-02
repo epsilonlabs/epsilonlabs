@@ -11,13 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getIfBody <em>If Body</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseIfBodies <em>Else If Bodies</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IfStatement#getElseBody <em>Else Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIfStatement()
  * @model

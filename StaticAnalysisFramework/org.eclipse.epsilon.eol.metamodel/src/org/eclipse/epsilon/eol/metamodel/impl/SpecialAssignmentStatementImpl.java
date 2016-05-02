@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.SpecialAssignmentStatement;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Special Assignment Statement</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

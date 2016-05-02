@@ -11,12 +11,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getContainer <em>Container</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getUri <em>Uri</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLElement#getRegion <em>Region</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLElement()
  * @model

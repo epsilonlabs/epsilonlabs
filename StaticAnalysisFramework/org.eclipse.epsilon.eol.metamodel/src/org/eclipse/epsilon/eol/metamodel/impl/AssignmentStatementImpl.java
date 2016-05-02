@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.Expression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl#getLhs <em>Lhs</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.AssignmentStatementImpl#getRhs <em>Rhs</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

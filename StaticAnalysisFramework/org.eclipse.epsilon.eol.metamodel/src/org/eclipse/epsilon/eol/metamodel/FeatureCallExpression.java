@@ -10,11 +10,11 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isIsArrow <em>Is Arrow</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFeatureCallExpression()
  * @model abstract="true"

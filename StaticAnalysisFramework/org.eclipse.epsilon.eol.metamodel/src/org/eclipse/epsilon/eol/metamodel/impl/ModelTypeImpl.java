@@ -19,10 +19,10 @@ import org.eclipse.epsilon.eol.metamodel.ModelType;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ModelTypeImpl#getResolvedIMetamodel <em>Resolved IMetamodel</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

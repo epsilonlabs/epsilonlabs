@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.GreaterThanOperatorExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Greater Than Operator Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

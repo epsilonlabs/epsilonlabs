@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.GreaterThanOrEqualToOperatorExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Greater Than Or Equal To Operator Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

@@ -29,6 +29,7 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl#getAliases <em>Aliases</em>}</li>
@@ -37,7 +38,6 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl#getIPackages <em>IPackages</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IMetamodelImpl#getNsURIorPath <em>Ns UR Ior Path</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

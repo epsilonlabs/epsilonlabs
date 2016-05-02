@@ -24,10 +24,10 @@ import org.eclipse.epsilon.eol.metamodel.MapExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MapExpressionImpl#getKeyValues <em>Key Values</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

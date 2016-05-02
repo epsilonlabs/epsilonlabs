@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.SetExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Set Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

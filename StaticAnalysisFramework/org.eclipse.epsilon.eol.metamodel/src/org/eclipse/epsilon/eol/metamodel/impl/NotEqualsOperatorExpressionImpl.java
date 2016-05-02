@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.NotEqualsOperatorExpression;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Not Equals Operator Expression</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

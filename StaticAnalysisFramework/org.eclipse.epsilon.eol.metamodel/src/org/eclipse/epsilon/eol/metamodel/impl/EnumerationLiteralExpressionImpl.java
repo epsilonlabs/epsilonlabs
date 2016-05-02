@@ -21,13 +21,13 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EnumerationLiteralExpressionImpl#getLiteral <em>Literal</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EnumerationLiteralExpressionImpl#getEnumeration <em>Enumeration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EnumerationLiteralExpressionImpl#getIModel <em>IModel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.EnumerationLiteralExpressionImpl#getModel <em>Model</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

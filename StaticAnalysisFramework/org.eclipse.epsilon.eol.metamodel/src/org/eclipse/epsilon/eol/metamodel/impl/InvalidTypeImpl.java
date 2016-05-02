@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.InvalidType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Invalid Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

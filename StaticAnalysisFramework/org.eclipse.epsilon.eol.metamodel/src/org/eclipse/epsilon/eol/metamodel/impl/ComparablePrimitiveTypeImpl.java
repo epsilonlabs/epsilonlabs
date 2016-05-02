@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.EolPackage;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Comparable Primitive Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

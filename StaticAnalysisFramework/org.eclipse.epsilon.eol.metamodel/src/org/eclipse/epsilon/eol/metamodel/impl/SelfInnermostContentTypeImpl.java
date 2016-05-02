@@ -11,8 +11,6 @@ import org.eclipse.epsilon.eol.metamodel.SelfInnermostContentType;
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Self Innermost Content Type</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * </p>
  *
  * @generated
  */

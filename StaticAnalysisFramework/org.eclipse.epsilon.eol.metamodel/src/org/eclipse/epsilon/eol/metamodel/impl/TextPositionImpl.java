@@ -17,11 +17,11 @@ import org.eclipse.epsilon.eol.metamodel.TextPosition;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl#getLine <em>Line</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl#getColumn <em>Column</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

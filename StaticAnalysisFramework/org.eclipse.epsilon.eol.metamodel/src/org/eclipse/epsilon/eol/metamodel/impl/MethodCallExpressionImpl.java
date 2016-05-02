@@ -29,12 +29,12 @@ import org.eclipse.epsilon.eol.metamodel.OperationDefinition;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MethodCallExpressionImpl#getArguments <em>Arguments</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MethodCallExpressionImpl#getMethod <em>Method</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.MethodCallExpressionImpl#getResolvedOperationDefinition <em>Resolved Operation Definition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

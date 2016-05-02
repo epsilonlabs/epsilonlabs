@@ -10,13 +10,13 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression#getLiteral <em>Literal</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression#getEnumeration <em>Enumeration</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression#getIModel <em>IModel</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EnumerationLiteralExpression#getModel <em>Model</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEnumerationLiteralExpression()
  * @model

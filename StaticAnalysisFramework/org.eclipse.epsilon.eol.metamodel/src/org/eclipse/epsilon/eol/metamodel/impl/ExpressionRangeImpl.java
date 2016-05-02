@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.ExpressionRange;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionRangeImpl#getStart <em>Start</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionRangeImpl#getEnd <em>End</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

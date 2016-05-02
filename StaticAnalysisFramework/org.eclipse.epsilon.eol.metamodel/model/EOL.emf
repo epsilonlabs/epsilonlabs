@@ -356,7 +356,7 @@ abstract class AnnotationStatement extends Statement {
 }
 
 class SimpleAnnotationStatement extends AnnotationStatement {
-  ref StringExpression[*] values;
+  val StringExpression[*] values;
 }
 
 class ExecutableAnnotationStatement extends AnnotationStatement {

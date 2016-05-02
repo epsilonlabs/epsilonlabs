@@ -10,11 +10,11 @@ package org.eclipse.epsilon.eol.metamodel;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ExpressionRange#getStart <em>Start</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.ExpressionRange#getEnd <em>End</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getExpressionRange()
  * @model

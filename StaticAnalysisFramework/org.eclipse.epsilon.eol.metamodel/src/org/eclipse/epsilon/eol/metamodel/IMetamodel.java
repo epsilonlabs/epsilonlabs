@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getAliases <em>Aliases</em>}</li>
@@ -19,7 +20,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getIPackages <em>IPackages</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.IMetamodel#getNsURIorPath <em>Ns UR Ior Path</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getIMetamodel()
  * @model

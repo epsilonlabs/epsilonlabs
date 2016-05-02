@@ -20,11 +20,11 @@ import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FeatureCallExpressionImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FeatureCallExpressionImpl#isIsArrow <em>Is Arrow</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

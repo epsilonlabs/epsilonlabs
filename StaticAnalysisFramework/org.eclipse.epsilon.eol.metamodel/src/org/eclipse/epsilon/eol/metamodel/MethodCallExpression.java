@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.MethodCallExpression#getArguments <em>Arguments</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.MethodCallExpression#getMethod <em>Method</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.MethodCallExpression#getResolvedOperationDefinition <em>Resolved Operation Definition</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getMethodCallExpression()
  * @model

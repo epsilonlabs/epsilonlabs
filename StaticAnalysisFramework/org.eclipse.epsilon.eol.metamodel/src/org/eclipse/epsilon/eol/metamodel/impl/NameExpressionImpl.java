@@ -17,12 +17,12 @@ import org.eclipse.epsilon.eol.metamodel.NameExpression;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#getResolvedContent <em>Resolved Content</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.NameExpressionImpl#isIsType <em>Is Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

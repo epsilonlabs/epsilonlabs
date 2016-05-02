@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getImports <em>Imports</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getModelDeclarations <em>Model Declarations</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.EOLLibraryModule#getOperations <em>Operations</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getEOLLibraryModule()
  * @model

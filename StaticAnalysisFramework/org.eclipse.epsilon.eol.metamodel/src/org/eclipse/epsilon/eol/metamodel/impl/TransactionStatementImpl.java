@@ -28,11 +28,11 @@ import org.eclipse.epsilon.eol.metamodel.TransactionStatement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TransactionStatementImpl#getNames <em>Names</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.TransactionStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

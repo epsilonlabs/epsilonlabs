@@ -28,13 +28,13 @@ import org.eclipse.epsilon.eol.metamodel.IfStatement;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getCondition <em>Condition</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getIfBody <em>If Body</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getElseIfBodies <em>Else If Bodies</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.IfStatementImpl#getElseBody <em>Else Body</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

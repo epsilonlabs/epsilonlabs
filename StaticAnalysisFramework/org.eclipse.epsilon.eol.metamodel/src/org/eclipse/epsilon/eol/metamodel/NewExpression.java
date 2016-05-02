@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.NewExpression#getTypeName <em>Type Name</em>}</li>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.NewExpression#getParameters <em>Parameters</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getNewExpression()
  * @model
