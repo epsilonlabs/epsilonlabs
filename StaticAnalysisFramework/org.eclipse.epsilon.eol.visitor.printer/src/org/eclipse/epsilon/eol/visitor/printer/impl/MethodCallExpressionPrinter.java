@@ -15,7 +15,7 @@ public class MethodCallExpressionPrinter extends MethodCallExpressionVisitor<EOL
 		if(methodCallExpression.getTarget() != null)
 		{
 			result += controller.visit(methodCallExpression.getTarget(), context);
-			result += methodCallExpression.isIsArrow() ? "->" : ".";
+			result += methodCallExpression.isArrow() ? "->" : ".";
 		}
 		result += controller.visit(methodCallExpression.getMethod(), context) + "(";
 		

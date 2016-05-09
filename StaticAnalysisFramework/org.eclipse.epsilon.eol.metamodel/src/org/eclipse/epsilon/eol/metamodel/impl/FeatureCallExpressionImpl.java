@@ -23,7 +23,7 @@ import org.eclipse.epsilon.eol.metamodel.FeatureCallExpression;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FeatureCallExpressionImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FeatureCallExpressionImpl#isIsArrow <em>Is Arrow</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.FeatureCallExpressionImpl#isArrow <em>Arrow</em>}</li>
  * </ul>
  *
  * @generated
@@ -40,24 +40,24 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 	protected Expression target;
 
 	/**
-	 * The default value of the '{@link #isIsArrow() <em>Is Arrow</em>}' attribute.
+	 * The default value of the '{@link #isArrow() <em>Arrow</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsArrow()
+	 * @see #isArrow()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean IS_ARROW_EDEFAULT = false;
+	protected static final boolean ARROW_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isIsArrow() <em>Is Arrow</em>}' attribute.
+	 * The cached value of the '{@link #isArrow() <em>Arrow</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isIsArrow()
+	 * @see #isArrow()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isArrow = IS_ARROW_EDEFAULT;
+	protected boolean arrow = ARROW_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,8 +126,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsArrow() {
-		return isArrow;
+	public boolean isArrow() {
+		return arrow;
 	}
 
 	/**
@@ -135,11 +135,11 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setIsArrow(boolean newIsArrow) {
-		boolean oldIsArrow = isArrow;
-		isArrow = newIsArrow;
+	public void setArrow(boolean newArrow) {
+		boolean oldArrow = arrow;
+		arrow = newArrow;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.FEATURE_CALL_EXPRESSION__IS_ARROW, oldIsArrow, isArrow));
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.FEATURE_CALL_EXPRESSION__ARROW, oldArrow, arrow));
 	}
 
 	/**
@@ -166,8 +166,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 		switch (featureID) {
 			case EolPackage.FEATURE_CALL_EXPRESSION__TARGET:
 				return getTarget();
-			case EolPackage.FEATURE_CALL_EXPRESSION__IS_ARROW:
-				return isIsArrow();
+			case EolPackage.FEATURE_CALL_EXPRESSION__ARROW:
+				return isArrow();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -183,8 +183,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 			case EolPackage.FEATURE_CALL_EXPRESSION__TARGET:
 				setTarget((Expression)newValue);
 				return;
-			case EolPackage.FEATURE_CALL_EXPRESSION__IS_ARROW:
-				setIsArrow((Boolean)newValue);
+			case EolPackage.FEATURE_CALL_EXPRESSION__ARROW:
+				setArrow((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -201,8 +201,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 			case EolPackage.FEATURE_CALL_EXPRESSION__TARGET:
 				setTarget((Expression)null);
 				return;
-			case EolPackage.FEATURE_CALL_EXPRESSION__IS_ARROW:
-				setIsArrow(IS_ARROW_EDEFAULT);
+			case EolPackage.FEATURE_CALL_EXPRESSION__ARROW:
+				setArrow(ARROW_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -218,8 +218,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 		switch (featureID) {
 			case EolPackage.FEATURE_CALL_EXPRESSION__TARGET:
 				return target != null;
-			case EolPackage.FEATURE_CALL_EXPRESSION__IS_ARROW:
-				return isArrow != IS_ARROW_EDEFAULT;
+			case EolPackage.FEATURE_CALL_EXPRESSION__ARROW:
+				return arrow != ARROW_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -234,8 +234,8 @@ public abstract class FeatureCallExpressionImpl extends ExpressionImpl implement
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isArrow: ");
-		result.append(isArrow);
+		result.append(" (arrow: ");
+		result.append(arrow);
 		result.append(')');
 		return result.toString();
 	}

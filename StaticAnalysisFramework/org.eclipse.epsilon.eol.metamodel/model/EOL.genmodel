@@ -71,6 +71,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="EOL.ecore#//Expression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//Expression/resolvedType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//Expression/inBrackets"/>
     </genClasses>
     <genClasses image="false" ecoreClass="EOL.ecore#//OperatorExpression"/>
     <genClasses image="false" ecoreClass="EOL.ecore#//UnaryOperatorExpression">
@@ -112,7 +113,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="EOL.ecore#//FeatureCallExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//FeatureCallExpression/target"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//FeatureCallExpression/isArrow"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EOL.ecore#//FeatureCallExpression/arrow"/>
     </genClasses>
     <genClasses ecoreClass="EOL.ecore#//MethodCallExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EOL.ecore#//MethodCallExpression/arguments"/>

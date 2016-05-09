@@ -114,7 +114,7 @@ public class FOLMethodCallExpressionTypeResolver extends FOLMethodCallExpression
 				argTypes.add(EolFactory.eINSTANCE.createAnyType()); 
 
 				//get isArrow
-				arrow = fOLMethodCallExpression.isIsArrow();
+				arrow = fOLMethodCallExpression.isArrow();
 				
 				//prepare operation definition
 				OperationDefinition operationDefinition = null;

@@ -23,6 +23,7 @@ package org.eclipse.epsilon.eol.metamodel;
 public interface PropertyCallExpression extends FeatureCallExpression {
 	/**
 	 * Returns the value of the '<em><b>Extended</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extended</em>' attribute isn't clear,
@@ -32,7 +33,7 @@ public interface PropertyCallExpression extends FeatureCallExpression {
 	 * @return the value of the '<em>Extended</em>' attribute.
 	 * @see #setExtended(boolean)
 	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getPropertyCallExpression_Extended()
-	 * @model
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isExtended();

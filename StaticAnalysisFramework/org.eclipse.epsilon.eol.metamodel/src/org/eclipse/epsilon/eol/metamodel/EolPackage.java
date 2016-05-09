@@ -979,13 +979,22 @@ public interface EolPackage extends EPackage {
 	int EXPRESSION__RESOLVED_TYPE = EOL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION__IN_BRACKETS = EOL_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 1;
+	int EXPRESSION_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.OperatorExpressionImpl <em>Operator Expression</em>}' class.
@@ -1032,6 +1041,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int OPERATOR_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPERATOR_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The number of structural features of the '<em>Operator Expression</em>' class.
@@ -1087,6 +1105,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int UNARY_OPERATOR_EXPRESSION__RESOLVED_TYPE = OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_OPERATOR_EXPRESSION__IN_BRACKETS = OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -1153,6 +1180,15 @@ public interface EolPackage extends EPackage {
 	int NOT_OPERATOR_EXPRESSION__RESOLVED_TYPE = UNARY_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_OPERATOR_EXPRESSION__IN_BRACKETS = UNARY_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1217,6 +1253,15 @@ public interface EolPackage extends EPackage {
 	int NEGATIVE_OPERATOR_EXPRESSION__RESOLVED_TYPE = UNARY_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEGATIVE_OPERATOR_EXPRESSION__IN_BRACKETS = UNARY_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1279,6 +1324,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int BINARY_OPERATOR_EXPRESSION__RESOLVED_TYPE = OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_OPERATOR_EXPRESSION__IN_BRACKETS = OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1354,6 +1408,15 @@ public interface EolPackage extends EPackage {
 	int LOGICAL_OPERATOR_EXPRESSION__RESOLVED_TYPE = BINARY_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGICAL_OPERATOR_EXPRESSION__IN_BRACKETS = BINARY_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1425,6 +1488,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int AND_OPERATOR_EXPRESSION__RESOLVED_TYPE = LOGICAL_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_OPERATOR_EXPRESSION__IN_BRACKETS = LOGICAL_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1500,6 +1572,15 @@ public interface EolPackage extends EPackage {
 	int XOR_OPERATOR_EXPRESSION__RESOLVED_TYPE = LOGICAL_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XOR_OPERATOR_EXPRESSION__IN_BRACKETS = LOGICAL_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1571,6 +1652,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int OR_OPERATOR_EXPRESSION__RESOLVED_TYPE = LOGICAL_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_OPERATOR_EXPRESSION__IN_BRACKETS = LOGICAL_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1646,6 +1736,15 @@ public interface EolPackage extends EPackage {
 	int IMPLIES_OPERATOR_EXPRESSION__RESOLVED_TYPE = LOGICAL_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLIES_OPERATOR_EXPRESSION__IN_BRACKETS = LOGICAL_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1717,6 +1816,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int ARITHMETIC_OPERATOR_EXPRESSION__RESOLVED_TYPE = BINARY_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ARITHMETIC_OPERATOR_EXPRESSION__IN_BRACKETS = BINARY_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1792,6 +1900,15 @@ public interface EolPackage extends EPackage {
 	int DIVIDE_OPERATOR_EXPRESSION__RESOLVED_TYPE = ARITHMETIC_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIVIDE_OPERATOR_EXPRESSION__IN_BRACKETS = ARITHMETIC_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1863,6 +1980,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int MULTIPLY_OPERATOR_EXPRESSION__RESOLVED_TYPE = ARITHMETIC_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPLY_OPERATOR_EXPRESSION__IN_BRACKETS = ARITHMETIC_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -1938,6 +2064,15 @@ public interface EolPackage extends EPackage {
 	int MINUS_OPERATOR_EXPRESSION__RESOLVED_TYPE = ARITHMETIC_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS_OPERATOR_EXPRESSION__IN_BRACKETS = ARITHMETIC_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2009,6 +2144,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int PLUS_OPERATOR_EXPRESSION__RESOLVED_TYPE = ARITHMETIC_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS_OPERATOR_EXPRESSION__IN_BRACKETS = ARITHMETIC_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -2084,6 +2228,15 @@ public interface EolPackage extends EPackage {
 	int COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE = BINARY_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS = BINARY_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2155,6 +2308,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int GREATER_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GREATER_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -2230,6 +2392,15 @@ public interface EolPackage extends EPackage {
 	int GREATER_THAN_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GREATER_THAN_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2301,6 +2472,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int LESS_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_THAN_OR_EQUAL_TO_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -2376,6 +2556,15 @@ public interface EolPackage extends EPackage {
 	int LESS_THAN_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_THAN_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2447,6 +2636,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOT_EQUALS_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUALS_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -2522,6 +2720,15 @@ public interface EolPackage extends EPackage {
 	int EQUALS_OPERATOR_EXPRESSION__RESOLVED_TYPE = COMPARISON_OPERATOR_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUALS_OPERATOR_EXPRESSION__IN_BRACKETS = COMPARISON_OPERATOR_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Lhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2593,6 +2800,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int VARIABLE_DECLARATION_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_DECLARATION_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Create</b></em>' attribute.
@@ -2677,6 +2893,15 @@ public interface EolPackage extends EPackage {
 	int FORMAL_PARAMETER_EXPRESSION__RESOLVED_TYPE = VARIABLE_DECLARATION_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FORMAL_PARAMETER_EXPRESSION__IN_BRACKETS = VARIABLE_DECLARATION_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Create</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2757,6 +2982,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int NAME_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2841,6 +3075,15 @@ public interface EolPackage extends EPackage {
 	int FEATURE_CALL_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CALL_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2850,13 +3093,13 @@ public interface EolPackage extends EPackage {
 	int FEATURE_CALL_EXPRESSION__TARGET = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is Arrow</b></em>' attribute.
+	 * The feature id for the '<em><b>Arrow</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_CALL_EXPRESSION__IS_ARROW = EXPRESSION_FEATURE_COUNT + 1;
+	int FEATURE_CALL_EXPRESSION__ARROW = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Feature Call Expression</em>' class.
@@ -2914,6 +3157,15 @@ public interface EolPackage extends EPackage {
 	int METHOD_CALL_EXPRESSION__RESOLVED_TYPE = FEATURE_CALL_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METHOD_CALL_EXPRESSION__IN_BRACKETS = FEATURE_CALL_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2923,13 +3175,13 @@ public interface EolPackage extends EPackage {
 	int METHOD_CALL_EXPRESSION__TARGET = FEATURE_CALL_EXPRESSION__TARGET;
 
 	/**
-	 * The feature id for the '<em><b>Is Arrow</b></em>' attribute.
+	 * The feature id for the '<em><b>Arrow</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int METHOD_CALL_EXPRESSION__IS_ARROW = FEATURE_CALL_EXPRESSION__IS_ARROW;
+	int METHOD_CALL_EXPRESSION__ARROW = FEATURE_CALL_EXPRESSION__ARROW;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -3014,6 +3266,15 @@ public interface EolPackage extends EPackage {
 	int PROPERTY_CALL_EXPRESSION__RESOLVED_TYPE = FEATURE_CALL_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPERTY_CALL_EXPRESSION__IN_BRACKETS = FEATURE_CALL_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3023,13 +3284,13 @@ public interface EolPackage extends EPackage {
 	int PROPERTY_CALL_EXPRESSION__TARGET = FEATURE_CALL_EXPRESSION__TARGET;
 
 	/**
-	 * The feature id for the '<em><b>Is Arrow</b></em>' attribute.
+	 * The feature id for the '<em><b>Arrow</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_CALL_EXPRESSION__IS_ARROW = FEATURE_CALL_EXPRESSION__IS_ARROW;
+	int PROPERTY_CALL_EXPRESSION__ARROW = FEATURE_CALL_EXPRESSION__ARROW;
 
 	/**
 	 * The feature id for the '<em><b>Extended</b></em>' attribute.
@@ -3105,6 +3366,15 @@ public interface EolPackage extends EPackage {
 	int FOL_METHOD_CALL_EXPRESSION__RESOLVED_TYPE = FEATURE_CALL_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOL_METHOD_CALL_EXPRESSION__IN_BRACKETS = FEATURE_CALL_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3114,13 +3384,13 @@ public interface EolPackage extends EPackage {
 	int FOL_METHOD_CALL_EXPRESSION__TARGET = FEATURE_CALL_EXPRESSION__TARGET;
 
 	/**
-	 * The feature id for the '<em><b>Is Arrow</b></em>' attribute.
+	 * The feature id for the '<em><b>Arrow</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOL_METHOD_CALL_EXPRESSION__IS_ARROW = FEATURE_CALL_EXPRESSION__IS_ARROW;
+	int FOL_METHOD_CALL_EXPRESSION__ARROW = FEATURE_CALL_EXPRESSION__ARROW;
 
 	/**
 	 * The feature id for the '<em><b>Iterator</b></em>' containment reference.
@@ -3214,6 +3484,15 @@ public interface EolPackage extends EPackage {
 	int KEY_VALUE_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEY_VALUE_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Key</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3285,6 +3564,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int MODEL_DECLARATION_PARAMETER__RESOLVED_TYPE = KEY_VALUE_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_DECLARATION_PARAMETER__IN_BRACKETS = KEY_VALUE_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' containment reference.
@@ -3360,6 +3648,15 @@ public interface EolPackage extends EPackage {
 	int NEW_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEW_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Type Name</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3433,6 +3730,15 @@ public interface EolPackage extends EPackage {
 	int MAP_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAP_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Key Values</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3495,6 +3801,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int COLLECTION_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
@@ -3570,6 +3885,15 @@ public interface EolPackage extends EPackage {
 	int PRIMITIVE_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The number of structural features of the '<em>Primitive Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3623,6 +3947,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int COMPARABLE_EXPRESSION__RESOLVED_TYPE = PRIMITIVE_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARABLE_EXPRESSION__IN_BRACKETS = PRIMITIVE_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The number of structural features of the '<em>Comparable Expression</em>' class.
@@ -3680,6 +4013,15 @@ public interface EolPackage extends EPackage {
 	int SUMMABLE_EXPRESSION__RESOLVED_TYPE = PRIMITIVE_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUMMABLE_EXPRESSION__IN_BRACKETS = PRIMITIVE_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The number of structural features of the '<em>Summable Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3733,6 +4075,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRING_EXPRESSION__RESOLVED_TYPE = COMPARABLE_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_EXPRESSION__IN_BRACKETS = COMPARABLE_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -3799,6 +4150,15 @@ public interface EolPackage extends EPackage {
 	int BOOLEAN_EXPRESSION__RESOLVED_TYPE = PRIMITIVE_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_EXPRESSION__IN_BRACKETS = PRIMITIVE_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3861,6 +4221,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int REAL_EXPRESSION__RESOLVED_TYPE = COMPARABLE_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_EXPRESSION__IN_BRACKETS = COMPARABLE_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -3927,6 +4296,15 @@ public interface EolPackage extends EPackage {
 	int INTEGER_EXPRESSION__RESOLVED_TYPE = COMPARABLE_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_EXPRESSION__IN_BRACKETS = COMPARABLE_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3989,6 +4367,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int BAG_EXPRESSION__RESOLVED_TYPE = COLLECTION_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BAG_EXPRESSION__IN_BRACKETS = COLLECTION_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
@@ -4064,6 +4451,15 @@ public interface EolPackage extends EPackage {
 	int UNIQUE_COLLECTION__RESOLVED_TYPE = COLLECTION_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIQUE_COLLECTION__IN_BRACKETS = COLLECTION_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4135,6 +4531,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int SET_EXPRESSION__RESOLVED_TYPE = UNIQUE_COLLECTION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_EXPRESSION__IN_BRACKETS = UNIQUE_COLLECTION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
@@ -4210,6 +4615,15 @@ public interface EolPackage extends EPackage {
 	int ORDERED_COLLECTION__RESOLVED_TYPE = COLLECTION_EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERED_COLLECTION__IN_BRACKETS = COLLECTION_EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4281,6 +4695,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int ORDERED_SET_EXPRESSION__RESOLVED_TYPE = ORDERED_COLLECTION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERED_SET_EXPRESSION__IN_BRACKETS = ORDERED_COLLECTION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
@@ -4356,6 +4779,15 @@ public interface EolPackage extends EPackage {
 	int SEQUENCE_EXPRESSION__RESOLVED_TYPE = ORDERED_COLLECTION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SEQUENCE_EXPRESSION__IN_BRACKETS = ORDERED_COLLECTION__IN_BRACKETS;
+
+	/**
 	 * The feature id for the '<em><b>Contents</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4427,6 +4859,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int ENUMERATION_LITERAL_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUMERATION_LITERAL_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Literal</b></em>' containment reference.
@@ -4520,6 +4961,15 @@ public interface EolPackage extends EPackage {
 	int COLLECTION_INITIALISATION_EXPRESSION__RESOLVED_TYPE = EXPRESSION__RESOLVED_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLLECTION_INITIALISATION_EXPRESSION__IN_BRACKETS = EXPRESSION__IN_BRACKETS;
+
+	/**
 	 * The number of structural features of the '<em>Collection Initialisation Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4573,6 +5023,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPRESSION_RANGE__RESOLVED_TYPE = COLLECTION_INITIALISATION_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_RANGE__IN_BRACKETS = COLLECTION_INITIALISATION_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Start</b></em>' containment reference.
@@ -4646,6 +5105,15 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPRESSION_LIST__RESOLVED_TYPE = COLLECTION_INITIALISATION_EXPRESSION__RESOLVED_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>In Brackets</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_LIST__IN_BRACKETS = COLLECTION_INITIALISATION_EXPRESSION__IN_BRACKETS;
 
 	/**
 	 * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
@@ -8418,6 +8886,17 @@ public interface EolPackage extends EPackage {
 	EReference getExpression_ResolvedType();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.Expression#isInBrackets <em>In Brackets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In Brackets</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.Expression#isInBrackets()
+	 * @see #getExpression()
+	 * @generated
+	 */
+	EAttribute getExpression_InBrackets();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.OperatorExpression <em>Operator Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8788,15 +9267,15 @@ public interface EolPackage extends EPackage {
 	EReference getFeatureCallExpression_Target();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isIsArrow <em>Is Arrow</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isArrow <em>Arrow</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is Arrow</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isIsArrow()
+	 * @return the meta object for the attribute '<em>Arrow</em>'.
+	 * @see org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isArrow()
 	 * @see #getFeatureCallExpression()
 	 * @generated
 	 */
-	EAttribute getFeatureCallExpression_IsArrow();
+	EAttribute getFeatureCallExpression_Arrow();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.MethodCallExpression <em>Method Call Expression</em>}'.
@@ -10781,6 +11260,14 @@ public interface EolPackage extends EPackage {
 		EReference EXPRESSION__RESOLVED_TYPE = eINSTANCE.getExpression_ResolvedType();
 
 		/**
+		 * The meta object literal for the '<em><b>In Brackets</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXPRESSION__IN_BRACKETS = eINSTANCE.getExpression_InBrackets();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.OperatorExpressionImpl <em>Operator Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -11121,12 +11608,12 @@ public interface EolPackage extends EPackage {
 		EReference FEATURE_CALL_EXPRESSION__TARGET = eINSTANCE.getFeatureCallExpression_Target();
 
 		/**
-		 * The meta object literal for the '<em><b>Is Arrow</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Arrow</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_CALL_EXPRESSION__IS_ARROW = eINSTANCE.getFeatureCallExpression_IsArrow();
+		EAttribute FEATURE_CALL_EXPRESSION__ARROW = eINSTANCE.getFeatureCallExpression_Arrow();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.MethodCallExpressionImpl <em>Method Call Expression</em>}' class.

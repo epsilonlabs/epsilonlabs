@@ -1466,6 +1466,15 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getExpression_InBrackets() {
+		return (EAttribute)expressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOperatorExpression() {
 		return operatorExpressionEClass;
 	}
@@ -1790,7 +1799,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureCallExpression_IsArrow() {
+	public EAttribute getFeatureCallExpression_Arrow() {
 		return (EAttribute)featureCallExpressionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -3183,6 +3192,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		expressionEClass = createEClass(EXPRESSION);
 		createEReference(expressionEClass, EXPRESSION__RESOLVED_TYPE);
+		createEAttribute(expressionEClass, EXPRESSION__IN_BRACKETS);
 
 		operatorExpressionEClass = createEClass(OPERATOR_EXPRESSION);
 
@@ -3245,7 +3255,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		featureCallExpressionEClass = createEClass(FEATURE_CALL_EXPRESSION);
 		createEReference(featureCallExpressionEClass, FEATURE_CALL_EXPRESSION__TARGET);
-		createEAttribute(featureCallExpressionEClass, FEATURE_CALL_EXPRESSION__IS_ARROW);
+		createEAttribute(featureCallExpressionEClass, FEATURE_CALL_EXPRESSION__ARROW);
 
 		methodCallExpressionEClass = createEClass(METHOD_CALL_EXPRESSION);
 		createEReference(methodCallExpressionEClass, METHOD_CALL_EXPRESSION__ARGUMENTS);
@@ -3678,6 +3688,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpression_ResolvedType(), this.getType(), null, "resolvedType", null, 1, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpression_InBrackets(), ecorePackage.getEBoolean(), "inBrackets", "false", 1, 1, Expression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(operatorExpressionEClass, OperatorExpression.class, "OperatorExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3740,7 +3751,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 
 		initEClass(featureCallExpressionEClass, FeatureCallExpression.class, "FeatureCallExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureCallExpression_Target(), this.getExpression(), null, "target", null, 0, 1, FeatureCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureCallExpression_IsArrow(), ecorePackage.getEBoolean(), "isArrow", "false", 1, 1, FeatureCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeatureCallExpression_Arrow(), ecorePackage.getEBoolean(), "arrow", "false", 1, 1, FeatureCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(methodCallExpressionEClass, MethodCallExpression.class, "MethodCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMethodCallExpression_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, MethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3748,7 +3759,7 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getMethodCallExpression_ResolvedOperationDefinition(), this.getOperationDefinition(), null, "resolvedOperationDefinition", null, 0, 1, MethodCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyCallExpressionEClass, PropertyCallExpression.class, "PropertyCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPropertyCallExpression_Extended(), ecorePackage.getEBoolean(), "extended", null, 0, 1, PropertyCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropertyCallExpression_Extended(), ecorePackage.getEBoolean(), "extended", "false", 0, 1, PropertyCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropertyCallExpression_Property(), this.getNameExpression(), null, "property", null, 1, 1, PropertyCallExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(folMethodCallExpressionEClass, FOLMethodCallExpression.class, "FOLMethodCallExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

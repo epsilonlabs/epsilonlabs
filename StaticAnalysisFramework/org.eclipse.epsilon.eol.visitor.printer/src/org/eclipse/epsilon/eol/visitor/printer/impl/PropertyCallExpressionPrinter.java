@@ -17,7 +17,7 @@ public class PropertyCallExpressionPrinter extends PropertyCallExpressionVisitor
 			result += controller.visit(propertyCallExpression.getTarget(), context);
 		}
 		
-		result += propertyCallExpression.isIsArrow() ? "->" : ".";
+		result += propertyCallExpression.isArrow() ? "->" : ".";
 		if (propertyCallExpression.getProperty() != null) {
 			result += controller.visit(propertyCallExpression.getProperty(), context);
 		}

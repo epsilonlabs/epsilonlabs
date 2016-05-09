@@ -13,7 +13,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#getTarget <em>Target</em>}</li>
- *   <li>{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isIsArrow <em>Is Arrow</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isArrow <em>Arrow</em>}</li>
  * </ul>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFeatureCallExpression()
@@ -48,30 +48,30 @@ public interface FeatureCallExpression extends Expression {
 	void setTarget(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Is Arrow</b></em>' attribute.
+	 * Returns the value of the '<em><b>Arrow</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Is Arrow</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Arrow</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Is Arrow</em>' attribute.
-	 * @see #setIsArrow(boolean)
-	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFeatureCallExpression_IsArrow()
+	 * @return the value of the '<em>Arrow</em>' attribute.
+	 * @see #setArrow(boolean)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getFeatureCallExpression_Arrow()
 	 * @model default="false" required="true"
 	 * @generated
 	 */
-	boolean isIsArrow();
+	boolean isArrow();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isIsArrow <em>Is Arrow</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.FeatureCallExpression#isArrow <em>Arrow</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is Arrow</em>' attribute.
-	 * @see #isIsArrow()
+	 * @param value the new value of the '<em>Arrow</em>' attribute.
+	 * @see #isArrow()
 	 * @generated
 	 */
-	void setIsArrow(boolean value);
+	void setArrow(boolean value);
 
 } // FeatureCallExpression

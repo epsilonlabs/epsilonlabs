@@ -15,7 +15,7 @@ public class FOLMethodCallExpressionPrinter extends FOLMethodCallExpressionVisit
 		if(fOLMethodCallExpression.getTarget() != null)
 		{
 			result += controller.visit(fOLMethodCallExpression.getTarget(), context);
-			result += fOLMethodCallExpression.isIsArrow() ? "->" : ".";
+			result += fOLMethodCallExpression.isArrow() ? "->" : ".";
 		}
 		result += controller.visit(fOLMethodCallExpression.getMethod(), context);
 		result += "(" + controller.visit(fOLMethodCallExpression.getIterator(), context) + "|";

@@ -67,7 +67,7 @@ public class MethodCallExpressionTypeResolver extends MethodCallExpressionVisito
 				targetType = EolFactory.eINSTANCE.createAnyType();
 				context.setAssets(targetType, target);
 			}
-			arrow = methodCallExpression.isIsArrow();
+			arrow = methodCallExpression.isArrow();
 		}
 		
 		OperationDefinition operationDefinition = null;

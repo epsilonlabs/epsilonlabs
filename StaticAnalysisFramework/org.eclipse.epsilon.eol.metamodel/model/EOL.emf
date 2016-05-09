@@ -79,6 +79,7 @@ class OperationDefinition extends EOLElement {
 
 abstract class Expression extends EOLElement {
   val Type[1] resolvedType;
+  attr boolean[1] inBrackets = false;
 }
 
 abstract class OperatorExpression extends Expression {
@@ -167,7 +168,7 @@ class NameExpression extends Expression {
 
 abstract class FeatureCallExpression extends Expression {
   val Expression target;
-  attr boolean[1] isArrow = false;
+  attr boolean[1] arrow = false;
 }
 
 class MethodCallExpression extends FeatureCallExpression {
@@ -177,7 +178,7 @@ class MethodCallExpression extends FeatureCallExpression {
 }
 
 class PropertyCallExpression extends FeatureCallExpression {
-  attr boolean extended;
+  attr boolean extended = false;
   val NameExpression[1] property;
 }
 

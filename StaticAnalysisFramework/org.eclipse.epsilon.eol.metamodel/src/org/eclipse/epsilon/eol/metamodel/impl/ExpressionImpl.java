@@ -23,6 +23,7 @@ import org.eclipse.epsilon.eol.metamodel.Type;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionImpl#getResolvedType <em>Resolved Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.impl.ExpressionImpl#isInBrackets <em>In Brackets</em>}</li>
  * </ul>
  *
  * @generated
@@ -37,6 +38,25 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 	 * @ordered
 	 */
 	protected Type resolvedType;
+
+	/**
+	 * The default value of the '{@link #isInBrackets() <em>In Brackets</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInBrackets()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IN_BRACKETS_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isInBrackets() <em>In Brackets</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInBrackets()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean inBrackets = IN_BRACKETS_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,6 +125,27 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInBrackets() {
+		return inBrackets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInBrackets(boolean newInBrackets) {
+		boolean oldInBrackets = inBrackets;
+		inBrackets = newInBrackets;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EolPackage.EXPRESSION__IN_BRACKETS, oldInBrackets, inBrackets));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -124,6 +165,8 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 		switch (featureID) {
 			case EolPackage.EXPRESSION__RESOLVED_TYPE:
 				return getResolvedType();
+			case EolPackage.EXPRESSION__IN_BRACKETS:
+				return isInBrackets();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -138,6 +181,9 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 		switch (featureID) {
 			case EolPackage.EXPRESSION__RESOLVED_TYPE:
 				setResolvedType((Type)newValue);
+				return;
+			case EolPackage.EXPRESSION__IN_BRACKETS:
+				setInBrackets((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -154,6 +200,9 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 			case EolPackage.EXPRESSION__RESOLVED_TYPE:
 				setResolvedType((Type)null);
 				return;
+			case EolPackage.EXPRESSION__IN_BRACKETS:
+				setInBrackets(IN_BRACKETS_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -168,8 +217,26 @@ public abstract class ExpressionImpl extends EOLElementImpl implements Expressio
 		switch (featureID) {
 			case EolPackage.EXPRESSION__RESOLVED_TYPE:
 				return resolvedType != null;
+			case EolPackage.EXPRESSION__IN_BRACKETS:
+				return inBrackets != IN_BRACKETS_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (inBrackets: ");
+		result.append(inBrackets);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ExpressionImpl

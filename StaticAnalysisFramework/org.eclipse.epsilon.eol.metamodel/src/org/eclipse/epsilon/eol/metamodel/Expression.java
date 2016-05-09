@@ -13,6 +13,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.epsilon.eol.metamodel.Expression#getResolvedType <em>Resolved Type</em>}</li>
+ *   <li>{@link org.eclipse.epsilon.eol.metamodel.Expression#isInBrackets <em>In Brackets</em>}</li>
  * </ul>
  *
  * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getExpression()
@@ -45,5 +46,32 @@ public interface Expression extends EOLElement {
 	 * @generated
 	 */
 	void setResolvedType(Type value);
+
+	/**
+	 * Returns the value of the '<em><b>In Brackets</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>In Brackets</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In Brackets</em>' attribute.
+	 * @see #setInBrackets(boolean)
+	 * @see org.eclipse.epsilon.eol.metamodel.EolPackage#getExpression_InBrackets()
+	 * @model default="false" required="true"
+	 * @generated
+	 */
+	boolean isInBrackets();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.epsilon.eol.metamodel.Expression#isInBrackets <em>In Brackets</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In Brackets</em>' attribute.
+	 * @see #isInBrackets()
+	 * @generated
+	 */
+	void setInBrackets(boolean value);
 
 } // Expression
