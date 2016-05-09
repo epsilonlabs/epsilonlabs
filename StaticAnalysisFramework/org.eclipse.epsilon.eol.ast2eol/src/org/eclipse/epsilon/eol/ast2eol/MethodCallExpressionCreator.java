@@ -70,7 +70,7 @@ public class MethodCallExpressionCreator extends FeatureCallExpressionCreator{
 			}
 			
 			boolean isArrow = ast.getType() == EolParser.ARROW ? true : false;
-			expression.setIsArrow(isArrow);
+			expression.setArrow(isArrow);
 			
 			return expression;
 		}

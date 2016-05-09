@@ -38,7 +38,7 @@ public class PropertyCallExpressionCreator extends FeatureCallExpressionCreator{
 		expression.setExtended(isExtended); //set the extended of the pexp		
 		
 		boolean isArrow = ast.getType() == EolParser.ARROW ? true : false;
-		expression.setIsArrow(isArrow);
+		expression.setArrow(isArrow);
 		
 		return expression;
 	} 
