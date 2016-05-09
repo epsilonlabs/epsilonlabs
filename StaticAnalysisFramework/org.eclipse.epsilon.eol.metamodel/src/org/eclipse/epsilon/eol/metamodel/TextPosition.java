@@ -2,6 +2,8 @@
  */
 package org.eclipse.epsilon.eol.metamodel;
 
+import org.eclipse.emf.ecore.EObject;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +22,7 @@ package org.eclipse.epsilon.eol.metamodel;
  * @model
  * @generated
  */
-public interface TextPosition extends EOLElement {
+public interface TextPosition extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Line</b></em>' attribute.
 	 * <!-- begin-user-doc -->

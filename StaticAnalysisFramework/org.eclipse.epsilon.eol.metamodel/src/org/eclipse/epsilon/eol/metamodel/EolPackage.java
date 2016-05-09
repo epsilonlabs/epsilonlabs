@@ -110,7 +110,91 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIMetamodel()
 	 * @generated
 	 */
-	int IMETAMODEL = 1;
+	int IMETAMODEL = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl <em>IPackage</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIPackage()
+	 * @generated
+	 */
+	int IPACKAGE = 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl <em>Text Region</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getTextRegion()
+	 * @generated
+	 */
+	int TEXT_REGION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Start</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_REGION__START = 0;
+
+	/**
+	 * The feature id for the '<em><b>End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_REGION__END = 1;
+
+	/**
+	 * The number of structural features of the '<em>Text Region</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_REGION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl <em>Text Position</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl
+	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getTextPosition()
+	 * @generated
+	 */
+	int TEXT_POSITION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Line</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_POSITION__LINE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Column</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_POSITION__COLUMN = 1;
+
+	/**
+	 * The number of structural features of the '<em>Text Position</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_POSITION_FEATURE_COUNT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -203,16 +287,6 @@ public interface EolPackage extends EPackage {
 	int IMETAMODEL_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl <em>IPackage</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.IPackageImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIPackage()
-	 * @generated
-	 */
-	int IPACKAGE = 2;
-
-	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -292,134 +366,6 @@ public interface EolPackage extends EPackage {
 	 * @ordered
 	 */
 	int IPACKAGE_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl <em>Text Region</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.TextRegionImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getTextRegion()
-	 * @generated
-	 */
-	int TEXT_REGION = 3;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__CONTAINER = EOL_ELEMENT__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__URI = EOL_ELEMENT__URI;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__REGION = EOL_ELEMENT__REGION;
-
-	/**
-	 * The feature id for the '<em><b>Start</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__START = EOL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>End</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION__END = EOL_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Text Region</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_REGION_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl <em>Text Position</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.TextPositionImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getTextPosition()
-	 * @generated
-	 */
-	int TEXT_POSITION = 4;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__CONTAINER = EOL_ELEMENT__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__URI = EOL_ELEMENT__URI;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__REGION = EOL_ELEMENT__REGION;
-
-	/**
-	 * The feature id for the '<em><b>Line</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__LINE = EOL_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Column</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION__COLUMN = EOL_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Text Position</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXT_POSITION_FEATURE_COUNT = EOL_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.EOLLibraryModuleImpl <em>EOL Library Module</em>}' class.

@@ -8,6 +8,16 @@ class EOLElement {
   val TextRegion region;
 }
 
+class TextRegion {
+  val TextPosition[1] start;
+  val TextPosition end;
+}
+
+class TextPosition {
+  attr int[1] line;
+  attr int[1] column;
+}
+
 class IMetamodel extends EOLElement {
   ref NameExpression[1] name;
   ref NameExpression[*] aliases;
@@ -23,16 +33,6 @@ class IPackage extends EOLElement {
   ref StringExpression nsURI;
   attr String nsPrefix;
   val IPackage[*] subPackages;
-}
-
-class TextRegion extends EOLElement {
-  val TextPosition[1] start;
-  val TextPosition end;
-}
-
-class TextPosition extends EOLElement {
-  attr int[1] line;
-  attr int[1] column;
 }
 
 class EOLLibraryModule extends EOLElement {

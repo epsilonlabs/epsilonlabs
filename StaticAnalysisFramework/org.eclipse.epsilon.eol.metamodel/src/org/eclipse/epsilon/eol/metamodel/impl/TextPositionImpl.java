@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.TextPosition;
 
@@ -25,7 +26,7 @@ import org.eclipse.epsilon.eol.metamodel.TextPosition;
  *
  * @generated
  */
-public class TextPositionImpl extends EOLElementImpl implements TextPosition {
+public class TextPositionImpl extends EObjectImpl implements TextPosition {
 	/**
 	 * The default value of the '{@link #getLine() <em>Line</em>}' attribute.
 	 * <!-- begin-user-doc -->

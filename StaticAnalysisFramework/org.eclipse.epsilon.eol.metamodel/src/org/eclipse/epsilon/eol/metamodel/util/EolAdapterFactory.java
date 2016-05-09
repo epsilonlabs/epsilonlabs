@@ -72,20 +72,20 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 				return createEOLElementAdapter();
 			}
 			@Override
-			public Adapter caseIMetamodel(IMetamodel object) {
-				return createIMetamodelAdapter();
-			}
-			@Override
-			public Adapter caseIPackage(IPackage object) {
-				return createIPackageAdapter();
-			}
-			@Override
 			public Adapter caseTextRegion(TextRegion object) {
 				return createTextRegionAdapter();
 			}
 			@Override
 			public Adapter caseTextPosition(TextPosition object) {
 				return createTextPositionAdapter();
+			}
+			@Override
+			public Adapter caseIMetamodel(IMetamodel object) {
+				return createIMetamodelAdapter();
+			}
+			@Override
+			public Adapter caseIPackage(IPackage object) {
+				return createIPackageAdapter();
 			}
 			@Override
 			public Adapter caseEOLLibraryModule(EOLLibraryModule object) {

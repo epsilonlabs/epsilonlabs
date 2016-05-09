@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.epsilon.eol.metamodel.EolPackage;
 import org.eclipse.epsilon.eol.metamodel.TextPosition;
 import org.eclipse.epsilon.eol.metamodel.TextRegion;
@@ -28,7 +29,7 @@ import org.eclipse.epsilon.eol.metamodel.TextRegion;
  *
  * @generated
  */
-public class TextRegionImpl extends EOLElementImpl implements TextRegion {
+public class TextRegionImpl extends EObjectImpl implements TextRegion {
 	/**
 	 * The cached value of the '{@link #getStart() <em>Start</em>}' containment reference.
 	 * <!-- begin-user-doc -->

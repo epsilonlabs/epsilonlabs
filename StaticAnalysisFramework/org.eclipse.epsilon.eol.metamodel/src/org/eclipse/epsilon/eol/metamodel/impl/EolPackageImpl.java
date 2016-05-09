@@ -3123,6 +3123,14 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEAttribute(eolElementEClass, EOL_ELEMENT__URI);
 		createEReference(eolElementEClass, EOL_ELEMENT__REGION);
 
+		textRegionEClass = createEClass(TEXT_REGION);
+		createEReference(textRegionEClass, TEXT_REGION__START);
+		createEReference(textRegionEClass, TEXT_REGION__END);
+
+		textPositionEClass = createEClass(TEXT_POSITION);
+		createEAttribute(textPositionEClass, TEXT_POSITION__LINE);
+		createEAttribute(textPositionEClass, TEXT_POSITION__COLUMN);
+
 		iMetamodelEClass = createEClass(IMETAMODEL);
 		createEReference(iMetamodelEClass, IMETAMODEL__NAME);
 		createEReference(iMetamodelEClass, IMETAMODEL__ALIASES);
@@ -3137,14 +3145,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		createEReference(iPackageEClass, IPACKAGE__NS_URI);
 		createEAttribute(iPackageEClass, IPACKAGE__NS_PREFIX);
 		createEReference(iPackageEClass, IPACKAGE__SUB_PACKAGES);
-
-		textRegionEClass = createEClass(TEXT_REGION);
-		createEReference(textRegionEClass, TEXT_REGION__START);
-		createEReference(textRegionEClass, TEXT_REGION__END);
-
-		textPositionEClass = createEClass(TEXT_POSITION);
-		createEAttribute(textPositionEClass, TEXT_POSITION__LINE);
-		createEAttribute(textPositionEClass, TEXT_POSITION__COLUMN);
 
 		eolLibraryModuleEClass = createEClass(EOL_LIBRARY_MODULE);
 		createEAttribute(eolLibraryModuleEClass, EOL_LIBRARY_MODULE__NAME);
@@ -3496,8 +3496,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		// Add supertypes to classes
 		iMetamodelEClass.getESuperTypes().add(this.getEOLElement());
 		iPackageEClass.getESuperTypes().add(this.getEOLElement());
-		textRegionEClass.getESuperTypes().add(this.getEOLElement());
-		textPositionEClass.getESuperTypes().add(this.getEOLElement());
 		eolLibraryModuleEClass.getESuperTypes().add(this.getEOLElement());
 		eolModuleEClass.getESuperTypes().add(this.getEOLLibraryModule());
 		importEClass.getESuperTypes().add(this.getEOLElement());
@@ -3620,6 +3618,14 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEAttribute(getEOLElement_Uri(), ecorePackage.getEString(), "uri", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getEOLElement_Region(), this.getTextRegion(), null, "region", null, 0, 1, EOLElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(textRegionEClass, TextRegion.class, "TextRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTextRegion_Start(), this.getTextPosition(), null, "start", null, 1, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextRegion_End(), this.getTextPosition(), null, "end", null, 0, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(textPositionEClass, TextPosition.class, "TextPosition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTextPosition_Line(), ecorePackage.getEInt(), "line", null, 1, 1, TextPosition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTextPosition_Column(), ecorePackage.getEInt(), "column", null, 1, 1, TextPosition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(iMetamodelEClass, IMetamodel.class, "IMetamodel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIMetamodel_Name(), this.getNameExpression(), null, "name", null, 1, 1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIMetamodel_Aliases(), this.getNameExpression(), null, "aliases", null, 0, -1, IMetamodel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3634,14 +3640,6 @@ public class EolPackageImpl extends EPackageImpl implements EolPackage {
 		initEReference(getIPackage_NsURI(), this.getStringExpression(), null, "nsURI", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIPackage_NsPrefix(), ecorePackage.getEString(), "nsPrefix", null, 0, 1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIPackage_SubPackages(), this.getIPackage(), null, "subPackages", null, 0, -1, IPackage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(textRegionEClass, TextRegion.class, "TextRegion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTextRegion_Start(), this.getTextPosition(), null, "start", null, 1, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTextRegion_End(), this.getTextPosition(), null, "end", null, 0, 1, TextRegion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(textPositionEClass, TextPosition.class, "TextPosition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTextPosition_Line(), ecorePackage.getEInt(), "line", null, 1, 1, TextPosition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTextPosition_Column(), ecorePackage.getEInt(), "column", null, 1, 1, TextPosition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(eolLibraryModuleEClass, EOLLibraryModule.class, "EOLLibraryModule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEOLLibraryModule_Name(), ecorePackage.getEString(), "name", null, 1, 1, EOLLibraryModule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

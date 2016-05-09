@@ -72,6 +72,18 @@ public class EolSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EolPackage.TEXT_REGION: {
+				TextRegion textRegion = (TextRegion)theEObject;
+				T result = caseTextRegion(textRegion);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EolPackage.TEXT_POSITION: {
+				TextPosition textPosition = (TextPosition)theEObject;
+				T result = caseTextPosition(textPosition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case EolPackage.IMETAMODEL: {
 				IMetamodel iMetamodel = (IMetamodel)theEObject;
 				T result = caseIMetamodel(iMetamodel);
@@ -83,20 +95,6 @@ public class EolSwitch<T> extends Switch<T> {
 				IPackage iPackage = (IPackage)theEObject;
 				T result = caseIPackage(iPackage);
 				if (result == null) result = caseEOLElement(iPackage);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EolPackage.TEXT_REGION: {
-				TextRegion textRegion = (TextRegion)theEObject;
-				T result = caseTextRegion(textRegion);
-				if (result == null) result = caseEOLElement(textRegion);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case EolPackage.TEXT_POSITION: {
-				TextPosition textPosition = (TextPosition)theEObject;
-				T result = caseTextPosition(textPosition);
-				if (result == null) result = caseEOLElement(textPosition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
