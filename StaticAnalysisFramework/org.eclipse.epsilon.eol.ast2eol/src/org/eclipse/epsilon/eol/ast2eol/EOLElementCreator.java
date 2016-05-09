@@ -17,14 +17,14 @@ public abstract class EOLElementCreator {
 		if (ast.getRegion() != null) {
 			TextRegion region = EolFactory.eINSTANCE.createTextRegion();
 			TextPosition start = createTextPosition(ast.getRegion().getStart());
-			start.setContainer(region);
+//			start.setContainer(region);
 			region.setStart(start);
 			
 			TextPosition end = createTextPosition(ast.getRegion().getEnd());
-			end.setContainer(region);
+//			end.setContainer(region);
 			region.setEnd(end);
 			
-			region.setContainer(eolElement);
+//			region.setContainer(eolElement);
 			
 			eolElement.setRegion(region);
 		}
@@ -50,9 +50,9 @@ public abstract class EOLElementCreator {
 	{
 		TextRegion textRegion = EolFactory.eINSTANCE.createTextRegion();
 		TextPosition startPosition = createTextPosition(startLine, startColumn);
-		startPosition.setContainer(textRegion);
+//		startPosition.setContainer(textRegion);
 		TextPosition endPosition = createTextPosition(endLine, endColumn);
-		endPosition.setContainer(textRegion);
+//		endPosition.setContainer(textRegion);
 		textRegion.setStart(startPosition);
 		textRegion.setEnd(endPosition);
 		return textRegion;

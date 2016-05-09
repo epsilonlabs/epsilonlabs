@@ -39,7 +39,7 @@ public class SimpleAnnotationCreator extends AnnotationStatementCreator{
 				
 				TextRegion textRegion = createTextRegion(ast.getRegion().getStart().getLine(), nameString.length(), ast.getRegion().getEnd().getLine(), ast.getRegion().getEnd().getColumn());
 				value.setRegion(textRegion);
-				textRegion.setContainer(value);
+//				textRegion.setContainer(value);
 				
 				value.setValue(valueString);
 				simpleAnnotationStatement.getValues().add(value); //set the value of the annotation
