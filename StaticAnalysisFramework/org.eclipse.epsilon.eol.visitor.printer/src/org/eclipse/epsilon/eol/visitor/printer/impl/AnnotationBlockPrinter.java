@@ -14,9 +14,9 @@ public class AnnotationBlockPrinter extends AnnotationBlockVisitor<EOLPrinterCon
 			EolVisitorController<EOLPrinterContext, Object> controller) {
 		String result = "";
 		if (annotationBlock.getStatements() != null) {
-			for(Statement statement : annotationBlock.getStatements())
+			for(Statement sa : annotationBlock.getStatements())
 			{
-				result += controller.visit(statement, context);
+				result += controller.visit(sa, context);
 			}
 		}
 		return result;

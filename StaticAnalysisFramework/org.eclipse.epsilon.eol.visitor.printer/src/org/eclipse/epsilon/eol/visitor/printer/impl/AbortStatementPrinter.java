@@ -8,9 +8,9 @@ import org.eclipse.epsilon.eol.visitor.printer.context.EOLPrinterContext;
 public class AbortStatementPrinter extends AbortStatementVisitor<EOLPrinterContext, Object>{
 
 	@Override
-	public Object visit(AbortStatement abortStatement,
-			EOLPrinterContext context,
+	public Object visit(AbortStatement abortStatement, EOLPrinterContext context,
 			EolVisitorController<EOLPrinterContext, Object> controller) {
+
 		return "abort;";
 	}
 

@@ -12,7 +12,7 @@ public class AndOperatorExpressionPrinter extends AndOperatorExpressionVisitor<E
 	public Object visit(AndOperatorExpression andOperatorExpression,
 			EOLPrinterContext context,
 			EolVisitorController<EOLPrinterContext, Object> controller) {
-		
+
 		String result = "";
 		if (andOperatorExpression.getLhs() instanceof OperatorExpression) {
 			result += "(";

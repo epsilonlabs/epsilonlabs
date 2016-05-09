@@ -14,7 +14,7 @@ public class AssignmentStatementPrinter extends AssignmentStatementVisitor<EOLPr
 		String result = "";
 		result += context.whitespace();
 		result += controller.visit(assignmentStatement.getLhs(), context);
-		result += " := ";
+		result += " = ";
 		result += controller.visit(assignmentStatement.getRhs(), context);
 		result += ";";
 		return result;

@@ -10,6 +10,7 @@ public class AnyTypePrinter extends AnyTypeVisitor<EOLPrinterContext, Object>{
 	@Override
 	public Object visit(AnyType anyType, EOLPrinterContext context,
 			EolVisitorController<EOLPrinterContext, Object> controller) {
+		
 		return anyType.isDeclared() ? "Any" : "";
 	}
 
