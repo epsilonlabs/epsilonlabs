@@ -399,12 +399,6 @@ abstract class PseudoType extends AnyType {
 class SelfType extends PseudoType {
 }
 
-class SelfContentType extends PseudoType {
-}
-
-class SelfInnermostContentType extends PseudoType {
-}
-
 class MapType extends AnyType {
   val AnyType keyType;
   val AnyType valueType;

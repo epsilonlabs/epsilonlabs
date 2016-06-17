@@ -440,14 +440,6 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 				return createSelfTypeAdapter();
 			}
 			@Override
-			public Adapter caseSelfContentType(SelfContentType object) {
-				return createSelfContentTypeAdapter();
-			}
-			@Override
-			public Adapter caseSelfInnermostContentType(SelfInnermostContentType object) {
-				return createSelfInnermostContentTypeAdapter();
-			}
-			@Override
 			public Adapter caseMapType(MapType object) {
 				return createMapTypeAdapter();
 			}
@@ -1838,34 +1830,6 @@ public class EolAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSelfTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.SelfContentType <em>Self Content Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.eol.metamodel.SelfContentType
-	 * @generated
-	 */
-	public Adapter createSelfContentTypeAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.epsilon.eol.metamodel.SelfInnermostContentType <em>Self Innermost Content Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.epsilon.eol.metamodel.SelfInnermostContentType
-	 * @generated
-	 */
-	public Adapter createSelfInnermostContentTypeAdapter() {
 		return null;
 	}
 

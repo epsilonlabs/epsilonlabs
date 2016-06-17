@@ -6945,134 +6945,6 @@ public interface EolPackage extends EPackage {
 	int SELF_TYPE_FEATURE_COUNT = PSEUDO_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.SelfContentTypeImpl <em>Self Content Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.SelfContentTypeImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSelfContentType()
-	 * @generated
-	 */
-	int SELF_CONTENT_TYPE = 93;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__CONTAINER = PSEUDO_TYPE__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__URI = PSEUDO_TYPE__URI;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__REGION = PSEUDO_TYPE__REGION;
-
-	/**
-	 * The feature id for the '<em><b>Dynamic Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__DYNAMIC_TYPES = PSEUDO_TYPE__DYNAMIC_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>Declared</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE__DECLARED = PSEUDO_TYPE__DECLARED;
-
-	/**
-	 * The number of structural features of the '<em>Self Content Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_CONTENT_TYPE_FEATURE_COUNT = PSEUDO_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.SelfInnermostContentTypeImpl <em>Self Innermost Content Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.SelfInnermostContentTypeImpl
-	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSelfInnermostContentType()
-	 * @generated
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE = 94;
-
-	/**
-	 * The feature id for the '<em><b>Container</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__CONTAINER = PSEUDO_TYPE__CONTAINER;
-
-	/**
-	 * The feature id for the '<em><b>Uri</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__URI = PSEUDO_TYPE__URI;
-
-	/**
-	 * The feature id for the '<em><b>Region</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__REGION = PSEUDO_TYPE__REGION;
-
-	/**
-	 * The feature id for the '<em><b>Dynamic Types</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__DYNAMIC_TYPES = PSEUDO_TYPE__DYNAMIC_TYPES;
-
-	/**
-	 * The feature id for the '<em><b>Declared</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE__DECLARED = PSEUDO_TYPE__DECLARED;
-
-	/**
-	 * The number of structural features of the '<em>Self Innermost Content Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SELF_INNERMOST_CONTENT_TYPE_FEATURE_COUNT = PSEUDO_TYPE_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.epsilon.eol.metamodel.impl.MapTypeImpl <em>Map Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7080,7 +6952,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getMapType()
 	 * @generated
 	 */
-	int MAP_TYPE = 95;
+	int MAP_TYPE = 93;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7162,7 +7034,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getNativeType()
 	 * @generated
 	 */
-	int NATIVE_TYPE = 96;
+	int NATIVE_TYPE = 94;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7235,7 +7107,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getVoidType()
 	 * @generated
 	 */
-	int VOID_TYPE = 97;
+	int VOID_TYPE = 95;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7299,7 +7171,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getInvalidType()
 	 * @generated
 	 */
-	int INVALID_TYPE = 98;
+	int INVALID_TYPE = 96;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7363,7 +7235,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getCollectionType()
 	 * @generated
 	 */
-	int COLLECTION_TYPE = 99;
+	int COLLECTION_TYPE = 97;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7436,7 +7308,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getBagType()
 	 * @generated
 	 */
-	int BAG_TYPE = 100;
+	int BAG_TYPE = 98;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7509,7 +7381,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getOrderedCollectionType()
 	 * @generated
 	 */
-	int ORDERED_COLLECTION_TYPE = 101;
+	int ORDERED_COLLECTION_TYPE = 99;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7582,7 +7454,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getUniqueCollectionType()
 	 * @generated
 	 */
-	int UNIQUE_COLLECTION_TYPE = 102;
+	int UNIQUE_COLLECTION_TYPE = 100;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7655,7 +7527,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSetType()
 	 * @generated
 	 */
-	int SET_TYPE = 103;
+	int SET_TYPE = 101;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7728,7 +7600,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getOrderedSetType()
 	 * @generated
 	 */
-	int ORDERED_SET_TYPE = 104;
+	int ORDERED_SET_TYPE = 102;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7801,7 +7673,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSequenceType()
 	 * @generated
 	 */
-	int SEQUENCE_TYPE = 105;
+	int SEQUENCE_TYPE = 103;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7874,7 +7746,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 106;
+	int PRIMITIVE_TYPE = 104;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -7938,7 +7810,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getComparablePrimitiveType()
 	 * @generated
 	 */
-	int COMPARABLE_PRIMITIVE_TYPE = 107;
+	int COMPARABLE_PRIMITIVE_TYPE = 105;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -8002,7 +7874,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSummablePrimitiveType()
 	 * @generated
 	 */
-	int SUMMABLE_PRIMITIVE_TYPE = 108;
+	int SUMMABLE_PRIMITIVE_TYPE = 106;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -8066,7 +7938,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getBooleanType()
 	 * @generated
 	 */
-	int BOOLEAN_TYPE = 109;
+	int BOOLEAN_TYPE = 107;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -8130,7 +8002,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getRealType()
 	 * @generated
 	 */
-	int REAL_TYPE = 110;
+	int REAL_TYPE = 108;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -8194,7 +8066,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getIntegerType()
 	 * @generated
 	 */
-	int INTEGER_TYPE = 111;
+	int INTEGER_TYPE = 109;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -8258,7 +8130,7 @@ public interface EolPackage extends EPackage {
 	 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getStringType()
 	 * @generated
 	 */
-	int STRING_TYPE = 112;
+	int STRING_TYPE = 110;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' reference.
@@ -10544,26 +10416,6 @@ public interface EolPackage extends EPackage {
 	EClass getSelfType();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.SelfContentType <em>Self Content Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Self Content Type</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.SelfContentType
-	 * @generated
-	 */
-	EClass getSelfContentType();
-
-	/**
-	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.SelfInnermostContentType <em>Self Innermost Content Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Self Innermost Content Type</em>'.
-	 * @see org.eclipse.epsilon.eol.metamodel.SelfInnermostContentType
-	 * @generated
-	 */
-	EClass getSelfInnermostContentType();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.epsilon.eol.metamodel.MapType <em>Map Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12682,26 +12534,6 @@ public interface EolPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SELF_TYPE = eINSTANCE.getSelfType();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.SelfContentTypeImpl <em>Self Content Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.SelfContentTypeImpl
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSelfContentType()
-		 * @generated
-		 */
-		EClass SELF_CONTENT_TYPE = eINSTANCE.getSelfContentType();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.SelfInnermostContentTypeImpl <em>Self Innermost Content Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.SelfInnermostContentTypeImpl
-		 * @see org.eclipse.epsilon.eol.metamodel.impl.EolPackageImpl#getSelfInnermostContentType()
-		 * @generated
-		 */
-		EClass SELF_INNERMOST_CONTENT_TYPE = eINSTANCE.getSelfInnermostContentType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.epsilon.eol.metamodel.impl.MapTypeImpl <em>Map Type</em>}' class.

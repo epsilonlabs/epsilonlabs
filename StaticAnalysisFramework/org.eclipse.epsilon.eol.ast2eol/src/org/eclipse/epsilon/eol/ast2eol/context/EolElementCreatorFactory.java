@@ -23,8 +23,8 @@ import org.eclipse.epsilon.eol.ast2eol.ContinueStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.DeleteStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.DivideOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EOLElementCreator;
-import org.eclipse.epsilon.eol.ast2eol.EnumerationLiteralExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EOLModuleCreator;
+import org.eclipse.epsilon.eol.ast2eol.EnumerationLiteralExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.EqualsOperatorExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExecutableAnnotationStatementCreator;
 import org.eclipse.epsilon.eol.ast2eol.ExprListCreator;
@@ -70,8 +70,6 @@ import org.eclipse.epsilon.eol.ast2eol.PropertyCallExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.RealExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.RealTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ReturnStatementCreator;
-import org.eclipse.epsilon.eol.ast2eol.SelfContentTypeCreator;
-import org.eclipse.epsilon.eol.ast2eol.SelfInnerMostContentTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.SelfTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.SequenceExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.SequenceTypeCreator;
@@ -204,9 +202,7 @@ public class EolElementCreatorFactory {
 		result.add(new StringTypeCreator());
 		
 		result.add(new SelfTypeCreator());
-		result.add(new SelfContentTypeCreator());
-		result.add(new SelfInnerMostContentTypeCreator());
-		
+	
 		return result;
 	}
 	
