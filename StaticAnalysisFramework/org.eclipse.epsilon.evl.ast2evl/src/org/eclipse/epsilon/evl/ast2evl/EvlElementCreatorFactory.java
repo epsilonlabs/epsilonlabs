@@ -66,7 +66,6 @@ import org.eclipse.epsilon.eol.ast2eol.PropertyCallExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.RealExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.RealTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.ReturnStatementCreator;
-import org.eclipse.epsilon.eol.ast2eol.SelfContentTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.SelfTypeCreator;
 import org.eclipse.epsilon.eol.ast2eol.SequenceExpressionCreator;
 import org.eclipse.epsilon.eol.ast2eol.SequenceTypeCreator;
@@ -211,7 +210,6 @@ public class EvlElementCreatorFactory {
 		result.add(new StringTypeCreator());
 		
 		result.add(new SelfTypeCreator());
-		result.add(new SelfContentTypeCreator());
 		
 		return result;
 	}
