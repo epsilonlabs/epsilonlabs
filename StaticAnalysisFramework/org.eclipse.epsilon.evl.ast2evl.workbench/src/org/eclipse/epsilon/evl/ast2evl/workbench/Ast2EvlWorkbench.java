@@ -40,7 +40,7 @@ public class Ast2EvlWorkbench {
 		System.out.println(ast.toStringTree());
 
 		Ast2EvlContext context = new Ast2EvlContext(evlModule);
-		EOLElement dom = (EOLElement) context.getEvlElementCreatorFactory().createDomElement(evlModule.getAst(), null, context);
+		EOLElement dom = (EOLElement) context.getEvlElementCreatorFactory().createEOLElement(evlModule.getAst(), null, context);
 		
 		System.err.println(context.getEvlElementCreatorFactory().isProperlyContained() ? "DomElements are property contained" : "DomElements are NOT properly contained");
 

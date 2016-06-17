@@ -44,7 +44,7 @@ public class EvlxOutlinePage extends ModuleContentOutlinePage{
 		
 		Ast2EvlContext ast2EtlContext = new Ast2EvlContext((EolLibraryModule) module);
 		EvlElementCreatorFactory factory = ast2EtlContext.getEvlElementCreatorFactory();
-		EOLElement eolElement = factory.createDomElement(module.getAst(), null, ast2EtlContext);
+		EOLElement eolElement = factory.createEOLElement(module.getAst(), null, ast2EtlContext);
 		LogBook.getInstance(true);
 		
 		EvlVariableResolver variableResolver = new EvlVariableResolver();

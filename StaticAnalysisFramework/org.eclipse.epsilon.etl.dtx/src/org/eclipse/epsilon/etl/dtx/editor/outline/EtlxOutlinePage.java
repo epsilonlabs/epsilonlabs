@@ -44,7 +44,7 @@ public class EtlxOutlinePage extends ModuleContentOutlinePage {
 		
 		Ast2EtlContext ast2EtlContext = new Ast2EtlContext((EolLibraryModule) module);
 		EtlElementCreatorFactory factory = ast2EtlContext.getEtlElementCreatorFactory();
-		EOLElement eolElement = factory.createDomElement(module.getAst(), null, ast2EtlContext);
+		EOLElement eolElement = factory.createEOLElement(module.getAst(), null, ast2EtlContext);
 		LogBook.getInstance(true);
 		
 		EtlVariableResolver variableResolver = new EtlVariableResolver();

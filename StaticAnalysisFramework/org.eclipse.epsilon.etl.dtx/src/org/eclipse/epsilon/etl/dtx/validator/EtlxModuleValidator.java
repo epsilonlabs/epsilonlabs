@@ -48,7 +48,7 @@ public class EtlxModuleValidator implements IModuleValidator{
 
 			Ast2EtlContext ast2EtlContext = new Ast2EtlContext((EolLibraryModule) arg0);
 			EtlElementCreatorFactory factory = ast2EtlContext.getEtlElementCreatorFactory();
-			EOLElement eolElement = factory.createDomElement(arg0.getAst(), null, ast2EtlContext);
+			EOLElement eolElement = factory.createEOLElement(arg0.getAst(), null, ast2EtlContext);
 			LogBook.getInstance(true);
 			
 			EtlVariableResolver variableResolver = new EtlVariableResolver();

@@ -42,7 +42,7 @@ public class Ast2EtlWorkbench {
 		//System.out.println(ast.getChild(0).getChild(0).getChild(1).getText());
 
 		Ast2EtlContext context = new Ast2EtlContext(etlModule);
-		EOLElement dom = (EOLElement) context.getEtlElementCreatorFactory().createDomElement(etlModule.getAst(), null, context);
+		EOLElement dom = (EOLElement) context.getEtlElementCreatorFactory().createEOLElement(etlModule.getAst(), null, context);
 		
 //		Ast2EolContext context = new Ast2EolContext();
 //		EolElement dom = (EolElement) context.getEolElementCreatorFactory().createDomElement(etlModule.getAst(), null, context);

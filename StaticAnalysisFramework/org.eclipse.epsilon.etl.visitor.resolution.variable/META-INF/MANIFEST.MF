@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.eclipse.epsilon.etl.visitor.resolution.variable; single
 Bundle-Version: 0.1.0.qualifier
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.epsilon.etl.metamodel.visitor,
- org.eclipse.epsilon.eol.visitor.resolution.variable;visibility:=reexport,
+ org.eclipse.epsilon.haetae.eol.variable;visibility:=reexport,
  org.eclipse.epsilon.eol.problem;bundle-version="0.1.0"
 Export-Package: org.eclipse.epsilon.etl.visitor.resolution.variable.context,
  org.eclipse.epsilon.etl.visitor.resolution.variable.impl
