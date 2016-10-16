@@ -310,12 +310,8 @@ public class EmfPrecachedModel_TA extends EmfModel{
 				typeCache.put(eClass, eObject);
 			}
 		}
-
 	}
 
-
-
-	
 	public void planTraversal(EClass eClass)
 	{
 		//add this class to the visited
